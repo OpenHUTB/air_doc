@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Azure 上的 ArSim - 低空模拟器</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Azure \u4e0a\u7684 ArSim";
+        var mkdocs_page_input_path = "azure.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> 低空模拟器
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">主页</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../CHANGELOG/">修改记录</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">构建 AirSim</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../use_precompiled/">下载二进制文件</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_windows/">在 Windows 上构建</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_linux/">在 Linux 上构建</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_macos/">在 macOS 上构建</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../docker_ubuntu/">Linux 上的 Docker</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Azure 上的 ArSim</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#azure-vm">自动部署您的 Azure VM</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#azure-vm_1">关于 Azure VM 的部署</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#visual-studio-code-ssh">通过 Visual Studio Code 和远程 SSH 进行编码和调试</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#visual-studio-code-airsim">从本地 Visual Studio Code 进行编码和调试，并通过转发端口连接到 AirSim</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#docker">使用 Docker 运行</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#docker_1">构建 docker 镜像</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#airsim">使用不同的 AirSim 二进制文件</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_1">维护此开发环境</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../unreal_custenv/">定制虚幻引擎环境</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_faq/">场景问题和回答</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">使用 AirSim</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../apis/">核心 APIs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../image_apis/">图像 APIs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apis_cpp/">C++ APIs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../api_docs/html/index.html">API 参考文档</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../wiki/">Wiki 文档</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev_workflow/">开发工作流</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../settings/">设置</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../camera_views/">相机视角</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../using_car/">汽车模式</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../remote_control/">远程控制</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../xbox_controller/">XBox 控制器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../steering_wheel_installation/">方向盘</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../multi_vehicle/">多车辆</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >传感器</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../sensors/">传感器</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../lidar/">激光雷达</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../distance_sensor/">距离传感器</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../InfraredCamera/">红外相机</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../airsim_ros_pkgs/">ROS: AirSim ROS 包装器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../airsim_tutorial_pkgs/">ROS: AirSim 教程包</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../gazebo_drone/">导入 Gazebo 模型</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../retexturing/">域随机化</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../meshes/">网格顶点缓冲区</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../playback/">播放日志</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../voxel_grid/">体素网格生成器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../event_sim/">事件相机</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">设计</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../design/">架构</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../code_structure/">代码结构</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adding_new_apis/">添加新的 APIs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../modify_recording_data/">修改记录数据</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../coding_guidelines/">编码指南</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../flight_controller/">飞行控制器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../simple_flight/">简单飞行</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../hello_drone/">Hello Drone</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">外部飞行控制器</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" >MavLink 和 PX4</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../px4_setup/">AirSim 的 PX4 设置</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../px4_sitl/">软件在环中的 PX4</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../px4_sitl_wsl2/">带有 WSL 2 的 PX4 SITL</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../px4_lockstep/">PX4 Lockstep</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../px4_multi_vehicle/">软件在环中的 PX4 多车辆</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="https://youtu.be/1oY8Qu5maQQ">AirSim 与 Pixhawk</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="https://youtu.be/HNWdYrtw3f0">使用 AirSim 设置 PX4</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="https://www.youtube.com/watch?v=d_FyjKDWQfc&feature=youtu.be">调试姿态估计</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="https://github.com/Microsoft/AirSim/wiki/Intercepting-MavLink-messages">拦截 MavLink 消息</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="https://github.com/Microsoft/AirSim/wiki/Rapid-Descent-on-PX4-drones">PX4 无人机快速下降</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../px4_build/">构建 PX4</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../px4_logging/">PX4/MavLink 日志记录</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../log_viewer/">MavLink 日志查看器</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../mavlinkcom/">MavLinkCom</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../mavlinkcom_mocap/">MavLink MoCap</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >ArduPilot</a>
+    <ul>
+                <li class="toctree-l2"><a class="" href="https://ardupilot.org/dev/docs/building-the-code.html">ArduPilot 软件在环设置</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="https://ardupilot.org/dev/docs/sitl-with-airsim.html">AirSim & ArduPilot</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">升级</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../unreal_upgrade/">升级虚幻引擎</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../upgrade_apis/">升级 APIs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../upgrade_settings/">升级设置</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">贡献教程</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../reinforcement_learning/">强化学习</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://www.youtube.com/watch?v=y09VbdQWvQY">使用 Marketplace 中的环境</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://github.com/simondlevy/AirSimTensorFlow">简单的防撞</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://aka.ms/AutonomousDrivingCookbook">Azure 上的自动驾驶</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://github.com/Microsoft/AirSim/wiki/hexacopter">构造六旋翼飞行器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://github.com/Microsoft/AirSim/wiki/moveOnPath-demo">移动路径演示</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../point_clouds/">构建点云</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../drone_survey/">使用无人机进行测量</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../orbit/">轨道轨迹</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://youtu.be/Bp86WiLUC80">导入自定义多旋翼网格</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../object_detection/">Object Detection</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://youtu.be/ZonkdMcwXH4">带有 MAVROS 和 PX4 的 AirSim</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">杂项</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../custom_drone/">真实无人机上的 AirSim</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cmake_linux/">在 Linux 上安装 cmake</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../hard_drive/">硬盘繁忙时的提示</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pfm/">pfm 格式</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../unreal_proj/">设置虚幻引擎环境</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../unreal_blocks/">Blocks 环境</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../who_is_using/">谁在使用 AirSim</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../working_with_plugin_contents/">使用 UE 插件内容</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://github.com/Microsoft/AirSim/wiki/technion">大学生方程式赛车以色列理工学院自驾赛</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">支持</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../faq/">FAQ</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SUPPORT/">支持</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../create_issue/">创建问题</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CONTRIBUTING/">贡献</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">低空模拟器</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">构建 AirSim</li>
+      <li class="breadcrumb-item active">Azure 上的 ArSim</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/microsoft/airsim/edit/master/docs/azure.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="azure-airsim">Azure 上的 AirSim 开发环境<a class="headerlink" href="#azure-airsim" title="Permanent link">#</a></h1>
+<p>本文档介绍如何在 Azure 上自动创建开发环境，以及如何使用 Visual Studio Code 编写和调试连接到 AirSim 的 Python 应用程序</p>
+<h2 id="azure-vm">自动部署您的 Azure VM<a class="headerlink" href="#azure-vm" title="Permanent link">#</a></h2>
+<p>点击蓝色按钮开始 Azure 部署（模板中已预先填充了以下 2 个教程用例的推荐虚拟机大小）</p>
+<p><a href="https://aka.ms/AA8umgt" target="_blank">
+    <img src="https://azuredeploy.net/deploybutton.png"/>
+</a><br />
+<strong>注意</strong>：虚拟机部署和配置过程可能需要 20 多分钟才能完成</p>
+<h3 id="azure-vm_1">关于 Azure VM 的部署<a class="headerlink" href="#azure-vm_1" title="Permanent link">#</a></h3>
+<ul>
+<li>
+<p>使用 Azure 试用帐户时，默认 vCPU 配额不足以分配运行 AirSim 所需的虚拟机。如果出现这种情况，您将在尝试创建虚拟机时看到错误，并且需要提交增加配额的请求。<strong>请务必了解虚拟机的使用方式和费用</strong>。</p>
+</li>
+<li>
+<p>为避免在不使用时对虚拟机使用产生费用，请记住从 <a href="https://portal.azure.com">Azure 门户</a> 释放其资源或从 Azure CLI 使用以下命令：
+<pre class="highlight"><code class="language-bash">az vm deallocate --resource-group MyResourceGroup --name MyVMName</code></pre></p>
+</li>
+</ul>
+<h2 id="visual-studio-code-ssh">通过 Visual Studio Code 和远程 SSH 进行编码和调试<a class="headerlink" href="#visual-studio-code-ssh" title="Permanent link">#</a></h2>
+<ul>
+<li>安装 Visual Studio Code</li>
+<li>安装 <em>Remote - SSH</em> 扩展</li>
+<li>按 <code>F1</code> 并运行 <code>Remote - SSH: Connect to host...</code> 命令</li>
+<li>添加最近创建的虚拟机详细信息。例如， <code>AzureUser@11.22.33.44</code></li>
+<li>再次运行 <code>Remote - SSH: Connect to host...</code> 命令，现在选择新添加的连接。</li>
+<li>连接后，点击 Visual Studio Code 中的<code>Clone Repository</code>按钮，然后将其克隆到远程虚拟机中并<em>仅打开 <code>azure</code> 文件夹</em>，或者创建一个全新的存储库，克隆它并将 <code>azure</code> 文件夹的内容从此存储库复制到其中。务必打开该目录，以便 Visual Studio Code 能够针对具体场景使用特定的 <code>.vscode</code> 目录，而不是通用的 AirSim <code>.vscode</code> 目录。该目录包含建议安装的扩展程序、远程启动 AirSim 的任务以及 Python 应用程序的启动配置。</li>
+<li>安装所有推荐的扩展</li>
+<li>按 <code>F1</code> 并选择<code>Tasks: Run Task</code>选项。然后，从 Visual Studio Code 中选择<code>Start AirSim</code>任务，以从 Visual Studio Code 执行 <code>start-airsim.ps1</code> 脚本。</li>
+<li>打开<code>app</code>目录中的 <code>multirotor.py</code> 文件</li>
+<li>开始使用 Python 进行调试</li>
+<li>完成后，请记住停止并解除分配 Azure VM，以避免产生额外费用</li>
+</ul>
+<h2 id="visual-studio-code-airsim">从本地 Visual Studio Code 进行编码和调试，并通过转发端口连接到 AirSim<a class="headerlink" href="#visual-studio-code-airsim" title="Permanent link">#</a></h2>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p>此场景将使用 2 个 Visual Studio Code 实例。第一个实例将用作桥梁，通过 SSH 将端口转发到 Azure VM 并执行远程进程；第二个实例将用于本地 Python 开发。为了能够从本地 Python 代码访问 VM，需要保持 Visual Studio Code 的 <code>Remote - SSH</code> 实例处于打开状态，同时在第二个实例上使用本地 Python 环境。</p>
+</div>
+<ul>
+<li>打开第一个 Visual Studio Code 实例</li>
+<li>按照上一节中的步骤通过 <code>Remote - SSH</code> 进行连接 </li>
+<li>在 <em>远程资源管理器(Remote Explorer)</em>中，将端口 <code>41451</code> 添加为本地主机的转发端口</li>
+<li>按照上一场景中的说明，使用远程会话在 Visual Studio Code 上运行<code>Start AirSim</code>任务，或者在 VM 中手动启动 AirSim 二进制文件</li>
+<li>打开第二个 Visual Studio Code 实例，无需断开或关闭第一个实例</li>
+<li>要么在本地克隆此存储库并<strong>仅</strong>在 Visual Studio Code 中打开 <code>azure</code> <strong>文件夹</strong>，要么创建一个全新的存储库，克隆它并从该存储库中复制 <code>azure</code> 文件夹的内容。</li>
+<li>在 <code>app</code> 目录中运行 <code>pip install -r requirements.txt</code> </li>
+<li>打开 <code>app</code> 目录中的 <code>multirotor.py</code> 文件</li>
+<li>开始使用 Python 进行调试</li>
+<li>完成后，请记住停止并解除分配 Azure VM，以避免产生额外费用</li>
+</ul>
+<h2 id="docker">使用 Docker 运行<a class="headerlink" href="#docker" title="Permanent link">#</a></h2>
+<p>Once both the AirSim environment and the Python application are ready, you can package everything as a Docker image. The sample project inside the <code>azure</code> directory is already prepared to run a prebuilt AirSim binary and Python code using Docker.</p>
+<p>This would be a perfect scenario when you want to run the simulation at scale. For instance, you could have several different configurations for the same simulation and execute them in a parallel, unattended way using a Docker image on Azure Container Services</p>
+<p>Since AirSim requires access to the host GPU, it is required to use a Docker runtime that supports it. For more information about running AirSim in Docker, click <a href="../docker_ubuntu/">here</a>.</p>
+<p>When using Azure Container Services to run this image, the only extra-requirement is to add GPU support to the Container Group where it will be deployed. </p>
+<p>It can use either public docker images from DockerHub or images deployed to a private Azure Container Registry</p>
+<h3 id="docker_1">构建 docker 镜像<a class="headerlink" href="#docker_1" title="Permanent link">#</a></h3>
+<pre class="highlight"><code class="language-bash">docker build -t &lt;your-registry-url&gt;/&lt;your-image-name&gt; -f ./docker/Dockerfile .`</code></pre>
+<h2 id="airsim">使用不同的 AirSim 二进制文件<a class="headerlink" href="#airsim" title="Permanent link">#</a></h2>
+<p>To use a different AirSim binary, first check the official documentation on <a href="../build_windows/">How to Build AirSim on Windows</a> and <a href="../build_linux/">How to Build AirSim on Linux</a> if you also want to run it with Docker</p>
+<p>Once you have a zip file with the new AirSim environment (or prefer to use one from the <a href="https://github.com/microsoft/AirSim/releases">Official Releases</a>), you need to modify some of the scripts in the <code>azure</code> directory of the repository to point to the new environment:
+- In <a href="https://github.com/microsoft/AirSim/blob/main/azure/azure-env-creation/configure-vm.ps1"><code>azure/azure-env-creation/configure-vm.ps1</code></a>, modify all the parameters starting with <code>$airSimBinary</code> with the new values
+- In <a href="https://github.com/microsoft/AirSim/blob/main/azure/start-airsim.ps1"><code>azure/start-airsim.ps1</code></a>, modify <code>$airSimExecutable</code> and <code>$airSimProcessName</code> with the new values</p>
+<p>If you are using the docker image, you also need a linux binary zip file and modify the following Docker-related files:
+- In <a href="https://github.com/microsoft/AirSim/blob/main/azure/docker/Dockerfile"><code>azure/docker/Dockerfile</code></a>, modify the <code>AIRSIM_BINARY_ZIP_URL</code> and <code>AIRSIM_BINARY_ZIP_FILENAME</code> ENV declarations with the new values
+- In <a href="https://github.com/microsoft/AirSim/blob/main/azure/docker/docker-entrypoint.sh"><code>azure/docker/docker-entrypoint.sh</code></a>, modify <code>AIRSIM_EXECUTABLE</code> with the new value </p>
+<h2 id="_1">维护此开发环境<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
+<p>此开发环境的多个组件（ARM 模板、初始化脚本和 VSCode 任务）直接依赖于当前目录结构、文件名和存储库位置。计划修改/fork 其中任何一个组件时，请务必检查每个脚本和模板，以进行必要的调整。</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../docker_ubuntu/" class="btn btn-neutral float-left" title="Linux 上的 Docker"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../unreal_custenv/" class="btn btn-neutral float-right" title="定制虚幻引擎环境">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>Copyright &copy; 2021 Microsoft Research</p>
+  </div>
+
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/microsoft/airsim" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../docker_ubuntu/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../unreal_custenv/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
