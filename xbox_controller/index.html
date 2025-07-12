@@ -310,21 +310,23 @@ You can also use all the QGroundControl controls for autonomous flying at this p
 <ol>
 <li>
 <p>Connect to Pixhawk serial port using MavLinkTest.exe like this:
-<pre class="highlight"><code>MavLinkTest.exe -serial:*,115200 -proxy:127.0.0.1:14550 -server:127.0.0.1:14570</code></pre></p>
+<div class="highlight"><pre><span></span><code>MavLinkTest.exe -serial:*,115200 -proxy:127.0.0.1:14550 -server:127.0.0.1:14570
+</code></pre></div></p>
 </li>
 <li>
 <p>Run AirSim Unreal simulator with these <code>~/Documents/AirSim/settings.json</code> settings:
-<pre class="highlight"><code>"Vehicles": {
-    "PX4": {
-        "VehicleType": "PX4Multirotor",
+<div class="highlight"><pre><span></span><code>&quot;Vehicles&quot;: {
+    &quot;PX4&quot;: {
+        &quot;VehicleType&quot;: &quot;PX4Multirotor&quot;,
 
-        "SitlIp": "",
-        "SitlPort": 14560,
-        "UdpIp": "127.0.0.1",
-        "UdpPort": 14570,
-        "UseSerial": false
+        &quot;SitlIp&quot;: &quot;&quot;,
+        &quot;SitlPort&quot;: 14560,
+        &quot;UdpIp&quot;: &quot;127.0.0.1&quot;,
+        &quot;UdpPort&quot;: 14570,
+        &quot;UseSerial&quot;: false
     }
-}</code></pre></p>
+}
+</code></pre></div></p>
 </li>
 </ol>
 <h2 id="advanced">Advanced<a class="headerlink" href="#advanced" title="Permanent link">#</a></h2>
@@ -348,6 +350,7 @@ type <code>COM_RC_IN_MODE</code> in search box and change its value to either <c
       <p>Copyright &copy; 2021 Microsoft Research</p>
   </div>
 
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
           
         </div>

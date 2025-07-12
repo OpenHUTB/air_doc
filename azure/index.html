@@ -318,7 +318,8 @@
 </li>
 <li>
 <p>为避免在不使用时对虚拟机使用产生费用，请记住从 <a href="https://portal.azure.com">Azure 门户</a> 释放其资源或从 Azure CLI 使用以下命令：
-<pre class="highlight"><code class="language-bash">az vm deallocate --resource-group MyResourceGroup --name MyVMName</code></pre></p>
+<div class="highlight"><pre><span></span><code>az<span class="w"> </span>vm<span class="w"> </span>deallocate<span class="w"> </span>--resource-group<span class="w"> </span>MyResourceGroup<span class="w"> </span>--name<span class="w"> </span>MyVMName
+</code></pre></div></p>
 </li>
 </ul>
 <h2 id="visual-studio-code-ssh">通过 Visual Studio Code 和远程 SSH 进行编码和调试<a class="headerlink" href="#visual-studio-code-ssh" title="Permanent link">#</a></h2>
@@ -353,23 +354,24 @@
 <li>完成后，请记住停止并解除分配 Azure VM，以避免产生额外费用</li>
 </ul>
 <h2 id="docker">使用 Docker 运行<a class="headerlink" href="#docker" title="Permanent link">#</a></h2>
-<p>Once both the AirSim environment and the Python application are ready, you can package everything as a Docker image. The sample project inside the <code>azure</code> directory is already prepared to run a prebuilt AirSim binary and Python code using Docker.</p>
-<p>This would be a perfect scenario when you want to run the simulation at scale. For instance, you could have several different configurations for the same simulation and execute them in a parallel, unattended way using a Docker image on Azure Container Services</p>
-<p>Since AirSim requires access to the host GPU, it is required to use a Docker runtime that supports it. For more information about running AirSim in Docker, click <a href="../docker_ubuntu/">here</a>.</p>
-<p>When using Azure Container Services to run this image, the only extra-requirement is to add GPU support to the Container Group where it will be deployed. </p>
-<p>It can use either public docker images from DockerHub or images deployed to a private Azure Container Registry</p>
+<p>一旦 AirSim 环境和 Python 应用程序准备就绪，您就可以将所有内容打包为 Docker 镜像。<code>azure</code> 目录中的示例项目已准备好使用 Docker 运行预构建的 AirSim 二进制文件和 Python 代码。</p>
+<p>当你想要大规模运行模拟时，这将是一个完美的方案。例如，你可以为同一个模拟设置几种不同的配置，并使用 Azure 容器服务上的 Docker 镜像以并行、无人值守的方式执行它们。</p>
+<p>由于 AirSim 需要访问主机 GPU，因此需要使用支持该功能的 Docker 运行时。有关在 Docker 中运行 AirSim 的更多信息，请点击 <a href="../docker_ubuntu/">此处</a> 。</p>
+<p>使用 Azure 容器服务运行此映像时，唯一的额外要求是向将要部署的容器组添加 GPU 支持。</p>
+<p>它可以使用来自 DockerHub 的公共 docker 镜像或部署到私有 Azure 容器注册表的镜像。</p>
 <h3 id="docker_1">构建 docker 镜像<a class="headerlink" href="#docker_1" title="Permanent link">#</a></h3>
-<pre class="highlight"><code class="language-bash">docker build -t &lt;your-registry-url&gt;/&lt;your-image-name&gt; -f ./docker/Dockerfile .`</code></pre>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>&lt;your-registry-url&gt;/&lt;your-image-name&gt;<span class="w"> </span>-f<span class="w"> </span>./docker/Dockerfile<span class="w"> </span>.<span class="sb">`</span>
+</code></pre></div>
 <h2 id="airsim">使用不同的 AirSim 二进制文件<a class="headerlink" href="#airsim" title="Permanent link">#</a></h2>
-<p>To use a different AirSim binary, first check the official documentation on <a href="../build_windows/">How to Build AirSim on Windows</a> and <a href="../build_linux/">How to Build AirSim on Linux</a> if you also want to run it with Docker</p>
-<p>Once you have a zip file with the new AirSim environment (or prefer to use one from the <a href="https://github.com/microsoft/AirSim/releases">Official Releases</a>), you need to modify some of the scripts in the <code>azure</code> directory of the repository to point to the new environment:
-- In <a href="https://github.com/microsoft/AirSim/blob/main/azure/azure-env-creation/configure-vm.ps1"><code>azure/azure-env-creation/configure-vm.ps1</code></a>, modify all the parameters starting with <code>$airSimBinary</code> with the new values
-- In <a href="https://github.com/microsoft/AirSim/blob/main/azure/start-airsim.ps1"><code>azure/start-airsim.ps1</code></a>, modify <code>$airSimExecutable</code> and <code>$airSimProcessName</code> with the new values</p>
-<p>If you are using the docker image, you also need a linux binary zip file and modify the following Docker-related files:
-- In <a href="https://github.com/microsoft/AirSim/blob/main/azure/docker/Dockerfile"><code>azure/docker/Dockerfile</code></a>, modify the <code>AIRSIM_BINARY_ZIP_URL</code> and <code>AIRSIM_BINARY_ZIP_FILENAME</code> ENV declarations with the new values
-- In <a href="https://github.com/microsoft/AirSim/blob/main/azure/docker/docker-entrypoint.sh"><code>azure/docker/docker-entrypoint.sh</code></a>, modify <code>AIRSIM_EXECUTABLE</code> with the new value </p>
+<p>要使用不同的 AirSim 二进制文件，请首先查看官方文档：<a href="../build_windows/">如何在 Windows 上构建 AirSim</a>  以及 <a href="../build_linux/">如何在 Linux 上构建 AirSim</a> （如果您还想使用 Docker 运行它）</p>
+<p>一旦您拥有包含新 AirSim 环境的 zip 文件（或者更喜欢使用 <a href="https://github.com/microsoft/AirSim/releases">官方版本</a> 中的文件），您需要修改存储库的 <code>azure</code> 目录中的某些脚本以指向新环境：
+- 在 <a href="https://github.com/microsoft/AirSim/blob/main/azure/azure-env-creation/configure-vm.ps1"><code>azure/azure-env-creation/configure-vm.ps1</code></a> 中，使用新值修改以 <code>$airSimBinary</code> 开头的所有参数
+- 在 <a href="https://github.com/microsoft/AirSim/blob/main/azure/start-airsim.ps1"><code>azure/start-airsim.ps1</code></a> 中，使用新值修改 <code>$airSimExecutable</code> 和 <code>$airSimProcessName</code></p>
+<p>如果你使用的是docker镜像，你还需要一个linux二进制zip文件，并修改以下Docker相关的文件：
+- 在 <a href="https://github.com/microsoft/AirSim/blob/main/azure/docker/Dockerfile"><code>azure/docker/Dockerfile</code></a> 中，使用新值修改 <code>AIRSIM_BINARY_ZIP_URL</code> 和 <code>AIRSIM_BINARY_ZIP_FILENAME</code> ENV 声明
+- 在 <a href="https://github.com/microsoft/AirSim/blob/main/azure/docker/docker-entrypoint.sh"><code>azure/docker/docker-entrypoint.sh</code></a> 中，使用新值修改 <code>AIRSIM_EXECUTABLE</code></p>
 <h2 id="_1">维护此开发环境<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
-<p>此开发环境的多个组件（ARM 模板、初始化脚本和 VSCode 任务）直接依赖于当前目录结构、文件名和存储库位置。计划修改/fork 其中任何一个组件时，请务必检查每个脚本和模板，以进行必要的调整。</p>
+<p>此开发环境的多个组件（ARM 模板、初始化脚本和 VSCode 任务）直接依赖于当前目录结构、文件名和存储库位置。计划 修改/fork 其中任何一个组件时，请务必检查每个脚本和模板，以进行必要的调整。</p>
               
             </div>
           </div><footer>
@@ -385,6 +387,7 @@
       <p>Copyright &copy; 2021 Microsoft Research</p>
   </div>
 
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
           
         </div>

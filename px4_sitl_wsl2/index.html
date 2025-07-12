@@ -291,20 +291,22 @@ separate IP address from your Windows host machine. This means PX4 cannot find A
 "localhost" which is the default behavior for PX4.</p>
 <p>You will notice that on Windows <code>ipconfig</code> returns a new ethernet adapter for WSL like this (notice
 the vEthernet has <code>(WSL)</code> in the name:</p>
-<pre class="highlight"><code class="language-plain">Ethernet adapter vEthernet (WSL):
+<div class="highlight"><pre><span></span><code>Ethernet adapter vEthernet (WSL):
 
    Connection-specific DNS Suffix  . :
    Link-local IPv6 Address . . . . . : fe80::1192:f9a5:df88:53ba%44
    IPv4 Address. . . . . . . . . . . : 172.31.64.1
    Subnet Mask . . . . . . . . . . . : 255.255.240.0
-   Default Gateway . . . . . . . . . :</code></pre>
+   Default Gateway . . . . . . . . . :
+</code></pre></div>
 <p>This address <code>172.31.64.1</code> is the address that WSL 2 can use to reach your Windows host machine.</p>
 <p>Starting with this <a href="https://github.com/PX4/PX4-Autopilot/commit/1719ff9892f3c3d034f2b44e94d15527ab09cec6">PX4 Change
 Request</a>
 (which correlates to version v1.12.0-beta1 or newer) PX4 in SITL mode can now connect to AirSim on a
 different (remote) IP address.  To enable this make sure you have a version of PX4 containing this
 fix and set the following environment variable in linux:</p>
-<pre class="highlight"><code class="language-shell">export PX4_SIM_HOST_ADDR=172.31.64.1</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">PX4_SIM_HOST_ADDR</span><span class="o">=</span><span class="m">172</span>.31.64.1
+</code></pre></div>
 <p><strong>Note:</strong> Be sure to update the above address <code>172.31.64.1</code> to match what you see from your
 <code>ipconfig</code> command.</p>
 <p>Open incoming TCP port 4560 and incoming UDP port 14540 using your firewall configuration.</p>
@@ -315,38 +317,39 @@ ethernet adapter address instead of the default <code>localhost</code>.  This wi
 port on that adapter which is the address that the PX4 app will be looking for.  Also tell AirSim
 to connect the <code>ControlIp</code> UDP channel by setting <code>ControlIp</code> to the magic string <code>remote</code>.
 This resolves to the WSL 2 remote ip address found in the TCP socket.</p>
-<p><pre class="highlight"><code class="language-json">{
-    "SettingsVersion": 1.2,
-    "SimMode": "Multirotor",
-    "ClockType": "SteppableClock",
-    "Vehicles": {
-        "PX4": {
-            "VehicleType": "PX4Multirotor",
-            "UseSerial": false,
-            "LockStep": true,
-            "UseTcp": true,
-            "TcpPort": 4560,
-            "ControlIp": "remote",
-            "ControlPortLocal": 14540,
-            "ControlPortRemote": 14580,
-            "LocalHostIp": "172.31.64.1",
-            "Sensors":{
-                "Barometer":{
-                    "SensorType": 1,
-                    "Enabled": true,
-                    "PressureFactorSigma": 0.0001825
-                }
-            },
-            "Parameters": {
-                "NAV_RCL_ACT": 0,
-                "NAV_DLL_ACT": 0,
-                "COM_OBL_ACT": 1,
-                "LPE_LAT": 47.641468,
-                "LPE_LON": -122.140165
-            }
-        }
-    }
-}</code></pre>
+<p><div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;SettingsVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.2</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;SimMode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Multirotor&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;ClockType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SteppableClock&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Vehicles&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;PX4&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;VehicleType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PX4Multirotor&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;UseSerial&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;LockStep&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;UseTcp&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;TcpPort&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4560</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;ControlIp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;remote&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;ControlPortLocal&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">14540</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;ControlPortRemote&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">14580</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;LocalHostIp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;172.31.64.1&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;Sensors&quot;</span><span class="p">:{</span>
+<span class="w">                </span><span class="nt">&quot;Barometer&quot;</span><span class="p">:{</span>
+<span class="w">                    </span><span class="nt">&quot;SensorType&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;Enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;PressureFactorSigma&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0001825</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="nt">&quot;Parameters&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;NAV_RCL_ACT&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;NAV_DLL_ACT&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;COM_OBL_ACT&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;LPE_LAT&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">47.641468</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;LPE_LON&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">-122.140165</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 See <a href="../px4_lockstep/">PX4 LockStep</a> for more information.
 The "Barometer" setting keeps PX4 happy because the default AirSim barometer has a bit too much
 noise generation.  This setting clamps that down a bit.</p>
@@ -355,17 +358,19 @@ commit</a>,
 please edit the Linux file in <code>ROMFS/px4fmu_common/init.d-posix/rcS</code> and make sure it is looking
 for the <code>PX4_SIM_HOST_ADDR</code> environment variable and is passing that through to the PX4 
 simulator like this:</p>
-<pre class="highlight"><code class="language-shell"># If PX4_SIM_HOST_ADDR environment variable is empty use localhost.
-if [ -z "${PX4_SIM_HOST_ADDR}" ]; then
-    echo "PX4 SIM HOST: localhost"
-    simulator start -c $simulator_tcp_port
-else
-    echo "PX4 SIM HOST: $PX4_SIM_HOST_ADDR"
-    simulator start -t $PX4_SIM_HOST_ADDR $simulator_tcp_port
-fi</code></pre>
+<div class="highlight"><pre><span></span><code><span class="c1"># If PX4_SIM_HOST_ADDR environment variable is empty use localhost.</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-z<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">PX4_SIM_HOST_ADDR</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;PX4 SIM HOST: localhost&quot;</span>
+<span class="w">    </span>simulator<span class="w"> </span>start<span class="w"> </span>-c<span class="w"> </span><span class="nv">$simulator_tcp_port</span>
+<span class="k">else</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;PX4 SIM HOST: </span><span class="nv">$PX4_SIM_HOST_ADDR</span><span class="s2">&quot;</span>
+<span class="w">    </span>simulator<span class="w"> </span>start<span class="w"> </span>-t<span class="w"> </span><span class="nv">$PX4_SIM_HOST_ADDR</span><span class="w"> </span><span class="nv">$simulator_tcp_port</span>
+<span class="k">fi</span>
+</code></pre></div>
 <p><strong>Note:</strong> this code might already be there depending on the version of PX4 you are using.</p>
 <p><strong>Note:</strong> please be patient when waiting for the message:</p>
-<pre class="highlight"><code>INFO  [simulator] Simulator connected on TCP port 4560.</code></pre>
+<div class="highlight"><pre><span></span><code>INFO  [simulator] Simulator connected on TCP port 4560.
+</code></pre></div>
 <p>It can take a little longer to establish the remote connection than it does with <code>localhost</code>.</p>
 <p>Now you can proceed with the steps shown in <a href="../px4_sitl/">Setting up PX4 Software-in-Loop</a>.</p>
               
@@ -383,6 +388,7 @@ fi</code></pre>
       <p>Copyright &copy; 2021 Microsoft Research</p>
   </div>
 
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
           
         </div>

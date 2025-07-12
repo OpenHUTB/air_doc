@@ -339,36 +339,38 @@
 </li>
 <li>
 <p>编辑 <code>LandscapeMountains.uproject</code>，使其看起来像这样</p>
-<pre class="highlight"><code class="language-json">{
-    "FileVersion": 3,
-    "EngineAssociation": "4.27",
-    "Category": "Samples",
-    "Description": "",
-    "Modules": [
-        {
-            "Name": "LandscapeMountains",
-            "Type": "Runtime",
-            "LoadingPhase": "Default",
-            "AdditionalDependencies": [
-                "AirSim"
-            ]
-        }
-    ],
-    "TargetPlatforms": [
-        "MacNoEditor",
-        "WindowsNoEditor"
-    ],
-    "Plugins": [
-        {
-            "Name": "AirSim",
-            "Enabled": true
-        }
-    ]
-}</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;FileVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;EngineAssociation&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;4.27&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Category&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Samples&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Modules&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;Name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;LandscapeMountains&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;Type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Runtime&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;LoadingPhase&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Default&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;AdditionalDependencies&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="s2">&quot;AirSim&quot;</span>
+<span class="w">            </span><span class="p">]</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;TargetPlatforms&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">&quot;MacNoEditor&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;WindowsNoEditor&quot;</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;Plugins&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;Name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AirSim&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;Enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
 </li>
 <li>
 <p>编辑 <code>Config\DefaultGame.ini</code> 并在末尾添加以下行：</p>
-<pre class="highlight"><code>+MapsToCook=(FilePath="/AirSim/AirSimAssets")</code></pre>
+<div class="highlight"><pre><span></span><code>+MapsToCook=(FilePath=&quot;/AirSim/AirSimAssets&quot;)
+</code></pre></div>
 <p>这样做会强制虚幻引擎将所有必要的 AirSim 内容包含在项目的打包版本中。</p>
 </li>
 <li>
@@ -424,16 +426,18 @@ but you can use any environment. Another free environment is <a href="https://ww
 <h4 id="i-already-have-my-own-unreal-project-how-do-i-use-airsim-with-it">I already have my own Unreal project. How do I use AirSim with it?<a class="headerlink" href="#i-already-have-my-own-unreal-project-how-do-i-use-airsim-with-it" title="Permanent link">#</a></h4>
 <p>Copy the <code>Unreal\Plugins</code> folder from the build you did in the above section into the root of your Unreal project's folder. In your Unreal project's .uproject file, add the key <code>AdditionalDependencies</code> to the "Modules" object
 as we showed in the <code>LandscapeMountains.uproject</code> above.
-<pre class="highlight"><code class="language-json">"AdditionalDependencies": [
-    "AirSim"
-]</code></pre></p>
+<div class="highlight"><pre><span></span><code><span class="nt">&quot;AdditionalDependencies&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="s2">&quot;AirSim&quot;</span>
+<span class="p">]</span>
+</code></pre></div></p>
 <p>and the <code>Plugins</code> section to the top level object:
-<pre class="highlight"><code class="language-json">"Plugins": [
-    {
-        "Name": "AirSim",
-        "Enabled": true
-    }
-]</code></pre></p>
+<div class="highlight"><pre><span></span><code><span class="nt">&quot;Plugins&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;Name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AirSim&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;Enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">]</span>
+</code></pre></div></p>
               
             </div>
           </div><footer>
@@ -449,6 +453,7 @@ as we showed in the <code>LandscapeMountains.uproject</code> above.
       <p>Copyright &copy; 2021 Microsoft Research</p>
   </div>
 
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
           
         </div>

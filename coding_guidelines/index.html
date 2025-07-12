@@ -322,9 +322,10 @@ are correctly formatted so it should stay clean.  Obviously this does not includ
 <code>Eigen</code> or <code>rpclib</code>.  </p>
 <p>If you find a bug in clang-format you can disable clang formatting of a specific block of code by
 using the following comments pair:</p>
-<pre class="highlight"><code class="language-c++">// clang-format off
-...
-// clang-format on</code></pre>
+<div class="highlight"><pre><span></span><code><span class="c1">// clang-format off</span>
+<span class="p">...</span>
+<span class="c1">// clang-format on</span>
+</code></pre></div>
 <h2 id="naming-conventions">Naming Conventions<a class="headerlink" href="#naming-conventions" title="Permanent link">#</a></h2>
 <p>Avoid using any sort of Hungarian notation on names and "_ptr" on pointers.</p>
 <table>
@@ -385,19 +386,20 @@ using the following comments pair:</p>
 </table>
 <h2 id="header-files">Header Files<a class="headerlink" href="#header-files" title="Permanent link">#</a></h2>
 <p>Use a namespace qualified #ifdef to protect against multiple inclusion:</p>
-<pre class="highlight"><code>#ifndef msr_airsim_MyHeader_hpp
+<div class="highlight"><pre><span></span><code>#ifndef msr_airsim_MyHeader_hpp
 #define msr_airsim_MyHeader_hpp
 
 //--your code
 
-#endif</code></pre>
+#endif
+</code></pre></div>
 <p>The reason we don't use #pragma once is because it's not supported if same header file exists at multiple places (which might be possible under ROS build system!).</p>
 <h2 id="bracketing">Bracketing<a class="headerlink" href="#bracketing" title="Permanent link">#</a></h2>
 <p>Inside function or method body place curly bracket on same line. 
 Outside that the Namespace, Class and methods levels use separate line.
 This is called <a href="https://en.wikipedia.org/wiki/Indent_style#K.26R_style">K&amp;R style</a> and its variants are widely used in C++ vs other styles which are more popular in other languages. 
 Notice that curlies are not required if you have single statement, but complex statements are easier to keep correct with the braces.</p>
-<pre class="highlight"><code>int main(int argc, char* argv[])
+<div class="highlight"><pre><span></span><code>int main(int argc, char* argv[])
 {
      while (x == y) {
         f0();
@@ -410,7 +412,8 @@ Notice that curlies are not required if you have single statement, but complex s
         if (x &gt; 100)
             break;
     }
-}</code></pre>
+}
+</code></pre></div>
 <h2 id="const-and-references">Const and References<a class="headerlink" href="#const-and-references" title="Permanent link">#</a></h2>
 <p>Religiously review all non-scalar parameters you declare to be candidate for const and references. If you are coming from languages such as C#/Java/Python,
 the most often mistake you would make is to pass parameters by value instead of <code>const T&amp;;</code> Especially most of the strings, vectors and maps you want to 
@@ -434,9 +437,11 @@ much as possible and avoid that style of programming from leaking into the large
 <p>The C++ code base uses four spaces for indentation (not tabs).</p>
 <h2 id="line-breaks">Line Breaks<a class="headerlink" href="#line-breaks" title="Permanent link">#</a></h2>
 <p>Files should be committed with Unix line breaks. When working on Windows, git can be configured to checkout files with Windows line breaks and automatically convert from Windows to Unix line breaks when committing by running the following command:</p>
-<pre class="highlight"><code>git config --global core.autocrlf true</code></pre>
+<div class="highlight"><pre><span></span><code>git config --global core.autocrlf true
+</code></pre></div>
 <p>When working on Linux, it is preferable to configure git to checkout files with Unix line breaks by running the following command:</p>
-<pre class="highlight"><code>git config --global core.autocrlf input</code></pre>
+<div class="highlight"><pre><span></span><code>git config --global core.autocrlf input
+</code></pre></div>
 <p>For more details on this setting, see <a href="https://docs.github.com/en/get-started/getting-started-with-git/configuring-git-to-handle-line-endings">this documentation</a>.</p>
 <h2 id="this-is-too-short-ye">This is Too Short, ye?<a class="headerlink" href="#this-is-too-short-ye" title="Permanent link">#</a></h2>
 <p>Yes, and it's on purpose because no one likes to read 200 page coding guidelines. The goal here is to cover only most significant things which are 
@@ -458,6 +463,7 @@ and <a href="http://shop.oreilly.com/product/0636920033707.do">Effective Modern 
       <p>Copyright &copy; 2021 Microsoft Research</p>
   </div>
 
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
           
         </div>

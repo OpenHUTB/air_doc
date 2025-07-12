@@ -367,109 +367,117 @@ will generate the right MAVLINK_MSG_ID_DATA_TRANSMISSION_HANDSHAKE and MAVLINK_M
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">#</a></h2>
 <p>The following code from the UnitTest project shows how to connect to a <a href="http://www.pixhawk.org/">Pixhawk</a> flight controller over USB serial port, 
 then wait for the first heartbeat message to be received:</p>
-<pre class="highlight"><code class="language-c++">auto connection = MavLinkConnection::connectSerial("drone", "/dev/ttyACM0", 115200, "sh /etc/init.d/rc.usb\n");
-MavLinkHeartbeat heartbeat;
-if (!waitForHeartbeat(10000, heartbeat)) {
-    throw std::runtime_error("Received no heartbeat from PX4 after 10 seconds");
-}</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="n">connection</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MavLinkConnection</span><span class="o">::</span><span class="n">connectSerial</span><span class="p">(</span><span class="s">&quot;drone&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/dev/ttyACM0&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">115200</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;sh /etc/init.d/rc.usb</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="n">MavLinkHeartbeat</span><span class="w"> </span><span class="n">heartbeat</span><span class="p">;</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">waitForHeartbeat</span><span class="p">(</span><span class="mi">10000</span><span class="p">,</span><span class="w"> </span><span class="n">heartbeat</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">throw</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">runtime_error</span><span class="p">(</span><span class="s">&quot;Received no heartbeat from PX4 after 10 seconds&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
 <p>The following code connects to serial port, and then forwards all messages to and from QGroundControl to that drone using another connection
 that is joined to the drone stream.
-<pre class="highlight"><code class="language-c++">auto droneConnection = MavLinkConnection::connectSerial("drone", "/dev/ttyACM0", 115200, "sh /etc/init.d/rc.usb\n");
-auto proxyConnection = MavLinkConnection::connectRemoteUdp("qgc", "127.0.0.1", "127.0.0.1", 14550);
-droneConnection-&gt;join(proxyConnection);</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="n">droneConnection</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MavLinkConnection</span><span class="o">::</span><span class="n">connectSerial</span><span class="p">(</span><span class="s">&quot;drone&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/dev/ttyACM0&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">115200</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;sh /etc/init.d/rc.usb</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">proxyConnection</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MavLinkConnection</span><span class="o">::</span><span class="n">connectRemoteUdp</span><span class="p">(</span><span class="s">&quot;qgc&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;127.0.0.1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;127.0.0.1&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">14550</span><span class="p">);</span>
+<span class="n">droneConnection</span><span class="o">-&gt;</span><span class="n">join</span><span class="p">(</span><span class="n">proxyConnection</span><span class="p">);</span>
+</code></pre></div>
 The following code then takes that connection and turns on heartBeats and starts tracking vehicle information using local
 system id 166 and component id 1.
-<pre class="highlight"><code class="language-c++">auto vehicle = std::make_shared&lt;MavLinkVehicle&gt;(166, 1);
-vehicle-&gt;connect(connection);
-vehicle-&gt;startHeartbeat();
+<div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="n">vehicle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">MavLinkVehicle</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">166</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="n">vehicle</span><span class="o">-&gt;</span><span class="n">connect</span><span class="p">(</span><span class="n">connection</span><span class="p">);</span>
+<span class="n">vehicle</span><span class="o">-&gt;</span><span class="n">startHeartbeat</span><span class="p">();</span>
 
-std::this_thread::sleep_for(std::chrono::seconds(5));
+<span class="n">std</span><span class="o">::</span><span class="n">this_thread</span><span class="o">::</span><span class="n">sleep_for</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">seconds</span><span class="p">(</span><span class="mi">5</span><span class="p">));</span>
 
-VehicleState state = vehicle-&gt;getVehicleState();
-printf("Home position is %s, %f,%f,%f\n", state.home.is_set ? "set" : "not set", 
-    state.home.global_pos.lat, state.home.global_pos.lon, state.home.global_pos.alt);</code></pre>
+<span class="n">VehicleState</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vehicle</span><span class="o">-&gt;</span><span class="n">getVehicleState</span><span class="p">();</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">&quot;Home position is %s, %f,%f,%f</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">state</span><span class="p">.</span><span class="n">home</span><span class="p">.</span><span class="n">is_set</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s">&quot;set&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">&quot;not set&quot;</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="n">state</span><span class="p">.</span><span class="n">home</span><span class="p">.</span><span class="n">global_pos</span><span class="p">.</span><span class="n">lat</span><span class="p">,</span><span class="w"> </span><span class="n">state</span><span class="p">.</span><span class="n">home</span><span class="p">.</span><span class="n">global_pos</span><span class="p">.</span><span class="n">lon</span><span class="p">,</span><span class="w"> </span><span class="n">state</span><span class="p">.</span><span class="n">home</span><span class="p">.</span><span class="n">global_pos</span><span class="p">.</span><span class="n">alt</span><span class="p">);</span>
+</code></pre></div>
 The following code uses the vehicle object to arm the drone and take off and wait for the takeoff altitude to be reached:
-<pre class="highlight"><code class="language-c++">bool rc = false;
-if (!vehicle-&gt;armDisarm(true).wait(3000, &amp;rc) || !rc) {
-    printf("arm command failed\n");
-    return;
-}
-if (!vehicle-&gt;takeoff(targetAlt).wait(3000, &amp;rc) || !rc) {
-    printf("takeoff command failed\n");
-    return;
-}
-int version = vehicle-&gt;getVehicleStateVersion();
-while (true) {
-    int newVersion = vehicle-&gt;getVehicleStateVersion();
-    if (version != newVersion) {
-        VehicleState state = vehicle-&gt;getVehicleState();
-        float alt = state.local_est.pos.z;
-        if (alt &gt;= targetAlt - delta &amp;&amp; alt &lt;= targetAlt + delta)
-        {           
-            reached = true;
-            printf("Target altitude reached\n");
-            break;
-        }
-    } else {
-        std::this_thread::sleep_for(std::chrono::milliseconds(10));
-    }
-}</code></pre>
+<div class="highlight"><pre><span></span><code><span class="kt">bool</span><span class="w"> </span><span class="n">rc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">vehicle</span><span class="o">-&gt;</span><span class="n">armDisarm</span><span class="p">(</span><span class="nb">true</span><span class="p">).</span><span class="n">wait</span><span class="p">(</span><span class="mi">3000</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">rc</span><span class="p">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="o">!</span><span class="n">rc</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;arm command failed</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">vehicle</span><span class="o">-&gt;</span><span class="n">takeoff</span><span class="p">(</span><span class="n">targetAlt</span><span class="p">).</span><span class="n">wait</span><span class="p">(</span><span class="mi">3000</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">rc</span><span class="p">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="o">!</span><span class="n">rc</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;takeoff command failed</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vehicle</span><span class="o">-&gt;</span><span class="n">getVehicleStateVersion</span><span class="p">();</span>
+<span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="nb">true</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">newVersion</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vehicle</span><span class="o">-&gt;</span><span class="n">getVehicleStateVersion</span><span class="p">();</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">version</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">newVersion</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">VehicleState</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vehicle</span><span class="o">-&gt;</span><span class="n">getVehicleState</span><span class="p">();</span>
+<span class="w">        </span><span class="kt">float</span><span class="w"> </span><span class="n">alt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">state</span><span class="p">.</span><span class="n">local_est</span><span class="p">.</span><span class="n">pos</span><span class="p">.</span><span class="n">z</span><span class="p">;</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">alt</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">targetAlt</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">delta</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">alt</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">targetAlt</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">delta</span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span><span class="w">           </span>
+<span class="w">            </span><span class="n">reached</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Target altitude reached</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">            </span><span class="k">break</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">this_thread</span><span class="o">::</span><span class="n">sleep_for</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">milliseconds</span><span class="p">(</span><span class="mi">10</span><span class="p">));</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 The following code uses offboard control to make the drone fly in a circle with camera pointed at the center.
 Here we use the subscribe method to check each new local position message to indicate so we can compute the new 
 velocity vector as soon as that new position is received.  We request a high rate for those messages using 
 setMessageInterval to ensure smooth circular orbit.
-<pre class="highlight"><code class="language-c++">vehicle-&gt;setMessageInterval((int)MavLinkMessageIds::MAVLINK_MSG_ID_LOCAL_POSITION_NED, 30);
-vehicle-&gt;requestControl();
-int subscription = vehicle-&gt;getConnection()-&gt;subscribe(
-    [&amp;](std::shared_ptr&lt;MavLinkConnection&gt; connection, const MavLinkMessage&amp; m) {
-        if (m.msgid == (int)MavLinkMessageIds::MAVLINK_MSG_ID_LOCAL_POSITION_NED)
-        {
-            // convert generic msg to strongly typed message.
-            MavLinkLocalPositionNed localPos;
-            localPos.decode(msg); 
-            float x = localPos.x;
-            float y = localPos.y;
-            float dx = x - cx;
-            float dy = y - cy;
-            float angle = atan2(dy, dx);
-            if (angle &lt; 0) angle += M_PI * 2;
-            float tangent = angle + M_PI_2;
-            double newvx = orbitSpeed * cos(tangent);
-            double newvy = orbitSpeed * sin(tangent);
-            float heading = angle + M_PI;
-            vehicle-&gt;moveByLocalVelocityWithAltHold(newvx, newvy, altitude, true, heading);
-        }
-    });</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">vehicle</span><span class="o">-&gt;</span><span class="n">setMessageInterval</span><span class="p">((</span><span class="kt">int</span><span class="p">)</span><span class="n">MavLinkMessageIds</span><span class="o">::</span><span class="n">MAVLINK_MSG_ID_LOCAL_POSITION_NED</span><span class="p">,</span><span class="w"> </span><span class="mi">30</span><span class="p">);</span>
+<span class="n">vehicle</span><span class="o">-&gt;</span><span class="n">requestControl</span><span class="p">();</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">subscription</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vehicle</span><span class="o">-&gt;</span><span class="n">getConnection</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">subscribe</span><span class="p">(</span>
+<span class="w">    </span><span class="p">[</span><span class="o">&amp;</span><span class="p">](</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">MavLinkConnection</span><span class="o">&gt;</span><span class="w"> </span><span class="n">connection</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">MavLinkMessage</span><span class="o">&amp;</span><span class="w"> </span><span class="n">m</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">m</span><span class="p">.</span><span class="n">msgid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">MavLinkMessageIds</span><span class="o">::</span><span class="n">MAVLINK_MSG_ID_LOCAL_POSITION_NED</span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// convert generic msg to strongly typed message.</span>
+<span class="w">            </span><span class="n">MavLinkLocalPositionNed</span><span class="w"> </span><span class="n">localPos</span><span class="p">;</span>
+<span class="w">            </span><span class="n">localPos</span><span class="p">.</span><span class="n">decode</span><span class="p">(</span><span class="n">msg</span><span class="p">);</span><span class="w"> </span>
+<span class="w">            </span><span class="kt">float</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">localPos</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
+<span class="w">            </span><span class="kt">float</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">localPos</span><span class="p">.</span><span class="n">y</span><span class="p">;</span>
+<span class="w">            </span><span class="kt">float</span><span class="w"> </span><span class="n">dx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">cx</span><span class="p">;</span>
+<span class="w">            </span><span class="kt">float</span><span class="w"> </span><span class="n">dy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">cy</span><span class="p">;</span>
+<span class="w">            </span><span class="kt">float</span><span class="w"> </span><span class="n">angle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">atan2</span><span class="p">(</span><span class="n">dy</span><span class="p">,</span><span class="w"> </span><span class="n">dx</span><span class="p">);</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">angle</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="n">angle</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">M_PI</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">            </span><span class="kt">float</span><span class="w"> </span><span class="n">tangent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">angle</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">M_PI_2</span><span class="p">;</span>
+<span class="w">            </span><span class="kt">double</span><span class="w"> </span><span class="n">newvx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">orbitSpeed</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">cos</span><span class="p">(</span><span class="n">tangent</span><span class="p">);</span>
+<span class="w">            </span><span class="kt">double</span><span class="w"> </span><span class="n">newvy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">orbitSpeed</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">sin</span><span class="p">(</span><span class="n">tangent</span><span class="p">);</span>
+<span class="w">            </span><span class="kt">float</span><span class="w"> </span><span class="n">heading</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">angle</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">M_PI</span><span class="p">;</span>
+<span class="w">            </span><span class="n">vehicle</span><span class="o">-&gt;</span><span class="n">moveByLocalVelocityWithAltHold</span><span class="p">(</span><span class="n">newvx</span><span class="p">,</span><span class="w"> </span><span class="n">newvy</span><span class="p">,</span><span class="w"> </span><span class="n">altitude</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="n">heading</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">});</span>
+</code></pre></div>
 The following code stops flying the drone in offboard mode and tells the drone to loiter at its current location.
 This version of the code shows how to use the AsyncResult without blocking on a wait call.
-<pre class="highlight"><code class="language-c++">    vehicle-&gt;releaseControl();
-    if (vehicle-&gt;loiter().then([=](bool rc) {
-        printf("loiter command %s\n", rc ? "succeeded" : "failed");
-    }</code></pre></p>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="n">vehicle</span><span class="o">-&gt;</span><span class="n">releaseControl</span><span class="p">();</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">vehicle</span><span class="o">-&gt;</span><span class="n">loiter</span><span class="p">().</span><span class="n">then</span><span class="p">([</span><span class="o">=</span><span class="p">](</span><span class="kt">bool</span><span class="w"> </span><span class="n">rc</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;loiter command %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">rc</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s">&quot;succeeded&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">&quot;failed&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+</code></pre></div></p>
 <p>The following code gets all configurable parameters from the drone and prints them:</p>
-<p><pre class="highlight"><code class="language-c++">    auto list = vehicle-&gt;getParamList();
-    auto end = list.end();
-    int count = 0;
-    for (auto iter = list.begin(); iter &lt; end; iter++)
-    {
-        count++;
-        MavLinkParameter p = *iter;
-        if (p.type == MAV_PARAM_TYPE_REAL32 || p.type == MAV_PARAM_TYPE_REAL64) {
-            printf("%s=%f\n", p.name.c_str(), p.value);
-        }
-        else {
-            printf("%s=%d\n", p.name.c_str(), static_cast&lt;int&gt;(p.value));
-        }
-    }</code></pre>
+<p><div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vehicle</span><span class="o">-&gt;</span><span class="n">getParamList</span><span class="p">();</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">end</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">list</span><span class="p">.</span><span class="n">end</span><span class="p">();</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">iter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">list</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span><span class="w"> </span><span class="n">iter</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">end</span><span class="p">;</span><span class="w"> </span><span class="n">iter</span><span class="o">++</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">count</span><span class="o">++</span><span class="p">;</span>
+<span class="w">        </span><span class="n">MavLinkParameter</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="n">iter</span><span class="p">;</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">type</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">MAV_PARAM_TYPE_REAL32</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">type</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">MAV_PARAM_TYPE_REAL64</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%s=%f</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">name</span><span class="p">.</span><span class="n">c_str</span><span class="p">(),</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">value</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%s=%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">name</span><span class="p">.</span><span class="n">c_str</span><span class="p">(),</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">value</span><span class="p">));</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+</code></pre></div>
 The following code sets a parameter on the Pixhawk to disable the USB safety check (this is handy if you are controlling
 the Pixhawk over USB using another onboard computer that is part of the drone itself).  You should NOT do this if you
 are connecting your PC or laptop to the drone over USB.</p>
-<pre class="highlight"><code class="language-c++">    MavLinkParameter  p;
-    p.name = "CBRK_USB_CHK";
-    p.value = 197848;
-    if (!vehicle-&gt;setParameter(p).wait(3000,&amp;rc) || !rc) {
-        printf("Setting the CBRK_USB_CHK failed");
-    }</code></pre>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="n">MavLinkParameter</span><span class="w">  </span><span class="n">p</span><span class="p">;</span>
+<span class="w">    </span><span class="n">p</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;CBRK_USB_CHK&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">p</span><span class="p">.</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">197848</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">vehicle</span><span class="o">-&gt;</span><span class="n">setParameter</span><span class="p">(</span><span class="n">p</span><span class="p">).</span><span class="n">wait</span><span class="p">(</span><span class="mi">3000</span><span class="p">,</span><span class="o">&amp;</span><span class="n">rc</span><span class="p">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="o">!</span><span class="n">rc</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Setting the CBRK_USB_CHK failed&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+</code></pre></div>
 <p>MavLinkVehicle actually has a helper method for this called allowFlightControlOverUsb, so now you know how it is implemented :-) </p>
 <h2 id="advanced-connections">Advanced Connections<a class="headerlink" href="#advanced-connections" title="Permanent link">#</a></h2>
 <p>You can wire up different configurations of mavlink pipelines using the MavLinkConnection class "join" method as shown below.</p>
@@ -497,6 +505,7 @@ Another MavLinkConnection can be joined to proxy connections that jMavSim doesn'
       <p>Copyright &copy; 2021 Microsoft Research</p>
   </div>
 
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
           
         </div>

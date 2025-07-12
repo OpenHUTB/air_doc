@@ -285,16 +285,18 @@
               
                 <p>AirSim provides a feature that constructs ground truth voxel grids of the world directly from Unreal Engine. A voxel grid is a representation of the occupancy of a given world/map, by discretizing into cells of a certain size; and recording a voxel if that particular location is occupied. </p>
 <p>The logic for constructing the voxel grid is in WorldSimApi.cpp-&gt;createVoxelGrid(). For now, the assumption is that the voxel grid is a cube - and the API call from Python is of the structure:</p>
-<pre class="highlight"><code>simCreateVoxelGrid(self, position, x, y, z, res, of)
+<div class="highlight"><pre><span></span><code>simCreateVoxelGrid(self, position, x, y, z, res, of)
 
 position (Vector3r): Global position around which voxel grid is centered in m
 x, y, z (float): Size of each voxel grid dimension in m
 res (float): Resolution of voxel grid in m
-of (str): Name of output file to save voxel grid as</code></pre>
+of (str): Name of output file to save voxel grid as
+</code></pre></div>
 <p>Within <code>createVoxelGrid()</code>, the main Unreal Engine function that returns occupancy is <a href="https://docs.unrealengine.com/en-US/API/Runtime/Engine/Engine/UWorld/OverlapBlockingTestByChannel/index.html">OverlapBlockingTestByChannel</a>.</p>
-<pre class="highlight"><code>OverlapBlockingTestByChannel(position, rotation, ECollisionChannel, FCollisionShape, params);</code></pre>
+<div class="highlight"><pre><span></span><code>OverlapBlockingTestByChannel(position, rotation, ECollisionChannel, FCollisionShape, params);
+</code></pre></div>
 <p>This function is called on the positions of all the 'cells' we wish to discretize the map into, and the returned occupancy result is collected into an array <code>voxel_grid_</code>. The indexing of the cell occupancy values follows the convention of the <a href="https://www.patrickmin.com/binvox/binvox.html">binvox</a> format. </p>
-<pre class="highlight"><code>for (float i = 0; i &lt; ncells_x; i++) {
+<div class="highlight"><pre><span></span><code>for (float i = 0; i &lt; ncells_x; i++) {
     for (float k = 0; k &lt; ncells_z; k++) {
         for (float j = 0; j &lt; ncells_y; j++) {
             int idx = i + ncells_x * (k + ncells_z * j);
@@ -302,7 +304,8 @@ of (str): Name of output file to save voxel grid as</code></pre>
             voxel_grid_[idx] = simmode_-&gt;GetWorld()-&gt;OverlapBlockingTestByChannel(position, FQuat::Identity, ECollisionChannel::ECC_Pawn, FCollisionShape::MakeBox(FVector(scale_cm /2)), params);
         }
     }
-}</code></pre>
+}
+</code></pre></div>
 <p>The occupancy of the map is calculated iteratively over all discretized cells, which can make it an intensive operation depending on the resolution of the cells, and the total size of the area being measured. If the user's map of interest does not change much, it is possible to run the voxel grid operation once on this map, and save the voxel grid and reuse it. For performance, or with dynamic environments, we recommend running the voxel grid generation for a small area around the robot; and subsequently use it for local planning purposes.</p>
 <p>The voxel grids are stored in the binvox format which can then be converted by the user into an octomap .bt or any other relevant, desired format. Subsequently, these voxel grids/octomaps can be used within mapping/planning. One nifty little utility to visualize a created binvox files is <a href="https://www.patrickmin.com/viewvox/">viewvox</a>. Similarly, <code>binvox2bt</code> can convert the binvox to an octomap file.</p>
 <h5 id="example-voxel-grid-in-blocks">Example voxel grid in Blocks:<a class="headerlink" href="#example-voxel-grid-in-blocks" title="Permanent link">#</a></h5>
@@ -310,11 +313,12 @@ of (str): Name of output file to save voxel grid as</code></pre>
 <h5 id="blocks-voxel-grid-converted-to-octomap-format-visualized-in-rviz">Blocks voxel grid converted to Octomap format (visualized in rviz):<a class="headerlink" href="#blocks-voxel-grid-converted-to-octomap-format-visualized-in-rviz" title="Permanent link">#</a></h5>
 <p><img alt="image" src="../images/octomap.png" /></p>
 <p>As an example, a voxel grid can be constructed as follows, once the Blocks environment is up and running:</p>
-<pre class="highlight"><code>import airsim
+<div class="highlight"><pre><span></span><code>import airsim
 c = airsim.VehicleClient()
 center = airsim.Vector3r(0, 0, 0)
-output_path = os.path.join(os.getcwd(), "map.binvox")
-c.simCreateVoxelGrid(center, 100, 100, 100, 0.5, output_path)</code></pre>
+output_path = os.path.join(os.getcwd(), &quot;map.binvox&quot;)
+c.simCreateVoxelGrid(center, 100, 100, 100, 0.5, output_path)
+</code></pre></div>
 <p>And visualized through <code>viewvox map.binvox</code>.</p>
               
             </div>
@@ -331,6 +335,7 @@ c.simCreateVoxelGrid(center, 100, 100, 100, 0.5, output_path)</code></pre>
       <p>Copyright &copy; 2021 Microsoft Research</p>
   </div>
 
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
           
         </div>

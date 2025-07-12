@@ -282,17 +282,20 @@
               
                 <h1 id="moveonpath">无人机沿着路径移动(moveOnPath)演示<a class="headerlink" href="#moveonpath" title="Permanent link">#</a></h1>
 <p>在 DroneShell 中添加了一个 moveOnPath 命令，它会调用 DroneControlBase::moveOnPath 方法。为了演示这一点，我从虚幻商城下载了 <a href="https://www.unrealengine.com/marketplace/modular-neighborhood-pack">Modular Neighborhood 包</a> ，并将玩家的起始位置设置为以下位置：
-<pre class="highlight"><code class="language-text">x=310.0 cm, y=11200.0 cm, z=235.0 cm</code></pre></p>
+<div class="highlight"><pre><span></span><code>x=310.0 cm, y=11200.0 cm, z=235.0 cm
+</code></pre></div></p>
 <p>然后启动无人机并起飞，然后执行以下命令：
-<pre class="highlight"><code class="language-text">Moveonpath -path 0,-256,-4,126,-256,-4,126,0,-4,-5,0,-4 -velocity 10 -lookahead 10</code></pre>
+<div class="highlight"><pre><span></span><code>Moveonpath -path 0,-256,-4,126,-256,-4,126,0,-4,-5,0,-4 -velocity 10 -lookahead 10
+</code></pre></div>
 如果设置此 PX4 参数，则可以加快速度：
-<pre class="highlight"><code class="language-text">param set SYS_MC_EST_GROUP 2
+<div class="highlight"><pre><span></span><code>param set SYS_MC_EST_GROUP 2
 param set MPC_XY_VEL_MAX 20
 param set MPC_XY_CRUISE 5
 param set COM_OBL_ACT 1
 param set COM_OBL_RC_ACT 5
 param set NAV_RCL_ACT 0
-param set NAV_DLL_ACT 0</code></pre></p>
+param set NAV_DLL_ACT 0
+</code></pre></div></p>
 <p>结果如下，请看 <a href="https://youtu.be/9CkHgC0a2Xs">演示视频</a> ：
 <img alt="" src="../../images/wiki/moveOnPath.jpg" /></p>
               
@@ -306,6 +309,7 @@ param set NAV_DLL_ACT 0</code></pre></p>
       <p>Copyright &copy; 2021 Microsoft Research</p>
   </div>
 
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
           
         </div>

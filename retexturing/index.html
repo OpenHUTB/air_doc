@@ -115,11 +115,11 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">域随机化</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#how-to-make-an-actor-retexturable">How to Make An Actor Retexturable</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">如何让参与者可重新纹理化</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#how-to-define-the-sets-of-textures-to-choose-from">How to Define the Set(s) of Textures to Choose From</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">如何定义可供选择的纹理集</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#how-to-swap-textures-from-the-api">How to Swap Textures from the API</a>
+    <li class="toctree-l2"><a class="reference internal" href="#api">如何通过 API 交换纹理</a>
     </li>
     </ul>
                   </li>
@@ -289,50 +289,57 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="runtime-texture-swapping">Runtime Texture Swapping<a class="headerlink" href="#runtime-texture-swapping" title="Permanent link">#</a></h1>
-<h2 id="how-to-make-an-actor-retexturable">How to Make An Actor Retexturable<a class="headerlink" href="#how-to-make-an-actor-retexturable" title="Permanent link">#</a></h2>
-<p>To be made texture-swappable, an actor must derive from the parent class TextureShuffleActor.
-The parent class can be set via the settings tab in the actor's blueprint.</p>
+                <h1 id="_1">运行时纹理交换<a class="headerlink" href="#_1" title="Permanent link">#</a></h1>
+<h2 id="_2">如何让参与者可重新纹理化<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
+<p>要实现纹理可交换，Actor 必须从父类 TextureShuffleActor 派生。
+父类可以通过 Actor 蓝图中的“设置”选项卡进行设置。</p>
 <p><img alt="Parent Class" src="../images/tex_shuffle_actor.png" /></p>
-<p>After setting the parent class to TextureShuffActor, the object gains the member DynamicMaterial.
-DynamicMaterial needs to be set--on all actor instances in the scene--to TextureSwappableMaterial.
-Warning: Statically setting the Dynamic Material in the blueprint class may cause rendering errors. It seems to work better to set it on all the actor instances in the scene, using the details panel.</p>
+<p>将父类设置为 TextureShuffActor 后，该对象将获得动态材质(DynamicMaterial) 成员。
+场景中所有参与者实例的 DynamicMaterial 都需要设置为 TextureSwappableMaterial。</p>
+<div class="admonition 警告">
+<p class="admonition-title">警告</p>
+<p>在蓝图类中静态设置动态材质可能会导致渲染错误。在蓝图类中的所有 Actor 实例上设置该属性似乎效果更好。</p>
+</div>
 <p><img alt="TextureSwappableMaterial" src="../images/tex_swap_material.png" /></p>
-<h2 id="how-to-define-the-sets-of-textures-to-choose-from">How to Define the Set(s) of Textures to Choose From<a class="headerlink" href="#how-to-define-the-sets-of-textures-to-choose-from" title="Permanent link">#</a></h2>
-<p>Typically, certain subsets of actors will share a set of texture options with each other. (e.g. walls that are part of the same building)</p>
-<p>It's easy to set up these groupings by using Unreal Engine's group editing functionality.
-Select all the instances that should have the same texture selection, and add the textures to all of them simultaneously via the Details panel.
-Use the same technique to add descriptive tags to groups of actors, which will be used to address them in the API.</p>
+<h2 id="_3">如何定义可供选择的纹理集<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
+<p>通常，某些参与者子集会彼此共享一组纹理选项。（例如，属于同一建筑物的墙壁）</p>
+<p>使用虚幻引擎的群组编辑功能可以轻松设置这些分组。
+选择所有应具有相同纹理选择的实例，然后通过“详细信息”面板同时将纹理添加到所有实例。
+使用相同的技术为参与者组添加描述性标签，这些标签将用于在 API 中对其进行寻址。</p>
 <p><img alt="Group Editing" src="../images/tex_swap_group_editing.png" /></p>
-<p>It's ideal to work from larger groupings to smaller groupings, simply deselecting actors to narrow down the grouping as you go, and applying any individual actor properties last.</p>
+<p>理想的做法是从较大的分组到较小的分组，只需取消选择参与者即可缩小分组范围，最后应用任何单个参与者的属性。</p>
 <p><img alt="Subset Editing" src="../images/tex_swap_subset.png" /></p>
-<h2 id="how-to-swap-textures-from-the-api">How to Swap Textures from the API<a class="headerlink" href="#how-to-swap-textures-from-the-api" title="Permanent link">#</a></h2>
-<p>The following API is available in C++ and python. (C++ shown)</p>
-<pre class="highlight"><code class="language-C++">std::vector&lt;std::string&gt; simSwapTextures(const std::string&amp; tags, int tex_id);</code></pre>
-<p>The string of "," or ", " delimited tags identifies on which actors to perform the swap.
-The tex_id indexes the array of textures assigned to each actor undergoing a swap.
-The function will return the list of objects which matched the provided tags and had the texture swap perfomed.
-If tex_id is out-of-bounds for some object's texture set, it will be taken modulo the number of textures that were available.</p>
-<p>Demo (Python):</p>
-<pre class="highlight"><code class="language-Python">import airsim
-import time
+<h2 id="api">如何通过 API 交换纹理<a class="headerlink" href="#api" title="Permanent link">#</a></h2>
+<p>以下 API 适用于 C++ 和 Python。（此处显示 C++）</p>
+<div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="w"> </span><span class="n">simSwapTextures</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">tags</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">tex_id</span><span class="p">);</span>
+</code></pre></div>
+<p>由“,”或“，”分隔的标签字符串标识要对哪些参与者执行交换。
+tex_id 为分配给每个进行交换的参与者的纹理数组提供索引。
+该函数将返回与提供的标签匹配且已执行纹理交换的对象列表。
+如果 tex_id 超出了某些对象纹理集的范围，则将取可用纹理数量的模数。</p>
+<p>演示 (Python):</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">airsim</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
 
-c = airsim.client.MultirotorClient()
-print(c.simSwapTextures("furniture", 0))
-time.sleep(2)
-print(c.simSwapTextures("chair", 1))
-time.sleep(2)
-print(c.simSwapTextures("table", 1))
-time.sleep(2)
-print(c.simSwapTextures("chair, right", 0))</code></pre>
-<p>Results:</p>
-<pre class="highlight"><code class="language-bash">['RetexturableChair', 'RetexturableChair2', 'RetexturableTable']
-['RetexturableChair', 'RetexturableChair2']
-['RetexturableTable']
-['RetexturableChair2']</code></pre>
+<span class="n">c</span> <span class="o">=</span> <span class="n">airsim</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">MultirotorClient</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">simSwapTextures</span><span class="p">(</span><span class="s2">&quot;furniture&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">simSwapTextures</span><span class="p">(</span><span class="s2">&quot;chair&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">simSwapTextures</span><span class="p">(</span><span class="s2">&quot;table&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">simSwapTextures</span><span class="p">(</span><span class="s2">&quot;chair, right&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+</code></pre></div>
+<p>结果:</p>
+<div class="highlight"><pre><span></span><code><span class="o">[</span><span class="s1">&#39;RetexturableChair&#39;</span>,<span class="w"> </span><span class="s1">&#39;RetexturableChair2&#39;</span>,<span class="w"> </span><span class="s1">&#39;RetexturableTable&#39;</span><span class="o">]</span>
+<span class="o">[</span><span class="s1">&#39;RetexturableChair&#39;</span>,<span class="w"> </span><span class="s1">&#39;RetexturableChair2&#39;</span><span class="o">]</span>
+<span class="o">[</span><span class="s1">&#39;RetexturableTable&#39;</span><span class="o">]</span>
+<span class="o">[</span><span class="s1">&#39;RetexturableChair2&#39;</span><span class="o">]</span>
+</code></pre></div>
 <p><img alt="Demo" src="../images/tex_swap_demo.gif" /></p>
-<p>Note that in this example, different textures were chosen on each actor for the same index value.</p>
-<p>You can also use the <code>simSetObjectMaterial</code> and <code>simSetObjectMaterialFromTexture</code> APIs to set an object's material to any material asset or filepath of a texture. For more information on using these APIs, see <a href="../apis/#texture-apis">Texture APIs</a>.</p>
+<p>请注意，在此示例中，每个参与者针对相同的索引值选择了不同的纹理。</p>
+<p>您还可以使用 <code>simSetObjectMaterial</code> 和 <code>simSetObjectMaterialFromTexture</code> API 将对象的材质设置为任何材质资源或纹理的文件路径。
+有关使用这些 API 的更多信息，请参阅 <a href="../apis/#texture-apis">纹理 API</a> 。</p>
               
             </div>
           </div><footer>
@@ -348,6 +355,7 @@ print(c.simSwapTextures("chair, right", 0))</code></pre>
       <p>Copyright &copy; 2021 Microsoft Research</p>
   </div>
 
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
           
         </div>

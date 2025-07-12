@@ -140,17 +140,17 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">简单飞行</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#advantages">Advantages</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_1">优势</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#design">Design</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">设计</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#control">Control</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">控制</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#state-estimation">State Estimation</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_4">状态估计</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#supported-boards">Supported Boards</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_5">支持的主板</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_6">配置</a>
     </li>
     </ul>
                   </li>
@@ -296,48 +296,52 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="simple_flight">simple_flight<a class="headerlink" href="#simple_flight" title="Permanent link">#</a></h1>
-<p>If you don't know what the flight controller does, see <a href="../flight_controller/">What is Flight Controller?</a>. </p>
-<p>AirSim has a built-in flight controller called simple_flight and it is used by default. You don't need to do anything to use or configure it. AirSim also supports <a href="../px4_setup/">PX4</a> as another flight controller for advanced users. In the future, we also plan to support <a href="https://rosflight.org/">ROSFlight</a> and <a href="https://github.com/simondlevy/hackflight">Hackflight</a>.</p>
-<h2 id="advantages">Advantages<a class="headerlink" href="#advantages" title="Permanent link">#</a></h2>
-<p>The advantage of using simple_flight is zero additional setup you need to do and it "just works". Also, simple_flight uses a steppable clock which means you can pause the simulation and things are not at mercy of a high variance low precision clock that the operating system provides. Furthermore, simple_flight is simple, cross platform and consists of 100% header-only dependency-free C++ code which means you can literally switch between the simulator and the flight controller code within same code base!</p>
-<h2 id="design">Design<a class="headerlink" href="#design" title="Permanent link">#</a></h2>
-<p>Normally flight controllers are designed to run on actual hardware of vehicles and their support for running in simulator varies widely. They are often fairly difficult to configure for non-expert users and typically have a complex build, usually lacking cross platform support. All these problems have played a significant part in the design of simple_flight.</p>
-<p>simple_flight is designed from ground up as library with clean a interface that can work onboard the vehicle as well as in the simulator. The core principle is that the flight controller has no way to specify a special simulation mode and therefore it has no way to know if it is running as a simulation or as a real vehicle. We thus view flight controllers simply as a collection of algorithms packaged in a library. Another key emphasis is to develop this code as dependency-free header-only pure standard C++11 code. This means there is no special build required to compile simple_flight. You just copy its source code to any project you wish and it just works.</p>
-<h2 id="control">Control<a class="headerlink" href="#control" title="Permanent link">#</a></h2>
-<p>simple_flight can control vehicles by taking in the desired input as angle rate, angle level, velocity or position. Each axis of control can be specified with one of these modes. Internally, simple_flight uses a cascade of PID controllers to finally generate actuator signals. This means that the position PID drives the velocity PID, which in turn drives the angle level PID which finally drives the angle rate PID.</p>
-<h2 id="state-estimation">State Estimation<a class="headerlink" href="#state-estimation" title="Permanent link">#</a></h2>
-<p>In the current release, we are using the ground truth from the simulator for our state estimation. We plan to add a complimentary filter-based state estimator for angular velocity and orientation using 2 sensors (gyroscope, accelerometer) in the near future. In a more longer term, we plan to integrate another library to perform velocity and position estimation using 4 sensors (gyroscope, accelerometer, magnetometer and barometer) using an Extended Kalman Filter (EKF). If you have experience in this area, we encourage you to engage with us and contribute!</p>
-<h2 id="supported-boards">Supported Boards<a class="headerlink" href="#supported-boards" title="Permanent link">#</a></h2>
-<p>Currently, we have implemented simple_flight interfaces for the simulated board. We plan to implement it for the Pixhawk V2 board and possibly the Naze32 board. We expect all our code to remain unchanged and the implementation would mainly involve adding drivers for various sensors, handling ISRs and managing other board specific details. If you have experience in this area, we encourage you to engage with us and contribute!</p>
-<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">#</a></h2>
-<p>To have AirSim use simple_flight, you can specify it in <a href="../settings/">settings.json</a> as shown below. Note that this is default, so you don't have to do it explicitly.</p>
-<pre class="highlight"><code>"Vehicles": {
-    "SimpleFlight": {
-      "VehicleType": "SimpleFlight",
+<p>如果您不知道飞行控制器的作用，请参阅 <a href="../flight_controller/">什么是飞行控制器</a> 。</p>
+<p>AirSim 内置一个名为 <a href="https://marekcel.pl/mscsim">simple_flight</a> 的飞行控制器，默认使用。您无需进行任何操作即可使用或配置它。AirSim 还支持 <a href="../px4_setup/">PX4</a> 作为高级用户的另一种飞行控制器。未来，我们还计划支持 <a href="https://rosflight.org/">ROSFlight</a> 和 <a href="https://github.com/simondlevy/hackflight">Hackflight</a>。</p>
+<h2 id="_1">优势<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
+<p>使用 simple_flight 的优势在于您无需进行任何额外设置，它就能“直接运行”。此外，simple_flight 使用步进时钟，这意味着您可以暂停模拟，并且不会受到操作系统提供的高方差低精度时钟的影响。此外，simple_flight 简单易用、跨平台，并且 100% 由头文件无依赖的 C++ 代码组成，这意味着您可以在同一个代码库中在模拟器和飞行控制器代码之间切换！</p>
+<h2 id="_2">设计<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
+<p>通常，飞行控制器设计用于在实际的飞行器硬件上运行，而它们对模拟器的支持差异很大。对于非专业用户来说，配置起来通常相当困难，而且通常构建复杂，缺乏跨平台支持。所有这些问题在 simple_flight 的设计中都发挥了重要作用。</p>
+<p>simple_flight 从一开始就被设计成一个库，它拥有简洁的接口，可以在飞行器和模拟器中运行。其核心原则是，飞行控制器无法指定特殊的模拟模式，因此无法判断它是作为模拟运行还是作为真实飞行器运行。因此，我们将飞行控制器简单地视为打包在库中的一组算法。另一个重点是将此代码开发为无依赖、仅包含头文件的纯标准 C++11 代码。这意味着编译 simple_flight 无需任何特殊构建。您只需将其源代码复制到任何您想要的项目中，它就可以运行。</p>
+<h2 id="_3">控制<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
+<p>simple_flight 可以通过接收角速率、角度、速度或位置等所需输入来控制飞行器。每个控制轴都可以使用其中一种模式指定。在内部，simple_flight 使用级联 PID 控制器来最终生成执行器信号。这意味着位置 PID 驱动速度 PID，速度 PID 又驱动角度 PID，角度 PID 最终驱动角速率 PID。</p>
+<h2 id="_4">状态估计<a class="headerlink" href="#_4" title="Permanent link">#</a></h2>
+<p>在当前版本中，我们使用来自模拟器的真实值进行状态估计。我们计划在不久的将来添加一个基于滤波器的免费状态估计器，用于使用两个传感器（陀螺仪和加速度计）进行角速度和方向估计。从长远来看，我们计划集成另一个库，使用 4 个传感器（陀螺仪、加速度计、磁力计和气压计）并结合扩展卡尔曼滤波器 (EKF) 进行速度和位置估计。如果您在这方面有经验，我们鼓励您与我们互动并做出贡献！</p>
+<h2 id="_5">支持的主板<a class="headerlink" href="#_5" title="Permanent link">#</a></h2>
+<p>目前，我们已经为模拟板实现了 simple_flight 接口。我们计划将其实现到 Pixhawk V2 板，甚至可能实现到 Naze32 板。我们预计所有代码将保持不变，实现主要包括为各种传感器添加驱动程序、处理 ISR 以及管理其他板级相关细节。如果您在这方面有经验，我们鼓励您与我们互动并做出贡献！</p>
+<h2 id="_6">配置<a class="headerlink" href="#_6" title="Permanent link">#</a></h2>
+<p>要让 AirSim 使用 simple_flight，您可以在 <a href="../settings/">settings.json</a> 中指定它，如下所示。请注意，这是默认设置，因此您无需明确指定。</p>
+<div class="highlight"><pre><span></span><code>&quot;Vehicles&quot;: {
+    &quot;SimpleFlight&quot;: {
+      &quot;VehicleType&quot;: &quot;SimpleFlight&quot;,
     }
-}</code></pre>
-<p>By default, a vehicle using simple_flight is already armed which is why you would see its propellers spinning. However, if you don't want that then set <code>DefaultVehicleState</code> to <code>Inactive</code> like this:</p>
-<pre class="highlight"><code>"Vehicles": {
-    "SimpleFlight": {
-      "VehicleType": "SimpleFlight",
-      "DefaultVehicleState": "Inactive"
+}
+</code></pre></div>
+<p>默认情况下，使用 simple_flight 的飞行器已经处于武装状态，因此你会看到它的螺旋桨在旋转。但是，如果你不想这样，可以将 <code>DefaultVehicleState</code> 设置为 <code>Inactive</code>，如下所示：</p>
+<div class="highlight"><pre><span></span><code>&quot;Vehicles&quot;: {
+    &quot;SimpleFlight&quot;: {
+      &quot;VehicleType&quot;: &quot;SimpleFlight&quot;,
+      &quot;DefaultVehicleState&quot;: &quot;Inactive&quot;
     }
-}</code></pre>
-<p>In this case, you will need to either manually arm by placing the RC sticks in the down-inward position or using the APIs.</p>
-<p>For safety reasons, flight controllers disallow API control unless a human operator has consented its use using a switch on his/her RC. Also, when RC control is lost, the vehicle should disable API control and enter hover mode for safety reasons. To simplify things a bit, simple_flight enables API control without human consent using RC and even when RC is not detected by default. However you can change this using the following setting:</p>
-<pre class="highlight"><code>"Vehicles": {
-    "SimpleFlight": {
-      "VehicleType": "SimpleFlight",
+}
+</code></pre></div>
+<p>在这种情况下，您需要手动将遥控摇杆向下向内放置，或使用 API 进行解锁。</p>
+<p>出于安全考虑，飞行控制器不允许 API 控制，除非操作员已通过遥控上的开关同意使用 API。此外，当遥控失去控制时，出于安全考虑，飞行器应禁用 API 控制并进入悬停模式。为了简化操作，simple_flight 默认启用 API 控制，无需操作员同意，即使遥控未被检测到，也无需人工干预。不过，您可以使用以下设置更改此设置：</p>
+<div class="highlight"><pre><span></span><code>&quot;Vehicles&quot;: {
+    &quot;SimpleFlight&quot;: {
+      &quot;VehicleType&quot;: &quot;SimpleFlight&quot;,
 
-      "AllowAPIAlways": true,
-      "RC": {
-        "RemoteControlID": 0,      
-        "AllowAPIWhenDisconnected": true
+      &quot;AllowAPIAlways&quot;: true,
+      &quot;RC&quot;: {
+        &quot;RemoteControlID&quot;: 0,      
+        &quot;AllowAPIWhenDisconnected&quot;: true
       }
     }
-}</code></pre>
-<p>Finally, simple_flight uses a steppable clock by default which means that the clock advances when the simulator tells it to advance (unlike the wall clock which advances strictly according to the passage of time). This means the clock can be paused, for example, if code hits a breakpoint and there is zero variance in the clock (clock APIs provided by operating systems might have significant variance unless it is a "real time" OS). If you want simple_flight to use a wall clock instead then use following settings:</p>
-<pre class="highlight"><code>  "ClockType": "ScalableClock"</code></pre>
+}
+</code></pre></div>
+<p>最后，simple_flight 默认使用步进时钟，这意味着当模拟器发出指令时，时钟会前进（不像挂钟那样严格按照时间的推移前进）。这意味着时钟可以暂停，例如，当代码遇到断点且时钟的方差为零时（除非是“实时”操作系统，否则操作系统提供的时钟 API 可能会有显著的方差）。如果您希望 simple_flight 使用挂钟，请使用以下设置：</p>
+<div class="highlight"><pre><span></span><code>  &quot;ClockType&quot;: &quot;ScalableClock&quot;
+</code></pre></div>
               
             </div>
           </div><footer>
@@ -353,6 +357,7 @@
       <p>Copyright &copy; 2021 Microsoft Research</p>
   </div>
 
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
           
         </div>

@@ -290,41 +290,45 @@
 <p>However, the data recorded by default might not be sufficient for your use cases, and it might be preferable to record additional data such as IMU, GPS sensors, Rotor speed for copters, etc. You can use the existing Python and C++ APIs to get the information and store it as required, especially for Lidar. Another option for adding small fields such as GPS or internal data such as Unreal position or something else is possible through modifying the recording methods inside AirSim. This page describes the specific methods which you might need to change.</p>
 <p>The recorded data is written in a <code>airsim_rec.txt</code> file in a tab-separated format, with images in an <code>images/</code> folder. The entire folder is by default present in the <code>Documents</code> folder (or specified in settings) with the timestamp of when the recording started in <code>%Y-%M-%D-%H-%M-%S</code> format.</p>
 <p>Car vehicle records the following fields -</p>
-<pre class="highlight"><code class="language-text">VehicleName TimeStamp   POS_X   POS_Y   POS_Z   Q_W Q_X Q_Y Q_Z Throttle    Steering    Brake   Gear    Handbrake   RPM Speed   ImageFile</code></pre>
+<div class="highlight"><pre><span></span><code>VehicleName TimeStamp   POS_X   POS_Y   POS_Z   Q_W Q_X Q_Y Q_Z Throttle    Steering    Brake   Gear    Handbrake   RPM Speed   ImageFile
+</code></pre></div>
 <p>For Multirotor -</p>
-<pre class="highlight"><code class="language-text">VehicleName TimeStamp   POS_X   POS_Y   POS_Z   Q_W Q_X Q_Y Q_Z ImageFile</code></pre>
+<div class="highlight"><pre><span></span><code>VehicleName TimeStamp   POS_X   POS_Y   POS_Z   Q_W Q_X Q_Y Q_Z ImageFile
+</code></pre></div>
 <h2 id="code-changes">Code Changes<a class="headerlink" href="#code-changes" title="Permanent link">#</a></h2>
 <p>Note that this requires building and using AirSim from source. You can compile a binary yourself after modifying if needed.</p>
 <p>The primary method which fills the data to be stored is <a href="https://github.com/microsoft/AirSim/blob/880c5541fd4824ee2cd9bb82ca5f611eb1ab236a/Unreal/Plugins/AirSim/Source/PawnSimApi.cpp#L544"><code>PawnSimApi::getRecordFileLine</code></a>, it's the base method for all the vehicles, and Car overrides it to log additional data, as can be seen in <a href="https://github.com/microsoft/AirSim/blob/880c5541fd4824ee2cd9bb82ca5f611eb1ab236a/Unreal/Plugins/AirSim/Source/Vehicles/Car/CarPawnSimApi.cpp#L34"><code>CarPawnSimApi::getRecordFileLine</code></a>.</p>
 <p>To record additional data for multirotor, you can add a similar method in <a href="https://github.com/microsoft/AirSim/tree/main/Unreal/Plugins/AirSim/Source/Vehicles/Multirotor">MultirotorPawnSimApi.cpp/h</a> files which overrides the base class implementation and append other data. The currently logged data can also be modified and removed as needed.</p>
 <p>E.g. recording GPS, IMU and Barometer data also for multirotor -</p>
-<pre class="highlight"><code class="language-cpp">// MultirotorPawnSimApi.cpp
-std::string MultirotorPawnSimApi::getRecordFileLine(bool is_header_line) const
-{
-    std::string common_line = PawnSimApi::getRecordFileLine(is_header_line);
-    if (is_header_line) {
-        return common_line +
-               "Latitude\tLongitude\tAltitude\tPressure\tAccX\tAccY\tAccZ\t";
-    }
+<div class="highlight"><pre><span></span><code><span class="c1">// MultirotorPawnSimApi.cpp</span>
+<span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="nf">MultirotorPawnSimApi::getRecordFileLine</span><span class="p">(</span><span class="kt">bool</span><span class="w"> </span><span class="n">is_header_line</span><span class="p">)</span><span class="w"> </span><span class="k">const</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">common_line</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PawnSimApi</span><span class="o">::</span><span class="n">getRecordFileLine</span><span class="p">(</span><span class="n">is_header_line</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">is_header_line</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">common_line</span><span class="w"> </span><span class="o">+</span>
+<span class="w">               </span><span class="s">&quot;Latitude</span><span class="se">\t</span><span class="s">Longitude</span><span class="se">\t</span><span class="s">Altitude</span><span class="se">\t</span><span class="s">Pressure</span><span class="se">\t</span><span class="s">AccX</span><span class="se">\t</span><span class="s">AccY</span><span class="se">\t</span><span class="s">AccZ</span><span class="se">\t</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
 
-    const auto&amp; state = vehicle_api_-&gt;getMultirotorState();
-    const auto&amp; bar_data = vehicle_api_-&gt;getBarometerData("");
-    const auto&amp; imu_data = vehicle_api_-&gt;getImuData("");
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vehicle_api_</span><span class="o">-&gt;</span><span class="n">getMultirotorState</span><span class="p">();</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">bar_data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vehicle_api_</span><span class="o">-&gt;</span><span class="n">getBarometerData</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">imu_data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vehicle_api_</span><span class="o">-&gt;</span><span class="n">getImuData</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
 
-    std::ostringstream ss;
-    ss &lt;&lt; common_line;
-    ss &lt;&lt; state.gps_location.latitude &lt;&lt; "\t" &lt;&lt; state.gps_location.longitude &lt;&lt; "\t"
-       &lt;&lt; state.gps_location.altitude &lt;&lt; "\t";
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">ostringstream</span><span class="w"> </span><span class="n">ss</span><span class="p">;</span>
+<span class="w">    </span><span class="n">ss</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">common_line</span><span class="p">;</span>
+<span class="w">    </span><span class="n">ss</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">state</span><span class="p">.</span><span class="n">gps_location</span><span class="p">.</span><span class="n">latitude</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\t</span><span class="s">&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">state</span><span class="p">.</span><span class="n">gps_location</span><span class="p">.</span><span class="n">longitude</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\t</span><span class="s">&quot;</span>
+<span class="w">       </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">state</span><span class="p">.</span><span class="n">gps_location</span><span class="p">.</span><span class="n">altitude</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\t</span><span class="s">&quot;</span><span class="p">;</span>
 
-    ss &lt;&lt; bar_data.pressure &lt;&lt; "\t";
+<span class="w">    </span><span class="n">ss</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">bar_data</span><span class="p">.</span><span class="n">pressure</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\t</span><span class="s">&quot;</span><span class="p">;</span>
 
-    ss &lt;&lt; imu_data.linear_acceleration.x() &lt;&lt; "\t" &lt;&lt; imu_data.linear_acceleration.y() &lt;&lt; "\t"
-       &lt;&lt; imu_data.linear_acceleration.z() &lt;&lt; "\t";
+<span class="w">    </span><span class="n">ss</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">imu_data</span><span class="p">.</span><span class="n">linear_acceleration</span><span class="p">.</span><span class="n">x</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\t</span><span class="s">&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">imu_data</span><span class="p">.</span><span class="n">linear_acceleration</span><span class="p">.</span><span class="n">y</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\t</span><span class="s">&quot;</span>
+<span class="w">       </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">imu_data</span><span class="p">.</span><span class="n">linear_acceleration</span><span class="p">.</span><span class="n">z</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\t</span><span class="s">&quot;</span><span class="p">;</span>
 
-    return ss.str();
-}</code></pre>
-<pre class="highlight"><code class="language-cpp">// MultirotorPawnSimApi.h
-virtual std::string getRecordFileLine(bool is_header_line) const override;</code></pre>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ss</span><span class="p">.</span><span class="n">str</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1">// MultirotorPawnSimApi.h</span>
+<span class="k">virtual</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="nf">getRecordFileLine</span><span class="p">(</span><span class="kt">bool</span><span class="w"> </span><span class="n">is_header_line</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">override</span><span class="p">;</span>
+</code></pre></div>
               
             </div>
           </div><footer>
@@ -340,6 +344,7 @@ virtual std::string getRecordFileLine(bool is_header_line) const override;</code
       <p>Copyright &copy; 2021 Microsoft Research</p>
   </div>
 
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
           
         </div>

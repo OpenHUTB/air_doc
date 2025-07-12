@@ -314,47 +314,50 @@ One can control these settings for each camera, image type and vehicle combinati
 </li>
 </ul>
 <p>The return value of <code>simGetDetections</code> is a <code>DetectionInfo</code> array:
-<pre class="highlight"><code class="language-python">DetectionInfo
-    name = ''
-    geo_point = GeoPoint()
-    box2D = Box2D()
-    box3D = Box3D()
-    relative_pose = Pose()</code></pre></p>
+<div class="highlight"><pre><span></span><code><span class="n">DetectionInfo</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">geo_point</span> <span class="o">=</span> <span class="n">GeoPoint</span><span class="p">()</span>
+    <span class="n">box2D</span> <span class="o">=</span> <span class="n">Box2D</span><span class="p">()</span>
+    <span class="n">box3D</span> <span class="o">=</span> <span class="n">Box3D</span><span class="p">()</span>
+    <span class="n">relative_pose</span> <span class="o">=</span> <span class="n">Pose</span><span class="p">()</span>
+</code></pre></div></p>
 <h2 id="usage-example">Usage example<a class="headerlink" href="#usage-example" title="Permanent link">#</a></h2>
 <p>Python script <a href="https://github.com/microsoft/AirSim/blob/main/PythonClient/detection/detection.py">detection.py</a> shows how to set detection parameters and shows the result in OpenCV capture.</p>
 <p>A minimal example using API with Blocks environment to detect Cylinder objects:
-<pre class="highlight"><code class="language-python">camera_name = "0"
-image_type = airsim.ImageType.Scene
+<div class="highlight"><pre><span></span><code><span class="n">camera_name</span> <span class="o">=</span> <span class="s2">&quot;0&quot;</span>
+<span class="n">image_type</span> <span class="o">=</span> <span class="n">airsim</span><span class="o">.</span><span class="n">ImageType</span><span class="o">.</span><span class="n">Scene</span>
 
-client = airsim.MultirotorClient()
-client.confirmConnection()
+<span class="n">client</span> <span class="o">=</span> <span class="n">airsim</span><span class="o">.</span><span class="n">MultirotorClient</span><span class="p">()</span>
+<span class="n">client</span><span class="o">.</span><span class="n">confirmConnection</span><span class="p">()</span>
 
-client.simSetDetectionFilterRadius(camera_name, image_type, 80 * 100) # in [cm]
-client.simAddDetectionFilterMeshName(camera_name, image_type, "Cylinder_*") 
-client.simGetDetections(camera_name, image_type)
-detections = client.simClearDetectionMeshNames(camera_name, image_type)</code></pre></p>
+<span class="n">client</span><span class="o">.</span><span class="n">simSetDetectionFilterRadius</span><span class="p">(</span><span class="n">camera_name</span><span class="p">,</span> <span class="n">image_type</span><span class="p">,</span> <span class="mi">80</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span> <span class="c1"># in [cm]</span>
+<span class="n">client</span><span class="o">.</span><span class="n">simAddDetectionFilterMeshName</span><span class="p">(</span><span class="n">camera_name</span><span class="p">,</span> <span class="n">image_type</span><span class="p">,</span> <span class="s2">&quot;Cylinder_*&quot;</span><span class="p">)</span> 
+<span class="n">client</span><span class="o">.</span><span class="n">simGetDetections</span><span class="p">(</span><span class="n">camera_name</span><span class="p">,</span> <span class="n">image_type</span><span class="p">)</span>
+<span class="n">detections</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">simClearDetectionMeshNames</span><span class="p">(</span><span class="n">camera_name</span><span class="p">,</span> <span class="n">image_type</span><span class="p">)</span>
+</code></pre></div></p>
 <p>Output result:
-<pre class="highlight"><code class="language-python">Cylinder: &lt;DetectionInfo&gt; {   'box2D': &lt;Box2D&gt; {   'max': &lt;Vector2r&gt; {   'x_val': 617.025634765625,
-    'y_val': 583.5487060546875},
-    'min': &lt;Vector2r&gt; {   'x_val': 485.74359130859375,
-    'y_val': 438.33465576171875}},
-    'box3D': &lt;Box3D&gt; {   'max': &lt;Vector3r&gt; {   'x_val': 4.900000095367432,
-    'y_val': 0.7999999523162842,
-    'z_val': 0.5199999809265137},
-    'min': &lt;Vector3r&gt; {   'x_val': 3.8999998569488525,
-    'y_val': -0.19999998807907104,
-    'z_val': 1.5199999809265137}},
-    'geo_point': &lt;GeoPoint&gt; {   'altitude': 16.979999542236328,
-    'latitude': 32.28772183970703,
-    'longitude': 34.864785008379876},
-    'name': 'Cylinder9_2',
-    'relative_pose': &lt;Pose&gt; {   'orientation': &lt;Quaternionr&gt; {   'w_val': 0.9929741621017456,
-    'x_val': 0.0038591264747083187,
-    'y_val': -0.11333247274160385,
-    'z_val': 0.03381215035915375},
-    'position': &lt;Vector3r&gt; {   'x_val': 4.400000095367432,
-    'y_val': 0.29999998211860657,
-    'z_val': 1.0199999809265137}}}</code></pre></p>
+<div class="highlight"><pre><span></span><code><span class="n">Cylinder</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">DetectionInfo</span><span class="o">&gt;</span> <span class="p">{</span>   <span class="s1">&#39;box2D&#39;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">Box2D</span><span class="o">&gt;</span> <span class="p">{</span>   <span class="s1">&#39;max&#39;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">Vector2r</span><span class="o">&gt;</span> <span class="p">{</span>   <span class="s1">&#39;x_val&#39;</span><span class="p">:</span> <span class="mf">617.025634765625</span><span class="p">,</span>
+    <span class="s1">&#39;y_val&#39;</span><span class="p">:</span> <span class="mf">583.5487060546875</span><span class="p">},</span>
+    <span class="s1">&#39;min&#39;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">Vector2r</span><span class="o">&gt;</span> <span class="p">{</span>   <span class="s1">&#39;x_val&#39;</span><span class="p">:</span> <span class="mf">485.74359130859375</span><span class="p">,</span>
+    <span class="s1">&#39;y_val&#39;</span><span class="p">:</span> <span class="mf">438.33465576171875</span><span class="p">}},</span>
+    <span class="s1">&#39;box3D&#39;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">Box3D</span><span class="o">&gt;</span> <span class="p">{</span>   <span class="s1">&#39;max&#39;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">Vector3r</span><span class="o">&gt;</span> <span class="p">{</span>   <span class="s1">&#39;x_val&#39;</span><span class="p">:</span> <span class="mf">4.900000095367432</span><span class="p">,</span>
+    <span class="s1">&#39;y_val&#39;</span><span class="p">:</span> <span class="mf">0.7999999523162842</span><span class="p">,</span>
+    <span class="s1">&#39;z_val&#39;</span><span class="p">:</span> <span class="mf">0.5199999809265137</span><span class="p">},</span>
+    <span class="s1">&#39;min&#39;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">Vector3r</span><span class="o">&gt;</span> <span class="p">{</span>   <span class="s1">&#39;x_val&#39;</span><span class="p">:</span> <span class="mf">3.8999998569488525</span><span class="p">,</span>
+    <span class="s1">&#39;y_val&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.19999998807907104</span><span class="p">,</span>
+    <span class="s1">&#39;z_val&#39;</span><span class="p">:</span> <span class="mf">1.5199999809265137</span><span class="p">}},</span>
+    <span class="s1">&#39;geo_point&#39;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">GeoPoint</span><span class="o">&gt;</span> <span class="p">{</span>   <span class="s1">&#39;altitude&#39;</span><span class="p">:</span> <span class="mf">16.979999542236328</span><span class="p">,</span>
+    <span class="s1">&#39;latitude&#39;</span><span class="p">:</span> <span class="mf">32.28772183970703</span><span class="p">,</span>
+    <span class="s1">&#39;longitude&#39;</span><span class="p">:</span> <span class="mf">34.864785008379876</span><span class="p">},</span>
+    <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Cylinder9_2&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;relative_pose&#39;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">Pose</span><span class="o">&gt;</span> <span class="p">{</span>   <span class="s1">&#39;orientation&#39;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">Quaternionr</span><span class="o">&gt;</span> <span class="p">{</span>   <span class="s1">&#39;w_val&#39;</span><span class="p">:</span> <span class="mf">0.9929741621017456</span><span class="p">,</span>
+    <span class="s1">&#39;x_val&#39;</span><span class="p">:</span> <span class="mf">0.0038591264747083187</span><span class="p">,</span>
+    <span class="s1">&#39;y_val&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.11333247274160385</span><span class="p">,</span>
+    <span class="s1">&#39;z_val&#39;</span><span class="p">:</span> <span class="mf">0.03381215035915375</span><span class="p">},</span>
+    <span class="s1">&#39;position&#39;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">Vector3r</span><span class="o">&gt;</span> <span class="p">{</span>   <span class="s1">&#39;x_val&#39;</span><span class="p">:</span> <span class="mf">4.400000095367432</span><span class="p">,</span>
+    <span class="s1">&#39;y_val&#39;</span><span class="p">:</span> <span class="mf">0.29999998211860657</span><span class="p">,</span>
+    <span class="s1">&#39;z_val&#39;</span><span class="p">:</span> <span class="mf">1.0199999809265137</span><span class="p">}}}</span>
+</code></pre></div></p>
 <p><img alt="image" src="../images/detection_ue4.png" />
 <img alt="image" src="../images/detection_python.png" /></p>
               
@@ -372,6 +375,7 @@ detections = client.simClearDetectionMeshNames(camera_name, image_type)</code></
       <p>Copyright &copy; 2021 Microsoft Research</p>
   </div>
 
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
           
         </div>

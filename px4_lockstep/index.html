@@ -292,16 +292,17 @@ so they essentially use the same clock time.  This makes PX4 behave normally eve
 long delays in Simulator performance.</p>
 <p>It is recommended that when you are running a lockstep enabled version of PX4 in SITL mode that you
 tell AirSim to use a <code>SteppableClock</code>, and set <code>UseTcp</code> to <code>true</code> and <code>LockStep</code> to <code>true</code>.</p>
-<pre class="highlight"><code>    {
-        "SettingsVersion": 1.2,
-        "SimMode": "Multirotor",
-        "ClockType": "SteppableClock",
-        "Vehicles": {
-            "PX4": {
-                "VehicleType": "PX4Multirotor",
-                "UseTcp": true,
-                "LockStep": true,
-                ...</code></pre>
+<div class="highlight"><pre><span></span><code>    {
+        &quot;SettingsVersion&quot;: 1.2,
+        &quot;SimMode&quot;: &quot;Multirotor&quot;,
+        &quot;ClockType&quot;: &quot;SteppableClock&quot;,
+        &quot;Vehicles&quot;: {
+            &quot;PX4&quot;: {
+                &quot;VehicleType&quot;: &quot;PX4Multirotor&quot;,
+                &quot;UseTcp&quot;: true,
+                &quot;LockStep&quot;: true,
+                ...
+</code></pre></div>
 <p>This causes AirSim to not use a "realtime" clock, but instead it advances the clock in step which
 each sensor update sent to PX4.  This way PX4 thinks time is progressing smoothly no matter how long
 it takes AirSim to really process that update loop.</p>
@@ -323,19 +324,22 @@ PX4</a>:</p>
 <ol>
 <li>Navigate to <code>boards/px4/sitl/</code> in your local PX4 repository</li>
 <li>Edit <code>default.cmake</code> and find the following line:
-    <pre class="highlight"><code>set(ENABLE_LOCKSTEP_SCHEDULER yes)</code></pre></li>
+    <div class="highlight"><pre><span></span><code>set(ENABLE_LOCKSTEP_SCHEDULER yes)
+</code></pre></div></li>
 <li>Change this line to:
-    <pre class="highlight"><code>set(ENABLE_LOCKSTEP_SCHEDULER no)</code></pre></li>
+    <div class="highlight"><pre><span></span><code>set(ENABLE_LOCKSTEP_SCHEDULER no)
+</code></pre></div></li>
 <li>Disable it in AirSim by setting <code>LockStep</code> to <code>false</code> and either removing any <code>"ClockType": 
 "SteppableClock"</code> setting or resetting <code>ClockType</code> back to default:
-    <pre class="highlight"><code>    {
+    <div class="highlight"><pre><span></span><code>    {
         ...
-        "ClockType": "",
-        "Vehicles": {
-            "PX4": {
-                "VehicleType": "PX4Multirotor",
-                "LockStep": false,
-                ...</code></pre></li>
+        &quot;ClockType&quot;: &quot;&quot;,
+        &quot;Vehicles&quot;: {
+            &quot;PX4&quot;: {
+                &quot;VehicleType&quot;: &quot;PX4Multirotor&quot;,
+                &quot;LockStep&quot;: false,
+                ...
+</code></pre></div></li>
 <li>Now you can run PX4 SITL as you normally would (<code>make px4_sitl_default none_iris</code>) and it will use 
 the host system time without waiting on AirSim.</li>
 </ol>
@@ -354,6 +358,7 @@ the host system time without waiting on AirSim.</li>
       <p>Copyright &copy; 2021 Microsoft Research</p>
   </div>
 
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
           
         </div>

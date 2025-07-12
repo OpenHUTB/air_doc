@@ -89,35 +89,35 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">远程控制</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#rc-setup-for-default-config">RC Setup for Default Config</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">默认配置的遥控设置</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#other-devices">Other Devices</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_3">其他设备</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#note-on-frsky-taranis-x9d-plus">Note on FrSky Taranis X9D Plus</a>
+    <li class="toctree-l3"><a class="reference internal" href="#frsky-taranis-x9d-plus">FrSky Taranis X9D Plus 注意事项</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#note-on-linux">Note on Linux</a>
+    <li class="toctree-l3"><a class="reference internal" href="#linux">Linux 注意事项</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#rc-setup-for-px4">RC Setup for PX4</a>
+    <li class="toctree-l2"><a class="reference internal" href="#px4">PX4 的遥控设置</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#using-xbox-360-usb-gamepad">Using XBox 360 USB Gamepad</a>
+    <li class="toctree-l3"><a class="reference internal" href="#xbox-360-usb">使用 XBox 360 USB 游戏手柄</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#using-playstation-3-controller">Using Playstation 3 controller</a>
+    <li class="toctree-l3"><a class="reference internal" href="#playstation-3">使用 Playstation 3 控制器</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#dji-controller">DJI Controller</a>
+    <li class="toctree-l3"><a class="reference internal" href="#dji">DJI 控制器</a>
     </li>
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#faq">FAQ</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#im-using-default-config-and-airsim-says-my-rc-is-not-detected-on-usb">I'm using default config and AirSim says my RC is not detected on USB.</a>
+    <li class="toctree-l3"><a class="reference internal" href="#airsim-rc-usb">我正在使用默认配置，但 AirSim 说我的 RC 在 USB 上未被检测到。</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#vehicle-seems-unstable-when-using-xboxps3-controller">Vehicle seems unstable when using XBox/PS3 controller</a>
+    <li class="toctree-l3"><a class="reference internal" href="#xboxps3">使用 XBox/PS3 控制器时车辆似乎不稳定</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#where-is-rc-calibration-in-airsim">Where is RC calibration in AirSim?</a>
+    <li class="toctree-l3"><a class="reference internal" href="#airsim-rc">AirSim 中的 RC 校准在哪里？</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#my-rc-is-not-working-with-px4-setup">My RC is not working with PX4 setup.</a>
+    <li class="toctree-l3"><a class="reference internal" href="#rc-px4">我的 RC 无法与 PX4 设置配合使用。</a>
     </li>
         </ul>
     </li>
@@ -315,53 +315,53 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="remote-control">Remote Control<a class="headerlink" href="#remote-control" title="Permanent link">#</a></h1>
-<p>To fly manually, you need remote control or RC. If you don't have one then you can use <a href="../apis/">APIs</a> to fly programmatically or use so-called <a href="../image_apis/">Computer Vision mode</a> to move around using keyboard.</p>
-<h2 id="rc-setup-for-default-config">RC Setup for Default Config<a class="headerlink" href="#rc-setup-for-default-config" title="Permanent link">#</a></h2>
-<p>By default AirSim uses <a href="../simple_flight/">simple_flight</a> as its flight controller which connects to RC via USB port to your computer.</p>
-<p>You can either use XBox controller or <a href="https://hobbyking.com/en_us/frsky-2-4ghz-accst-taranis-x9d-plus-and-x8r-combo-digital-telemetry-radio-system-mode-2.html">FrSky Taranis X9D Plus</a>. Note that XBox 360 controller is not precise enough and is not recommended if you wanted more real world experience. See FAQ below if things are not working.</p>
-<h3 id="other-devices">Other Devices<a class="headerlink" href="#other-devices" title="Permanent link">#</a></h3>
-<p>AirSim can detect large variety of devices however devices other than above <em>might</em> need extra configuration. In future we will add ability to set this config through settings.json. For now, if things are not working then you might want to try workarounds such as <a href="http://www.x360ce.com/">x360ce</a> or change code in <a href="https://github.com/microsoft/AirSim/blob/main/Unreal/Plugins/AirSim/Source/SimJoyStick/SimJoyStick.cpp#L50">SimJoystick.cpp file</a>.</p>
-<h3 id="note-on-frsky-taranis-x9d-plus">Note on FrSky Taranis X9D Plus<a class="headerlink" href="#note-on-frsky-taranis-x9d-plus" title="Permanent link">#</a></h3>
-<p><a href="https://hobbyking.com/en_us/frsky-2-4ghz-accst-taranis-x9d-plus-and-x8r-combo-digital-telemetry-radio-system-mode-2.html">FrSky Taranis X9D Plus</a> is real UAV remote control with an advantage that it has USB port so it can be directly connected to PC. You can <a href="../misc/AirSim_FrSkyTaranis.bin">download AirSim config file</a> and <a href="https://www.youtube.com/watch?v=qe-13Gyb0sw">follow this tutorial</a> to import it in your RC. You should then see "sim" model in RC with all channels configured properly.</p>
-<h3 id="note-on-linux">Note on Linux<a class="headerlink" href="#note-on-linux" title="Permanent link">#</a></h3>
-<p>Currently default config on Linux is for using Xbox controller. This means other devices might not work properly. In future we will add ability to configure RC in settings.json but for now you <em>might</em> have to change  code in <a href="https://github.com/microsoft/AirSim/blob/main/Unreal/Plugins/AirSim/Source/SimJoyStick/SimJoyStick.cpp#L340">SimJoystick.cpp file</a> to use other devices.</p>
-<h2 id="rc-setup-for-px4">RC Setup for PX4<a class="headerlink" href="#rc-setup-for-px4" title="Permanent link">#</a></h2>
-<p>AirSim supports PX4 flight controller however it requires different setup. There are many remote control options that you can use with quadrotors. We have successfully used FrSky Taranis X9D Plus, FlySky FS-TH9X and Futaba 14SG with AirSim. Following are the high level steps to configure your RC:</p>
+                <h1 id="_1">遥控<a class="headerlink" href="#_1" title="Permanent link">#</a></h1>
+<p>要手动飞行，您需要遥控器或 RC(Remote Control)。如果没有遥控器，您可以使用 <a href="../apis/">APIs</a> 以编程方式飞行，或者使用所谓的 <a href="../image_apis/">计算机视觉模式</a> 通过键盘操控飞行。</p>
+<h2 id="_2">默认配置的遥控设置<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
+<p>默认情况下，AirSim 使用 <a href="../simple_flight/">simple_flight</a>  作为其飞行控制器，通过 USB 端口将 RC 连接到您的计算机。</p>
+<p>您可以使用 XBox 控制器或 <a href="https://hobbyking.com/en_us/frsky-2-4ghz-accst-taranis-x9d-plus-and-x8r-combo-digital-telemetry-radio-system-mode-2.html">FrSky Taranis X9D Plus</a>。请注意，XBox 360 控制器不够精准，如果您想要更真实的游戏体验，不推荐使用。如果出现问题，请参阅下方的常见问题解答。</p>
+<h3 id="_3">其他设备<a class="headerlink" href="#_3" title="Permanent link">#</a></h3>
+<p>AirSim 可以检测各种设备，但除上述设备外，其他设备可能需要额外配置。未来我们将添加通过 settings.json 设置此配置的功能。目前，如果一切正常，您可以尝试 <a href="http://www.x360ce.com/">x360ce</a> 等变通方法，或更改 <a href="https://github.com/microsoft/AirSim/blob/main/Unreal/Plugins/AirSim/Source/SimJoyStick/SimJoyStick.cpp#L50">SimJoystick.cpp 文件</a> 中的代码。</p>
+<h3 id="frsky-taranis-x9d-plus">FrSky Taranis X9D Plus 注意事项<a class="headerlink" href="#frsky-taranis-x9d-plus" title="Permanent link">#</a></h3>
+<p><a href="https://hobbyking.com/en_us/frsky-2-4ghz-accst-taranis-x9d-plus-and-x8r-combo-digital-telemetry-radio-system-mode-2.html">FrSky Taranis X9D Plus</a> 是一款真正的无人机遥控器，其优势在于它配备 USB 端口，可直接连接到电脑。您可以 <a href="../misc/AirSim_FrSkyTaranis.bin">下载 AirSim 配置文件</a> ，并 <a href="https://www.youtube.com/watch?v=qe-13Gyb0sw">按照本教程</a> 将其导入您的遥控器。之后，您应该会在遥控器中看到所有通道均已正确配置的“sim”模型。</p>
+<h3 id="linux">Linux 注意事项<a class="headerlink" href="#linux" title="Permanent link">#</a></h3>
+<p>目前 Linux 上的默认配置适用于 Xbox 控制器。这意味着其他设备可能无法正常工作。未来我们将在 settings.json 中添加配置 RC 的功能，但目前您 <em>可能</em> 需要修改 <a href="https://github.com/microsoft/AirSim/blob/main/Unreal/Plugins/AirSim/Source/SimJoyStick/SimJoyStick.cpp#L340">SimJoystick.cpp file</a> 文件中的代码才能使用其他设备。</p>
+<h2 id="px4">PX4 的遥控设置<a class="headerlink" href="#px4" title="Permanent link">#</a></h2>
+<p>AirSim 支持 PX4 飞行控制器，但设置方法有所不同。四旋翼飞行器可以使用多种遥控选项。我们已成功将 FrSky Taranis X9D Plus、FlySky FS-TH9X 和 Futaba 14SG 与 AirSim 配合使用。以下是配置遥控器的详细步骤：</p>
 <ol>
-<li>If you are going to use Hardware-in-Loop mode, you need transmitter for your specific brand of RC and bind it. You can find this information in RC's user guide. </li>
-<li>For Hardware-in-Loop mode, you connect transmitter to Pixhawk. Usually you can find online doc or YouTube video tutorial on how to do that.</li>
-<li><a href="https://docs.qgroundcontrol.com/en/SetupView/Radio.html">Calibrate your RC in QGroundControl</a>.</li>
+<li>如果您要使用硬件在环模式，您需要与您的 RC 品牌对应的遥控器进行绑定。您可以在 RC 的用户指南中找到相关信息。 </li>
+<li>对于硬件在环模式，您需要将发射器连接到 Pixhawk。通常您可以找到在线文档或 YouTube 视频教程来了解如何操作。 </li>
+<li><a href="https://docs.qgroundcontrol.com/en/SetupView/Radio.html">在 QGroundControl 中校准您的 RC。</a>.</li>
 </ol>
-<p>See <a href="https://docs.px4.io/en/getting_started/rc_transmitter_receiver.html">PX4 RC configuration</a> and Please see <a href="https://docs.px4.io/master/en/getting_started/rc_transmitter_receiver.html#px4-compatible-receivers">this guide</a> for more information. </p>
-<h3 id="using-xbox-360-usb-gamepad">Using XBox 360 USB Gamepad<a class="headerlink" href="#using-xbox-360-usb-gamepad" title="Permanent link">#</a></h3>
-<p>You can also use an xbox controller in SITL mode, it just won't be as precise as a real RC controller.
-See <a href="../xbox_controller/">xbox controller</a> for details on how to set that up.</p>
-<h3 id="using-playstation-3-controller">Using Playstation 3 controller<a class="headerlink" href="#using-playstation-3-controller" title="Permanent link">#</a></h3>
-<p>A Playstation 3 controller is confirmed to work as an AirSim controller. On Windows, an emulator to make it look like an Xbox 360 controller, is required however. Many different solutions are available online, for example <a href="https://github.com/x360ce/x360ce">x360ce Xbox 360 Controller Emulator</a>.</p>
-<h3 id="dji-controller">DJI Controller<a class="headerlink" href="#dji-controller" title="Permanent link">#</a></h3>
-<p>Nils Tijtgat wrote an excellent blog on how to get the <a href="https://timebutt.github.io/static/using-a-phantom-dji-controller-in-airsim/">DJI controller working with AirSim</a>.</p>
+<p>请参阅 <a href="https://docs.px4.io/en/getting_started/rc_transmitter_receiver.html">PX4 RC 配置</a> 并参阅 <a href="https://docs.px4.io/master/en/getting_started/rc_transmitter_receiver.html#px4-compatible-receivers">本指南</a> 以了解更多信息。</p>
+<h3 id="xbox-360-usb">使用 XBox 360 USB 游戏手柄<a class="headerlink" href="#xbox-360-usb" title="Permanent link">#</a></h3>
+<p>您也可以在 SITL 模式下使用 Xbox 控制器，但它的精度不如真正的 RC 控制器。有关如何设置的详细信息，请参阅 <a href="../xbox_controller/">Xbox 控制器</a> 。</p>
+<h3 id="playstation-3">使用 Playstation 3 控制器<a class="headerlink" href="#playstation-3" title="Permanent link">#</a></h3>
+<p>已确认 Playstation 3 控制器可以用作 AirSim 控制器。但在 Windows 上，需要使用模拟器才能使其看起来像 Xbox 360 控制器。网上有很多不同的解决方案，例如 <a href="https://github.com/x360ce/x360ce">x360ce Xbox 360 控制器模拟器</a> 。</p>
+<h3 id="dji">DJI 控制器<a class="headerlink" href="#dji" title="Permanent link">#</a></h3>
+<p>Nils Tijtgat 写了一篇关于如何让 <a href="https://timebutt.github.io/static/using-a-phantom-dji-controller-in-airsim/">DJI 控制器与 AirSim 协同工作</a> 的精彩博客。</p>
 <h2 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">#</a></h2>
-<h4 id="im-using-default-config-and-airsim-says-my-rc-is-not-detected-on-usb">I'm using default config and AirSim says my RC is not detected on USB.<a class="headerlink" href="#im-using-default-config-and-airsim-says-my-rc-is-not-detected-on-usb" title="Permanent link">#</a></h4>
-<p>This typically happens if you have multiple RCs and or XBox/Playstation gamepads etc connected. In Windows, hit Windows+S key and search for "Set up USB Game controllers" (in older versions of Windows try "joystick"). This will show you all game controllers connected to your PC. If you don't see yours than Windows haven't detected it and so you need to first solve that issue. If you do see yours but not at the top of the list (i.e. index 0) than you need to tell AirSim because AirSim by default tries to use RC at index 0. To do this, navigate to your <code>~/Documents/AirSim</code> folder, open up <code>settings.json</code> and add/modify following setting. Below tells AirSim to use RC at index = 2.
-<pre class="highlight"><code>{
-    "SettingsVersion": 1.2,
-    "SimMode": "Multirotor",
-    "Vehicles": {
-        "SimpleFlight": {
-            "VehicleType": "SimpleFlight",
-            "RC": {
-              "RemoteControlID": 2
+<h4 id="airsim-rc-usb">我正在使用默认配置，但 AirSim 说我的 RC 在 USB 上未被检测到。<a class="headerlink" href="#airsim-rc-usb" title="Permanent link">#</a></h4>
+<p>如果您连接了多个遥控器或 XBox/Playstation 游戏手柄等，通常会发生这种情况。在 Windows 系统中，按下 Windows+S 键并搜索“设置 USB 游戏控制器”（在旧版 Windows 中，请尝试“游戏杆”）。这将显示所有连接到您电脑的游戏控制器。如果您没有看到您的控制器，则表示 Windows 尚未检测到它，因此您需要先解决该问题。如果您看到了您的控制器，但不在列表顶部（即索引 0），则需要告知 AirSim，因为 AirSim 默认尝试使用索引 0 处的 RC。为此，请导航到您的 <code>~/Documents/AirSim</code> 文件夹，打开 <code>settings.json</code> 并添加/修改以下设置。以下设置告知 AirSim 使用索引 = 2 处的 RC。</p>
+<div class="highlight"><pre><span></span><code>{
+    &quot;SettingsVersion&quot;: 1.2,
+    &quot;SimMode&quot;: &quot;Multirotor&quot;,
+    &quot;Vehicles&quot;: {
+        &quot;SimpleFlight&quot;: {
+            &quot;VehicleType&quot;: &quot;SimpleFlight&quot;,
+            &quot;RC&quot;: {
+              &quot;RemoteControlID&quot;: 2
             }
         }
     }
-}</code></pre></p>
-<h4 id="vehicle-seems-unstable-when-using-xboxps3-controller">Vehicle seems unstable when using XBox/PS3 controller<a class="headerlink" href="#vehicle-seems-unstable-when-using-xboxps3-controller" title="Permanent link">#</a></h4>
-<p>Regular gamepads are not very precise and have lot of random noise. Most of the times you may see significant offsets as well (i.e. output is not zero when sticks are at zero). So this behavior is expected.</p>
-<h4 id="where-is-rc-calibration-in-airsim">Where is RC calibration in AirSim?<a class="headerlink" href="#where-is-rc-calibration-in-airsim" title="Permanent link">#</a></h4>
-<p>We haven't implemented it yet. This means your RC firmware will need to have a capability to do calibration for now.</p>
-<h4 id="my-rc-is-not-working-with-px4-setup">My RC is not working with PX4 setup.<a class="headerlink" href="#my-rc-is-not-working-with-px4-setup" title="Permanent link">#</a></h4>
-<p>First you want to make sure your RC is working in <a href="https://docs.qgroundcontrol.com/en/SetupView/Radio.html">QGroundControl</a>. If it doesn't then it will sure not work in AirSim. The PX4 mode is suitable for folks who have at least intermediate level of experience to deal with various issues related to PX4 and we would generally refer you to get help from PX4 forums.</p>
+}
+</code></pre></div>
+<h4 id="xboxps3">使用 XBox/PS3 控制器时车辆似乎不稳定<a class="headerlink" href="#xboxps3" title="Permanent link">#</a></h4>
+<p>普通游戏手柄精度不高，而且有很多随机噪声。大多数情况下，您还可能会看到明显的偏移（例如，摇杆位置为 0 时，输出不为 0）。因此，这种行为是可以预料的。</p>
+<h4 id="airsim-rc">AirSim 中的 RC 校准在哪里？<a class="headerlink" href="#airsim-rc" title="Permanent link">#</a></h4>
+<p>我们尚未实现此功能。这意味着您的 RC 固件目前需要具备校准功能。</p>
+<h4 id="rc-px4">我的 RC 无法与 PX4 设置配合使用。<a class="headerlink" href="#rc-px4" title="Permanent link">#</a></h4>
+<p>首先，您需要确保您的遥控器在 <a href="https://docs.qgroundcontrol.com/en/SetupView/Radio.html">QGroundControl</a> 中正常工作。如果无法正常工作，则肯定无法在 AirSim 中正常工作。PX4 模式适合具有中级以上经验的用户，能够处理与 PX4 相关的各种问题，我们通常建议您从 PX4 论坛获取帮助。</p>
               
             </div>
           </div><footer>
@@ -377,6 +377,7 @@ See <a href="../xbox_controller/">xbox controller</a> for details on how to set 
       <p>Copyright &copy; 2021 Microsoft Research</p>
   </div>
 
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
           
         </div>

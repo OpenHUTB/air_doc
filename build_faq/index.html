@@ -68,33 +68,33 @@
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#windows">Windows 构建</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#linux-build">Linux build</a>
+    <li class="toctree-l2"><a class="reference internal" href="#linux">Linux 构建</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#other">Other</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_1">其他</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#windows-build">Windows build</a>
+    <li class="toctree-l2"><a class="reference internal" href="#windows_1">Windows 构建</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#how-to-force-unreal-to-use-visual-studio-2019">How to force Unreal to use Visual Studio 2019?</a>
+    <li class="toctree-l3"><a class="reference internal" href="#unreal-visual-studio-2019">如何强制 Unreal 使用 Visual Studio 2019？</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#i-get-error-where-is-not-recognized-as-an-internal-or-external-command">I get error: 'where' is not recognized as an internal or external command</a>
+    <li class="toctree-l3"><a class="reference internal" href="#where-is-not-recognized-as-an-internal-or-external-command">报错: 'where' is not recognized as an internal or external command</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#im-getting-error-myproject-could-not-be-compiled-try-rebuilding-from-source-manually">I'm getting error &lt;MyProject&gt; could not be compiled. Try rebuilding from source manually</a>
+    <li class="toctree-l3"><a class="reference internal" href="#myproject-could-not-be-compiled-try-rebuilding-from-source-manually">报错 &lt;MyProject&gt; could not be compiled. Try rebuilding from source manually</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#i-get-error-c100-an-internal-error-has-occurred-in-the-compiler-when-running-buildcmd">I get error C100 : An internal error has occurred in the compiler when running build.cmd</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#i-get-error-corecrth-no-such-file-or-directory-or-windows-sdk-version-81-not-found">I get error "'corecrt.h': No such file or directory" or "Windows SDK version 8.1 not found"</a>
+    <li class="toctree-l3"><a class="reference internal" href="#corecrth-no-such-file-or-directory-or-windows-sdk-version-81-not-found">报错："'corecrt.h': No such file or directory" or "Windows SDK version 8.1 not found"</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#how-do-i-use-px4-firmware-with-airsim">How do I use PX4 firmware with AirSim?</a>
+    <li class="toctree-l3"><a class="reference internal" href="#px4-airsim">如何将 PX4 固件与 AirSim 一起使用？</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#i-made-changes-in-visual-studio-but-there-is-no-effect">I made changes in Visual Studio but there is no effect</a>
+    <li class="toctree-l3"><a class="reference internal" href="#visual-studio">在 Visual Studio 中做了更改，但没有效果</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#unreal-still-uses-vs2015-or-im-getting-some-link-error">Unreal still uses VS2015 or I'm getting some link error</a>
+    <li class="toctree-l3"><a class="reference internal" href="#unreal-vs2015">Unreal 仍然使用 VS2015，否则我会收到一些链接错误</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#linux-build_1">Linux build</a>
+    <li class="toctree-l2"><a class="reference internal" href="#linux_1">Linux 构建</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#im-getting-error-myproject-could-not-be-compiled-try-rebuilding-from-source-manually_1">I'm getting error &lt;MyProject&gt; could not be compiled. Try rebuilding from source manually.</a>
+    <li class="toctree-l3"><a class="reference internal" href="#myproject-could-not-be-compiled-try-rebuilding-from-source-manually_1">报错：&lt;MyProject&gt; could not be compiled. Try rebuilding from source manually.</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#unreal-crashed-how-do-i-know-what-went-wrong">Unreal crashed! How do I know what went wrong?</a>
     </li>
@@ -112,7 +112,7 @@
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#other_1">Other</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">其他</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#packaging-a-binary-including-the-airsim-plugin">Packaging a binary including the AirSim plugin</a>
     </li>
@@ -340,16 +340,16 @@
 <h2 id="windows">Windows 构建<a class="headerlink" href="#windows" title="Permanent link">#</a></h2>
 <ul>
 <li><a href="#how-to-force-unreal-to-use-visual-studio-2019">如何强制 Unreal 使用 Visual Studio 2019？</a></li>
-<li><a href="#i-get-error-where-is-not-recognized-as-an-internal-or-external-command">I get error: 'where' is not recognized as an internal or external command</a></li>
-<li><a href="#im-getting-error-myproject-could-not-be-compiled-try-rebuilding-from-source-manually">I'm getting error <code>&lt;MyProject&gt; could not be compiled. Try rebuilding from source manually</code></a></li>
-<li><a href="#i-get-error-c100--an-internal-error-has-occurred-in-the-compiler-when-running-buildcmd">I get <code>error C100 : An internal error has occurred in the compiler</code> when running build.cmd</a></li>
-<li><a href="#i-get-error-corecrth-no-such-file-or-directory-or-windows-sdk-version-81-not-found">I get error "'corecrt.h': No such file or directory" or "Windows SDK version 8.1 not found"</a></li>
-<li><a href="#how-do-i-use-px4-firmware-with-airsim">How do I use PX4 firmware with AirSim?</a></li>
-<li><a href="#i-made-changes-in-visual-studio-but-there-is-no-effect">I made changes in Visual Studio but there is no effect</a></li>
-<li><a href="#unreal-still-uses-vs2015-or-im-getting-some-link-error">Unreal still uses VS2015 or I'm getting some link error</a></li>
+<li><a href="#i-get-error-where-is-not-recognized-as-an-internal-or-external-command">报错: 'where' is not recognized as an internal or external command</a></li>
+<li><a href="#im-getting-error-myproject-could-not-be-compiled-try-rebuilding-from-source-manually">报错：<code>&lt;MyProject&gt; could not be compiled. Try rebuilding from source manually</code></a></li>
+<li><a href="#i-get-error-c100--an-internal-error-has-occurred-in-the-compiler-when-running-buildcmd">当运行 build.cmd 时报错：<code>error C100 : An internal error has occurred in the compiler</code></a></li>
+<li><a href="#i-get-error-corecrth-no-such-file-or-directory-or-windows-sdk-version-81-not-found">报错："'corecrt.h': No such file or directory" or "Windows SDK version 8.1 not found"</a></li>
+<li><a href="#how-do-i-use-px4-firmware-with-airsim">如何将 PX4 固件与 AirSim 一起使用？</a></li>
+<li><a href="#i-made-changes-in-visual-studio-but-there-is-no-effect">在 Visual Studio 中做了更改，但没有效果</a></li>
+<li><a href="#unreal-still-uses-vs2015-or-im-getting-some-link-error">Unreal 仍然使用 VS2015，否则我会收到一些链接错误</a></li>
 </ul>
 <hr />
-<h2 id="linux-build">Linux build<a class="headerlink" href="#linux-build" title="Permanent link">#</a></h2>
+<h2 id="linux">Linux 构建<a class="headerlink" href="#linux" title="Permanent link">#</a></h2>
 <ul>
 <li><a href="#im-getting-error-myproject-could-not-be-compiled-try-rebuilding-from-source-manually">I'm getting error <code>&lt;MyProject&gt; could not be compiled. Try rebuilding from source manually</code>.</a></li>
 <li><a href="#unreal-crashed-how-do-i-know-what-went-wrong">Unreal crashed! How do I know what went wrong?</a></li>
@@ -361,47 +361,50 @@
 <li><a href="#where-can-i-find-more-info-on-running-unreal-on-linux">Where can I find more info on running Unreal on Linux?</a></li>
 </ul>
 <hr />
-<h2 id="other">Other<a class="headerlink" href="#other" title="Permanent link">#</a></h2>
+<h2 id="_1">其他<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
 <ul>
-<li><a href="#packaging-a-binary-including-the-airsim-plugin">Packaging AirSim</a></li>
+<li><a href="#packaging-a-binary-including-the-airsim-plugin">打包 AirSim</a></li>
 </ul>
 <hr />
 <!-- ======================================================================= -->
-<h2 id="windows-build">Windows build<a class="headerlink" href="#windows-build" title="Permanent link">#</a></h2>
+<h2 id="windows_1">Windows 构建<a class="headerlink" href="#windows_1" title="Permanent link">#</a></h2>
 <!-- ======================================================================= -->
 
-<h6 id="how-to-force-unreal-to-use-visual-studio-2019">How to force Unreal to use Visual Studio 2019?<a class="headerlink" href="#how-to-force-unreal-to-use-visual-studio-2019" title="Permanent link">#</a></h6>
+<h6 id="unreal-visual-studio-2019">如何强制 Unreal 使用 Visual Studio 2019？<a class="headerlink" href="#unreal-visual-studio-2019" title="Permanent link">#</a></h6>
 <blockquote>
 <p>If the default <code>update_from_git.bat</code> file results in VS 2017 project, then you may need to run the <code>C:\Program Files\Epic Games\UE_4.25\Engine\Binaries\DotNET\UnrealBuildTool.exe</code> tool manually, with the command line options <code>-projectfiles -project=&lt;your.uproject&gt;  -game -rocket -progress -2019</code>.</p>
 <p>If you are upgrading from 4.18 to 4.25 you may also need to add <code>BuildSettingsVersion.V2</code> to your <code>*.Target.cs</code> and <code>*Editor.Target.cs</code> build files, like this:</p>
-<pre class="highlight"><code class="language-c#">   public AirSimNHTestTarget(TargetInfo Target) : base(Target)
-   {
-       Type = TargetType.Game;
-       DefaultBuildSettings = BuildSettingsVersion.V2;
-       ExtraModuleNames.AddRange(new string[] { "AirSimNHTest" });
-   }</code></pre>
+<div class="highlight"><pre><span></span><code><span class="w">   </span><span class="k">public</span><span class="w"> </span><span class="nf">AirSimNHTestTarget</span><span class="p">(</span><span class="n">TargetInfo</span><span class="w"> </span><span class="n">Target</span><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="k">base</span><span class="p">(</span><span class="n">Target</span><span class="p">)</span>
+<span class="w">   </span><span class="p">{</span>
+<span class="w">       </span><span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TargetType</span><span class="p">.</span><span class="n">Game</span><span class="p">;</span>
+<span class="w">       </span><span class="n">DefaultBuildSettings</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BuildSettingsVersion</span><span class="p">.</span><span class="n">V2</span><span class="p">;</span>
+<span class="w">       </span><span class="n">ExtraModuleNames</span><span class="p">.</span><span class="n">AddRange</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="kt">string</span><span class="p">[]</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;AirSimNHTest&quot;</span><span class="w"> </span><span class="p">});</span>
+<span class="w">   </span><span class="p">}</span>
+</code></pre></div>
 <p>You may also need to edit this file:</p>
-<pre class="highlight"><code>"%APPDATA%\Unreal Engine\UnrealBuildTool\BuildConfiguration.xml</code></pre>
+<div class="highlight"><pre><span></span><code>&quot;%APPDATA%\Unreal Engine\UnrealBuildTool\BuildConfiguration.xml
+</code></pre></div>
 <p>And add this Compiler version setting:</p>
-<pre class="highlight"><code class="language-xml">&lt;Configuration xmlns="https://www.unrealengine.com/BuildConfiguration"&gt;
-  &lt;WindowsPlatform&gt;
-    &lt;Compiler&gt;VisualStudio2019&lt;/Compiler&gt;
-  &lt;/WindowsPlatform&gt;
-&lt;/Configuration&gt;</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;Configuration</span><span class="w"> </span><span class="na">xmlns=</span><span class="s">&quot;https://www.unrealengine.com/BuildConfiguration&quot;</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="nt">&lt;WindowsPlatform&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Compiler&gt;</span>VisualStudio2019<span class="nt">&lt;/Compiler&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/WindowsPlatform&gt;</span>
+<span class="nt">&lt;/Configuration&gt;</span>
+</code></pre></div>
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="i-get-error-where-is-not-recognized-as-an-internal-or-external-command">I get error: 'where' is not recognized as an internal or external command<a class="headerlink" href="#i-get-error-where-is-not-recognized-as-an-internal-or-external-command" title="Permanent link">#</a></h6>
+<h6 id="where-is-not-recognized-as-an-internal-or-external-command">报错: 'where' is not recognized as an internal or external command<a class="headerlink" href="#where-is-not-recognized-as-an-internal-or-external-command" title="Permanent link">#</a></h6>
 <blockquote>
-<p>You have to add <code>C:\WINDOWS\SYSTEM32</code> to your PATH enviroment variable.</p>
+<p>您必须将 <code>C:\WINDOWS\SYSTEM32</code> 添加到您的 PATH 环境变量中。 </p>
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="im-getting-error-myproject-could-not-be-compiled-try-rebuilding-from-source-manually">I'm getting error <code>&lt;MyProject&gt; could not be compiled. Try rebuilding from source manually</code><a class="headerlink" href="#im-getting-error-myproject-could-not-be-compiled-try-rebuilding-from-source-manually" title="Permanent link">#</a></h6>
+<h6 id="myproject-could-not-be-compiled-try-rebuilding-from-source-manually">报错 <code>&lt;MyProject&gt; could not be compiled. Try rebuilding from source manually</code><a class="headerlink" href="#myproject-could-not-be-compiled-try-rebuilding-from-source-manually" title="Permanent link">#</a></h6>
 <blockquote>
-<p>This will occur when there are compilation errors. Logs are stored in <code>&lt;My-Project&gt;\Saved\Logs</code> which can be used to figure out the problem.</p>
-<p>A common problem could be Visual Studio version conflict, AirSim uses VS 2019 while UE is using VS 2017, this can be found by searching for <code>2017</code> in the Log file. In that case, see the answer above.</p>
-<p>If you have modified the AirSim plugin files, then you can right-click the <code>.uproject</code> file, select <code>Generate Visual Studio solution file</code> and then open the <code>.sln</code> file in VS to fix the errors and build again.</p>
+<p>当出现编译错误时，就会发生这种情况。日志存储在 <code>&lt;My-Project&gt;\Saved\Logs</code> 中，可用于查找问题。 </p>
+<p>一个常见问题可能是 Visual Studio 版本冲突，AirSim 使用的是 VS 2019，而 UE 使用的是 VS 2017，可以通过在日志文件中搜索<code>2017</code>来找到。在这种情况下，请参阅上面的答案。</p>
+<p>如果您修改了 AirSim 插件文件，那么您可以右键单击 <code>.uproject</code> 文件，选择<code>Generate Visual Studio solution file</code>，然后在 VS 中打开 <code>.sln</code> 文件以修复错误并再次构建。</p>
 </blockquote>
 <!-- ======================================================================= -->
 
@@ -411,44 +414,44 @@
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="i-get-error-corecrth-no-such-file-or-directory-or-windows-sdk-version-81-not-found">I get error "'corecrt.h': No such file or directory" or "Windows SDK version 8.1 not found"<a class="headerlink" href="#i-get-error-corecrth-no-such-file-or-directory-or-windows-sdk-version-81-not-found" title="Permanent link">#</a></h6>
+<h6 id="corecrth-no-such-file-or-directory-or-windows-sdk-version-81-not-found">报错："'corecrt.h': No such file or directory" or "Windows SDK version 8.1 not found"<a class="headerlink" href="#corecrth-no-such-file-or-directory-or-windows-sdk-version-81-not-found" title="Permanent link">#</a></h6>
 <blockquote>
 <p>Very likely you don't have <a href="https://developercommunity.visualstudio.com/content/problem/3754/cant-compile-c-program-because-of-sdk-81cant-add-a.html">Windows SDK</a> installed with Visual Studio.</p>
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="how-do-i-use-px4-firmware-with-airsim">How do I use PX4 firmware with AirSim?<a class="headerlink" href="#how-do-i-use-px4-firmware-with-airsim" title="Permanent link">#</a></h6>
+<h6 id="px4-airsim">如何将 PX4 固件与 AirSim 一起使用？<a class="headerlink" href="#px4-airsim" title="Permanent link">#</a></h6>
 <blockquote>
-<p>By default, AirSim uses its own built-in firmware called <a href="../simple_flight/">simple_flight</a>. There is no additional setup if you just want to go with it. If you want to switch to using PX4 instead then please see <a href="../px4_setup/">this guide</a>.</p>
+<p>默认情况下，AirSim 使用其内置固件 <a href="../simple_flight/">simple_flight</a> 。如果您只想使用它，则无需进行其他设置。如果您想改用 PX4，请参阅 <a href="../px4_setup/">本指南</a> 。 </p>
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="i-made-changes-in-visual-studio-but-there-is-no-effect">I made changes in Visual Studio but there is no effect<a class="headerlink" href="#i-made-changes-in-visual-studio-but-there-is-no-effect" title="Permanent link">#</a></h6>
+<h6 id="visual-studio">在 Visual Studio 中做了更改，但没有效果<a class="headerlink" href="#visual-studio" title="Permanent link">#</a></h6>
 <blockquote>
-<p>Sometimes the Unreal + VS build system doesn't recompile if you make changes to only header files. To ensure a recompile, make some Unreal based cpp file "dirty" like AirSimGameMode.cpp.</p>
+<p>有时，如果仅更改头文件，Unreal + VS 构建系统可能无法重新编译。为了确保重新编译，请将一些基于 Unreal 的 cpp 文件（例如 AirSimGameMode.cpp）设置为“dirty”。 </p>
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="unreal-still-uses-vs2015-or-im-getting-some-link-error">Unreal still uses VS2015 or I'm getting some link error<a class="headerlink" href="#unreal-still-uses-vs2015-or-im-getting-some-link-error" title="Permanent link">#</a></h6>
+<h6 id="unreal-vs2015">Unreal 仍然使用 VS2015，否则我会收到一些链接错误<a class="headerlink" href="#unreal-vs2015" title="Permanent link">#</a></h6>
 <blockquote>
-<p>Running several versions of VS can lead to issues when compiling UE projects. One problem that may arise is that UE will try to compile with an older version of VS which may or may not work. There are two settings in Unreal, one for for the engine and one for the project, to adjust the version of VS to be used.</p>
+<p>运行多个版本的 VS 可能会导致编译 UE 项目时出现问题。其中一个问题是 UE 会尝试使用旧版本的 VS 进行编译，而旧版本的 VS 可能无法正常工作。虚幻引擎中有两个设置，一个用于引擎，一个用于项目，用于调整要使用的 VS 版本。 </p>
 <ol>
 <li>Edit -&gt; Editor preferences -&gt; General -&gt; Source code -&gt; Source Code Editor</li>
 <li>Edit -&gt; Project Settings -&gt; Platforms -&gt; Windows -&gt; Toolchain -&gt;CompilerVersion</li>
 </ol>
-<p>In some cases, these settings will still not lead to the desired result and errors such as the following might be produced: LINK : fatal error LNK1181: cannot open input file 'ws2_32.lib'</p>
-<p>To resolve such issues the following procedure can be applied:</p>
+<p>在某些情况下，这些设置仍然不会产生预期的结果，并且可能会产生如下错误：LINK:致命错误 LNK1181:无法打开输入文件“ws2_32.lib” </p>
+<p>为了解决此类问题，可以采用以下步骤：</p>
 <ol>
-<li>Uninstall all old versions of VS using the <a href="https://github.com/Microsoft/VisualStudioUninstaller/releases">VisualStudioUninstaller</a></li>
+<li>使用 <a href="https://github.com/Microsoft/VisualStudioUninstaller/releases">VisualStudioUninstaller</a> 卸载所有旧版本的 VS</li>
 <li>Repair/Install VS 2019</li>
-<li>Restart machine and install Epic launcher and desired version of the engine</li>
+<li>重启机器并安装 Epic 启动器和所需版本的引擎</li>
 </ol>
 </blockquote>
 <hr />
-<h2 id="linux-build_1">Linux build<a class="headerlink" href="#linux-build_1" title="Permanent link">#</a></h2>
+<h2 id="linux_1">Linux 构建<a class="headerlink" href="#linux_1" title="Permanent link">#</a></h2>
 <!-- ======================================================================= -->
 
-<h6 id="im-getting-error-myproject-could-not-be-compiled-try-rebuilding-from-source-manually_1">I'm getting error <code>&lt;MyProject&gt; could not be compiled. Try rebuilding from source manually</code>.<a class="headerlink" href="#im-getting-error-myproject-could-not-be-compiled-try-rebuilding-from-source-manually_1" title="Permanent link">#</a></h6>
+<h6 id="myproject-could-not-be-compiled-try-rebuilding-from-source-manually_1">报错：<code>&lt;MyProject&gt; could not be compiled. Try rebuilding from source manually</code>.<a class="headerlink" href="#myproject-could-not-be-compiled-try-rebuilding-from-source-manually_1" title="Permanent link">#</a></h6>
 <blockquote>
 <p>This could either happen because of compile error or the fact that your gch files are outdated. Look in to your console window. Do you see something like below?</p>
 <p><code>fatal error: file '/usr/include/linux/version.h''/usr/include/linux/version.h' has been modified since the precompiled header</code></p>
@@ -505,7 +508,7 @@ Also, don't invoke <code>bash</code> from <code>Visual Studio Command Prompt</co
 <a href="https://wiki.unrealengine.com/Compiling_For_Linux">Unreal Cross Compilation</a></p>
 </blockquote>
 <hr />
-<h2 id="other_1">Other<a class="headerlink" href="#other_1" title="Permanent link">#</a></h2>
+<h2 id="_2">其他<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
 <!-- ======================================================================= -->
 
 <h6 id="packaging-a-binary-including-the-airsim-plugin">Packaging a binary including the AirSim plugin<a class="headerlink" href="#packaging-a-binary-including-the-airsim-plugin" title="Permanent link">#</a></h6>
@@ -531,6 +534,7 @@ Also, don't invoke <code>bash</code> from <code>Visual Studio Command Prompt</co
       <p>Copyright &copy; 2021 Microsoft Research</p>
   </div>
 
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
           
         </div>
