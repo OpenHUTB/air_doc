@@ -70,21 +70,21 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#_3">选择您的车辆：汽车或多旋翼飞行器</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#updating-your-environment-to-latest-version-of-airsim">Updating Your Environment to Latest Version of AirSim</a>
+    <li class="toctree-l2"><a class="reference internal" href="#airsim">将您的环境更新至最新版本的 AirSim</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#faq">FAQ</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#what-are-other-cool-environments">What are other cool environments?</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_4">还有哪些很酷的环境？</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#when-i-press-play-button-some-kind-of-video-starts-instead-of-my-vehicle">When I press Play button some kind of video starts instead of my vehicle.</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_5">当我按下播放按钮时，某种视频开始播放，而不是我的车辆。</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#is-there-easy-way-to-sync-code-in-my-unreal-project-with-code-in-airsim-repo">Is there easy way to sync code in my Unreal project with code in AirSim repo?</a>
+    <li class="toctree-l3"><a class="reference internal" href="#airsim-repo">有没有简单的方法可以将我的虚幻引擎项目中的代码与 AirSim repo 中的代码同步？</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#i-get-some-error-about-map">I get some error about map.</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_6">我收到一些有关地图的错误。</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#i-see-add-to-project-option-for-environment-but-not-create-project-option">I see "Add to project" option for environment but not "Create project" option.</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_7">我看到了环境的“添加到项目”选项，但没有看到“创建项目”选项。</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#i-already-have-my-own-unreal-project-how-do-i-use-airsim-with-it">I already have my own Unreal project. How do I use AirSim with it?</a>
+    <li class="toctree-l3"><a class="reference internal" href="#unreal-airsim">我已经有自己的 Unreal 项目了。如何使用 AirSim？</a>
     </li>
         </ul>
     </li>
@@ -403,41 +403,39 @@
 <p>恭喜！您现在可以在自己的虚幻环境中运行 AirSim 了。</p>
 <h2 id="_3">选择您的车辆：汽车或多旋翼飞行器<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
 <p>默认情况下，AirSim 会提示用户选择要使用的车辆。您可以通过设置 <a href="../settings/#SimMode">SimMode</a> 轻松更改此设置。请参阅 <a href="../using_car/">使用车辆</a> 指南。</p>
-<h2 id="updating-your-environment-to-latest-version-of-airsim">Updating Your Environment to Latest Version of AirSim<a class="headerlink" href="#updating-your-environment-to-latest-version-of-airsim" title="Permanent link">#</a></h2>
-<p>Once you have your environment using above instructions, you should frequently update your local AirSim code to latest version from GitHub. Below are the instructions to do this:</p>
+<h2 id="airsim">将您的环境更新至最新版本的 AirSim<a class="headerlink" href="#airsim" title="Permanent link">#</a></h2>
+<p>按照上述步骤搭建好环境后，你需要经常从 GitHub 更新本地 AirSim 代码到最新版本。具体操作步骤如下：</p>
 <ol>
-<li>First put <a href="https://github.com/Microsoft/AirSim/blob/main/Unreal/Environments/Blocks/clean.bat">clean.bat</a> (or <a href="https://github.com/Microsoft/AirSim/blob/main/Unreal/Environments/Blocks/clean.sh">clean.sh</a> for Linux users) in the root folder of your environment. Run this file to clean up all intermediate files in your Unreal project.</li>
-<li>Do <code>git pull</code> in your AirSim repo followed by <code>build.cmd</code> (or <code>./build.sh</code> for Linux users).</li>
-<li>Replace [your project]/Plugins folder with AirSim/Unreal/Plugins folder.</li>
-<li>Right click on your .uproject file and chose "Generate Visual Studio project files" option. This is not required for Linux.</li>
+<li>首先将 <a href="https://github.com/Microsoft/AirSim/blob/main/Unreal/Environments/Blocks/clean.bat">clean.bat</a>（Linux 用户请将 <a href="https://github.com/Microsoft/AirSim/blob/main/Unreal/Environments/Blocks/clean.sh">clean.sh</a>）放入环境的根文件夹中。运行此文件可以清理 虚幻引擎项目中的所有中间文件。 </li>
+<li>在您的 AirSim repo 中执行<code>git pull</code>，然后执行<code>build.cmd</code>（对于 Linux 用户，执行“./build.sh”）。</li>
+<li>将 [your project]/Plugins 文件夹替换为 AirSim/Unreal/Plugins 文件夹。</li>
+<li>右键单击 .uproject 文件，然后选择“Generate Visual Studio project files”选项。Linux 系统无需执行此操作。 </li>
 </ol>
 <h2 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">#</a></h2>
-<h4 id="what-are-other-cool-environments">What are other cool environments?<a class="headerlink" href="#what-are-other-cool-environments" title="Permanent link">#</a></h4>
-<p><a href="https://www.unrealengine.com/marketplace">Unreal Marketplace</a> has dozens of prebuilt extra-ordinarily detailed <a href="https://www.unrealengine.com/marketplace/content-cat/assets/environments">environments</a> ranging from Moon to Mars and everything in between. The one we have used for testing is called <a href="https://www.unrealengine.com/marketplace/modular-neighborhood-pack">Modular Neighborhood Pack</a>
-but you can use any environment. Another free environment is <a href="https://www.unrealengine.com/marketplace/infinity-blade-plain-lands">Infinity Blade series</a>. Alternatively, if you look under the Learn tab in Epic Game Launcher, you will find many free samples that you can use. One of our favorites is "A Boy and His Kite" which is a 100 square miles of highly detailed environment (caution: you will need <em>very</em> beefy PC to run it!).</p>
-<h4 id="when-i-press-play-button-some-kind-of-video-starts-instead-of-my-vehicle">When I press Play button some kind of video starts instead of my vehicle.<a class="headerlink" href="#when-i-press-play-button-some-kind-of-video-starts-instead-of-my-vehicle" title="Permanent link">#</a></h4>
-<p>If the environment comes with MatineeActor, delete it to avoid any startup demo sequences. There might be other ways to remove it as well, for example, click on Blueprints button, then Level Blueprint and then look at Begin Play event in Event Graph. You might want to disconnect any connections that may be starting "matinee".</p>
-<h4 id="is-there-easy-way-to-sync-code-in-my-unreal-project-with-code-in-airsim-repo">Is there easy way to sync code in my Unreal project with code in AirSim repo?<a class="headerlink" href="#is-there-easy-way-to-sync-code-in-my-unreal-project-with-code-in-airsim-repo" title="Permanent link">#</a></h4>
-<p>Sure, there is! You can find bunch of <code>.bat</code> files (for linux, <code>.sh</code>) in <code>AirSim\Unreal\Environments\Blocks</code>. Just copy them over to your own Unreal project. Most of these are quite simple and self explanatory.</p>
-<h4 id="i-get-some-error-about-map">I get some error about map.<a class="headerlink" href="#i-get-some-error-about-map" title="Permanent link">#</a></h4>
-<p>You might have to set default map for your project. For example, if you are using Modular Neighborhood Pack, set the Editor Starter Map as well as Game Default Map to Demo_Map in Project Settings &gt; Maps &amp; Modes.</p>
-<h4 id="i-see-add-to-project-option-for-environment-but-not-create-project-option">I see "Add to project" option for environment but not "Create project" option.<a class="headerlink" href="#i-see-add-to-project-option-for-environment-but-not-create-project-option" title="Permanent link">#</a></h4>
-<p>In this case, create a new blank C++ project with no Starter Content and add your environment in to it.</p>
-<h4 id="i-already-have-my-own-unreal-project-how-do-i-use-airsim-with-it">I already have my own Unreal project. How do I use AirSim with it?<a class="headerlink" href="#i-already-have-my-own-unreal-project-how-do-i-use-airsim-with-it" title="Permanent link">#</a></h4>
-<p>Copy the <code>Unreal\Plugins</code> folder from the build you did in the above section into the root of your Unreal project's folder. In your Unreal project's .uproject file, add the key <code>AdditionalDependencies</code> to the "Modules" object
-as we showed in the <code>LandscapeMountains.uproject</code> above.
+<h4 id="_4">还有哪些很酷的环境？<a class="headerlink" href="#_4" title="Permanent link">#</a></h4>
+<p><a href="https://www.unrealengine.com/marketplace">虚幻商城</a> 拥有数十个预先构建的极其精细的 <a href="https://www.unrealengine.com/marketplace/content-cat/assets/environments">环境</a> ，涵盖从月球到火星等各种场景。我们用于测试的环境名为“模块化邻里包 ( <a href="https://www.unrealengine.com/marketplace/modular-neighborhood-pack">Modular Neighborhood Pack</a> )”，但您可以使用任何环境。另一个免费环境是“无尽之剑 ( <a href="https://www.unrealengine.com/marketplace/infinity-blade-plain-lands">Infinity Blade 系列</a> )”。或者，如果您在 Epic Game Launcher 的“学习 (Learn)”选项卡下查看，您会发现许多可用的免费示例。我们最喜欢的一个是“男孩和他的风筝 (A Boy and His Kite)”，这是一个 100 平方英里（约 100 平方英里）的高精度环境（注意：您需要<em>非常</em>强大的 PC 才能运行它！）。</p>
+<h4 id="_5">当我按下播放按钮时，某种视频开始播放，而不是我的车辆。<a class="headerlink" href="#_5" title="Permanent link">#</a></h4>
+<p>如果环境自带 MatineeActor，请将其删除以避免任何启动演示序列。还有其他方法可以删除它，例如，点击“蓝图”按钮，然后点击“关卡蓝图”，然后查看“事件图表”中的“开始播放”事件。您可能需要断开所有可能正在启动“matinee”的连接。</p>
+<h4 id="airsim-repo">有没有简单的方法可以将我的虚幻引擎项目中的代码与 AirSim repo 中的代码同步？<a class="headerlink" href="#airsim-repo" title="Permanent link">#</a></h4>
+<p>当然有！你可以在<code>AirSim\Unreal\Environments\Blocks</code>中找到一堆<code>.bat</code>文件（Linux 系统下为<code>.sh</code>）。只需将它们复制到你自己的虚幻引擎项目中即可。其中大多数都非常简单易懂。</p>
+<h4 id="_6">我收到一些有关地图的错误。<a class="headerlink" href="#_6" title="Permanent link">#</a></h4>
+<p>您可能需要为项目设置默认地图。例如，如果您使用的是模块化邻里包 (Modular Neighborhood Pack)，请在“项目设置”&gt;“地图和模式”中将编辑器起始地图和游戏默认地图设置为“Demo_Map”。</p>
+<h4 id="_7">我看到了环境的“添加到项目”选项，但没有看到“创建项目”选项。<a class="headerlink" href="#_7" title="Permanent link">#</a></h4>
+<p>在这种情况下，创建一个没有 Starter Content 的新空白 C++ 项目并将您的环境添加到其中。</p>
+<h4 id="unreal-airsim">我已经有自己的 Unreal 项目了。如何使用 AirSim？<a class="headerlink" href="#unreal-airsim" title="Permanent link">#</a></h4>
+<p>将您在上一节中构建的<code>Unreal\Plugins</code>文件夹复制到 Unreal 项目的根目录下。在 Unreal 项目的 .uproject 文件中，将键<code>AdditionalDependencies</code>添加到“Modules”对象中，就像我们在上文“LandscapeMountains.uproject”中展示的那样。</p>
 <div class="highlight"><pre><span></span><code><span class="nt">&quot;AdditionalDependencies&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">    </span><span class="s2">&quot;AirSim&quot;</span>
 <span class="p">]</span>
-</code></pre></div></p>
-<p>and the <code>Plugins</code> section to the top level object:
+</code></pre></div>
+<p>并将<code>Plugins</code>部分添加到顶级对象：</p>
 <div class="highlight"><pre><span></span><code><span class="nt">&quot;Plugins&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">    </span><span class="p">{</span>
 <span class="w">        </span><span class="nt">&quot;Name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AirSim&quot;</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">&quot;Enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">]</span>
-</code></pre></div></p>
+</code></pre></div>
               
             </div>
           </div><footer>

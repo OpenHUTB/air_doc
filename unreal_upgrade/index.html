@@ -192,23 +192,23 @@
               <ul class="current">
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">升级虚幻引擎</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#do-this-first">Do this first</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_1">首先执行此操作</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#for-windows-users">For Windows Users</a>
+    <li class="toctree-l3"><a class="reference internal" href="#windows">对于Windows用户</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#for-linux-users">For Linux Users</a>
+    <li class="toctree-l3"><a class="reference internal" href="#linux">对于Linux用户</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#upgrading-your-custom-unreal-project">Upgrading Your Custom Unreal Project</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">升级您的自定义虚幻项目</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#faq">FAQ</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#i-have-an-unreal-project-that-is-older-than-416-how-do-i-upgrade-it">I have an Unreal project that is older than 4.16. How do I upgrade it?</a>
+    <li class="toctree-l3"><a class="reference internal" href="#416">我有一个虚幻引擎项目，版本早于 4.16。该如何升级它？</a>
         <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#option-1-just-recreate-project">Option 1: Just Recreate Project</a>
+    <li class="toctree-l4"><a class="reference internal" href="#1">选项 1：重新创建项目</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#option-2-modify-few-files">Option 2: Modify Few Files</a>
+    <li class="toctree-l4"><a class="reference internal" href="#2">选项 2：修改少量文件</a>
     </li>
         </ul>
     </li>
@@ -305,53 +305,53 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="upgrading-to-unreal-engine-427">Upgrading to Unreal Engine 4.27<a class="headerlink" href="#upgrading-to-unreal-engine-427" title="Permanent link">#</a></h1>
-<p>These instructions apply if you are already using AirSim on Unreal Engine 4.25. If you have never installed AirSim, please see <a href="https://github.com/microsoft/airsim#how-to-get-it">How to get it</a>.</p>
-<p><strong>Caution:</strong> The below steps will delete any of your unsaved work in AirSim or Unreal folder.</p>
-<h2 id="do-this-first">Do this first<a class="headerlink" href="#do-this-first" title="Permanent link">#</a></h2>
-<h3 id="for-windows-users">For Windows Users<a class="headerlink" href="#for-windows-users" title="Permanent link">#</a></h3>
+                <h1 id="427">升级到虚幻引擎 4.27<a class="headerlink" href="#427" title="Permanent link">#</a></h1>
+<p>如果您已在虚幻引擎 4.25 上使用 AirSim，则这些说明适用。如果您从未安装过 AirSim，请参阅<a href="https://github.com/microsoft/airsim#how-to-get-it">如何获取</a>。</p>
+<p><strong>注意：</strong>以下步骤将删除 AirSim 或 Unreal 文件夹中所有未保存的工作。</p>
+<h2 id="_1">首先执行此操作<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
+<h3 id="windows">对于Windows用户<a class="headerlink" href="#windows" title="Permanent link">#</a></h3>
 <ol>
-<li>Install Visual Studio 2022 with VC++, Python and C#.</li>
-<li>Install UE 4.27 through Epic Games Launcher.</li>
-<li>Start <code>x64 Native Tools Command Prompt for VS 2022</code> and navigate to AirSim repo.</li>
-<li>Run <code>clean_rebuild.bat</code> to remove all unchecked/extra stuff and rebuild everything.</li>
-<li>See also <a href="../build_windows/">Build AirSim on Windows</a> for more information.</li>
+<li>安装带 C#、VC++、Python 的 Visual Studio 2022。</li>
+<li>通过 Epic Games Launcher 安装 UE 4.27。</li>
+<li>启动 <code>x64 Native Tools Command Prompt for VS 2022</code> 并导航到 AirSim 仓库。</li>
+<li>运行<code>clean_rebuild.bat</code>删除所有未选中/多余的内容并重建所有内容。</li>
+<li>另请参阅<a href="../build_windows/">在 Windows 上构建 AirSim</a> 以了解更多信息。</li>
 </ol>
-<h3 id="for-linux-users">For Linux Users<a class="headerlink" href="#for-linux-users" title="Permanent link">#</a></h3>
+<h3 id="linux">对于Linux用户<a class="headerlink" href="#linux" title="Permanent link">#</a></h3>
 <ol>
-<li>From your AirSim repo folder, run 'clean_rebuild.sh`.</li>
-<li>Rename or delete your existing folder for Unreal Engine.</li>
-<li>Follow step 1 and 2 to <a href="../build_linux/">install Unreal Engine 4.27</a>.</li>
-<li>See also <a href="../build_linux/">Build AirSim on Linux</a> for more information.</li>
+<li>从您的 AirSim repo 文件夹中运行<code>clean_rebuild.sh</code>。</li>
+<li>重命名或删除虚幻引擎的现有文件夹。</li>
+<li>按照步骤 1 和 2 <a href="../build_linux/">安装 Unreal Engine 4.27</a>。</li>
+<li>另请参阅<a href="../build_linux/">在 Linux 上构建 AirSim</a> 以了解更多信息。</li>
 </ol>
-<h2 id="upgrading-your-custom-unreal-project">Upgrading Your Custom Unreal Project<a class="headerlink" href="#upgrading-your-custom-unreal-project" title="Permanent link">#</a></h2>
-<p>If you have your own Unreal project created in an older version of Unreal Engine then you need to upgrade your project to Unreal 4.27. To do this,</p>
+<h2 id="_2">升级您的自定义虚幻项目<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
+<p>如果您使用旧版本的虚幻引擎创建了自己的虚幻项目，则需要将项目升级到虚幻引擎 4.27。为此，</p>
 <ol>
-<li>Open .uproject file and look for the line <code>"EngineAssociation"</code> and make sure it reads like <code>"EngineAssociation": "4.27"</code>.</li>
-<li>Delete <code>Plugins/AirSim</code> folder in your Unreal project's folder.</li>
-<li>Go to your AirSim repo folder and copy <code>Unreal\Plugins</code> folder to your Unreal project's folder.</li>
-<li>Copy *.bat (or *.sh for Linux) from <code>Unreal\Environments\Blocks</code> to your project's folder.</li>
-<li>Run <code>clean.bat</code> (or <code>clean.sh</code> for Linux) followed by <code>GenerateProjectFiles.bat</code> (only for Windows).</li>
+<li>打开 .uproject 文件并查找行<code>"EngineAssociation"</code>并确保其读取方式类似于<code>"EngineAssociation": "4.27"</code>。</li>
+<li>删除虚幻项目文件夹中的<code>Plugins/AirSim</code>文件夹。</li>
+<li>转到您的 AirSim repo 文件夹并将<code>Unreal\Plugins</code>文件夹复制到您的 Unreal 项目的文件夹中。</li>
+<li>将 *.bat（或 Linux 的 *.sh）从 <code>Unreal\Environments\Blocks</code> 复制到项目文件夹。</li>
+<li>运行<code>clean.bat</code>（或 Linux 的<code>clean.sh</code>），然后运行<code>GenerateProjectFiles.bat</code>（仅适用于 Windows）。 </li>
 </ol>
 <h2 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">#</a></h2>
-<h3 id="i-have-an-unreal-project-that-is-older-than-416-how-do-i-upgrade-it">I have an Unreal project that is older than 4.16. How do I upgrade it?<a class="headerlink" href="#i-have-an-unreal-project-that-is-older-than-416-how-do-i-upgrade-it" title="Permanent link">#</a></h3>
-<h4 id="option-1-just-recreate-project">Option 1: Just Recreate Project<a class="headerlink" href="#option-1-just-recreate-project" title="Permanent link">#</a></h4>
-<p>If your project doesn't have any code or assets other than environment you downloaded then you can also simply <a href="../unreal_custenv/">recreate the project in Unreal 4.27 Editor</a> and then copy Plugins folder from <code>AirSim/Unreal/Plugins</code>.</p>
-<h4 id="option-2-modify-few-files">Option 2: Modify Few Files<a class="headerlink" href="#option-2-modify-few-files" title="Permanent link">#</a></h4>
-<p>Unreal versions newer than Unreal 4.15 has breaking changes. So you need to modify your *.Build.cs and *.Target.cs which you can find in the <code>Source</code> folder of your Unreal project. So what are those changes? Below is the gist of it but you should really refer to <a href="https://forums.unrealengine.com/showthread.php?145757-C-4-16-Transition-Guide">Unreal's official 4.16 transition post</a>.</p>
-<h5 id="in-your-projects-targetcs">In your project's *.Target.cs<a class="headerlink" href="#in-your-projects-targetcs" title="Permanent link">#</a></h5>
+<h3 id="416">我有一个虚幻引擎项目，版本早于 4.16。该如何升级它？<a class="headerlink" href="#416" title="Permanent link">#</a></h3>
+<h4 id="1">选项 1：重新创建项目<a class="headerlink" href="#1" title="Permanent link">#</a></h4>
+<p>如果您的项目除了下载的环境之外没有任何代码或资产，那么您也可以简单地 <a href="../unreal_custenv/">在虚幻 4.27 编辑器中重新创建项目</a>  ，然后从<code>AirSim/Unreal/Plugins</code>复制插件文件夹。</p>
+<h4 id="2">选项 2：修改少量文件<a class="headerlink" href="#2" title="Permanent link">#</a></h4>
+<p>虚幻引擎 4.15 之后的版本存在重大变更。因此，您需要修改虚幻引擎项目的<code>Source</code>文件夹中的 *.Build.cs 和 *.Target.cs 文件。那么，这些变更具体是什么呢？以下是概要，但您更应该参考<a href="https://forums.unrealengine.com/showthread.php?145757-C-4-16-Transition-Guide">虚幻引擎官方 4.16 过渡帖</a>。</p>
+<h5 id="targetcs">在你的项目的 *.Target.cs 中<a class="headerlink" href="#targetcs" title="Permanent link">#</a></h5>
 <ol>
 <li>
-<p>Change the contructor from, <code>public MyProjectTarget(TargetInfo Target)</code> to <code>public MyProjectTarget(TargetInfo Target) : base(Target)</code></p>
+<p>将构造函数从 <code>public MyProject Target(TargetInfo Target)</code> 更改为 <code>public MyProjectTarget(TargetInfo Target) : base(Target)</code> </p>
 </li>
 <li>
-<p>Remove <code>SetupBinaries</code> method if you have one and instead add following line in contructor above: <code>ExtraModuleNames.AddRange(new string[] { "MyProject" });</code></p>
+<p>如果有的话，请删除 <code>Setup Binaries</code> 方法，并在上面的构造函数中添加以下行：<code>ExtraModuleNames.AddRange(new string[] { "MyProject" });</code> </p>
 </li>
 </ol>
-<h5 id="in-your-projects-buildcs">In your project's *.Build.cs<a class="headerlink" href="#in-your-projects-buildcs" title="Permanent link">#</a></h5>
-<p>Change the constructor from <code>public MyProject(TargetInfo Target)</code> to <code>public MyProject(ReadOnlyTargetRules Target) : base(Target)</code>.</p>
-<h5 id="and-finally">And finally...<a class="headerlink" href="#and-finally" title="Permanent link">#</a></h5>
-<p>Follow above steps to continue the upgrade. The warning box might show only "Open Copy" button. Don't click that. Instead, click on More Options which will reveal more buttons. Choose <code>Convert-In-Place option</code>. <em>Caution:</em> Always keep backup of your project first! If you don't have anything nasty, in place conversion should go through and you are now on the new version of Unreal.</p>
+<h5 id="buildcs">在你的项目的 *.Build.cs 中<a class="headerlink" href="#buildcs" title="Permanent link">#</a></h5>
+<p>将构造函数从 <code>public MyProject(TargetInfo Target)</code> 更改为 <code>public MyProject(ReadOnlyTargetRules Target) : base(Target)</code> 。</p>
+<h5 id="_3">最后……<a class="headerlink" href="#_3" title="Permanent link">#</a></h5>
+<p>按照上述步骤继续升级。警告框可能只显示“打开副本”按钮。请勿点击该按钮。点击“更多选项”，即可显示更多按钮。选择<code>就地转换(Convert-In-Place option)</code>选项。<em>注意：</em>请务必先备份您的项目！如果您没有任何问题，就地转换应该会顺利完成，您现在就可以使用新版虚幻引擎了。</p>
               
             </div>
           </div><footer>

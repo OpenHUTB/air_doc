@@ -240,21 +240,21 @@
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#windows">Windows</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#changing-code-and-rebuilding">Changing Code and Rebuilding</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_1">更改代码并重建</a>
     </li>
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#linux">Linux</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#changing-code-and-rebuilding_1">Changing Code and Rebuilding</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_2">更改代码并重建</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#chosing-your-vehicle-car-or-multirotor">Chosing Your Vehicle: Car or Multirotor</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">选择您的车辆：汽车或多旋翼飞行器</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#faq">FAQ</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#i-see-warnings-about-like-_buitdata-file-is-missing">I see warnings about like "_BuitData" file is missing.</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_buitdata">我看到有关“_BuitData”文件丢失的警告。</a>
     </li>
         </ul>
     </li>
@@ -303,35 +303,35 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="setup-blocks-environment-for-airsim">Setup Blocks Environment for AirSim<a class="headerlink" href="#setup-blocks-environment-for-airsim" title="Permanent link">#</a></h1>
-<p>Blocks environment is available in repo in folder <code>Unreal/Environments/Blocks</code> and is designed to be lightweight in size. That means its very basic but fast.</p>
-<p>Here are quick steps to get Blocks environment up and running:</p>
+                <h1 id="airsim-blocks">为 AirSim 设置 Blocks 环境<a class="headerlink" href="#airsim-blocks" title="Permanent link">#</a></h1>
+<p>Blocks 环境位于代码库的<code>Unreal/Environments/Blocks</code>文件夹中，其设计非常轻量。这意味着它非常基础，但运行速度很快。</p>
+<p>以下是启动和运行 Blocks 环境的快速步骤：</p>
 <h2 id="windows">Windows<a class="headerlink" href="#windows" title="Permanent link">#</a></h2>
 <ol>
-<li>Make sure you have <a href="../build_windows/">installed Unreal and built AirSim</a>.</li>
-<li>Navigate to folder <code>AirSim\Unreal\Environments\Blocks</code>, double click on Blocks.sln file to open in Visual Studio. By default, this project is configured for Visual Studio 2019. However, if you want to generate this project for Visual Studio 2022, go to 'Edit-&gt;Editor Preferences-&gt;Source Code' inside the Unreal Editor and select 'Visual Studio 2022' for the 'Source Code Editor' setting.</li>
-<li>Make sure <code>Blocks</code> project is the startup project, build configuration is set to <code>DebugGame_Editor</code> and <code>Win64</code>. Hit F5 to run.</li>
-<li>Press the Play button in Unreal Editor and you will see something like in below video. Also see <a href="https://github.com/Microsoft/AirSim/#how-to-use-it">how to use AirSim</a>.</li>
+<li>确保你已经<a href="../build_windows/">安装了 Unreal 并构建了 AirSim</a>。</li>
+<li>导航到文件夹<code>AirSim\Unreal\Environments\Blocks</code>，双击 Blocks.sln 文件以在 Visual Studio 中打开。默认情况下，此项目配置为 Visual Studio 2019。但是，如果您想为 Visual Studio 2022 生成此项目，请在虚幻编辑器中转到“编辑-&gt;编辑器首选项-&gt;源代码”，并在“源代码编辑器”设置中选择“Visual Studio 2022”。 </li>
+<li>确保<code>Blocks</code>项目是启动项目，构建配置设置为<code>DebugGame_Editor</code>和<code>Win64</code>。按 F5 运行。</li>
+<li>按下虚幻编辑器中的“播放”按钮，您将看到类似以下视频的内容。另请参阅<a href="https://github.com/Microsoft/AirSim/#how-to-use-it">如何使用 AirSim</a>。 </li>
 </ol>
-<h3 id="changing-code-and-rebuilding">Changing Code and Rebuilding<a class="headerlink" href="#changing-code-and-rebuilding" title="Permanent link">#</a></h3>
-<p>For Windows, you can just change the code in Visual Studio, press F5 and re-run. There are few batch files available in folder <code>AirSim\Unreal\Environments\Blocks</code> that lets you sync code, clean etc.</p>
+<h3 id="_1">更改代码并重建<a class="headerlink" href="#_1" title="Permanent link">#</a></h3>
+<p>对于 Windows，您只需在 Visual Studio 中更改代码，按 F5 并重新运行即可。<code>AirSim\Unreal\Environments\Blocks</code>文件夹中有一些批处理文件，可用于同步代码、清理代码等。</p>
 <h2 id="linux">Linux<a class="headerlink" href="#linux" title="Permanent link">#</a></h2>
 <ol>
-<li>Make sure you have <a href="../build_linux/">built the Unreal Engine and AirSim</a>.</li>
-<li>Navigate to your UnrealEngine repo folder and run <code>Engine/Binaries/Linux/UE4Editor</code> which will start Unreal Editor.</li>
-<li>On first start you might not see any projects in UE4 editor. Click on Projects tab, Browse button and then navigate to <code>AirSim/Unreal/Environments/Blocks/Blocks.uproject</code>. </li>
-<li>If you get prompted for incompatible version and conversion, select In-place conversion which is usually under "More" options. If you get prompted for missing modules, make sure to select No so you don't exit. </li>
-<li>Finally, when prompted with building AirSim, select Yes. Now it might take a while so go get some coffee :).</li>
-<li>Press the Play button in Unreal Editor and you will see something like in below video. Also see <a href="https://github.com/microsoft/AirSim/#how-to-use-it">how to use AirSim</a>.</li>
+<li>确保你已经<a href="../build_linux/">构建了虚幻引擎和 AirSim</a>。 </li>
+<li>导航到您的 UnrealEngine repo 文件夹并运行<code>Engine/Binaries/Linux/UE4Editor</code>，这将启动虚幻编辑器。 </li>
+<li>首次启动时，您可能在 UE4 编辑器中看不到任何项目。点击“项目”选项卡，点击“浏览”按钮，然后导航到<code>AirSim/Unreal/Environments/Blocks/Blocks.uproject</code>。 </li>
+<li>如果系统提示您版本不兼容或转换不兼容，请选择“就地转换”，该选项通常位于“更多”选项下。如果系统提示您缺少模块，请确保选择“否”，以免退出。</li>
+<li>最后，当提示是否构建 AirSim 时，选择“是”。现在可能需要一点时间，所以去喝杯咖啡吧 :)。</li>
+<li>按下虚幻编辑器中的“播放”按钮，您将看到类似以下视频的内容。另请参阅<a href="https://github.com/microsoft/AirSim/#how-to-use-it">如何使用 AirSim</a>。 </li>
 </ol>
 <p><a href="https://www.youtube.com/watch?v=-r_QGaxMT4A"><img alt="Blocks Demo Video" src="../images/blocks_video.png" /></a></p>
-<h3 id="changing-code-and-rebuilding_1">Changing Code and Rebuilding<a class="headerlink" href="#changing-code-and-rebuilding_1" title="Permanent link">#</a></h3>
-<p>For Linux, make code changes in AirLib or Unreal/Plugins folder and then run <code>./build.sh</code> to rebuild. This step also copies the build output to Blocks sample project. You can then follow above steps again to re-run.</p>
-<h2 id="chosing-your-vehicle-car-or-multirotor">Chosing Your Vehicle: Car or Multirotor<a class="headerlink" href="#chosing-your-vehicle-car-or-multirotor" title="Permanent link">#</a></h2>
-<p>By default AirSim spawns multirotor. You can easily change this to car and use all of AirSim goodies. Please see <a href="../using_car/">using car</a> guide.</p>
+<h3 id="_2">更改代码并重建<a class="headerlink" href="#_2" title="Permanent link">#</a></h3>
+<p>对于 Linux，请在 AirLib 或 Unreal/Plugins 文件夹中更改代码，然后运行 <code>./build.sh</code> 进行重建。此步骤还会将构建输出复制到 Blocks 示例项目中。然后，您可以再次按照上述步骤重新运行。</p>
+<h2 id="_3">选择您的车辆：汽车或多旋翼飞行器<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
+<p>AirSim 默认会生成多旋翼飞行器。您可以轻松将其更改为汽车，并使用 AirSim 的所有功能。请参阅 <a href="../using_car/">使用汽车</a> 指南。</p>
 <h2 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">#</a></h2>
-<h4 id="i-see-warnings-about-like-_buitdata-file-is-missing">I see warnings about like "_BuitData" file is missing.<a class="headerlink" href="#i-see-warnings-about-like-_buitdata-file-is-missing" title="Permanent link">#</a></h4>
-<p>These are intermediate files and you can safely ignore it.</p>
+<h4 id="_buitdata">我看到有关“_BuitData”文件丢失的警告。<a class="headerlink" href="#_buitdata" title="Permanent link">#</a></h4>
+<p>这些是中间文件，您可以放心地忽略它。</p>
               
             </div>
           </div><footer>

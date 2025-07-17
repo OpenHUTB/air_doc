@@ -111,15 +111,15 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">ROS: AirSim 教程包</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#setup">Setup</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_1">设置</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">例子</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#single-drone-with-monocular-and-depth-cameras-and-lidar">Single drone with monocular and depth cameras, and lidar</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_3">配备单目摄像头、深度摄像头和激光雷达的单架无人机</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#two-drones-with-cameras-lidar-imu-each">Two drones, with cameras, lidar, IMU each</a>
+    <li class="toctree-l3"><a class="reference internal" href="#2-imu">2 架无人机，分别配备摄像头、激光雷达和 IMU</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#twenty-five-drones-in-a-square-pattern">Twenty-five drones in a square pattern</a>
+    <li class="toctree-l3"><a class="reference internal" href="#25">25架无人机组成一个方形图案</a>
     </li>
         </ul>
     </li>
@@ -295,30 +295,30 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="airsim-ros-tutorials">AirSim ROS Tutorials<a class="headerlink" href="#airsim-ros-tutorials" title="Permanent link">#</a></h1>
-<p>This is a set of sample AirSim <code>settings.json</code>s, roslaunch and rviz files to give a starting point for using AirSim with ROS.   <br />
-See <a href="https://github.com/microsoft/AirSim/blob/main/ros/src/airsim_ros_pkgs/README.md">airsim_ros_pkgs</a> for the ROS API.</p>
-<h2 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link">#</a></h2>
-<p>Make sure that the <a href="../airsim_ros_pkgs/">airsim_ros_pkgs Setup</a> has been completed and the prerequisites installed.</p>
+                <h1 id="airsim-ros">AirSim ROS 教程<a class="headerlink" href="#airsim-ros" title="Permanent link">#</a></h1>
+<p>这是一组 AirSim 的示例 <code>settings.json</code>、roslaunch 和 rviz 文件，旨在帮助您了解如何在 ROS 中使用 AirSim。
+有关 ROS API，请参阅 <a href="https://github.com/microsoft/AirSim/blob/main/ros/src/airsim_ros_pkgs/README.md">airsim_ros_pkgs</a> 。</p>
+<h2 id="_1">设置<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
+<p>确保 <a href="../airsim_ros_pkgs/">airsim_ros_pkgs 设置</a> 已完成并且先决条件已安装。</p>
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>PATH_TO/AirSim/ros
 $<span class="w"> </span>catkin<span class="w"> </span>build<span class="w"> </span>airsim_tutorial_pkgs
 </code></pre></div>
-<p>If your default GCC isn't 8 or greater (check using <code>gcc --version</code>), then compilation will fail. In that case, use <code>gcc-8</code> explicitly as follows-</p>
+<p>如果您的默认 GCC 版本不是 8 或更高版本（请使用 <code>gcc --version</code> 检查），则编译将失败。在这种情况下，请明确使用 <code>gcc-8</code>，如下所示：</p>
 <div class="highlight"><pre><span></span><code>catkin<span class="w"> </span>build<span class="w"> </span>airsim_tutorial_pkgs<span class="w"> </span>-DCMAKE_C_COMPILER<span class="o">=</span>gcc-8<span class="w"> </span>-DCMAKE_CXX_COMPILER<span class="o">=</span>g++-8
 </code></pre></div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>For running examples, and also whenever a new terminal is opened, sourcing the <code>setup.bash</code> file is necessary. If you're using the ROS wrapper frequently, it might be helpful to add the <code>source PATH_TO/AirSim/ros/devel/setup.bash</code> to your <code>~/.profile</code> or <code>~/.bashrc</code> to avoid the need to run the command every time a new terminal is opened</p>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>为了运行示例，以及每次打开新终端时，都需要获取 <code>setup.bash</code> 文件。如果您经常使用 ROS 包装器，最好将 <code>source PATH_TO/AirSim/ros/devel/setup.bash</code> 添加到 <code>~/.profile</code> 或 <code>~/.bashrc</code>，这样可以避免运行每次打开终端时都需要运行该命令。</p>
 </div>
-<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">#</a></h2>
-<h3 id="single-drone-with-monocular-and-depth-cameras-and-lidar">Single drone with monocular and depth cameras, and lidar<a class="headerlink" href="#single-drone-with-monocular-and-depth-cameras-and-lidar" title="Permanent link">#</a></h3>
+<h2 id="_2">例子<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
+<h3 id="_3">配备单目摄像头、深度摄像头和激光雷达的单架无人机<a class="headerlink" href="#_3" title="Permanent link">#</a></h3>
 <ul>
 <li>Settings.json - <a href="https://github.com/microsoft/AirSim/blob/main/ros/src/airsim_tutorial_pkgs/settings/front_stereo_and_center_mono.json">front_stereo_and_center_mono.json</a>
  <div class="highlight"><pre><span></span><code>$<span class="w"> </span><span class="nb">source</span><span class="w"> </span>PATH_TO/AirSim/ros/devel/setup.bash
 $<span class="w"> </span>roscd<span class="w"> </span>airsim_tutorial_pkgs
 $<span class="w"> </span>cp<span class="w"> </span>settings/front_stereo_and_center_mono.json<span class="w"> </span>~/Documents/AirSim/settings.json
 
-<span class="c1">## Start your unreal package or binary here</span>
+<span class="c1">## 从这里启动你的虚幻引擎包或二进制文件</span>
 
 $<span class="w"> </span>roslaunch<span class="w"> </span>airsim_ros_pkgs<span class="w"> </span>airsim_node.launch<span class="p">;</span>
 
@@ -326,9 +326,9 @@ $<span class="w"> </span>roslaunch<span class="w"> </span>airsim_ros_pkgs<span c
 $<span class="w"> </span><span class="nb">source</span><span class="w"> </span>PATH_TO/AirSim/ros/devel/setup.bash
 $<span class="w"> </span>roslaunch<span class="w"> </span>airsim_tutorial_pkgs<span class="w"> </span>front_stereo_and_center_mono.launch
 </code></pre></div>
- The above would start rviz with tf's, registered RGBD cloud using <a href="https://wiki.ros.org/depth_image_proc">depth_image_proc</a> using the <a href="https://github.com/microsoft/AirSim/blob/main/ros/src/airsim_tutorial_pkgs/launch/front_stereo_and_center_mono/depth_to_pointcloud.launch"><code>depth_to_pointcloud</code> launch file</a>, and the lidar point cloud. </li>
+ 上述命令将使用 tf 启动 rviz，使用 <a href="https://wiki.ros.org/depth_image_proc">depth_image_proc</a> 使用 <a href="https://github.com/microsoft/AirSim/blob/main/ros/src/airsim_tutorial_pkgs/launch/front_stereo_and_center_mono/depth_to_pointcloud.launch"><code>depth_to_pointcloud</code> 启动文件</a> 注册 RGBD 云，以及激光雷达点云。 </li>
 </ul>
-<h3 id="two-drones-with-cameras-lidar-imu-each">Two drones, with cameras, lidar, IMU each<a class="headerlink" href="#two-drones-with-cameras-lidar-imu-each" title="Permanent link">#</a></h3>
+<h3 id="2-imu">2 架无人机，分别配备摄像头、激光雷达和 IMU<a class="headerlink" href="#2-imu" title="Permanent link">#</a></h3>
 <ul>
 <li>Settings.json - <a href="https://github.com/microsoft/AirSim/blob/main/ros/src/airsim_tutorial_pkgs/settings/two_drones_camera_lidar_imu.json">two_drones_camera_lidar_imu.json</a> </li>
 </ul>
@@ -336,13 +336,13 @@ $<span class="w"> </span>roslaunch<span class="w"> </span>airsim_tutorial_pkgs<s
 $<span class="w"> </span>roscd<span class="w"> </span>airsim_tutorial_pkgs
 $<span class="w"> </span>cp<span class="w"> </span>settings/two_drones_camera_lidar_imu.json<span class="w"> </span>~/Documents/AirSim/settings.json
 
-<span class="c1">## Start your unreal package or binary here</span>
+<span class="c1">## 从这里启动你的虚幻包或二进制文件</span>
 
 $<span class="w"> </span>roslaunch<span class="w"> </span>airsim_ros_pkgs<span class="w"> </span>airsim_node.launch<span class="p">;</span>
 $<span class="w"> </span>roslaunch<span class="w"> </span>airsim_ros_pkgs<span class="w"> </span>rviz.launch
 </code></pre></div>
-You can view the tfs in rviz. And do a <code>rostopic list</code> and <code>rosservice list</code> to inspect the services avaiable.    </p>
-<h3 id="twenty-five-drones-in-a-square-pattern">Twenty-five drones in a square pattern<a class="headerlink" href="#twenty-five-drones-in-a-square-pattern" title="Permanent link">#</a></h3>
+您可以在 rviz 中查看 tfs。然后运行 <code>rostopic list</code> 和 <code>rosservice list</code> 来检查可用的服务。   </p>
+<h3 id="25">25架无人机组成一个方形图案<a class="headerlink" href="#25" title="Permanent link">#</a></h3>
 <ul>
 <li>Settings.json - <a href="https://github.com/microsoft/AirSim/blob/main/ros/src/airsim_tutorial_pkgs/settings/twenty_five_drones.json">twenty_five_drones.json</a> </li>
 </ul>
@@ -350,12 +350,13 @@ You can view the tfs in rviz. And do a <code>rostopic list</code> and <code>ross
 $<span class="w"> </span>roscd<span class="w"> </span>airsim_tutorial_pkgs
 $<span class="w"> </span>cp<span class="w"> </span>settings/twenty_five_drones.json<span class="w"> </span>~/Documents/AirSim/settings.json
 
-<span class="c1">## Start your unreal package or binary here</span>
+<span class="c1">## 从这里启动你的虚幻引擎包或二进制文件</span>
 
 $<span class="w"> </span>roslaunch<span class="w"> </span>airsim_ros_pkgs<span class="w"> </span>airsim_node.launch<span class="p">;</span>
 $<span class="w"> </span>roslaunch<span class="w"> </span>airsim_ros_pkgs<span class="w"> </span>rviz.launch
 </code></pre></div>
-You can view the tfs in rviz. And do a <code>rostopic list</code> and <code>rosservice list</code> to inspect the services avaiable.    </p>
+您可以在 rviz 中查看 tfs。
+然后运行 <code>rostopic list</code> 和 <code>rosservice list</code> 来检查可用的服务。</p>
               
             </div>
           </div><footer>

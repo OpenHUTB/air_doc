@@ -99,27 +99,27 @@
     <ul class="current">
                 <li class="toctree-l2 current"><a class="reference internal current" href="#">传感器</a>
     <ul class="current">
-    <li class="toctree-l3"><a class="reference internal" href="#default-sensors">Default sensors</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_1">默认传感器</a>
         <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#multirotor">Multirotor</a>
+    <li class="toctree-l4"><a class="reference internal" href="#_2">多旋翼</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#car">Car</a>
+    <li class="toctree-l4"><a class="reference internal" href="#_3">车</a>
     </li>
     <li class="toctree-l4"><a class="reference internal" href="#computervision">ComputerVision</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#configuring-the-default-sensor-list">Configuring the default sensor list</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_4">配置默认传感器列表</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#configuring-vehicle-specific-sensor-list">Configuring vehicle-specific sensor list</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_5">配置特定车辆传感器列表</a>
         <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#sensor-specific-settings">Sensor specific settings</a>
+    <li class="toctree-l4"><a class="reference internal" href="#_6">传感器特定设置</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#sensor-apis">Sensor APIs</a>
+    <li class="toctree-l3"><a class="reference internal" href="#api">传感器 API</a>
         <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#barometer">Barometer</a>
+    <li class="toctree-l4"><a class="reference internal" href="#_8">气压计</a>
     </li>
     <li class="toctree-l4"><a class="reference internal" href="#imu">IMU</a>
     </li>
@@ -129,7 +129,7 @@
     </li>
     <li class="toctree-l4"><a class="reference internal" href="#distance-sensor">Distance sensor</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#lidar">Lidar</a>
+    <li class="toctree-l4"><a class="reference internal" href="#_9">激光雷达</a>
     </li>
         </ul>
     </li>
@@ -318,9 +318,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="sensors-in-airsim">Sensors in AirSim<a class="headerlink" href="#sensors-in-airsim" title="Permanent link">#</a></h1>
-<p>AirSim currently supports the following sensors.
-Each sensor is associated with a integer enum specifying its sensor type.</p>
+                <h1 id="airsim">AirSim 中的传感器<a class="headerlink" href="#airsim" title="Permanent link">#</a></h1>
+<p>AirSim 目前支持以下传感器。
+每个传感器都与一个指定其传感器类型的整数枚举相关联。</p>
 <ul>
 <li>Camera</li>
 <li>Barometer = 1</li>
@@ -330,17 +330,17 @@ Each sensor is associated with a integer enum specifying its sensor type.</p>
 <li>Distance Sensor = 5</li>
 <li>Lidar = 6</li>
 </ul>
-<p><strong>Note</strong> :  Cameras are configured differently than the other sensors and do not have an enum associated with them.    Look at <a href="../settings/">general settings</a> and <a href="../image_apis/">image API</a> for camera config and API.</p>
-<h2 id="default-sensors">Default sensors<a class="headerlink" href="#default-sensors" title="Permanent link">#</a></h2>
-<p>If no sensors are specified in the <code>settings.json</code>, then the following sensors are enabled by default based on the sim mode.</p>
-<h3 id="multirotor">Multirotor<a class="headerlink" href="#multirotor" title="Permanent link">#</a></h3>
+<p><strong>笔记</strong> :  摄像头的配置与其他传感器不同，并且没有与之关联的枚举。请参阅 <a href="../settings/">常规设置</a> 和 <a href="../image_apis/">图像 API</a> ，了解摄像头的配置和 API。 </p>
+<h2 id="_1">默认传感器<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
+<p>如果在<code>settings.json</code>中未指定任何传感器，则根据模拟模式默认启用以下传感器。</p>
+<h3 id="_2">多旋翼<a class="headerlink" href="#_2" title="Permanent link">#</a></h3>
 <ul>
 <li>Imu</li>
 <li>Magnetometer</li>
 <li>Gps</li>
 <li>Barometer</li>
 </ul>
-<h3 id="car">Car<a class="headerlink" href="#car" title="Permanent link">#</a></h3>
+<h3 id="_3">车<a class="headerlink" href="#_3" title="Permanent link">#</a></h3>
 <ul>
 <li>Gps</li>
 </ul>
@@ -348,9 +348,9 @@ Each sensor is associated with a integer enum specifying its sensor type.</p>
 <ul>
 <li>None</li>
 </ul>
-<p>Behind the scenes, <code>createDefaultSensorSettings</code> method in <a href="https://github.com/Microsoft/AirSim/blob/main/AirLib/include/common/AirSimSettings.hpp">AirSimSettings.hpp</a> sets up the above sensors with their default parameters, depending on the sim mode specified in the <code>settings.json</code> file.</p>
-<h2 id="configuring-the-default-sensor-list">Configuring the default sensor list<a class="headerlink" href="#configuring-the-default-sensor-list" title="Permanent link">#</a></h2>
-<p>The default sensor list can be configured in settings json:</p>
+<p>在后台，<a href="https://github.com/Microsoft/AirSim/blob/main/AirLib/include/common/AirSimSettings.hpp">AirSimSettings.hpp</a> 中的 <code>createDefaultSensorSettings</code> 方法根据 <code>settings.json</code> 文件中指定的模拟模式，使用默认参数设置上述传感器。</p>
+<h2 id="_4">配置默认传感器列表<a class="headerlink" href="#_4" title="Permanent link">#</a></h2>
+<p>可以在设置 json 中配置默认传感器列表：</p>
 <div class="highlight"><pre><span></span><code><span class="nt">&quot;DefaultSensors&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;Barometer&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="nt">&quot;SensorType&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
@@ -424,11 +424,11 @@ Each sensor is associated with a integer enum specifying its sensor type.</p>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">},</span>
 </code></pre></div>
-<h2 id="configuring-vehicle-specific-sensor-list">Configuring vehicle-specific sensor list<a class="headerlink" href="#configuring-vehicle-specific-sensor-list" title="Permanent link">#</a></h2>
-<p>A vehicle can override a subset of the default sensors listed above. A Lidar and Distance sensor are
-not added to a vehicle by default, so those you need to add this way. Each sensor must have a valid
-"SensorType" and a subset of the properties can be defined that override the default values shown
-above and you can set Enabled to false to disable a specific type of sensor.</p>
+<h2 id="_5">配置特定车辆传感器列表<a class="headerlink" href="#_5" title="Permanent link">#</a></h2>
+<p>车辆可以覆盖上面列出的部分默认传感器。激光雷达和距离传感器
+默认情况下不会添加到车辆中，因此您需要通过这种方式添加它们。每个传感器必须具有有效的
+“SensorType”，并且可以定义部分属性来覆盖上面显示的默认值，
+并且您可以将 Enabled 设置为 false 以禁用特定类型的传感器。</p>
 <div class="highlight"><pre><span></span><code><span class="nt">&quot;Vehicles&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 
 <span class="w">    </span><span class="nt">&quot;Drone1&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
@@ -461,15 +461,14 @@ above and you can set Enabled to false to disable a specific type of sensor.</p>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<h3 id="sensor-specific-settings">Sensor specific settings<a class="headerlink" href="#sensor-specific-settings" title="Permanent link">#</a></h3>
-<p>For detailed information on the meaning of these sensor settings
-see the following pages:</p>
+<h3 id="_6">传感器特定设置<a class="headerlink" href="#_6" title="Permanent link">#</a></h3>
+<p>有关这些传感器设置含义的详细信息，请参阅以下页面：</p>
 <ul>
-<li><a href="../lidar/">Lidar sensor settings</a></li>
-<li><a href="../distance_sensor/">Distance sensor settings</a></li>
+<li><a href="../lidar/">激光雷达传感器设置</a></li>
+<li><a href="../distance_sensor/">距离传感器设置</a></li>
 </ul>
-<h5 id="server-side-visualization-for-debugging">Server side visualization for debugging<a class="headerlink" href="#server-side-visualization-for-debugging" title="Permanent link">#</a></h5>
-<p>Be default, the points hit by distance sensor are not drawn on the viewport. To enable the drawing of hit points on the viewport, please enable setting <code>DrawDebugPoints</code> via settings json. E.g. -</p>
+<h5 id="_7">用于调试的服务器端可视化<a class="headerlink" href="#_7" title="Permanent link">#</a></h5>
+<p>默认情况下，距离传感器触碰的点不会绘制在视口上。如需启用触碰点绘制功能，请通过设置 json 启用<code>DrawDebugPoints</code>设置。例如：</p>
 <div class="highlight"><pre><span></span><code><span class="nt">&quot;Distance&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;SensorType&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;Enabled&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
@@ -477,9 +476,9 @@ see the following pages:</p>
 <span class="w">    </span><span class="nt">&quot;DrawDebugPoints&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
 <span class="p">}</span>
 </code></pre></div>
-<h2 id="sensor-apis">Sensor APIs<a class="headerlink" href="#sensor-apis" title="Permanent link">#</a></h2>
-<p>Jump straight to <a href="https://github.com/Microsoft/AirSim/blob/main/PythonClient/multirotor/hello_drone.py"><code>hello_drone.py</code></a> or <a href="https://github.com/Microsoft/AirSim/blob/main/HelloDrone/main.cpp"><code>hello_drone.cpp</code></a> for example usage, or see follow below for the full API.</p>
-<h3 id="barometer">Barometer<a class="headerlink" href="#barometer" title="Permanent link">#</a></h3>
+<h2 id="api">传感器 API<a class="headerlink" href="#api" title="Permanent link">#</a></h2>
+<p>直接跳转到 <a href="https://github.com/Microsoft/AirSim/blob/main/PythonClient/multirotor/hello_drone.py"><code>hello_drone.py</code></a> 或 <a href="https://github.com/Microsoft/AirSim/blob/main/HelloDrone/main.cpp"><code>hello_drone.cpp</code></a> 查看示例用法，或者参阅下文了解完整 API。</p>
+<h3 id="_8">气压计<a class="headerlink" href="#_8" title="Permanent link">#</a></h3>
 <div class="highlight"><pre><span></span><code><span class="n">msr</span><span class="o">::</span><span class="n">airlib</span><span class="o">::</span><span class="n">BarometerBase</span><span class="o">::</span><span class="n">Output</span><span class="w"> </span><span class="nf">getBarometerData</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">barometer_name</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">vehicle_name</span><span class="p">);</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="n">barometer_data</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">getBarometerData</span><span class="p">(</span><span class="n">barometer_name</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">vehicle_name</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
@@ -504,8 +503,8 @@ see the following pages:</p>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="n">distance_sensor_data</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">getDistanceSensorData</span><span class="p">(</span><span class="n">distance_sensor_name</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">vehicle_name</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
 </code></pre></div></p>
-<h3 id="lidar">Lidar<a class="headerlink" href="#lidar" title="Permanent link">#</a></h3>
-<p>See the <a href="../lidar/">lidar page</a> for Lidar API.</p>
+<h3 id="_9">激光雷达<a class="headerlink" href="#_9" title="Permanent link">#</a></h3>
+<p>有关 Lidar API，请参阅 <a href="../lidar/">lidar 页面</a>。</p>
               
             </div>
           </div><footer>

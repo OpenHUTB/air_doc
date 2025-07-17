@@ -136,29 +136,29 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">编码指南</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#quick-note">Quick Note</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_1">快速笔记</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#clang-format">clang-format</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#naming-conventions">Naming Conventions</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">命名约定</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#header-files">Header Files</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">头文件</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#bracketing">Bracketing</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_4">括在括弧内</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#const-and-references">Const and References</a>
+    <li class="toctree-l2"><a class="reference internal" href="#const">Const 和引用</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#overriding">Overriding</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_5">重写</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#pointers">Pointers</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_6">指针</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#null-checking">Null Checking</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_7">空值检查</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#indentation">Indentation</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_8">缩进</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#line-breaks">Line Breaks</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_9">换行符</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#this-is-too-short-ye">This is Too Short, ye?</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_10">这太短了，是吗？</a>
     </li>
     </ul>
                   </li>
@@ -307,98 +307,91 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="modern-c-coding-guidelines">Modern C++ Coding Guidelines<a class="headerlink" href="#modern-c-coding-guidelines" title="Permanent link">#</a></h1>
-<p>We are using Modern C++11. Smart pointers, Lambdas, and C++11 multithreading primitives are your friend.</p>
-<h2 id="quick-note">Quick Note<a class="headerlink" href="#quick-note" title="Permanent link">#</a></h2>
-<p>The great thing about "standards" is that there are many to chose from: <a href="https://isocpp.org/wiki/faq/coding-standards">ISO</a>, <a href="https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md">Sutter &amp; Stroustrup</a>, <a href="http://wiki.ros.org/CppStyleGuide">ROS</a>, <a href="https://www.kernel.org/doc/Documentation/process/coding-style.rst">LINUX</a>, <a href="https://google.github.io/styleguide/cppguide.html">Google's</a>, <a href="https://msdn.microsoft.com/en-us/library/888a6zcz.aspx">Microsoft's</a>, <a href="http://atlas-computing.web.cern.ch/atlas-computing/projects/qa/draft_guidelines.html">CERN's</a>, <a href="https://gcc.gnu.org/wiki/CppConventions">GCC's</a>, <a href="http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dui0475c/CJAJAJCJ.html">ARM's</a>, <a href="http://llvm.org/docs/CodingStandards.html">LLVM's</a> and probably 
-thousands of others. Unfortunately most of these can't even agree on something as basic as how to name a class or a constant. This is probably due to the fact that these standards often carry lots of  legacy issues due to supporting existing code bases. The intention behind this document is to create guidance that remains as close to ISO, Sutter &amp; Stroustrup and ROS while resolving as many conflicts, disadvantages and inconsistencies as possible among them.</p>
+                <h1 id="c">现代 C++ 编码指南<a class="headerlink" href="#c" title="Permanent link">#</a></h1>
+<p>我们正在使用现代 C++11。智能指针、Lambda 表达式和 C++11 多线程原语都是您的好帮手。</p>
+<h2 id="_1">快速笔记<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
+<p>“标准” 的优点在于有很多可供选择：<a href="https://isocpp.org/wiki/faq/coding-standards">ISO</a>、<a href="https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md">Sutter &amp; Stroustrup</a>、<a href="http://wiki.ros.org/CppStyleGuide">ROS</a>、<a href="https://www.kernel.org/doc/Documentation/process/coding-style.rst">LINUX</a>、<a href="https://google.github.io/styleguide/cppguide.html">Google</a>、<a href="https://msdn.microsoft.com/en-us/library/888a6zcz.aspx">Microsoft</a>、<a href="http://atlas-computing.web.cern.ch/atlas-computing/projects/qa/draft_guidelines.html">CERN</a>、<a href="https://gcc.gnu.org/wiki/CppConventions">GCC</a> <a href="http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dui0475c/CJAJAJCJ.html">ARM</a>、<a href="http://llvm.org/docs/CodingStandards.html">LLVM</a> 以及其他数千个标准。遗憾的是，这些标准中的大多数甚至连像如何命名类或常量这样基本的规范都无法达成一致。这可能是因为这些标准由于支持现有代码库而经常存在许多遗留问题。本文档旨在创建尽可能接近 ISO、Sutter &amp; Stroustrup 和 ROS 标准的指南，同时尽可能解决它们之间的冲突、缺点和不一致之处。</p>
 <h2 id="clang-format">clang-format<a class="headerlink" href="#clang-format" title="Permanent link">#</a></h2>
-<p>Formatting the syntax of C++ is normalized by the clang-format tool which has settings checked into
-this project in the file <code>.clang-format</code>. These settings are set to match the formatting guidelines
-listed below.  You can "format" a file using clang-format command line or by enabling Visual Studio
-automatic-clang formatting either during every edit or when you save the file.  All files have been
-formatted this way and the github workflow called <code>clang-format</code> will also ensure all pull requests
-are correctly formatted so it should stay clean.  Obviously this does not include external code like
-<code>Eigen</code> or <code>rpclib</code>.  </p>
-<p>If you find a bug in clang-format you can disable clang formatting of a specific block of code by
-using the following comments pair:</p>
+<p>C++ 语法的格式化由 clang-format 工具进行规范化，该工具已将设置签入到本项目中的 <code>.clang-format</code> 文件中。这些设置符合以下列出的格式指南。您可以使用 clang-format 命令行或在每次编辑或保存文件时启用 Visual Studio 自动 clang 格式化来“格式化”文件。所有文件均已按此格式格式化，名为 <code>clang-format</code> 的 GitHub 工作流也将确保所有拉取请求都格式正确，因此应该保持简洁。显然，这不包括 <code>Eigen</code> 或 <code>rpclib</code> 等外部代码。</p>
+<p>如果您发现 clang-format 中存在错误，您可以使用以下注释对禁用特定代码块的 clang 格式：</p>
 <div class="highlight"><pre><span></span><code><span class="c1">// clang-format off</span>
 <span class="p">...</span>
 <span class="c1">// clang-format on</span>
 </code></pre></div>
-<h2 id="naming-conventions">Naming Conventions<a class="headerlink" href="#naming-conventions" title="Permanent link">#</a></h2>
-<p>Avoid using any sort of Hungarian notation on names and "_ptr" on pointers.</p>
+<h2 id="_2">命名约定<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
+<p>避免在名称上使用任何类型的匈牙利表示法，避免在指针上使用“_ptr”。</p>
 <table>
 <thead>
 <tr>
-<th><strong>Code Element</strong></th>
-<th><strong>Style</strong></th>
-<th><strong>Comment</strong></th>
+<th><strong>代码元素</strong></th>
+<th><strong>风格</strong></th>
+<th><strong>评论</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Namespace</td>
+<td>命名空间</td>
 <td>under_scored</td>
-<td>Differentiate from class names</td>
+<td>与类名区分</td>
 </tr>
 <tr>
-<td>Class name</td>
+<td>类名</td>
 <td>CamelCase</td>
-<td>To differentiate from STL types which ISO recommends (do not use "C" or "T" prefixes)</td>
+<td>为了与 ISO 推荐的 STL 类型区分开来（不要使用“C”或“T”前缀）</td>
 </tr>
 <tr>
-<td>Function name</td>
+<td>函数名</td>
 <td>camelCase</td>
-<td>Lower case start is almost universal except for .Net world</td>
+<td>除了 .Net 世界之外，小写字母开头几乎是通用的</td>
 </tr>
 <tr>
-<td>Parameters/Locals</td>
+<td>参数/局部变量</td>
 <td>under_scored</td>
-<td>Vast majority of standards recommends this because _ is more readable to C++ crowd (although not much to Java/.Net crowd)</td>
+<td>绝大多数标准都推荐这样做，因为 _ 对于 C++ 人群来说更具可读性（尽管对于 Java/.Net 人群来说并不多）</td>
 </tr>
 <tr>
-<td>Member variables</td>
+<td>成员变量</td>
 <td>under_scored_with_</td>
-<td>The prefix _ is heavily discouraged as ISO has rules around reserving _identifiers, so we recommend suffix instead</td>
+<td>由于 ISO 对保留 _identifiers 有规定，因此强烈不建议使用前缀 _，因此我们建议使用后缀</td>
 </tr>
 <tr>
-<td>Enums and its members</td>
+<td>枚举及其成员</td>
 <td>CamelCase</td>
-<td>Most except very old standards agree with this one</td>
+<td>除了非常古老的标准外，大多数标准都同意这一点</td>
 </tr>
 <tr>
-<td>Globals</td>
+<td>全局变量</td>
 <td>g_under_scored</td>
-<td>You shouldn't have these in first place!</td>
+<td>你首先就不应该拥有这些！</td>
 </tr>
 <tr>
-<td>Constants</td>
+<td>常量</td>
 <td>UPPER_CASE</td>
-<td>Very contentious and we just have to pick one here, unless if is a private constant in class or method, then use naming for Members or Locals</td>
+<td>非常有争议，我们只需要在这里选择一个，除非它是类或方法中的私有常量，然后使用成员或本地命名</td>
 </tr>
 <tr>
-<td>File names</td>
-<td>Match case of class name in file</td>
-<td>Lot of pro and cons either way but this removes inconsistency in auto generated code (important for ROS)</td>
+<td>文件名</td>
+<td>匹配文件中的类名的大小写</td>
+<td>无论如何，都有很多优点和缺点，但这消除了自动生成代码中的不一致性（对于 ROS 很重要）</td>
 </tr>
 </tbody>
 </table>
-<h2 id="header-files">Header Files<a class="headerlink" href="#header-files" title="Permanent link">#</a></h2>
-<p>Use a namespace qualified #ifdef to protect against multiple inclusion:</p>
+<h2 id="_3">头文件<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
+<p>使用命名空间限定的 #ifdef 来防止多重包含：</p>
 <div class="highlight"><pre><span></span><code>#ifndef msr_airsim_MyHeader_hpp
 #define msr_airsim_MyHeader_hpp
 
-//--your code
+//--你的代码
 
 #endif
 </code></pre></div>
-<p>The reason we don't use #pragma once is because it's not supported if same header file exists at multiple places (which might be possible under ROS build system!).</p>
-<h2 id="bracketing">Bracketing<a class="headerlink" href="#bracketing" title="Permanent link">#</a></h2>
-<p>Inside function or method body place curly bracket on same line. 
-Outside that the Namespace, Class and methods levels use separate line.
-This is called <a href="https://en.wikipedia.org/wiki/Indent_style#K.26R_style">K&amp;R style</a> and its variants are widely used in C++ vs other styles which are more popular in other languages. 
-Notice that curlies are not required if you have single statement, but complex statements are easier to keep correct with the braces.</p>
+<p>我们不使用 #pragma once 的原因是，如果相同的头文件存在于多个地方（这在 ROS 构建系统下可能是可能的！），则不支持。</p>
+<h2 id="_4">括在括弧内<a class="headerlink" href="#_4" title="Permanent link">#</a></h2>
+<p>在函数或方法体内，将花括号放在同一行。在函数或方法体外，命名空间、类和方法级别则单独一行。这被称为 <a href="https://en.wikipedia.org/wiki/Indent_style#K.26R_style">K&amp;R 风格</a>，其变体在 C++ 中被广泛使用，而其他风格在其他语言中更受欢迎。请注意，如果语句单一，则无需使用花括号，但复杂的语句使用大括号更容易保持正确。</p>
+<p>在函数或方法体内，将花括号放在同一行。
+除此之外，命名空间、类和方法级别使用单独的一行。
+这称为 <a href="https://en.wikipedia.org/wiki/Indent_style#K.26R_style">K&amp;R 风格</a>，其变体在 C++ 中被广泛使用，而其他风格在其他语言中更受欢迎。
+请注意，如果语句单一，则无需使用花括号，但复杂的语句使用大括号更容易保持正确。</p>
 <div class="highlight"><pre><span></span><code>int main(int argc, char* argv[])
 {
      while (x == y) {
@@ -414,40 +407,32 @@ Notice that curlies are not required if you have single statement, but complex s
     }
 }
 </code></pre></div>
-<h2 id="const-and-references">Const and References<a class="headerlink" href="#const-and-references" title="Permanent link">#</a></h2>
-<p>Religiously review all non-scalar parameters you declare to be candidate for const and references. If you are coming from languages such as C#/Java/Python,
-the most often mistake you would make is to pass parameters by value instead of <code>const T&amp;;</code> Especially most of the strings, vectors and maps you want to 
-pass as <code>const T&amp;;</code> (if they are readonly) or <code>T&amp;</code> (if they are writable). Also add <code>const</code> suffix to methods as much as possible.</p>
-<h2 id="overriding">Overriding<a class="headerlink" href="#overriding" title="Permanent link">#</a></h2>
-<p>When overriding virtual method, use override suffix.</p>
-<h2 id="pointers">Pointers<a class="headerlink" href="#pointers" title="Permanent link">#</a></h2>
-<p>This is really about memory management.  A simulator has much performance critical code, so we try and avoid overloading the memory manager
-with lots of calls to new/delete.  We also want to avoid too much copying of things on the stack, so we pass things by reference when ever possible.
-But when the object really needs to live longer than the call stack you often need to allocate that object on
-the heap, and so you have a pointer.  Now, if management of the lifetime of that object is going to be tricky we recommend using 
-<a href="https://cppstyle.wordpress.com/c11-smart-pointers/">C++ 11 smart pointers</a>. 
-But smart pointers do have a cost, so don’t use them blindly everywhere.  For private code 
-where performance is paramount, raw pointers can be used.  Raw pointers are also often needed when interfacing with legacy systems
-that only accept pointer types, for example, sockets API.  But we try to wrap those legacy interfaces as
-much as possible and avoid that style of programming from leaking into the larger code base.  </p>
-<p>Religiously check if you can use const everywhere, for example, <code>const float * const xP</code>. Avoid using prefix or suffix to indicate pointer types in variable names, i.e. use <code>my_obj</code> instead of <code>myobj_ptr</code> except in cases where it might make sense to differentiate variables better, for example, <code>int mynum = 5; int* mynum_ptr = mynum;</code></p>
-<h2 id="null-checking">Null Checking<a class="headerlink" href="#null-checking" title="Permanent link">#</a></h2>
-<p>In Unreal C++ code, when checking if a pointer is null, it is preferable to use <code>IsValid(ptr)</code>. In addition to checking for a null pointer, this function will also return whether a UObject is properly initialized. This is useful in situations where a UObject is in the process of being garbage collected but still set to a non-null value.</p>
-<h2 id="indentation">Indentation<a class="headerlink" href="#indentation" title="Permanent link">#</a></h2>
-<p>The C++ code base uses four spaces for indentation (not tabs).</p>
-<h2 id="line-breaks">Line Breaks<a class="headerlink" href="#line-breaks" title="Permanent link">#</a></h2>
-<p>Files should be committed with Unix line breaks. When working on Windows, git can be configured to checkout files with Windows line breaks and automatically convert from Windows to Unix line breaks when committing by running the following command:</p>
+<h2 id="const">Const 和引用<a class="headerlink" href="#const" title="Permanent link">#</a></h2>
+<p>认真检查所有声明为 const 和引用的非标量参数。如果您之前使用过 C#/Java/Python 等语言，最常犯的错误就是按值传递参数，而不是使用 <code>const T&amp;;</code>。尤其是大多数字符串、向量和映射，如果它们是只读的，则应使用 <code>const T&amp;;</code>；如果它们是可写的，则应使用 <code>T&amp;</code>。此外，尽可能为方法添加 <code>const</code> 后缀。</p>
+<h2 id="_5">重写<a class="headerlink" href="#_5" title="Permanent link">#</a></h2>
+<p>重写虚方法时，使用 override 后缀。</p>
+<h2 id="_6">指针<a class="headerlink" href="#_6" title="Permanent link">#</a></h2>
+<p>这实际上与内存管理有关。模拟器包含许多性能关键代码，因此我们尽量避免通过大量调用 new/delete 来导致内存管理器过载。我们还希望避免在堆栈上进行过多的内容复制，因此我们尽可能通过引用传递内容。
+但是，当对象确实需要比调用堆栈存活更长时间时，通常需要在堆上分配该对象，因此需要一个指针。现在，如果管理该对象的生命周期比较棘手，我们建议使用
+<a href="https://cppstyle.wordpress.com/c11-smart-pointers/">C++ 11 智能指针</a>。
+但是智能指针确实存在成本，因此不要盲目地在所有地方使用它们。对于性能至关重要的私有代码，可以使用原始指针。在与仅接受指针类型的旧系统（例如套接字 API）交互时，通常也需要使用原始指针。但我们尝试尽可能地包装这些遗留接口，并避免这种编程风格泄露到更大的代码库中。</p>
+<p>务必检查是否可以在所有地方使用 const，例如 <code>const float * const xP</code>。避免在变量名中使用前缀或后缀来指示指针类型，例如，除非为了更好地区分变量，否则请使用 <code>my_obj</code> 而不是 <code>myobj_ptr</code>，例如 <code>int mynum = 5; int* mynum_ptr = mynum;</code>。</p>
+<h2 id="_7">空值检查<a class="headerlink" href="#_7" title="Permanent link">#</a></h2>
+<p>在虚幻 C++ 代码中，检查指针是否为空时，最好使用“IsValid(ptr)”。除了检查空指针之外，此函数还会返回 UObject 是否已正确初始化。这在 UObject 正在被垃圾回收但仍设置为非空值的情况下非常有用。</p>
+<h2 id="_8">缩进<a class="headerlink" href="#_8" title="Permanent link">#</a></h2>
+<p>C++ 代码库使用四个空格进行缩进（而不是制表符）。</p>
+<h2 id="_9">换行符<a class="headerlink" href="#_9" title="Permanent link">#</a></h2>
+<p>提交文件时应使用 Unix 换行符。在 Windows 上工作时，可以配置 git 检出带有 Windows 换行符的文件，并在提交时自动将 Windows 换行符转换为 Unix 换行符，具体操作如下：</p>
 <div class="highlight"><pre><span></span><code>git config --global core.autocrlf true
 </code></pre></div>
-<p>When working on Linux, it is preferable to configure git to checkout files with Unix line breaks by running the following command:</p>
+<p>在 Linux 上工作时，最好通过运行以下命令将 git 配置为检出带有 Unix 换行符的文件：</p>
 <div class="highlight"><pre><span></span><code>git config --global core.autocrlf input
 </code></pre></div>
-<p>For more details on this setting, see <a href="https://docs.github.com/en/get-started/getting-started-with-git/configuring-git-to-handle-line-endings">this documentation</a>.</p>
-<h2 id="this-is-too-short-ye">This is Too Short, ye?<a class="headerlink" href="#this-is-too-short-ye" title="Permanent link">#</a></h2>
-<p>Yes, and it's on purpose because no one likes to read 200 page coding guidelines. The goal here is to cover only most significant things which are 
-already not covered by <a href="http://shitalshah.com/p/how-to-enable-and-use-gcc-strict-mode-compilation/">strict mode compilation in GCC</a> and Level 4 
-warnings-as-errors in VC++. If you had like to know about how to write better code in C++, please see <a href="https://herbsutter.com/gotw/">GotW</a> 
-and <a href="http://shop.oreilly.com/product/0636920033707.do">Effective Modern C++</a> book.</p>
+<p>有关此设置的更多详细信息，请参阅<a href="https://docs.github.com/en/get-started/getting-started-with-git/configuring-git-to-handle-line-endings">此文档</a>。</p>
+<h2 id="_10">这太短了，是吗？<a class="headerlink" href="#_10" title="Permanent link">#</a></h2>
+<p>是的，这是故意的，因为没人喜欢读200页的编码指南。这里的目标是只涵盖最重要的内容，这些内容
+在<a href="http://shitalshah.com/p/how-to-enable-and-use-gcc-strict-mode-compilation/">GCC中的严格模式编译</a>和VC++中的4级警告错误中尚未涵盖。如果你想了解如何用C++编写更好的代码，请参阅<a href="https://herbsutter.com/gotw/">GotW</a>
+和<a href="http://shop.oreilly.com/product/0636920033707.do">Effective Modern C++</a>这本书。</p>
               
             </div>
           </div><footer>

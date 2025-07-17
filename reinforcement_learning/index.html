@@ -201,15 +201,15 @@
               <ul class="current">
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">强化学习</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#disclaimer">Disclaimer</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_1">免责声明</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#gym-wrapper">Gym wrapper</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#rl-with-car">RL with Car</a>
+    <li class="toctree-l2"><a class="reference internal" href="#rl">RL 与汽车</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#rl-with-quadrotor">RL with Quadrotor</a>
+    <li class="toctree-l2"><a class="reference internal" href="#rl_1">RL 与四旋翼飞行器</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#related">Related</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">相关内容</a>
     </li>
     </ul>
                   </li>
@@ -293,20 +293,20 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="reinforcement-learning-in-airsim">Reinforcement Learning in AirSim<a class="headerlink" href="#reinforcement-learning-in-airsim" title="Permanent link">#</a></h1>
-<p>We below describe how we can implement DQN in AirSim using an OpenAI gym wrapper around AirSim API, and using stable baselines implementations of standard RL algorithms. We recommend installing stable-baselines3 in order to run these examples (please see https://github.com/DLR-RM/stable-baselines3)</p>
-<h4 id="disclaimer">Disclaimer<a class="headerlink" href="#disclaimer" title="Permanent link">#</a></h4>
-<p>This is still in active development. What we share below is a framework that can be extended and tweaked to obtain better performance.</p>
+                <h1 id="airsim">AirSim 中的强化学习<a class="headerlink" href="#airsim" title="Permanent link">#</a></h1>
+<p>下面我们将介绍如何在 AirSim 中实现 DQN，具体方法是使用 OpenAI Gym 封装 AirSim API 的包装器，并使用标准强化学习算法的稳定基线实现。为了运行这些示例，我们建议安装 stable-baselines3（请参阅 https://github.com/DLR-RM/stable-baselines3）。</p>
+<h4 id="_1">免责声明<a class="headerlink" href="#_1" title="Permanent link">#</a></h4>
+<p>这仍在积极开发中。下面我们分享的是一个可以扩展和调整以获得更佳性能的框架。</p>
 <h4 id="gym-wrapper">Gym wrapper<a class="headerlink" href="#gym-wrapper" title="Permanent link">#</a></h4>
-<p>In order to use AirSim as a gym environment, we extend and reimplement the base methods such as <code>step</code>, <code>_get_obs</code>, <code>_compute_reward</code> and <code>reset</code> specific to AirSim and the task of interest. The sample environments used in these examples for car and drone can be seen in <code>PythonClient/reinforcement_learning/*_env.py</code></p>
-<h2 id="rl-with-car">RL with Car<a class="headerlink" href="#rl-with-car" title="Permanent link">#</a></h2>
-<p><a href="https://github.com/Microsoft/AirSim/tree/main/PythonClient/reinforcement_learning">Source code</a></p>
-<p>This example works with AirSimNeighborhood environment available in <a href="https://github.com/Microsoft/AirSim/releases">releases</a>.</p>
-<p>First, we need to get the images from simulation and transform them appropriately. Below, we show how a depth image can be obtained from the ego camera and transformed to an 84X84 input to the network. (you can use other sensor modalities, and sensor inputs as well – of course you’ll have to modify the code accordingly).</p>
+<p>为了将 AirSim 用作训练环境，我们扩展并重新实现了 AirSim 及其相关任务所需的基础方法，例如 <code>step</code>、<code>_get_obs</code>、<code>_compute_reward</code> 和 <code>reset</code>。这些示例中用于汽车和无人机的示例环境位于 <code>PythonClient/reinforcement_learning/*_env.py</code> 中。</p>
+<h2 id="rl">RL 与汽车<a class="headerlink" href="#rl" title="Permanent link">#</a></h2>
+<p><a href="https://github.com/Microsoft/AirSim/tree/main/PythonClient/reinforcement_learning">源代码</a></p>
+<p>此示例适用于 <a href="https://github.com/Microsoft/AirSim/releases">发行版</a> 中提供的 AirSimNeighborhood 环境。</p>
+<p>首先，我们需要从模拟中获取图像并对其进行适当的转换。下面，我们将展示如何从自我相机获取深度图像并将其转换为 84x84 的输入到网络。（您也可以使用其他传感器模态和传感器输入——当然，您需要相应地修改代码）。</p>
 <div class="highlight"><pre><span></span><code>responses = client.simGetImages([ImageRequest(0, AirSimImageType.DepthPerspective, True, False)])
 current_state = transform_input(responses)
 </code></pre></div>
-<p>We further define the six actions (brake, straight with throttle, full-left with throttle, full-right with throttle, half-left with throttle, half-right with throttle) that an agent can execute. This is done via the function <code>interpret_action</code>:</p>
+<p>我们进一步定义了代理可以执行的 6 个动作（刹车、直行带油门、左转带油门全开、右转带油门全开、左转半开带油门、右转半开带油门）。这通过函数<code>interpret_action</code>实现：</p>
 <div class="highlight"><pre><span></span><code>def interpret_action(action):
     car_controls.brake = 0
     car_controls.throttle = 1
@@ -325,7 +325,7 @@ current_state = transform_input(responses)
         car_controls.steering = -0.25
     return car_controls
 </code></pre></div>
-<p>We then define the reward function in <code>_compute_reward</code> as a convex combination of how fast the vehicle is travelling and how much it deviates from the center line. The agent gets a high reward when its moving fast and staying in the center of the lane.</p>
+<p>然后，我们在<code>_compute_reward</code>中将奖励函数定义为车辆行驶速度与偏离中心线距离的凸组合。当代理快速行驶并保持在车道中心时，代理将获得高奖励。</p>
 <div class="highlight"><pre><span></span><code>def _compute_reward(car_state):
     MAX_SPEED = 300
     MIN_SPEED = 10
@@ -351,7 +351,7 @@ current_state = transform_input(responses)
 
     return reward
 </code></pre></div>
-<p>The compute reward function also subsequently determines if the episode has terminated (e.g. due to collision). We look at the speed of the vehicle and if it is less than a threshold than the episode is considered to be terminated.</p>
+<p>计算奖励函数随后还会判断该场景是否已终止（例如，由于碰撞）。我们会观察车辆的速度，如果速度低于阈值，则认为该场景已终止。</p>
 <div class="highlight"><pre><span></span><code>done = 0
 if reward &lt; -1:
     done = 1
@@ -360,8 +360,7 @@ if car_controls.brake == 0:
         done = 1
 return done
 </code></pre></div>
-<p>The main loop then sequences through obtaining the image, computing the action to take according to the current policy, getting a reward and so forth.
-If the episode terminates then we reset the vehicle to the original state via <code>reset()</code>:</p>
+<p>然后，主循环依次执行获取图像、根据当前策略计算要采取的行动、获得奖励等步骤。如果回合结束，我们会通过 <code>reset()</code> 将车辆重置为原始状态：</p>
 <div class="highlight"><pre><span></span><code>client.reset()
 client.enableApiControl(True)
 client.armDisarm(True)
@@ -369,7 +368,7 @@ car_control = interpret_action(1) // Reset position and drive straight for one s
 client.setCarControls(car_control)
 time.sleep(1)
 </code></pre></div>
-<p>Once the gym-styled environment wrapper is defined as in <code>car_env.py</code>, we then make use of stable-baselines3 to run a DQN training loop. The DQN training can be configured as follows, seen in <code>dqn_car.py</code>.</p>
+<p>一旦在<code>car_env.py</code>中定义了 gym 风格的环境包装器，我们就可以利用 stable-baselines3 运行 DQN 训练循环。DQN 训练的配置如下，详见<code>dqn_car.py</code>。</p>
 <div class="highlight"><pre><span></span><code>model = DQN(
     &quot;CnnPolicy&quot;,
     env,
@@ -387,14 +386,14 @@ time.sleep(1)
     tensorboard_log=&quot;./tb_logs/&quot;,
 )
 </code></pre></div>
-<p>A training environment and an evaluation envrionment (see <code>EvalCallback</code> in <code>dqn_car.py</code>) can be defined. The evaluation environoment can be different from training, with different termination conditions/scene configuration. A tensorboard log directory is also defined as part of the DQN parameters. Finally, <code>model.learn()</code> starts the DQN training loop. Similarly, implementations of PPO, A3C etc. can be used from stable-baselines3.</p>
-<p>Note that the simulation needs to be up and running before you execute <code>dqn_car.py</code>. The video below shows first few episodes of DQN training.</p>
+<p>可以定义训练环境和评估环境（参见 <code>dqn_car.py</code> 中的 <code>EvalCallback</code>）。评估环境可以与训练环境不同，具有不同的终止条件/场景配置。Tensorboard 日志目录也作为 DQN 参数的一部分定义。最后，<code>model.learn()</code> 启动 DQN 训练循环。同样，可以从 stable-baselines3 中使用 PPO、A3C 等实现。</p>
+<p>请注意，在执行<code>dqn_car.py</code>之前，需要启动并运行模拟。下方视频展示了 DQN 训练的前几轮。</p>
 <p><a href="https://youtu.be/fv-oFPAqSZ4"><img alt="Reinforcement Learning - Car" src="../images/dqn_car.png" /></a></p>
-<h2 id="rl-with-quadrotor">RL with Quadrotor<a class="headerlink" href="#rl-with-quadrotor" title="Permanent link">#</a></h2>
-<p><a href="https://github.com/Microsoft/AirSim/tree/main/PythonClient/reinforcement_learning">Source code</a></p>
-<p>This example works with AirSimMountainLandscape environment available in <a href="https://github.com/Microsoft/AirSim/releases">releases</a>.</p>
-<p>We can similarly apply RL for various autonomous flight scenarios with quadrotors. Below is an example on how RL could be used to train quadrotors to follow high tension power lines (e.g. application for energy infrastructure inspection).
-There are seven discrete actions here that correspond to different directions in which the quadrotor can move in (six directions + one hovering action).</p>
+<h2 id="rl_1">RL 与四旋翼飞行器<a class="headerlink" href="#rl_1" title="Permanent link">#</a></h2>
+<p><a href="https://github.com/Microsoft/AirSim/tree/main/PythonClient/reinforcement_learning">源代码</a></p>
+<p>此示例适用于 <a href="https://github.com/Microsoft/AirSim/releases">发行版</a> 中可用的 AirSimMountainLandscape 环境。</p>
+<p>类似地，我们可以将强化学习应用于四旋翼飞行器的各种自主飞行场景。以下示例展示了如何使用强化学习训练四旋翼飞行器沿高压电线飞行（例如，能源基础设施巡检应用）。
+这里有七个离散动作，分别对应四旋翼飞行器可以移动的不同方向（6 个方向 + 1 个悬停动作）。</p>
 <div class="highlight"><pre><span></span><code>def interpret_action(self, action):
     if action == 0:
         quad_offset = (self.step_length, 0, 0)
@@ -411,7 +410,7 @@ There are seven discrete actions here that correspond to different directions in
     else:
         quad_offset = (0, 0, 0)
 </code></pre></div>
-<p>The reward again is a function how how fast the quad travels in conjunction with how far it gets from the known powerlines.</p>
+<p>奖励再次是一个函数，它决定了四轮车的行驶速度以及它与已知电力线的距离。</p>
 <div class="highlight"><pre><span></span><code>def compute_reward(quad_state, quad_vel, collision_info):
     thresh_dist = 7
     beta = 1
@@ -435,8 +434,8 @@ There are seven discrete actions here that correspond to different directions in
             reward_speed = (np.linalg.norm([self.state[&quot;velocity&quot;].x_val, self.state[&quot;velocity&quot;].y_val, self.state[&quot;velocity&quot;].z_val,])- 0.5)
             reward = reward_dist + reward_speed
 </code></pre></div>
-<p>We consider an episode to terminate if it drifts too much away from the known power line coordinates, and then reset the drone to its starting point.</p>
-<p>Once the gym-styled environment wrapper is defined as in <code>drone_env.py</code>, we then make use of stable-baselines3 to run a DQN training loop. The DQN training can be configured as follows, seen in <code>dqn_drone.py</code>.</p>
+<p>如果事件偏离已知电力线坐标太远，我们会认为该事件终止，然后将无人机重置到其起点。</p>
+<p>一旦在<code>drone_env.py</code>中定义了 gym 风格的环境包装器，我们就可以利用 stable-baselines3 运行 DQN 训练循环。DQN 训练的配置如下，详见<code>dqn_drone.py</code>。</p>
 <div class="highlight"><pre><span></span><code>model = DQN(
     &quot;CnnPolicy&quot;,
     env,
@@ -454,11 +453,11 @@ There are seven discrete actions here that correspond to different directions in
     tensorboard_log=&quot;./tb_logs/&quot;,
 )
 </code></pre></div>
-<p>A training environment and an evaluation envrionment (see <code>EvalCallback</code> in <code>dqn_drone.py</code>) can be defined. The evaluation environoment can be different from training, with different termination conditions/scene configuration. A tensorboard log directory is also defined as part of the DQN parameters. Finally, <code>model.learn()</code> starts the DQN training loop. Similarly, implementations of PPO, A3C etc. can be used from stable-baselines3.</p>
-<p>Here is the video of first few episodes during the training.</p>
+<p>可以定义训练环境和评估环境（参见 <code>dqn_drone.py</code> 中的 <code>EvalCallback</code>）。评估环境可以与训练环境不同，具有不同的终止条件/场景配置。Tensorboard 日志目录也被定义为 DQN 参数的一部分。最后，<code>model.learn()</code> 启动 DQN 训练循环。同样，可以使用 stable-baselines3 中的 PPO、A3C 等实现。</p>
+<p>以下是训练期间前几代的视频。</p>
 <p><a href="https://youtu.be/uKm15Y3M1Nk"><img alt="Reinforcement Learning - Quadrotor" src="../images/dqn_quadcopter.png" /></a></p>
-<h2 id="related">Related<a class="headerlink" href="#related" title="Permanent link">#</a></h2>
-<p>Please also see <a href="https://aka.ms/AutonomousDrivingCookbook">The Autonomous Driving Cookbook</a> by Microsoft Deep Learning and Robotics Garage Chapter.</p>
+<h2 id="_2">相关内容<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
+<p>另请参阅 Microsoft 深度学习和机器人车库章节的 <a href="https://aka.ms/AutonomousDrivingCookbook">自动驾驶手册</a>。</p>
               
             </div>
           </div><footer>
