@@ -1,4 +1,4 @@
-Have you ever wanted to fly a nice smooth circular orbit?  This can be handy for capturing 3D objects from all sides especially if you get multiple orbits at different altitudes.  
+你有没有想过飞一个漂亮光滑的圆形轨道？这对于从各个方面捕获 3D 对象非常方便，尤其是当您在不同高度获得多个轨道时。
 
 So the PythonClient folder contains a new script named [Orbit](https://github.com/Microsoft/AirSim/blob/master/PythonClient/orbit.py) that will do exactly that.
 
