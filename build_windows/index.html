@@ -95,6 +95,8 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../settings/">设置</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../map/">地图</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../camera_views/">相机视角</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../using_car/">汽车模式</a>
@@ -307,13 +309,17 @@
 <li>安装 Visual Studio 2022。<strong>确保</strong>选择使用 <strong>C++ 和 Windows 10 SDK 10.0.19041 进行桌面开发</strong>（默认选择），并在安装 VS 2022 时在“单个组件”选项卡下选择最新的 .NET Framework SDK。 </li>
 <li>启动 <code>Developer Command Prompt for VS 2022</code>.</li>
 <li>
-<p>克隆仓库：<code>git clone https://github.com/Microsoft/AirSim.git</code> ，然后通过 <code>cd AirSim</code> AirSim 目录。</p>
+<p>克隆仓库：<code>git clone https://github.com/OpenHUTB/AirSim.git</code> ，然后通过 <code>cd AirSim</code> 进入 AirSim 目录。</p>
 <p><strong>注意：</strong> 通常不建议将 AirSim 安装在 C 盘。这会导致脚本运行失败，并且需要以管理员模式运行 VS。建议将其克隆到其他盘，例如 D 盘或 E 盘。 </p>
 </li>
 <li>
 <p>从命令行运行 <code>build.cmd</code> 。这将在 <code>Unreal\Plugins</code> 文件夹中创建可立即使用的插件，可将其放入任何虚幻引擎项目中。</p>
 </li>
 </ul>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>构建过程中会弹出<code>Select Unreal Engine Version</code>，选择 hutb 所对应的虚幻引擎，会为<code>AirSim\Unreal\Environments\Blocks.uproject</code>生成<code>Blocks.sln</code>文件，然后直接跳到下面的“如何使用 AirSim”。</p>
+</div>
 <h2 id="_2">构建虚幻引擎项目<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
 <p>最后，您需要一个虚幻引擎项目来托管您的车辆环境。如果您尚未关闭虚幻引擎和 Epic Games 启动器，请务必在构建您的第一个环境之前将其关闭并重新打开。重新启动 Epic Games 启动器后，它会要求您将项目文件扩展名与虚幻引擎关联，点击“立即修复”即可修复。AirSim 自带内置的“Blocks 环境”，您可以使用它，也可以创建自己的环境。请参阅 <a href="../unreal_proj/">设置虚幻环境</a> 。</p>
 <h2 id="_3">设置遥控器（仅限多旋翼飞行器）<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
@@ -323,23 +329,25 @@
 <p>按照上述步骤设置 AirSim 后，您可以</p>
 <ol>
 <li>
-<p>双击 .sln 文件以加载 <code>Unreal\Environments\Blocks</code> 中的 Blocks 项目（或您 <a href="../unreal_custenv/">自定义</a> 的 Unreal 项目中的 .sln 文件）。如果您没有看到 .sln 文件，则可能是您尚未完成上面“构建 Unreal 项目”部分中的步骤。 </p>
+<p>双击 <code>Unreal\Environments\Blocks.sln</code> 文件以加载 Blocks 项目（或您 <a href="../unreal_custenv/">自定义</a> 的 Unreal 项目中的 .sln 文件）。如果您没有看到 .sln 文件，则可能是您尚未完成上面“构建虚幻引擎项目”部分中的步骤。 </p>
 <p><strong>注意</strong>: Unreal 4.27 将自动生成针对 Visual Studio 2019 的 .sln 文件。Visual Studio 2022 将能够加载和运行此 .sln，但如果您想要完全支持 Visual Studio 2022，则需要通过转到“编辑-&gt;编辑器首选项-&gt;源代码”并为“源代码编辑器”设置选择“Visual Studio 2022”来明确启用支持。</p>
 </li>
 <li>
-<p>选择您的虚幻项目作为启动项目（例如，Blocks 项目）并确保构建配置设置为“开发编辑器”和 x64。</p>
+<p>选择您的虚幻项目作为启动项目（例如，<code>Blocks</code> 项目，右键<code>解决方案资源管理器</code>中的<code>Block</code>，选择<code>设为启动项目</code>）并确保构建配置设置为<code>Development Editor</code>和 <code>Win64</code>。</p>
 </li>
-<li>
-<p>虚幻编辑器加载后，按播放(Play)按钮。</p>
-</li>
+</ol>
+<p>如果报错<code>1&gt;LINK : fatal error LNK1104: 无法打开文件“D:\work\workspace\UnrealEngine\Engine\Binaries\Win64\UE4Editor-Voice.dll”</code>，则检查解决方案中有没有合适的UE4。</p>
+<p>原因：运行<code>GenerateProjectFiles.bat</code>中的<code>powershell -command "&amp; { (Get-ItemProperty 'Registry::HKEY_CLASSES_ROOT\Unreal.ProjectFile\shell\rungenproj' -Name 'Icon' ).'Icon' }</code>，显示的<code>C:\Program Files (x86)\Epic Games\Launcher\Engine\Binaries\Win64\UnrealVersionSelector.exe</code>不是hutb所使用的虚幻引擎。</p>
+<ol>
+<li>虚幻编辑器加载后，按<code>运行(Play)</code>按钮。</li>
 </ol>
 <div class="admonition 提示">
 <p class="admonition-title">提示</p>
-<p>转到“编辑-&gt;编辑器首选项”，在“搜索”框中输入“CPU”，并确保未选中“在后台时使用较少的 CPU”(Use Less CPU when in Background)。</p>
+<p>转到“编辑-&gt;编辑器偏好设置”，在“搜索”框中输入“CPU”，并确保未选中“在后台时使用较少的 CPU”(Use Less CPU when in Background)。</p>
 </div>
 <p>请参阅 <a href="../apis/">使用 API</a>  和 <a href="../settings/">settings.json</a>  了解各种可用选项。</p>
-<h1 id="airsim-on-unity-experimental">AirSim on Unity (Experimental)<a class="headerlink" href="#airsim-on-unity-experimental" title="Permanent link">#</a></h1>
-<p><a href="https://unity3d.com/">Unity</a> is another great game engine platform and we have an <strong>experimental</strong> integration of <a href="Unity.md">AirSim with Unity</a>. Please note that this is work in progress and all features may not work yet.</p>
+<h1 id="unity-airsim">Unity 上的 AirSim (实验性)<a class="headerlink" href="#unity-airsim" title="Permanent link">#</a></h1>
+<p><a href="https://unity3d.com/">Unity</a> 是另一个优秀的游戏引擎平台，我们目前已将 <a href="Unity.md">AirSim 与 Unity</a>  集成，并进行了<strong>实验性</strong>测试。请注意，该集成工作仍在进行中，部分功能可能尚未完全实现。</p>
               
             </div>
           </div><footer>

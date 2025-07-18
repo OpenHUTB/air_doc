@@ -83,6 +83,8 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../settings/">设置</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../map/">地图</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../camera_views/">相机视角</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../using_car/">汽车模式</a>
@@ -365,18 +367,18 @@ sh<span class="w"> </span>/etc/init.d/rc.mc_defaults
 标记为 (1) 的第二个电机也很明显。但是电机 (2) 呢？<code>VectorMath::rotateVector(Vector3r(arm_lengths[2], 0, rotate_z), quadx_rot, true)</code> 的 x 轴设置为臂长，y 轴设置为零，这意味着它在上图中一开始是垂直向上的。然后我们应用 pi/6 的旋转。但是旋转使用的是 NED 坐标系中的左手旋转规则，其中 z 轴向下，所以伸出左手，拇指向下，弯曲其他四指，这就是旋转的方向，即逆时针。因此，指向上方的臂会旋转到电机 (2) 所示的位置。其他机械臂也一样，现在我们的物理设置已经正确，可以用于六轴飞行器了。当然，你也可以根据需要增加质量，并调整电机推力参数。</p>
 <h3 id="_2">渲染<a class="headerlink" href="#_2" title="Permanent link">#</a></h3>
 <p>最后，为了进行渲染，我们需要一个漂亮的六旋翼飞行器三维模型。Udeshaya Wadhwa 制作了 <a href="https://grabcad.com/library/dji-s900-hex-rotor-drone-1">一个可爱的 DJI S900 模型</a> 。</p>
-<p><img alt="" src="../../images/wiki/Hexacopter.jpg" /></p>
+<p><img alt="" src="../images/Hexacopter.jpg" /></p>
 <p>所以我拿了这个模型，把电机拆了下来（这样我们就可以旋转它们了），这些可以 <a href="https://github.com/Microsoft/AirSim/wiki/images/DJI%20S900.zip">在这里找到</a> 。你可以 <a href="https://docs.unrealengine.com/latest/INT/Engine/Content/Types/StaticMeshes/HowTo/Importing/index.html">把这些网格导入虚幻引擎</a> 。我发现，对于模块化社区世界，我必须将 x 轴旋转 90 度，并将模型缩小到原始尺寸的 20% 左右，将默认材质改为漂亮的金属灰色，并根据四轴飞行器蓝图添加单独的可旋转电机。</p>
 <p>我所做的是复制并粘贴 BP_FlyingPawn，将其命名为 BP_FlyingHex，然后添加另外 2 个道具和另外 2 个旋转，如下所示：</p>
-<p><img alt="" src="../../images/wiki/BP_FlyingHex.png" /></p>
+<p><img alt="" src="../images/BP_FlyingHex.png" /></p>
 <p>然后我编辑了 SetupPropProtationMovement 图，以便它连接 2 个新的道具：</p>
-<p><img alt="" src="../../images/wiki/WireRotations.png" /></p>
+<p><img alt="" src="../images/WireRotations.png" /></p>
 <p>需要注意的是，您无法通过复制/粘贴来获取“Rotation 4”节点，您必须从“组件”列表中拖出“Rotation 4”，然后选择“获取”，然后将其连接到新的“设置更新组件”框，对于“Prop 4”和“Prop 5”也同样操作。</p>
 <!--
 mp4 转 gif: https://convertio.co/zh/mp4-gif/
 -->
 <p>现在您只需让它飞起来即可！是的，它成功了 :-) </p>
-<p><img alt="" src="../../images/wiki/Hex.gif" /></p>
+<p><img alt="" src="./images/Hex.gif" /></p>
               
             </div>
           </div><footer>
