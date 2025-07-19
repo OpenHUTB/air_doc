@@ -332,23 +332,21 @@
 <p>第一步是通过 AirSim 根目录下的 build.cmd 完成的。此命令将更新 <code>Unreal\Plugins</code> 文件夹中插件所需的所有内容。因此，要部署插件，您只需将 <code>Unreal\Plugins</code> 文件夹复制到 Unreal 项目文件夹中即可。接下来，您应该删除 Unreal 项目中的所有中间文件，然后为 Unreal 项目重新生成 .sln 文件。为此，我们在<code>Unreal\Environments\Blocks</code>文件夹中提供了两个方便的 .bat 文件：<code>clean.bat</code>和<code>GenerateProjectFiles.bat</code>。因此，只需从 Unreal 项目的根目录按顺序运行这两个 bat 文件即可。现在，您可以在 Visual Studio 中打开新的 .sln 文件并按 F5 运行它。</p>
 <h3 id="_5">步骤<a class="headerlink" href="#_5" title="Permanent link">#</a></h3>
 <p>以下是我们在 AirSim 中进行更改并测试的步骤。在 AirSim 代码中进行开发的最佳方式是使用 <a href="../unreal_blocks/">Blocks 项目</a>。这是一个轻量级项目，因此编译时间相对较快。通常的工作流程如下：</p>
-<div class="highlight"><pre><span></span><code>REM //Use x64 Native Tools Command Prompt for VS 2019
+<pre class="highlight"><code>REM //Use x64 Native Tools Command Prompt for VS 2019
 REM //Navigate to AirSim repo folder
 
 git pull                          
 build.cmd                        
 cd Unreal\Environments\Blocks         
 update_from_git.bat
-start Blocks.sln
-</code></pre></div>
+start Blocks.sln</code></pre>
 <p>上述命令首先构建 AirSim 插件，然后使用便捷的<code>update_from_git.bat</code>将其部署到 Blocks 项目中。现在，您可以在 Visual Studio 解决方案中工作，修改代码，然后只需按 F5 即可构建、运行并测试更改。调试、断点等功能应该可以正常工作。</p>
 <p>完成代码更改后，您可能希望将更改推送回 AirSim 仓库或您自己的 fork，或者您可以将新插件部署到您的自定义 Unreal 项目中。为此，请返回命令提示符并首先更新 AirSim 仓库文件夹：</p>
-<div class="highlight"><pre><span></span><code>REM //Use x64 Native Tools Command Prompt for VS 2019
+<pre class="highlight"><code>REM //Use x64 Native Tools Command Prompt for VS 2019
 REM //run this from Unreal\Environments\Blocks 
 
 update_to_git.bat
-build.cmd
-</code></pre></div>
+build.cmd</code></pre>
 <p>上述命令会将您的代码更改从 Unreal 项目文件夹转移回<code>Unreal\Plugins</code>文件夹。现在，您的更改已准备好推送到 AirSim 代码库或您自己的分支。您也可以将<code>Unreal\Plugins</code>复制到您的自定义 Unreal 引擎项目中，并检查您的自定义项目是否一切正常。</p>
 <h3 id="take-away">Take Away<a class="headerlink" href="#take-away" title="Permanent link">#</a></h3>
 <p>一旦你理解了虚幻构建系统和插件模型的工作原理，以及我们为什么要执行上述步骤，你应该就能轻松地遵循这个工作流程了。不必害怕打开 .bat 文件来查看它的内部功能。这些文件非常简洁明了（当然，build.cmd 除外——不要深入研究它）。</p>
@@ -380,7 +378,6 @@ build.cmd
       <p>Copyright &copy; 2021 Microsoft Research</p>
   </div>
 
-  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
           
         </div>

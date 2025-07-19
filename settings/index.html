@@ -400,180 +400,178 @@
 <p>该文件采用常见的 <a href="https://en.wikipedia.org/wiki/JSON">json 格式</a>。首次启动时，AirSim 会在用户主文件夹中创建 <code>settings.json</code> 文件，该文件不包含任何设置。为避免出现问题，请始终使用 ASCII 格式保存 json 文件。  </p>
 <h2 id="_2">如何在汽车和多旋翼飞行器之间进行选择？<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
 <p>默认使用多旋翼飞行器。要使用汽车，只需设置<code>"SimMode": "Car"</code>，如下所示： </p>
-<div class="highlight"><pre><span></span><code>{
-  &quot;SettingsVersion&quot;: 1.2,
-  &quot;SimMode&quot;: &quot;Car&quot;
-}
-</code></pre></div>
+<pre class="highlight"><code>{
+  "SettingsVersion": 1.2,
+  "SimMode": "Car"
+}</code></pre>
 <p>要选择多旋翼飞行器，请设置 <code>"SimMode": "Multirotor"</code>。如果您想提示用户选择飞行器类型，请使用 <code>"SimMode": ""</code>。</p>
 <h2 id="_3">可用设置及其默认值<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
 <p>以下是可用设置及其默认值的完整列表。如果 json 文件中缺少任何设置，则使用默认值。某些默认值仅以“""”指定，这意味着实际值可能根据您使用的车辆选择。例如，<code>ViewMode</code>设置的默认值为<code>""</code>，对于无人机，其默认值为<code>"FlyWithMe"</code>，对于汽车，其默认值为<code>"SpringArmChase"</code>。</p>
 <p><strong>警告：</strong> 请勿将以下所有内容复制粘贴到您的 settings.json 中。我们强烈建议您仅添加那些您不想使用默认值的设置。唯一必需的元素是<code>"SettingsVersion"</code>。 </p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;SimMode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;ClockType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;ClockSpeed&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;LocalHostIp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;ApiServerPort&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">41451</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;RecordUIVisible&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;LogMessagesVisible&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;ShowLosDebugLines&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;ViewMode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;RpcEnabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;EngineSound&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;PhysicsEngineName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;SpeedUnitFactor&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;SpeedUnitLabel&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;m/s&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;Wind&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;X&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Y&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Z&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">},</span>
-<span class="w">  </span><span class="nt">&quot;CameraDirector&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;FollowDistance&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">-3</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;X&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">NaN</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Y&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">NaN</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Z&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">NaN</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;Pitch&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">NaN</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Roll&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">NaN</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Yaw&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">NaN</span>
-<span class="w">  </span><span class="p">},</span>
-<span class="w">  </span><span class="nt">&quot;Recording&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;RecordOnMove&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;RecordInterval&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.05</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;Folder&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;Enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;Cameras&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;CameraName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;ImageType&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;PixelsAsFloat&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">  </span><span class="nt">&quot;VehicleName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Compress&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">}</span>
-<span class="w">    </span><span class="p">]</span>
-<span class="w">  </span><span class="p">},</span>
-<span class="w">  </span><span class="nt">&quot;CameraDefaults&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;CaptureSettings&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">      </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;ImageType&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;Width&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">256</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;Height&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">144</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;FOV_Degrees&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">90</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;AutoExposureSpeed&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;AutoExposureBias&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;AutoExposureMaxBrightness&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.64</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;AutoExposureMinBrightness&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.03</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;MotionBlurAmount&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;TargetGamma&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;ProjectionMode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;OrthoWidth&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">5.12</span>
-<span class="w">      </span><span class="p">}</span>
-<span class="w">    </span><span class="p">],</span>
-<span class="w">    </span><span class="nt">&quot;NoiseSettings&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">      </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;Enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;ImageType&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<pre class="highlight"><code class="language-json">{
+  "SimMode": "",
+  "ClockType": "",
+  "ClockSpeed": 1,
+  "LocalHostIp": "127.0.0.1",
+  "ApiServerPort": 41451,
+  "RecordUIVisible": true,
+  "LogMessagesVisible": true,
+  "ShowLosDebugLines": false,
+  "ViewMode": "",
+  "RpcEnabled": true,
+  "EngineSound": true,
+  "PhysicsEngineName": "",
+  "SpeedUnitFactor": 1.0,
+  "SpeedUnitLabel": "m/s",
+  "Wind": { "X": 0, "Y": 0, "Z": 0 },
+  "CameraDirector": {
+    "FollowDistance": -3,
+    "X": NaN, "Y": NaN, "Z": NaN,
+    "Pitch": NaN, "Roll": NaN, "Yaw": NaN
+  },
+  "Recording": {
+    "RecordOnMove": false,
+    "RecordInterval": 0.05,
+    "Folder": "",
+    "Enabled": false,
+    "Cameras": [
+        { "CameraName": "0", "ImageType": 0, "PixelsAsFloat": false,  "VehicleName": "", "Compress": true }
+    ]
+  },
+  "CameraDefaults": {
+    "CaptureSettings": [
+      {
+        "ImageType": 0,
+        "Width": 256,
+        "Height": 144,
+        "FOV_Degrees": 90,
+        "AutoExposureSpeed": 100,
+        "AutoExposureBias": 0,
+        "AutoExposureMaxBrightness": 0.64,
+        "AutoExposureMinBrightness": 0.03,
+        "MotionBlurAmount": 0,
+        "TargetGamma": 1.0,
+        "ProjectionMode": "",
+        "OrthoWidth": 5.12
+      }
+    ],
+    "NoiseSettings": [
+      {
+        "Enabled": false,
+        "ImageType": 0,
 
-<span class="w">        </span><span class="nt">&quot;RandContrib&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.2</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;RandSpeed&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">100000.0</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;RandSize&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">500.0</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;RandDensity&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+        "RandContrib": 0.2,
+        "RandSpeed": 100000.0,
+        "RandSize": 500.0,
+        "RandDensity": 2,
 
-<span class="w">        </span><span class="nt">&quot;HorzWaveContrib&quot;</span><span class="p">:</span><span class="mf">0.03</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;HorzWaveStrength&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.08</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;HorzWaveVertSize&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;HorzWaveScreenSize&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span>
+        "HorzWaveContrib":0.03,
+        "HorzWaveStrength": 0.08,
+        "HorzWaveVertSize": 1.0,
+        "HorzWaveScreenSize": 1.0,
 
-<span class="w">        </span><span class="nt">&quot;HorzNoiseLinesContrib&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;HorzNoiseLinesDensityY&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.01</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;HorzNoiseLinesDensityXY&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span>
+        "HorzNoiseLinesContrib": 1.0,
+        "HorzNoiseLinesDensityY": 0.01,
+        "HorzNoiseLinesDensityXY": 0.5,
 
-<span class="w">        </span><span class="nt">&quot;HorzDistortionContrib&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;HorzDistortionStrength&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.002</span>
-<span class="w">      </span><span class="p">}</span>
-<span class="w">    </span><span class="p">],</span>
-<span class="w">    </span><span class="nt">&quot;Gimbal&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;Stabilization&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;Pitch&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">NaN</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Roll&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">NaN</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Yaw&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">NaN</span>
-<span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="nt">&quot;X&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">NaN</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Y&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">NaN</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Z&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">NaN</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;Pitch&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">NaN</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Roll&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">NaN</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Yaw&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">NaN</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;UnrealEngine&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;PixelFormatOverride&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">        </span><span class="p">{</span>
-<span class="w">          </span><span class="nt">&quot;ImageType&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
-<span class="w">          </span><span class="nt">&quot;PixelFormat&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">      </span><span class="p">]</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">  </span><span class="p">},</span>
-<span class="w">  </span><span class="nt">&quot;OriginGeopoint&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;Latitude&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">47.641468</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;Longitude&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">-122.140165</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;Altitude&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">122</span>
-<span class="w">  </span><span class="p">},</span>
-<span class="w">  </span><span class="nt">&quot;TimeOfDay&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;Enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;StartDateTime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;CelestialClockSpeed&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;StartDateTimeDst&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;UpdateIntervalSecs&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">60</span>
-<span class="w">  </span><span class="p">},</span>
-<span class="w">  </span><span class="nt">&quot;SubWindows&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">    </span><span class="p">{</span><span class="nt">&quot;WindowID&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;CameraName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;ImageType&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;VehicleName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Visible&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;External&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">},</span>
-<span class="w">    </span><span class="p">{</span><span class="nt">&quot;WindowID&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;CameraName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;ImageType&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;VehicleName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Visible&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;External&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">},</span>
-<span class="w">    </span><span class="p">{</span><span class="nt">&quot;WindowID&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;CameraName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;ImageType&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;VehicleName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Visible&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;External&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">}</span>
-<span class="w">  </span><span class="p">],</span>
-<span class="w">  </span><span class="nt">&quot;SegmentationSettings&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;InitMethod&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;MeshNamingMethod&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;OverrideExisting&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
-<span class="w">  </span><span class="p">},</span>
-<span class="w">  </span><span class="nt">&quot;PawnPaths&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;BareboneCar&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;PawnBP&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Class&#39;/AirSim/VehicleAdv/Vehicle/VehicleAdvPawn.VehicleAdvPawn_C&#39;&quot;</span><span class="p">},</span>
-<span class="w">    </span><span class="nt">&quot;DefaultCar&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;PawnBP&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Class&#39;/AirSim/VehicleAdv/SUV/SuvCarPawn.SuvCarPawn_C&#39;&quot;</span><span class="p">},</span>
-<span class="w">    </span><span class="nt">&quot;DefaultQuadrotor&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;PawnBP&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Class&#39;/AirSim/Blueprints/BP_FlyingPawn.BP_FlyingPawn_C&#39;&quot;</span><span class="p">},</span>
-<span class="w">    </span><span class="nt">&quot;DefaultComputerVision&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;PawnBP&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Class&#39;/AirSim/Blueprints/BP_ComputerVisionPawn.BP_ComputerVisionPawn_C&#39;&quot;</span><span class="p">}</span>
-<span class="w">  </span><span class="p">},</span>
-<span class="w">  </span><span class="nt">&quot;Vehicles&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;SimpleFlight&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;VehicleType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SimpleFlight&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;DefaultVehicleState&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Armed&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;AutoCreate&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;PawnPath&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;EnableCollisionPassthrogh&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;EnableCollisions&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;AllowAPIAlways&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;EnableTrace&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;RC&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;RemoteControlID&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;AllowAPIWhenDisconnected&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
-<span class="w">      </span><span class="p">},</span>
-<span class="w">      </span><span class="nt">&quot;Cameras&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="c1">//same elements as CameraDefaults above, key as name</span>
-<span class="w">      </span><span class="p">},</span>
-<span class="w">      </span><span class="nt">&quot;X&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">NaN</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Y&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">NaN</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Z&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">NaN</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;Pitch&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">NaN</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Roll&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">NaN</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Yaw&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">NaN</span>
-<span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="nt">&quot;PhysXCar&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;VehicleType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PhysXCar&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;DefaultVehicleState&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;AutoCreate&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;PawnPath&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;EnableCollisionPassthrogh&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;EnableCollisions&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;RC&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;RemoteControlID&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">-1</span>
-<span class="w">      </span><span class="p">},</span>
-<span class="w">      </span><span class="nt">&quot;Cameras&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;MyCamera1&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">          </span><span class="c1">//same elements as elements inside CameraDefaults above</span>
-<span class="w">        </span><span class="p">},</span>
-<span class="w">        </span><span class="nt">&quot;MyCamera2&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">          </span><span class="c1">//same elements as elements inside CameraDefaults above</span>
-<span class="w">        </span><span class="p">},</span>
-<span class="w">      </span><span class="p">},</span>
-<span class="w">      </span><span class="nt">&quot;X&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">NaN</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Y&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">NaN</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Z&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">NaN</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;Pitch&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">NaN</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Roll&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">NaN</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Yaw&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">NaN</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">  </span><span class="p">},</span>
-<span class="w">  </span><span class="nt">&quot;ExternalCameras&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;FixedCamera1&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="c1">// same elements as in CameraDefaults above</span>
-<span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="nt">&quot;FixedCamera2&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="c1">// same elements as in CameraDefaults above</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+        "HorzDistortionContrib": 1.0,
+        "HorzDistortionStrength": 0.002
+      }
+    ],
+    "Gimbal": {
+      "Stabilization": 0,
+      "Pitch": NaN, "Roll": NaN, "Yaw": NaN
+    },
+    "X": NaN, "Y": NaN, "Z": NaN,
+    "Pitch": NaN, "Roll": NaN, "Yaw": NaN,
+    "UnrealEngine": {
+      "PixelFormatOverride": [
+        {
+          "ImageType": 0,
+          "PixelFormat": 0
+        }
+      ]
+    }
+  },
+  "OriginGeopoint": {
+    "Latitude": 47.641468,
+    "Longitude": -122.140165,
+    "Altitude": 122
+  },
+  "TimeOfDay": {
+    "Enabled": false,
+    "StartDateTime": "",
+    "CelestialClockSpeed": 1,
+    "StartDateTimeDst": false,
+    "UpdateIntervalSecs": 60
+  },
+  "SubWindows": [
+    {"WindowID": 0, "CameraName": "0", "ImageType": 3, "VehicleName": "", "Visible": false, "External": false},
+    {"WindowID": 1, "CameraName": "0", "ImageType": 5, "VehicleName": "", "Visible": false, "External": false},
+    {"WindowID": 2, "CameraName": "0", "ImageType": 0, "VehicleName": "", "Visible": false, "External": false}
+  ],
+  "SegmentationSettings": {
+    "InitMethod": "",
+    "MeshNamingMethod": "",
+    "OverrideExisting": true
+  },
+  "PawnPaths": {
+    "BareboneCar": {"PawnBP": "Class'/AirSim/VehicleAdv/Vehicle/VehicleAdvPawn.VehicleAdvPawn_C'"},
+    "DefaultCar": {"PawnBP": "Class'/AirSim/VehicleAdv/SUV/SuvCarPawn.SuvCarPawn_C'"},
+    "DefaultQuadrotor": {"PawnBP": "Class'/AirSim/Blueprints/BP_FlyingPawn.BP_FlyingPawn_C'"},
+    "DefaultComputerVision": {"PawnBP": "Class'/AirSim/Blueprints/BP_ComputerVisionPawn.BP_ComputerVisionPawn_C'"}
+  },
+  "Vehicles": {
+    "SimpleFlight": {
+      "VehicleType": "SimpleFlight",
+      "DefaultVehicleState": "Armed",
+      "AutoCreate": true,
+      "PawnPath": "",
+      "EnableCollisionPassthrogh": false,
+      "EnableCollisions": true,
+      "AllowAPIAlways": true,
+      "EnableTrace": false,
+      "RC": {
+        "RemoteControlID": 0,
+        "AllowAPIWhenDisconnected": false
+      },
+      "Cameras": {
+        //same elements as CameraDefaults above, key as name
+      },
+      "X": NaN, "Y": NaN, "Z": NaN,
+      "Pitch": NaN, "Roll": NaN, "Yaw": NaN
+    },
+    "PhysXCar": {
+      "VehicleType": "PhysXCar",
+      "DefaultVehicleState": "",
+      "AutoCreate": true,
+      "PawnPath": "",
+      "EnableCollisionPassthrogh": false,
+      "EnableCollisions": true,
+      "RC": {
+        "RemoteControlID": -1
+      },
+      "Cameras": {
+        "MyCamera1": {
+          //same elements as elements inside CameraDefaults above
+        },
+        "MyCamera2": {
+          //same elements as elements inside CameraDefaults above
+        },
+      },
+      "X": NaN, "Y": NaN, "Z": NaN,
+      "Pitch": NaN, "Roll": NaN, "Yaw": NaN
+    }
+  },
+  "ExternalCameras": {
+    "FixedCamera1": {
+        // same elements as in CameraDefaults above
+    },
+    "FixedCamera2": {
+        // same elements as in CameraDefaults above
+    }
+  }
+}</code></pre>
 <h2 id="simmode">SimMode<a class="headerlink" href="#simmode" title="Permanent link">#</a></h2>
 <p>SimMode 决定使用哪种模拟模式。以下是当前支持的值：
 - <code>""</code>: 提示用户选择飞行器类型：多旋翼飞行器或汽车
@@ -605,19 +603,17 @@
 <li><code>External</code>: 如果摄像头是外置摄像头，则将其设置为<code>true</code>。如果为 true，则<code>VehicleName</code>参数将被忽略</li>
 </ul>
 <p>例如，对于单辆汽车，下面分别显示驾驶员视图、前保险杠视图和后视图作为场景、深度和表面法线。
-<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">&quot;SubWindows&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">    </span><span class="p">{</span><span class="nt">&quot;WindowID&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;ImageType&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;CameraName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Visible&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">},</span>
-<span class="w">    </span><span class="p">{</span><span class="nt">&quot;WindowID&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;ImageType&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;CameraName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Visible&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">},</span>
-<span class="w">    </span><span class="p">{</span><span class="nt">&quot;WindowID&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;ImageType&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;CameraName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;4&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Visible&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">}</span>
-<span class="w">  </span><span class="p">]</span>
-</code></pre></div></p>
+<pre class="highlight"><code class="language-json">  "SubWindows": [
+    {"WindowID": 0, "ImageType": 0, "CameraName": "3", "Visible": true},
+    {"WindowID": 1, "ImageType": 3, "CameraName": "0", "Visible": true},
+    {"WindowID": 2, "ImageType": 6, "CameraName": "4", "Visible": true}
+  ]</code></pre></p>
 <p>如果有多辆车辆，可以按如下方式指定不同的车辆：</p>
-<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="nt">&quot;SubWindows&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">        </span><span class="p">{</span><span class="nt">&quot;WindowID&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;CameraName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;ImageType&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;VehicleName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Car1&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Visible&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">},</span>
-<span class="w">        </span><span class="p">{</span><span class="nt">&quot;WindowID&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;CameraName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;ImageType&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;VehicleName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Car2&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Visible&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">},</span>
-<span class="w">        </span><span class="p">{</span><span class="nt">&quot;WindowID&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;CameraName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;ImageType&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;VehicleName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Car1&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Visible&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">}</span>
-<span class="w">    </span><span class="p">]</span>
-</code></pre></div>
+<pre class="highlight"><code class="language-json">    "SubWindows": [
+        {"WindowID": 0, "CameraName": "0", "ImageType": 3, "VehicleName": "Car1", "Visible": false},
+        {"WindowID": 1, "CameraName": "0", "ImageType": 5, "VehicleName": "Car2", "Visible": false},
+        {"WindowID": 2, "CameraName": "0", "ImageType": 0, "VehicleName": "Car1", "Visible": false}
+    ]</code></pre>
 <h2 id="_4">记录<a class="headerlink" href="#_4" title="Permanent link">#</a></h2>
 <p>记录功能允许您以指定的时间间隔记录位置、方向、速度等数据以及捕获的图像。您可以按下右下角的红色录制按钮或 R 键开始录制。数据存储在<code>Documents\AirSim</code>文件夹（或使用<code>Folder</code>指定的文件夹）中，每个录制会话都会有一个带有时间戳的子文件夹，并以制表符分隔的文件形式保存。</p>
 <ul>
@@ -634,12 +630,11 @@
 </li>
 </ul>
 <p>例如，下面的<code>Cameras</code>元素记录了<code>Car1</code>的场景和分割图像以及<code>Car2</code>的场景：</p>
-<div class="highlight"><pre><span></span><code><span class="nt">&quot;Cameras&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;CameraName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;ImageType&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;PixelsAsFloat&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;VehicleName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Car1&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Compress&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">},</span>
-<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;CameraName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;ImageType&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;PixelsAsFloat&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;VehicleName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Car1&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Compress&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">},</span>
-<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;CameraName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;ImageType&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;PixelsAsFloat&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;VehicleName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Car2&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Compress&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">}</span>
-<span class="p">]</span>
-</code></pre></div>
+<pre class="highlight"><code class="language-json">"Cameras": [
+    { "CameraName": "0", "ImageType": 0, "PixelsAsFloat": false, "VehicleName": "Car1", "Compress": true },
+    { "CameraName": "0", "ImageType": 5, "PixelsAsFloat": false, "VehicleName": "Car1", "Compress": true },
+    { "CameraName": "0", "ImageType": 0, "PixelsAsFloat": false, "VehicleName": "Car2", "Compress": true }
+]</code></pre>
 <p>查看修改记录数据来了解如何 <a href="../modify_recording_data/">修改正在记录的</a> 运动学数据的详细信息。</p>
 <h2 id="clockspeed">ClockSpeed<a class="headerlink" href="#clockspeed" title="Permanent link">#</a></h2>
 <p>此设置允许您设置模拟时钟相对于挂钟的速度。例如，值为 5.0 表示当挂钟已过去 1 秒时，模拟时钟已过去 5 秒（即模拟运行速度更快）。值为 0.1 表示模拟时钟比挂钟慢 10 倍。值为 1 表示模拟实时运行。需要注意的是，模拟时钟运行速度越快，模拟质量可能会下降。您可能会看到一些伪影，例如物体越过障碍物，因为未检测到碰撞。但是，降低模拟时钟速度（即值小于 1.0）通常可以提高模拟质量。</p>
@@ -701,20 +696,19 @@
 <ul>
 <li><code>VehicleType</code>: 这可以是以下任意一种：<code>PhysXCar</code>、<code>SimpleFlight</code>、<code>PX4Multirotor</code>、<code>ComputerVision</code>、<code>ArduCopter</code> 和 <code>ArduRover</code>。由于没有默认值，因此必须指定此元素。</li>
 <li><code>PawnPath</code>: 这允许覆盖用于载具的 pawn 蓝图。例如，您可以在 AirSim 代码之外的项目中，为仓库机器人创建一个源自 ACarPawn 的新 pawn 蓝图，然后在此处指定其路径。另请参阅 <a href="./#PawnPaths">PawnPaths</a>。请注意，您必须在全局 <code>PawnPaths</code> 对象中使用您专有定义的对象名称指定自定义 pawn 蓝图类路径，并在 <code>Vehicles</code> 设置中引用该名称。例如： 
-<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="err">...</span>
-<span class="w">      </span><span class="nt">&quot;PawnPaths&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;CustomPawn&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;PawnBP&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Class&#39;/Game/Assets/Blueprints/MyPawn.MyPawn_C&#39;&quot;</span><span class="p">}</span>
-<span class="w">      </span><span class="p">},</span>
-<span class="w">      </span><span class="nt">&quot;Vehicles&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;MyVehicle&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">          </span><span class="nt">&quot;VehicleType&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">...</span><span class="p">,</span>
-<span class="w">          </span><span class="nt">&quot;PawnPath&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;CustomPawn&quot;</span><span class="p">,</span>
-<span class="w">          </span><span class="err">...</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">      </span><span class="p">}</span>
-<span class="w">    </span><span class="p">}</span>
-</code></pre></div></li>
+<pre class="highlight"><code class="language-json">    {
+      ...
+      "PawnPaths": {
+        "CustomPawn": {"PawnBP": "Class'/Game/Assets/Blueprints/MyPawn.MyPawn_C'"}
+      },
+      "Vehicles": {
+        "MyVehicle": {
+          "VehicleType": ...,
+          "PawnPath": "CustomPawn",
+          ...
+        }
+      }
+    }</code></pre></li>
 <li><code>DefaultVehicleState</code>: 多旋翼飞行器的可能值是<code>Armed</code>或<code>Disarmed</code>。</li>
 <li><code>AutoCreate</code>: 如果为真，那么该车辆就会被生成（如果所选模拟模式支持）。</li>
 <li><code>RC</code>: 此子元素允许使用<code>RemoteControlID</code>指定飞行器使用的遥控器。值为 -1 表示使用键盘（多旋翼飞行器尚不支持）。值 &gt;= 0 表示指定连接到系统的多个遥控器之一。例如，可以在 Windows 系统的“游戏控制器”面板中查看可用的遥控器列表。</li>
@@ -723,68 +717,65 @@
 <li><code>Sensors</code>: 该元素指定与车辆关联的传感器，详情请参阅 <a href="../sensors/">传感器页面</a> 。</li>
 <li><code>Cameras</code>: 此元素指定车辆的摄像头设置。此元素的键是 <a href="../image_apis/#available_cameras">可用摄像头</a> 的名称，值与上文所述的<code>CameraDefaults</code>相同。例如，要将前中央摄像头的视野 (FOV) 更改为 120 度，您可以在“车辆”设置中使用此元素：</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="nt">&quot;Vehicles&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;FishEyeDrone&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;VehicleType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SimpleFlight&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;Cameras&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;front-center&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">          </span><span class="nt">&quot;CaptureSettings&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">            </span><span class="p">{</span>
-<span class="w">              </span><span class="nt">&quot;ImageType&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
-<span class="w">              </span><span class="nt">&quot;FOV_Degrees&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">120</span>
-<span class="w">            </span><span class="p">}</span>
-<span class="w">          </span><span class="p">]</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">      </span><span class="p">}</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+<pre class="highlight"><code class="language-json">"Vehicles": {
+    "FishEyeDrone": {
+      "VehicleType": "SimpleFlight",
+      "Cameras": {
+        "front-center": {
+          "CaptureSettings": [
+            {
+              "ImageType": 0,
+              "FOV_Degrees": 120
+            }
+          ]
+        }
+      }
+    }
+}</code></pre>
 <h3 id="px4">使用 PX4<a class="headerlink" href="#px4" title="Permanent link">#</a></h3>
 <p>默认情况下，我们使用 <a href="../simple_flight/">simple_flight</a>，因此您无需单独进行 HITL 或 SITL 设置。我们还为高级用户提供 <a href="../px4_setup/">"PX4"</a> 支持。要将 PX4 与 AirSim 配合使用，您可以使用以下<code>Vehicles</code>设置：</p>
-<div class="highlight"><pre><span></span><code>&quot;Vehicles&quot;: {
-    &quot;PX4&quot;: {
-      &quot;VehicleType&quot;: &quot;PX4Multirotor&quot;,
+<pre class="highlight"><code>"Vehicles": {
+    "PX4": {
+      "VehicleType": "PX4Multirotor",
     }
-}
-</code></pre></div>
+}</code></pre>
 <h4 id="px4_1">其他 PX4 设置<a class="headerlink" href="#px4_1" title="Permanent link">#</a></h4>
 <p>PX4 默认启用 <strong>硬件在环</strong> 设置。PX4 还有其他各种设置及其默认值：</p>
-<div class="highlight"><pre><span></span><code>&quot;Vehicles&quot;: {
-    &quot;PX4&quot;: {
-      &quot;VehicleType&quot;: &quot;PX4Multirotor&quot;,
-      &quot;Lockstep&quot;: true,
-      &quot;ControlIp&quot;: &quot;127.0.0.1&quot;,
-      &quot;ControlPortLocal&quot;: 14540,
-      &quot;ControlPortRemote&quot;: 14580,
-      &quot;LogViewerHostIp&quot;: &quot;127.0.0.1&quot;,
-      &quot;LogViewerPort&quot;: 14388,
-      &quot;OffboardCompID&quot;: 1,
-      &quot;OffboardSysID&quot;: 134,
-      &quot;QgcHostIp&quot;: &quot;127.0.0.1&quot;,
-      &quot;QgcPort&quot;: 14550,
-      &quot;SerialBaudRate&quot;: 115200,
-      &quot;SerialPort&quot;: &quot;*&quot;,
-      &quot;SimCompID&quot;: 42,
-      &quot;SimSysID&quot;: 142,
-      &quot;TcpPort&quot;: 4560,
-      &quot;UdpIp&quot;: &quot;127.0.0.1&quot;,
-      &quot;UdpPort&quot;: 14560,
-      &quot;UseSerial&quot;: true,
-      &quot;UseTcp&quot;: false,
-      &quot;VehicleCompID&quot;: 1,
-      &quot;VehicleSysID&quot;: 135,
-      &quot;Model&quot;: &quot;Generic&quot;,
-      &quot;LocalHostIp&quot;: &quot;127.0.0.1&quot;,
-      &quot;Logs&quot;: &quot;d:\\temp\\mavlink&quot;,
-      &quot;Sensors&quot;: {
+<pre class="highlight"><code>"Vehicles": {
+    "PX4": {
+      "VehicleType": "PX4Multirotor",
+      "Lockstep": true,
+      "ControlIp": "127.0.0.1",
+      "ControlPortLocal": 14540,
+      "ControlPortRemote": 14580,
+      "LogViewerHostIp": "127.0.0.1",
+      "LogViewerPort": 14388,
+      "OffboardCompID": 1,
+      "OffboardSysID": 134,
+      "QgcHostIp": "127.0.0.1",
+      "QgcPort": 14550,
+      "SerialBaudRate": 115200,
+      "SerialPort": "*",
+      "SimCompID": 42,
+      "SimSysID": 142,
+      "TcpPort": 4560,
+      "UdpIp": "127.0.0.1",
+      "UdpPort": 14560,
+      "UseSerial": true,
+      "UseTcp": false,
+      "VehicleCompID": 1,
+      "VehicleSysID": 135,
+      "Model": "Generic",
+      "LocalHostIp": "127.0.0.1",
+      "Logs": "d:\\temp\\mavlink",
+      "Sensors": {
         ...
       }
-      &quot;Parameters&quot;: {
+      "Parameters": {
         ...
       }
     }
-}
-</code></pre></div>
+}</code></pre>
 <p>这些设置定义了 MavLink 模拟器的 SystemId 和 ComponentId（SimSysID、SimCompID）、飞行器（VehicleSysID、VehicleCompID）以及允许从其他应用程序远程控制无人机的节点（称为机外节点）（OffboardSysID、OffboardCompID）。</p>
 <p>如果您希望模拟器也能将 mavlink 消息转发到您的地面控制应用程序（例如 QGroundControl），您也可以设置该应用程序的 UDP 地址，以便在其他机器上运行该应用程序（QgcHostIp、QgcPort）。默认地址为本地主机，因此 QGroundControl 应该“仅在”同一台机器上运行即可正常工作。</p>
 <p>您可以通过设置 UDP 地址（LogViewerHostIp、LogViewerPort）将模拟器连接到此 repo 中提供的 LogViewer 应用程序。</p>
@@ -830,7 +821,6 @@
       <p>Copyright &copy; 2021 Microsoft Research</p>
   </div>
 
-  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
           
         </div>

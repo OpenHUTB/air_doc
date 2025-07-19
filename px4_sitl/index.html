@@ -323,69 +323,64 @@ instructions</a>.</p>
 </li>
 <li>
 <p>Get the PX4 source code and build the posix SITL version of PX4:
-    <div class="highlight"><pre><span></span><code>mkdir -p PX4
+    <pre class="highlight"><code>mkdir -p PX4
 cd PX4
 git clone https://github.com/PX4/PX4-Autopilot.git --recursive
 bash ./PX4-Autopilot/Tools/setup/ubuntu.sh --no-nuttx --no-sim-tools
-cd PX4-Autopilot
-</code></pre></div>
+cd PX4-Autopilot</code></pre>
     And find the latest stable release from <a href="https://github.com/PX4/PX4-Autopilot/releases">https://github.com/PX4/PX4-Autopilot/releases</a>
     and checkout the source code matching that release, for example:
-    <div class="highlight"><pre><span></span><code>git checkout v1.11.3
-</code></pre></div></p>
+    <pre class="highlight"><code>git checkout v1.11.3</code></pre></p>
 </li>
 <li>
 <p>Use following command to build and start PX4 firmware in SITL mode:
-    <div class="highlight"><pre><span></span><code>make px4_sitl_default none_iris
-</code></pre></div>
+    <pre class="highlight"><code>make px4_sitl_default none_iris</code></pre>
    If you are using older version v1.8.* use this command instead: <code>make posix_sitl_ekf2 none_iris</code>.</p>
 </li>
 <li>
 <p>You should see a message saying the SITL PX4 app is waiting for the simulator (AirSim) to connect.
 You will also see information about which ports are configured for mavlink connection to the PX4 app.
 The default ports have changed recently, so check them closely to make sure AirSim settings are correct.
-    <div class="highlight"><pre><span></span><code>INFO  [simulator] Waiting for simulator to connect on TCP port 4560
+    <pre class="highlight"><code>INFO  [simulator] Waiting for simulator to connect on TCP port 4560
 INFO  [init] Mixer: etc/mixers/quad_w.main.mix on /dev/pwm_output0
 INFO  [mavlink] mode: Normal, data rate: 4000000 B/s on udp port 14570 remote port 14550
-INFO  [mavlink] mode: Onboard, data rate: 4000000 B/s on udp port 14580 remote port 14540
-</code></pre></div></p>
+INFO  [mavlink] mode: Onboard, data rate: 4000000 B/s on udp port 14580 remote port 14540</code></pre></p>
 <p>Note: this is also an interactive PX4 console, type <code>help</code> to see the
 list of commands you can enter here.  They are mostly low level PX4
 commands, but some of them can be useful for debugging.</p>
 </li>
 <li>
 <p>Now edit <a href="../settings/">AirSim settings</a> file to make sure you have matching UDP and TCP port settings:
-    <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;SettingsVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.2</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;SimMode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Multirotor&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;ClockType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SteppableClock&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;Vehicles&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;PX4&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">&quot;VehicleType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PX4Multirotor&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;UseSerial&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;LockStep&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;UseTcp&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;TcpPort&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4560</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;ControlPortLocal&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">14540</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;ControlPortRemote&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">14580</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;Sensors&quot;</span><span class="p">:{</span>
-<span class="w">                </span><span class="nt">&quot;Barometer&quot;</span><span class="p">:{</span>
-<span class="w">                    </span><span class="nt">&quot;SensorType&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
-<span class="w">                    </span><span class="nt">&quot;Enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">                    </span><span class="nt">&quot;PressureFactorSigma&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0001825</span>
-<span class="w">                </span><span class="p">}</span>
-<span class="w">            </span><span class="p">},</span>
-<span class="w">            </span><span class="nt">&quot;Parameters&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="nt">&quot;NAV_RCL_ACT&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;NAV_DLL_ACT&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;COM_OBL_ACT&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;LPE_LAT&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">47.641468</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;LPE_LON&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">-122.140165</span>
-<span class="w">            </span><span class="p">}</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+    <pre class="highlight"><code class="language-json">{
+    "SettingsVersion": 1.2,
+    "SimMode": "Multirotor",
+    "ClockType": "SteppableClock",
+    "Vehicles": {
+        "PX4": {
+            "VehicleType": "PX4Multirotor",
+            "UseSerial": false,
+            "LockStep": true,
+            "UseTcp": true,
+            "TcpPort": 4560,
+            "ControlPortLocal": 14540,
+            "ControlPortRemote": 14580,
+            "Sensors":{
+                "Barometer":{
+                    "SensorType": 1,
+                    "Enabled": true,
+                    "PressureFactorSigma": 0.0001825
+                }
+            },
+            "Parameters": {
+                "NAV_RCL_ACT": 0,
+                "NAV_DLL_ACT": 0,
+                "COM_OBL_ACT": 1,
+                "LPE_LAT": 47.641468,
+                "LPE_LON": -122.140165
+            }
+        }
+    }
+}</code></pre>
     Notice the PX4 <code>[simulator]</code> is using TCP, which is why we need to add: <code>"UseTcp": true,</code>.
     Notice we are also enabling <code>LockStep</code>, see <a href="../px4_lockstep/">PX4 LockStep</a> for more
     information. The <code>Barometer</code> setting keeps PX4 happy because the default AirSim barometer has a
@@ -399,11 +394,10 @@ commands, but some of them can be useful for debugging.</p>
 <p>Now run your Unreal AirSim environment and it should connect to SITL PX4 via TCP. You should see
    a bunch of messages from the SITL PX4 window. Specifically, the following messages tell you that
    AirSim is connected properly and GPS fusion is stable:
-    <div class="highlight"><pre><span></span><code>INFO  [simulator] Simulator connected on UDP port 14560
+    <pre class="highlight"><code>INFO  [simulator] Simulator connected on UDP port 14560
 INFO  [mavlink] partner IP: 127.0.0.1
 INFO  [ecl/EKF] EKF GPS checks passed (WGS-84 origin set)
-INFO  [ecl/EKF] EKF commencing GPS fusion
-</code></pre></div></p>
+INFO  [ecl/EKF] EKF commencing GPS fusion</code></pre></p>
 <p>If you do not see these messages then check your port settings.</p>
 </li>
 <li>
@@ -419,38 +413,31 @@ INFO  [ecl/EKF] EKF commencing GPS fusion
 </ol>
 <h2 id="setting-gps-origin">Setting GPS origin<a class="headerlink" href="#setting-gps-origin" title="Permanent link">#</a></h2>
 <p>Notice the above settings are provided in the <code>params</code> section of the <code>settings.json</code> file:
-<div class="highlight"><pre><span></span><code>    &quot;LPE_LAT&quot;: 47.641468,
-    &quot;LPE_LON&quot;: -122.140165,
-</code></pre></div></p>
+<pre class="highlight"><code>    "LPE_LAT": 47.641468,
+    "LPE_LON": -122.140165,</code></pre></p>
 <p>PX4 SITL mode needs to be configured to get the home location correct.
 The home location needs to be set to the same coordinates defined in  <a href="../settings/#origingeopoint">OriginGeopoint</a>.</p>
 <p>You can also run the following in the SITL PX4 console window to check
 that these values are set correctly.</p>
-<div class="highlight"><pre><span></span><code>param show LPE_LAT
-param show LPE_LON
-</code></pre></div>
+<pre class="highlight"><code>param show LPE_LAT
+param show LPE_LON</code></pre>
 <h2 id="smooth-offboard-transitions">Smooth Offboard Transitions<a class="headerlink" href="#smooth-offboard-transitions" title="Permanent link">#</a></h2>
 <p>Notice the above setting is provided in the <code>params</code> section of the <code>settings.json</code> file:
-<div class="highlight"><pre><span></span><code>    &quot;COM_OBL_ACT&quot;: 1
-</code></pre></div></p>
+<pre class="highlight"><code>    "COM_OBL_ACT": 1</code></pre></p>
 <p>This tells the drone automatically hover after each offboard control command finishes (the default
 setting is to land).  Hovering is a smoother transition between multiple offboard commands.  You can
 check this setting by running the following PX4 console command:</p>
-<div class="highlight"><pre><span></span><code>param show COM_OBL_ACT
-</code></pre></div>
+<pre class="highlight"><code>param show COM_OBL_ACT</code></pre>
 <h2 id="check-the-home-position">Check the Home Position<a class="headerlink" href="#check-the-home-position" title="Permanent link">#</a></h2>
 <p>If you are using DroneShell to execute commands (arm, takeoff, etc) then you should wait until the
 Home position is set. You will see the PX4 SITL console output this message:</p>
-<div class="highlight"><pre><span></span><code>INFO  [commander] home: 47.6414680, -122.1401672, 119.99
-INFO  [tone_alarm] home_set
-</code></pre></div>
+<pre class="highlight"><code>INFO  [commander] home: 47.6414680, -122.1401672, 119.99
+INFO  [tone_alarm] home_set</code></pre>
 <p>Now DroneShell 'pos' command should report this position and the commands should be accepted by PX4.
 If you attempt to takeoff without a home position you will see the message:</p>
-<div class="highlight"><pre><span></span><code>WARN  [commander] Takeoff denied, disarm and re-try
-</code></pre></div>
+<pre class="highlight"><code>WARN  [commander] Takeoff denied, disarm and re-try</code></pre>
 <p>After home position is set check the local position reported by 'pos' command :</p>
-<div class="highlight"><pre><span></span><code>Local position: x=-0.0326988, y=0.00656854, z=5.48506
-</code></pre></div>
+<pre class="highlight"><code>Local position: x=-0.0326988, y=0.00656854, z=5.48506</code></pre>
 <p>If the z coordinate is large like this then takeoff might not work as expected.  Resetting the SITL
 and simulation should fix that problem.</p>
 <h2 id="wsl-2">WSL 2<a class="headerlink" href="#wsl-2" title="Permanent link">#</a></h2>
@@ -458,22 +445,19 @@ and simulation should fix that problem.</p>
 additional setup - see <a href="../px4_sitl_wsl2/">additional instructions</a>.</p>
 <h2 id="no-remote-control">No Remote Control<a class="headerlink" href="#no-remote-control" title="Permanent link">#</a></h2>
 <p>Notice the above setting is provided in the <code>params</code> section of the <code>settings.json</code> file:
-<div class="highlight"><pre><span></span><code>    &quot;NAV_RCL_ACT&quot;: 0,
-    &quot;NAV_DLL_ACT&quot;: 0,
-</code></pre></div></p>
+<pre class="highlight"><code>    "NAV_RCL_ACT": 0,
+    "NAV_DLL_ACT": 0,</code></pre></p>
 <p>This is required if you plan to fly the SITL mode PX4 with no remote control, just using python
 scripts, for example.  These parameters stop the PX4 from triggering "failsafe mode on" every time a
 move command is finished.  You can use the following PX4 command to check these values are set
 correctly:</p>
-<div class="highlight"><pre><span></span><code>param show NAV_RCL_ACT
-param show NAV_DLL_ACT
-</code></pre></div>
+<pre class="highlight"><code>param show NAV_RCL_ACT
+param show NAV_DLL_ACT</code></pre>
 <p>NOTE: Do <code>NOT</code> do this on a real drone as it is too dangerous to fly without these failsafe measures.</p>
 <h2 id="manually-set-parameters">Manually set parameters<a class="headerlink" href="#manually-set-parameters" title="Permanent link">#</a></h2>
 <p>You can also run the following in the PX4 console to set all these parameters manually:</p>
-<div class="highlight"><pre><span></span><code>param set NAV_RCL_ACT 0
-param set NAV_DLL_ACT 0
-</code></pre></div>
+<pre class="highlight"><code>param set NAV_RCL_ACT 0
+param set NAV_DLL_ACT 0</code></pre>
 <h2 id="setting-up-multi-vehicle-simulation">Setting up multi-vehicle simulation<a class="headerlink" href="#setting-up-multi-vehicle-simulation" title="Permanent link">#</a></h2>
 <p>You can simulate multiple drones in SITL mode using AirSim. However, this requires setting up
 multiple instances of the PX4 firmware simulator to be able to listen for each vehicle's connection
@@ -502,7 +486,6 @@ xbox gamepad. See <a href="../remote_control/#rc-setup-for-px4">remote controlle
       <p>Copyright &copy; 2021 Microsoft Research</p>
   </div>
 
-  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
           
         </div>

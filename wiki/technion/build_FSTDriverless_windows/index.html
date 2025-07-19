@@ -326,33 +326,32 @@
 请注意，我们将项目命名为<code>ProjectName</code>，以便您需要更改它。 </p>
 </li>
 </ol>
-<div class="highlight"><pre><span></span><code>{
-    &quot;FileVersion&quot;: 3,
-    &quot;EngineAssociation&quot;: &quot;4.18&quot;,
-    &quot;Category&quot;: &quot;Samples&quot;,
-    &quot;Description&quot;: &quot;&quot;,
-    &quot;Modules&quot;: [
+<pre class="highlight"><code>{
+    "FileVersion": 3,
+    "EngineAssociation": "4.18",
+    "Category": "Samples",
+    "Description": "",
+    "Modules": [
         {
-            &quot;Name&quot;: &quot;ProjectName&quot;,
-            &quot;Type&quot;: &quot;Runtime&quot;,
-            &quot;LoadingPhase&quot;: &quot;Default&quot;,
-            &quot;AdditionalDependencies&quot;: [
-                &quot;AirSim&quot;
+            "Name": "ProjectName",
+            "Type": "Runtime",
+            "LoadingPhase": "Default",
+            "AdditionalDependencies": [
+                "AirSim"
             ]
         }
     ],
-    &quot;TargetPlatforms&quot;: [
-        &quot;MacNoEditor&quot;,
-        &quot;WindowsNoEditor&quot;
+    "TargetPlatforms": [
+        "MacNoEditor",
+        "WindowsNoEditor"
     ],
-    &quot;Plugins&quot;: [
+    "Plugins": [
         {
-            &quot;Name&quot;: &quot;AirSim&quot;,
-            &quot;Enabled&quot;: true
+            "Name": "AirSim",
+            "Enabled": true
         }
     ]
-}
-</code></pre></div>
+}</code></pre>
 <ol>
 <li>在 Windows 资源管理器中右键单击<code>ProjectName.uproject</code>，然后选择 <code>Generate Visual Studio Project Files</code>。此步骤将检测虚幻项目中的所有插件和源文件，并为 Visual Studio 生成 .sln 文件。 </li>
 </ol>
@@ -405,7 +404,6 @@
       <p>Copyright &copy; 2021 Microsoft Research</p>
   </div>
 
-  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
           
         </div>

@@ -285,16 +285,14 @@
                 <h1 id="px4">PX4 无人机快速下降<a class="headerlink" href="#px4" title="Permanent link">#</a></h1>
 <p>你可能已经注意到，对于基于 PX4 的无人机，当你发出着陆命令时，它会缓慢而小心地下降。现在 PX4 有一个设置可以提高下降速度，但随后它会重重地撞到地面。我们真正想要的是快速下降到离地面某个安全距离，比如 5 米，然后从那里切换到 PX4 着陆，以获得如羽毛般轻柔的落地感。</p>
 <p>让我们尝试使用以下 Python 代码来实现这一点：</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">AirSimClient</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
-<span class="n">client</span> <span class="o">=</span> <span class="n">MultirotorClient</span><span class="p">()</span>
-<span class="n">client</span><span class="o">.</span><span class="n">enableApiControl</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">client</span><span class="o">.</span><span class="n">moveToPosition</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="n">client</span><span class="o">.</span><span class="n">land</span><span class="p">()</span>
-</code></pre></div>
+<pre class="highlight"><code class="language-python">from AirSimClient import *
+client = MultirotorClient()
+client.enableApiControl(True)
+client.moveToPosition(0, 0, -5, 2)
+client.land()</code></pre>
 <p>因此，我们尝试以每秒 2 米的速度快速下降，然后当达到 5 米时切换到自动着陆。</p>
 <p>这应该可行，但 PX4 也内置了最大垂直下降速度限制。因此，要启用上述技巧，您需要设置以下参数：</p>
-<div class="highlight"><pre><span></span><code>param set MPC_Z_VEL_MAX_DN 2
-</code></pre></div>
+<pre class="highlight"><code class="language-text">param set MPC_Z_VEL_MAX_DN 2</code></pre>
 <p>结果如下：</p>
 <p><img alt="" src="../images/wiki/rapid_descent.png" /></p>
 <p>你可以随意设置，还有一个 <code>MPC_Z_VEL_MAX_UP</code> 参数，方便你快速爬升。有些无人机可以以惊人的速度爬升。PX4 限制这些参数的唯一原因是，很多新手飞行员在没有这些限制的情况下会遇到麻烦。所以，在实际无人机上操作之前，请先在模拟器上尝试一下！</p>
@@ -309,7 +307,6 @@
       <p>Copyright &copy; 2021 Microsoft Research</p>
   </div>
 
-  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
           
         </div>

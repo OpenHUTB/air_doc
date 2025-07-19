@@ -320,12 +320,11 @@
 </tbody>
 </table>
 <p>For example, to make the sensor point towards the ground (for altitude measurement similar to barometer), the orientation can be modified as follows -</p>
-<div class="highlight"><pre><span></span><code><span class="nt">&quot;Distance&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;SensorType&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;Enabled&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;Yaw&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Pitch&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">-90</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Roll&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
-<span class="p">}</span>
-</code></pre></div>
+<pre class="highlight"><code class="language-json">"Distance": {
+    "SensorType": 5,
+    "Enabled" : true,
+    "Yaw": 0, "Pitch": -90, "Roll": 0
+}</code></pre>
 <p><strong>Note:</strong> For Cars, the sensor is placed 1 meter above the vehicle center by default. This is required since otherwise the sensor gives strange data due it being inside the vehicle. This doesn't affect the sensor values say when measuring the distance between 2 cars. See <a href="https://github.com/Microsoft/AirSim/blob/main/PythonClient/car/distance_sensor_multi.py"><code>PythonClient/car/distance_sensor_multi.py</code></a> for an example usage.</p>
               
             </div>
@@ -342,7 +341,6 @@
       <p>Copyright &copy; 2021 Microsoft Research</p>
   </div>
 
-  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
           
         </div>

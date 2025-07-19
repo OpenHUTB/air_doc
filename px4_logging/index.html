@@ -300,17 +300,16 @@
 <p>Thanks to <a href="https://github.com/clovett">Chris Lovett</a> for developing various tools for PX4/MavLink logging mentioned on this page!</p>
 <h2 id="logging-mavlink-messages">Logging MavLink Messages<a class="headerlink" href="#logging-mavlink-messages" title="Permanent link">#</a></h2>
 <p>AirSim can capture mavlink log files if you add the following to the PX4 section of your <code>settings.json</code> file:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;SettingsVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.2</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;SimMode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Multirotor&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;Vehicles&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;PX4&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="err">...</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;Logs&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;c:/temp/mavlink&quot;</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+<pre class="highlight"><code class="language-json">{
+    "SettingsVersion": 1.2,
+    "SimMode": "Multirotor",
+    "Vehicles": {
+        "PX4": {
+            ...,
+            "Logs": "c:/temp/mavlink"
+        }
+    }
+}</code></pre>
 <p>AirSim will create a timestamped log file in this folder for each "armed/disarmed" flight session.</p>
 <p>You will then see log files organized by date in d:\temp\logs, specifically *input.mavlink and *output.mavlink files.</p>
 <h2 id="mavlink-logviewer">MavLink LogViewer<a class="headerlink" href="#mavlink-logviewer" title="Permanent link">#</a></h2>
@@ -319,8 +318,7 @@ If you enable this form of realtime logging you should not use the "Logs" settin
 are mutually exclusive.</p>
 <h2 id="px4-log-in-sitl-mode">PX4 Log in SITL Mode<a class="headerlink" href="#px4-log-in-sitl-mode" title="Permanent link">#</a></h2>
 <p>In SITL mode, please a log file is produced when drone is armed. The SITL terminal will contain the path to the log file, it should look something like this
-<div class="highlight"><pre><span></span><code>INFO  [logger] Opened log file: rootfs/fs/microsd/log/2017-03-27/20_02_49.ulg
-</code></pre></div></p>
+<pre class="highlight"><code>INFO  [logger] Opened log file: rootfs/fs/microsd/log/2017-03-27/20_02_49.ulg</code></pre></p>
 <h2 id="px4-log-in-hitl-mode">PX4 Log in HITL Mode<a class="headerlink" href="#px4-log-in-hitl-mode" title="Permanent link">#</a></h2>
 <p>If you are using Pixhawk hardware in HIL mode, then set parameter <code>SYS_LOGGER=1</code>
 using QGroundControl. PX4 will write log file on device which you can download at later date using QGroundControl.</p>
@@ -364,7 +362,6 @@ a lovely flat line.</p>
       <p>Copyright &copy; 2021 Microsoft Research</p>
   </div>
 
-  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
           
         </div>

@@ -313,26 +313,24 @@
 </tbody>
 </table>
 <p>因此，我们可以使用以下代码计算方形路径框：</p>
-<div class="highlight"><pre><span></span><code>        <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">distance</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">while</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">boxsize</span><span class="p">:</span>
-            <span class="n">distance</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">boxsize</span> 
-            <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Vector3r</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">boxsize</span><span class="p">,</span> <span class="n">z</span><span class="p">))</span>
-            <span class="n">x</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stripewidth</span>            
-            <span class="n">distance</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stripewidth</span> 
-            <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Vector3r</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">boxsize</span><span class="p">,</span> <span class="n">z</span><span class="p">))</span>
-            <span class="n">distance</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">boxsize</span> 
-            <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Vector3r</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">boxsize</span><span class="p">,</span> <span class="n">z</span><span class="p">))</span> 
-            <span class="n">x</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stripewidth</span>  
-            <span class="n">distance</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stripewidth</span> 
-            <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Vector3r</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">boxsize</span><span class="p">,</span> <span class="n">z</span><span class="p">))</span>
-            <span class="n">distance</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">boxsize</span> 
-</code></pre></div>
+<pre class="highlight"><code class="language-python">        path = []
+        distance = 0
+        while x &lt; self.boxsize:
+            distance += self.boxsize 
+            path.append(Vector3r(x, self.boxsize, z))
+            x += self.stripewidth            
+            distance += self.stripewidth 
+            path.append(Vector3r(x, self.boxsize, z))
+            distance += self.boxsize 
+            path.append(Vector3r(x, -self.boxsize, z)) 
+            x += self.stripewidth  
+            distance += self.stripewidth 
+            path.append(Vector3r(x, -self.boxsize, z))
+            distance += self.boxsize </code></pre>
 <p>假设我们从盒子的角落开始，将 x 增加条纹宽度，然后将 -boxsize 的整个 y 维度飞到 +boxsize，因此在这种情况下 boxsize 是我们将要覆盖的实际盒子大小的一半。</p>
 <p>一旦我们有了 Vector3r 对象列表，我们就可以通过以下调用非常简单地执行此路径：</p>
-<div class="highlight"><pre><span></span><code><span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">moveOnPath</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">velocity</span><span class="p">,</span> <span class="n">trip_time</span><span class="p">,</span> <span class="n">DrivetrainType</span><span class="o">.</span><span class="n">ForwardOnly</span><span class="p">,</span> 
-                                <span class="n">YawMode</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">lookahead</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-</code></pre></div>
+<pre class="highlight"><code class="language-python">result = self.client.moveOnPath(path, self.velocity, trip_time, DrivetrainType.ForwardOnly, 
+                                YawMode(False,0), lookahead, 1)</code></pre>
 <p>我们可以通过将路径距离除以飞行速度来计算合适的 trip_time 超时时间。</p>
 <p>这里平滑路径插值所需的前瞻 <code>lookahead</code> 可以通过使用 <code>self.velocity + (self.velocity/2)</code> 根据速度计算得出。前瞻次数越多，转弯越平滑。这就是为什么您在屏幕截图中看到每个泳道的末端都是平滑的转弯，而不是方框图案。这也可以使您的相机拍摄的视频更加流畅。</p>
 <p>就是这样，很简单吧？</p>
@@ -348,7 +346,6 @@
       <p>Copyright &copy; 2021 Microsoft Research</p>
   </div>
 
-  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
           
         </div>

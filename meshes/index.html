@@ -293,16 +293,15 @@
 <p>AirSim supports the ability to access the static meshes that make up the scene.</p>
 <h2 id="mesh-structure">Mesh structure<a class="headerlink" href="#mesh-structure" title="Permanent link">#</a></h2>
 <p>Each mesh is represented with the below struct.
-<div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">MeshPositionVertexBuffersResponse</span><span class="w"> </span><span class="p">{</span>
+<pre class="highlight"><code class="language-cpp">struct MeshPositionVertexBuffersResponse {
 
-<span class="w">    </span><span class="n">Vector3r</span><span class="w"> </span><span class="n">position</span><span class="p">;</span>
-<span class="w">    </span><span class="n">Quaternionr</span><span class="w"> </span><span class="n">orientation</span><span class="p">;</span>
+    Vector3r position;
+    Quaternionr orientation;
 
-<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="w"> </span><span class="n">vertices</span><span class="p">;</span>
-<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">uint32_t</span><span class="o">&gt;</span><span class="w"> </span><span class="n">indices</span><span class="p">;</span>
-<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">name</span><span class="p">;</span>
-<span class="p">};</span>
-</code></pre></div></p>
+    std::vector&lt;float&gt; vertices;
+    std::vector&lt;uint32_t&gt; indices;
+    std::string name;
+};</code></pre></p>
 <ul>
 <li>The position and orientation are in the Unreal coordinate system.</li>
 <li>The mesh itself is a triangular mesh represented by the vertices and the indices.<ul>
@@ -318,52 +317,51 @@
  not changing during the duration of your program.</p>
 <p>Note that you will have to use a 3rdparty library or your own custom code to actually interact with the received meshes. Below I utilize the
 Python bindings of <a href="https://github.com/libigl/libigl">libigl</a> to visualize the received meshes.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">airsim</span>
+<pre class="highlight"><code class="language-python">import airsim
 
-<span class="n">AIRSIM_HOST_IP</span><span class="o">=</span><span class="s1">&#39;127.0.0.1&#39;</span>
+AIRSIM_HOST_IP='127.0.0.1'
 
-<span class="n">client</span> <span class="o">=</span> <span class="n">airsim</span><span class="o">.</span><span class="n">VehicleClient</span><span class="p">(</span><span class="n">ip</span><span class="o">=</span><span class="n">AIRSIM_HOST_IP</span><span class="p">)</span>
-<span class="n">client</span><span class="o">.</span><span class="n">confirmConnection</span><span class="p">()</span>
+client = airsim.VehicleClient(ip=AIRSIM_HOST_IP)
+client.confirmConnection()
 
-<span class="c1"># List of returned meshes are received via this function</span>
-<span class="n">meshes</span><span class="o">=</span><span class="n">client</span><span class="o">.</span><span class="n">simGetMeshPositionVertexBuffers</span><span class="p">()</span>
+# List of returned meshes are received via this function
+meshes=client.simGetMeshPositionVertexBuffers()
 
 
-<span class="n">index</span><span class="o">=</span><span class="mi">0</span>
-<span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">meshes</span><span class="p">:</span>
-    <span class="c1"># Finds one of the cube meshes in the Blocks environment</span>
-    <span class="k">if</span> <span class="s1">&#39;cube&#39;</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
+index=0
+for m in meshes:
+    # Finds one of the cube meshes in the Blocks environment
+    if 'cube' in m.name:
 
-        <span class="c1"># Code from here on relies on libigl. Libigl uses pybind11 to wrap C++ code. So here the built pyigl.so</span>
-        <span class="c1"># library is in the same directory as this example code.</span>
-        <span class="c1"># This is here as code for your own mesh library should require something similar</span>
-        <span class="kn">from</span><span class="w"> </span><span class="nn">pyigl</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
-        <span class="kn">from</span><span class="w"> </span><span class="nn">iglhelpers</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+        # Code from here on relies on libigl. Libigl uses pybind11 to wrap C++ code. So here the built pyigl.so
+        # library is in the same directory as this example code.
+        # This is here as code for your own mesh library should require something similar
+        from pyigl import *
+        from iglhelpers import *
 
-        <span class="c1"># Convert the lists to numpy arrays</span>
-        <span class="n">vertex_list</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">vertices</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
-        <span class="n">indices</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">indices</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">)</span>
+        # Convert the lists to numpy arrays
+        vertex_list=np.array(m.vertices,dtype=np.float32)
+        indices=np.array(m.indices,dtype=np.uint32)
 
-        <span class="n">num_vertices</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">vertex_list</span><span class="p">)</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span>
-        <span class="n">num_indices</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span>
+        num_vertices=int(len(vertex_list)/3)
+        num_indices=len(indices)
 
-        <span class="c1"># Libigl requires the shape to be Nx3 where N is number of vertices or indices</span>
-        <span class="c1"># It also requires the actual type to be double(float64) for vertices and int64 for the triangles/indices</span>
-        <span class="n">vertices_reshaped</span><span class="o">=</span><span class="n">vertex_list</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">num_vertices</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
-        <span class="n">indices_reshaped</span><span class="o">=</span><span class="n">indices</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="nb">int</span><span class="p">(</span><span class="n">num_indices</span><span class="o">/</span><span class="mi">3</span><span class="p">),</span><span class="mi">3</span><span class="p">))</span>
-        <span class="n">vertices_reshaped</span><span class="o">=</span><span class="n">vertices_reshaped</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
-        <span class="n">indices_reshaped</span><span class="o">=</span><span class="n">indices_reshaped</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+        # Libigl requires the shape to be Nx3 where N is number of vertices or indices
+        # It also requires the actual type to be double(float64) for vertices and int64 for the triangles/indices
+        vertices_reshaped=vertex_list.reshape((num_vertices,3))
+        indices_reshaped=indices.reshape((int(num_indices/3),3))
+        vertices_reshaped=vertices_reshaped.astype(np.float64)
+        indices_reshaped=indices_reshaped.astype(np.int64)
 
-        <span class="c1"># Libigl function to convert to internal Eigen format</span>
-        <span class="n">v_eig</span><span class="o">=</span><span class="n">p2e</span><span class="p">(</span><span class="n">vertices_reshaped</span><span class="p">)</span>
-        <span class="n">i_eig</span><span class="o">=</span><span class="n">p2e</span><span class="p">(</span><span class="n">indices_reshaped</span><span class="p">)</span>
+        # Libigl function to convert to internal Eigen format
+        v_eig=p2e(vertices_reshaped)
+        i_eig=p2e(indices_reshaped)
 
-        <span class="c1"># View the mesh</span>
-        <span class="n">viewer</span> <span class="o">=</span> <span class="n">igl</span><span class="o">.</span><span class="n">glfw</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
-        <span class="n">viewer</span><span class="o">.</span><span class="n">data</span><span class="p">()</span><span class="o">.</span><span class="n">set_mesh</span><span class="p">(</span><span class="n">v_eig</span><span class="p">,</span><span class="n">i_eig</span><span class="p">)</span>
-        <span class="n">viewer</span><span class="o">.</span><span class="n">launch</span><span class="p">()</span>
-        <span class="k">break</span>
-</code></pre></div>
+        # View the mesh
+        viewer = igl.glfw.Viewer()
+        viewer.data().set_mesh(v_eig,i_eig)
+        viewer.launch()
+        break</code></pre>
               
             </div>
           </div><footer>
@@ -379,7 +377,6 @@ Python bindings of <a href="https://github.com/libigl/libigl">libigl</a> to visu
       <p>Copyright &copy; 2021 Microsoft Research</p>
   </div>
 
-  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
           
         </div>

@@ -313,31 +313,28 @@
 <p><img alt="Subset Editing" src="../images/tex_swap_subset.png" /></p>
 <h2 id="api">如何通过 API 交换纹理<a class="headerlink" href="#api" title="Permanent link">#</a></h2>
 <p>以下 API 适用于 C++ 和 Python。（此处显示 C++）</p>
-<div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="w"> </span><span class="n">simSwapTextures</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">tags</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">tex_id</span><span class="p">);</span>
-</code></pre></div>
+<pre class="highlight"><code class="language-C++">std::vector&lt;std::string&gt; simSwapTextures(const std::string&amp; tags, int tex_id);</code></pre>
 <p>由“,”或“，”分隔的标签字符串标识要对哪些参与者执行交换。
 tex_id 为分配给每个进行交换的参与者的纹理数组提供索引。
 该函数将返回与提供的标签匹配且已执行纹理交换的对象列表。
 如果 tex_id 超出了某些对象纹理集的范围，则将取可用纹理数量的模数。</p>
 <p>演示 (Python):</p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">airsim</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<pre class="highlight"><code class="language-Python">import airsim
+import time
 
-<span class="n">c</span> <span class="o">=</span> <span class="n">airsim</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">MultirotorClient</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">simSwapTextures</span><span class="p">(</span><span class="s2">&quot;furniture&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
-<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">simSwapTextures</span><span class="p">(</span><span class="s2">&quot;chair&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">simSwapTextures</span><span class="p">(</span><span class="s2">&quot;table&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">simSwapTextures</span><span class="p">(</span><span class="s2">&quot;chair, right&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
-</code></pre></div>
+c = airsim.client.MultirotorClient()
+print(c.simSwapTextures("furniture", 0))
+time.sleep(2)
+print(c.simSwapTextures("chair", 1))
+time.sleep(2)
+print(c.simSwapTextures("table", 1))
+time.sleep(2)
+print(c.simSwapTextures("chair, right", 0))</code></pre>
 <p>结果:</p>
-<div class="highlight"><pre><span></span><code><span class="o">[</span><span class="s1">&#39;RetexturableChair&#39;</span>,<span class="w"> </span><span class="s1">&#39;RetexturableChair2&#39;</span>,<span class="w"> </span><span class="s1">&#39;RetexturableTable&#39;</span><span class="o">]</span>
-<span class="o">[</span><span class="s1">&#39;RetexturableChair&#39;</span>,<span class="w"> </span><span class="s1">&#39;RetexturableChair2&#39;</span><span class="o">]</span>
-<span class="o">[</span><span class="s1">&#39;RetexturableTable&#39;</span><span class="o">]</span>
-<span class="o">[</span><span class="s1">&#39;RetexturableChair2&#39;</span><span class="o">]</span>
-</code></pre></div>
+<pre class="highlight"><code class="language-bash">['RetexturableChair', 'RetexturableChair2', 'RetexturableTable']
+['RetexturableChair', 'RetexturableChair2']
+['RetexturableTable']
+['RetexturableChair2']</code></pre>
 <p><img alt="Demo" src="../images/tex_swap_demo.gif" /></p>
 <p>请注意，在此示例中，每个参与者针对相同的索引值选择了不同的纹理。</p>
 <p>您还可以使用 <code>simSetObjectMaterial</code> 和 <code>simSetObjectMaterialFromTexture</code> API 将对象的材质设置为任何材质资源或纹理的文件路径。
@@ -357,7 +354,6 @@ tex_id 为分配给每个进行交换的参与者的纹理数组提供索引。
       <p>Copyright &copy; 2021 Microsoft Research</p>
   </div>
 
-  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
           
         </div>

@@ -313,37 +313,33 @@
 <p>目前，我们已经为模拟板实现了 simple_flight 接口。我们计划将其实现到 Pixhawk V2 板，甚至可能实现到 Naze32 板。我们预计所有代码将保持不变，实现主要包括为各种传感器添加驱动程序、处理 ISR 以及管理其他板级相关细节。如果您在这方面有经验，我们鼓励您与我们互动并做出贡献！</p>
 <h2 id="_6">配置<a class="headerlink" href="#_6" title="Permanent link">#</a></h2>
 <p>要让 AirSim 使用 simple_flight，您可以在 <a href="../settings/">settings.json</a> 中指定它，如下所示。请注意，这是默认设置，因此您无需明确指定。</p>
-<div class="highlight"><pre><span></span><code>&quot;Vehicles&quot;: {
-    &quot;SimpleFlight&quot;: {
-      &quot;VehicleType&quot;: &quot;SimpleFlight&quot;,
+<pre class="highlight"><code>"Vehicles": {
+    "SimpleFlight": {
+      "VehicleType": "SimpleFlight",
     }
-}
-</code></pre></div>
+}</code></pre>
 <p>默认情况下，使用 simple_flight 的飞行器已经处于武装状态，因此你会看到它的螺旋桨在旋转。但是，如果你不想这样，可以将 <code>DefaultVehicleState</code> 设置为 <code>Inactive</code>，如下所示：</p>
-<div class="highlight"><pre><span></span><code>&quot;Vehicles&quot;: {
-    &quot;SimpleFlight&quot;: {
-      &quot;VehicleType&quot;: &quot;SimpleFlight&quot;,
-      &quot;DefaultVehicleState&quot;: &quot;Inactive&quot;
+<pre class="highlight"><code>"Vehicles": {
+    "SimpleFlight": {
+      "VehicleType": "SimpleFlight",
+      "DefaultVehicleState": "Inactive"
     }
-}
-</code></pre></div>
+}</code></pre>
 <p>在这种情况下，您需要手动将遥控摇杆向下向内放置，或使用 API 进行解锁。</p>
 <p>出于安全考虑，飞行控制器不允许 API 控制，除非操作员已通过遥控上的开关同意使用 API。此外，当遥控失去控制时，出于安全考虑，飞行器应禁用 API 控制并进入悬停模式。为了简化操作，simple_flight 默认启用 API 控制，无需操作员同意，即使遥控未被检测到，也无需人工干预。不过，您可以使用以下设置更改此设置：</p>
-<div class="highlight"><pre><span></span><code>&quot;Vehicles&quot;: {
-    &quot;SimpleFlight&quot;: {
-      &quot;VehicleType&quot;: &quot;SimpleFlight&quot;,
+<pre class="highlight"><code>"Vehicles": {
+    "SimpleFlight": {
+      "VehicleType": "SimpleFlight",
 
-      &quot;AllowAPIAlways&quot;: true,
-      &quot;RC&quot;: {
-        &quot;RemoteControlID&quot;: 0,      
-        &quot;AllowAPIWhenDisconnected&quot;: true
+      "AllowAPIAlways": true,
+      "RC": {
+        "RemoteControlID": 0,      
+        "AllowAPIWhenDisconnected": true
       }
     }
-}
-</code></pre></div>
+}</code></pre>
 <p>最后，simple_flight 默认使用步进时钟，这意味着当模拟器发出指令时，时钟会前进（不像挂钟那样严格按照时间的推移前进）。这意味着时钟可以暂停，例如，当代码遇到断点且时钟的方差为零时（除非是“实时”操作系统，否则操作系统提供的时钟 API 可能会有显著的方差）。如果您希望 simple_flight 使用挂钟，请使用以下设置：</p>
-<div class="highlight"><pre><span></span><code>  &quot;ClockType&quot;: &quot;ScalableClock&quot;
-</code></pre></div>
+<pre class="highlight"><code>  "ClockType": "ScalableClock"</code></pre>
               
             </div>
           </div><footer>
@@ -359,7 +355,6 @@
       <p>Copyright &copy; 2021 Microsoft Research</p>
   </div>
 
-  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
           
         </div>

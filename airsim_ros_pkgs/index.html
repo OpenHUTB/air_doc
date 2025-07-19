@@ -382,31 +382,26 @@
 <ul>
 <li>Build AirSim</li>
 </ul>
-<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/Microsoft/AirSim.git<span class="p">;</span>
-<span class="nb">cd</span><span class="w"> </span>AirSim<span class="p">;</span>
-./setup.sh<span class="p">;</span>
-./build.sh<span class="p">;</span>
-</code></pre></div>
+<pre class="highlight"><code class="language-shell">git clone https://github.com/Microsoft/AirSim.git;
+cd AirSim;
+./setup.sh;
+./build.sh;</code></pre>
 <ul>
 <li>Make sure that you have setup the environment variables for ROS as mentioned in the installation pages above. Add the <code>source</code> command to your <code>.bashrc</code> for convenience (replace <code>melodic</code> with specfic version name) -</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;source /opt/ros/melodic/setup.bash&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc
-<span class="nb">source</span><span class="w"> </span>~/.bashrc
-</code></pre></div>
+<pre class="highlight"><code class="language-shell">echo "source /opt/ros/melodic/setup.bash" &gt;&gt; ~/.bashrc
+source ~/.bashrc</code></pre>
 <ul>
 <li>Build ROS package</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>ros<span class="p">;</span>
-catkin<span class="w"> </span>build<span class="p">;</span><span class="w"> </span><span class="c1"># or catkin_make</span>
-</code></pre></div>
+<pre class="highlight"><code class="language-shell">cd ros;
+catkin build; # or catkin_make</code></pre>
 <p>If your default GCC isn't 8 or greater (check using <code>gcc --version</code>), then compilation will fail. In that case, use <code>gcc-8</code> explicitly as follows-</p>
-<div class="highlight"><pre><span></span><code>catkin<span class="w"> </span>build<span class="w"> </span>-DCMAKE_C_COMPILER<span class="o">=</span>gcc-8<span class="w"> </span>-DCMAKE_CXX_COMPILER<span class="o">=</span>g++-8
-</code></pre></div>
+<pre class="highlight"><code class="language-shell">catkin build -DCMAKE_C_COMPILER=gcc-8 -DCMAKE_CXX_COMPILER=g++-8</code></pre>
 <h2 id="running">Running<a class="headerlink" href="#running" title="Permanent link">#</a></h2>
-<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>devel/setup.bash<span class="p">;</span>
-roslaunch<span class="w"> </span>airsim_ros_pkgs<span class="w"> </span>airsim_node.launch<span class="p">;</span>
-roslaunch<span class="w"> </span>airsim_ros_pkgs<span class="w"> </span>rviz.launch<span class="p">;</span>
-</code></pre></div>
+<pre class="highlight"><code class="language-shell">source devel/setup.bash;
+roslaunch airsim_ros_pkgs airsim_node.launch;
+roslaunch airsim_ros_pkgs rviz.launch;</code></pre>
 <p><strong>Note</strong>: If you get an error running <code>roslaunch airsim_ros_pkgs airsim_node.launch</code>, run <code>catkin clean</code> and try again</p>
 <h2 id="using-airsim-ros-wrapper">Using AirSim ROS wrapper<a class="headerlink" href="#using-airsim-ros-wrapper" title="Permanent link">#</a></h2>
 <p>The ROS wrapper is composed of two ROS nodes - the first is a wrapper over AirSim's multirotor C++ client library, and the second is a simple PD position controller.
@@ -665,18 +660,15 @@ or
 and for WSL 2:
 <code>export WSL_HOST_IP=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}')</code>
 Now, as in the <a href="#running">running section for linux</a>, execute the following:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>devel/setup.bash
-roslaunch<span class="w"> </span>airsim_ros_pkgs<span class="w"> </span>airsim_node.launch<span class="w"> </span>output:<span class="o">=</span>screen<span class="w"> </span>host:<span class="o">=</span><span class="nv">$WSL_HOST_IP</span>
-roslaunch<span class="w"> </span>airsim_ros_pkgs<span class="w"> </span>rviz.launch
-</code></pre></div>
+<pre class="highlight"><code class="language-shell">source devel/setup.bash
+roslaunch airsim_ros_pkgs airsim_node.launch output:=screen host:=$WSL_HOST_IP
+roslaunch airsim_ros_pkgs rviz.launch</code></pre>
 <h3 id="using-docker-for-ros">Using Docker for ROS<a class="headerlink" href="#using-docker-for-ros" title="Permanent link">#</a></h3>
 <p>A Dockerfile is present in the <a href="https://github.com/microsoft/AirSim/tree/main/tools/Dockerfile-ROS"><code>tools</code></a> directory. To build the <code>airsim-ros</code> image -</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>tools
-docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>airsim-ros<span class="w"> </span>-f<span class="w"> </span>Dockerfile-ROS<span class="w"> </span>.
-</code></pre></div>
+<pre class="highlight"><code class="language-shell">cd tools
+docker build -t airsim-ros -f Dockerfile-ROS .</code></pre>
 <p>To run, replace the path of the AirSim folder below -</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-it<span class="w"> </span>--net<span class="o">=</span>host<span class="w"> </span>-v<span class="w"> </span>&lt;your-AirSim-folder-path&gt;:/home/testuser/AirSim<span class="w"> </span>airsim-ros:latest<span class="w"> </span>bash
-</code></pre></div>
+<pre class="highlight"><code class="language-shell">docker run --rm -it --net=host -v &lt;your-AirSim-folder-path&gt;:/home/testuser/AirSim airsim-ros:latest bash</code></pre>
 <p>The above command mounts the AirSim directory to the home directory inside the container. Any changes you make in the source files from your host will be visible inside the container, which is useful for development and testing. Now follow the steps from <a href="#build">Build</a> to compile and run the ROS wrapper.</p>
               
             </div>
@@ -693,7 +685,6 @@ docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </
       <p>Copyright &copy; 2021 Microsoft Research</p>
   </div>
 
-  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
           
         </div>

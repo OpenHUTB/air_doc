@@ -316,10 +316,9 @@
 <h2 id="clang-format">clang-format<a class="headerlink" href="#clang-format" title="Permanent link">#</a></h2>
 <p>C++ 语法的格式化由 clang-format 工具进行规范化，该工具已将设置签入到本项目中的 <code>.clang-format</code> 文件中。这些设置符合以下列出的格式指南。您可以使用 clang-format 命令行或在每次编辑或保存文件时启用 Visual Studio 自动 clang 格式化来“格式化”文件。所有文件均已按此格式格式化，名为 <code>clang-format</code> 的 GitHub 工作流也将确保所有拉取请求都格式正确，因此应该保持简洁。显然，这不包括 <code>Eigen</code> 或 <code>rpclib</code> 等外部代码。</p>
 <p>如果您发现 clang-format 中存在错误，您可以使用以下注释对禁用特定代码块的 clang 格式：</p>
-<div class="highlight"><pre><span></span><code><span class="c1">// clang-format off</span>
-<span class="p">...</span>
-<span class="c1">// clang-format on</span>
-</code></pre></div>
+<pre class="highlight"><code class="language-c++">// clang-format off
+...
+// clang-format on</code></pre>
 <h2 id="_2">命名约定<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
 <p>避免在名称上使用任何类型的匈牙利表示法，避免在指针上使用“_ptr”。</p>
 <table>
@@ -380,13 +379,12 @@
 </table>
 <h2 id="_3">头文件<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
 <p>使用命名空间限定的 #ifdef 来防止多重包含：</p>
-<div class="highlight"><pre><span></span><code>#ifndef msr_airsim_MyHeader_hpp
+<pre class="highlight"><code>#ifndef msr_airsim_MyHeader_hpp
 #define msr_airsim_MyHeader_hpp
 
 //--你的代码
 
-#endif
-</code></pre></div>
+#endif</code></pre>
 <p>我们不使用 #pragma once 的原因是，如果相同的头文件存在于多个地方（这在 ROS 构建系统下可能是可能的！），则不支持。</p>
 <h2 id="_4">括在括弧内<a class="headerlink" href="#_4" title="Permanent link">#</a></h2>
 <p>在函数或方法体内，将花括号放在同一行。在函数或方法体外，命名空间、类和方法级别则单独一行。这被称为 <a href="https://en.wikipedia.org/wiki/Indent_style#K.26R_style">K&amp;R 风格</a>，其变体在 C++ 中被广泛使用，而其他风格在其他语言中更受欢迎。请注意，如果语句单一，则无需使用花括号，但复杂的语句使用大括号更容易保持正确。</p>
@@ -394,7 +392,7 @@
 除此之外，命名空间、类和方法级别使用单独的一行。
 这称为 <a href="https://en.wikipedia.org/wiki/Indent_style#K.26R_style">K&amp;R 风格</a>，其变体在 C++ 中被广泛使用，而其他风格在其他语言中更受欢迎。
 请注意，如果语句单一，则无需使用花括号，但复杂的语句使用大括号更容易保持正确。</p>
-<div class="highlight"><pre><span></span><code>int main(int argc, char* argv[])
+<pre class="highlight"><code>int main(int argc, char* argv[])
 {
      while (x == y) {
         f0();
@@ -407,8 +405,7 @@
         if (x &gt; 100)
             break;
     }
-}
-</code></pre></div>
+}</code></pre>
 <h2 id="const">Const 和引用<a class="headerlink" href="#const" title="Permanent link">#</a></h2>
 <p>认真检查所有声明为 const 和引用的非标量参数。如果您之前使用过 C#/Java/Python 等语言，最常犯的错误就是按值传递参数，而不是使用 <code>const T&amp;;</code>。尤其是大多数字符串、向量和映射，如果它们是只读的，则应使用 <code>const T&amp;;</code>；如果它们是可写的，则应使用 <code>T&amp;</code>。此外，尽可能为方法添加 <code>const</code> 后缀。</p>
 <h2 id="_5">重写<a class="headerlink" href="#_5" title="Permanent link">#</a></h2>
@@ -425,11 +422,9 @@
 <p>C++ 代码库使用四个空格进行缩进（而不是制表符）。</p>
 <h2 id="_9">换行符<a class="headerlink" href="#_9" title="Permanent link">#</a></h2>
 <p>提交文件时应使用 Unix 换行符。在 Windows 上工作时，可以配置 git 检出带有 Windows 换行符的文件，并在提交时自动将 Windows 换行符转换为 Unix 换行符，具体操作如下：</p>
-<div class="highlight"><pre><span></span><code>git config --global core.autocrlf true
-</code></pre></div>
+<pre class="highlight"><code>git config --global core.autocrlf true</code></pre>
 <p>在 Linux 上工作时，最好通过运行以下命令将 git 配置为检出带有 Unix 换行符的文件：</p>
-<div class="highlight"><pre><span></span><code>git config --global core.autocrlf input
-</code></pre></div>
+<pre class="highlight"><code>git config --global core.autocrlf input</code></pre>
 <p>有关此设置的更多详细信息，请参阅<a href="https://docs.github.com/en/get-started/getting-started-with-git/configuring-git-to-handle-line-endings">此文档</a>。</p>
 <h2 id="_10">这太短了，是吗？<a class="headerlink" href="#_10" title="Permanent link">#</a></h2>
 <p>是的，这是故意的，因为没人喜欢读200页的编码指南。这里的目标是只涵盖最重要的内容，这些内容
@@ -450,7 +445,6 @@
       <p>Copyright &copy; 2021 Microsoft Research</p>
   </div>
 
-  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
           
         </div>

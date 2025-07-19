@@ -295,16 +295,13 @@
 <p><img alt="image" src="../images/event_sim.png" /></p>
 <h4 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">#</a></h4>
 <p>An example script to run the event simulator alongside AirSim is located at https://github.com/microsoft/AirSim/blob/main/PythonClient/eventcamera_sim/test_event_sim.py. The following optional command-line arguments can be passed to this script.</p>
-<div class="highlight"><pre><span></span><code>args.width, args.height (float): Simulated event camera resolution
-args.save (bool): Whether or not to save the event data to a file, args.debug (bool): Whether or not to display the simulated events as an image
-</code></pre></div>
+<pre class="highlight"><code>args.width, args.height (float): Simulated event camera resolution
+args.save (bool): Whether or not to save the event data to a file, args.debug (bool): Whether or not to display the simulated events as an image</code></pre>
 <p>The implementation of the actual event simulation, written in Python and numba, is at https://github.com/microsoft/AirSim/blob/main/PythonClient/eventcamera_sim/event_simulator.py. The event simulator is initialized as follows, with the arguments controlling the resolution of the camera.</p>
-<div class="highlight"><pre><span></span><code>from event_simulator import *
-ev_sim = EventSimulator(W, H)
-</code></pre></div>
+<pre class="highlight"><code>from event_simulator import *
+ev_sim = EventSimulator(W, H)</code></pre>
 <p>The actual computation of the events is triggered through an <code>image_callback</code> function, which is executed every time a new RGB image is obtained. The first time this function is called, due to the lack of a 'previous' image, it acts as an initialization of the event sim. </p>
-<p><div class="highlight"><pre><span></span><code>event_img, events = ev_sim.image_callback(img, ts_delta)
-</code></pre></div>
+<p><pre class="highlight"><code>event_img, events = ev_sim.image_callback(img, ts_delta)</code></pre>
 This function, which behaves similar to a callback (called every time a new image is received) returns an event image as a one dimensional array of +1/-1 values, thus indicating only whether events were seen at each pixel, but not the timing/number of events. This one dimensional array can be converted into the red/blue event image as seen in the function <code>convert_event_img_rgb</code>. <code>events</code> is a numpy array of events, each of format <code>&lt;x&gt; &lt;y&gt; &lt;timestamp&gt; &lt;pol&gt;</code>.</p>
 <p>Through this function, the event sim computes the difference between the past and the current image, and computes a stream of events which is then returned as a numpy array. This can then be appended to a file.</p>
 <p>There are quite a few parameters that can be tuned to achieve a level of visual fidelity/performance of the event simulation. The main factors to tune are the following:</p>
@@ -336,7 +333,6 @@ This function, which behaves similar to a callback (called every time a new imag
       <p>Copyright &copy; 2021 Microsoft Research</p>
   </div>
 
-  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
           
         </div>
