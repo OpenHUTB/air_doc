@@ -44,10 +44,6 @@
                   <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
                   </li>
               </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../CHANGELOG/">修改记录</a>
-                </li>
-              </ul>
               <p class="caption"><span class="caption-text">构建 AirSim</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../use_precompiled/">下载二进制文件</a>
@@ -75,17 +71,17 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#python">Python 快速入门</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#installing-airsim-package">Installing AirSim Package</a>
+    <li class="toctree-l3"><a class="reference internal" href="#airsim">安装 AirSim 包</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#c-users">C++ Users</a>
+    <li class="toctree-l2"><a class="reference internal" href="#c">C++ 用户</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#hello-car">Hello Car</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#hello-drone">Hello Drone</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#common-apis">Common APIs</a>
+    <li class="toctree-l2"><a class="reference internal" href="#api">常用 API</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#image-computer-vision-apis">Image / Computer Vision APIs</a>
     </li>
@@ -330,7 +326,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../working_with_plugin_contents/">使用 UE 插件内容</a>
                   </li>
-                  <li class="toctree-l1"><a class="" href="https://github.com/Microsoft/AirSim/wiki/technion">大学生方程式赛车以色列理工学院自驾赛</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../wiki/technion/technion/">大学生方程式赛车以色列理工学院自驾赛</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">支持</span></p>
@@ -338,6 +334,8 @@
                   <li class="toctree-l1"><a class="reference internal" href="../faq/">FAQ</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../SUPPORT/">支持</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CHANGELOG/">修改记录</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../create_issue/">创建问题</a>
                   </li>
@@ -381,79 +379,78 @@ conda activate air</code></pre></p>
 <pre class="highlight"><code>pip install msgpack-rpc-python</code></pre>
 <p>您可以从 <a href="https://github.com/Microsoft/AirSim/releases">releases</a> 获取 AirSim 二进制文件，也可以从源代码编译（<a href="../build_windows/">Windows</a>、<a href="../build_linux/">Linux</a>）。一旦您可以运行 AirSim，请选择 Car 作为载具，然后导航到 <code>PythonClient\car\</code> 文件夹并运行：</p>
 <pre class="highlight"><code>python hello_car.py</code></pre>
-<p>If you are using Visual Studio 2019 then just open AirSim.sln, set PythonClient as startup project and choose <code>car\hello_car.py</code> as your startup script.</p>
-<h3 id="installing-airsim-package">Installing AirSim Package<a class="headerlink" href="#installing-airsim-package" title="Permanent link">#</a></h3>
-<p>You can also install <code>airsim</code> package simply by,</p>
+<p>如果您正在使用 Visual Studio 2019，则只需打开 AirSim.sln ，将 PythonClient 设置为启动项目，并选择 <code>car\hello_car.py</code> 作为启动脚本。</p>
+<h3 id="airsim">安装 AirSim 包<a class="headerlink" href="#airsim" title="Permanent link">#</a></h3>
+<p>您也可以简单地通过以下方式安装 <code>airsim</code> 包：，</p>
 <pre class="highlight"><code>pip install airsim</code></pre>
-<p>You can find source code and samples for this package in <code>PythonClient</code> folder in your repo.</p>
-<p><strong>Notes</strong>
-1. You may notice a file <code>setup_path.py</code> in our example folders. This file has simple code to detect if <code>airsim</code> package is available in parent folder and in that case we use that instead of pip installed package so you always use latest code.
-2. AirSim is still under heavy development which means you might frequently need to update the package to use new APIs.</p>
-<h2 id="c-users">C++ Users<a class="headerlink" href="#c-users" title="Permanent link">#</a></h2>
-<p>If you want to use C++ APIs and examples, please see <a href="../apis_cpp/">C++ APIs Guide</a>.</p>
+<p>您可以在代码仓库的 <code>PythonClient</code> 文件夹中找到该包的源代码和示例。</p>
+<p><strong>笔记</strong>
+1. 您可能会注意到在我们的示例文件夹中有一个 <code>setup_path.py</code> 文件。这个文件有一个简单的代码来检测 <code>airsim</code> 包是否在父文件夹中可用，在这种情况下，我们使用它而不是 pip 安装的包，所以您总是使用最新的代码。
+2. AirSim 仍在大量开发中，这意味着您可能需要经常更新软件包以使用新的 API。</p>
+<h2 id="c">C++ 用户<a class="headerlink" href="#c" title="Permanent link">#</a></h2>
+<p>如果要使用 C++ 的 API 和示例，请参阅 <a href="../apis_cpp/">C++ APIs 指南</a> 。</p>
 <h2 id="hello-car">Hello Car<a class="headerlink" href="#hello-car" title="Permanent link">#</a></h2>
-<p>Here's how to use AirSim APIs using Python to control simulated car (see also <a href="../apis_cpp/#hello_car">C++ example</a>):</p>
-<pre class="highlight"><code class="language-python"># ready to run example: PythonClient/car/hello_car.py
+<p>下面是如何使用 Python 的 AirSim API 控制模拟汽车（另请参见 <a href="../apis_cpp/#hello_car">C++ 示例</a> ）：</p>
+<pre class="highlight"><code class="language-python"># 准备运行示例：PythonClient/car/hello_car.py
 import airsim
 import time
 
-# connect to the AirSim simulator
+# 连接到 AirSim 模拟器
 client = airsim.CarClient()
 client.confirmConnection()
 client.enableApiControl(True)
 car_controls = airsim.CarControls()
 
 while True:
-    # get state of the car
+    # 获取车辆状态
     car_state = client.getCarState()
     print("Speed %d, Gear %d" % (car_state.speed, car_state.gear))
 
-    # set the controls for car
+    # 控制车辆
     car_controls.throttle = 1
     car_controls.steering = 1
     client.setCarControls(car_controls)
 
-    # let car drive a bit
+    # 让汽车开一会儿
     time.sleep(1)
 
-    # get camera images from the car
+    # 从汽车中获取相机图像
     responses = client.simGetImages([
         airsim.ImageRequest(0, airsim.ImageType.DepthVis),
         airsim.ImageRequest(1, airsim.ImageType.DepthPlanar, True)])
     print('Retrieved images: %d', len(responses))
 
-    # do something with images
+    # 对图像执行一些操作
     for response in responses:
         if response.pixels_as_float:
             print("Type %d, size %d" % (response.image_type, len(response.image_data_float)))
             airsim.write_pfm('py1.pfm', airsim.get_pfm_array(response))
         else:
             print("Type %d, size %d" % (response.image_type, len(response.image_data_uint8)))
-            airsim.write_file('py1.png', response.image_data_uint8)
-</code></pre>
+            airsim.write_file('py1.png', response.image_data_uint8)</code></pre>
 <h2 id="hello-drone">Hello Drone<a class="headerlink" href="#hello-drone" title="Permanent link">#</a></h2>
 <p>下面介绍了如何使用 Python 的 AirSim API 来控制模拟四旋翼飞行器（另请参阅 <a href="../apis_cpp/#hello_drone"> C++ 示例</a>）：</p>
-<pre class="highlight"><code class="language-python"># ready to run example: PythonClient/multirotor/hello_drone.py
+<pre class="highlight"><code class="language-python"># 准备运行示例：PythonClient/multirotor/hello_drone.py
 import airsim
 import os
 
-# connect to the AirSim simulator
+# 连接到 AirSim 模拟器
 client = airsim.MultirotorClient()
 client.confirmConnection()
 client.enableApiControl(True)
 client.armDisarm(True)
 
-# Async methods returns Future. Call join() to wait for task to complete.
+# Async 方法返回 Future。调用 join() 等待任务完成。
 client.takeoffAsync().join()
 client.moveToPositionAsync(-10, 10, -10, 5).join()
 
-# take images
+# 获取图像
 responses = client.simGetImages([
     airsim.ImageRequest("0", airsim.ImageType.DepthVis),
     airsim.ImageRequest("1", airsim.ImageType.DepthPlanar, True)])
 print('Retrieved images: %d', len(responses))
 
-# do something with the images
+# 对图像执行一些操作
 for response in responses:
     if response.pixels_as_float:
         print("Type %d, size %d" % (response.image_type, len(response.image_data_float)))
@@ -461,7 +458,7 @@ for response in responses:
     else:
         print("Type %d, size %d" % (response.image_type, len(response.image_data_uint8)))
         airsim.write_file(os.path.normpath('/temp/py1.png'), response.image_data_uint8)</code></pre>
-<h2 id="common-apis">Common APIs<a class="headerlink" href="#common-apis" title="Permanent link">#</a></h2>
+<h2 id="api">常用 API<a class="headerlink" href="#api" title="Permanent link">#</a></h2>
 <ul>
 <li><code>reset</code>: This resets the vehicle to its original starting state. Note that you must call <code>enableApiControl</code> and <code>armDisarm</code> again after the call to <code>reset</code>.</li>
 <li><code>confirmConnection</code>: Checks state of connection every 1 sec and reports it in Console so user can see the progress for connection.</li>
@@ -606,7 +603,7 @@ which the minimal required packages.</p>
 
   <div role="contentinfo">
     <!-- Copyright etc -->
-      <p>Copyright &copy; 2021 Microsoft Research</p>
+      <p>OpenHUTB 版权所有 &copy; 2025</p>
   </div>
 
 </footer>

@@ -5,14 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../../img/favicon.ico" />
-    <title>方程式学生以色列理工学院无人驾驶赛车 - 基于 AirSim - 低空模拟器</title>
+    <title>大学生方程式赛车以色列理工学院自驾赛 - 低空模拟器</title>
     <link rel="stylesheet" href="../../../css/theme.css" />
     <link rel="stylesheet" href="../../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "\u65b9\u7a0b\u5f0f\u5b66\u751f\u4ee5\u8272\u5217\u7406\u5de5\u5b66\u9662\u65e0\u4eba\u9a7e\u9a76\u8d5b\u8f66 - \u57fa\u4e8e AirSim";
+        var mkdocs_page_name = "\u5927\u5b66\u751f\u65b9\u7a0b\u5f0f\u8d5b\u8f66\u4ee5\u8272\u5217\u7406\u5de5\u5b66\u9662\u81ea\u9a7e\u8d5b";
         var mkdocs_page_input_path = "wiki\\technion\\technion.md";
         var mkdocs_page_url = null;
       </script>
@@ -43,10 +43,6 @@
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../../..">主页</a>
                   </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../../../CHANGELOG/">修改记录</a>
-                </li>
               </ul>
               <p class="caption"><span class="caption-text">构建 AirSim</span></p>
               <ul>
@@ -227,7 +223,7 @@
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">杂项</span></p>
-              <ul>
+              <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../../../custom_drone/">真实无人机上的 AirSim</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../../cmake_linux/">在 Linux 上安装 cmake</a>
@@ -244,7 +240,35 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../../working_with_plugin_contents/">使用 UE 插件内容</a>
                   </li>
-                  <li class="toctree-l1"><a class="" href="https://github.com/Microsoft/AirSim/wiki/technion">大学生方程式赛车以色列理工学院自驾赛</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">大学生方程式赛车以色列理工学院自驾赛</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_1">先决条件</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">如何获取</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#windows">Windows</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">如何使用</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#_4">选择模式：汽车、多旋翼或计算机视觉</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_5">手动驾驶</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_6">利用模仿学习来驾驶汽车</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_7">收集训练数据</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_8">实车实现</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_9">方程式大学生以色列理工学院算法团队</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_10">致谢</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">支持</span></p>
@@ -252,6 +276,8 @@
                   <li class="toctree-l1"><a class="reference internal" href="../../../faq/">FAQ</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../../SUPPORT/">支持</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../CHANGELOG/">修改记录</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../../create_issue/">创建问题</a>
                   </li>
@@ -272,7 +298,8 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../../.." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">方程式学生以色列理工学院无人驾驶赛车 - 基于 AirSim</li>
+          <li class="breadcrumb-item">杂项</li>
+      <li class="breadcrumb-item active">大学生方程式赛车以色列理工学院自驾赛</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/microsoft/airsim/edit/master/docs/wiki/technion/technion.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
@@ -331,12 +358,16 @@
               
             </div>
           </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../../../working_with_plugin_contents/" class="btn btn-neutral float-left" title="使用 UE 插件内容"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../../../faq/" class="btn btn-neutral float-right" title="FAQ">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
 
   <hr/>
 
   <div role="contentinfo">
     <!-- Copyright etc -->
-      <p>Copyright &copy; 2021 Microsoft Research</p>
+      <p>OpenHUTB 版权所有 &copy; 2025</p>
   </div>
 
 </footer>
@@ -356,6 +387,10 @@
         </span>
     
     
+      <span><a href="../../../working_with_plugin_contents/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../../../faq/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

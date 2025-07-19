@@ -44,10 +44,6 @@
                   <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
                   </li>
               </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../CHANGELOG/">修改记录</a>
-                </li>
-              </ul>
               <p class="caption"><span class="caption-text">构建 AirSim</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../use_precompiled/">下载二进制文件</a>
@@ -111,45 +107,45 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">ROS: AirSim ROS 包装器</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#setup">Setup</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_1">安装</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#build">Build</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">构建</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#running">Running</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">运行</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#using-airsim-ros-wrapper">Using AirSim ROS wrapper</a>
+    <li class="toctree-l2"><a class="reference internal" href="#airsim-ros">使用 AirSim ROS 包装器</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#airsim-ros-wrapper-node">AirSim ROS Wrapper Node</a>
+    <li class="toctree-l3"><a class="reference internal" href="#airsim-ros_1">AirSim ROS 包装器节点</a>
         <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#publishers">Publishers:</a>
+    <li class="toctree-l4"><a class="reference internal" href="#_4">发布者：</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#subscribers">Subscribers:</a>
+    <li class="toctree-l4"><a class="reference internal" href="#_5">订阅者:</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#services">Services:</a>
+    <li class="toctree-l4"><a class="reference internal" href="#_6">服务:</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#parameters">Parameters:</a>
+    <li class="toctree-l4"><a class="reference internal" href="#_7">参数:</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#simple-pid-position-controller-node">Simple PID Position Controller Node</a>
+    <li class="toctree-l3"><a class="reference internal" href="#pid">简单 PID 位置控制器节点</a>
         <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#parameters_1">Parameters:</a>
+    <li class="toctree-l4"><a class="reference internal" href="#_8">参数:</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#services_1">Services:</a>
+    <li class="toctree-l4"><a class="reference internal" href="#_9">服务:</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#subscribers_1">Subscribers:</a>
+    <li class="toctree-l4"><a class="reference internal" href="#_10">订阅者:</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#publishers_1">Publishers:</a>
+    <li class="toctree-l4"><a class="reference internal" href="#_11">发布者:</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#global-params">Global params</a>
+    <li class="toctree-l4"><a class="reference internal" href="#_12">全局参数</a>
     </li>
         </ul>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#misc">Misc</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_13">杂项</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#setting-up-the-build-environment-on-windows10-using-wsl1-or-wsl2">Setting up the Build Environment on Windows10 using WSL1 or WSL2</a>
+    <li class="toctree-l3"><a class="reference internal" href="#wsl1-wsl2-windows10">使用 WSL1 或 WSL2 在 Windows10 上设置构架环境</a>
         <ul>
     <li class="toctree-l4"><a class="reference internal" href="#wsl1-vs-wsl2">WSL1 vs WSL2</a>
     </li>
@@ -300,7 +296,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../working_with_plugin_contents/">使用 UE 插件内容</a>
                   </li>
-                  <li class="toctree-l1"><a class="" href="https://github.com/Microsoft/AirSim/wiki/technion">大学生方程式赛车以色列理工学院自驾赛</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../wiki/technion/technion/">大学生方程式赛车以色列理工学院自驾赛</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">支持</span></p>
@@ -308,6 +304,8 @@
                   <li class="toctree-l1"><a class="reference internal" href="../faq/">FAQ</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../SUPPORT/">支持</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CHANGELOG/">修改记录</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../create_issue/">创建问题</a>
                   </li>
@@ -340,74 +338,77 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="airsim_ros_pkgs">airsim_ros_pkgs<a class="headerlink" href="#airsim_ros_pkgs" title="Permanent link">#</a></h1>
-<p>A ROS wrapper over the AirSim C++ client library.</p>
-<h2 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link">#</a></h2>
-<p>The below steps are meant for Linux. If you're running AirSim on Windows, you can use Windows Subsystem for Linux (WSL) to run the ROS wrapper, see the instructions <a href="#setting-up-the-build-environment-on-windows10-using-wsl1-or-wsl2">below</a>. If you're unable or don't prefer to install ROS and related tools on your host Linux due to some issues, you can also try it using Docker, see the steps in <a href="#using-docker-for-ros">Using Docker for ROS wrapper</a></p>
+<p>AirSim C++客户端库上的ROS封装。</p>
+<h2 id="_1">安装<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
+<p>以下步骤适用于Linux。如果在Windows上运行AirSim，则可以使用Windows Subsystem for Linux（WSL）来运行ROS包装，请参阅 <a href="#setting-up-the-build-environment-on-windows10-using-wsl1-or-wsl2">下面</a> 的说明。如果由于某些问题，您无法或不喜欢在主机Linux上安装ROS和相关工具，您也可以使用Docker尝试，请参阅 <a href="#using-docker-for-ros">为 ROS 封装使用 Docker</a> 中的步骤</p>
 <ul>
 <li>
-<p>If your default GCC version is not 8 or above (check using <code>gcc --version</code>)</p>
+<p>如果默认GCC版本不是8或更高版本（使用<code>GCC--version</code>检查） </p>
 <ul>
-<li>Install gcc &gt;= 8.0.0: <code>sudo apt-get install gcc-8 g++-8</code></li>
-<li>Verify installation by <code>gcc-8 --version</code></li>
+<li>使用 gcc &gt;= 8.0.0: <code>sudo apt-get install gcc-8 g++-8</code></li>
+<li>使用 <code>gcc-8 --version</code> 验证安装</li>
 </ul>
 </li>
 <li>
 <p>Ubuntu 16.04</p>
 <ul>
-<li>Install <a href="https://wiki.ros.org/kinetic/Installation/Ubuntu">ROS kinetic</a></li>
-<li>Install tf2 sensor and mavros packages: <code>sudo apt-get install ros-kinetic-tf2-sensor-msgs ros-kinetic-tf2-geometry-msgs ros-kinetic-mavros*</code></li>
+<li>安装 <a href="https://wiki.ros.org/kinetic/Installation/Ubuntu">ROS kinetic</a></li>
+<li>安装tf2 sensor 和 mavros 包：<code>sudo apt-get install ros-kinetic-tf2-sensor-msgs ros-kinetic-tf2-geometry-msgs ros-kinetic-mavros*</code></li>
 </ul>
 </li>
 <li>
 <p>Ubuntu 18.04</p>
 <ul>
-<li>Install <a href="https://wiki.ros.org/melodic/Installation/Ubuntu">ROS melodic</a></li>
-<li>Install tf2 sensor and mavros packages: <code>sudo apt-get install ros-melodic-tf2-sensor-msgs ros-melodic-tf2-geometry-msgs ros-melodic-mavros*</code></li>
+<li>安装 <a href="https://wiki.ros.org/melodic/Installation/Ubuntu">ROS melodic</a></li>
+<li>安装 tf2 sensor 和 mavros 包: <code>sudo apt-get install ros-melodic-tf2-sensor-msgs ros-melodic-tf2-geometry-msgs ros-melodic-mavros*</code></li>
 </ul>
 </li>
 <li>
 <p>Ubuntu 20.04</p>
 <ul>
-<li>Install <a href="https://wiki.ros.org/noetic/Installation/Ubuntu">ROS noetic</a></li>
-<li>Install tf2 sensor and mavros packages: <code>sudo apt-get install ros-noetic-tf2-sensor-msgs ros-noetic-tf2-geometry-msgs ros-noetic-mavros*</code></li>
+<li>安装 <a href="https://wiki.ros.org/noetic/Installation/Ubuntu">ROS noetic</a></li>
+<li>安装 tf2 sensor 和 mavros 包: <code>sudo apt-get install ros-noetic-tf2-sensor-msgs ros-noetic-tf2-geometry-msgs ros-noetic-mavros*</code></li>
 </ul>
 </li>
 <li>
-<p>Install <a href="https://catkin-tools.readthedocs.io/en/latest/installing.html">catkin_tools</a>
-    <code>sudo apt-get install python-catkin-tools</code> or
-    <code>pip install catkin_tools</code>. If using Ubuntu 20.04 use <code>pip install "git+https://github.com/catkin/catkin_tools.git#egg=catkin_tools"</code></p>
+<p>安装 <a href="https://catkin-tools.readthedocs.io/en/latest/installing.html">catkin_tools</a>
+    <code>sudo apt-get install python-catkin-tools</code> 或
+    <code>pip install catkin_tools</code>。 如果在 Ubuntu 20.04 则使用 <code>pip install "git+https://github.com/catkin/catkin_tools.git#egg=catkin_tools"</code></p>
 </li>
 </ul>
-<h2 id="build">Build<a class="headerlink" href="#build" title="Permanent link">#</a></h2>
+<h2 id="_2">构建<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
 <ul>
-<li>Build AirSim</li>
+<li>构建 AirSim</li>
 </ul>
 <pre class="highlight"><code class="language-shell">git clone https://github.com/Microsoft/AirSim.git;
 cd AirSim;
 ./setup.sh;
 ./build.sh;</code></pre>
 <ul>
-<li>Make sure that you have setup the environment variables for ROS as mentioned in the installation pages above. Add the <code>source</code> command to your <code>.bashrc</code> for convenience (replace <code>melodic</code> with specfic version name) -</li>
+<li>确保已按照上面的安装页面中所述设置ROS的环境变量。为方便起见，将<code>source</code>命令添加到<code>.bashrc</code>中（用特定的版本名替换<code>mediatic</code>）：</li>
 </ul>
 <pre class="highlight"><code class="language-shell">echo "source /opt/ros/melodic/setup.bash" &gt;&gt; ~/.bashrc
 source ~/.bashrc</code></pre>
 <ul>
-<li>Build ROS package</li>
+<li>构建 ROS 包</li>
 </ul>
 <pre class="highlight"><code class="language-shell">cd ros;
-catkin build; # or catkin_make</code></pre>
-<p>If your default GCC isn't 8 or greater (check using <code>gcc --version</code>), then compilation will fail. In that case, use <code>gcc-8</code> explicitly as follows-</p>
+catkin build; # 或 catkin_make</code></pre>
+<p>如果默认GCC不是8或更高（使用<code>GCC--version</code>检查），则编译将失败。在这种情况下，请显式使用<code>gcc-8</code>，如下所示</p>
 <pre class="highlight"><code class="language-shell">catkin build -DCMAKE_C_COMPILER=gcc-8 -DCMAKE_CXX_COMPILER=g++-8</code></pre>
-<h2 id="running">Running<a class="headerlink" href="#running" title="Permanent link">#</a></h2>
+<h2 id="_3">运行<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
 <pre class="highlight"><code class="language-shell">source devel/setup.bash;
 roslaunch airsim_ros_pkgs airsim_node.launch;
 roslaunch airsim_ros_pkgs rviz.launch;</code></pre>
-<p><strong>Note</strong>: If you get an error running <code>roslaunch airsim_ros_pkgs airsim_node.launch</code>, run <code>catkin clean</code> and try again</p>
-<h2 id="using-airsim-ros-wrapper">Using AirSim ROS wrapper<a class="headerlink" href="#using-airsim-ros-wrapper" title="Permanent link">#</a></h2>
-<p>The ROS wrapper is composed of two ROS nodes - the first is a wrapper over AirSim's multirotor C++ client library, and the second is a simple PD position controller.
-Let's look at the ROS API for both nodes:</p>
-<h3 id="airsim-ros-wrapper-node">AirSim ROS Wrapper Node<a class="headerlink" href="#airsim-ros-wrapper-node" title="Permanent link">#</a></h3>
-<h4 id="publishers">Publishers:<a class="headerlink" href="#publishers" title="Permanent link">#</a></h4>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p>如果在运行<code>roslaunch airsim_ros_pkgs airsim_node.launch</code>时出错，请运行<code>catkin clean</code>，然后重试</p>
+</div>
+<h2 id="airsim-ros">使用 AirSim ROS 包装器<a class="headerlink" href="#airsim-ros" title="Permanent link">#</a></h2>
+<p>ROS包装器由两个ROS节点组成——第一个是AirSim多旋翼 C++ 客户端库的包装器，第二个是简单的 比例-微分(PD) 位置控制器。
+让我们看看这 2 个节点的ROS API：</p>
+<h3 id="airsim-ros_1">AirSim ROS 包装器节点<a class="headerlink" href="#airsim-ros_1" title="Permanent link">#</a></h3>
+<h4 id="_4">发布者：<a class="headerlink" href="#_4" title="Permanent link">#</a></h4>
 <ul>
 <li>
 <p><code>/airsim_node/origin_geo_point</code> <a href="https://github.com/microsoft/AirSim/tree/main/ros/src/airsim_ros_pkgs/msg/GPSYaw.msg">airsim_ros_pkgs/GPSYaw</a>
@@ -452,7 +453,7 @@ IMU sensor data</p>
   LIDAR pointcloud</p>
 </li>
 </ul>
-<h4 id="subscribers">Subscribers:<a class="headerlink" href="#subscribers" title="Permanent link">#</a></h4>
+<h4 id="_5">订阅者:<a class="headerlink" href="#_5" title="Permanent link">#</a></h4>
 <ul>
 <li>
 <p><code>/airsim_node/vel_cmd_body_frame</code> <a href="https://github.com/microsoft/AirSim/tree/main/ros/src/airsim_ros_pkgs/msg/VelCmd.msg">airsim_ros_pkgs/VelCmd</a>
@@ -475,7 +476,7 @@ IMU sensor data</p>
 Throttle, brake, steering and gear selections for control. Both automatic and manual transmission control possible, see the <a href="https://github.com/microsoft/AirSim/blob/main/ros/src/airsim_ros_pkgs/scripts/car_joy"><code>car_joy.py</code></a> script for use.</p>
 </li>
 </ul>
-<h4 id="services">Services:<a class="headerlink" href="#services" title="Permanent link">#</a></h4>
+<h4 id="_6">服务:<a class="headerlink" href="#_6" title="Permanent link">#</a></h4>
 <ul>
 <li>
 <p><code>/airsim_node/VEHICLE_NAME/land</code> <a href="https://docs.ros.org/api/std_srvs/html/srv/Empty.html">airsim_ros_pkgs/Takeoff</a></p>
@@ -488,7 +489,7 @@ Throttle, brake, steering and gear selections for control. Both automatic and ma
  Resets <em>all</em> drones</p>
 </li>
 </ul>
-<h4 id="parameters">Parameters:<a class="headerlink" href="#parameters" title="Permanent link">#</a></h4>
+<h4 id="_7">参数:<a class="headerlink" href="#_7" title="Permanent link">#</a></h4>
 <ul>
 <li>
 <p><code>/airsim_node/world_frame_id</code> [string]
@@ -531,10 +532,10 @@ Throttle, brake, steering and gear selections for control. Both automatic and ma
   Will publish the ros /clock topic if set to true.</p>
 </li>
 </ul>
-<h3 id="simple-pid-position-controller-node">Simple PID Position Controller Node<a class="headerlink" href="#simple-pid-position-controller-node" title="Permanent link">#</a></h3>
-<h4 id="parameters_1">Parameters:<a class="headerlink" href="#parameters_1" title="Permanent link">#</a></h4>
+<h3 id="pid">简单 PID 位置控制器节点<a class="headerlink" href="#pid" title="Permanent link">#</a></h3>
+<h4 id="_8">参数:<a class="headerlink" href="#_8" title="Permanent link">#</a></h4>
 <ul>
-<li>PD controller parameters:</li>
+<li>PD 控制器参数：</li>
 <li>
 <p><code>/pd_position_node/kd_x</code> [double],
     <code>/pd_position_node/kp_y</code> [double],
@@ -562,7 +563,7 @@ Throttle, brake, steering and gear selections for control. Both automatic and ma
   Default: 0.01 seconds</p>
 </li>
 </ul>
-<h4 id="services_1">Services:<a class="headerlink" href="#services_1" title="Permanent link">#</a></h4>
+<h4 id="_9">服务:<a class="headerlink" href="#_9" title="Permanent link">#</a></h4>
 <ul>
 <li>
 <p><code>/airsim_node/VEHICLE_NAME/gps_goal</code> [Request: <a href="https://github.com/microsoft/AirSim/blob/main/ros/src/airsim_ros_pkgs/srv/SetGPSPosition.srv">srv/SetGPSPosition</a>]
@@ -574,7 +575,7 @@ Throttle, brake, steering and gear selections for control. Both automatic and ma
   Target local position + yaw in global NED frame.</p>
 </li>
 </ul>
-<h4 id="subscribers_1">Subscribers:<a class="headerlink" href="#subscribers_1" title="Permanent link">#</a></h4>
+<h4 id="_10">订阅者:<a class="headerlink" href="#_10" title="Permanent link">#</a></h4>
 <ul>
 <li>
 <p><code>/airsim_node/origin_geo_point</code> <a href="https://github.com/microsoft/AirSim/tree/main/ros/src/airsim_ros_pkgs/msg/GPSYaw.msg">airsim_ros_pkgs/GPSYaw</a>
@@ -585,12 +586,12 @@ Throttle, brake, steering and gear selections for control. Both automatic and ma
   Listens to odometry published by <code>airsim_node</code></p>
 </li>
 </ul>
-<h4 id="publishers_1">Publishers:<a class="headerlink" href="#publishers_1" title="Permanent link">#</a></h4>
+<h4 id="_11">发布者:<a class="headerlink" href="#_11" title="Permanent link">#</a></h4>
 <ul>
 <li><code>/vel_cmd_world_frame</code> <a href="https://github.com/microsoft/AirSim/tree/main/ros/src/airsim_ros_pkgs/msg/VelCmd.msg">airsim_ros_pkgs/VelCmd</a>
   Sends velocity command to <code>airsim_node</code></li>
 </ul>
-<h4 id="global-params">Global params<a class="headerlink" href="#global-params" title="Permanent link">#</a></h4>
+<h4 id="_12">全局参数<a class="headerlink" href="#_12" title="Permanent link">#</a></h4>
 <ul>
 <li>
 <p>Dynamic constraints. These can be changed in <code>dynamic_constraints.launch</code>:</p>
@@ -610,11 +611,11 @@ Throttle, brake, steering and gear selections for control. Both automatic and ma
 </ul>
 </li>
 </ul>
-<h2 id="misc">Misc<a class="headerlink" href="#misc" title="Permanent link">#</a></h2>
-<h3 id="setting-up-the-build-environment-on-windows10-using-wsl1-or-wsl2">Setting up the Build Environment on Windows10 using WSL1 or WSL2<a class="headerlink" href="#setting-up-the-build-environment-on-windows10-using-wsl1-or-wsl2" title="Permanent link">#</a></h3>
-<p>These setup instructions describe how to setup "Bash on Ubuntu on Windows" (aka "Windows Subsystem for Linux").</p>
-<p>It involves enabling the built-in Windows Linux environment (WSL) in Windows10, installing a compatible Linux OS image, and finally installing the build environment as if it were a normal Linux system.</p>
-<p>Upon completion, you will be able to build and run the ros wrapper as in a native linux machine.</p>
+<h2 id="_13">杂项<a class="headerlink" href="#_13" title="Permanent link">#</a></h2>
+<h3 id="wsl1-wsl2-windows10">使用 WSL1 或 WSL2 在 Windows10 上设置构架环境<a class="headerlink" href="#wsl1-wsl2-windows10" title="Permanent link">#</a></h3>
+<p>这些安装说明描述了如何设置“Windows上Ubuntu上的Bash”（又名“Linux的Windows子系统”）。</p>
+<p>它涉及在Windows10中启用内置的Windows Linux环境（WSL），安装兼容的Linux OS映像，最后安装构建环境，就像它是一个普通的Linux系统一样。</p>
+<p>完成后，您将能够像在本机linux机器中一样构建和运行ros包装器。</p>
 <h5 id="wsl1-vs-wsl2">WSL1 vs WSL2<a class="headerlink" href="#wsl1-vs-wsl2" title="Permanent link">#</a></h5>
 <p>WSL2 is the latest version of the Windows10 Subsystem for Linux. It is many times faster than WSL1 (if you use the native file system in <code>/home/...</code> rather
 than Windows mounted folders under <code>/mnt/...</code>) and is therefore much preferred for building the code in terms of speed.</p>
@@ -682,7 +683,7 @@ docker build -t airsim-ros -f Dockerfile-ROS .</code></pre>
 
   <div role="contentinfo">
     <!-- Copyright etc -->
-      <p>Copyright &copy; 2021 Microsoft Research</p>
+      <p>OpenHUTB 版权所有 &copy; 2025</p>
   </div>
 
 </footer>

@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>山脉景观 - 低空模拟器</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u5c71\u8109\u666f\u89c2";
+        var mkdocs_page_input_path = "map\\LandscapeMountains.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 低空模拟器
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">主页</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../..">主页</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">构建 AirSim</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../use_precompiled/">下载二进制文件</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../build_windows/">在 Windows 上构建</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../build_linux/">在 Linux 上构建</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../build_macos/">在 macOS 上构建</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../docker_ubuntu/">Linux 上的 Docker</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../azure/">Azure 上的 ArSim</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../unreal_custenv/">定制虚幻引擎环境</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../build_faq/">场景问题和回答</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">使用 AirSim</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../apis/">核心 APIs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../image_apis/">图像 APIs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../apis_cpp/">C++ APIs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../../api_docs/html/index.html">API 参考文档</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../wiki/">Wiki 文档</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../dev_workflow/">开发工作流</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../settings/">设置</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../">地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../camera_views/">相机视角</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../using_car/">汽车模式</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../remote_control/">远程控制</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../xbox_controller/">XBox 控制器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../steering_wheel_installation/">方向盘</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../multi_vehicle/">多车辆</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >传感器</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../sensors/">传感器</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../lidar/">激光雷达</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../distance_sensor/">距离传感器</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../InfraredCamera/">红外相机</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../airsim_ros_pkgs/">ROS: AirSim ROS 包装器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../airsim_tutorial_pkgs/">ROS: AirSim 教程包</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../gazebo_drone/">导入 Gazebo 模型</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../retexturing/">域随机化</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../meshes/">网格顶点缓冲区</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../playback/">播放日志</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../voxel_grid/">体素网格生成器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../event_sim/">事件相机</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">设计</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../design/">架构</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../code_structure/">代码结构</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../adding_new_apis/">添加新的 APIs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../modify_recording_data/">修改记录数据</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../coding_guidelines/">编码指南</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../flight_controller/">飞行控制器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simple_flight/">简单飞行</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hello_drone/">Hello Drone</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">外部飞行控制器</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" >MavLink 和 PX4</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../px4_setup/">AirSim 的 PX4 设置</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../px4_sitl/">软件在环中的 PX4</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../px4_sitl_wsl2/">带有 WSL 2 的 PX4 SITL</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../px4_lockstep/">PX4 Lockstep</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../px4_multi_vehicle/">软件在环中的 PX4 多车辆</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="https://youtu.be/1oY8Qu5maQQ">AirSim 与 Pixhawk</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="https://youtu.be/HNWdYrtw3f0">使用 AirSim 设置 PX4</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="https://www.youtube.com/watch?v=d_FyjKDWQfc&feature=youtu.be">调试姿态估计</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="https://github.com/Microsoft/AirSim/wiki/Intercepting-MavLink-messages">拦截 MavLink 消息</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="https://github.com/Microsoft/AirSim/wiki/Rapid-Descent-on-PX4-drones">PX4 无人机快速下降</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../px4_build/">构建 PX4</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../px4_logging/">PX4/MavLink 日志记录</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../log_viewer/">MavLink 日志查看器</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../mavlinkcom/">MavLinkCom</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../mavlinkcom_mocap/">MavLink MoCap</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >ArduPilot</a>
+    <ul>
+                <li class="toctree-l2"><a class="" href="https://ardupilot.org/dev/docs/building-the-code.html">ArduPilot 软件在环设置</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="https://ardupilot.org/dev/docs/sitl-with-airsim.html">AirSim & ArduPilot</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">升级</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../unreal_upgrade/">升级虚幻引擎</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../upgrade_apis/">升级 APIs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../upgrade_settings/">升级设置</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">贡献教程</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../reinforcement_learning/">强化学习</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://www.youtube.com/watch?v=y09VbdQWvQY">使用 Marketplace 中的环境</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://github.com/simondlevy/AirSimTensorFlow">简单的防撞</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://aka.ms/AutonomousDrivingCookbook">Azure 上的自动驾驶</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://github.com/Microsoft/AirSim/wiki/hexacopter">构造六旋翼飞行器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://github.com/Microsoft/AirSim/wiki/moveOnPath-demo">移动路径演示</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../point_clouds/">构建点云</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../drone_survey/">使用无人机进行测量</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../orbit/">轨道轨迹</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://youtu.be/Bp86WiLUC80">导入自定义多旋翼网格</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../object_detection/">Object Detection</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://youtu.be/ZonkdMcwXH4">带有 MAVROS 和 PX4 的 AirSim</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">杂项</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../custom_drone/">真实无人机上的 AirSim</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../cmake_linux/">在 Linux 上安装 cmake</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hard_drive/">硬盘繁忙时的提示</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pfm/">pfm 格式</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../unreal_proj/">设置虚幻引擎环境</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../unreal_blocks/">Blocks 环境</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../who_is_using/">谁在使用 AirSim</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../working_with_plugin_contents/">使用 UE 插件内容</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../wiki/technion/technion/">大学生方程式赛车以色列理工学院自驾赛</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">支持</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../faq/">FAQ</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../SUPPORT/">支持</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../CHANGELOG/">修改记录</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../create_issue/">创建问题</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../CONTRIBUTING/">贡献</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">低空模拟器</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">山脉景观</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/microsoft/airsim/edit/master/docs/map/LandscapeMountains.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">山脉景观<a class="headerlink" href="#_1" title="Permanent link">#</a></h1>
+<p><a href="https://blog.csdn.net/DoomGT/article/details/132500116">地图简介</a> 。</p>
+<h2 id="_2">使用虚幻商城中的场景工程<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
+<h3 id="_3">下载安装“山脉景观”场景工程<a class="headerlink" href="#_3" title="Permanent link">#</a></h3>
+<p>“山脉景观” 是非常经典的官方教学用虚拟场景，它包含了完整的虚幻引擎工程文件，它可以在 Epic Games 启动程序中免费下载和安装。本节的实例以 “山脉景观” 场景为例，详细讲解如何使用虚幻商城中第一类已有完整工程文件的场景。同时设置 CV Mode 模式，在新建的场景中自由浏览，初步感受一下虚幻引擎中逼真的视觉渲染效果。</p>
+<p>点击 <a href="https://www.fab.com/zh-cn/">fab</a> 中的 <a href="https://www.fab.com/zh-cn/listings/5d47ae85-ff9b-4e9a-af30-95f23ffc0782">LandscapeMountains场景链接</a> ，并添加到我的库中（需要登录），然后点击<code>在启动器中查看</code>，如下图所示。</p>
+<p><img alt="" src="../images/LandscapeMountains_fab.png" /></p>
+<p>打开之后，在<code>库</code>中的<code>Fab Library</code>中点击 <code>LandscapeMountains</code> 下的“创建工程”（如果未显示则需要点击<code>Fab Library</code>旁的刷新按钮）。注意，这里的工程名称和文件夹路径都不能包含中文字符，一定要改成英文的，如下图所示。点击 “创建” 即可自动下载整个工程附件并创建好工程。注意这里的为工程选择引擎版本最高仅支持到 4.24，所以必须要安装 4.24 版本的虚幻引擎才可以下载安装 “山脉景观” 场景。</p>
+<p><img alt="" src="../images/LandscapeMountains_select_location.jpg" /> </p>
+<div style="text-align: center">创建工程时的路径和命名中不能包含中文字符</div>
+
+<p>在 Epic Games 启动程序的左下角有个 “下载” 按钮，这里可以看到当前下载和安装的进度等详细信息。下载安装完成后，就会在刚刚选好的安装路径中自动创建好 “LandscapeMountains” 文件夹，这里包含了这个工程的所有文件，如下图所示。</p>
+<p><img alt="" src="../images/LandscapeMountains_uproject.jpg" /></p>
+<div style="text-align: center">山脉景观工程文件夹中 uproject 工程文件</div>
+
+<p>其中的文件<code>LandscapeMountains.uproject</code>的文件格式 <code>.uproject</code>是虚幻引擎的工程文件默认格式。每个项目工程都有一个与之对应 <code>.uproject</code>文件，它是你创建、打开或保存工程必须用到的文件。</p>
+<p>“山脉景观” 场景最高仅支持到虚幻引擎 4.24 版本，如果没有安装 4.24 版本的虚幻引擎，则是无法打开的。因为虚幻引擎 4.27 版本向下兼容，可以打开 4.24 版本的工程文件，所以需要将 “山脉景观” 工程需要的虚幻引擎版本手动设置为 4.27。右击 <code>LandscapeMountains.uproject</code> 文件，打开方式中选择用记事本打开，将其中的 <code>EngineAssociation</code> 设置为 “4.27”，如下所示。</p>
+<p><img alt="" src="../images/LandscapeMountains_EngineAssociation.jpg" /></p>
+<div style="text-align: center">修改 uproject 工程文件中的引擎版本</div>
+
+<p>修改完并保存后，双击文件 <code>LandscapeMountains.uproject</code>，则会自动打开虚幻引擎 4.27 版本的关卡编辑器。</p>
+<p>因为虚幻引擎要求每个工程至少有一个源文件才能进行编译，所以我们需要首先新建一个 C++ 类，这样才能正常创建 Visual Studio 的<code>.sln</code>工程文件。点击左上角菜单栏的 “文件”，选择 <code>新建C++类</code>。如下图所示。</p>
+<p><img alt="" src="../images/LandscapeMountains_New_CPP_Class.jpg" /></p>
+<div style="text-align: center">新建的工程需要添加C++类</div>
+
+<p>在弹出的对话框中，父类默认选择 “无”，点击下一步，如下图所示：
+<img alt="" src="../images/LandscapeMountains_New_CPP_Class.jpg" /></p>
+<p>命名和路径都保持默认即可（注意这里不能有中文字符），最后点击 <code>创建类</code>。这时虚幻引擎会自动编译C++代码，在当前工程文件夹下生成名为 <code>LandscapeMountains.sln</code> 的 Visual Studio 工程文件，同时会自动打开 Visual Studio 2022。
+<img alt="" src="../images/LandscapeMountains_Naming.jpg" /></p>
+<p><img alt="" src="../images/LandscapeMountains_compiling_CPP.jpg" /></p>
+<p>此时不要直接关闭 Visual Studio 2022，要等待其后台处理完成后才能关闭。点击左下角的小方框即可看到此时的后台有没有在处理过程中，下图展示的是 Visual Studio 2022 的后台正在进行分析代码。同时注意要把编译模式设置为 <code>DebugGame Editor</code> 和 <code>Win64</code>。另外右侧的解决方案管理器中，要把 <code>LandscapeMountain</code> 设置为启动项目（具体如何设置参见 1.3.3 节）。</p>
+<p><img alt="" src="../images/LandscapeMountains_VS_setting.jpg" /></p>
+<p>至此 <code>山脉景观</code> 场景工程创建完成。可以把 Visual Studio 和虚幻引擎都关闭了，来准备下一节添加 AirSim 插件。</p>
+<h3 id="airsim">添加 AirSim 插件<a class="headerlink" href="#airsim" title="Permanent link">#</a></h3>
+<p>有了虚幻场景工程，还不能做仿真，下面的步骤是把 AirSim 作为一个插件安装到这个场景工程中。</p>
+<p>首先到 AirSim 源码文件夹中找到 <code>AirSim\Unreal\Plugins</code> 文件夹（需要编译后才能获得，1.3.2节），并将其复制到 <code>LandscapeMountains</code> 文件夹中，如下图所示：</p>
+<p><img alt="" src="../images/LandscapeMountains_copy_plugin.jpg" /></p>
+<p>然后用记事本打开 <code>LandscapeMountain.uproject</code> 文件，修改其中的内容，如下图所示，添加 AirSim 的插件支持。（注意一定要用英文输入法，同时注意不要忘记逗号等分隔符，如果这里修改的有语法错误，则后面可能会出现错误。）修改完之后保存并关闭文件。</p>
+<p><img alt="" src="../images/LandscapeMountains_add_airsim_support.jpg" /></p>
+<p>使用记事本打开 <code>LandscapeMountains\Config\DefaultGame.ini</code> 文件，在最后一行添加 <code>+MapsToCook=(FilePath="/AirSim/AirSimAssets")</code>，以确保虚幻场景工程可以识别 AirSim 的资源，并将其包含进来，如下图所示。修改后保存并关闭文件。</p>
+<p><img alt="" src="../images/LandscapeMountains_add_MapsToCook.jpg" /></p>
+<p>右键点击 <code>LandscapeMountains.uproject</code> 文件，选择“显示更多选项”，然后选择 <code>Generate Visual Studio project files</code> 选项，如下图所示。这一步会自动检测所有的插件和源文件，并且生成 <code>.sln</code> 工程文件。</p>
+<p><img alt="" src="../images/LandscapeMountains_generate_vs_project_files.jpg" /></p>
+<div class="admonition 提示">
+<p class="admonition-title">提示</p>
+<p>如果右键菜单中没有这个选项，那么可以尝试重启电脑，如果仍然没有，可以尝试打开 <code>LandscapeMountains.uproject</code> 文件，然后点击 <code>文件</code> -&gt; <code>刷新Visual Studio工程</code>。</p>
+</div>
+<p>生成成功后，双击打开 <code>LandscapeMountains.sln</code>，在 Visual Studio 中设置编译选项为 <code>DebugGame Editor</code> 和 <code>Win64</code>，同时将 <code>LandscapeMountains</code> 设为启动项，如 2.4 节设置 Block 环境时一样。等待Visual Studio 后台处理完成后，点击 <code>调试</code> -&gt; <code>开始调试</code>，或者直接点击 <code>本地 Windows 调试器</code>，这时会自动打开虚幻引擎的关卡编辑器。此时，虚幻引擎编辑器右下角出现了<code>新插件可用</code>的提示，说明虚幻引擎已经能够识别到 AirSim 插件了。</p>
+<p>在关卡编辑器中，将右侧 <code>世界场景设置</code> 中的 <code>游戏模式重载</code> 设置为 <code>AirSimGameMode</code>，如下图所示。点击 <code>保存当前关卡</code> 来保存设置好的环境，这样以后再次打开时就不用再次设置 <code>游戏模式重载</code> 了。</p>
+<div class="admonition 提示">
+<p class="admonition-title">提示</p>
+<p>如果关卡编辑器右侧没有 <code>世界场景设置</code>，则可以点击菜单栏中的 <code>窗口</code>，选中 <code>世界场景设置</code>。</p>
+</div>
+<p><img alt="" src="../images/LandscapeMountains_game_mode_setting.jpg" /></p>
+<p>点击工具栏中的 “运行”，就可以运行仿真了，在跳出的对话框中点 “否”，如下图所示。</p>
+<p><img alt="" src="../images/LandscapeMountains_select_car_or_quadrotor.jpg" /></p>
+<p>如果是第一次仿真运行这个 <code>山脉景观</code> 场景，点击 <code>运行</code> 后，视口中一偏空白的话，不要紧张，可能需要一些时间来渲染画面，随着渲染的进行，画面会一点点展示出来。不同性能的计算机的渲染时间也不一样。如果渲染的较长时间的话，也不用担心，因为仅第一次打开的时候需要渲染，第一次渲染完成后，后面的仿真操作就可以直接加载了。渲染完成之后，视口中就会出现一个飞行的四旋翼，如下图所示。点击工具栏的 <code>停止</code> 按钮，即可退出仿真。</p>
+<p><img alt="" src="../images/LandscapeMountains_simulation.jpg" /></p>
+<p>至此 AirSim 插件已经加载到虚幻引擎场景工程中了。</p>
+<h2 id="1">实例1：浏览游戏中的美景<a class="headerlink" href="#1" title="Permanent link">#</a></h2>
+<h3 id="cv-mode">设置为 CV Mode<a class="headerlink" href="#cv-mode" title="Permanent link">#</a></h3>
+<p>上一节运行仿真时，是在开始时选择无人机或者无人机车仿真模式。除了这种方式外，还有一种可以提前设置仿真模式的方法。AirSim在仿真启动时会自动读取 <code>C:\Users\用户名\Documents\AirSim</code> 文件夹下面的 <code>settings.json</code> 文件内容，并进行初始化设置，如下图所示。电脑第一次运行AirSim时应该会自动创建这个文件，如果没有的话，需要手动创建。在以后的仿真学习中，我们会经常使用到这个设置文件。</p>
+<p><img alt="" src="../images/LandscapeMountains_setting.json.jpg" /></p>
+<p>AirSim 的仿真模式有3种，除了四旋翼无人机仿真和无人车仿真，还有一种是 <code>Computer Vision</code> 模式。在这种模式下，仿真中没有任何无人机或无人车，也没有动力学模型，但是可以用键盘控制视角，或者也可以使用 APIs 来控制相机的位置和角度，以此来收集很多图片作为数据集。</p>
+<p>可以添加或修改 <code>settings.json</code> 中的内容，来手动修改 AirSim 的一些默认设置。使用写字板打开 <code>settings.json</code> 文件，添加 <code>SimMode</code> 标签和内容（其他已有的内容不需要修改），如下图所示。</p>
+<p><img alt="" src="../images/LandscapeMountains_setting_SimMode.jpg" /></p>
+<p>这里的 <code>SimMode</code> 标签就是设置 AirSim 的仿真模式，如果想做多旋翼无人机仿真，就设置成 <code>Multirotor</code>，如果想做无人车仿真，就设置成 <code>Car</code>。本节我们体验一下 <code>Computer Vision</code> 仿真模式。修改好之后，保存并关闭文件。</p>
+<p>在虚幻引擎的关卡编辑器中，点击上方工具栏的 <code>运行</code>，跟之前不一样的是，此时没有了询问是否选择无人机车的窗口，而是直接开始仿真。视口中没有任何无人机和无人车。将鼠标移动到视口中并点击鼠标左键，此时就进入了浏览模式。在浏览模式下，鼠标是不显示且不能移动的，键盘上同时按 <code>Shift + F1</code> 则可以退出浏览模式。所以要想停止仿真或者关闭窗口等操作，都需要先退出浏览模式。</p>
+<h3 id="_4">设置初始位置<a class="headerlink" href="#_4" title="Permanent link">#</a></h3>
+<p>在仿真开始的时候，视口中所处的场景中的位置是在比较高的高空中，使用键盘移动的话，很久才能移动到地面上。如果使用无人机仿真，在仿真开始的时候，无人机是在半空中，会直接往下掉，所以需要将初始位置放置到一个合适的地面上。</p>
+<p>在 <code>世界大纲视图</code> 中搜索 <code>Player Start</code>，可以发现有好几个类似名字的 Actor，如下图所示。</p>
+<p><img alt="" src="../images/LandscapeMountains_PlayerStart.jpg" /></p>
+<p><code>Player Start</code> Actor 在虚幻引擎中是 <code>玩家出生点</code> 的设置，是指在游戏世界场景中玩家开始游戏的地点。在 AirSim 仿真中，会自动读取这个位置，然后将仿真开始时将初始位置设置在这个点。我们只需要修改这个点的位置，即可控制 AirSim 仿真的初始位置。</p>
+<p><code>山脉景观</code> 场景中有14个 <code>Player Start</code> Actor，可以只留下第一个，将其他的都删除掉。首先要退出仿真，双击 <code>Player Start</code> Actor，视口中会自动移动到此 <code>Player Start</code> Actor 所在的位置，如下图所示。</p>
+<p><img alt="" src="../images/LandscapeMountains_PlayerStart_setting.jpg" /></p>
+<div style="text-align: center">设置初始位置</div>
+
+<p>右下角参数面板中的 <code>位置</code> 可以设置 <code>Player Start</code> 在虚幻引擎场景中的位置，可以直接修改坐标来改变其位置，这里的坐标是虚幻引擎世界坐标系下的坐标，修改起来非常麻烦。还有一种方法，将鼠标放在在中间的白点或者红绿蓝三个坐标轴上时，就可以用鼠标左键拖动 <code>Player Start</code> Actor了。将其移动到期望的位置，然后保存当前关卡。修改完成后，点击 <code>运行</code>，仿真开始的位置就是刚刚修改的位置。</p>
+<p>如果出现 <code>BAD Size</code> 标识，如下图所示，说明此初始位置与其他 Actor 发生了碰撞，需要将其移出。</p>
+<p><img alt="" src="../images/LandscapeMountains_collision.jpg" /></p>
+<h3 id="_5">视角控制<a class="headerlink" href="#_5" title="Permanent link">#</a></h3>
+<p>在浏览模式中，视角是可以控制的，视角的运动包括3个方向的平移运动（上下、左右、前后）和2个方向的旋转运动（俯仰、偏航）。使用键盘可以控制视角完成自由运动，键盘按键与视角运动的对应如下：</p>
+<ul>
+<li>上下箭头按键：控制视角前后平移运动</li>
+<li>左右箭头按键：控制视角左右平移运动</li>
+<li>PgUp、PgDn：控制视角上下平移移动</li>
+<li>W、S按键：控制视角俯仰旋转运动</li>
+<li>A、D按键：控制视角偏航旋转运动</li>
+</ul>
+<p>在关卡编辑器中点击 <code>运行</code> 后，把鼠标移动到中间的视口中，点击鼠标左键，即可进入浏览模式，此时就可以用键盘自由地控制视角在场景中移动，浏览美景。在浏览模式中，鼠标是不能移出视口的，更不能点击视口以外的按钮，当需要退出时，需要同时按键盘上的 <code>Shift + F1</code> 键，即可退出浏览模式。</p>
+<h3 id="actor">Actor 参数调节<a class="headerlink" href="#actor" title="Permanent link">#</a></h3>
+<p>场景是由很多的 Actor 组成的，其中的山、路、云、树木等都可以看做是一个 Actor，例如下图中所示，<code>山脉景观</code> 场景中一段桥梁就是一个 Actor。每个 Actor 都有其相应的参数，如位置信息等，这些参数都可以调整。</p>
+<p><img alt="" src="../images/LandscapeMountains_adjust_actor_parameter.jpg" /></p>
+<p>原始的 <code>山脉景观</code> 场景中有比较大的雾气，影响了浏览美景的视野，只需要将雾气有关的 Actor 的雾密度参数调低就可以减小雾气的浓度。</p>
+<p>在关卡编辑器右侧的 <code>世界大纲视图</code> 中搜索 <code>fog</code>，搜索出来两个跟雾气有关的 Actor，（只有在仿真进行中才会有 <code>ExponentialHeightFog</code>）。点击选中 <code>ExponentialHeightFog</code> Actor，将参数面板的 <code>雾密度</code> 参数设为 0，如下图所示。这时在仿真中视野可见度会好很多，景色也会更美。关于天气的控制，后续会有更详细的介绍。</p>
+<p><img alt="" src="../images/LandscapeMountains_fog.jpg" /></p>
+<p>后续可以使用这样的方法调节各种 Actor 的参数，来达到自己想要的效果。</p>
+<h2 id="_6">参考<a class="headerlink" href="#_6" title="Permanent link">#</a></h2>
+<ul>
+<li><a href="https://zhuanlan.zhihu.com/p/619214564">开始使用 AirSim</a></li>
+</ul>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>OpenHUTB 版权所有 &copy; 2025</p>
+  </div>
+
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/microsoft/airsim" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
