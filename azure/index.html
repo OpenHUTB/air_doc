@@ -318,7 +318,8 @@
 </li>
 <li>
 <p>为避免在不使用时对虚拟机使用产生费用，请记住从 <a href="https://portal.azure.com">Azure 门户</a> 释放其资源或从 Azure CLI 使用以下命令：
-<pre class="highlight"><code class="language-bash">az vm deallocate --resource-group MyResourceGroup --name MyVMName</code></pre></p>
+<div class="highlight"><pre><span></span><code>az<span class="w"> </span>vm<span class="w"> </span>deallocate<span class="w"> </span>--resource-group<span class="w"> </span>MyResourceGroup<span class="w"> </span>--name<span class="w"> </span>MyVMName
+</code></pre></div></p>
 </li>
 </ul>
 <h2 id="visual-studio-code-ssh">通过 Visual Studio Code 和远程 SSH 进行编码和调试<a class="headerlink" href="#visual-studio-code-ssh" title="Permanent link">#</a></h2>
@@ -359,7 +360,8 @@
 <p>使用 Azure 容器服务运行此映像时，唯一的额外要求是向将要部署的容器组添加 GPU 支持。</p>
 <p>它可以使用来自 DockerHub 的公共 docker 镜像或部署到私有 Azure 容器注册表的镜像。</p>
 <h3 id="docker_1">构建 docker 镜像<a class="headerlink" href="#docker_1" title="Permanent link">#</a></h3>
-<pre class="highlight"><code class="language-bash">docker build -t &lt;your-registry-url&gt;/&lt;your-image-name&gt; -f ./docker/Dockerfile .`</code></pre>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>&lt;your-registry-url&gt;/&lt;your-image-name&gt;<span class="w"> </span>-f<span class="w"> </span>./docker/Dockerfile<span class="w"> </span>.<span class="sb">`</span>
+</code></pre></div>
 <h2 id="airsim">使用不同的 AirSim 二进制文件<a class="headerlink" href="#airsim" title="Permanent link">#</a></h2>
 <p>要使用不同的 AirSim 二进制文件，请首先查看官方文档：<a href="../build_windows/">如何在 Windows 上构建 AirSim</a>  以及 <a href="../build_linux/">如何在 Linux 上构建 AirSim</a> （如果您还想使用 Docker 运行它）</p>
 <p>一旦您拥有包含新 AirSim 环境的 zip 文件（或者更喜欢使用 <a href="https://github.com/microsoft/AirSim/releases">官方版本</a> 中的文件），您需要修改存储库的 <code>azure</code> 目录中的某些脚本以指向新环境：
@@ -385,6 +387,7 @@
       <p>OpenHUTB 版权所有 &copy; 2025</p>
   </div>
 
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
           
         </div>

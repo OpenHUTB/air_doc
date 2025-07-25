@@ -343,18 +343,19 @@
 <h2 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">#</a></h2>
 <h4 id="airsim-rc-usb">我正在使用默认配置，但 AirSim 说我的 RC 在 USB 上未被检测到。<a class="headerlink" href="#airsim-rc-usb" title="Permanent link">#</a></h4>
 <p>如果您连接了多个遥控器或 XBox/Playstation 游戏手柄等，通常会发生这种情况。在 Windows 系统中，按下 Windows+S 键并搜索“设置 USB 游戏控制器”（在旧版 Windows 中，请尝试“游戏杆”）。这将显示所有连接到您电脑的游戏控制器。如果您没有看到您的控制器，则表示 Windows 尚未检测到它，因此您需要先解决该问题。如果您看到了您的控制器，但不在列表顶部（即索引 0），则需要告知 AirSim，因为 AirSim 默认尝试使用索引 0 处的 RC。为此，请导航到您的 <code>~/Documents/AirSim</code> 文件夹，打开 <code>settings.json</code> 并添加/修改以下设置。以下设置告知 AirSim 使用索引 = 2 处的 RC。</p>
-<pre class="highlight"><code>{
-    "SettingsVersion": 1.2,
-    "SimMode": "Multirotor",
-    "Vehicles": {
-        "SimpleFlight": {
-            "VehicleType": "SimpleFlight",
-            "RC": {
-              "RemoteControlID": 2
+<div class="highlight"><pre><span></span><code>{
+    &quot;SettingsVersion&quot;: 1.2,
+    &quot;SimMode&quot;: &quot;Multirotor&quot;,
+    &quot;Vehicles&quot;: {
+        &quot;SimpleFlight&quot;: {
+            &quot;VehicleType&quot;: &quot;SimpleFlight&quot;,
+            &quot;RC&quot;: {
+              &quot;RemoteControlID&quot;: 2
             }
         }
     }
-}</code></pre>
+}
+</code></pre></div>
 <h4 id="xboxps3">使用 XBox/PS3 控制器时车辆似乎不稳定<a class="headerlink" href="#xboxps3" title="Permanent link">#</a></h4>
 <p>普通游戏手柄精度不高，而且有很多随机噪声。大多数情况下，您还可能会看到明显的偏移（例如，摇杆位置为 0 时，输出不为 0）。因此，这种行为是可以预料的。</p>
 <h4 id="airsim-rc">AirSim 中的 RC 校准在哪里？<a class="headerlink" href="#airsim-rc" title="Permanent link">#</a></h4>
@@ -376,6 +377,7 @@
       <p>OpenHUTB 版权所有 &copy; 2025</p>
   </div>
 
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
           
         </div>

@@ -332,32 +332,33 @@ See also <a href="https://docs.px4.io/master/en/config/">initial firmware setup 
 <li>Go to the Flight Mode tab and chose one of the remote control switches as "Mode Channel". Then set (for example) Stabilized and Attitude flight modes for two positions of the switch.</li>
 <li>Go to the Tuning section of QGroundControl and set appropriate values. For example, for Fly Sky's FS-TH9X remote control, the following settings give a more realistic feel: Hover Throttle = mid+1 mark, Roll and pitch sensitivity = mid-3 mark, Altitude and position control sensitivity = mid-2 mark.</li>
 <li>In <a href="../settings/">AirSim settings</a> file, specify PX4 for your vehicle config like this:
-<pre class="highlight"><code>    {
-        "SettingsVersion": 1.2,
-        "SimMode": "Multirotor",
-        "ClockType": "SteppableClock",
-        "Vehicles": {
-            "PX4": {
-                "VehicleType": "PX4Multirotor",
-                "UseSerial": true,
-                "LockStep": true,
-                "Sensors":{
-                    "Barometer":{
-                        "SensorType": 1,
-                        "Enabled": true,
-                        "PressureFactorSigma": 0.0001825
+<div class="highlight"><pre><span></span><code>    {
+        &quot;SettingsVersion&quot;: 1.2,
+        &quot;SimMode&quot;: &quot;Multirotor&quot;,
+        &quot;ClockType&quot;: &quot;SteppableClock&quot;,
+        &quot;Vehicles&quot;: {
+            &quot;PX4&quot;: {
+                &quot;VehicleType&quot;: &quot;PX4Multirotor&quot;,
+                &quot;UseSerial&quot;: true,
+                &quot;LockStep&quot;: true,
+                &quot;Sensors&quot;:{
+                    &quot;Barometer&quot;:{
+                        &quot;SensorType&quot;: 1,
+                        &quot;Enabled&quot;: true,
+                        &quot;PressureFactorSigma&quot;: 0.0001825
                     }
                 },
-                "Parameters": {
-                    "NAV_RCL_ACT": 0,
-                    "NAV_DLL_ACT": 0,
-                    "COM_OBL_ACT": 1,
-                    "LPE_LAT": 47.641468,
-                    "LPE_LON": -122.140165
+                &quot;Parameters&quot;: {
+                    &quot;NAV_RCL_ACT&quot;: 0,
+                    &quot;NAV_DLL_ACT&quot;: 0,
+                    &quot;COM_OBL_ACT&quot;: 1,
+                    &quot;LPE_LAT&quot;: 47.641468,
+                    &quot;LPE_LON&quot;: -122.140165
                 }
             }
         }
-    }</code></pre></li>
+    }
+</code></pre></div></li>
 </ol>
 <p>Notice the PX4 <code>[simulator]</code> is using TCP, which is why we need to add: <code>"UseTcp": true,</code>. Notice we
 are also enabling <code>LockStep</code>, see <a href="../px4_lockstep/">PX4 LockStep</a> for more information. The
@@ -392,14 +393,16 @@ mapping changes.</p>
 <h4 id="warn-commander-takeoff-denied-disarm-and-re-try">WARN  [commander] Takeoff denied, disarm and re-try<a class="headerlink" href="#warn-commander-takeoff-denied-disarm-and-re-try" title="Permanent link">#</a></h4>
 <p>This happens if you try and take off when  PX4 still has not computed the home position.  PX4 will report the home
 position once it is happy with the GPS signal, and you will see these messages:</p>
-<pre class="highlight"><code>INFO  [commander] home: 47.6414680, -122.1401672, 119.99
-INFO  [tone_alarm] home_set</code></pre>
+<div class="highlight"><pre><span></span><code>INFO  [commander] home: 47.6414680, -122.1401672, 119.99
+INFO  [tone_alarm] home_set
+</code></pre></div>
 <p>Up until this point in time, however, the PX4 will reject takeoff commands.</p>
 <h4 id="when-i-tell-the-drone-to-do-something-it-always-lands">When I tell the drone to do something it always lands<a class="headerlink" href="#when-i-tell-the-drone-to-do-something-it-always-lands" title="Permanent link">#</a></h4>
 <p>For example, you use DroneShell <code>moveToPosition -z -20 -x 50 -y 0</code> which it does, but when it gets to the target location the
 drone starts to land.  This is the default behavior of PX4 when offboard mode completes.  To set the drone to hover instead
 set this PX4 parameter:
-<pre class="highlight"><code>param set COM_OBL_ACT 1</code></pre></p>
+<div class="highlight"><pre><span></span><code>param set COM_OBL_ACT 1
+</code></pre></div></p>
 <h4 id="i-get-message-length-mismatches-errors">I get message length mismatches errors<a class="headerlink" href="#i-get-message-length-mismatches-errors" title="Permanent link">#</a></h4>
 <p>You might need to set MAV_PROTO_VER parameter in QGC to "Always use version 1". Please see <a href="https://github.com/Microsoft/AirSim/issues/546">this issue</a> more details.</p>
               
@@ -417,6 +420,7 @@ set this PX4 parameter:
       <p>OpenHUTB 版权所有 &copy; 2025</p>
   </div>
 
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
           
         </div>

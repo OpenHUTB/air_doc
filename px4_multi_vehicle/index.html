@@ -296,53 +296,57 @@ However, the provided script does not let us view the PX4 console. If you want t
 <ol>
 <li>
 <p>From your bash (or Cygwin) terminal go to the PX4 Firmware directory and run the <code>sitl_multiple_run.sh</code> script while specifying the number of vehicles you need
-    <pre class="highlight"><code>cd PX4-Autopilot
-./Tools/sitl_multiple_run.sh 2    # 2 here is the number of vehicles/instances </code></pre>
+    <div class="highlight"><pre><span></span><code>cd PX4-Autopilot
+./Tools/sitl_multiple_run.sh 2    # 2 here is the number of vehicles/instances 
+</code></pre></div>
     This starts multiple instances that listen to TCP ports 4560 to 4560+i where 'i' is the number of vehicles/instances specified</p>
 </li>
 <li>
 <p>You should get a confirmation message that says that old instances have been stopped and new instances have been started
-    <pre class="highlight"><code>killing running instances
+    <div class="highlight"><pre><span></span><code>killing running instances
 starting instance 0 in /cygdrive/c/PX4/home/PX4/Firmware/build/px4_sitl_default/instance_0
-starting instance 1 in /cygdrive/c/PX4/home/PX4/Firmware/build/px4_sitl_default/instance_1</code></pre></p>
+starting instance 1 in /cygdrive/c/PX4/home/PX4/Firmware/build/px4_sitl_default/instance_1
+</code></pre></div></p>
 </li>
 <li>
 <p>Now edit <a href="../settings/">AirSim settings</a> file to make sure you have matching TCP port settings for the set number of vehicles and to make sure that both vehicles do not spawn on the same point. </p>
 <p>For example, these settings would spawn two PX4Multirotors where one of them would try to connect to PX4 SITL at port <code>4560</code> and the other at port <code>4561</code>. It also makes sure the vehicles spawn at <code>0,1,0</code> and <code>0,-1,0</code> to avoid collision:
-<pre class="highlight"><code class="language-json">{
-    "SettingsVersion": 1.2,
-    "SimMode": "Multirotor",
-    "Vehicles": {
-        "Drone1": {
-            "VehicleType": "PX4Multirotor",
-            "UseSerial": false,
-            "UseTcp": true,
-            "TcpPort": 4560,
-            "ControlPortLocal": 14540,
-            "ControlPortRemote": 14580,
-            "X": 0, "Y": 1, "Z": 0
-        },
-        "Drone2": {
-            "VehicleType": "PX4Multirotor",
-            "UseSerial": false,
-            "UseTcp": true,
-            "TcpPort": 4561,
-            "ControlPortLocal": 14541,
-            "ControlPortRemote": 14581,       
-            "X": 0, "Y": -1, "Z": 0
-        }
-    }
-  }</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;SettingsVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.2</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;SimMode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Multirotor&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Vehicles&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;Drone1&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;VehicleType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PX4Multirotor&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;UseSerial&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;UseTcp&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;TcpPort&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4560</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;ControlPortLocal&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">14540</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;ControlPortRemote&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">14580</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;X&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Y&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Z&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;Drone2&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;VehicleType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PX4Multirotor&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;UseSerial&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;UseTcp&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;TcpPort&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4561</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;ControlPortLocal&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">14541</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;ControlPortRemote&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">14581</span><span class="p">,</span><span class="w">       </span>
+<span class="w">            </span><span class="nt">&quot;X&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Y&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Z&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+</code></pre></div>
 You can add more than two vehicles but you will need to make sure you adjust the TCP port for each (ie: vehicle 3's port would be <code>4562</code> and so on..) and adjust the spawn point.</p>
 </li>
 <li>
 <p>Now run your Unreal AirSim environment and it should connect to SITL PX4 via TCP.
 If you are running the instances with the <a href="./#Starting-sitl-instances-with-px4-console">PX4 console visible</a>, you should see a bunch of messages from each SITL PX4 window.
 Specifically, the following messages tell you that AirSim is connected properly and GPS fusion is stable:
-    <pre class="highlight"><code>INFO  [simulator] Simulator connected on UDP port 14560
+    <div class="highlight"><pre><span></span><code>INFO  [simulator] Simulator connected on UDP port 14560
 INFO  [mavlink] partner IP: 127.0.0.1
 INFO  [ecl/EKF] EKF GPS checks passed (WGS-84 origin set)
-INFO  [ecl/EKF] EKF commencing GPS fusion</code></pre></p>
+INFO  [ecl/EKF] EKF commencing GPS fusion
+</code></pre></div></p>
 <p>If you do not see these messages then check your port settings.</p>
 </li>
 <li>
@@ -358,21 +362,24 @@ Here is how you would do so:</p>
 <p><strong>Note</strong> This script also assumes PX4 is built with <code>make px4_sitl_default none_iris</code> as shown <a href="../px4_sitl/#setting-up-px4-software-in-loop">here</a> before trying to run multiple PX4 instances.</p>
 <ol>
 <li>From your bash (or Cygwin) terminal go to the PX4 directory and get the scripts (place them in a subdirectory called Scripts win the PX4 directory as shown)
-    <pre class="highlight"><code>cd PX4
+    <div class="highlight"><pre><span></span><code>cd PX4
 mkdir -p Scripts
 cd Scripts
 wget https://github.com/microsoft/AirSim/raw/main/PX4Scripts/sitl_kill.sh
-wget https://github.com/microsoft/AirSim/raw/main/PX4Scripts/run_airsim_sitl.sh</code></pre>
+wget https://github.com/microsoft/AirSim/raw/main/PX4Scripts/run_airsim_sitl.sh
+</code></pre></div>
     <strong>Note</strong> the shell scripts expect the <code>Scripts</code> and <code>Firmware</code> directories to be within the same parent directory. Also, you may need to make the scripts executable by running <code>chmod +x sitl_kill.sh</code> and <code>chmod +x run_airsim_sitl.sh</code>.</li>
 <li>
 <p>Run the <code>sitl_kill.sh</code> script to kill all active PX4 SITL instances 
-    <pre class="highlight"><code>./sitl_kill.sh</code></pre></p>
+    <div class="highlight"><pre><span></span><code>./sitl_kill.sh
+</code></pre></div></p>
 </li>
 <li>
 <p>Run the <code>run_airsim_sitl.sh</code> script while specifying which instance you would like to run in the current terminal window (the first instance would be numbered 0)
-    <pre class="highlight"><code>./run_airsim_sitl.sh 0 # first instance = 0</code></pre></p>
+    <div class="highlight"><pre><span></span><code>./run_airsim_sitl.sh 0 # first instance = 0
+</code></pre></div></p>
 <p>You should see the PX4 instance starting and waiting for AirSim's connection as it would with a single instance.
-<pre class="highlight"><code>______  __   __    ___
+<div class="highlight"><pre><span></span><code>______  __   __    ___
 | ___ \ \ \ / /   /   |
 | |_/ /  \ V /   / /| |
 |  __/   /   \  / /_| |
@@ -381,12 +388,14 @@ wget https://github.com/microsoft/AirSim/raw/main/PX4Scripts/run_airsim_sitl.sh<
 
 px4 starting.
 INFO  [px4] Calling startup script: /bin/sh /cygdrive/c/PX4/home/PX4/Firmware/etc/init.d-posix/rcS 0
-INFO  [dataman] Unknown restart, data manager file './dataman' size is 11798680 bytes
-INFO  [simulator] Waiting for simulator to connect on TCP port 4560</code></pre>
+INFO  [dataman] Unknown restart, data manager file &#39;./dataman&#39; size is 11798680 bytes
+INFO  [simulator] Waiting for simulator to connect on TCP port 4560
+</code></pre></div>
 4. Open a new terminal and go to the Scripts directory and start the next instance
-<pre class="highlight"><code>cd PX4
+<div class="highlight"><pre><span></span><code>cd PX4
 cd Scripts
-./run_airsim_sitl.sh 1  # ,2,3,4,..,etc</code></pre></p>
+./run_airsim_sitl.sh 1  # ,2,3,4,..,etc
+</code></pre></div></p>
 </li>
 <li>
 <p>Repeat step 4 for as many instances as you would like to start</p>
@@ -410,6 +419,7 @@ cd Scripts
       <p>OpenHUTB 版权所有 &copy; 2025</p>
   </div>
 
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
           
         </div>

@@ -303,10 +303,11 @@
 <p><a href="https://github.com/Microsoft/AirSim/tree/main/PythonClient/reinforcement_learning">源代码</a></p>
 <p>此示例适用于 <a href="https://github.com/Microsoft/AirSim/releases">发行版</a> 中提供的 AirSimNeighborhood 环境。</p>
 <p>首先，我们需要从模拟中获取图像并对其进行适当的转换。下面，我们将展示如何从自我相机获取深度图像并将其转换为 84x84 的输入到网络。（您也可以使用其他传感器模态和传感器输入——当然，您需要相应地修改代码）。</p>
-<pre class="highlight"><code>responses = client.simGetImages([ImageRequest(0, AirSimImageType.DepthPerspective, True, False)])
-current_state = transform_input(responses)</code></pre>
+<div class="highlight"><pre><span></span><code>responses = client.simGetImages([ImageRequest(0, AirSimImageType.DepthPerspective, True, False)])
+current_state = transform_input(responses)
+</code></pre></div>
 <p>我们进一步定义了代理可以执行的 6 个动作（刹车、直行带油门、左转带油门全开、右转带油门全开、左转半开带油门、右转半开带油门）。这通过函数<code>interpret_action</code>实现：</p>
-<pre class="highlight"><code>def interpret_action(action):
+<div class="highlight"><pre><span></span><code>def interpret_action(action):
     car_controls.brake = 0
     car_controls.throttle = 1
     if action == 0:
@@ -322,9 +323,10 @@ current_state = transform_input(responses)</code></pre>
         car_controls.steering = 0.25
     else:
         car_controls.steering = -0.25
-    return car_controls</code></pre>
+    return car_controls
+</code></pre></div>
 <p>然后，我们在<code>_compute_reward</code>中将奖励函数定义为车辆行驶速度与偏离中心线距离的凸组合。当代理快速行驶并保持在车道中心时，代理将获得高奖励。</p>
-<pre class="highlight"><code>def _compute_reward(car_state):
+<div class="highlight"><pre><span></span><code>def _compute_reward(car_state):
     MAX_SPEED = 300
     MIN_SPEED = 10
     thresh_dist = 3.5
@@ -347,25 +349,28 @@ current_state = transform_input(responses)</code></pre>
         reward_speed = (((car_state.speed - MIN_SPEED)/(MAX_SPEED - MIN_SPEED)) - 0.5)
         reward = reward_dist + reward_speed
 
-    return reward</code></pre>
+    return reward
+</code></pre></div>
 <p>计算奖励函数随后还会判断该场景是否已终止（例如，由于碰撞）。我们会观察车辆的速度，如果速度低于阈值，则认为该场景已终止。</p>
-<pre class="highlight"><code>done = 0
+<div class="highlight"><pre><span></span><code>done = 0
 if reward &lt; -1:
     done = 1
 if car_controls.brake == 0:
     if car_state.speed &lt;= 5:
         done = 1
-return done</code></pre>
+return done
+</code></pre></div>
 <p>然后，主循环依次执行获取图像、根据当前策略计算要采取的行动、获得奖励等步骤。如果回合结束，我们会通过 <code>reset()</code> 将车辆重置为原始状态：</p>
-<pre class="highlight"><code>client.reset()
+<div class="highlight"><pre><span></span><code>client.reset()
 client.enableApiControl(True)
 client.armDisarm(True)
 car_control = interpret_action(1) // Reset position and drive straight for one second
 client.setCarControls(car_control)
-time.sleep(1)</code></pre>
+time.sleep(1)
+</code></pre></div>
 <p>一旦在<code>car_env.py</code>中定义了 gym 风格的环境包装器，我们就可以利用 stable-baselines3 运行 DQN 训练循环。DQN 训练的配置如下，详见<code>dqn_car.py</code>。</p>
-<pre class="highlight"><code>model = DQN(
-    "CnnPolicy",
+<div class="highlight"><pre><span></span><code>model = DQN(
+    &quot;CnnPolicy&quot;,
     env,
     learning_rate=0.00025,
     verbose=1,
@@ -377,9 +382,10 @@ time.sleep(1)</code></pre>
     max_grad_norm=10,
     exploration_fraction=0.1,
     exploration_final_eps=0.01,
-    device="cuda",
-    tensorboard_log="./tb_logs/",
-)</code></pre>
+    device=&quot;cuda&quot;,
+    tensorboard_log=&quot;./tb_logs/&quot;,
+)
+</code></pre></div>
 <p>可以定义训练环境和评估环境（参见 <code>dqn_car.py</code> 中的 <code>EvalCallback</code>）。评估环境可以与训练环境不同，具有不同的终止条件/场景配置。Tensorboard 日志目录也作为 DQN 参数的一部分定义。最后，<code>model.learn()</code> 启动 DQN 训练循环。同样，可以从 stable-baselines3 中使用 PPO、A3C 等实现。</p>
 <p>请注意，在执行<code>dqn_car.py</code>之前，需要启动并运行模拟。下方视频展示了 DQN 训练的前几轮。</p>
 <p><a href="https://youtu.be/fv-oFPAqSZ4"><img alt="Reinforcement Learning - Car" src="../images/dqn_car.png" /></a></p>
@@ -388,7 +394,7 @@ time.sleep(1)</code></pre>
 <p>此示例适用于 <a href="https://github.com/Microsoft/AirSim/releases">发行版</a> 中可用的 AirSimMountainLandscape 环境。</p>
 <p>类似地，我们可以将强化学习应用于四旋翼飞行器的各种自主飞行场景。以下示例展示了如何使用强化学习训练四旋翼飞行器沿高压电线飞行（例如，能源基础设施巡检应用）。
 这里有七个离散动作，分别对应四旋翼飞行器可以移动的不同方向（6 个方向 + 1 个悬停动作）。</p>
-<pre class="highlight"><code>def interpret_action(self, action):
+<div class="highlight"><pre><span></span><code>def interpret_action(self, action):
     if action == 0:
         quad_offset = (self.step_length, 0, 0)
     elif action == 1:
@@ -402,18 +408,19 @@ time.sleep(1)</code></pre>
     elif action == 5:
         quad_offset = (0, 0, -self.step_length)
     else:
-        quad_offset = (0, 0, 0)</code></pre>
+        quad_offset = (0, 0, 0)
+</code></pre></div>
 <p>奖励再次是一个函数，它决定了四轮车的行驶速度以及它与已知电力线的距离。</p>
-<pre class="highlight"><code>def compute_reward(quad_state, quad_vel, collision_info):
+<div class="highlight"><pre><span></span><code>def compute_reward(quad_state, quad_vel, collision_info):
     thresh_dist = 7
     beta = 1
 
     z = -10
     pts = [np.array([-0.55265, -31.9786, -19.0225]),np.array([48.59735, -63.3286, -60.07256]),np.array([193.5974, -55.0786, -46.32256]),np.array([369.2474, 35.32137, -62.5725]),np.array([541.3474, 143.6714, -32.07256]),]
 
-    quad_pt = np.array(list((self.state["position"].x_val, self.state["position"].y_val,self.state["position"].z_val,)))
+    quad_pt = np.array(list((self.state[&quot;position&quot;].x_val, self.state[&quot;position&quot;].y_val,self.state[&quot;position&quot;].z_val,)))
 
-    if self.state["collision"]:
+    if self.state[&quot;collision&quot;]:
         reward = -100
     else:
         dist = 10000000
@@ -424,12 +431,13 @@ time.sleep(1)</code></pre>
             reward = -10
         else:
             reward_dist = math.exp(-beta * dist) - 0.5
-            reward_speed = (np.linalg.norm([self.state["velocity"].x_val, self.state["velocity"].y_val, self.state["velocity"].z_val,])- 0.5)
-            reward = reward_dist + reward_speed</code></pre>
+            reward_speed = (np.linalg.norm([self.state[&quot;velocity&quot;].x_val, self.state[&quot;velocity&quot;].y_val, self.state[&quot;velocity&quot;].z_val,])- 0.5)
+            reward = reward_dist + reward_speed
+</code></pre></div>
 <p>如果事件偏离已知电力线坐标太远，我们会认为该事件终止，然后将无人机重置到其起点。</p>
 <p>一旦在<code>drone_env.py</code>中定义了 gym 风格的环境包装器，我们就可以利用 stable-baselines3 运行 DQN 训练循环。DQN 训练的配置如下，详见<code>dqn_drone.py</code>。</p>
-<pre class="highlight"><code>model = DQN(
-    "CnnPolicy",
+<div class="highlight"><pre><span></span><code>model = DQN(
+    &quot;CnnPolicy&quot;,
     env,
     learning_rate=0.00025,
     verbose=1,
@@ -441,9 +449,10 @@ time.sleep(1)</code></pre>
     max_grad_norm=10,
     exploration_fraction=0.1,
     exploration_final_eps=0.01,
-    device="cuda",
-    tensorboard_log="./tb_logs/",
-)</code></pre>
+    device=&quot;cuda&quot;,
+    tensorboard_log=&quot;./tb_logs/&quot;,
+)
+</code></pre></div>
 <p>可以定义训练环境和评估环境（参见 <code>dqn_drone.py</code> 中的 <code>EvalCallback</code>）。评估环境可以与训练环境不同，具有不同的终止条件/场景配置。Tensorboard 日志目录也被定义为 DQN 参数的一部分。最后，<code>model.learn()</code> 启动 DQN 训练循环。同样，可以使用 stable-baselines3 中的 PPO、A3C 等实现。</p>
 <p>以下是训练期间前几代的视频。</p>
 <p><a href="https://youtu.be/uKm15Y3M1Nk"><img alt="Reinforcement Learning - Quadrotor" src="../images/dqn_quadcopter.png" /></a></p>
@@ -464,6 +473,7 @@ time.sleep(1)</code></pre>
       <p>OpenHUTB 版权所有 &copy; 2025</p>
   </div>
 
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
           
         </div>

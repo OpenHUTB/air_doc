@@ -304,47 +304,50 @@
 <h2 id="creating-multiple-vehicles">Creating Multiple Vehicles<a class="headerlink" href="#creating-multiple-vehicles" title="Permanent link">#</a></h2>
 <p>It's as easy as specifying them in <a href="../settings/">settings.json</a>. The <code>Vehicles</code> element allows you to specify list of vehicles you want to create along with their initial positions and orientations. The positions are specified in NED coordinates in SI units with origin set at Player Start component in Unreal environment. The orientation is specified as Yaw, Pitch and Roll in degrees.</p>
 <h3 id="creating-multiple-cars">Creating Multiple Cars<a class="headerlink" href="#creating-multiple-cars" title="Permanent link">#</a></h3>
-<pre class="highlight"><code class="language-json">{
-    "SettingsVersion": 1.2,
-    "SimMode": "Car",
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;SettingsVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.2</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;SimMode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Car&quot;</span><span class="p">,</span>
 
-    "Vehicles": {
-        "Car1": {
-          "VehicleType": "PhysXCar",
-          "X": 4, "Y": 0, "Z": -2
-        },
-        "Car2": {
-          "VehicleType": "PhysXCar",
-          "X": -4, "Y": 0, "Z": -2,
-      "Yaw": 90
-        }
-  }
-}</code></pre>
+<span class="w">    </span><span class="nt">&quot;Vehicles&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;Car1&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;VehicleType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PhysXCar&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;X&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Y&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Z&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">-2</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;Car2&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;VehicleType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PhysXCar&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;X&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">-4</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Y&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Z&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">-2</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;Yaw&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">90</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 <h3 id="creating-multiple-drones">Creating Multiple Drones<a class="headerlink" href="#creating-multiple-drones" title="Permanent link">#</a></h3>
-<pre class="highlight"><code class="language-json">{
-    "SettingsVersion": 1.2,
-    "SimMode": "Multirotor",
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;SettingsVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.2</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;SimMode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Multirotor&quot;</span><span class="p">,</span>
 
-    "Vehicles": {
-        "Drone1": {
-          "VehicleType": "SimpleFlight",
-          "X": 4, "Y": 0, "Z": -2,
-      "Yaw": -180
-        },
-        "Drone2": {
-          "VehicleType": "SimpleFlight",
-          "X": 8, "Y": 0, "Z": -2
-        }
+<span class="w">    </span><span class="nt">&quot;Vehicles&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;Drone1&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;VehicleType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SimpleFlight&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;X&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Y&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Z&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">-2</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;Yaw&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">-180</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;Drone2&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;VehicleType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SimpleFlight&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;X&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Y&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Z&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">-2</span>
+<span class="w">        </span><span class="p">}</span>
 
-    }
-}</code></pre>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 <h2 id="using-apis-for-multiple-vehicles">Using APIs for Multiple Vehicles<a class="headerlink" href="#using-apis-for-multiple-vehicles" title="Permanent link">#</a></h2>
 <p>The new APIs since AirSim 1.2 allows you to specify <code>vehicle_name</code>. This name corresponds to keys in json settings (for example, Car1 or Drone2 above).</p>
 <p><a href="https://github.com/microsoft/AirSim/blob/main/PythonClient/car/multi_agent_car.py">Example code for cars</a></p>
 <p><a href="https://github.com/microsoft/AirSim/blob/main/PythonClient/multirotor/multi_agent_drone.py">Example code for multirotors</a></p>
 <p>Using APIs for multi-vehicles requires specifying the <code>vehicle_name</code>, which needs to be hardcoded in the script or requires parsing of the settings file. There's also a simple API <code>listVehicles()</code> which returns a list (vector in C++) of strings containing names of the current vehicles. For example, with the above settings for 2 Cars -</p>
-<pre class="highlight"><code class="language-python">&gt;&gt;&gt; client.listVehicles()
-['Car1', 'Car2']</code></pre>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">client</span><span class="o">.</span><span class="n">listVehicles</span><span class="p">()</span>
+<span class="p">[</span><span class="s1">&#39;Car1&#39;</span><span class="p">,</span> <span class="s1">&#39;Car2&#39;</span><span class="p">]</span>
+</code></pre></div>
 <h3 id="demo">Demo<a class="headerlink" href="#demo" title="Permanent link">#</a></h3>
 <p><a href="https://youtu.be/35dgcuLuF5M"><img alt="AirSimMultiple Vehicles Demo Video" src="../images/demo_multi_vehicles.png" /></a></p>
 <h3 id="creating-vehicles-at-runtime-through-api">Creating vehicles at runtime through API<a class="headerlink" href="#creating-vehicles-at-runtime-through-api" title="Permanent link">#</a></h3>
@@ -378,6 +381,7 @@
       <p>OpenHUTB 版权所有 &copy; 2025</p>
   </div>
 
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
           
         </div>

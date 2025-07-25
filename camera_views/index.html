@@ -308,12 +308,13 @@
 |Left control|decrease movement speed|</p>
 <h2 id="configuring-sub-windows">Configuring Sub-Windows<a class="headerlink" href="#configuring-sub-windows" title="Permanent link">#</a></h2>
 <p>Now you can select what is shown by each of above sub windows. For instance, you can chose to show surface normals in first window (instead of depth) and disparity in second window (instead of segmentation). Below is the settings value you can use in <a href="../settings/">settings.json</a>:</p>
-<pre class="highlight"><code>{
-  "SubWindows": [
-    {"WindowID": 1, "CameraName": "0", "ImageType": 5, "VehicleName": "", "Visible": false},
-    {"WindowID": 2, "CameraName": "0", "ImageType": 3, "VehicleName": "", "Visible": false}
+<div class="highlight"><pre><span></span><code>{
+  &quot;SubWindows&quot;: [
+    {&quot;WindowID&quot;: 1, &quot;CameraName&quot;: &quot;0&quot;, &quot;ImageType&quot;: 5, &quot;VehicleName&quot;: &quot;&quot;, &quot;Visible&quot;: false},
+    {&quot;WindowID&quot;: 2, &quot;CameraName&quot;: &quot;0&quot;, &quot;ImageType&quot;: 3, &quot;VehicleName&quot;: &quot;&quot;, &quot;Visible&quot;: false}
   ]
-}</code></pre>
+}
+</code></pre></div>
 <h2 id="performance-impact">Performance Impact<a class="headerlink" href="#performance-impact" title="Permanent link">#</a></h2>
 <p><em>Note</em>: This section is outdated and has not been updated for new performance enhancement changes.</p>
 <p>Now rendering these views does impact the FPS performance of the game, since this is additional work for the GPU.  The following shows the impact on FPS when you open these views.</p>
@@ -342,6 +343,7 @@ recovered gracefully and completed the path.  So it was right on the limit.</p>
       <p>OpenHUTB 版权所有 &copy; 2025</p>
   </div>
 
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
           
         </div>

@@ -304,20 +304,23 @@
 <p>我们的大多数用户通常使用 <a href="../apis/">APIs</a> 来控制车辆。当然，您也可以手动控制车辆。您可以使用键盘、游戏手柄或 <a href="../steering_wheel_installation/">方向盘</a> 来驾驶车辆。要手动操控无人机，您需要 XBox 控制器或遥控器（欢迎 <a href="../CONTRIBUTING/">贡献</a> 键盘支持）。更多详情，请参阅遥控器设置。或者，您可以使用 <a href="../apis/">APIs</a> 进行编程控制，或使用所谓的 <a href="../image_apis/">计算机视觉模式</a> ，通过键盘在环境中移动。</p>
 <h2 id="gpu">没有好的 GPU？<a class="headerlink" href="#gpu" title="Permanent link">#</a></h2>
 <p>AirSim 二进制文件（例如 CityEnviron）需要强大的 GPU 才能流畅运行。您可以在 Windows 上编辑 <code>run.bat</code> 文件（如果该文件不存在，请创建并添加以下内容）以低分辨率模式运行它们，如下所示：</p>
-<pre class="highlight"><code class="language-batch">start CityEnviron -ResX=640 -ResY=480 -windowed</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">start</span> CityEnviron -ResX=640 -ResY=480 -windowed
+</code></pre></div>
 <p>对于 Linux 二进制文件，请使用<code>Blocks.sh</code>或相应的 shell 脚本，如下所示：</p>
-<pre class="highlight"><code class="language-shell">./Blocks.sh -ResX=640 -ResY=480 -windowed</code></pre>
+<div class="highlight"><pre><span></span><code>./Blocks.sh<span class="w"> </span>-ResX<span class="o">=</span><span class="m">640</span><span class="w"> </span>-ResY<span class="o">=</span><span class="m">480</span><span class="w"> </span>-windowed
+</code></pre></div>
 <p>查看所有其他 <a href="https://docs.unrealengine.com/en-US/ProductionPipelines/CommandLineArguments/index.html">命令行选项</a> </p>
 <p>UE 4.24 默认使用 Vulkan 驱动程序，但它们会消耗更多 GPU 内存。如果您遇到内存分配错误，可以尝试使用 <code>-opengl</code> 切换到 OpenGL。</p>
 <p>您还可以使用 <code>simRunConsoleCommand()</code> API 限制最大 FPS，如下所示：</p>
-<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import airsim
-&gt;&gt;&gt; client = airsim.VehicleClient()
-&gt;&gt;&gt; client.confirmConnection()
-Connected!
-Client Ver:1 (Min Req: 1), Server Ver:1 (Min Req: 1)
+<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span><span class="w"> </span><span class="nn">airsim</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">client</span> <span class="o">=</span> <span class="n">airsim</span><span class="o">.</span><span class="n">VehicleClient</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">client</span><span class="o">.</span><span class="n">confirmConnection</span><span class="p">()</span>
+<span class="n">Connected</span><span class="err">!</span>
+<span class="n">Client</span> <span class="n">Ver</span><span class="p">:</span><span class="mi">1</span> <span class="p">(</span><span class="n">Min</span> <span class="n">Req</span><span class="p">:</span> <span class="mi">1</span><span class="p">),</span> <span class="n">Server</span> <span class="n">Ver</span><span class="p">:</span><span class="mi">1</span> <span class="p">(</span><span class="n">Min</span> <span class="n">Req</span><span class="p">:</span> <span class="mi">1</span><span class="p">)</span>
 
-&gt;&gt;&gt; client.simRunConsoleCommand("t.MaxFPS 10")
-True</code></pre>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">client</span><span class="o">.</span><span class="n">simRunConsoleCommand</span><span class="p">(</span><span class="s2">&quot;t.MaxFPS 10&quot;</span><span class="p">)</span>
+<span class="kc">True</span>
+</code></pre></div>
               
             </div>
           </div><footer>
@@ -333,6 +336,7 @@ True</code></pre>
       <p>OpenHUTB 版权所有 &copy; 2025</p>
   </div>
 
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
           
         </div>

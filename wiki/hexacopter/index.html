@@ -284,78 +284,83 @@
 <p>那么 AirSim 能飞六旋翼飞行器吗？答案是可以，但设置起来需要一些工作。具体来说，需要更新三个组件：首先是 PX4 固件，然后是 AirSim 物理系统，最后是渲染模型。</p>
 <h3 id="px4">PX4 修改<a class="headerlink" href="#px4" title="Permanent link">#</a></h3>
 <p>PX4 需要处于<code>六轴飞行器模式(hexacopter mode)</code>，才能为所有 6 个电机提供输出。但是，如果您熟悉 QGroundControl 的“HIL 四轴飞行器”机身，您会注意到它没有 HIL 六轴飞行器。根据 PX4 团队的说法，我们不需要使用特殊的机身就能让 PX4 在 HIL 模式下正常工作，但很遗憾，今天我们不得不这么做。PX4 存在一些 bug，会导致 HIL 模式在任何机身上都无法正常工作。因此，除了修复这些 bug 之外，以下是获取 HIL 六轴飞行器机身选项的快速方法。首先，按照 <a href="https://github.com/Microsoft/AirSim/wiki/px4.md%5D">px4</a> 中的说明克隆 git 仓库，然后执行以下操作：</p>
-<pre class="highlight"><code class="language-shell">cd ROMFS/px4fmu_common/init.d
-cp 1001_rc_quad_x.hil 1004_rc_hex_x.hil
-gedit 1004_rc_hex_x.hil</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>ROMFS/px4fmu_common/init.d
+cp<span class="w"> </span>1001_rc_quad_x.hil<span class="w"> </span>1004_rc_hex_x.hil
+gedit<span class="w"> </span>1004_rc_hex_x.hil
+</code></pre></div>
 <p>并使其包含以下内容：
-<pre class="highlight"><code class="language-shell">#!nsh
-#
-# @name HIL Quadcopter +
-#
-# @type Simulation
-#
-# @maintainer Anton Babushkin &lt;anton@px4.io&gt;
-#
+<div class="highlight"><pre><span></span><code><span class="ch">#!nsh</span>
+<span class="c1">#</span>
+<span class="c1"># @name HIL Quadcopter +</span>
+<span class="c1">#</span>
+<span class="c1"># @type Simulation</span>
+<span class="c1">#</span>
+<span class="c1"># @maintainer Anton Babushkin &lt;anton@px4.io&gt;</span>
+<span class="c1">#</span>
 
-sh /etc/init.d/rc.mc_defaults
+sh<span class="w"> </span>/etc/init.d/rc.mc_defaults
 
-set MIXER hexa_x
+<span class="nb">set</span><span class="w"> </span>MIXER<span class="w"> </span>hexa_x
 
-# Need to set all 8 channels
-set PWM_OUT 12345678
+<span class="c1"># Need to set all 8 channels</span>
+<span class="nb">set</span><span class="w"> </span>PWM_OUT<span class="w"> </span><span class="m">12345678</span>
 
-set HIL yes</code></pre></p>
+<span class="nb">set</span><span class="w"> </span>HIL<span class="w"> </span>yes
+</code></pre></div></p>
 <p>保存此文件，然后使用 <code>make px4fmu-v2_default</code> 命令重新构建 px4。如果您已经构建过，请删除之前的构建输出 <code>build_px4fmu-v2_default</code>，以确保您的新构建选择这个新的ROMFS文件。</p>
 <p>现在找到名为 <code>PX4AirframeFactMetaData.xml</code> 的 QGroundControl 配置文件，在 Windows 上，它位于 <code>%APPDATA%\QGroundControl.org\PX4AirframeFactMetaData.xml</code>。找到 airframe id="1001"，复制整个 airframe XML 元素并将其替换为：</p>
-<pre class="highlight"><code class="language-xml">    &lt;airframe id="1004" maintainer="Anton Babushkin &amp;lt;anton@px4.io&amp;gt;" name="HIL Hexacopter X"&gt;
-      &lt;maintainer&gt;Anton Babushkin &amp;lt;anton@px4.io&amp;gt;&lt;/maintainer&gt;
-      &lt;type&gt;Simulation&lt;/type&gt;
-    &lt;/airframe&gt;</code></pre>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="nt">&lt;airframe</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;1004&quot;</span><span class="w"> </span><span class="na">maintainer=</span><span class="s">&quot;Anton Babushkin &amp;lt;anton@px4.io&amp;gt;&quot;</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;HIL Hexacopter X&quot;</span><span class="nt">&gt;</span>
+<span class="w">      </span><span class="nt">&lt;maintainer&gt;</span>Anton<span class="w"> </span>Babushkin<span class="w"> </span><span class="ni">&amp;lt;</span>anton@px4.io<span class="ni">&amp;gt;</span><span class="nt">&lt;/maintainer&gt;</span>
+<span class="w">      </span><span class="nt">&lt;type&gt;</span>Simulation<span class="nt">&lt;/type&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/airframe&gt;</span>
+</code></pre></div>
 <p>您可以将维护者设置为任意人。现在，当您的 Pixhawk 重启时，QGroundControl 应该会在“HIL”机身类型下显示一个 <code>HIL Hexacopter X</code> 选项，选择它并将其应用到 PX4 上，重启后，它就可以在 HIL 模式下作为六轴飞行器飞行了。</p>
 <h3 id="airsim">AirSim 物理系统<a class="headerlink" href="#airsim" title="Permanent link">#</a></h3>
 <p>物理很简单，您需要做的就是在 <a href="https://github.com/Microsoft/AirSim/wiki/settings.md">设置 json 文件</a> 中指定这个“模型”：
-<pre class="highlight"><code class="language-shell">"Model": "Hexacopter",</code></pre></p>
+<div class="highlight"><pre><span></span><code><span class="s2">&quot;Model&quot;</span>:<span class="w"> </span><span class="s2">&quot;Hexacopter&quot;</span>,
+</code></pre></div></p>
 <p>但这有什么作用呢？在内部，这会导致 Px4MultiRotor.hpp 调用 setupFrameGenericHex()，后者调用 initializeRotorHexX，该方法根据 <a href="http://ardupilot.org/copter/docs/connect-escs-and-motors.html">推荐的电机布置</a> 执行以下操作。</p>
-<pre class="highlight"><code class="language-cpp">static void initializeRotorHexX(vector&lt;RotorPose&gt;&amp; rotor_poses /* the result we are building */,
-    uint rotor_count /* must be 6 */,
-    real_T arm_lengths[],
-    real_T rotor_z /* z relative to center of gravity */)
-{
-    Vector3r unit_z(0, 0, -1);  //NED frame
-    if (rotor_count == 6) {
-        rotor_poses.clear();
-        /* Note: rotor_poses are built in this order: rotor 0 is CW
+<div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">initializeRotorHexX</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">RotorPose</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">rotor_poses</span><span class="w"> </span><span class="cm">/* the result we are building */</span><span class="p">,</span>
+<span class="w">    </span><span class="n">uint</span><span class="w"> </span><span class="n">rotor_count</span><span class="w"> </span><span class="cm">/* must be 6 */</span><span class="p">,</span>
+<span class="w">    </span><span class="n">real_T</span><span class="w"> </span><span class="n">arm_lengths</span><span class="p">[],</span>
+<span class="w">    </span><span class="n">real_T</span><span class="w"> </span><span class="n">rotor_z</span><span class="w"> </span><span class="cm">/* z relative to center of gravity */</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">Vector3r</span><span class="w"> </span><span class="n">unit_z</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">);</span><span class="w">  </span><span class="c1">//NED frame</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rotor_count</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">6</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">rotor_poses</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+<span class="w">        </span><span class="cm">/* Note: rotor_poses are built in this order: rotor 0 is CW</span>
 
-            x-axis
-          (2)    (4)
-            \  /
-             \/
-        (1)-------(0) y-axis
-             /\
-            /  \
-          (5)  (3)
+<span class="cm">            x-axis</span>
+<span class="cm">          (2)    (4)</span>
+<span class="cm">            \  /</span>
+<span class="cm">             \/</span>
+<span class="cm">        (1)-------(0) y-axis</span>
+<span class="cm">             /\</span>
+<span class="cm">            /  \</span>
+<span class="cm">          (5)  (3)</span>
 
-        */
+<span class="cm">        */</span>
 
-        // vectors below are rotated according to NED left hand rule (so the vectors are rotated counter clockwise).
-        Quaternionr quadx_rot(AngleAxisr(M_PIf / 6, unit_z));
-        Quaternionr no_rot(AngleAxisr(0, unit_z));
-        rotor_poses.emplace_back(Vector3r(0, arm_lengths[0], rotor_z),
-            unit_z, RotorTurningDirection::RotorTurningDirectionCW);
-        rotor_poses.emplace_back(Vector3r(0, -arm_lengths[1], rotor_z),
-            unit_z, RotorTurningDirection::RotorTurningDirectionCCW);
-        rotor_poses.emplace_back(VectorMath::rotateVector(Vector3r(arm_lengths[2], 0, rotor_z), quadx_rot, true),
-            unit_z, RotorTurningDirection::RotorTurningDirectionCW);
-        rotor_poses.emplace_back(VectorMath::rotateVector(Vector3r(-arm_lengths[3], 0, rotor_z), quadx_rot, true),
-            unit_z, RotorTurningDirection::RotorTurningDirectionCCW);
-        rotor_poses.emplace_back(VectorMath::rotateVector(Vector3r(0, arm_lengths[4], rotor_z), quadx_rot, true),
-            unit_z, RotorTurningDirection::RotorTurningDirectionCCW);
-        rotor_poses.emplace_back(VectorMath::rotateVector(Vector3r(0, -arm_lengths[5], rotor_z), quadx_rot, true),
-            unit_z, RotorTurningDirection::RotorTurningDirectionCW);
-    }
-    else
-        throw std::invalid_argument("Rotor count other than 6 is not supported by this method!");
-}</code></pre>
+<span class="w">        </span><span class="c1">// vectors below are rotated according to NED left hand rule (so the vectors are rotated counter clockwise).</span>
+<span class="w">        </span><span class="n">Quaternionr</span><span class="w"> </span><span class="n">quadx_rot</span><span class="p">(</span><span class="n">AngleAxisr</span><span class="p">(</span><span class="n">M_PIf</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="n">unit_z</span><span class="p">));</span>
+<span class="w">        </span><span class="n">Quaternionr</span><span class="w"> </span><span class="n">no_rot</span><span class="p">(</span><span class="n">AngleAxisr</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">unit_z</span><span class="p">));</span>
+<span class="w">        </span><span class="n">rotor_poses</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">(</span><span class="n">Vector3r</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">arm_lengths</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="n">rotor_z</span><span class="p">),</span>
+<span class="w">            </span><span class="n">unit_z</span><span class="p">,</span><span class="w"> </span><span class="n">RotorTurningDirection</span><span class="o">::</span><span class="n">RotorTurningDirectionCW</span><span class="p">);</span>
+<span class="w">        </span><span class="n">rotor_poses</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">(</span><span class="n">Vector3r</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="n">arm_lengths</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="n">rotor_z</span><span class="p">),</span>
+<span class="w">            </span><span class="n">unit_z</span><span class="p">,</span><span class="w"> </span><span class="n">RotorTurningDirection</span><span class="o">::</span><span class="n">RotorTurningDirectionCCW</span><span class="p">);</span>
+<span class="w">        </span><span class="n">rotor_poses</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">(</span><span class="n">VectorMath</span><span class="o">::</span><span class="n">rotateVector</span><span class="p">(</span><span class="n">Vector3r</span><span class="p">(</span><span class="n">arm_lengths</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">rotor_z</span><span class="p">),</span><span class="w"> </span><span class="n">quadx_rot</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">),</span>
+<span class="w">            </span><span class="n">unit_z</span><span class="p">,</span><span class="w"> </span><span class="n">RotorTurningDirection</span><span class="o">::</span><span class="n">RotorTurningDirectionCW</span><span class="p">);</span>
+<span class="w">        </span><span class="n">rotor_poses</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">(</span><span class="n">VectorMath</span><span class="o">::</span><span class="n">rotateVector</span><span class="p">(</span><span class="n">Vector3r</span><span class="p">(</span><span class="o">-</span><span class="n">arm_lengths</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">rotor_z</span><span class="p">),</span><span class="w"> </span><span class="n">quadx_rot</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">),</span>
+<span class="w">            </span><span class="n">unit_z</span><span class="p">,</span><span class="w"> </span><span class="n">RotorTurningDirection</span><span class="o">::</span><span class="n">RotorTurningDirectionCCW</span><span class="p">);</span>
+<span class="w">        </span><span class="n">rotor_poses</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">(</span><span class="n">VectorMath</span><span class="o">::</span><span class="n">rotateVector</span><span class="p">(</span><span class="n">Vector3r</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">arm_lengths</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span><span class="w"> </span><span class="n">rotor_z</span><span class="p">),</span><span class="w"> </span><span class="n">quadx_rot</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">),</span>
+<span class="w">            </span><span class="n">unit_z</span><span class="p">,</span><span class="w"> </span><span class="n">RotorTurningDirection</span><span class="o">::</span><span class="n">RotorTurningDirectionCCW</span><span class="p">);</span>
+<span class="w">        </span><span class="n">rotor_poses</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">(</span><span class="n">VectorMath</span><span class="o">::</span><span class="n">rotateVector</span><span class="p">(</span><span class="n">Vector3r</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="n">arm_lengths</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span><span class="w"> </span><span class="n">rotor_z</span><span class="p">),</span><span class="w"> </span><span class="n">quadx_rot</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">),</span>
+<span class="w">            </span><span class="n">unit_z</span><span class="p">,</span><span class="w"> </span><span class="n">RotorTurningDirection</span><span class="o">::</span><span class="n">RotorTurningDirectionCW</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">else</span>
+<span class="w">        </span><span class="k">throw</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">invalid_argument</span><span class="p">(</span><span class="s">&quot;Rotor count other than 6 is not supported by this method!&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
 <p>现在可能需要解释一下上面的 Vector3r 参数。上面标记为 (0) 的第一个电机位于 y 轴上，因此它的矢量很明显：<code>Vector3r(0, arm_lengths[0], rotate_z)</code>，x 轴为 0，y 轴为臂长。
 标记为 (1) 的第二个电机也很明显。但是电机 (2) 呢？<code>VectorMath::rotateVector(Vector3r(arm_lengths[2], 0, rotate_z), quadx_rot, true)</code> 的 x 轴设置为臂长，y 轴设置为零，这意味着它在上图中一开始是垂直向上的。然后我们应用 pi/6 的旋转。但是旋转使用的是 NED 坐标系中的左手旋转规则，其中 z 轴向下，所以伸出左手，拇指向下，弯曲其他四指，这就是旋转的方向，即逆时针。因此，指向上方的臂会旋转到电机 (2) 所示的位置。其他机械臂也一样，现在我们的物理设置已经正确，可以用于六轴飞行器了。当然，你也可以根据需要增加质量，并调整电机推力参数。</p>
 <h3 id="_2">渲染<a class="headerlink" href="#_2" title="Permanent link">#</a></h3>
@@ -383,6 +388,7 @@ mp4 转 gif: https://convertio.co/zh/mp4-gif/
       <p>OpenHUTB 版权所有 &copy; 2025</p>
   </div>
 
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
           
         </div>
