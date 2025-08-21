@@ -1,4 +1,4 @@
-# Modifying Recording Data
+# 修改记录数据
 
 AirSim has a [Recording feature](settings.md#recording) to easily collect data and images. The [Recording APIs](apis.md#recording-apis) also allows starting and stopping the recording using API.
 
@@ -18,7 +18,7 @@ For Multirotor -
 VehicleName TimeStamp   POS_X   POS_Y   POS_Z   Q_W Q_X Q_Y Q_Z ImageFile
 ```
 
-## Code Changes
+## 代码改变
 
 Note that this requires building and using AirSim from source. You can compile a binary yourself after modifying if needed.
 
