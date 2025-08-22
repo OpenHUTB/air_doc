@@ -18,8 +18,8 @@ jobs:
           # 安装行内公式渲染的依赖(python-markdown-math)
           requirements: 'requirements.txt' # option
           configfile: 'mkdocs.yml' # option
-      # - name: Deploy
-      #  uses: peaceiris/actions-gh-pages@v3
-      #  with:
-      #    github_token: ${{ secrets.GITHUB_TOKEN }}
-      #    publish_dir: ./site
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site
