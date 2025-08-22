@@ -1,7 +1,7 @@
 # 参考：https://github.com/Tiryoh/actions-mkdocs
 name: Deploy
 
-on: [push, pull_request]
+on: [push]
 
 jobs:
   build:
