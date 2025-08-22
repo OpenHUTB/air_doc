@@ -65,7 +65,7 @@
               </ul>
               <p class="caption"><span class="caption-text">使用 AirSim</span></p>
               <ul class="current">
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">核心 APIs</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">核心 APIs</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#_1">介绍</a>
     </li>
@@ -179,7 +179,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../multi_vehicle/">多车辆</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" >传感器</a>
+                  <li class="toctree-l1"><a class="reference internal" href="#">传感器</a>
     <ul>
                 <li class="toctree-l2"><a class="reference internal" href="../sensors/">传感器</a>
                 </li>
@@ -229,7 +229,7 @@
               </ul>
               <p class="caption"><span class="caption-text">外部飞行控制器</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" >MavLink 和 PX4</a>
+                  <li class="toctree-l1"><a class="reference internal" href="#">MavLink 和 PX4</a>
     <ul>
                 <li class="toctree-l2"><a class="reference internal" href="../px4_setup/">AirSim 的 PX4 设置</a>
                 </li>
@@ -263,7 +263,7 @@
                 </li>
     </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" >ArduPilot</a>
+                  <li class="toctree-l1"><a class="reference internal" href="#">ArduPilot</a>
     <ul>
                 <li class="toctree-l2"><a class="" href="https://ardupilot.org/dev/docs/building-the-code.html">ArduPilot 软件在环设置</a>
                 </li>
@@ -359,7 +359,6 @@
           <li class="breadcrumb-item">使用 AirSim</li>
       <li class="breadcrumb-item active">核心 APIs</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/microsoft/airsim/edit/master/docs/apis.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
   </ul>
   <hr/>
@@ -396,8 +395,8 @@ conda<span class="w"> </span>activate<span class="w"> </span>air
 <h2 id="hello-car">Hello Car<a class="headerlink" href="#hello-car" title="Permanent link">#</a></h2>
 <p>下面是如何使用 Python 的 AirSim API 控制模拟汽车（另请参见 <a href="../apis_cpp/#hello_car">C++ 示例</a> ）：</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># 准备运行示例：PythonClient/car/hello_car.py</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">airsim</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">airsim</span>
+<span class="kn">import</span> <span class="nn">time</span>
 
 <span class="c1"># 连接到 AirSim 模拟器</span>
 <span class="n">client</span> <span class="o">=</span> <span class="n">airsim</span><span class="o">.</span><span class="n">CarClient</span><span class="p">()</span>
@@ -436,8 +435,8 @@ conda<span class="w"> </span>activate<span class="w"> </span>air
 <h2 id="hello-drone">Hello Drone<a class="headerlink" href="#hello-drone" title="Permanent link">#</a></h2>
 <p>下面介绍了如何使用 Python 的 AirSim API 来控制模拟四旋翼飞行器（另请参阅 <a href="../apis_cpp/#hello_drone"> C++ 示例</a>）：</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># 准备运行示例：PythonClient/multirotor/hello_drone.py</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">airsim</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">airsim</span>
+<span class="kn">import</span> <span class="nn">os</span>
 
 <span class="c1"># 连接到 AirSim 模拟器</span>
 <span class="n">client</span> <span class="o">=</span> <span class="n">airsim</span><span class="o">.</span><span class="n">MultirotorClient</span><span class="p">()</span>
@@ -621,6 +620,7 @@ which the minimal required packages.</p>
       <p>OpenHUTB 版权所有 &copy; 2025</p>
   </div>
 
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
           
         </div>
@@ -632,10 +632,6 @@ which the minimal required packages.</p>
 
   <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
-    
-        <span>
-          <a href="https://github.com/microsoft/airsim" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
-        </span>
     
     
       <span><a href="../build_faq/" style="color: #fcfcfc">&laquo; Previous</a></span>

@@ -67,7 +67,7 @@
               <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../apis/">核心 APIs</a>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">图像 APIs</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">图像 APIs</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#getting-a-single-image">Getting a Single Image</a>
         <ul>
@@ -183,7 +183,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../multi_vehicle/">多车辆</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" >传感器</a>
+                  <li class="toctree-l1"><a class="reference internal" href="#">传感器</a>
     <ul>
                 <li class="toctree-l2"><a class="reference internal" href="../sensors/">传感器</a>
                 </li>
@@ -233,7 +233,7 @@
               </ul>
               <p class="caption"><span class="caption-text">外部飞行控制器</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" >MavLink 和 PX4</a>
+                  <li class="toctree-l1"><a class="reference internal" href="#">MavLink 和 PX4</a>
     <ul>
                 <li class="toctree-l2"><a class="reference internal" href="../px4_setup/">AirSim 的 PX4 设置</a>
                 </li>
@@ -267,7 +267,7 @@
                 </li>
     </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" >ArduPilot</a>
+                  <li class="toctree-l1"><a class="reference internal" href="#">ArduPilot</a>
     <ul>
                 <li class="toctree-l2"><a class="" href="https://ardupilot.org/dev/docs/building-the-code.html">ArduPilot 软件在环设置</a>
                 </li>
@@ -363,7 +363,6 @@
           <li class="breadcrumb-item">使用 AirSim</li>
       <li class="breadcrumb-item active">图像 APIs</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/microsoft/airsim/edit/master/docs/image_apis.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
   </ul>
   <hr/>
@@ -376,7 +375,7 @@
 <h2 id="getting-a-single-image">Getting a Single Image<a class="headerlink" href="#getting-a-single-image" title="Permanent link">#</a></h2>
 <p>Here's a sample code to get a single image from camera named "0". The returned value is bytes of png format image. To get uncompressed and other format as well as available cameras please see next sections.</p>
 <h3 id="python">Python<a class="headerlink" href="#python" title="Permanent link">#</a></h3>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">airsim</span> <span class="c1">#pip install airsim</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">airsim</span> <span class="c1">#pip install airsim</span>
 
 <span class="c1"># for car use CarClient() </span>
 <span class="n">client</span> <span class="o">=</span> <span class="n">airsim</span><span class="o">.</span><span class="n">MultirotorClient</span><span class="p">()</span>
@@ -401,7 +400,7 @@
 <h2 id="getting-images-with-more-flexibility">Getting Images with More Flexibility<a class="headerlink" href="#getting-images-with-more-flexibility" title="Permanent link">#</a></h2>
 <p>The <code>simGetImages</code> API which is slightly more complex to use than <code>simGetImage</code> API, for example, you can get left camera view, right camera view and depth image from left camera in a single API call. The <code>simGetImages</code> API also allows you to get uncompressed images as well as floating point single channel images (instead of 3 channel (RGB), each 8 bit).</p>
 <h3 id="python_1">Python<a class="headerlink" href="#python_1" title="Permanent link">#</a></h3>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">airsim</span> <span class="c1">#pip install airsim</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">airsim</span> <span class="c1">#pip install airsim</span>
 
 <span class="c1"># for car use CarClient() </span>
 <span class="n">client</span> <span class="o">=</span> <span class="n">airsim</span><span class="o">.</span><span class="n">MultirotorClient</span><span class="p">()</span>
@@ -611,6 +610,7 @@ client.simSetCameraPose(0, camera_pose);
       <p>OpenHUTB 版权所有 &copy; 2025</p>
   </div>
 
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
           
         </div>
@@ -622,10 +622,6 @@ client.simSetCameraPose(0, camera_pose);
 
   <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
-    
-        <span>
-          <a href="https://github.com/microsoft/airsim" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
-        </span>
     
     
       <span><a href="../apis/" style="color: #fcfcfc">&laquo; Previous</a></span>

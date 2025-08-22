@@ -46,7 +46,7 @@
               </ul>
               <p class="caption"><span class="caption-text">构建 AirSim</span></p>
               <ul class="current">
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">下载二进制文件</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">下载二进制文件</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#_2">虚幻引擎</a>
     </li>
@@ -103,7 +103,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../multi_vehicle/">多车辆</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" >传感器</a>
+                  <li class="toctree-l1"><a class="reference internal" href="#">传感器</a>
     <ul>
                 <li class="toctree-l2"><a class="reference internal" href="../sensors/">传感器</a>
                 </li>
@@ -153,7 +153,7 @@
               </ul>
               <p class="caption"><span class="caption-text">外部飞行控制器</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" >MavLink 和 PX4</a>
+                  <li class="toctree-l1"><a class="reference internal" href="#">MavLink 和 PX4</a>
     <ul>
                 <li class="toctree-l2"><a class="reference internal" href="../px4_setup/">AirSim 的 PX4 设置</a>
                 </li>
@@ -187,7 +187,7 @@
                 </li>
     </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" >ArduPilot</a>
+                  <li class="toctree-l1"><a class="reference internal" href="#">ArduPilot</a>
     <ul>
                 <li class="toctree-l2"><a class="" href="https://ardupilot.org/dev/docs/building-the-code.html">ArduPilot 软件在环设置</a>
                 </li>
@@ -283,7 +283,6 @@
           <li class="breadcrumb-item">构建 AirSim</li>
       <li class="breadcrumb-item active">下载二进制文件</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/microsoft/airsim/edit/master/docs/use_precompiled.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
   </ul>
   <hr/>
@@ -312,7 +311,7 @@
 <p>查看所有其他 <a href="https://docs.unrealengine.com/en-US/ProductionPipelines/CommandLineArguments/index.html">命令行选项</a> </p>
 <p>UE 4.24 默认使用 Vulkan 驱动程序，但它们会消耗更多 GPU 内存。如果您遇到内存分配错误，可以尝试使用 <code>-opengl</code> 切换到 OpenGL。</p>
 <p>您还可以使用 <code>simRunConsoleCommand()</code> API 限制最大 FPS，如下所示：</p>
-<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span><span class="w"> </span><span class="nn">airsim</span>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">airsim</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">client</span> <span class="o">=</span> <span class="n">airsim</span><span class="o">.</span><span class="n">VehicleClient</span><span class="p">()</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">client</span><span class="o">.</span><span class="n">confirmConnection</span><span class="p">()</span>
 <span class="n">Connected</span><span class="err">!</span>
@@ -336,6 +335,7 @@
       <p>OpenHUTB 版权所有 &copy; 2025</p>
   </div>
 
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
           
         </div>
@@ -347,10 +347,6 @@
 
   <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
-    
-        <span>
-          <a href="https://github.com/microsoft/airsim" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
-        </span>
     
     
       <span><a href=".." style="color: #fcfcfc">&laquo; Previous</a></span>
