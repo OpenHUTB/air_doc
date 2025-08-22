@@ -1,6 +1,6 @@
 site_name: 低空模拟器
-site_dir: build_docs
-repo_url: https://github.com/microsoft/airsim
+# site_dir: build_docs
+# repo_url: https://github.com/microsoft/airsim
 site_description: 'Open source simulator based on Unreal Engine for autonomous vehicles from Microsoft AI & Research'
 
 markdown_extensions:
