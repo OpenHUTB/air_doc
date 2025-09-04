@@ -71,9 +71,9 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">C++ APIs</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#quick-start">Quick Start</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_1">快速入门</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#include-and-lib-folders">Include and Lib Folders</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_2">头文件和库的目录</a>
     </li>
         </ul>
     </li>
@@ -81,7 +81,7 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#hello-drone">Hello Drone</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#see-also">See Also</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">参见</a>
     </li>
     </ul>
                   </li>
@@ -295,18 +295,18 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="c-apis-for-airsim">使用 C++ APIs for AirSim<a class="headerlink" href="#c-apis-for-airsim" title="Permanent link">#</a></h1>
-<p>Please read <a href="../apis/">general API doc</a> first if you haven't already. This document describes C++ examples and other C++ specific details.</p>
-<h2 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">#</a></h2>
-<p>Fastest way to get started is to open AirSim.sln in Visual Studio 2019. You will see <a href="https://github.com/Microsoft/AirSim/tree/main/HelloCar/">Hello Car</a> and <a href="https://github.com/Microsoft/AirSim/tree/main/HelloDrone/">Hello Drone</a> examples in the solution. These examples will show you the include paths and lib paths you will need to setup in your VC++ projects. If you are using Linux then you will specify these paths either in your <a href="https://github.com/Microsoft/AirSim/tree/main/cmake//HelloCar/CMakeLists.txt">cmake file</a> or on compiler command line.</p>
-<h4 id="include-and-lib-folders">Include and Lib Folders<a class="headerlink" href="#include-and-lib-folders" title="Permanent link">#</a></h4>
+<p>如果您还没有阅读 <a href="../apis/">通用 API 文档</a> ，请先阅读。本文档描述了 C++ 示例和其他 C++ 相关的细节。</p>
+<h2 id="_1">快速入门<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
+<p>最快的入门方法是在 Visual Studio 2019 中打开 AirSim.sln。您将在解决方案中看到 <a href="https://github.com/Microsoft/AirSim/tree/main/HelloCar/">Hello Car</a> and <a href="https://github.com/Microsoft/AirSim/tree/main/HelloDrone/">Hello Drone</a> 和 <a href="https://github.com/Microsoft/AirSim/tree/main/HelloDrone/">Hello Drone</a> 的示例。这些示例将向您展示需要在 VC++ 项目中设置的包含路径和库路径。如果您使用的是 Linux，则可以在 cmake 文件或编译器命令行中指定这些路径。</p>
+<h4 id="_2">头文件和库的目录<a class="headerlink" href="#_2" title="Permanent link">#</a></h4>
 <ul>
-<li>Include folders: <code>$(ProjectDir)..\AirLib\deps\rpclib\include;include;$(ProjectDir)..\AirLib\deps\eigen3;$(ProjectDir)..\AirLib\include</code></li>
-<li>Dependencies: <code>rpc.lib</code></li>
-<li>Lib folders: <code>$(ProjectDir)\..\AirLib\deps\MavLinkCom\lib\$(Platform)\$(Configuration);$(ProjectDir)\..\AirLib\deps\rpclib\lib\$(Platform)\$(Configuration);$(ProjectDir)\..\AirLib\lib\$(Platform)\$(Configuration)</code></li>
-<li>References: Reference AirLib and MavLinkCom to the project references. (Right click your project then go to <code>References</code>, <code>Add reference...</code>, and then select AirLib and MavLinkCom)</li>
+<li>头文件目录: <code>$(ProjectDir)..\AirLib\deps\rpclib\include;include;$(ProjectDir)..\AirLib\deps\eigen3;$(ProjectDir)..\AirLib\include</code></li>
+<li>依赖: <code>rpc.lib</code></li>
+<li>库文件目录: <code>$(ProjectDir)\..\AirLib\deps\MavLinkCom\lib\$(Platform)\$(Configuration);$(ProjectDir)\..\AirLib\deps\rpclib\lib\$(Platform)\$(Configuration);$(ProjectDir)\..\AirLib\lib\$(Platform)\$(Configuration)</code></li>
+<li>引用：将 AirLib 和 MavLinkCom 引用到项目引用中。（右键单击您的项目，然后前往<code>References</code>，<code>Add reference...</code>，然后选择 AirLib 和 MavLinkCom）</li>
 </ul>
 <h2 id="hello-car">Hello Car<a class="headerlink" href="#hello-car" title="Permanent link">#</a></h2>
-<p>Here's how to use AirSim APIs using C++ to control simulated car (see also <a href="../apis/#hello_car">Python example</a>):</p>
+<p>以下是如何使用 C++ 的 AirSim API 来控制模拟汽车（另请参阅 <a href="../apis/#hello_car">Python 示例</a> ）：</p>
 <div class="highlight"><pre><span></span><code><span class="c1">// ready to run example: https://github.com/Microsoft/AirSim/blob/main/HelloCar/main.cpp</span>
 
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
@@ -339,7 +339,7 @@
 <span class="p">}</span>
 </code></pre></div>
 <h2 id="hello-drone">Hello Drone<a class="headerlink" href="#hello-drone" title="Permanent link">#</a></h2>
-<p>Here's how to use AirSim APIs using C++ to control simulated quadrotor (see also <a href="../apis/#hello_drone">Python example</a>):</p>
+<p>下面介绍了如何使用 C++ 的 AirSim API 来控制模拟四旋翼飞行器（另请参阅 <a href="../apis/#hello_drone">Python 示例</a> ）：</p>
 <div class="highlight"><pre><span></span><code><span class="c1">// ready to run example: https://github.com/Microsoft/AirSim/blob/main/HelloDrone/main.cpp</span>
 
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
@@ -368,11 +368,11 @@
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-<h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="Permanent link">#</a></h2>
+<h2 id="_3">参见<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
 <ul>
-<li><a href="https://github.com/microsoft/AirSim/tree/main/Examples">Examples</a> of how to use internal infrastructure in AirSim in your other projects</li>
-<li><a href="https://github.com/microsoft/AirSim/tree/main/DroneShell">DroneShell</a> app shows how to make simple interface using C++ APIs to control drones</li>
-<li><a href="https://github.com/microsoft/AirSim/tree/main/HelloSpawnedDrones">HelloSpawnedDrones</a> app shows how to make additional vehicles on the fly</li>
+<li>如何在其它项目中使用 AirSim 内部基础设施的 <a href="https://github.com/microsoft/AirSim/tree/main/Examples">示例</a> </li>
+<li><a href="https://github.com/microsoft/AirSim/tree/main/DroneShell">DroneShell</a> 应用程序展示了如何使用 C++ API 制作简单的界面来控制无人机 </li>
+<li><a href="https://github.com/microsoft/AirSim/tree/main/HelloSpawnedDrones">HelloSpawnedDrones</a> 应用程序演示如何即时制造更多飞行器</li>
 <li><a href="../apis/">Python APIs</a></li>
 </ul>
               
