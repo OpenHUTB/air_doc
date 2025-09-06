@@ -173,13 +173,13 @@
     <ul class="current">
     <li class="toctree-l3"><a class="reference internal" href="#_2">使用</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#realtime">Realtime</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_3">实时</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#installation">Installation</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_4">安装</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#configuration">Configuration</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_5">配置</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#debugging">Debugging</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_6">调试</a>
     </li>
     </ul>
                 </li>
@@ -302,12 +302,11 @@
 您可以使用每个图表右上角的小关闭框关闭每个图表，
 并且您可以使用顶部工具栏上的“分组图表”按钮将图表分组，使它们共享相同的纵轴。</p>
 <p><img alt="Log Viewer" src="../images/log_viewer.png" /></p>
-<p>There is also a map option which will plot the GPS path the drone took.  You can also load multiple
-log files so you can compare the data from each.</p>
-<h3 id="realtime">Realtime<a class="headerlink" href="#realtime" title="Permanent link">#</a></h3>
-<p>You can also get a realtime view if you connect the LogViewer <code>before</code> you run the simulation.</p>
+<p>还有一个地图选项，可以绘制无人机的 GPS 路径。您还可以加载多个日志文件，以便比较每个日志文件的数据。</p>
+<h3 id="_3">实时<a class="headerlink" href="#_3" title="Permanent link">#</a></h3>
+<p>如果在运行模拟之前连接 LogViewer，您还可以获得实时视图。</p>
 <p><img alt="connect" src="../images/log_viewer_connect.png" /></p>
-<p>For this to work you need to configure the <code>settings.json</code> with the following settings:
+<p>为了使其正常工作，您需要使用以下设置配置 <code>settings.json</code>：
 <div class="highlight"><pre><span></span><code>{
     &quot;SettingsVersion&quot;: 1.2,
     &quot;SimMode&quot;: &quot;Multirotor&quot;,
@@ -320,28 +319,17 @@ log files so you can compare the data from each.</p>
     }
 }
 </code></pre></div></p>
-<p>Note: do not use the "Logs" setting when you want realtime LogViewer logging.  Logging to
-a file using "Logs" is mutually exclusive with LogViewer logging.</p>
-<p>Simply press the blue connector button on the top right corner of the window, select the Socket
-<code>tab</code>, enter the port number <code>14388</code>, and your <code>localhost</code> network.  If you are using WSL 2 on
-Windows then select <code>vEthernet (WSL)</code>.</p>
-<p>If you do choose <code>vEthernet (WSL)</code> then make sure you also set <code>LocalHostIp</code> and
-<code>LogViewerHostIp</code> to the matching WSL ethernet address, something like <code>172.31.64.1</code>.</p>
-<p>Then press the record button (triangle on the right hand side of the toolbar). Now start the
-simulator, and the data will start streaming into LogViewer.</p>
-<p>The drone view in Log Viewer shows the actual estimated position coming from the PX4, so that is a
-great way to check whether the PX4 is in sync with the simulator.  Sometimes you can see some drift
-here as the attitude estimation catches up with reality, this can become more visible after a bad
-crash.</p>
-<h3 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">#</a></h3>
-<p>If you can't build the LogViewer.sln, there is also a <a href="https://lovettsoftwarestorage.blob.core.windows.net/downloads/Px4LogViewer/Px4LogViewer.application">click once
-installer</a>.</p>
-<h3 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">#</a></h3>
-<p>The magic port number 14388 can be configured in the simulator by editing the <a href="../settings/">settings.json
-file</a>.  If you change the port number in LogViewer connection dialog then be sure
-to make the matching changes in your <code>settings.json</code> file.</p>
-<h3 id="debugging">Debugging<a class="headerlink" href="#debugging" title="Permanent link">#</a></h3>
-<p>See <a href="../px4_logging/">PX4 Logging</a> for more information on how to use the LogViewer to debug situations you are setting.</p>
+<p>注意：如果您需要实时 LogViewer 日志记录，请勿使用“Logs”设置。使用“Logs”将日志记录到文件与 LogViewer 日志记录互斥。</p>
+<p>只需按下窗口右上角的蓝色连接器按钮，选择“Socket”选项卡，输入端口号 <code>14388</code> 和您的 <code>localhost</code> 网络即可。如果您在 Windows 上使用 WSL 2，请选择 <code>vEthernet (WSL)</code>。</p>
+<p>如果您确实选择了 <code>vEthernet (WSL)</code>，那么请确保您还将 <code>LocalHostIp</code> 和 <code>LogViewerHostIp</code> 设置为匹配的 WSL 以太网地址，例如 <code>172.31.64.1</code>。</p>
+<p>然后按下记录按钮（工具栏右侧的三角形）。现在启动模拟器，数据将开始流入 LogViewer。</p>
+<p>日志查看器中的无人机视图显示了来自 PX4 的实际估算位置，因此这是检查 PX4 是否与模拟器同步的好方法。有时，随着姿态估算与实际情况的同步，您可能会看到一些漂移，在发生严重碰撞后，这种情况会更加明显。</p>
+<h3 id="_4">安装<a class="headerlink" href="#_4" title="Permanent link">#</a></h3>
+<p>如果您无法构建 LogViewer.sln，还可以 <a href="https://lovettsoftwarestorage.blob.core.windows.net/downloads/Px4LogViewer/Px4LogViewer.application">单击一次安装程序。</a> 。</p>
+<h3 id="_5">配置<a class="headerlink" href="#_5" title="Permanent link">#</a></h3>
+<p>您可以通过编辑 [settings.json 文件) 在模拟器中配置魔术端口号 14388。如果您在 LogViewer 连接对话框中更改了端口号，请确保在 <code>settings.json</code> 文件中进行相应的更改。</p>
+<h3 id="_6">调试<a class="headerlink" href="#_6" title="Permanent link">#</a></h3>
+<p>有关如何使用 LogViewer 调试您正在设置的情况的更多信息，请参阅 <a href="../px4_logging/">PX4 日志记录</a> 。</p>
               
             </div>
           </div><footer>
