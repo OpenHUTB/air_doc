@@ -92,25 +92,25 @@
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#myproject-could-not-be-compiled-try-rebuilding-from-source-manually_1">报错：&lt;MyProject&gt; could not be compiled. Try rebuilding from source manually.</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#unreal-crashed-how-do-i-know-what-went-wrong">Unreal crashed! How do I know what went wrong?</a>
+    <li class="toctree-l3"><a class="reference internal" href="#unreal">Unreal崩溃了！我怎么知道哪里出了问题？</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#how-do-i-use-an-ide-on-linux">How do I use an IDE on Linux?</a>
+    <li class="toctree-l3"><a class="reference internal" href="#linux-ide">如何在 Linux 上使用 IDE？</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#can-i-cross-compile-for-linux-from-a-windows-machine">Can I cross compile for Linux from a Windows machine?</a>
+    <li class="toctree-l3"><a class="reference internal" href="#windows-linux">我可以从 Windows 机器交叉编译 Linux 吗？</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#what-compiler-and-stdlib-does-airsim-use">What compiler and stdlib does AirSim use?</a>
+    <li class="toctree-l3"><a class="reference internal" href="#airsim-stdlib">AirSim 使用什么编译器和 stdlib？</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#what-version-of-cmake-does-the-airsim-build-use">What version of CMake does the AirSim build use?</a>
+    <li class="toctree-l3"><a class="reference internal" href="#airsim-cmake">AirSim 构建使用哪个版本的 CMake？</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#can-i-compile-airsim-in-bashonwindows">Can I compile AirSim in BashOnWindows?</a>
+    <li class="toctree-l3"><a class="reference internal" href="#bashonwindows-airsim">我可以在 BashOnWindows 中编译 AirSim 吗？</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#where-can-i-find-more-info-on-running-unreal-on-linux">Where can I find more info on running Unreal on Linux?</a>
+    <li class="toctree-l3"><a class="reference internal" href="#linux-unreal">在哪里可以找到有关在 Linux 上运行 Unreal 的更多信息？</a>
     </li>
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#_2">其他</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#packaging-a-binary-including-the-airsim-plugin">Packaging a binary including the AirSim plugin</a>
+    <li class="toctree-l3"><a class="reference internal" href="#airsim">打包包含 AirSim 插件的二进制文件</a>
     </li>
         </ul>
     </li>
@@ -350,14 +350,14 @@
 <hr />
 <h2 id="linux">Linux 构建<a class="headerlink" href="#linux" title="Permanent link">#</a></h2>
 <ul>
-<li><a href="#im-getting-error-myproject-could-not-be-compiled-try-rebuilding-from-source-manually">I'm getting error <code>&lt;MyProject&gt; could not be compiled. Try rebuilding from source manually</code>.</a></li>
-<li><a href="#unreal-crashed-how-do-i-know-what-went-wrong">Unreal crashed! How do I know what went wrong?</a></li>
-<li><a href="#how-do-i-use-an-ide-on-linux">How do I use an IDE on Linux?</a></li>
-<li><a href="#can-i-cross-compile-for-linux-from-a-windows-machine">Can I cross compile for Linux from a Windows machine?</a></li>
-<li><a href="#what-compiler-and-stdlib-does-airsim-use">What compiler and stdlib does AirSim use?</a></li>
-<li><a href="#what-version-of-cmake-does-the-airsim-build-use">What version of CMake does the AirSim build use?</a></li>
-<li><a href="#can-i-compile-airsim-in-bashonwindows">Can I compile AirSim in BashOnWindows?</a></li>
-<li><a href="#where-can-i-find-more-info-on-running-unreal-on-linux">Where can I find more info on running Unreal on Linux?</a></li>
+<li><a href="#im-getting-error-myproject-could-not-be-compiled-try-rebuilding-from-source-manually">报错：<code>&lt;MyProject&gt; could not be compiled. Try rebuilding from source manually</code>.</a></li>
+<li><a href="#unreal-crashed-how-do-i-know-what-went-wrong">Unreal崩溃了！我怎么知道哪里出了问题？</a></li>
+<li><a href="#how-do-i-use-an-ide-on-linux">如何在 Linux 上使用 IDE？</a></li>
+<li><a href="#can-i-cross-compile-for-linux-from-a-windows-machine">我可以从 Windows 机器交叉编译 Linux 吗？</a></li>
+<li><a href="#what-compiler-and-stdlib-does-airsim-use">AirSim 使用什么编译器和 stdlib？</a></li>
+<li><a href="#what-version-of-cmake-does-the-airsim-build-use">AirSim 构建使用哪个版本的 CMake？</a></li>
+<li><a href="#can-i-compile-airsim-in-bashonwindows">我可以在 BashOnWindows 中编译 AirSim 吗？</a></li>
+<li><a href="#where-can-i-find-more-info-on-running-unreal-on-linux">在哪里可以找到有关在 Linux 上运行 Unreal 的更多信息？</a></li>
 </ul>
 <hr />
 <h2 id="_1">其他<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
@@ -452,70 +452,66 @@
 
 <h6 id="myproject-could-not-be-compiled-try-rebuilding-from-source-manually_1">报错：<code>&lt;MyProject&gt; could not be compiled. Try rebuilding from source manually</code>.<a class="headerlink" href="#myproject-could-not-be-compiled-try-rebuilding-from-source-manually_1" title="Permanent link">#</a></h6>
 <blockquote>
-<p>This could either happen because of compile error or the fact that your gch files are outdated. Look in to your console window. Do you see something like below?</p>
+<p>这可能是由于编译错误或你的 gch 文件已过期造成的。查看你的控制台窗口。你看到下面这样的内容了吗？</p>
 <p><code>fatal error: file '/usr/include/linux/version.h''/usr/include/linux/version.h' has been modified since the precompiled header</code></p>
-<p>If this is the case then look for *.gch file(s) that follows after that message, delete them and try again. Here's <a href="https://answers.unrealengine.com/questions/412349/linux-ue4-build-precompiled-header-fatal-error.html">relevant thread</a> on Unreal Engine forums.</p>
-<p>If you see other compile errors in console then open up those source files and see if it is due to changes you made. If not, then report it as issue on GitHub.</p>
+<p>如果是这种情况，请查找该消息后面的 *.gch 文件，删除它们并重试。这是虚幻引擎论坛上的 <a href="https://answers.unrealengine.com/questions/412349/linux-ue4-build-precompiled-header-fatal-error.html">相关帖子</a> 。</p>
+<p>如果您在控制台中看到其他编译错误，请打开这些源文件，看看是否是由于您所做的更改造成的。如果不是，请在 <a href="https://github.com/OpenHUTB/air/issues">GitHub</a> 上将其报告为问题。 </p>
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="unreal-crashed-how-do-i-know-what-went-wrong">Unreal crashed! How do I know what went wrong?<a class="headerlink" href="#unreal-crashed-how-do-i-know-what-went-wrong" title="Permanent link">#</a></h6>
+<h6 id="unreal">Unreal崩溃了！我怎么知道哪里出了问题？<a class="headerlink" href="#unreal" title="Permanent link">#</a></h6>
 <blockquote>
-<p>Go to the <code>MyUnrealProject/Saved/Crashes</code> folder and search for the file <code>MyProject.log</code> within its subdirectories. At the end of this file you will see the stack trace and messages.
-You can also take a look at the <code>Diagnostics.txt</code> file.</p>
+<p>前往 <code>MyUnrealProject/Saved/Crashes</code> 文件夹，并在其子目录中搜索 <code>MyProject.log</code> 文件。在该文件末尾，您将看到堆栈跟踪和消息。您还可以查看 <code>Diagnostics.txt</code> 文件。 </p>
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="how-do-i-use-an-ide-on-linux">How do I use an IDE on Linux?<a class="headerlink" href="#how-do-i-use-an-ide-on-linux" title="Permanent link">#</a></h6>
+<h6 id="linux-ide">如何在 Linux 上使用 IDE？<a class="headerlink" href="#linux-ide" title="Permanent link">#</a></h6>
 <blockquote>
-<p>You can use Qt Creator or CodeLite. Instructions for Qt Creator are available <a href="https://docs.unrealengine.com/en-US/SharingAndReleasing/Linux/BeginnerLinuxDeveloper/SettingUpQtCreator/index.html">here</a>.</p>
+<p>您可以使用 Qt Creator 或 CodeLite。Qt Creator 的使用说明可在 <a href="https://docs.unrealengine.com/en-US/SharingAndReleasing/Linux/BeginnerLinuxDeveloper/SettingUpQtCreator/index.html">此处</a> 获取。</p>
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="can-i-cross-compile-for-linux-from-a-windows-machine">Can I cross compile for Linux from a Windows machine?<a class="headerlink" href="#can-i-cross-compile-for-linux-from-a-windows-machine" title="Permanent link">#</a></h6>
+<h6 id="windows-linux">我可以从 Windows 机器交叉编译 Linux 吗？<a class="headerlink" href="#windows-linux" title="Permanent link">#</a></h6>
 <blockquote>
-<p>Yes, you can, but we haven't tested it. You can find the instructions <a href="https://docs.unrealengine.com/latest/INT/Platforms/Linux/GettingStarted/index.html">here</a>.</p>
+<p>是的，可以，但我们还没有测试过。您可以在 <a href="https://docs.unrealengine.com/latest/INT/Platforms/Linux/GettingStarted/index.html">这里</a> 找到说明。</p>
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="what-compiler-and-stdlib-does-airsim-use">What compiler and stdlib does AirSim use?<a class="headerlink" href="#what-compiler-and-stdlib-does-airsim-use" title="Permanent link">#</a></h6>
+<h6 id="airsim-stdlib">AirSim 使用什么编译器和 stdlib？<a class="headerlink" href="#airsim-stdlib" title="Permanent link">#</a></h6>
 <blockquote>
-<p>We use the same compiler that Unreal Engine uses, <strong>Clang 8</strong>, and stdlib, <strong>libc++</strong>. AirSim's <code>setup.sh</code> will automatically download them.</p>
+<p>我们使用与虚幻引擎相同的编译器 <strong>Clang 8</strong>，以及 stdlib <strong>libc++</strong>。AirSim 的 <code>setup.sh</code> 会自动下载它们。</p>
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="what-version-of-cmake-does-the-airsim-build-use">What version of CMake does the AirSim build use?<a class="headerlink" href="#what-version-of-cmake-does-the-airsim-build-use" title="Permanent link">#</a></h6>
+<h6 id="airsim-cmake">AirSim 构建使用哪个版本的 CMake？<a class="headerlink" href="#airsim-cmake" title="Permanent link">#</a></h6>
 <blockquote>
-<p>3.10.0 or higher. This is <em>not</em> the default in Ubuntu 16.04 so setup.sh installs it for you. You can check your CMake version using <code>cmake --version</code>. If you have an older version, follow <a href="../cmake_linux/">these instructions</a> or see the <a href="https://cmake.org/install/">CMake website</a>.</p>
+<p>3.10.0 或更高版本。这<em>不是</em> Ubuntu 16.04 的默认版本，因此 setup.sh 会为您安装。您可以使用 <code>cmake --version</code> 检查您的 CMake 版本。如果您使用的是旧版本，请按照 <a href="../cmake_linux/">这些说明</a> 操作或访问  <a href="https://cmake.org/install/">CMake 网站</a> 。 </p>
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="can-i-compile-airsim-in-bashonwindows">Can I compile AirSim in BashOnWindows?<a class="headerlink" href="#can-i-compile-airsim-in-bashonwindows" title="Permanent link">#</a></h6>
+<h6 id="bashonwindows-airsim">我可以在 BashOnWindows 中编译 AirSim 吗？<a class="headerlink" href="#bashonwindows-airsim" title="Permanent link">#</a></h6>
 <blockquote>
-<p>Yes, however, you can't run Unreal from BashOnWindows. So this is kind of useful to check a Linux compile, but not for an end-to-end run.
-See the <a href="https://msdn.microsoft.com/en-us/commandline/wsl/install_guide">BashOnWindows install guide</a>.
-Make sure to have the latest version (Windows 10 Creators Edition) as previous versions had various issues.
-Also, don't invoke <code>bash</code> from <code>Visual Studio Command Prompt</code>, otherwise CMake might find VC++ and try and use that!</p>
+<p>是的，但是您无法从 BashOnWindows 运行虚幻引擎。因此，这对于检查 Linux 编译情况很有用，但对于端到端运行则不然。请参阅 <a href="https://msdn.microsoft.com/en-us/commandline/wsl/install_guide">BashOnWindows 安装指南</a> 。请确保使用最新版本（Windows 10 Creators Edition），因为之前的版本存在各种问题。另外，不要从 <code>Visual Studio Command Prompt</code>中调用 <code>bash</code>，否则 CMake 可能会找到 VC++ 并尝试使用它！ </p>
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="where-can-i-find-more-info-on-running-unreal-on-linux">Where can I find more info on running Unreal on Linux?<a class="headerlink" href="#where-can-i-find-more-info-on-running-unreal-on-linux" title="Permanent link">#</a></h6>
+<h6 id="linux-unreal">在哪里可以找到有关在 Linux 上运行 Unreal 的更多信息？<a class="headerlink" href="#linux-unreal" title="Permanent link">#</a></h6>
 <blockquote>
-<p>Start here: <a href="https://docs.unrealengine.com/latest/INT/Platforms/Linux/index.html">Unreal on Linux</a>
-<a href="https://wiki.unrealengine.com/Building_On_Linux#Clang">Building Unreal on Linux</a>
-<a href="https://wiki.unrealengine.com/Linux_Support">Unreal Linux Support</a>
-<a href="https://wiki.unrealengine.com/Compiling_For_Linux">Unreal Cross Compilation</a></p>
+<p>从这里开始： <a href="https://docs.unrealengine.com/latest/INT/Platforms/Linux/index.html">Linux 上的引擎</a></p>
+<p><a href="https://wiki.unrealengine.com/Building_On_Linux#Clang">在 Linux 上构建引擎</a></p>
+<p><a href="https://wiki.unrealengine.com/Linux_Support">Unreal 的 Linux 支持</a></p>
+<p><a href="https://wiki.unrealengine.com/Compiling_For_Linux">引擎交叉编译</a></p>
 </blockquote>
 <hr />
 <h2 id="_2">其他<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
 <!-- ======================================================================= -->
 
-<h6 id="packaging-a-binary-including-the-airsim-plugin">Packaging a binary including the AirSim plugin<a class="headerlink" href="#packaging-a-binary-including-the-airsim-plugin" title="Permanent link">#</a></h6>
+<h6 id="airsim">打包包含 AirSim 插件的二进制文件<a class="headerlink" href="#airsim" title="Permanent link">#</a></h6>
 <blockquote>
-<p>In order to package a custom environment with the AirSim plugin, there are a few project settings that are necessary for ensuring all required assets needed for AirSim are included inside the package. Under <code>Edit -&gt; Project Settings... -&gt; Project -&gt; Packaging</code>, please ensure the following settings are configured properly:</p>
+<p>为了将自定义环境与 AirSim 插件打包在一起，需要进行一些项目设置，以确保 AirSim 所需的所有资源都包含在包中。在<code>Edit -&gt; Project Settings... -&gt; Project -&gt; Packaging</code>下，请确保正确配置以下设置：</p>
 <ul>
-<li><code>List of maps to include in a packaged build</code>: ensure one entry exists for <code>/AirSim/AirSimAssets</code> </li>
-<li><code>Additional Asset Directories to Cook</code>: ensure one entry exists for <code>/AirSim/HUDAssets</code></li>
+<li><code>List of maps to include in a packaged build</code>: 确保存在一个<code>/AirSim/AirSimAssets</code>条目</li>
+<li><code>Additional Asset Directories to Cook</code>: 确保存在一个<code>/AirSim/HUDAssets</code>条目</li>
 </ul>
 </blockquote>
               
