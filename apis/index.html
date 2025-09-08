@@ -91,47 +91,47 @@
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#api_3">时间 API</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#line-of-sight-and-world-extent-apis">Line-of-sight and world extent APIs</a>
+    <li class="toctree-l3"><a class="reference internal" href="#api_4">视线和世界范围 API</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#weather-apis">Weather APIs</a>
+    <li class="toctree-l3"><a class="reference internal" href="#api_5">天气 API</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#recording-apis">Recording APIs</a>
+    <li class="toctree-l3"><a class="reference internal" href="#apis_1">记录 APIs</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#wind-api">Wind API</a>
+    <li class="toctree-l3"><a class="reference internal" href="#api_6">风 API</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#lidar-apis">Lidar APIs</a>
+    <li class="toctree-l3"><a class="reference internal" href="#api_7">激光雷达 API</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#light-control-apis">Light Control APIs</a>
+    <li class="toctree-l3"><a class="reference internal" href="#apis_2">灯光控制 APIs</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#texture-apis">Texture APIs</a>
+    <li class="toctree-l3"><a class="reference internal" href="#api_8">纹理 API</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#multiple-vehicles">Multiple Vehicles</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_2">多载具</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#coordinate-system">Coordinate System</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_3">坐标系统</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#vehicle-specific-apis">Vehicle Specific APIs</a>
+    <li class="toctree-l2"><a class="reference internal" href="#api_9">载具特定 API</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#apis-for-car">APIs for Car</a>
+    <li class="toctree-l3"><a class="reference internal" href="#api_10">汽车 API</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#apis-for-multirotor">APIs for Multirotor</a>
+    <li class="toctree-l3"><a class="reference internal" href="#api_11">多旋翼 API</a>
         <ul>
     <li class="toctree-l4"><a class="reference internal" href="#getmultirotorstate">getMultirotorState</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#async-methods-duration-and-max_wait_seconds">Async methods, duration and max_wait_seconds</a>
+    <li class="toctree-l4"><a class="reference internal" href="#max_wait_seconds">异步方法、持续时间和 max_wait_seconds</a>
     </li>
     <li class="toctree-l4"><a class="reference internal" href="#drivetrain">drivetrain</a>
     </li>
     <li class="toctree-l4"><a class="reference internal" href="#yaw_mode">yaw_mode</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#lookahead-and-adaptive_lookahead">lookahead and adaptive_lookahead</a>
+    <li class="toctree-l4"><a class="reference internal" href="#lookahead-adaptive_lookahead">lookahead 和 adaptive_lookahead</a>
     </li>
         </ul>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#using-apis-on-real-vehicles">Using APIs on Real Vehicles</a>
+    <li class="toctree-l2"><a class="reference internal" href="#api_12">在真实载具上使用 API</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#airsim-api">向 AirSim 添加新的 API</a>
     </li>
@@ -483,22 +483,20 @@ conda<span class="w"> </span>activate<span class="w"> </span>air
 <h3 id="api_3">时间 API<a class="headerlink" href="#api_3" title="Permanent link">#</a></h3>
 <p>AirSim 假设您的环境中存在 <code>EngineSky/BP_Sky_Sphere</code> 类的天空球体，并且包含 <a href="https://github.com/microsoft/AirSim/blob/v1.4.0-linux/Unreal/Plugins/AirSim/Source/SimMode/SimModeBase.cpp#L224">ADirectionalLight actor</a> 。默认情况下，场景中的太阳位置不会随时间移动。您可以使用 <a href="../settings/#timeofday">设置</a> 来设置 AirSim 用于计算场景中太阳位置的纬度、经度、日期和时间。</p>
 <p>您还可以使用以下 API 调用根据给定的日期时间设置太阳位置：</p>
-<p>You can also use following API call to set the sun position according to given date time:</p>
 <div class="highlight"><pre><span></span><code>simSetTimeOfDay(self, is_enabled, start_datetime = &quot;&quot;, is_start_datetime_dst = False, celestial_clock_speed = 1, update_interval_secs = 60, move_sun = True)
 </code></pre></div>
-<p>The <code>is_enabled</code> parameter must be <code>True</code> to enable time of day effect. If it is <code>False</code> then sun position is reset to its original in the environment.</p>
-<p>Other parameters are same as in <a href="../settings/#timeofday">settings</a>.</p>
-<h3 id="line-of-sight-and-world-extent-apis">Line-of-sight and world extent APIs<a class="headerlink" href="#line-of-sight-and-world-extent-apis" title="Permanent link">#</a></h3>
-<p>To test line-of-sight in the sim from a vehicle to a point or between two points, see simTestLineOfSightToPoint(point, vehicle_name) and simTestLineOfSightBetweenPoints(point1, point2), respectively.
-Sim world extent, in the form of a vector of two GeoPoints, can be retrieved using simGetWorldExtents().</p>
-<h3 id="weather-apis">Weather APIs<a class="headerlink" href="#weather-apis" title="Permanent link">#</a></h3>
-<p>By default all weather effects are disabled. To enable weather effect, first call:</p>
+<p><code>is_enabled</code> 参数必须为 <code>True</code> 才能启用时间效果。如果为 <code>False</code>，则太阳位置将重置为环境中的原始位置。</p>
+<p>其它参数与 <a href="../settings/#timeofday">设置</a> 相同。</p>
+<h3 id="api_4">视线和世界范围 API<a class="headerlink" href="#api_4" title="Permanent link">#</a></h3>
+<p>要测试模拟器中从车辆到某个点或两点之间的视线，请分别使用 <code>simTestLineOfSightToPoint(point, vehicle_name)</code> 和 <code>simTestLineOfSightBetweenPoints(point1, point2)</code> 函数。模拟器的世界范围以两个 <code>GeoPoints</code> 向量的形式表示，可以使用 <code>simGetWorldExtents()</code> 函数获取。</p>
+<h3 id="api_5">天气 API<a class="headerlink" href="#api_5" title="Permanent link">#</a></h3>
+<p>默认情况下，所有天气效果均已禁用。要启用天气效果，请先调用：</p>
 <div class="highlight"><pre><span></span><code>simEnableWeather(True)
 </code></pre></div>
-<p>Various weather effects can be enabled by using <code>simSetWeatherParameter</code> method which takes <code>WeatherParameter</code>, for example,</p>
-<p><div class="highlight"><pre><span></span><code>client.simSetWeatherParameter(airsim.WeatherParameter.Rain, 0.25);
+<p>可以使用 <code>simSetWeatherParameter</code> 方法启用各种天气效果，该方法采用 <code>WeatherParameter</code>，例如，</p>
+<div class="highlight"><pre><span></span><code>client.simSetWeatherParameter(airsim.WeatherParameter.Rain, 0.25);
 </code></pre></div>
-The second parameter value is from 0 to 1. The first parameter provides following options:</p>
+<p>第二个参数值从0到1。第一个参数提供以下选项：</p>
 <div class="highlight"><pre><span></span><code>class WeatherParameter:
     Rain = 0
     Roadwetness = 1
@@ -509,84 +507,84 @@ The second parameter value is from 0 to 1. The first parameter provides followin
     Dust = 6
     Fog = 7
 </code></pre></div>
-<p>Please note that <code>Roadwetness</code>, <code>RoadSnow</code> and <code>RoadLeaf</code> effects requires adding <a href="https://github.com/Microsoft/AirSim/tree/main/Unreal/Plugins/AirSim/Content/Weather/WeatherFX">materials</a> to your scene.</p>
-<p>Please see <a href="https://github.com/Microsoft/AirSim/blob/main/PythonClient/environment/weather.py">example code</a> for more details.</p>
-<h3 id="recording-apis">Recording APIs<a class="headerlink" href="#recording-apis" title="Permanent link">#</a></h3>
-<p>Recording APIs can be used to start recording data through APIs. Data to be recorded can be specified using <a href="../settings/#recording">settings</a>. To start recording, use -</p>
+<p>请注意，湿润道路<code>Roadwetness</code>、路上积雪 <code>RoadSnow</code> 和 路上叶子<code>RoadLeaf</code> 效果需要在场景中添加 <a href="https://github.com/OpenHUTB/air/tree/main/Unreal/Plugins/AirSim/Content/Weather/WeatherFX">材质</a> 。</p>
+<p>请参阅 <a href="https://github.com/OpenHUTB/air/blob/main/PythonClient/environment/weather.py">示例代码</a> 以了解更多详细信息。</p>
+<h3 id="apis_1">记录 APIs<a class="headerlink" href="#apis_1" title="Permanent link">#</a></h3>
+<p>记录 API 可用于通过 API 开始记录数据。可以使用 <a href="../settings/#recording">设置</a> 指定要记录的数据。要开始记录，请使用：</p>
 <div class="highlight"><pre><span></span><code>client.startRecording()
 </code></pre></div>
-<p>Similarly, to stop recording, use <code>client.stopRecording()</code>. To check whether Recording is running, call <code>client.isRecording()</code>, returns a <code>bool</code>.</p>
-<p>This API works alongwith toggling Recording using R button, therefore if it's enabled using R key, <code>isRecording()</code> will return <code>True</code>, and recording can be stopped via API using <code>stopRecording()</code>. Similarly, recording started using API will be stopped if R key is pressed in Viewport. LogMessage will also appear in the top-left of the viewport if recording is started or stopped using API.</p>
-<p>Note that this will only save the data as specfied in the settings. For full freedom in storing data such as certain sensor information, or in a different format or layout, use the other APIs to fetch the data and save as desired. Check out <a href="../modify_recording_data/">Modifying Recording Data</a> for details on how to modify the kinematics data being recorded.</p>
-<h3 id="wind-api">Wind API<a class="headerlink" href="#wind-api" title="Permanent link">#</a></h3>
-<p>Wind can be changed during simulation using <code>simSetWind()</code>. Wind is specified in World frame, NED direction and m/s values</p>
-<p>E.g. To set 20m/s wind in North (forward) direction -</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Set wind to (20,0,0) in NED (forward direction)</span>
+<p>类似地，要停止记录，请使用 <code>client.stopRecording()</code>。要检查记录是否正在运行，请调用 <code>client.isRecording()</code>，返回一个布尔值<code>bool</code>。</p>
+<p>此 API 与使用 <code>R</code> 键切换记录功能配合使用，因此，如果使用 <code>R</code> 键启用记录功能，<code>isRecording()</code> 将返回 <code>True</code>，并且可以通过 API 使用 <code>stopRecording()</code> 停止记录。同样，如果在视口中按下 <code>R</code> 键，使用 API 启动的录制也会停止。如果使用 API 启动或停止录制，LogMessage 也会显示在视口的左上角。</p>
+<p>请注意，这只会保存设置中指定的数据。为了更自由地存储数据（例如某些传感器信息），或以其他格式或布局存储数据，请使用其他 API 获取数据并根据需要保存。有关如何修改正在记录的运动学数据的详细信息，请参阅 <a href="../modify_recording_data/">修改记录数据</a> 。</p>
+<h3 id="api_6">风 API<a class="headerlink" href="#api_6" title="Permanent link">#</a></h3>
+<p>可以使用 <code>simSetWind()</code> 在模拟过程中更改风向。风向以世界坐标系、NED 方向和米/秒为单位指定。</p>
+<p>例如，要设置北（前进）方向的风速为 20 米/秒 ：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 将风向设置为 NED（前进方向）的 (20,0,0)</span>
 <span class="n">wind</span> <span class="o">=</span> <span class="n">airsim</span><span class="o">.</span><span class="n">Vector3r</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 <span class="n">client</span><span class="o">.</span><span class="n">simSetWind</span><span class="p">(</span><span class="n">wind</span><span class="p">)</span>
 </code></pre></div>
-<p>Also see example script in <a href="https://github.com/Microsoft/AirSim/blob/main/PythonClient/multirotor/set_wind.py">set_wind.py</a></p>
-<h3 id="lidar-apis">Lidar APIs<a class="headerlink" href="#lidar-apis" title="Permanent link">#</a></h3>
-<p>AirSim offers API to retrieve point cloud data from Lidar sensors on vehicles. You can set the number of channels, points per second, horizontal and vertical FOV, etc parameters in <a href="../settings/">settings.json</a>.</p>
-<p>More on <a href="../lidar/">lidar APIs and settings</a> and <a href="../sensors/">sensor settings</a></p>
-<h3 id="light-control-apis">Light Control APIs<a class="headerlink" href="#light-control-apis" title="Permanent link">#</a></h3>
-<p>Lights that can be manipulated inside AirSim can be created via the <code>simSpawnObject()</code> API by passing either <code>PointLightBP</code> or <code>SpotLightBP</code> as the <code>asset_name</code> parameter and <code>True</code> as the <code>is_blueprint</code> parameter. Once a light has been spawned, it can be manipulated using the following API:</p>
+<p>另请参阅 <a href="https://github.com/OpenHUTB/air/blob/main/PythonClient/multirotor/set_wind.py">set_wind.py</a> 中的示例脚本</p>
+<h3 id="api_7">激光雷达 API<a class="headerlink" href="#api_7" title="Permanent link">#</a></h3>
+<p>AirSim 提供 API 来检索车载激光雷达传感器的点云数据。您可以在 <a href="../settings/">settings.json</a> 中设置通道数、每秒点数、水平和垂直视场等参数。</p>
+<p>有关 <a href="../lidar/">激光雷达 API 和设置</a> 以及 <a href="../sensors/">传感器设置</a> 的更多信息</p>
+<h3 id="apis_2">灯光控制 APIs<a class="headerlink" href="#apis_2" title="Permanent link">#</a></h3>
+<p>可以通过 <code>simSpawnObject()</code> API 创建可在 AirSim 内部操控的光源，只需将 <code>PointLightBP</code> 或 <code>SpotLightBP</code> 作为 <code>asset_name</code> 参数传递，并将 <code>True</code> 作为 <code>is_blueprint</code> 参数传递即可。灯光生成后，即可使用以下 API 进行操控：</p>
 <ul>
-<li><code>simSetLightIntensity</code>: This allows you to edit a light's intensity or brightness. It takes two parameters, <code>light_name</code>, the name of the light object returned by a previous call to <code>simSpawnObject()</code>, and <code>intensity</code>, a float value.</li>
+<li><code>simSetLightIntensity</code>: 这允许您编辑光源的强度或亮度。它接受两个参数：<code>light_name</code>（上次调用 <code>simSpawnObject()</code> 返回的光源对象的名称）和 <code>intensity</code>（浮点值）。</li>
 </ul>
-<h3 id="texture-apis">Texture APIs<a class="headerlink" href="#texture-apis" title="Permanent link">#</a></h3>
-<p>Textures can be dynamically set on objects via these APIs:</p>
+<h3 id="api_8">纹理 API<a class="headerlink" href="#api_8" title="Permanent link">#</a></h3>
+<p>可以通过以下 API 在对象上动态设置纹理：</p>
 <ul>
-<li><code>simSetObjectMaterial</code>: This sets an object's material using an existing Unreal material asset. It takes two string parameters, <code>object_name</code> and <code>material_name</code>.</li>
-<li><code>simSetObjectMaterialFromTexture</code>: This sets an object's material using a path to a texture. It takes two string parameters, <code>object_name</code> and <code>texture_path</code>.</li>
+<li><code>simSetObjectMaterial</code>: 此函数使用现有的虚幻材质资源设置对象的材质。它接受两个字符串参数：<code>object_name</code> 和 <code>material_name</code> 。</li>
+<li><code>simSetObjectMaterialFromTexture</code>: 此函数使用纹理路径设置对象的材质。它接受两个字符串参数：<code>object_name</code> 和 <code>texture_path</code>。 </li>
 </ul>
-<h3 id="multiple-vehicles">Multiple Vehicles<a class="headerlink" href="#multiple-vehicles" title="Permanent link">#</a></h3>
-<p>AirSim supports multiple vehicles and control them through APIs. Please <a href="../multi_vehicle/">Multiple Vehicles</a> doc.</p>
-<h3 id="coordinate-system">Coordinate System<a class="headerlink" href="#coordinate-system" title="Permanent link">#</a></h3>
-<p>All AirSim API uses NED coordinate system, i.e., +X is North, +Y is East and +Z is Down. All units are in SI system. Please note that this is different from coordinate system used internally by Unreal Engine. In Unreal Engine, +Z is up instead of down and length unit is in centimeters instead of meters. AirSim APIs takes care of the appropriate conversions. The starting point of the vehicle is always coordinates (0, 0, 0) in NED system. Thus when converting from Unreal coordinates to NED, we first subtract the starting offset and then scale by 100 for cm to m conversion. The vehicle is spawned in Unreal environment where the Player Start component is placed. There is a setting called <code>OriginGeopoint</code> in <a href="../settings/">settings.json</a> which assigns geographic longitude, longitude and altitude to the Player Start component.</p>
-<h2 id="vehicle-specific-apis">Vehicle Specific APIs<a class="headerlink" href="#vehicle-specific-apis" title="Permanent link">#</a></h2>
-<h3 id="apis-for-car">APIs for Car<a class="headerlink" href="#apis-for-car" title="Permanent link">#</a></h3>
-<p>Car has followings APIs available:</p>
+<h3 id="_2">多载具<a class="headerlink" href="#_2" title="Permanent link">#</a></h3>
+<p>AirSim 支持多载具并通过 API 进行控制。请参阅 <a href="../multi_vehicle/">多载具</a> 文档。</p>
+<h3 id="_3">坐标系统<a class="headerlink" href="#_3" title="Permanent link">#</a></h3>
+<p>所有 AirSim API 均使用 NED 坐标系，即 +X 代表北、+Y 代表东、+Z 代表下。所有单位均为 SI 系统。请注意，这与虚幻引擎内部使用的坐标系不同。在虚幻引擎中，+Z 代表上而不是下，长度单位是厘米而不是米。AirSim API 负责相应的转换。车辆的起点在 NED 系统中始终是坐标 (0, 0, 0)。因此，当从虚幻坐标转换为 NED 时，我们首先减去起始偏移量，然后按比例缩放 100 以进行厘米到米的转换。车辆在放置 Player Start 组件的虚幻环境中生成。 <a href="../settings/">settings.json</a> 中有一个名为 <code>OriginGeopoint</code> 的设置，它为 Player Start 组件分配地理经度、经度和海拔。</p>
+<h2 id="api_9">载具特定 API<a class="headerlink" href="#api_9" title="Permanent link">#</a></h2>
+<h3 id="api_10">汽车 API<a class="headerlink" href="#api_10" title="Permanent link">#</a></h3>
+<p>汽车有以下可用的 API：</p>
 <ul>
-<li><code>setCarControls</code>: This allows you to set throttle, steering, handbrake and auto or manual gear.</li>
-<li><code>getCarState</code>: This retrieves the state information including speed, current gear and 6 kinematics quantities: position, orientation, linear and angular velocity, linear and angular acceleration. All quantities are in NED coordinate system, SI units in world frame except for angular velocity and accelerations which are in body frame.</li>
-<li><a href="../image_apis/">Image APIs</a>.</li>
+<li><code>setCarControls</code>: 这使您可以设置油门、转向、手刹和自动档或手动档。 </li>
+<li><code>getCarState</code>: 这将检索状态信息，包括速度、当前档位以及 6 个运动学量：位置、方向、线速度和角速度、线加速度和角加速度。所有量均采用 NED 坐标系，除角速度和加速度采用体坐标系外，其他量均采用世界坐标系的 SI 单位。</li>
+<li><a href="../image_apis/">图像 API</a>.</li>
 </ul>
-<h3 id="apis-for-multirotor">APIs for Multirotor<a class="headerlink" href="#apis-for-multirotor" title="Permanent link">#</a></h3>
-<p>Multirotor can be controlled by specifying angles, velocity vector, destination position or some combination of these. There are corresponding <code>move*</code> APIs for this purpose. When doing position control, we need to use some path following algorithm. By default AirSim uses carrot following algorithm. This is often referred to as "high level control" because you just need to specify high level goal and the firmware takes care of the rest. Currently lowest level control available in AirSim is <code>moveByAngleThrottleAsync</code> API.</p>
+<h3 id="api_11">多旋翼 API<a class="headerlink" href="#api_11" title="Permanent link">#</a></h3>
+<p>多旋翼飞行器可以通过指定角度、速度矢量、目标位置或这些参数的组合来控制。有相应的 <code>move*</code> API 来实现此目的。进行位置控制时，我们需要使用某种路径跟随算法。AirSim 默认使用胡萝卜跟随算法。这通常被称为“高层控制”，因为您只需指定高级目标，其余部分由固件处理。目前 AirSim 中可用的最低层控制是 <code>moveByAngleThrottleAsync</code> API。</p>
 <h4 id="getmultirotorstate">getMultirotorState<a class="headerlink" href="#getmultirotorstate" title="Permanent link">#</a></h4>
-<p>This API returns the state of the vehicle in one call. The state includes, collision, estimated kinematics (i.e. kinematics computed by fusing sensors), and timestamp (nano seconds since epoch). The kinematics here means 6 quantities: position, orientation, linear and angular velocity, linear and angular acceleration. Please note that simple_slight currently doesn't support state estimator which means estimated and ground truth kinematics values would be same for simple_flight. Estimated kinematics are however available for PX4 except for angular acceleration. All quantities are in NED coordinate system, SI units in world frame except for angular velocity and accelerations which are in body frame.</p>
-<h4 id="async-methods-duration-and-max_wait_seconds">Async methods, duration and max_wait_seconds<a class="headerlink" href="#async-methods-duration-and-max_wait_seconds" title="Permanent link">#</a></h4>
-<p>Many API methods has parameters named <code>duration</code> or <code>max_wait_seconds</code> and they have <em>Async</em> as suffix, for example, <code>takeoffAsync</code>. These methods will return immediately after starting the task in AirSim so that your client code can do something else while that task is being executed. If you want to wait for this task to complete then you can call <code>waitOnLastTask</code> like this:</p>
+<p>此 API 一次调用即可返回飞行器的状态。状态包括碰撞、估计运动学（即通过融合传感器计算的运动学）和时间戳（自纪元以来的纳秒数）。此处的运动学包含六个物理量：位置、方向、线速度和角速度、线加速度和角加速度。请注意，simple_slight 当前不支持状态估计器，这意味着对于 simple_flight，估计运动学值和地面真实运动学值将相同。不过，PX4 可以使用除角加速度之外的估计运动学值。所有物理量均采用 NED 坐标系，除角速度和加速度采用机身坐标系外，其他物理量均采用世界坐标系的 SI 单位。</p>
+<h4 id="max_wait_seconds">异步方法、持续时间和 max_wait_seconds<a class="headerlink" href="#max_wait_seconds" title="Permanent link">#</a></h4>
+<p>许多 API 方法都包含名为<code>duration</code>或<code>max_wait_seconds</code>的参数，并以<em>Async</em>作为后缀，例如 <code>takeoffAsync</code>。这些方法在 AirSim 中启动任务后会立即返回，以便您的客户端代码可以在该任务执行期间执行其他操作。如果您想等待此任务完成，可以像这样调用 <code>waitOnLastTask</code>：</p>
 <div class="highlight"><pre><span></span><code><span class="c1">//C++</span>
 <span class="n">client</span><span class="p">.</span><span class="n">takeoffAsync</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">waitOnLastTask</span><span class="p">();</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="cp"># Python</span>
 <span class="n">client</span><span class="p">.</span><span class="n">takeoffAsync</span><span class="p">().</span><span class="n">join</span><span class="p">()</span>
 </code></pre></div>
-<p>If you start another command then it automatically cancels the previous task and starts new command. This allows to use pattern where your coded continuously does the sensing, computes a new trajectory to follow and issues that path to vehicle in AirSim. Each newly issued trajectory cancels the previous trajectory allowing your code to continuously do the update as new sensor data arrives.</p>
-<p>All <em>Async</em> method returns <code>concurrent.futures.Future</code> in Python (<code>std::future</code> in C++). Please note that these future classes currently do not allow to check status or cancel the task; they only allow to wait for task to complete. AirSim does provide API <code>cancelLastTask</code>, however.</p>
+<p>如果您启动另一个命令，它会自动取消上一个任务并启动新的命令。这允许您使用一种模式，您的代码会持续进行感知，计算新的轨迹，并在 AirSim 中将该路径发送给车辆。每个新发出的轨迹都会取消之前的轨迹，从而使您的代码能够在新的传感器数据到达时持续进行更新。</p>
+<p>所有 <em>异步</em> 方法在 Python 中返回的是 <code>concurrent.futures.Future</code>（在 C++ 中返回的是 <code>std::future</code>）。请注意，这些 Future 类目前不支持检查状态或取消任务；它们只允许等待任务完成。不过，AirSim 提供了 <code>cancelLastTask</code> 接口。</p>
 <h4 id="drivetrain">drivetrain<a class="headerlink" href="#drivetrain" title="Permanent link">#</a></h4>
-<p>There are two modes you can fly vehicle: <code>drivetrain</code> parameter is set to <code>airsim.DrivetrainType.ForwardOnly</code> or <code>airsim.DrivetrainType.MaxDegreeOfFreedom</code>. When you specify ForwardOnly, you are saying that vehicle's front should always point in the direction of travel. So if you want drone to take left turn then it would first rotate so front points to left. This mode is useful when you have only front camera and you are operating vehicle using FPV view. This is more or less like travelling in car where you always have front view. The MaxDegreeOfFreedom means you don't care where the front points to. So when you take left turn, you just start going left like crab. Quadrotors can go in any direction regardless of where front points to. The MaxDegreeOfFreedom enables this mode.</p>
+<p>飞行器有两种飞行模式：<code>drivetrain</code>参数设置为 <code>airsim.DrivetrainType.ForwardOnly</code> 或 <code>airsim.DrivetrainType.MaxDegreeOfFreedom</code>。如果指定 ForwardOnly，则表示飞行器的前端应始终指向行进方向。因此，如果希望无人机左转，则无人机首先会旋转，使前端指向左侧。此模式在只有前置摄像头并使用 FPV 视图操作飞行器时非常有用。这或多或少就像开车旅行，您始终能看到前方视野。MaxDegreeOfFreedom 意味着您不必关心前端指向何处。因此，左转时，您就像螃蟹一样开始向左转。四旋翼飞行器可以朝任何方向飞行，无论前端指向何处。MaxDegreeOfFreedom 启用此模式。</p>
 <h4 id="yaw_mode">yaw_mode<a class="headerlink" href="#yaw_mode" title="Permanent link">#</a></h4>
-<p><code>yaw_mode</code> is a struct <code>YawMode</code> with two fields, <code>yaw_or_rate</code> and <code>is_rate</code>. If <code>is_rate</code> field is True then <code>yaw_or_rate</code> field is interpreted as angular velocity in degrees/sec which means you want vehicle to rotate continuously around its axis at that angular velocity while moving. If <code>is_rate</code> is False then <code>yaw_or_rate</code> is interpreted as angle in degrees which means you want vehicle to rotate to specific angle (i.e. yaw) and keep that angle while moving.</p>
-<p>You can probably see that when <code>yaw_mode.is_rate == true</code>, the <code>drivetrain</code> parameter shouldn't be set to <code>ForwardOnly</code> because you are contradicting by saying that keep front pointing ahead but also rotate continuously. However if you have <code>yaw_mode.is_rate = false</code> in <code>ForwardOnly</code> mode then you can do some funky stuff. For example, you can have drone do circles and have yaw_or_rate set to 90 so camera is always pointed to center ("super cool selfie mode"). In <code>MaxDegreeofFreedom</code> also you can get some funky stuff by setting <code>yaw_mode.is_rate = true</code> and say <code>yaw_mode.yaw_or_rate = 20</code>. This will cause drone to go in its path while rotating which may allow to do 360 scanning.</p>
-<p>In most cases, you just don't want yaw to change which you can do by setting yaw rate of 0. The shorthand for this is <code>airsim.YawMode.Zero()</code> (or in C++: <code>YawMode::Zero()</code>).</p>
-<h4 id="lookahead-and-adaptive_lookahead">lookahead and adaptive_lookahead<a class="headerlink" href="#lookahead-and-adaptive_lookahead" title="Permanent link">#</a></h4>
-<p>When you ask vehicle to follow a path, AirSim uses "carrot following" algorithm. This algorithm operates by looking ahead on path and adjusting its velocity vector. The parameters for this algorithm is specified by <code>lookahead</code> and <code>adaptive_lookahead</code>. For most of the time you want algorithm to auto-decide the values by simply setting <code>lookahead = -1</code> and <code>adaptive_lookahead = 0</code>.</p>
-<h2 id="using-apis-on-real-vehicles">Using APIs on Real Vehicles<a class="headerlink" href="#using-apis-on-real-vehicles" title="Permanent link">#</a></h2>
-<p>We want to be able to run <em>same code</em> that runs in simulation as on real vehicle. This allows you to test your code in simulator and deploy to real vehicle.</p>
-<p>Generally speaking, APIs therefore shouldn't allow you to do something that cannot be done on real vehicle (for example, getting the ground truth). But, of course, simulator has much more information and it would be useful in applications that may not care about running things on real vehicle. For this reason, we clearly delineate between sim-only APIs by attaching <code>sim</code> prefix, for example, <code>simGetGroundTruthKinematics</code>. This way you can avoid using these simulation-only APIs if you care about running your code on real vehicles.</p>
-<p>The AirLib is self-contained library that you can put on an offboard computing module such as the Gigabyte barebone Mini PC. This module then can talk to the flight controllers such as PX4 using exact same code and flight controller protocol. The code you write for testing in the simulator remains unchanged. See <a href="../custom_drone/">AirLib on custom drones</a>.</p>
+<p><code>yaw_mode</code> 是一个 <code>YawMode</code> 结构体，包含两个字段：<code>yaw_or_rate</code> 和 <code>is_rate</code>。如果 <code>is_rate</code> 字段为 <code>True</code>，则 <code>yaw_or_rate</code> 字段将被解析为以度/秒为单位的角速度，这意味着您希望车辆在移动时以该角速度绕其轴线连续旋转。如果 <code>is_rate</code> 为 <code>False</code>，则 <code>yaw_or_rate</code> 将被解析为以度为单位的角度，这意味着您希望车辆旋转到特定角度（即偏航角），并在移动时保持该角度。</p>
+<p>您可能已经注意到，当 <code>yaw_mode.is_rate == true</code> 时，<code>drivetrain</code>参数不应设置为 <code>ForwardOnly</code>，因为您的说法与“保持前部指向前方但同时持续旋转”的说法相矛盾。但是，如果您在 <code>ForwardOnly</code> 模式下将 <code>yaw_mode.is_rate = false</code>，则可以实现一些更炫酷的功能。例如，您可以让无人机绕圈飞行，并将 yaw_or_rate 设置为 90，这样相机始终指向中心（“超酷的自拍模式”）。在 <code>MaxDegreeofFreedom</code> 中，您也可以通过设置 <code>yaw_mode.is_rate = true</code> 并设置 <code>yaw_mode.yaw_or_rate = 20</code> 来实现一些更炫酷的功能。这将使无人机在旋转的同时沿其路径飞行，从而可以进行 360 度扫描。</p>
+<p>在大多数情况下，您只是不希望偏航发生改变，您可以通过将偏航率设置为 0 来实现。此方法的简写为 <code>airsim.YawMode.Zero()</code>（或在 C++ 中为：<code>YawMode::Zero()</code> ）。</p>
+<h4 id="lookahead-adaptive_lookahead">lookahead 和 adaptive_lookahead<a class="headerlink" href="#lookahead-adaptive_lookahead" title="Permanent link">#</a></h4>
+<p>当您要求飞行器跟随路径时，AirSim 使用“胡萝卜跟随(carrot following)”算法。该算法通过向前观察路径并调整其速度矢量来运行。该算法的参数由 <code>lookahead</code> 和 <code>adaptive_lookahead</code> 指定。大多数情况下，您只需设置 <code>lookahead = -1</code> 和 <code>adaptive_lookahead = 0</code> 即可让算法自动确定值。</p>
+<h2 id="api_12">在真实载具上使用 API<a class="headerlink" href="#api_12" title="Permanent link">#</a></h2>
+<p>我们希望能够在模拟环境中运行与真实车辆<em>相同的代码</em>。这样您就可以在模拟器中测试代码，并将其部署到真实载具上。</p>
+<p>因此，一般来说，API 不应允许您执行在实车上无法执行的操作（例如，获取真实值）。当然，模拟器拥有更多信息，这对于可能不关心在实车上运行的应用程序非常有用。因此，我们通过添加 <code>sim</code> 前缀（例如 <code>simGetGroundTruthKinematics</code>）来明确区分仅用于模拟的 API。这样，如果您关心在实车上运行代码，就可以避免使用这些仅用于模拟的 API。</p>
+<p>AirLib 是一个独立的库，您可以将其安装在机外计算模块（例如技嘉的 Mini PC 准系统）上。该模块可以使用完全相同的代码和飞行控制器协议与 PX4 等飞行控制器通信。您在模拟器中编写的测试代码保持不变。请参阅 <a href="../custom_drone/">定制无人机上的 AirLib</a> 。</p>
 <h2 id="airsim-api">向 AirSim 添加新的 API<a class="headerlink" href="#airsim-api" title="Permanent link">#</a></h2>
 <p>请参阅 <a href="../adding_new_apis/">添加新 API</a>  页面</p>
 <h2 id="references-and-examples">References and Examples<a class="headerlink" href="#references-and-examples" title="Permanent link">#</a></h2>
 <ul>
-<li><a href="../apis_cpp/">C++ API Examples</a></li>
-<li><a href="https://github.com/Microsoft/AirSim/tree/main/PythonClient//car">Car Examples</a></li>
-<li><a href="https://github.com/Microsoft/AirSim/tree/main/PythonClient//multirotor">Multirotor Examples</a></li>
-<li><a href="https://github.com/Microsoft/AirSim/tree/main/PythonClient//computer_vision">Computer Vision Examples</a></li>
-<li><a href="https://github.com/Microsoft/AirSim/wiki/moveOnPath-demo">Move on Path</a> demo showing video of fast multirotor flight through Modular Neighborhood environment</li>
+<li><a href="../apis_cpp/">C++ API 例子</a></li>
+<li><a href="https://github.com/Microsoft/AirSim/tree/main/PythonClient//car">Car 例子</a></li>
+<li><a href="https://github.com/Microsoft/AirSim/tree/main/PythonClient//multirotor">多旋翼例子</a></li>
+<li><a href="https://github.com/Microsoft/AirSim/tree/main/PythonClient//computer_vision">计算机视觉例子</a></li>
+<li><a href="https://github.com/Microsoft/AirSim/wiki/moveOnPath-demo">沿路径移动</a> 演示展示了多旋翼飞行器快速穿越模块化街区的视频</li>
 <li><a href="https://github.com/Microsoft/AirSim/wiki/hexacopter">Building a Hexacopter</a></li>
 <li><a href="https://github.com/Microsoft/AirSim/wiki/Point-Clouds">Building Point Clouds</a></li>
 </ul>
