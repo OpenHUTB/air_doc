@@ -85,13 +85,13 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">汽车模式</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#manual-driving">Manual Driving</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_1">手动驾驶</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#using-apis">Using APIs</a>
+    <li class="toctree-l2"><a class="reference internal" href="#apis">使用 APIs</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#changing-views">Changing Views</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">改变视角</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#cameras">Cameras</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">相机</a>
     </li>
     </ul>
                   </li>
@@ -290,22 +290,22 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="how-to-use-car-in-airsim">How to Use Car in AirSim<a class="headerlink" href="#how-to-use-car-in-airsim" title="Permanent link">#</a></h1>
-<p>By default AirSim prompts user for which vehicle to use. You can easily change this by setting <a href="../settings/#SimMode">SimMode</a>. For example, if you want to use car instead then just set the SimMode in your <a href="../settings/">settings.json</a> which you can find in your <code>~/Documents/AirSim</code> folder, like this:</p>
+                <h1 id="airsim">如何在 AirSim 中使用汽车<a class="headerlink" href="#airsim" title="Permanent link">#</a></h1>
+<p>默认情况下，AirSim 会提示用户选择要使用的车辆。您可以通过设置 <a href="../settings/#SimMode">SimMode</a> 轻松更改此设置。例如，如果您想使用汽车，只需在 <a href="../settings/">settings.json</a>（位于 <code>~/Documents/AirSim</code> 文件夹中）中设置 SimMode 即可，如下所示：</p>
 <div class="highlight"><pre><span></span><code>{
   &quot;SettingsVersion&quot;: 1.2,
   &quot;SimMode&quot;: &quot;Car&quot;
 }
 </code></pre></div>
-<p>Now when you restart AirSim, you should see the car spawned automatically.</p>
-<h2 id="manual-driving">Manual Driving<a class="headerlink" href="#manual-driving" title="Permanent link">#</a></h2>
-<p>Please use the keyboard arrow keys to drive manually. Spacebar for the handbrake. In manual drive mode, gears are set in "auto".</p>
-<h2 id="using-apis">Using APIs<a class="headerlink" href="#using-apis" title="Permanent link">#</a></h2>
-<p>You can control the car, get state and images by calling APIs in variety of client languages including C++ and Python. Please see <a href="../apis/">APIs doc</a> for more details.</p>
-<h2 id="changing-views">Changing Views<a class="headerlink" href="#changing-views" title="Permanent link">#</a></h2>
-<p>By default camera will chase the car from the back. You can get the FPV view by pressing <code>F</code> key and switch back to chasing from back view by pressing <code>/</code> key. More keyboard shortcuts can be seen by pressing F1.</p>
-<h2 id="cameras">Cameras<a class="headerlink" href="#cameras" title="Permanent link">#</a></h2>
-<p>By default car is installed with 5 cameras: center, left and right, driver and reverse. You can chose the images from these camera by specifying <a href="../image_apis/#available_cameras">the name</a>.</p>
+<p>现在，当您重新启动 AirSim 时，您应该会看到汽车自动生成。</p>
+<h2 id="_1">手动驾驶<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
+<p>请使用键盘方向键进行手动驾驶。空格键用于拉手刹。手动驾驶模式下，档位设置为“自动(auto)”。</p>
+<h2 id="apis">使用 APIs<a class="headerlink" href="#apis" title="Permanent link">#</a></h2>
+<p>您可以通过调用各种客户端语言（包括 C++ 和 Python）的 API 来控制车辆、获取状态和图像。更多详情，请参阅 <a href="../apis/">API 文档</a> 。</p>
+<h2 id="_2">改变视角<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
+<p>默认情况下，摄像头会从车辆后方追击。您可以按 <code>F</code> 键进入 FPV 视图，然后按 <code>/</code> 键切换回后方追击。按 F1 键可以查看更多键盘快捷键。</p>
+<h2 id="_3">相机<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
+<p>车辆默认安装有 5 个摄像头：中央摄像头、左侧摄像头、右侧摄像头、驾驶员摄像头和倒车摄像头。您可以通过指定 <a href="../image_apis/#available_cameras">名称</a> 来选择这些摄像头的图像。</p>
               
             </div>
           </div><footer>

@@ -194,19 +194,19 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">升级设置</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#quicker-way">Quicker Way</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">快捷方式</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#changes">Changes</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">改变</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#usagescenario">UsageScenario</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#cameradefaults-and-changing-camera-settings">CameraDefaults and Changing Camera Settings</a>
+    <li class="toctree-l3"><a class="reference internal" href="#cameradefaults">CameraDefaults 和改变相机设置</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#gimbal">Gimbal</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#cameraid-to-cameraname">CameraID to CameraName</a>
+    <li class="toctree-l3"><a class="reference internal" href="#cameraid-cameraname">CameraID 到 CameraName</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#using-px4">Using PX4</a>
+    <li class="toctree-l3"><a class="reference internal" href="#px4">使用 PX4</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#additionalcameras">AdditionalCameras</a>
     </li>
@@ -300,24 +300,23 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="upgrading-settings">Upgrading Settings<a class="headerlink" href="#upgrading-settings" title="Permanent link">#</a></h1>
-<p>The settings schema in AirSim 1.2 is changed for more flexibility and cleaner interface. If you have older <a href="../settings/">settings.json</a> file then you can either delete it and restart AirSim or use this guide to make manual upgrade.</p>
-<h2 id="quicker-way">Quicker Way<a class="headerlink" href="#quicker-way" title="Permanent link">#</a></h2>
-<p>We recommend simply deleting the <a href="../settings/">settings.json</a> and add back the settings you need.
-Please see <a href="../settings/">the doc</a> for complete information on available settings.</p>
-<h2 id="changes">Changes<a class="headerlink" href="#changes" title="Permanent link">#</a></h2>
+                <h1 id="_1">升级设置<a class="headerlink" href="#_1" title="Permanent link">#</a></h1>
+<p>AirSim 1.2 中的设置架构已更改，以提高灵活性和界面简洁性。如果您有旧版的 <a href="../settings/">settings.json</a> 文件，您可以删除它并重新启动 AirSim，或者使用本指南进行手动升级。</p>
+<h2 id="_2">快捷方式<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
+<p>我们建议直接删除 <a href="../settings/">settings.json</a> 文件，然后重新添加所需的设置。有关可用设置的完整信息，请参阅 <a href="../settings/">文档</a> 。</p>
+<h2 id="_3">改变<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
 <h3 id="usagescenario">UsageScenario<a class="headerlink" href="#usagescenario" title="Permanent link">#</a></h3>
-<p>Previously we used <code>UsageScenario</code> to specify the <code>ComputerVision</code> mode. Now we use <code>"SimMode": "ComputerVision"</code> instead.</p>
-<h3 id="cameradefaults-and-changing-camera-settings">CameraDefaults and Changing Camera Settings<a class="headerlink" href="#cameradefaults-and-changing-camera-settings" title="Permanent link">#</a></h3>
-<p>Previously we had <code>CaptureSettings</code> and <code>NoiseSettings</code> in root. Now these are combined in new <code>CameraDefaults</code> element. The <a href="../settings/#camera_settings">schema for this element</a> is later used to configure cameras on vehicle.</p>
+<p>之前我们使用 <code>UsageScenario</code> 来指定 <code>ComputerVision</code> 模式。现在我们改用 <code>"SimMode": "ComputerVision"</code>。</p>
+<h3 id="cameradefaults">CameraDefaults 和改变相机设置<a class="headerlink" href="#cameradefaults" title="Permanent link">#</a></h3>
+<p>之前，我们在根目录中有 <code>CaptureSettings</code> 和 <code>NoiseSettings</code>。现在，它们被合并到新的 CameraDefaults 元素中。 <a href="../settings/#camera_settings">此元素的架构</a> 稍后将用于配置车辆上的摄像头。</p>
 <h3 id="gimbal">Gimbal<a class="headerlink" href="#gimbal" title="Permanent link">#</a></h3>
-<p>The <a href="../settings/#Gimbal">Gimbal element</a> (instead of old Gimble element) is now moved out of <code>CaptureSettings</code>.</p>
-<h3 id="cameraid-to-cameraname">CameraID to CameraName<a class="headerlink" href="#cameraid-to-cameraname" title="Permanent link">#</a></h3>
-<p>All settings now reference cameras by <a href="../image_apis/#available_cameras">name</a> instead of ID.</p>
-<h3 id="using-px4">Using PX4<a class="headerlink" href="#using-px4" title="Permanent link">#</a></h3>
-<p>The new Vehicles element allows to specify which vehicles to create. To use PX4, please see <a href="../settings/#using_px4">this section</a>.</p>
+<p>现在，<a href="../settings/#Gimbal">Gimbal 元素</a> （而不是旧的 Gimble 元素）已移出 <code>CaptureSettings</code>。</p>
+<h3 id="cameraid-cameraname">CameraID 到 CameraName<a class="headerlink" href="#cameraid-cameraname" title="Permanent link">#</a></h3>
+<p>现在所有设置都通过 <a href="../image_apis/#available_cameras">名称</a> 而不是 ID 来引用相机。</p>
+<h3 id="px4">使用 PX4<a class="headerlink" href="#px4" title="Permanent link">#</a></h3>
+<p>新的“车辆”元素允许指定要创建的车辆。要使用 PX4，请参阅 <a href="../settings/#using_px4">本节</a> 。</p>
 <h3 id="additionalcameras">AdditionalCameras<a class="headerlink" href="#additionalcameras" title="Permanent link">#</a></h3>
-<p>The old <code>AdditionalCameras</code> setting is now replaced by <a href="../settings/#Common_Vehicle_Setting">Cameras element</a> within vehicle setting.</p>
+<p>旧的<code>AdditionalCameras</code>设置现在被车辆设置中的 <a href="../settings/#Common_Vehicle_Setting">Cameras元素</a> 取代。</p>
               
             </div>
           </div><footer>
