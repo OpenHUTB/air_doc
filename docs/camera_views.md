@@ -1,4 +1,4 @@
-# Camera Views
+# 相机视角
 
 The camera views that are shown on screen are the camera views you can fetch via the [simGetImages API](image_apis.md).
 
