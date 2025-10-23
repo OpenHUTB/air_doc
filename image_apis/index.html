@@ -375,7 +375,7 @@
 <h2 id="getting-a-single-image">Getting a Single Image<a class="headerlink" href="#getting-a-single-image" title="Permanent link">#</a></h2>
 <p>Here's a sample code to get a single image from camera named "0". The returned value is bytes of png format image. To get uncompressed and other format as well as available cameras please see next sections.</p>
 <h3 id="python">Python<a class="headerlink" href="#python" title="Permanent link">#</a></h3>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">airsim</span> <span class="c1">#pip install airsim</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">airsim</span> <span class="c1">#pip install hutb</span>
 
 <span class="c1"># for car use CarClient() </span>
 <span class="n">client</span> <span class="o">=</span> <span class="n">airsim</span><span class="o">.</span><span class="n">MultirotorClient</span><span class="p">()</span>
@@ -400,7 +400,7 @@
 <h2 id="getting-images-with-more-flexibility">Getting Images with More Flexibility<a class="headerlink" href="#getting-images-with-more-flexibility" title="Permanent link">#</a></h2>
 <p>The <code>simGetImages</code> API which is slightly more complex to use than <code>simGetImage</code> API, for example, you can get left camera view, right camera view and depth image from left camera in a single API call. The <code>simGetImages</code> API also allows you to get uncompressed images as well as floating point single channel images (instead of 3 channel (RGB), each 8 bit).</p>
 <h3 id="python_1">Python<a class="headerlink" href="#python_1" title="Permanent link">#</a></h3>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">airsim</span> <span class="c1">#pip install airsim</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">airsim</span> <span class="c1">#pip install hutb</span>
 
 <span class="c1"># for car use CarClient() </span>
 <span class="n">client</span> <span class="o">=</span> <span class="n">airsim</span><span class="o">.</span><span class="n">MultirotorClient</span><span class="p">()</span>
