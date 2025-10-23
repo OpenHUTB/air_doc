@@ -363,7 +363,7 @@
 </code></pre></div>
 <h2 id="airsim">使用不同的 AirSim 二进制文件<a class="headerlink" href="#airsim" title="Permanent link">#</a></h2>
 <p>要使用不同的 AirSim 二进制文件，请首先查看官方文档：<a href="../build_windows/">如何在 Windows 上构建 AirSim</a>  以及 <a href="../build_linux/">如何在 Linux 上构建 AirSim</a> （如果您还想使用 Docker 运行它）</p>
-<p>一旦您拥有包含新 AirSim 环境的 zip 文件（或者更喜欢使用 <a href="https://github.com/microsoft/AirSim/releases">官方版本</a> 中的文件），您需要修改存储库的 <code>azure</code> 目录中的某些脚本以指向新环境：
+<p>一旦您拥有包含新 AirSim 环境的 zip 文件（或者更喜欢使用 <a href="https://github.com/OpenHUTB/air/releases">官方版本</a> 中的文件），您需要修改存储库的 <code>azure</code> 目录中的某些脚本以指向新环境：
 - 在 <a href="https://github.com/microsoft/AirSim/blob/main/azure/azure-env-creation/configure-vm.ps1"><code>azure/azure-env-creation/configure-vm.ps1</code></a> 中，使用新值修改以 <code>$airSimBinary</code> 开头的所有参数
 - 在 <a href="https://github.com/microsoft/AirSim/blob/main/azure/start-airsim.ps1"><code>azure/start-airsim.ps1</code></a> 中，使用新值修改 <code>$airSimExecutable</code> 和 <code>$airSimProcessName</code></p>
 <p>如果你使用的是docker镜像，你还需要一个linux二进制zip文件，并修改以下Docker相关的文件：
