@@ -6,7 +6,7 @@
 
 **Windows, Linux**: 从 [最新版本](https://github.com/Microsoft/AirSim/releases) 中下载适合您所选择的环境的二进制文件。
 
-一些预编译的环境二进制文件可能包含多个文件（例如 City.zip.001 和 City.zip.002）。请确保在启动环境之前下载这 2 个文件。使用 [7zip](https://www.7-zip.org/download.html) 解压这些文件。在 Linux 上，将第一个 zip 文件名作为参数传递，它应该也会检测所有其他部分 - `7zz x TrapCamera.zip.001`
+一些预编译的二进制环境文件可能包含多个文件（例如 `City.zip.001` 和 `City.zip.002`）。请确保在启动环境之前下载这 2 个文件。使用 [7zip 软件](https://www.7-zip.org/download.html) （包含 7z 命令）解压这些文件。在 Linux 上，将第一个文件名`City.zip.001`作为参数传递给 7z 命令，它会检测所有其他对应的压缩文件，解压命令为：`7z x City.zip.001`。
 
 
 **macOS**:  你需要 [自己构建它](build_linux.md) 
