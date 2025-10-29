@@ -5,15 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>在 Windows 上构建 - 低空模拟器</title>
+    <title>Python API for AirSim - 低空模拟器</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "\u5728 Windows \u4e0a\u6784\u5efa";
-        var mkdocs_page_input_path = "build_windows.md";
+        var mkdocs_page_name = "Python API for AirSim";
+        var mkdocs_page_input_path = "api_docs/README.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -45,24 +45,10 @@
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">构建 AirSim</span></p>
-              <ul class="current">
+              <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../use_precompiled/">下载二进制文件</a>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">在 Windows 上构建</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#_1">安装虚幻引擎</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#airsim">构建 AirSim</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_2">构建虚幻引擎项目</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_3">设置遥控器（仅限多旋翼飞行器）</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#airsim_1">如何使用 AirSim</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_4">文档构建</a>
-    </li>
-    </ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_windows/">在 Windows 上构建</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../build_linux/">在 Linux 上构建</a>
                   </li>
@@ -85,7 +71,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../apis_cpp/">C++ APIs</a>
                   </li>
-                  <li class="toctree-l1"><a class="" href="../api_docs/html/index.html">API 参考文档</a>
+                  <li class="toctree-l1"><a class="" href="html/index.html">API 参考文档</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../wiki/">Wiki 文档</a>
                   </li>
@@ -284,8 +270,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-          <li class="breadcrumb-item">构建 AirSim</li>
-      <li class="breadcrumb-item active">在 Windows 上构建</li>
+      <li class="breadcrumb-item active">Python API for AirSim</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -294,82 +279,21 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="windows-airsim">在 Windows 上构建 AirSim<a class="headerlink" href="#windows-airsim" title="Permanent link">#</a></h1>
-<h2 id="_1">安装虚幻引擎<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
-<ol>
-<li><a href="https://www.unrealengine.com/download">下载</a> Epic Games 启动器。虽然虚幻引擎是开源的，可以免费下载，但仍然需要注册。 </li>
-<li>运行 Epic Games 启动器，在左侧窗格中打开 <code>Unreal Engine</code> 选项卡。点击右上角的<code>Install</code>按钮，此时会显示下载<strong>虚幻引擎 4.27 及以上版本的选项</strong>。选择适合您需求的安装位置，如下图所示。如果您安装了多个版本的虚幻引擎，请确<strong>保您使用的版本已设置为当前版本</strong>，方法是点击相应版本的“启动”按钮旁边的向下箭头。</li>
-</ol>
-<p><strong>注意</strong>: 如果您有 UE 4.16 或更早版本的项目，请参阅 <a href="../unreal_upgrade/">升级指南</a> 来升级您的项目。</p>
-<p><img alt="Unreal Engine Tab UI Screenshot" src="../images/ue_install.png" /></p>
-<p><img alt="Unreal Engine Install Location UI Screenshot" src="../images/ue_install_location.png" /></p>
-<h2 id="airsim">构建 AirSim<a class="headerlink" href="#airsim" title="Permanent link">#</a></h2>
-<ul>
-<li>安装 Visual Studio 2022。<strong>确保</strong>选择使用 <strong>C++ 和 Windows 10 SDK 10.0.19041 进行桌面开发</strong>（默认选择），并在安装 VS 2022 时在“单个组件”选项卡下选择最新的 .NET Framework SDK。 </li>
-<li>启动 <code>Developer Command Prompt for VS 2022</code>.</li>
-<li>克隆仓库：<code>git clone https://github.com/OpenHUTB/air.git</code> ，然后通过 <code>cd air</code> 进入 AirSim 目录。</li>
-</ul>
-<div class="admonition 注意">
-<p class="admonition-title">注意</p>
-<p>通常不建议将 AirSim 安装在 C 盘。这会导致脚本运行失败，并且需要以管理员模式运行 VS。建议将其克隆到其他盘，例如 D 盘或 E 盘。 </p>
-</div>
-<ul>
-<li>从命令行运行 <code>build.cmd</code> 。这将在 <code>Unreal\Plugins</code> 文件夹中创建可立即使用的插件，可将其放入任何虚幻引擎项目中。</li>
-</ul>
-<div class="admonition 笔记">
-<p class="admonition-title">笔记</p>
-<p>构建过程中会弹出<code>Select Unreal Engine Version</code>，选择 hutb 所对应的虚幻引擎，会为<code>AirSim\Unreal\Environments\Blocks.uproject</code>生成<code>Blocks.sln</code>文件，然后直接跳到下面的“如何使用 AirSim”。</p>
-</div>
-<h2 id="_2">构建虚幻引擎项目<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
-<p>最后，您需要一个虚幻引擎项目来托管您的车辆环境。如果您尚未关闭虚幻引擎和 Epic Games 启动器，请务必在构建您的第一个环境之前将其关闭并重新打开。重新启动 Epic Games 启动器后，它会要求您将项目文件扩展名与虚幻引擎关联，点击“立即修复”即可修复。AirSim 自带内置的“Blocks 环境”，您可以使用它，也可以创建自己的环境。请参阅 <a href="../unreal_proj/">设置虚幻环境</a> 。</p>
-<h2 id="_3">设置遥控器（仅限多旋翼飞行器）<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
-<p>如需手动飞行，则需要遥控器。更多详情，请参阅 <a href="../remote_control/">遥控器设置</a> 。</p>
-<p>或者，您可以使用 <a href="../apis/">APIs</a> 进行编程控制，或者使用所谓的 <a href="../image_apis/">计算机视觉模式</a> 通过键盘移动。</p>
-<h2 id="airsim_1">如何使用 AirSim<a class="headerlink" href="#airsim_1" title="Permanent link">#</a></h2>
-<p>按照上述步骤设置 AirSim 后，您可以</p>
-<ol>
-<li>
-<p>双击 <code>Unreal\Environments\Blocks.sln</code> 文件以加载 Blocks 项目（或您 <a href="../unreal_custenv/">自定义</a> 的 Unreal 项目中的 .sln 文件）。如果您没有看到 .sln 文件，则可能是您尚未完成上面“构建虚幻引擎项目”部分中的步骤。 </p>
-<p><strong>注意</strong>: Unreal 4.27 将自动生成针对 Visual Studio 2019 的 .sln 文件。Visual Studio 2022 将能够加载和运行此 .sln，但如果您想要完全支持 Visual Studio 2022，则需要通过转到“编辑-&gt;编辑器首选项-&gt;源代码”并为“源代码编辑器”设置选择“Visual Studio 2022”来明确启用支持。</p>
-</li>
-<li>
-<p>选择您的虚幻项目作为启动项目（例如，<code>Blocks</code> 项目，右键<code>解决方案资源管理器</code>中的<code>Block</code>，选择<code>设为启动项目</code>）并确保构建配置设置为<code>Development Editor</code>和 <code>Win64</code>。</p>
-</li>
-</ol>
-<p>如果报错<code>1&gt;LINK : fatal error LNK1104: 无法打开文件“D:\work\workspace\UnrealEngine\Engine\Binaries\Win64\UE4Editor-Voice.dll”</code>，则检查解决方案中有没有合适的UE4。</p>
-<p>原因：运行<code>GenerateProjectFiles.bat</code>中的<code>powershell -command "&amp; { (Get-ItemProperty 'Registry::HKEY_CLASSES_ROOT\Unreal.ProjectFile\shell\rungenproj' -Name 'Icon' ).'Icon' }</code>，显示的<code>C:\Program Files (x86)\Epic Games\Launcher\Engine\Binaries\Win64\UnrealVersionSelector.exe</code>不是hutb所使用的虚幻引擎。</p>
-<ol>
-<li>虚幻编辑器加载后，按<code>运行(Play)</code>按钮。</li>
-</ol>
-<div class="admonition 提示">
-<p class="admonition-title">提示</p>
-<p>转到“编辑-&gt;编辑器偏好设置”，在“搜索”框中输入“CPU”，并确保未选中“在后台时使用较少的 CPU”(Use Less CPU when in Background)。</p>
-</div>
-<p>请参阅 <a href="../apis/">使用 API</a>  和 <a href="../settings/">settings.json</a>  了解各种可用选项。</p>
-<h2 id="_4">文档构建<a class="headerlink" href="#_4" title="Permanent link">#</a></h2>
-<p>安装依赖：
-<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>sphinx-rtd-theme
-pip<span class="w"> </span>install<span class="w"> </span>msgpack-rpc-python
-pip<span class="w"> </span>install<span class="w"> </span>numpy
-pip<span class="w"> </span>install<span class="w"> </span>airsim
-</code></pre></div>
-构建：
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>air_doc/docs/api_docs
-make.bat<span class="w"> </span>html
+                <h1 id="python-api-for-airsim">Python API for AirSim<a class="headerlink" href="#python-api-for-airsim" title="Permanent link">#</a></h1>
+<p>This package contains Python APIs for <a href="https://github.com/microsoft/airsim">AirSim</a>.</p>
+<h2 id="how-to-use">How to Use<a class="headerlink" href="#how-to-use" title="Permanent link">#</a></h2>
+<p>See examples at <a href="https://github.com/Microsoft/AirSim/blob/main/PythonClient/car/hello_car.py">car/hello_car.py</a> or <a href="https://github.com/microsoft/AirSim/blob/main/PythonClient/multirotor/hello_drone.py">multirotor/hello_drone.py</a>.</p>
+<h2 id="dependencies">Dependencies<a class="headerlink" href="#dependencies" title="Permanent link">#</a></h2>
+<p>This package depends on <code>msgpack</code> and would automatically install <code>msgpack-rpc-python</code> (this may need administrator/sudo prompt):
+<div class="highlight"><pre><span></span><code>pip install msgpack-rpc-python
 </code></pre></div></p>
-<div class="admonition 注意">
-<p class="admonition-title">注意</p>
-<p>python 3.7 和 3.9 安装 airsim 包时会报错：<code>ModuleNotFoundError: No module named 'numpy'</code>，</p>
-</div>
-<h1 id="unity-airsim">Unity 上的 AirSim (实验性)<a class="headerlink" href="#unity-airsim" title="Permanent link">#</a></h1>
-<p><a href="https://unity3d.com/">Unity</a> 是另一个优秀的游戏引擎平台，我们目前已将 <a href="Unity.md">AirSim 与 Unity</a>  集成，并进行了<strong>实验性</strong>测试。请注意，该集成工作仍在进行中，部分功能可能尚未完全实现。</p>
+<p>Some examples also requires opencv.</p>
+<h2 id="more-info">More Info<a class="headerlink" href="#more-info" title="Permanent link">#</a></h2>
+<p>More information on AirSim Python APIs can be found at:
+https://github.com/Microsoft/AirSim/blob/main/docs/python.md</p>
               
             </div>
           </div><footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../use_precompiled/" class="btn btn-neutral float-left" title="下载二进制文件"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../build_linux/" class="btn btn-neutral float-right" title="在 Linux 上构建">Next <span class="icon icon-circle-arrow-right"></span></a>
-    </div>
 
   <hr/>
 
@@ -391,10 +315,6 @@ make.bat<span class="w"> </span>html
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../use_precompiled/" style="color: #fcfcfc">&laquo; Previous</a></span>
-    
-    
-      <span><a href="../build_linux/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
