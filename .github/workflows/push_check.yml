@@ -25,6 +25,8 @@ jobs:
           pip install sphinx-rtd-theme
           pip install msgpack-rpc-python
           pip install numpy
+          cd docs/api_docs
+          ls
           pip install .
           make html
           echo current directory file: 
