@@ -23,8 +23,9 @@ jobs:
           ls
           cd docs/api_docs
           ls
-          sudo apt-get install python3-sphinx
-          pip install sphinx_rtd_theme
+          pip install sphinx-rtd-theme
+          pip install msgpack-rpc-python
+          pip install airsim
           make html
           echo current directory file: 
           ls
