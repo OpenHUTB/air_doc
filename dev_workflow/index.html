@@ -77,19 +77,19 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">开发工作流</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#development-environment">Development Environment</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">开发环境</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_2">操作系统</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_3">操作系统</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_3">硬件</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_4">硬件</a>
     </li>
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#airsim">更新和更改 AirSim 代码</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_4">概述</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_5">概述</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_5">步骤</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_6">步骤</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#take-away">Take Away</a>
     </li>
@@ -101,7 +101,7 @@
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#visual-studio">我在 Visual Studio 之外对代码进行了更改，但它不起作用。</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_6">我正在尝试在虚幻项目中添加新文件，但没有成功。</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_7">我正在尝试在虚幻项目中添加新文件，但没有成功。</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#unrealplugins-unreal">我复制了 Unreal\Plugins 文件夹，但在 Unreal 项目中没有任何反应。</a>
     </li>
@@ -318,16 +318,16 @@
               
                 <h1 id="_1">开发工作流程<a class="headerlink" href="#_1" title="Permanent link">#</a></h1>
 <p>以下是如何在使用 AirSim 时执行各种开发活动的指南。如果您是虚幻引擎项目的新手，并且想要为 AirSim 做出贡献或根据自己的定制需求创建自己的分支，这可能会节省您的一些时间。</p>
-<h2 id="development-environment">Development Environment<a class="headerlink" href="#development-environment" title="Permanent link">#</a></h2>
-<h3 id="_2">操作系统<a class="headerlink" href="#_2" title="Permanent link">#</a></h3>
+<h2 id="_2">开发环境<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
+<h3 id="_3">操作系统<a class="headerlink" href="#_3" title="Permanent link">#</a></h3>
 <p>我们强烈推荐使用 Windows 10 和 Visual Studio 2019 作为您的开发环境。遗憾的是，虚幻引擎对其他操作系统和 IDE 的支持并不成熟，如果您尝试变通方法并跳过繁琐的步骤，可能会面临严重的生产力损失。</p>
-<h3 id="_3">硬件<a class="headerlink" href="#_3" title="Permanent link">#</a></h3>
+<h3 id="_4">硬件<a class="headerlink" href="#_4" title="Permanent link">#</a></h3>
 <p>我们推荐使用 NVidia 1080 或 NVidia Titan 系列等 GPU，搭配性能强大的台式机，例如配备 64GB RAM、6 核及以上处理器、SSD 和 2-3 台显示器（最好是 4K 显示器）的台式机。我们发现 HP Z840 的性能足以满足我们的需求。高端笔记本电脑的开发体验通常不如性能强大的台式机，但在紧急情况下可能会派上用场。通常情况下，您需要配备独立 NVidia GPU（至少是 M2000 或更高版本）、64GB RAM、SSD 以及 4K 显示器的笔记本电脑。我们发现联想 P50 等型号的笔记本电脑能够很好地满足我们的需求。仅配备集成显卡的笔记本电脑可能无法满足我们的需求。</p>
 <h2 id="airsim">更新和更改 AirSim 代码<a class="headerlink" href="#airsim" title="Permanent link">#</a></h2>
-<h3 id="_4">概述<a class="headerlink" href="#_4" title="Permanent link">#</a></h3>
+<h3 id="_5">概述<a class="headerlink" href="#_5" title="Permanent link">#</a></h3>
 <p>AirSim 被设计为插件形式。这意味着它无法独立运行，需要将其放入 Unreal 项目中（我们称之为“环境”）。因此，构建和测试 AirSim 分为 2 个步骤：(1) 构建插件 (2) 在 Unreal 项目中部署插件并运行该项目。</p>
 <p>第一步是通过 AirSim 根目录下的 build.cmd 完成的。此命令将更新 <code>Unreal\Plugins</code> 文件夹中插件所需的所有内容。因此，要部署插件，您只需将 <code>Unreal\Plugins</code> 文件夹复制到 Unreal 项目文件夹中即可。接下来，您应该删除 Unreal 项目中的所有中间文件，然后为 Unreal 项目重新生成 .sln 文件。为此，我们在<code>Unreal\Environments\Blocks</code>文件夹中提供了两个方便的 .bat 文件：<code>clean.bat</code>和<code>GenerateProjectFiles.bat</code>。因此，只需从 Unreal 项目的根目录按顺序运行这两个 bat 文件即可。现在，您可以在 Visual Studio 中打开新的 .sln 文件并按 F5 运行它。</p>
-<h3 id="_5">步骤<a class="headerlink" href="#_5" title="Permanent link">#</a></h3>
+<h3 id="_6">步骤<a class="headerlink" href="#_6" title="Permanent link">#</a></h3>
 <p>以下是我们在 AirSim 中进行更改并测试的步骤。在 AirSim 代码中进行开发的最佳方式是使用 <a href="../unreal_blocks/">Blocks 项目</a>。这是一个轻量级项目，因此编译时间相对较快。通常的工作流程如下：</p>
 <div class="highlight"><pre><span></span><code>REM //Use x64 Native Tools Command Prompt for VS 2019
 REM //Navigate to AirSim repo folder
@@ -354,7 +354,7 @@ build.cmd
 <p>当你在 Visual Studio 中按下 F5 或 F6 开始构建时，虚幻构建系统会启动，并尝试查找是否有任何文件是脏的以及需要构建哪些文件。遗憾的是，它经常无法识别那些不是使用虚幻头文件和对象层次结构的代码的脏文件。所以，诀窍是将某个虚幻构建系统始终能识别的文件设置为脏文件。我最喜欢的文件是 AirSimGameMode.cpp。只需插入一行，删除它并保存文件即可。</p>
 <h4 id="visual-studio">我在 Visual Studio 之外对代码进行了更改，但它不起作用。<a class="headerlink" href="#visual-studio" title="Permanent link">#</a></h4>
 <p>别这么做！虚幻构建系统<em>假设</em>你正在使用 Visual Studio，并且它会执行一系列操作来与 Visual Studio 集成。如果你坚持使用其他编辑器，请查阅如何在虚幻项目中进行命令行构建，或者查看你的编辑器文档，了解如何将其与虚幻构建系统集成，或者运行 <code>clean.bat</code> + <code>GenerateProjectFiles.bat</code> 以确保 VS 解决方案同步。</p>
-<h4 id="_6">我正在尝试在虚幻项目中添加新文件，但没有成功。<a class="headerlink" href="#_6" title="Permanent link">#</a></h4>
+<h4 id="_7">我正在尝试在虚幻项目中添加新文件，但没有成功。<a class="headerlink" href="#_7" title="Permanent link">#</a></h4>
 <p>不会！虽然您确实在使用 Visual Studio 解决方案，但请记住，该解决方案实际上是由 Unreal Build 系统生成的。如果您想在项目中添加新文件，请先关闭 Visual Studio，在所需位置添加一个空文件，然后运行<code>GenerateProjectFiles.bat</code>，它将扫描项目中的所有文件，然后重新创建 .sln 文件。现在打开这个新的 .sln 文件，您就可以开始工作了。</p>
 <h4 id="unrealplugins-unreal">我复制了 Unreal\Plugins 文件夹，但在 Unreal 项目中没有任何反应。<a class="headerlink" href="#unrealplugins-unreal" title="Permanent link">#</a></h4>
 <p>首先确保项目的 .uproject 文件引用了该插件。然后确保已按照上文概述中所述运行 <code>clean.bat</code> 和 <code>GenerateProjectFiles.bat</code>。</p>
