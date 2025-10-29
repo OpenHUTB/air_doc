@@ -10,20 +10,13 @@ jobs:
     steps:
       - name: Checkout 
         uses: actions/checkout@v2
-      - name: Build
-        uses: OpenHUTB/actions-mkdocs@main
-        with:
-          mkdocs_version: 'latest' # option
-          #mkdocs_version: '1.1' # option
-          requirements: 'requirements.txt' # option
-          configfile: 'mkdocs.yml' # option
 
       - name: Build API doc
         run: |
           ls
           cd docs/api_docs
           ls
-          pip install backport.cached_property
+          pip install backport
           pip install sphinx-rtd-theme
           pip install msgpack-rpc-python
           pip install numpy
@@ -31,6 +24,14 @@ jobs:
           make html
           echo current directory file: 
           ls
+        
+      - name: Build
+        uses: OpenHUTB/actions-mkdocs@main
+        with:
+          mkdocs_version: 'latest' # option
+          #mkdocs_version: '1.1' # option
+          requirements: 'requirements.txt' # option
+          configfile: 'mkdocs.yml' # option
           
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
