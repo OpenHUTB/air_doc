@@ -17,6 +17,15 @@ jobs:
           #mkdocs_version: '1.1' # option
           requirements: 'requirements.txt' # option
           configfile: 'mkdocs.yml' # option
+
+      - name: Build API doc
+        run: |
+          ls
+          cd docs/api_docs
+          make html
+          echo current directory file: 
+          ls
+          
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
