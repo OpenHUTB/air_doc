@@ -66,6 +66,7 @@
 ```shell
 pip install sphinx-rtd-theme
 pip install msgpack-rpc-python
+pip install numpy
 pip install airsim
 ```
 构建：
@@ -73,6 +74,9 @@ pip install airsim
 cd air_doc/docs/api_docs
 make.bat html
 ```
+
+!!! 注意
+    python 3.7 和 3.9 安装 airsim 包时会报错：`ModuleNotFoundError: No module named 'numpy'`，
 
 
 
