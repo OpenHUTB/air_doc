@@ -22,6 +22,8 @@ jobs:
         run: |
           ls
           cd docs/api_docs
+          ls
+          sudo apt-get install python3-sphinx
           make html
           echo current directory file: 
           ls
