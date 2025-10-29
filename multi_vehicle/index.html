@@ -93,19 +93,19 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">多车辆</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#creating-multiple-vehicles">Creating Multiple Vehicles</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_1">创建多辆载具</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#creating-multiple-cars">Creating Multiple Cars</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_2">创建多辆车</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#creating-multiple-drones">Creating Multiple Drones</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_3">创建多个无人机</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#using-apis-for-multiple-vehicles">Using APIs for Multiple Vehicles</a>
+    <li class="toctree-l2"><a class="reference internal" href="#api">使用 API 管理多辆车</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#demo">Demo</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_4">演示</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#creating-vehicles-at-runtime-through-api">Creating vehicles at runtime through API</a>
+    <li class="toctree-l3"><a class="reference internal" href="#api_1">通过 API 在运行时创建载具</a>
     </li>
         </ul>
     </li>
@@ -298,11 +298,11 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="multiple-vehicles-in-airsim">Multiple Vehicles in AirSim<a class="headerlink" href="#multiple-vehicles-in-airsim" title="Permanent link">#</a></h1>
-<p>Since release 1.2, AirSim is fully enabled for multiple vehicles. This capability allows you to create multiple vehicles easily and use APIs to control them.</p>
-<h2 id="creating-multiple-vehicles">Creating Multiple Vehicles<a class="headerlink" href="#creating-multiple-vehicles" title="Permanent link">#</a></h2>
-<p>It's as easy as specifying them in <a href="../settings/">settings.json</a>. The <code>Vehicles</code> element allows you to specify list of vehicles you want to create along with their initial positions and orientations. The positions are specified in NED coordinates in SI units with origin set at Player Start component in Unreal environment. The orientation is specified as Yaw, Pitch and Roll in degrees.</p>
-<h3 id="creating-multiple-cars">Creating Multiple Cars<a class="headerlink" href="#creating-multiple-cars" title="Permanent link">#</a></h3>
+                <h1 id="airsim">AirSim 中的多辆载具<a class="headerlink" href="#airsim" title="Permanent link">#</a></h1>
+<p>自 1.2 版本起，AirSim 已全面支持多载具模式。此功能允许您轻松创建多架载具，并使用 API 来控制它们。</p>
+<h2 id="_1">创建多辆载具<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
+<p>只需在 <a href="../settings/">settings.json</a> 文件中指定即可。<code>Vehicles</code> 元素允许您指定要创建的车辆列表，以及它们的初始位置和方向。位置以 NED 坐标系指定，单位为 SI，原点位于虚幻引擎环境中的玩家起始组件。方向以偏航角 (Yaw)、俯仰角 (Pitch) 和横滚角 (Roll) 表示，单位为度。</p>
+<h3 id="_2">创建多辆车<a class="headerlink" href="#_2" title="Permanent link">#</a></h3>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;SettingsVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.2</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;SimMode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Car&quot;</span><span class="p">,</span>
@@ -320,7 +320,7 @@
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<h3 id="creating-multiple-drones">Creating Multiple Drones<a class="headerlink" href="#creating-multiple-drones" title="Permanent link">#</a></h3>
+<h3 id="_3">创建多个无人机<a class="headerlink" href="#_3" title="Permanent link">#</a></h3>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;SettingsVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.2</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;SimMode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Multirotor&quot;</span><span class="p">,</span>
@@ -339,31 +339,30 @@
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<h2 id="using-apis-for-multiple-vehicles">Using APIs for Multiple Vehicles<a class="headerlink" href="#using-apis-for-multiple-vehicles" title="Permanent link">#</a></h2>
-<p>The new APIs since AirSim 1.2 allows you to specify <code>vehicle_name</code>. This name corresponds to keys in json settings (for example, Car1 or Drone2 above).</p>
-<p><a href="https://github.com/microsoft/AirSim/blob/main/PythonClient/car/multi_agent_car.py">Example code for cars</a></p>
-<p><a href="https://github.com/microsoft/AirSim/blob/main/PythonClient/multirotor/multi_agent_drone.py">Example code for multirotors</a></p>
-<p>Using APIs for multi-vehicles requires specifying the <code>vehicle_name</code>, which needs to be hardcoded in the script or requires parsing of the settings file. There's also a simple API <code>listVehicles()</code> which returns a list (vector in C++) of strings containing names of the current vehicles. For example, with the above settings for 2 Cars -</p>
+<h2 id="api">使用 API 管理多辆车<a class="headerlink" href="#api" title="Permanent link">#</a></h2>
+<p>自 AirSim 1.2 版本起，新的 API 允许您指定 <code>vehicle_name</code>。此名称对应于 json 设置中的键（例如，上面的 Car1 或 Drone2）。</p>
+<p><a href="https://github.com/OpenHUTB/air/blob/main/PythonClient/multirotor/multi_agent_drone.py">多旋翼飞行器示例代码</a></p>
+<p><a href="https://github.com/OpenHUTB/air/blob/main/PythonClient/car/multi_agent_car.py">汽车示例代码</a></p>
+<p>使用 API 管理多辆车需要指定 <code>vehicle_name</code>，该名称必须硬编码到脚本中，或者需要解析设置文件。此外，还有一个简单的 API <code>listVehicles()</code>，它返回一个包含当前车辆名称的字符串列表（在 C++ 中为 vector）。例如，对于上述 2 辆车的设置 -</p>
 <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">client</span><span class="o">.</span><span class="n">listVehicles</span><span class="p">()</span>
 <span class="p">[</span><span class="s1">&#39;Car1&#39;</span><span class="p">,</span> <span class="s1">&#39;Car2&#39;</span><span class="p">]</span>
 </code></pre></div>
-<h3 id="demo">Demo<a class="headerlink" href="#demo" title="Permanent link">#</a></h3>
+<h3 id="_4">演示<a class="headerlink" href="#_4" title="Permanent link">#</a></h3>
 <p><a href="https://youtu.be/35dgcuLuF5M"><img alt="AirSimMultiple Vehicles Demo Video" src="../images/demo_multi_vehicles.png" /></a></p>
-<h3 id="creating-vehicles-at-runtime-through-api">Creating vehicles at runtime through API<a class="headerlink" href="#creating-vehicles-at-runtime-through-api" title="Permanent link">#</a></h3>
-<p>In the latest main branch of AirSim, the <code>simAddVehicle</code> API can be used to create vehicles at runtime. This is useful to create many such vehicles without needing to specify them in the settings. There are some limitations of this currently, described below -</p>
-<p><code>simAddVehicle</code> takes in the following arguments:</p>
+<h3 id="api_1">通过 API 在运行时创建载具<a class="headerlink" href="#api_1" title="Permanent link">#</a></h3>
+<p>在 AirSim 的最新主分支中，可以使用 <code>simAddVehicle</code> API 在运行时创建载具。这便于创建大量载具，而无需在设置中指定它们。目前此功能存在一些限制，如下所述 -</p>
+<p><code>simAddVehicle</code> 函数接受以下参数：</p>
 <ul>
-<li><code>vehicle_name</code>: Name of the vehicle to be created, this should be unique for each vehicle including any exisiting ones defined in the settings.json</li>
-<li><code>vehicle_type</code>: Type of vehicle, e.g. "simpleflight". Currently only SimpleFlight, PhysXCar, ComputerVision are supported, in their respective SimModes.
-                  Other vehicle types including PX4 and ArduPilot-related aren't supported</li>
-<li><code>pose</code>: Initial pose of the vehicle</li>
-<li><code>pawn_path</code>: Vehicle blueprint path, default empty wbich uses the default blueprint for the vehicle type</li>
+<li><code>vehicle_name</code>: 要创建的载具名称，此名称对于每载具（包括在 settings.json 中定义的任何现有车辆）都应该是唯一的。 </li>
+<li><code>vehicle_type</code>: 载具类型，例如“simpleflight”。目前仅支持 SimpleFlight、PhysXCar 和 ComputerVision，且仅在其各自的模拟模式下支持。其他载具类型，包括 PX4 和 ArduPilot 相关类型，均不受支持。 </li>
+<li><code>pose</code>: 载具初始姿态</li>
+<li><code>pawn_path</code>: 载具蓝图路径，默认为空，它使用载具类型的默认蓝图  Vehicle blueprint path, default empty wbich uses the default blueprint for the vehicle type</li>
 </ul>
-<p>Returns: <code>bool</code> Whether vehicle was created</p>
-<p>The usual APIs can be used to control and interact with the vehicle once created, with the <code>vehicle_name</code> parameter. Specifying other settings such as additional cameras, etc. isn't possible currently, a future enhancement could be passing JSON string of settings for the vehicle. It also works with the <code>listVehicles()</code> API described above, so the vehicles spawned would be included in the list.</p>
-<p>For some examples, check out <a href="https://github.com/microsoft/AirSim/blob/main/HelloSpawnedDrones/HelloSpawnedDrones.cpp">HelloSpawnedDrones.cpp</a> -</p>
+<p>返回：<code>bool</code> 载具是否已创建</p>
+<p>创建载具后，可以使用常规 API 通过 <code>vehicle_name</code> 参数来控制载具并与之交互。目前尚无法指定其他设置，例如额外的摄像头等，未来可能会增加传递载具设置的 JSON 字符串的功能。此外，它还支持上述的 <code>listVehicles()</code> API，因此生成的载具将被添加到列表中。</p>
+<p>例如，请查看 <a href="https://github.com/OpenHUTB/air/blob/main/HelloSpawnedDrones/HelloSpawnedDrones.cpp">HelloSpawnedDrones.cpp</a> -</p>
 <p><img alt="HelloSpawnedDrones" src="../images/HelloSpawnedDrones.gif" /></p>
-<p>And <a href="https://github.com/microsoft/AirSim/tree/main/PythonClient/car/runtime_car.py">runtime_car.py</a> -</p>
+<p>以及 <a href="https://github.com/OpenHUTB/air/tree/main/PythonClient/car/runtime_car.py">runtime_car.py</a> -</p>
 <p><img alt="runtime_car" src="../images/simAddVehicle_Car.gif" /></p>
               
             </div>

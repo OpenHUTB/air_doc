@@ -83,13 +83,13 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">相机视角</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#turning-onoff-views">Turning ON/OFF Views</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">开启/关闭视图</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#controlling-manual-camera">Controlling Manual Camera</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">手动相机控制</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#configuring-sub-windows">Configuring Sub-Windows</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_4">配置子窗口</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#performance-impact">Performance Impact</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_5">性能影响</a>
     </li>
     </ul>
                   </li>
@@ -291,22 +291,45 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="_1">相机视角<a class="headerlink" href="#_1" title="Permanent link">#</a></h1>
-<p>The camera views that are shown on screen are the camera views you can fetch via the <a href="../image_apis/">simGetImages API</a>.</p>
+<p>屏幕上显示的相机视图是您可以通过 <a href="../image_apis/">simGetImages API</a> 获取的相机视图。</p>
 <p><img alt="Cameras" src="../images/cameras.png" /></p>
-<p>From left to right is the depth view, segmentation view and the FPV view. See <a href="../image_apis/">Image APIs</a> for description of various available views.</p>
-<h2 id="turning-onoff-views">Turning ON/OFF Views<a class="headerlink" href="#turning-onoff-views" title="Permanent link">#</a></h2>
-<p>Press F1 key to see keyboard shortcuts for turning on/off any or all views. You can also select various view modes there, such as "Fly with Me" mode, FPV mode and "Ground View" mode.</p>
-<h2 id="controlling-manual-camera">Controlling Manual Camera<a class="headerlink" href="#controlling-manual-camera" title="Permanent link">#</a></h2>
-<p>You can switch to manual camera control by pressing the M key. While manual camera control mode is selected, you can use the following keys to control the camera:
-|Key|Action|
----|---
-|Arrow keys|move the camera forward/back and left/right|
-|Page up/down|move the camera up/down|
-|W/A/S/D|control pitch up/down and yaw left/right|
-|Left shift|increase movement speed|
-|Left control|decrease movement speed|</p>
-<h2 id="configuring-sub-windows">Configuring Sub-Windows<a class="headerlink" href="#configuring-sub-windows" title="Permanent link">#</a></h2>
-<p>Now you can select what is shown by each of above sub windows. For instance, you can chose to show surface normals in first window (instead of depth) and disparity in second window (instead of segmentation). Below is the settings value you can use in <a href="../settings/">settings.json</a>:</p>
+<p>从左到右依次为深度视图、分割视图和FPV视图。有关各种可用视图的说明，请参阅 <a href="../image_apis/">图像 API</a> 。</p>
+<h2 id="_2">开启/关闭视图<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
+<p>按下 F1 键可查看用于开启/关闭任意或所有视图的快捷键。您还可以在此处选择各种视图模式，例如“与我一起飞行(Fly with Me)”模式、第一人称主视角(First Person View, FPV)模式和“地面视角(Ground View)”模式。</p>
+<h2 id="_3">手动相机控制<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
+<p>按下 M 键即可切换到手动相机控制模式。在手动相机控制模式下，您可以使用以下按键控制相机：</p>
+<table>
+<thead>
+<tr>
+<th>键盘</th>
+<th>动作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Arrow keys</td>
+<td>前后左右移动相机</td>
+</tr>
+<tr>
+<td>Page up/down</td>
+<td>上下移动相机</td>
+</tr>
+<tr>
+<td>W/A/S/D</td>
+<td>控制俯仰角上下移动和偏航角左右移动</td>
+</tr>
+<tr>
+<td>Left shift</td>
+<td>提高移动速度</td>
+</tr>
+<tr>
+<td>Left control</td>
+<td>降低移动速度</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_4">配置子窗口<a class="headerlink" href="#_4" title="Permanent link">#</a></h2>
+<p>现在您可以选择上述每个子窗口显示的内容。例如，您可以选择在第一个窗口中显示表面法线（而不是深度信息），在第二个窗口中显示视差（而不是分割信息）。以下是您可以在 <a href="../settings/">settings.json</a> 文件中使用的设置值：</p>
 <div class="highlight"><pre><span></span><code>{
   &quot;SubWindows&quot;: [
     {&quot;WindowID&quot;: 1, &quot;CameraName&quot;: &quot;0&quot;, &quot;ImageType&quot;: 5, &quot;VehicleName&quot;: &quot;&quot;, &quot;Visible&quot;: false},
@@ -314,18 +337,14 @@
   ]
 }
 </code></pre></div>
-<h2 id="performance-impact">Performance Impact<a class="headerlink" href="#performance-impact" title="Permanent link">#</a></h2>
-<p><em>Note</em>: This section is outdated and has not been updated for new performance enhancement changes.</p>
-<p>Now rendering these views does impact the FPS performance of the game, since this is additional work for the GPU.  The following shows the impact on FPS when you open these views.</p>
+<h2 id="_5">性能影响<a class="headerlink" href="#_5" title="Permanent link">#</a></h2>
+<p><em>注意</em>：本部分内容已过时，尚未更新以反映新的性能提升变化。</p>
+<p>渲染这些视图确实会影响游戏的帧率，因为这会增加 GPU 的负担。以下显示了打开这些视图时对帧率的影响。</p>
 <p><img alt="fps" src="../images/fps_views.png" /></p>
-<p>This is measured on Intel core i7 computer with 32 gb RAM and a GeForce GTX 1080
-graphics card running the Modular Neighborhood map, using cooked debug bits, no debugger or GameEditor open.  The normal state with no subviews open is measuring around 16 ms per frame, which means it is keeping a nice steady 60 FPS (which is the target FPS).  As it climbs up to 35ms the FPS drops to around 28 frames per second, spiking to 40ms means a few drops to 25 fps.</p>
-<p>The simulator can still function and fly correctly when all this is going on even in the worse case because the physics is decoupled from the rendering.  However if the delay gets too high such that the communication with PX4 hardware is interrupted due to overly busy CPU then the flight can stall due to timeout in the offboard control messages.</p>
-<p>On the computer where this was measured the drone could fly the path.py program
-without any problems with all views open, and with 3 python scripts running 
-to capture each view type.  But there was one stall during this flight, but it
-recovered gracefully and completed the path.  So it was right on the limit.</p>
-<p>The following shows the impact on CPU, perhaps a bit surprisingly, the CPU impact is also non trivial.</p>
+<p>这是在一台配备 Intel Core i7 处理器、32GB 内存和 GeForce GTX 1080 显卡的计算机上测试的，运行的是 Modular Neighborhood 地图，使用了预设的调试信息，没有打开任何调试器或游戏编辑器。在未打开任何子视图的正常状态下，帧延迟约为 16 毫秒/帧，这意味着它可以稳定地保持 60 FPS（目标帧率）。当帧延迟上升到 35 毫秒时，帧率下降到 28 帧/秒左右；当帧延迟飙升到 40 毫秒时，帧率会略微下降到 25 帧/秒。</p>
+<p>即使在最糟糕的情况下，模拟器仍然可以正常运行并正常飞行，因为物理引擎与渲染是解耦的。但是，如果延迟过高，导致CPU过载而中断与PX4硬件的通信，则飞行可能会因外部控制信息超时而停止。</p>
+<p>在进行测量的计算机上，无人机可以毫无问题地执行 path.py 程序，所有视图都打开，并且同时运行 3 个 Python 脚本来捕获每种视图类型。飞行过程中出现了一次失速，但它平稳地恢复并完成了飞行路径。因此，它的性能刚好接近极限。</p>
+<p>下面显示了对 CPU 的影响，或许有点出乎意料，CPU 的影响也不小。</p>
 <p><img alt="fps" src="../images/cpu_views.png" /></p>
               
             </div>
