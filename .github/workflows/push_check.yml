@@ -20,6 +20,7 @@ jobs:
           pip install sphinx-rtd-theme
           pip install msgpack-rpc-python
           pip install numpy
+          python --version
           pip install hutb
           make html
           echo current directory file: 
