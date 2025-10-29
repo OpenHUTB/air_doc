@@ -60,6 +60,8 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#airsim_1">如何使用 AirSim</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_4">文档构建</a>
+    </li>
     </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../build_linux/">在 Linux 上构建</a>
@@ -344,6 +346,16 @@
 <p>转到“编辑-&gt;编辑器偏好设置”，在“搜索”框中输入“CPU”，并确保未选中“在后台时使用较少的 CPU”(Use Less CPU when in Background)。</p>
 </div>
 <p>请参阅 <a href="../apis/">使用 API</a>  和 <a href="../settings/">settings.json</a>  了解各种可用选项。</p>
+<h2 id="_4">文档构建<a class="headerlink" href="#_4" title="Permanent link">#</a></h2>
+<p>安装依赖：
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>sphinx-rtd-theme
+pip<span class="w"> </span>install<span class="w"> </span>msgpack-rpc-python
+pip<span class="w"> </span>install<span class="w"> </span>airsim
+</code></pre></div>
+构建：
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>air_doc/docs/api_docs
+make.bat<span class="w"> </span>html
+</code></pre></div></p>
 <h1 id="unity-airsim">Unity 上的 AirSim (实验性)<a class="headerlink" href="#unity-airsim" title="Permanent link">#</a></h1>
 <p><a href="https://unity3d.com/">Unity</a> 是另一个优秀的游戏引擎平台，我们目前已将 <a href="Unity.md">AirSim 与 Unity</a>  集成，并进行了<strong>实验性</strong>测试。请注意，该集成工作仍在进行中，部分功能可能尚未完全实现。</p>
               
