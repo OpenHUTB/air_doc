@@ -17,6 +17,7 @@ jobs:
 
       - name: Build API doc
         run: |
+          python --version
           ls
           cd docs/api_docs
           ls
@@ -24,8 +25,7 @@ jobs:
           pip install sphinx-rtd-theme
           pip install msgpack-rpc-python
           pip install numpy
-          python --version
-          pip install airsim
+          pip install "airsim (==1.8.1)"
           make html
           echo current directory file: 
           ls
