@@ -23,6 +23,7 @@ jobs:
           ls
           cd docs/api_docs
           ls
+          pip install backport.cached_property
           pip install sphinx-rtd-theme
           pip install msgpack-rpc-python
           pip install numpy
