@@ -30,6 +30,7 @@ jobs:
           make html
           echo current directory file: 
           ls
+          cp -r _build/html ../../site
         
       - name: Build
         uses: OpenHUTB/actions-mkdocs@main
