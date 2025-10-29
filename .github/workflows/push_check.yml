@@ -25,6 +25,7 @@ jobs:
           ls
           pip install sphinx-rtd-theme
           pip install msgpack-rpc-python
+          pip install numpy
           pip install airsim
           make html
           echo current directory file: 
