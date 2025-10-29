@@ -99,19 +99,19 @@
                 </li>
                 <li class="toctree-l2 current"><a class="reference internal current" href="#">激光雷达</a>
     <ul class="current">
-    <li class="toctree-l3"><a class="reference internal" href="#enabling-lidar-on-a-vehicle">Enabling lidar on a vehicle</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_1">在载具上启用激光雷达</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#lidar-configuration">Lidar configuration</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_2">激光雷达配置</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#server-side-visualization-for-debugging">Server side visualization for debugging</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_3">服务器端可视化调试</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#client-api">Client API</a>
+    <li class="toctree-l3"><a class="reference internal" href="#api">客户端 API</a>
         <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#python-examples">Python Examples</a>
+    <li class="toctree-l4"><a class="reference internal" href="#python">Python 例子</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#coming-soon">Coming soon</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_4">即将推出</a>
     </li>
     </ul>
                 </li>
@@ -297,13 +297,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="how-to-use-lidar-in-airsim">How to Use Lidar in AirSim<a class="headerlink" href="#how-to-use-lidar-in-airsim" title="Permanent link">#</a></h1>
-<p>AirSim supports Lidar for multirotors and cars.</p>
-<p>The enablement of lidar and the other lidar settings can be configured via AirSimSettings json.
-Please see <a href="../sensors/">general sensors</a> for information on configruation of general/shared sensor settings.</p>
-<h2 id="enabling-lidar-on-a-vehicle">Enabling lidar on a vehicle<a class="headerlink" href="#enabling-lidar-on-a-vehicle" title="Permanent link">#</a></h2>
+                <h1 id="airsim">如何在 AirSim 中使用激光雷达<a class="headerlink" href="#airsim" title="Permanent link">#</a></h1>
+<p>AirSim支持多旋翼飞行器和汽车的激光雷达。</p>
+<p>激光雷达的启用及其他激光雷达设置可通过 AirSimSettings.json 文件进行配置。有关通用/共享传感器设置的配置信息，请参阅 <a href="../sensors/">通用传感器</a> 部分。</p>
+<h2 id="_1">在载具上启用激光雷达<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
 <ul>
-<li>By default, lidars are not enabled. To enable lidar, set the SensorType and Enabled attributes in settings json.</li>
+<li>默认情况下，激光雷达未启用。要启用激光雷达，请在设置 JSON 文件中设置 SensorType 和 Enabled 属性。 </li>
 </ul>
 <div class="highlight"><pre><span></span><code><span class="w">    </span><span class="nt">&quot;Lidar1&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">         </span><span class="nt">&quot;SensorType&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span>
@@ -311,69 +310,69 @@ Please see <a href="../sensors/">general sensors</a> for information on configru
 <span class="w">    </span><span class="p">}</span>
 </code></pre></div>
 <ul>
-<li>Multiple lidars can be enabled on a vehicle.</li>
+<li>一辆载具上可以安装多个激光雷达。</li>
 </ul>
-<h2 id="lidar-configuration">Lidar configuration<a class="headerlink" href="#lidar-configuration" title="Permanent link">#</a></h2>
-<p>The following parameters can be configured right now via settings json.</p>
+<h2 id="_2">激光雷达配置<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
+<p>以下参数现在可以通过 settings.json 文件进行配置。</p>
 <table>
 <thead>
 <tr>
-<th>Parameter</th>
-<th>Description</th>
+<th>参数</th>
+<th>描述</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>NumberOfChannels</td>
-<td>Number of channels/lasers of the lidar</td>
+<td>激光雷达的通道/激光器数量</td>
 </tr>
 <tr>
 <td>Range</td>
-<td>Range, in meters</td>
+<td>范围，单位为米</td>
 </tr>
 <tr>
 <td>PointsPerSecond</td>
-<td>Number of points captured per second</td>
+<td>每秒捕获的点数</td>
 </tr>
 <tr>
 <td>RotationsPerSecond</td>
-<td>Rotations per second</td>
+<td>每秒旋转次数</td>
 </tr>
 <tr>
 <td>HorizontalFOVStart</td>
-<td>Horizontal FOV start for the lidar, in degrees</td>
+<td>激光雷达水平视场角起始值（以度为单位）</td>
 </tr>
 <tr>
 <td>HorizontalFOVEnd</td>
-<td>Horizontal FOV end for the lidar, in degrees</td>
+<td>激光雷达水平视场角（FOV）末端，单位为度</td>
 </tr>
 <tr>
 <td>VerticalFOVUpper</td>
-<td>Vertical FOV upper limit for the lidar, in degrees</td>
+<td>激光雷达垂直视场角上限（以度为单位）</td>
 </tr>
 <tr>
 <td>VerticalFOVLower</td>
-<td>Vertical FOV lower limit for the lidar, in degrees</td>
+<td>激光雷达垂直视场角下限（以度为单位）</td>
 </tr>
 <tr>
 <td>X Y Z</td>
-<td>Position of the lidar relative to the vehicle (in NED, in meters)</td>
+<td>激光雷达相对于载具的位置（NED，单位：米）</td>
 </tr>
 <tr>
 <td>Roll Pitch Yaw</td>
-<td>Orientation of the lidar relative to the vehicle  (in degrees, yaw-pitch-roll order to front vector +X)</td>
+<td>激光雷达相对于载具的方位（以度为单位，偏航-俯仰-横滚顺序，以前方矢量 +X 为参考）</td>
 </tr>
 <tr>
 <td>DataFrame</td>
-<td>Frame for the points in output ("VehicleInertialFrame" or "SensorLocalFrame")</td>
+<td>输出点的坐标系（“车辆惯性坐标系(VehicleInertialFrame)”或“传感器本地坐标系(SensorLocalFrame)”）</td>
 </tr>
 <tr>
 <td>ExternalController</td>
-<td>Whether data is to be sent to external controller such as ArduPilot or PX4 if being used (default <code>true</code>) (PX4 doesn't send Lidar data currently)</td>
+<td>是否将数据发送到外部控制器（例如 ArduPilot 或 PX4，如果使用）（默认为 <code>true</code>）（PX4 目前不发送激光雷达数据）</td>
 </tr>
 </tbody>
 </table>
-<p>e.g.</p>
+<p>例如</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;SeeDocsAt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://microsoft.github.io/AirSim/settings/&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;SettingsVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.2</span><span class="p">,</span>
@@ -418,44 +417,44 @@ Please see <a href="../sensors/">general sensors</a> for information on configru
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<h2 id="server-side-visualization-for-debugging">Server side visualization for debugging<a class="headerlink" href="#server-side-visualization-for-debugging" title="Permanent link">#</a></h2>
-<p>By default, the lidar points are not drawn on the viewport. To enable the drawing of hit laser points on the viewport, please enable setting <code>DrawDebugPoints</code> via settings json.</p>
+<h2 id="_3">服务器端可视化调试<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
+<p>默认情况下，激光雷达点不会绘制在视口中。要启用在视口中绘制激光命中点，请通过 settings.json 文件启用 <code>DrawDebugPoints</code> 设置。</p>
 <div class="highlight"><pre><span></span><code><span class="w">    </span><span class="nt">&quot;Lidar1&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">         </span><span class="err">...</span>
 <span class="w">         </span><span class="nt">&quot;DrawDebugPoints&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
 <span class="w">    </span><span class="p">},</span>
 </code></pre></div>
-<p><strong>Note:</strong> Enabling <code>DrawDebugPoints</code> can cause excessive memory usage and crash in releases <code>v1.3.1</code>, <code>v1.3.0</code>. This has been fixed in the main branch and should work in later releases</p>
-<h2 id="client-api">Client API<a class="headerlink" href="#client-api" title="Permanent link">#</a></h2>
-<p>Use <code>getLidarData()</code> API to retrieve the Lidar data.</p>
+<p><strong>注意：</strong> 启用 <code>DrawDebugPoints</code> 可能会导致 <code>v1.3.1</code> 和 <code>v1.3.0</code> 版本中内存占用过高并导致程序崩溃。此问题已在主分支中修复，应该会在后续版本中得到解决。</p>
+<h2 id="api">客户端 API<a class="headerlink" href="#api" title="Permanent link">#</a></h2>
+<p>使用 <code>getLidarData()</code> API 获取激光雷达数据。</p>
 <ul>
-<li>The API returns a Point-Cloud as a flat array of floats along with the timestamp of the capture and lidar pose.</li>
+<li>API 返回一个点云，它是浮点数的扁平数组，同时还包含捕获时间戳和激光雷达姿态。</li>
 <li>Point-Cloud:<ul>
-<li>The floats represent [x,y,z] coordinate for each point hit within the range in the last scan.</li>
-<li>The frame for the points in the output is configurable using "DataFrame" attribute -<ul>
-<li>"" or <code>VehicleInertialFrame</code> -- default; returned points are in vehicle inertial frame (in NED, in meters)</li>
-<li><code>SensorLocalFrame</code> -- returned points are in lidar local frame (in NED, in meters)</li>
+<li>浮点数表示上次扫描中该范围内每个命中点的 [x,y,z] 坐标。</li>
+<li>输出数据点的框架可以通过“DataFrame”属性进行配置 -<ul>
+<li>"" 或 <code>VehicleInertialFrame</code> -- 默认; 返回的点位于载具惯性坐标系中（NED 格式，单位为米）。</li>
+<li><code>SensorLocalFrame</code> -- 返回的点坐标系为激光雷达局部坐标系（NED格式，单位为米）。</li>
 </ul>
 </li>
 </ul>
 </li>
 <li>Lidar Pose:<ul>
-<li>Lidar pose in the vehicle inertial frame (in NED, in meters)</li>
-<li>Can be used to transform points to other frames.</li>
+<li>载具惯性系中的激光雷达姿态（单位：米，单位：NED）</li>
+<li>可用于将点转换到其他坐标系。</li>
 </ul>
 </li>
-<li>Segmentation: The segmentation of each lidar point's collided object</li>
+<li>Segmentation: 对每个激光雷达点碰撞对象进行分割 </li>
 </ul>
-<h3 id="python-examples">Python Examples<a class="headerlink" href="#python-examples" title="Permanent link">#</a></h3>
+<h3 id="python">Python 例子<a class="headerlink" href="#python" title="Permanent link">#</a></h3>
 <ul>
-<li><a href="https://github.com/microsoft/AirSim/blob/main/PythonClient/multirotor/drone_lidar.py">drone_lidar.py</a></li>
-<li><a href="https://github.com/microsoft/AirSim/blob/main/PythonClient/car/car_lidar.py">car_lidar.py</a></li>
-<li><a href="https://github.com/microsoft/AirSim/blob/main/PythonClient/multirotor/sensorframe_lidar_pointcloud.py">sensorframe_lidar_pointcloud.py</a></li>
-<li><a href="https://github.com/microsoft/AirSim/blob/main/PythonClient/multirotor/vehicleframe_lidar_pointcloud.py">vehicleframe_lidar_pointcloud.py</a></li>
+<li><a href="https://github.com/OpenHUTB/air/blob/main/PythonClient/multirotor/drone_lidar.py">drone_lidar.py</a></li>
+<li><a href="https://github.com/OpenHUTB/air/blob/main/PythonClient/car/car_lidar.py">car_lidar.py</a></li>
+<li><a href="https://github.com/OpenHUTB/air/blob/main/PythonClient/multirotor/sensorframe_lidar_pointcloud.py">sensorframe_lidar_pointcloud.py</a></li>
+<li><a href="https://github.com/OpenHUTB/air/blob/main/PythonClient/multirotor/vehicleframe_lidar_pointcloud.py">vehicleframe_lidar_pointcloud.py</a></li>
 </ul>
-<h2 id="coming-soon">Coming soon<a class="headerlink" href="#coming-soon" title="Permanent link">#</a></h2>
+<h2 id="_4">即将推出<a class="headerlink" href="#_4" title="Permanent link">#</a></h2>
 <ul>
-<li>Visualization of lidar data on client side.</li>
+<li>在客户端可视化激光雷达数据。</li>
 </ul>
               
             </div>
