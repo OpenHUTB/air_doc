@@ -149,15 +149,15 @@
         <ul>
     <li class="toctree-l4"><a class="reference internal" href="#wsl1-vs-wsl2">WSL1 vs WSL2</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#wsl-setup-steps">WSL Setup steps</a>
+    <li class="toctree-l4"><a class="reference internal" href="#wsl">WSL 设置步骤</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#file-system-access-between-wsl-and-windows10">File System Access between WSL and Windows10</a>
+    <li class="toctree-l4"><a class="reference internal" href="#wsl-windows-10">WSL 和 Windows 10 之间的文件系统访问</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#how-to-run-airsim-on-windows-and-ros-wrapper-on-wsl">How to run Airsim on Windows and ROS wrapper on WSL</a>
+    <li class="toctree-l4"><a class="reference internal" href="#windows-airsim-wsl-ros">如何在 Windows 上运行 Airsim 以及在 WSL 上运行 ROS 封装程序</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#using-docker-for-ros">Using Docker for ROS</a>
+    <li class="toctree-l3"><a class="reference internal" href="#docker-ros">使用 Docker 运行 ROS</a>
     </li>
         </ul>
     </li>
@@ -416,15 +416,15 @@ roslaunch<span class="w"> </span>airsim_ros_pkgs<span class="w"> </span>rviz.lau
 <ul>
 <li>
 <p><code>/airsim_node/origin_geo_point</code> <a href="https://github.com/microsoft/AirSim/tree/main/ros/src/airsim_ros_pkgs/msg/GPSYaw.msg">airsim_ros_pkgs/GPSYaw</a>
-GPS coordinates corresponding to global NED frame. This is set in the airsim's <a href="https://microsoft.github.io/AirSim/settings/">settings.json</a> file under the <code>OriginGeopoint</code> key.</p>
+与全球 <a href="https://baike.baidu.com/item/NED/22375709">北东地坐标系</a> (NED) 坐标系对应的 GPS 坐标。此设置位于 airsim 的 <a href="https://microsoft.github.io/AirSim/settings/">settings.json</a> 文件中，<code>OriginGeopoint</code> 键的值即为该坐标。</p>
 </li>
 <li>
 <p><code>/airsim_node/VEHICLE_NAME/global_gps</code> <a href="https://docs.ros.org/api/sensor_msgs/html/msg/NavSatFix.html">sensor_msgs/NavSatFix</a>
-This the current GPS coordinates of the drone in airsim.</p>
+这是无人机在 Airsim 中的当前 GPS 坐标。</p>
 </li>
 <li>
 <p><code>/airsim_node/VEHICLE_NAME/odom_local_ned</code> <a href="https://docs.ros.org/api/nav_msgs/html/msg/Odometry.html">nav_msgs/Odometry</a>
-Odometry in NED frame (default name: odom_local_ned, launch name and frame type are configurable) wrt take-off point.</p>
+相对于起飞点的 NED 坐标系里程计（默认名称：odom_local_ned，发射名称和坐标系类型可配置）。 </p>
 </li>
 <li>
 <p><code>/airsim_node/VEHICLE_NAME/CAMERA_NAME/IMAGE_TYPE/camera_info</code> <a href="https://docs.ros.org/api/sensor_msgs/html/msg/CameraInfo.html">sensor_msgs/CameraInfo</a></p>
@@ -621,63 +621,59 @@ Throttle, brake, steering and gear selections for control. Both automatic and ma
 <p>它涉及在Windows10中启用内置的Windows Linux环境（WSL），安装兼容的Linux OS映像，最后安装构建环境，就像它是一个普通的Linux系统一样。</p>
 <p>完成后，您将能够像在本机linux机器中一样构建和运行ros包装器。</p>
 <h5 id="wsl1-vs-wsl2">WSL1 vs WSL2<a class="headerlink" href="#wsl1-vs-wsl2" title="Permanent link">#</a></h5>
-<p>WSL2 is the latest version of the Windows10 Subsystem for Linux. It is many times faster than WSL1 (if you use the native file system in <code>/home/...</code> rather
-than Windows mounted folders under <code>/mnt/...</code>) and is therefore much preferred for building the code in terms of speed.</p>
-<p>Once installed, you can switch between WSL1 or WSL2 versions as you prefer.</p>
-<h5 id="wsl-setup-steps">WSL Setup steps<a class="headerlink" href="#wsl-setup-steps" title="Permanent link">#</a></h5>
+<p>WSL2 是最新版本的 Windows 10 Linux 子系统。它比 WSL1 快很多倍（如果您使用 <code>/home/...</code> 下的原生​​文件系统，而不是 <code>/mnt/...</code> 下的 Windows 挂载文件夹），因此就速度而言，它是构建代码的首选。</p>
+<p>安装完成后，您可以根据自己的喜好在 WSL1 或 WSL2 版本之间切换。</p>
+<h5 id="wsl">WSL 设置步骤<a class="headerlink" href="#wsl" title="Permanent link">#</a></h5>
 <ol>
 <li>
-<p>Follow the instructions <a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10">here</a>. Check that the ROS version you want to use is supported by the Ubuntu version you want to install.</p>
+<p>请按照 <a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10">此处</a> 的说明操作。请确认您要使用的 ROS 版本与您要安装的 Ubuntu 版本兼容。 </p>
 </li>
 <li>
-<p>Congratulations, you now have a working Ubuntu subsystem under Windows, you can now go to <a href="#setup">Ubuntu 16 / 18 instructions</a> and then <a href="#how-to-run-airsim-on-windows-and-ros-wrapper-on-wsl">How to run Airsim on Windows and ROS wrapper on WSL</a>!</p>
+<p>恭喜，您现在已在 Windows 下拥有一个可运行的 Ubuntu 子系统，您可以前往 <a href="#setup">Ubuntu 16 / 18 说明</a> ，然后了解 <a href="#how-to-run-airsim-on-windows-and-ros-wrapper-on-wsl">如何在 Windows 上运行 Airsim 以及在 WSL 上运行 ROS 封装程序</a> ！</p>
 </li>
 </ol>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>You can run XWindows applications (including SITL) by installing <a href="https://sourceforge.net/projects/vcxsrv/">VcXsrv</a>  on Windows.
-To use it find and run <code>XLaunch</code> from the Windows start menu.
-Select <code>Multiple Windows</code> in first popup, <code>Start no client</code> in second popup, <strong>only</strong> <code>Clipboard</code> in third popup. Do <strong>not</strong> select <code>Native Opengl</code> (and if you are not able to connect select <code>Disable access control</code>).
-You will need to set the DISPLAY variable to point to your display: in WSL it is <code>127.0.0.1:0</code>, in WSL2 it will be the ip address of the PC's network port and can be set by using the code below. Also in WSL2 you may have to disable the firewall for public networks, or create an exception in order for VcXsrv to communicate with WSL2:</p>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p>您可以通过在 Windows 上安装 <a href="https://sourceforge.net/projects/vcxsrv/">VcXsrv</a> 来运行 XWindows 应用程序（包括 SITL）。要使用它，请从 Windows 开始菜单找到并运行 <code>XLaunch</code>。在第一个弹出窗口中选择<code>多窗口(Multiple Windows)</code>，在第二个弹出窗口中选择<code>启动时不启用客户端(Start no client)</code>，在第三个弹出窗口中选择<code>仅启动剪贴板</code>。<strong>不要</strong>选择<code>原生 OpenGL</code>（如果无法连接，请选择<code>禁用访问控制(Disable access control)</code>）。您需要设置 DISPLAY 变量以指向您的显示器：在 WSL 中，它是 <code>127.0.0.1:0</code>；在 WSL2 中，它是计算机网络端口的 IP 地址，可以使用以下代码进行设置。此外，在 WSL2 中，您可能需要禁用公共网络的防火墙，或者创建一个例外，以便 VcXsrv 可以与 WSL2 通信。</p>
 <p><code>export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0</code></p>
 </div>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
+<div class="admonition 诀窍">
+<p class="admonition-title">诀窍</p>
 <ul>
-<li>If you add this line to your ~/.bashrc file you won't need to run this command again</li>
-<li>For code editing you can install VSCode inside WSL.</li>
-<li>Windows 10 includes "Windows Defender" virus scanner. It will slow down WSL quite a bit. Disabling it greatly improves disk performance but increases your risk to viruses so disable at your own risk. Here is one of many resources/videos that show you how to disable it: <a href="https://youtu.be/FmjblGay3AM">How to Disable or Enable Windows Defender on Windows 10</a></li>
+<li>如果你将这行添加到你的 ~/.bashrc 文件中，你就不需要再次运行这个命令了。 </li>
+<li>对于代码编辑，您可以在 WSL 中安装 VSCode。</li>
+<li>Windows 10 内置了“Windows Defender”病毒扫描程序。它会显著降低 WSL 的运行速度。禁用它可以大幅提升磁盘性能，但会增加病毒感染的风险，因此请自行承担风险。以下是众多资源/视频之一，向您展示如何禁用它：<a href="https://youtu.be/FmjblGay3AM">如何在 Windows 10 上禁用或启用 Windows Defender</a></li>
 </ul>
 </div>
-<h5 id="file-system-access-between-wsl-and-windows10">File System Access between WSL and Windows10<a class="headerlink" href="#file-system-access-between-wsl-and-windows10" title="Permanent link">#</a></h5>
-<p>From within WSL, the Windows drives are referenced in the /mnt directory. For example, in order to list documents within your (<username>) documents folder:</p>
+<h5 id="wsl-windows-10">WSL 和 Windows 10 之间的文件系统访问<a class="headerlink" href="#wsl-windows-10" title="Permanent link">#</a></h5>
+<p>在 WSL 中，Windows 驱动器位于 /mnt 目录中。例如，要列出您的 (&lt;用户名&gt;) 文档文件夹中的文档：</p>
 <pre><code>`ls /mnt/c/'Documents and Settings'/&lt;username&gt;/Documents`
 or
 `ls /mnt/c/Users/&lt;username&gt;/Documents`
 </code></pre>
-<p>From within Windows, the WSL distribution's files are located at (type in windows Explorer address bar):</p>
+<p>在 Windows 系统中，WSL 发行版的文件位于（在 Windows 资源管理器地址栏中输入）：</p>
 <p><code>\\wsl$\&lt;distribution name&gt;</code>
-   e.g.
+   例如
    <code>\\wsl$\Ubuntu-18.04</code></p>
-<h5 id="how-to-run-airsim-on-windows-and-ros-wrapper-on-wsl">How to run Airsim on Windows and ROS wrapper on WSL<a class="headerlink" href="#how-to-run-airsim-on-windows-and-ros-wrapper-on-wsl" title="Permanent link">#</a></h5>
-<p>For WSL 1 execute:
+<h5 id="windows-airsim-wsl-ros">如何在 Windows 上运行 Airsim 以及在 WSL 上运行 ROS 封装程序<a class="headerlink" href="#windows-airsim-wsl-ros" title="Permanent link">#</a></h5>
+<p>对于 WSL 1，请执行以下操作：
 <code>export WSL_HOST_IP=127.0.0.1</code>
-and for WSL 2:
+对于 WSL 2：
 <code>export WSL_HOST_IP=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}')</code>
-Now, as in the <a href="#running">running section for linux</a>, execute the following:</p>
+现在，就像 <a href="#running">在 Linux 运行部分一样</a> ，执行以下命令： </p>
 <div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>devel/setup.bash
 roslaunch<span class="w"> </span>airsim_ros_pkgs<span class="w"> </span>airsim_node.launch<span class="w"> </span>output:<span class="o">=</span>screen<span class="w"> </span>host:<span class="o">=</span><span class="nv">$WSL_HOST_IP</span>
 roslaunch<span class="w"> </span>airsim_ros_pkgs<span class="w"> </span>rviz.launch
 </code></pre></div>
-<h3 id="using-docker-for-ros">Using Docker for ROS<a class="headerlink" href="#using-docker-for-ros" title="Permanent link">#</a></h3>
-<p>A Dockerfile is present in the <a href="https://github.com/microsoft/AirSim/tree/main/tools/Dockerfile-ROS"><code>tools</code></a> directory. To build the <code>airsim-ros</code> image -</p>
+<h3 id="docker-ros">使用 Docker 运行 ROS<a class="headerlink" href="#docker-ros" title="Permanent link">#</a></h3>
+<p><a href="https://github.com/microsoft/AirSim/tree/main/tools/Dockerfile-ROS"><code>tools</code></a> 目录中包含一个 Dockerfile 文件。要构建 <code>airsim-ros</code> 镜像，请执行以下操作：</p>
 <div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>tools
 docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>airsim-ros<span class="w"> </span>-f<span class="w"> </span>Dockerfile-ROS<span class="w"> </span>.
 </code></pre></div>
-<p>To run, replace the path of the AirSim folder below -</p>
+<p>要运行程序，请替换以下 AirSim 文件夹的路径：</p>
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-it<span class="w"> </span>--net<span class="o">=</span>host<span class="w"> </span>-v<span class="w"> </span>&lt;your-AirSim-folder-path&gt;:/home/testuser/AirSim<span class="w"> </span>airsim-ros:latest<span class="w"> </span>bash
 </code></pre></div>
-<p>The above command mounts the AirSim directory to the home directory inside the container. Any changes you make in the source files from your host will be visible inside the container, which is useful for development and testing. Now follow the steps from <a href="#build">Build</a> to compile and run the ROS wrapper.</p>
+<p>上述命令会将 AirSim 目录挂载到容器内的主目录中。您在主机上对源文件所做的任何更改都会在容器内生效，这对于开发和测试非常有用。现在，请按照 <a href="#build">构建</a> 步骤编译并运行 ROS 封装程序。</p>
               
             </div>
           </div><footer>
