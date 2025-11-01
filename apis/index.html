@@ -75,8 +75,6 @@
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#c">C++ 用户</a>
-    </li>
     <li class="toctree-l2"><a class="reference internal" href="#hello-drone">Hello Drone</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#hello-car">Hello Car</a>
@@ -136,6 +134,8 @@
     <li class="toctree-l2"><a class="reference internal" href="#airsim-api">向 AirSim 添加新的 API</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#references-and-examples">References and Examples</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#c">C++ 用户</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#_4">经常问到的问题</a>
         <ul>
@@ -391,11 +391,10 @@ conda<span class="w"> </span>activate<span class="w"> </span>air
 <p class="admonition-title">笔记</p>
 <ol>
 <li>您可能会注意到在我们的示例文件夹中有一个 <code>setup_path.py</code> 文件。这个文件有一个简单的代码来检测 <code>airsim</code> 包是否在父文件夹中可用，在这种情况下，我们使用它而不是 pip 安装的包，所以您总是使用最新的代码。</li>
+<li>使用<code>pip install airsim</code>进行 Python 包的安装可能会出现错误：<code>No module named 'numpy'</code>，需要进入源代码的 <a href="https://github.com/OpenHUTB/air/tree/main/PythonClient">PythonClient</a> 目录，使用<code>pip install .</code>进行安装（参考 <a href="https://github.com/microsoft/AirSim/issues/4920#issuecomment-1989402420">链接</a> ）。</li>
 <li><a href="https://github.com/OpenHUTB/air">低空项目</a> 仍在大量开发中，这意味着您可能需要经常更新软件包以使用新的 API。</li>
 </ol>
 </div>
-<h2 id="c">C++ 用户<a class="headerlink" href="#c" title="Permanent link">#</a></h2>
-<p>如果要使用 C++ 的 API 和示例，请参阅 <a href="../apis_cpp/">C++ APIs 指南</a> 。</p>
 <h2 id="hello-drone">Hello Drone<a class="headerlink" href="#hello-drone" title="Permanent link">#</a></h2>
 <p>下面介绍了如何使用 Python 的 AirSim API 来控制模拟四旋翼飞行器，准备运行示例 <a href="https://github.com/OpenHUTB/air/blob/main/PythonClient/multirotor/hello_drone.py">hello_drone.py</a>（另请参阅 <a href="../apis_cpp/#hello_drone"> C++ 示例</a>）：</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">airsim</span>
@@ -591,6 +590,8 @@ conda<span class="w"> </span>activate<span class="w"> </span>air
 <li><a href="https://github.com/Microsoft/AirSim/wiki/hexacopter">Building a Hexacopter</a></li>
 <li><a href="https://github.com/Microsoft/AirSim/wiki/Point-Clouds">Building Point Clouds</a></li>
 </ul>
+<h2 id="c">C++ 用户<a class="headerlink" href="#c" title="Permanent link">#</a></h2>
+<p>如果要使用 C++ 的 API 和示例，请参阅 <a href="../apis_cpp/">C++ API 指南</a> 。</p>
 <h2 id="_4">经常问到的问题<a class="headerlink" href="#_4" title="Permanent link">#</a></h2>
 <h4 id="api_14">运行 API 时，引擎运行速度明显变慢。<a class="headerlink" href="#api_14" title="Permanent link">#</a></h4>
 <p>如果发现虚幻引擎窗口失去焦点时，虚幻引擎运行速度明显变慢，则在虚幻编辑器中转到“编辑-&gt;编辑器首选项”，在“搜索”框中键入“CPU”，并确保“在后台运行时减少 CPU 使用率”未选中。</p>
