@@ -115,9 +115,9 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">网格顶点缓冲区</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#mesh-structure">Mesh structure</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_1">网格结构体</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#how-to-use">How to use</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">如何使用</a>
     </li>
     </ul>
                   </li>
@@ -286,10 +286,10 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="how-to-access-meshes-in-airsim">How to Access Meshes in AIRSIM<a class="headerlink" href="#how-to-access-meshes-in-airsim" title="Permanent link">#</a></h1>
-<p>AirSim supports the ability to access the static meshes that make up the scene.</p>
-<h2 id="mesh-structure">Mesh structure<a class="headerlink" href="#mesh-structure" title="Permanent link">#</a></h2>
-<p>Each mesh is represented with the below struct.
+                <h1 id="air">如何在 AIR 中访问网格<a class="headerlink" href="#air" title="Permanent link">#</a></h1>
+<p>Air 支持访问构成场景的静态网格。</p>
+<h2 id="_1">网格结构体<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
+<p>每个网格都用以下结构体表示。
 <div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">MeshPositionVertexBuffersResponse</span><span class="w"> </span><span class="p">{</span>
 
 <span class="w">    </span><span class="n">Vector3r</span><span class="w"> </span><span class="n">position</span><span class="p">;</span>
@@ -301,20 +301,17 @@
 <span class="p">};</span>
 </code></pre></div></p>
 <ul>
-<li>The position and orientation are in the Unreal coordinate system.</li>
-<li>The mesh itself is a triangular mesh represented by the vertices and the indices.<ul>
-<li>The triangular mesh type is typically called a <a href="https://en.wikipedia.org/wiki/Polygon_mesh#Face-vertex_meshes">Face-Vertex</a> Mesh. This means every triplet of indices hold the indexes of the vertices that make up the triangle/face.</li>
-<li>The x,y,z coordinates of the vertices are all stored in a single vector. This means the vertices vector is Nx3 where N is number of vertices. </li>
-<li>The position of the vertices are the global positions in the Unreal coordinate system. This means they have already been transformed by the position and orientation.</li>
+<li>位置和朝向均采用引擎坐标系。</li>
+<li>网格本身是一个三角形网格，由顶点和索引表示。<ul>
+<li>这种三角形网格类型通常被称为 <a href="https://en.wikipedia.org/wiki/Polygon_mesh#Face-vertex_meshes">面顶点(Face-Vertex)</a> 网格。这意味着每个索引三元组都保存着构成三角形/面的顶点的索引。 </li>
+<li>所有顶点的 x、y、z 坐标都存储在一个向量中。这意味着顶点向量是 N×3 的，其中 N 是顶点的数量。 </li>
+<li>顶点的位置是引擎坐标系中的全局位置。这意味着它们已经根据位置和方向进行了变换。</li>
 </ul>
 </li>
 </ul>
-<h2 id="how-to-use">How to use<a class="headerlink" href="#how-to-use" title="Permanent link">#</a></h2>
-<p>The API to get the meshes in the scene is quite simple. However, one should note that the function call is very expensive and should
- very rarely be called. In general this is ok because this function only accesses the static meshes which for most applications are
- not changing during the duration of your program.</p>
-<p>Note that you will have to use a 3rdparty library or your own custom code to actually interact with the received meshes. Below I utilize the
-Python bindings of <a href="https://github.com/libigl/libigl">libigl</a> to visualize the received meshes.</p>
+<h2 id="_2">如何使用<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
+<p>获取场景网格的 API 非常简单。但是需要注意的是，该函数调用开销很大，因此应尽量避免调用。通常情况下，这没有问题，因为该函数仅访问静态网格，而对于大多数应用程序来说，这些网格在程序运行期间不会发生变化。</p>
+<p>请注意，您需要使用第三方库或自定义代码才能与接收到的网格进行交互。下面我使用 <a href="https://github.com/libigl/libigl">libigl</a> 的 Python 绑定来可视化接收到的网格。</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">airsim</span>
 
 <span class="n">AIRSIM_HOST_IP</span><span class="o">=</span><span class="s1">&#39;127.0.0.1&#39;</span>
@@ -322,40 +319,40 @@ Python bindings of <a href="https://github.com/libigl/libigl">libigl</a> to visu
 <span class="n">client</span> <span class="o">=</span> <span class="n">airsim</span><span class="o">.</span><span class="n">VehicleClient</span><span class="p">(</span><span class="n">ip</span><span class="o">=</span><span class="n">AIRSIM_HOST_IP</span><span class="p">)</span>
 <span class="n">client</span><span class="o">.</span><span class="n">confirmConnection</span><span class="p">()</span>
 
-<span class="c1"># List of returned meshes are received via this function</span>
+<span class="c1"># 通过此函数接收返回的网格列表。</span>
 <span class="n">meshes</span><span class="o">=</span><span class="n">client</span><span class="o">.</span><span class="n">simGetMeshPositionVertexBuffers</span><span class="p">()</span>
 
 
 <span class="n">index</span><span class="o">=</span><span class="mi">0</span>
 <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">meshes</span><span class="p">:</span>
-    <span class="c1"># Finds one of the cube meshes in the Blocks environment</span>
+    <span class="c1"># 在 Blocks 环境中找到一个立方体网格。</span>
     <span class="k">if</span> <span class="s1">&#39;cube&#39;</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
-
-        <span class="c1"># Code from here on relies on libigl. Libigl uses pybind11 to wrap C++ code. So here the built pyigl.so</span>
-        <span class="c1"># library is in the same directory as this example code.</span>
-        <span class="c1"># This is here as code for your own mesh library should require something similar</span>
+        <span class="c1"># 从这里开始的代码依赖于 libigl。</span>
+        <span class="c1"># libigl 使用 pybind11 封装 C++ 代码。</span>
+        <span class="c1"># 因此，这里构建的 pyigl.so 库与示例代码位于同一目录下。</span>
+        <span class="c1"># 之所以在此说明，是因为您自己的网格库代码也可能需要类似的实现。</span>
         <span class="kn">from</span> <span class="nn">pyigl</span> <span class="kn">import</span> <span class="o">*</span>
         <span class="kn">from</span> <span class="nn">iglhelpers</span> <span class="kn">import</span> <span class="o">*</span>
 
-        <span class="c1"># Convert the lists to numpy arrays</span>
+        <span class="c1"># 将列表转换为numpy数组</span>
         <span class="n">vertex_list</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">vertices</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
         <span class="n">indices</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">indices</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">)</span>
 
         <span class="n">num_vertices</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">vertex_list</span><span class="p">)</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span>
         <span class="n">num_indices</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span>
 
-        <span class="c1"># Libigl requires the shape to be Nx3 where N is number of vertices or indices</span>
-        <span class="c1"># It also requires the actual type to be double(float64) for vertices and int64 for the triangles/indices</span>
+        <span class="c1"># Libigl 要求形状为 Nx3，其中 N 为顶点数或索引数。</span>
+        <span class="c1"># 它还要求顶点的实际类型为 double（float64），三角形/索引的实际类型为 int64。</span>
         <span class="n">vertices_reshaped</span><span class="o">=</span><span class="n">vertex_list</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">num_vertices</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
         <span class="n">indices_reshaped</span><span class="o">=</span><span class="n">indices</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="nb">int</span><span class="p">(</span><span class="n">num_indices</span><span class="o">/</span><span class="mi">3</span><span class="p">),</span><span class="mi">3</span><span class="p">))</span>
         <span class="n">vertices_reshaped</span><span class="o">=</span><span class="n">vertices_reshaped</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
         <span class="n">indices_reshaped</span><span class="o">=</span><span class="n">indices_reshaped</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
 
-        <span class="c1"># Libigl function to convert to internal Eigen format</span>
+        <span class="c1"># Libigl 函数用于转换为 Eigen 内部格式</span>
         <span class="n">v_eig</span><span class="o">=</span><span class="n">p2e</span><span class="p">(</span><span class="n">vertices_reshaped</span><span class="p">)</span>
         <span class="n">i_eig</span><span class="o">=</span><span class="n">p2e</span><span class="p">(</span><span class="n">indices_reshaped</span><span class="p">)</span>
 
-        <span class="c1"># View the mesh</span>
+        <span class="c1"># 查看网格</span>
         <span class="n">viewer</span> <span class="o">=</span> <span class="n">igl</span><span class="o">.</span><span class="n">glfw</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
         <span class="n">viewer</span><span class="o">.</span><span class="n">data</span><span class="p">()</span><span class="o">.</span><span class="n">set_mesh</span><span class="p">(</span><span class="n">v_eig</span><span class="p">,</span><span class="n">i_eig</span><span class="p">)</span>
         <span class="n">viewer</span><span class="o">.</span><span class="n">launch</span><span class="p">()</span>
