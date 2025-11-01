@@ -205,9 +205,9 @@
                   </li>
                   <li class="toctree-l1"><a class="" href="https://aka.ms/AutonomousDrivingCookbook">Azure 上的自动驾驶</a>
                   </li>
-                  <li class="toctree-l1"><a class="" href="https://github.com/Microsoft/AirSim/wiki/hexacopter">构造六旋翼飞行器</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../wiki/hexacopter/">构造六旋翼飞行器</a>
                   </li>
-                  <li class="toctree-l1"><a class="" href="https://github.com/Microsoft/AirSim/wiki/moveOnPath-demo">移动路径演示</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../wiki/moveOnPath-demo/">移动路径演示</a>
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">构建点云</a>
     <ul class="current">
@@ -282,20 +282,23 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="point-clouds">Point Clouds<a class="headerlink" href="#point-clouds" title="Permanent link">#</a></h1>
-<p>Moved here from <a href="https://github.com/microsoft/AirSim/wiki/Point-Clouds">https://github.com/microsoft/AirSim/wiki/Point-Clouds</a></p>
-<p>A Python script <a href="https://github.com/Microsoft/AirSim/blob/main/PythonClient/multirotor/point_cloud.py">point_cloud.py</a> shows how to convert the depth image returned from AirSim into a point cloud.</p>
-<p>The following depth image was captured using the Modular Neighborhood environment:</p>
+                <h1 id="_1">点云<a class="headerlink" href="#_1" title="Permanent link">#</a></h1>
+<p>已从 <a href="https://github.com/microsoft/AirSim/wiki/Point-Clouds">wiki 页面</a> 迁移至此处。</p>
+<p>Python 脚本 <a href="https://github.com/OpenHUTB/air/blob/main/PythonClient/multirotor/point_cloud.py">point_cloud.py</a> 展示了如何将从 AirSim 返回的深度图像转换为点云。</p>
+<p>以下深度图像是使用模块化街区(Modular Neighborhood)环境捕获的：</p>
 <p><img alt="depth" src="../images/depth.png" /></p>
-<p>And with the appropriate projection matrix, the OpenCV <code>reprojectImageTo3D</code> function can turn this into a point cloud.  The following is the result, which is also available here: <a href="https://skfb.ly/68r7y">https://skfb.ly/68r7y</a>.</p>
+<p>使用合适的投影矩阵，OpenCV 的 <code>reprojectImageTo3D</code> 函数可以将其转换为点云。以下是结果，也可在此处查看：<a href="https://skfb.ly/68r7y">https://skfb.ly/68r7y</a>。</p>
 <p><img alt="depth" src="../images/point_cloud.png" /></p>
-<p><a href="https://sketchfab.com">SketchFab</a> can upload the resulting file <code>cloud.asc</code> and render it for you.</p>
-<p>PS: you may notice the scene is reflected on the Y axis, so I may have a sign wrong in the projection matrix.  An exercise for the reader :-)</p>
+<p><a href="https://sketchfab.com">SketchFab</a> 可以上传生成的 <code>cloud.asc</code> 文件并为您渲染。</p>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>您可能会注意到画面沿 Y 轴镜像对称，因此投影矩阵的符号可能出错。留给读者练习一下 :-)</p>
+</div>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../reinforcement_learning/" class="btn btn-neutral float-left" title="强化学习"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../wiki/moveOnPath-demo/" class="btn btn-neutral float-left" title="移动路径演示"><span class="icon icon-circle-arrow-left"></span> Previous</a>
         <a href="../drone_survey/" class="btn btn-neutral float-right" title="使用无人机进行测量">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
@@ -319,7 +322,7 @@
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../reinforcement_learning/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../wiki/moveOnPath-demo/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
       <span><a href="../drone_survey/" style="color: #fcfcfc">Next &raquo;</a></span>

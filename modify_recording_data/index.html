@@ -209,9 +209,9 @@
                   </li>
                   <li class="toctree-l1"><a class="" href="https://aka.ms/AutonomousDrivingCookbook">Azure 上的自动驾驶</a>
                   </li>
-                  <li class="toctree-l1"><a class="" href="https://github.com/Microsoft/AirSim/wiki/hexacopter">构造六旋翼飞行器</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../wiki/hexacopter/">构造六旋翼飞行器</a>
                   </li>
-                  <li class="toctree-l1"><a class="" href="https://github.com/Microsoft/AirSim/wiki/moveOnPath-demo">移动路径演示</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../wiki/moveOnPath-demo/">移动路径演示</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../point_clouds/">构建点云</a>
                   </li>
@@ -285,20 +285,23 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="_1">修改记录数据<a class="headerlink" href="#_1" title="Permanent link">#</a></h1>
-<p>AirSim has a <a href="../settings/#recording">Recording feature</a> to easily collect data and images. The <a href="../apis/#recording-apis">Recording APIs</a> also allows starting and stopping the recording using API.</p>
-<p>However, the data recorded by default might not be sufficient for your use cases, and it might be preferable to record additional data such as IMU, GPS sensors, Rotor speed for copters, etc. You can use the existing Python and C++ APIs to get the information and store it as required, especially for Lidar. Another option for adding small fields such as GPS or internal data such as Unreal position or something else is possible through modifying the recording methods inside AirSim. This page describes the specific methods which you might need to change.</p>
-<p>The recorded data is written in a <code>airsim_rec.txt</code> file in a tab-separated format, with images in an <code>images/</code> folder. The entire folder is by default present in the <code>Documents</code> folder (or specified in settings) with the timestamp of when the recording started in <code>%Y-%M-%D-%H-%M-%S</code> format.</p>
-<p>Car vehicle records the following fields -</p>
+<p>Air 具备 <a href="../settings/#recording">记录功能</a> ，可轻松收集数据和图像。<a href="../apis/#recording-apis">记录 API</a> 还允许使用 API 启动和停止录制。</p>
+<p>然而，默认记录的数据可能不足以满足您的使用需求，因此最好记录其他数据，例如IMU、GPS传感器、旋翼速度（适用于旋翼飞行器）等。您可以使用现有的 Python 和 C++ API 来获取信息并按需存储，尤其适用于激光雷达数据。此外，您还可以通过修改 Air 内部的记录方法来添加 GPS 等小型字段或内部数据（例如虚幻引擎位置或其他数据）。本页面将介绍您可能需要修改的具体方法。</p>
+<p>记录的数据以制表符分隔的格式写入 <code>airsim_rec.txt</code> 文件，图像则保存在 <code>images/</code> 文件夹中。默认情况下，整个文件夹位于<code>Documents(文档)</code>文件夹中（或在设置中指定），并以 <code>%Y-%M-%D-%H-%M-%S</code> 格式记录开始时间戳。</p>
+<p>汽车载具记录以下字段：</p>
 <div class="highlight"><pre><span></span><code>VehicleName TimeStamp   POS_X   POS_Y   POS_Z   Q_W Q_X Q_Y Q_Z Throttle    Steering    Brake   Gear    Handbrake   RPM Speed   ImageFile
 </code></pre></div>
-<p>For Multirotor -</p>
+<p>对于多旋翼飞行器：</p>
 <div class="highlight"><pre><span></span><code>VehicleName TimeStamp   POS_X   POS_Y   POS_Z   Q_W Q_X Q_Y Q_Z ImageFile
 </code></pre></div>
 <h2 id="_2">代码改变<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
-<p>Note that this requires building and using AirSim from source. You can compile a binary yourself after modifying if needed.</p>
-<p>The primary method which fills the data to be stored is <a href="https://github.com/microsoft/AirSim/blob/880c5541fd4824ee2cd9bb82ca5f611eb1ab236a/Unreal/Plugins/AirSim/Source/PawnSimApi.cpp#L544"><code>PawnSimApi::getRecordFileLine</code></a>, it's the base method for all the vehicles, and Car overrides it to log additional data, as can be seen in <a href="https://github.com/microsoft/AirSim/blob/880c5541fd4824ee2cd9bb82ca5f611eb1ab236a/Unreal/Plugins/AirSim/Source/Vehicles/Car/CarPawnSimApi.cpp#L34"><code>CarPawnSimApi::getRecordFileLine</code></a>.</p>
-<p>To record additional data for multirotor, you can add a similar method in <a href="https://github.com/microsoft/AirSim/tree/main/Unreal/Plugins/AirSim/Source/Vehicles/Multirotor">MultirotorPawnSimApi.cpp/h</a> files which overrides the base class implementation and append other data. The currently logged data can also be modified and removed as needed.</p>
-<p>E.g. recording GPS, IMU and Barometer data also for multirotor -</p>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+</div>
+<p>这需要从源代码构建和使用 Air。如有需要，您可以自行修改后编译二进制文件。</p>
+<p>填充要存储的数据的主要方法是 <a href="https://github.com/OpenHUTB/air/blob/880c5541fd4824ee2cd9bb82ca5f611eb1ab236a/Unreal/Plugins/AirSim/Source/PawnSimApi.cpp#L544"><code>PawnSimApi::getRecordFileLine</code></a>，它是所有载具的基本方法，Car 重写了它以记录附加数据，如 <a href="https://github.com/OpenHUTB/air/blob/880c5541fd4824ee2cd9bb82ca5f611eb1ab236a/Unreal/Plugins/AirSim/Source/Vehicles/Car/CarPawnSimApi.cpp#L34"><code>CarPawnSimApi::getRecordFileLine</code></a> 所示。</p>
+<p>要记录多旋翼飞行器的更多数据，可以在 <a href="https://github.com/OpenHUTB/air/tree/main/Unreal/Plugins/AirSim/Source/Vehicles/Multirotor">MultirotorPawnSimApi.cpp/h</a> 文件中添加类似的方法，该方法会覆盖基类的实现并附加其他数据。当前记录的数据也可以根据需要进行修改和删除。</p>
+<p>例如，记录多旋翼飞行器的 GPS、IMU 和气压计数据：</p>
 <div class="highlight"><pre><span></span><code><span class="c1">// MultirotorPawnSimApi.cpp</span>
 <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="nf">MultirotorPawnSimApi::getRecordFileLine</span><span class="p">(</span><span class="kt">bool</span><span class="w"> </span><span class="n">is_header_line</span><span class="p">)</span><span class="w"> </span><span class="k">const</span>
 <span class="p">{</span>
