@@ -33,7 +33,7 @@
           <a href=".." class="icon icon-home"> 低空模拟器
         </a><div role="search">
   <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
-      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+      <input type="text" name="q" placeholder="搜索文档" aria-label="Search docs" title="Type search term here" />
   </form>
 </div>
       </div>
@@ -93,13 +93,13 @@
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#api_6">天气 API </a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#apis">记录 APIs</a>
+    <li class="toctree-l3"><a class="reference internal" href="#apis_1">记录 APIs</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#api_7">风 API</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#api_8">激光雷达 API</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#apis_1">灯光控制 APIs</a>
+    <li class="toctree-l3"><a class="reference internal" href="#apis_2">灯光控制 APIs</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#api_9">纹理 API</a>
     </li>
@@ -366,9 +366,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="airsim-apis">AirSim APIs<a class="headerlink" href="#airsim-apis" title="Permanent link">#</a></h1>
+                <h1 id="apis">低空模拟器 APIs<a class="headerlink" href="#apis" title="Permanent link">#</a></h1>
 <h2 id="_1">介绍<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
-<p>AirSim 提供 API，方便您以编程方式与模拟中的车辆进行交互。您可以使用这些 API 来检索图像、获取状态、控制车辆等等。</p>
+<p>低空模拟器提供 API，方便您以编程方式与模拟中的车辆进行交互。您可以使用这些 API 来检索图像、获取状态、控制车辆等等。</p>
 <h2 id="python">Python 快速入门<a class="headerlink" href="#python" title="Permanent link">#</a></h2>
 <p>如果您想使用 Python 调用 AirSim API，我们建议使用带有 Python 3.5 或更高版本的 Anaconda，但某些代码也可能适用于 Python 2.7（ <a href="../CONTRIBUTING/">帮助我们</a> 提高兼容性！）。</p>
 <p>首先安装 Python 虚拟环境：
@@ -511,7 +511,7 @@ conda<span class="w"> </span>activate<span class="w"> </span>air
 </code></pre></div>
 <p>请注意，湿润道路<code>Roadwetness</code>、路上积雪 <code>RoadSnow</code> 和 路上叶子<code>RoadLeaf</code> 效果需要在场景中添加 <a href="https://github.com/OpenHUTB/air/tree/main/Unreal/Plugins/AirSim/Content/Weather/WeatherFX">材质</a> 。</p>
 <p>请参阅 <a href="https://github.com/OpenHUTB/air/blob/main/PythonClient/environment/weather.py">示例代码</a> 以了解更多详细信息。</p>
-<h3 id="apis">记录 APIs<a class="headerlink" href="#apis" title="Permanent link">#</a></h3>
+<h3 id="apis_1">记录 APIs<a class="headerlink" href="#apis_1" title="Permanent link">#</a></h3>
 <p>记录 API 可用于通过 API 开始记录数据。可以使用 <a href="../settings/#recording">设置</a> 指定要记录的数据。要开始记录，请使用：</p>
 <div class="highlight"><pre><span></span><code>client.startRecording()
 </code></pre></div>
@@ -529,7 +529,7 @@ conda<span class="w"> </span>activate<span class="w"> </span>air
 <h3 id="api_8">激光雷达 API<a class="headerlink" href="#api_8" title="Permanent link">#</a></h3>
 <p>AirSim 提供 API 来检索车载激光雷达传感器的点云数据。您可以在 <a href="../settings/">settings.json</a> 中设置通道数、每秒点数、水平和垂直视场等参数。</p>
 <p>有关 <a href="../lidar/">激光雷达 API 和设置</a> 以及 <a href="../sensors/">传感器设置</a> 的更多信息</p>
-<h3 id="apis_1">灯光控制 APIs<a class="headerlink" href="#apis_1" title="Permanent link">#</a></h3>
+<h3 id="apis_2">灯光控制 APIs<a class="headerlink" href="#apis_2" title="Permanent link">#</a></h3>
 <p>可以通过 <code>simSpawnObject()</code> API 创建可在 AirSim 内部操控的光源，只需将 <code>PointLightBP</code> 或 <code>SpotLightBP</code> 作为 <code>asset_name</code> 参数传递，并将 <code>True</code> 作为 <code>is_blueprint</code> 参数传递即可。灯光生成后，即可使用以下 API 进行操控：</p>
 <ul>
 <li><code>simSetLightIntensity</code>: 这允许您编辑光源的强度或亮度。它接受两个参数：<code>light_name</code>（上次调用 <code>simSpawnObject()</code> 返回的光源对象的名称）和 <code>intensity</code>（浮点值）。</li>
