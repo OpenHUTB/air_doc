@@ -81,7 +81,9 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../apis_cpp/">C++ APIs</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../api_docs/_build/html/">API 参考文档</a>
+                  <li class="toctree-l1"><a class="" href="https://openhutb.github.io/doc/python_api/#airsim.client.MultirotorClient">无人机 API 参考文档</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api_docs/_build/html/">原始 API 参考文档</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../wiki/">Wiki 文档</a>
                   </li>
@@ -311,7 +313,7 @@
 <p>查看所有其他 <a href="https://docs.unrealengine.com/en-US/ProductionPipelines/CommandLineArguments/index.html">命令行选项</a> </p>
 <p>UE 4.24 默认使用 Vulkan 驱动程序，但它们会消耗更多 GPU 内存。如果您遇到内存分配错误，可以尝试使用 <code>-opengl</code> 切换到 OpenGL。</p>
 <p>您还可以使用 <code>simRunConsoleCommand()</code> API 限制最大 FPS，如下所示：</p>
-<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">airsim</span>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span><span class="w"> </span><span class="nn">airsim</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">client</span> <span class="o">=</span> <span class="n">airsim</span><span class="o">.</span><span class="n">VehicleClient</span><span class="p">()</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">client</span><span class="o">.</span><span class="n">confirmConnection</span><span class="p">()</span>
 <span class="n">Connected</span><span class="err">!</span>

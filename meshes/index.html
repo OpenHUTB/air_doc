@@ -71,7 +71,9 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../apis_cpp/">C++ APIs</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../api_docs/_build/html/">API 参考文档</a>
+                  <li class="toctree-l1"><a class="" href="https://openhutb.github.io/doc/python_api/#airsim.client.MultirotorClient">无人机 API 参考文档</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api_docs/_build/html/">原始 API 参考文档</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../wiki/">Wiki 文档</a>
                   </li>
@@ -312,7 +314,7 @@
 <h2 id="_2">如何使用<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
 <p>获取场景网格的 API 非常简单。但是需要注意的是，该函数调用开销很大，因此应尽量避免调用。通常情况下，这没有问题，因为该函数仅访问静态网格，而对于大多数应用程序来说，这些网格在程序运行期间不会发生变化。</p>
 <p>请注意，您需要使用第三方库或自定义代码才能与接收到的网格进行交互。下面我使用 <a href="https://github.com/libigl/libigl">libigl</a> 的 Python 绑定来可视化接收到的网格。</p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">airsim</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">airsim</span>
 
 <span class="n">AIRSIM_HOST_IP</span><span class="o">=</span><span class="s1">&#39;127.0.0.1&#39;</span>
 
@@ -331,8 +333,8 @@
         <span class="c1"># libigl 使用 pybind11 封装 C++ 代码。</span>
         <span class="c1"># 因此，这里构建的 pyigl.so 库与示例代码位于同一目录下。</span>
         <span class="c1"># 之所以在此说明，是因为您自己的网格库代码也可能需要类似的实现。</span>
-        <span class="kn">from</span> <span class="nn">pyigl</span> <span class="kn">import</span> <span class="o">*</span>
-        <span class="kn">from</span> <span class="nn">iglhelpers</span> <span class="kn">import</span> <span class="o">*</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">pyigl</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">iglhelpers</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
 
         <span class="c1"># 将列表转换为numpy数组</span>
         <span class="n">vertex_list</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">vertices</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>

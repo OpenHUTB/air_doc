@@ -71,7 +71,9 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../apis_cpp/">C++ APIs</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../api_docs/_build/html/">API 参考文档</a>
+                  <li class="toctree-l1"><a class="" href="https://openhutb.github.io/doc/python_api/#airsim.client.MultirotorClient">无人机 API 参考文档</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api_docs/_build/html/">原始 API 参考文档</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../wiki/">Wiki 文档</a>
                   </li>
@@ -308,17 +310,17 @@
 <p>虽然您需要在客户端代码中做的大多数更改都相当容易，但更快捷的方法就是查看示例代码（例如 <a href="https://github.com/OpenHUTB/air/tree/main/PythonClient/multirotor/hello_drone.py">Hello Drone</a> 或 <a href="https://github.com/OpenHUTB/air/tree/main/PythonClient/car/hello_car.py">Hello Car</a> ）以了解更改的要点。</p>
 <h2 id="airsim">导入 AirSim<a class="headerlink" href="#airsim" title="Permanent link">#</a></h2>
 <p>不是</p>
-<p><div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">AirSimClient</span> <span class="kn">import</span> <span class="o">*</span>
+<p><div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">AirSimClient</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
 </code></pre></div>
 而是使用这个：</p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">airsim</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">airsim</span>
 </code></pre></div>
 <p>以上假设您已经使用以下方式安装了 AirSim 模块，
 <div class="highlight"><pre><span></span><code>pip install --user airsim
 </code></pre></div></p>
 <p>如果您正在从 repo 中的 PythonClient 文件夹运行代码，那么您也可以执行以下操作：</p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">setup_path</span> 
-<span class="kn">import</span> <span class="nn">airsim</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">setup_path</span> 
+<span class="kn">import</span><span class="w"> </span><span class="nn">airsim</span>
 </code></pre></div>
 <p>这里 setup_path.py 应该存在于你的文件夹中，它将设置 <code>airsim</code> 包在 <code>PythonClient</code> repo 文件夹中的路径。PythonClient 文件夹中的所有示例都使用此方法。</p>
 <h2 id="airsim_1">使用 AirSim 类<a class="headerlink" href="#airsim_1" title="Permanent link">#</a></h2>

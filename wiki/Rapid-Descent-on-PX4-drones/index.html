@@ -71,7 +71,9 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../apis_cpp/">C++ APIs</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../api_docs/_build/html/">API 参考文档</a>
+                  <li class="toctree-l1"><a class="" href="https://openhutb.github.io/doc/python_api/#airsim.client.MultirotorClient">无人机 API 参考文档</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../api_docs/_build/html/">原始 API 参考文档</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../">Wiki 文档</a>
                   </li>
@@ -282,7 +284,7 @@
                 <h1 id="px4">PX4 无人机快速下降<a class="headerlink" href="#px4" title="Permanent link">#</a></h1>
 <p>你可能已经注意到，对于基于 PX4 的无人机，当你发出着陆命令时，它会缓慢而小心地下降。现在 PX4 有一个设置可以提高下降速度，但随后它会重重地撞到地面。我们真正想要的是快速下降到离地面某个安全距离，比如 5 米，然后从那里切换到 PX4 着陆，以获得如羽毛般轻柔的落地感。</p>
 <p>让我们尝试使用以下 Python 代码来实现这一点：</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">AirSimClient</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">AirSimClient</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
 <span class="n">client</span> <span class="o">=</span> <span class="n">MultirotorClient</span><span class="p">()</span>
 <span class="n">client</span><span class="o">.</span><span class="n">enableApiControl</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">client</span><span class="o">.</span><span class="n">moveToPosition</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>

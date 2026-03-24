@@ -157,7 +157,9 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../apis_cpp/">C++ APIs</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../api_docs/_build/html/">API 参考文档</a>
+                  <li class="toctree-l1"><a class="" href="https://openhutb.github.io/doc/python_api/#airsim.client.MultirotorClient">无人机 API 参考文档</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api_docs/_build/html/">原始 API 参考文档</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../wiki/">Wiki 文档</a>
                   </li>
@@ -397,8 +399,8 @@ conda<span class="w"> </span>activate<span class="w"> </span>air
 </div>
 <h2 id="hello-drone">Hello Drone<a class="headerlink" href="#hello-drone" title="Permanent link">#</a></h2>
 <p>下面介绍了如何使用 Python 的 AirSim API 来控制模拟四旋翼飞行器，准备运行示例 <a href="https://github.com/OpenHUTB/air/blob/main/PythonClient/multirotor/hello_drone.py">hello_drone.py</a>（另请参阅 <a href="../apis_cpp/#hello_drone">C++ 示例</a>）：</p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">airsim</span>
-<span class="kn">import</span> <span class="nn">os</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">airsim</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 
 <span class="c1"># 连接到 AirSim 模拟器</span>
 <span class="n">client</span> <span class="o">=</span> <span class="n">airsim</span><span class="o">.</span><span class="n">MultirotorClient</span><span class="p">()</span>
@@ -428,8 +430,8 @@ conda<span class="w"> </span>activate<span class="w"> </span>air
 <h2 id="hello-car">Hello Car<a class="headerlink" href="#hello-car" title="Permanent link">#</a></h2>
 <p>下面是如何使用 Python 的 AirSim API 控制模拟汽车（另请参见 <a href="../apis_cpp/#hello_car">C++ 示例</a> ）：</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># 准备运行示例：PythonClient/car/hello_car.py</span>
-<span class="kn">import</span> <span class="nn">airsim</span>
-<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">airsim</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
 
 <span class="c1"># 连接到 AirSim 模拟器</span>
 <span class="n">client</span> <span class="o">=</span> <span class="n">airsim</span><span class="o">.</span><span class="n">CarClient</span><span class="p">()</span>
