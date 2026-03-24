@@ -121,15 +121,15 @@
         <ul>
     <li class="toctree-l4"><a class="reference internal" href="#_8">气压计</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#imu">IMU</a>
+    <li class="toctree-l4"><a class="reference internal" href="#imu">惯性测量单元（IMU）</a>
     </li>
     <li class="toctree-l4"><a class="reference internal" href="#gps">GPS</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#magnetometer">Magnetometer</a>
+    <li class="toctree-l4"><a class="reference internal" href="#_9">磁力计</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#distance-sensor">Distance sensor</a>
+    <li class="toctree-l4"><a class="reference internal" href="#_10">距离传感器</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#_9">激光雷达</a>
+    <li class="toctree-l4"><a class="reference internal" href="#_11">激光雷达</a>
     </li>
         </ul>
     </li>
@@ -484,7 +484,7 @@
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="n">barometer_data</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">getBarometerData</span><span class="p">(</span><span class="n">barometer_name</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">vehicle_name</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
 </code></pre></div>
-<h3 id="imu">IMU<a class="headerlink" href="#imu" title="Permanent link">#</a></h3>
+<h3 id="imu">惯性测量单元（IMU）<a class="headerlink" href="#imu" title="Permanent link">#</a></h3>
 <div class="highlight"><pre><span></span><code><span class="n">msr</span><span class="o">::</span><span class="n">airlib</span><span class="o">::</span><span class="n">ImuBase</span><span class="o">::</span><span class="n">Output</span><span class="w"> </span><span class="n">getImuData</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">imu_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">vehicle_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">);</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="n">imu_data</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">getImuData</span><span class="p">(</span><span class="n">imu_name</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">vehicle_name</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
@@ -494,17 +494,17 @@
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="n">gps_data</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">getGpsData</span><span class="p">(</span><span class="n">gps_name</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">vehicle_name</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
 </code></pre></div></p>
-<h3 id="magnetometer">Magnetometer<a class="headerlink" href="#magnetometer" title="Permanent link">#</a></h3>
+<h3 id="_9">磁力计<a class="headerlink" href="#_9" title="Permanent link">#</a></h3>
 <p><div class="highlight"><pre><span></span><code><span class="n">msr</span><span class="o">::</span><span class="n">airlib</span><span class="o">::</span><span class="n">MagnetometerBase</span><span class="o">::</span><span class="n">Output</span><span class="w"> </span><span class="n">getMagnetometerData</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">magnetometer_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">vehicle_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">);</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="n">magnetometer_data</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">getMagnetometerData</span><span class="p">(</span><span class="n">magnetometer_name</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">vehicle_name</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
 </code></pre></div></p>
-<h3 id="distance-sensor">Distance sensor<a class="headerlink" href="#distance-sensor" title="Permanent link">#</a></h3>
+<h3 id="_10">距离传感器<a class="headerlink" href="#_10" title="Permanent link">#</a></h3>
 <p><div class="highlight"><pre><span></span><code><span class="n">msr</span><span class="o">::</span><span class="n">airlib</span><span class="o">::</span><span class="n">DistanceSensorData</span><span class="w"> </span><span class="n">getDistanceSensorData</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">distance_sensor_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">vehicle_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">);</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="n">distance_sensor_data</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">getDistanceSensorData</span><span class="p">(</span><span class="n">distance_sensor_name</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">vehicle_name</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
 </code></pre></div></p>
-<h3 id="_9">激光雷达<a class="headerlink" href="#_9" title="Permanent link">#</a></h3>
+<h3 id="_11">激光雷达<a class="headerlink" href="#_11" title="Permanent link">#</a></h3>
 <p>有关 Lidar API，请参阅 <a href="../lidar/">lidar 页面</a>。</p>
               
             </div>
