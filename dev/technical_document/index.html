@@ -454,16 +454,16 @@
 <span class="na">r.CustomDepth</span><span class="o">=</span><span class="s">3</span><span class="w">           </span><span class="c1">; 语义分割所需</span>
 <span class="na">bEnableEnhancedDeterminism</span><span class="o">=</span><span class="s">True</span>
 </code></pre></div></p>
-<p><strong><code>Unreal/CarlaUE4/Config/DefaultGame.ini</code></strong> (packaging):
-<div class="highlight"><pre><span></span><code><span class="c1">; 13 CARLA maps + AirSim asset map</span>
+<p><strong><code>Unreal/CarlaUE4/Config/DefaultGame.ini</code></strong> (打包):
+<div class="highlight"><pre><span></span><code><span class="c1">; 13 Carla 地图 + AirSim 资产地图</span>
 <span class="na">+MapsToCook=(FilePath</span><span class="o">=</span><span class="s">&quot;/Game/Carla/Maps/Town01&quot;</span><span class="na">)</span>
 <span class="na">+MapsToCook=(FilePath</span><span class="o">=</span><span class="s">&quot;/AirSim/AirSimAssets&quot;</span><span class="na">)</span>
-<span class="c1">; 6 AirSim content directories for cooking</span>
+<span class="c1">; 6 AirSim 烘焙内容目</span>
 <span class="na">+DirectoriesToAlwaysCook=(Path</span><span class="o">=</span><span class="s">&quot;AirSim/Blueprints&quot;</span><span class="na">)</span>
 <span class="na">+DirectoriesToAlwaysCook=(Path</span><span class="o">=</span><span class="s">&quot;AirSim/Models&quot;</span><span class="na">)</span>
 <span class="na">+DirectoriesToAlwaysCook=(Path</span><span class="o">=</span><span class="s">&quot;AirSim/Weather&quot;</span><span class="na">)</span>
 </code></pre></div></p>
-<p><strong><code>~/Documents/AirSim/settings.json</code></strong> (runtime):
+<p><strong><code>~/Documents/AirSim/settings.json</code></strong> (运行时):
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;SettingsVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.2</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;SimMode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Multirotor&quot;</span><span class="p">,</span>
@@ -479,292 +479,331 @@
 <span class="p">}</span>
 </code></pre></div></p>
 <hr />
-<h2 id="3-dual-communication-architecture">3. Dual Communication Architecture<a class="headerlink" href="#3-dual-communication-architecture" title="Permanent link">#</a></h2>
-<h3 id="31-carla-server-port-2000">3.1 CARLA Server (Port 2000)<a class="headerlink" href="#31-carla-server-port-2000" title="Permanent link">#</a></h3>
-<p>CARLA uses a <strong>three-port architecture</strong>:</p>
+<h2 id="3">3. 双通信架构<a class="headerlink" href="#3" title="Permanent link">#</a></h2>
+<h3 id="31-carla-2000">3.1 Carla 服务端 (端口 2000)<a class="headerlink" href="#31-carla-2000" title="Permanent link">#</a></h3>
+<p>Carla 是用 <strong>三端口架构</strong>：</p>
 <table>
 <thead>
 <tr>
-<th>Port</th>
-<th>Protocol</th>
-<th>Purpose</th>
+<th>端口</th>
+<th>协议</th>
+<th>目的</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>2000</td>
 <td>rpclib (MessagePack-RPC)</td>
-<td>Synchronous commands: spawn, destroy, weather, tick</td>
+<td>同步命令: spawn, destroy, weather, tick</td>
 </tr>
 <tr>
 <td>2001</td>
-<td>TCP streaming</td>
-<td>High-throughput sensor data (camera images, LiDAR)</td>
+<td>TCP 流式传输</td>
+<td>高通量传感器数据（相机图像、激光雷达）</td>
 </tr>
 <tr>
 <td>2002</td>
-<td>TCP secondary</td>
-<td>Multi-GPU synchronization</td>
+<td>TCP 辅助</td>
+<td>多 GPU 同步</td>
 </tr>
 </tbody>
 </table>
-<p><strong>RPC binding pattern</strong>: Operations that modify UE4 state are <strong>sync-bound</strong> to the game thread via <code>boost::asio::io_context</code> post-and-wait. Read-only operations are <strong>async-bound</strong> to RPC worker threads.</p>
-<p><strong>Sensor data pipeline</strong>:
-1. Sensor captures data during UE4 tick (game thread)
-2. <code>FPixelReader::SendPixelsInRenderThread()</code> enqueues a render command
-3. GPU pixels are read via <code>FRHICommandListImmediate</code>
-4. Data is serialized through <code>SensorRegistry::Serialize()</code> (type-dispatched)
-5. Sent via dedicated TCP stream (each sensor has a unique stream token)</p>
-<h3 id="32-airsim-server-port-41451">3.2 AirSim Server (Port 41451)<a class="headerlink" href="#32-airsim-server-port-41451" title="Permanent link">#</a></h3>
-<p>AirSim uses a <strong>single-port RPC architecture</strong> via rpclib:</p>
+<p><strong>RPC绑定模式</strong>: 修改 UE4 状态的操作通过<code>boost::asio::io_context</code> 的 post-and-wait 机制同步绑定(<strong>sync-bound</strong>)到游戏线程。只读操作异步绑定(<strong>async-bound</strong>)到 RPC 工作线程。</p>
+<p><strong>传感器数据管道</strong>:
+1. 传感器在 UE4 游戏线程节拍周期内捕获数据
+2. <code>FPixelReader::SendPixelsInRenderThread()</code> 将渲染命令加入渲染命令队列
+3. GPU 像素通过 <code>FRHICommandListImmediate</code> 读取
+4. 数据通过 <code>SensorRegistry::Serialize()</code>（类型分发）进行序列化。
+5. 通过专用 TCP 流发送（每个传感器都有一个唯一的流令牌）</p>
+<h3 id="32-airsim-41451">3.2 AirSim 服务端 (端口 41451)<a class="headerlink" href="#32-airsim-41451" title="Permanent link">#</a></h3>
+<p>AirSim 使用 rpclib 实现的<strong>单端口 RPC 架构</strong>：</p>
 <table>
 <thead>
 <tr>
-<th>Port</th>
-<th>Protocol</th>
-<th>Purpose</th>
+<th>端口</th>
+<th>协议</th>
+<th>目的</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>41451</td>
 <td>rpclib (MessagePack-RPC)</td>
-<td>All commands: flight control, image capture, sensor queries</td>
+<td>所有指令：飞行控制、图像采集、传感器查询</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Image capture</strong>: Unlike CARLA's streaming model, AirSim images are requested on-demand through RPC calls (<code>simGetImages</code>). The server reads the UE4 render target synchronously and returns raw pixel data in the RPC response.</p>
-<p><strong>Physics thread interaction</strong>: Flight commands (e.g., <code>moveToPositionAsync</code>) are posted to AirSim's internal command queue. The <code>FastPhysicsEngine</code> running on a dedicated async thread at 333 Hz reads commands and updates the physics state. The RPC server reads back state on demand.</p>
-<h3 id="33-coexistence">3.3 Coexistence<a class="headerlink" href="#33-coexistence" title="Permanent link">#</a></h3>
-<p>Both RPC servers run within the same process, sharing the UE4 world. They do not interfere because:
-- They bind to different ports (2000 vs 41451)
-- They use independent rpclib server instances
-- Game-thread operations are serialized naturally by UE4's single-threaded game loop
-- AirSim's async physics thread operates on its own kinematic state, reading UE4 collision geometry but not modifying CARLA actors</p>
+<p><strong>图像采集</strong>: 与 Carla 的流式传输模型不同，AirSim 图像是通过 RPC 调用（<code>simGetImages</code>）按需请求的。服务器同步读取 UE4 渲染目标，并在 RPC 响应中返回原始像素数据。</p>
+<p><strong>物理线程交互</strong>: 飞行指令（例如 <code>moveToPositionAsync</code>）被发布到 AirSim 的内部指令队列。运行在专用异步线程上、频率为 333 Hz 的 <code>FastPhysicsEngine</code> 读取指令并更新物理状态。RPC 服务器按需读取状态。</p>
+<h3 id="33">3.3 共存<a class="headerlink" href="#33" title="Permanent link">#</a></h3>
+<p>这两个 RPC 服务器运行在同一个进程中，共享同一个 UE4 世界。它们之间不会相互干扰，因为：</p>
+<ul>
+<li>
+<p>它们绑定到不同的端口（2000 与 41451）</p>
+</li>
+<li>
+<p>它们使用独立的 rpclib 服务器实例。</p>
+</li>
+<li>
+<p>UE4 的单线程游戏循环自然地实现了游戏线程操作的串行化。</p>
+</li>
+<li>
+<p>AirSim 的异步物理线程运行在其自身的运动学状态上，读取 UE4 碰撞几何​​体，但不会修改 Carla 的参与者。</p>
+</li>
+</ul>
 <hr />
-<h2 id="4-sensor-systems">4. Sensor Systems<a class="headerlink" href="#4-sensor-systems" title="Permanent link">#</a></h2>
-<h3 id="41-carla-ground-sensors-10-types">4.1 CARLA Ground Sensors (10 types)<a class="headerlink" href="#41-carla-ground-sensors-10-types" title="Permanent link">#</a></h3>
-<p>CARLA provides a comprehensive ground-vehicle sensor suite, all spawnable as actors attached to any vehicle:</p>
+<h2 id="4">4. 传感器系统<a class="headerlink" href="#4" title="Permanent link">#</a></h2>
+<h3 id="41-carla-10">4.1 Carla 地面传感器 (10 种类型)<a class="headerlink" href="#41-carla-10" title="Permanent link">#</a></h3>
+<p>Carla 提供了一套全面的真实载具传感器套件，所有传感器都可以作为 Actor 附加到任何车辆上：</p>
 <table>
 <thead>
 <tr>
-<th>Sensor</th>
-<th>Class Hierarchy</th>
-<th>Data Format</th>
-<th>Key Parameters</th>
+<th>传感器</th>
+<th>类层次结构</th>
+<th>数据格式</th>
+<th>关键参数</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>RGB Camera</td>
+<td>RGB 相机</td>
 <td><code>ASceneCaptureCamera</code> : <code>ASceneCaptureSensor</code> : <code>ASensor</code></td>
 <td>BGRA uint8</td>
-<td>Resolution, FOV, lens distortion</td>
+<td>分辨率、视场角、镜头畸变</td>
 </tr>
 <tr>
-<td>Depth Camera</td>
+<td>深度相机</td>
 <td><code>ADepthCamera</code> : <code>AShaderBasedSensor</code> : <code>ASceneCaptureSensor</code></td>
-<td>Encoded R+G×256+B×65536, normalized to meters</td>
-<td>Same as RGB</td>
+<td>编码格式为 R+G×256+B×65536, 以米为单位进行标准化</td>
+<td>与 RGB 相同</td>
 </tr>
 <tr>
-<td>Semantic Segmentation</td>
+<td>语义分割</td>
 <td><code>ASemanticSegmentationCamera</code> : <code>AShaderBasedSensor</code></td>
-<td>Label index in R channel (20+ CityScapes-compatible classes)</td>
-<td>Same as RGB</td>
+<td>R 通道中的标签索引（20 多个与 Cityscapes 兼容的类）</td>
+<td>与 RGB 相同</td>
 </tr>
 <tr>
-<td>Instance Segmentation</td>
+<td>实例分割</td>
 <td><code>AInstanceSegmentationCamera</code> : <code>AShaderBasedSensor</code></td>
-<td>Per-instance unique color</td>
-<td>Same as RGB</td>
+<td>每个实例的唯一颜色</td>
+<td>与 RGB 相同</td>
 </tr>
 <tr>
-<td>LiDAR</td>
+<td>激光雷达</td>
 <td><code>ARayCastLidar</code> : <code>ARayCastSemanticLidar</code> : <code>ASensor</code></td>
-<td>float32 [x, y, z, intensity] per point</td>
-<td>Channels (16-128), range, points/sec, rotation freq</td>
+<td>每个点为 float32 [x, y, z, 强度]</td>
+<td>通道数（16-128），范围，点数/秒，旋转频率</td>
 </tr>
 <tr>
-<td>Radar</td>
+<td>毫米波雷达</td>
 <td><code>ARadar</code> : <code>ASensor</code></td>
-<td>Per-detection: azimuth, altitude, depth, velocity</td>
-<td>H-FOV, V-FOV, range, points/sec</td>
+<td>每次探测结果：方位角、高度角、深度、速度</td>
+<td>水平视场角、垂直视场角、范围、点数/秒</td>
 </tr>
 <tr>
 <td>IMU</td>
 <td><code>AInertialMeasurementUnit</code> : <code>ASensor</code></td>
-<td>Accelerometer (3D), gyroscope (3D), compass</td>
-<td>Noise std dev, bias</td>
+<td>加速度计 (3D), 陀螺仪 (3D), 罗盘</td>
+<td>噪声标准差，偏差</td>
 </tr>
 <tr>
 <td>GNSS</td>
 <td><code>AGnssSensor</code> : <code>ASensor</code></td>
-<td>Latitude, longitude, altitude</td>
-<td>Noise deviation</td>
+<td>纬度、经度、海拔</td>
+<td>噪声偏差</td>
 </tr>
 <tr>
-<td>Collision</td>
+<td>碰撞</td>
 <td><code>ACollisionSensor</code> : <code>ASensor</code></td>
-<td>Event-driven: other actor, impulse</td>
+<td>事件驱动：其他参与者，脉冲</td>
 <td>--</td>
 </tr>
 <tr>
-<td>Lane Invasion</td>
+<td>压线</td>
 <td><code>ALaneInvasionSensor</code> : <code>ASensor</code></td>
-<td>Event-driven: crossed lane markings</td>
+<td>事件驱动：和车道线交叉</td>
 <td>--</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Shader-based rendering</strong>: Depth, segmentation, normals, and optical flow cameras apply post-process materials to UE4's scene capture pipeline. Materials write to the G-buffer channels, which are then read back as pixel data. This achieves pixel-perfect alignment with RGB images at negligible additional rendering cost.</p>
-<p><strong>LiDAR implementation</strong>: Uses UE4 <code>LineTraceSingleByChannel</code> for ray-casting. Points are generated in a rotating pattern matching real LiDAR scan patterns. Intensity is computed via an attenuation model: <code>α × I₀ + β</code>, where I₀ depends on hit distance and material reflectivity. Supports atmospheric attenuation for rain/fog conditions.</p>
-<h3 id="42-airsim-aerial-sensors-6-types">4.2 AirSim Aerial Sensors (6 types)<a class="headerlink" href="#42-airsim-aerial-sensors-6-types" title="Permanent link">#</a></h3>
+<p><strong>基于着色器的渲染</strong>: 深度、分割、法线和光流像机将后处理材质应用于 UE4 的场景捕获管线。材质写入几何 (Geometry, G) 缓冲区通道，然后作为像素数据读取。这以极低的额外渲染成本实现了与 RGB 图像的像素级完美对齐。</p>
+<p><strong>激光雷达实现</strong>: 使用 UE4 <code>LineTraceSingleByChannel</code> 进行光线投射。点云以旋转模式生成，与真实的激光雷达扫描模式相匹配。强度通过衰减模型 <code>α × I₀ + β</code> 计算，其中 I₀ 取决于探测距离和材质反射率。支持雨雾等大气衰减。</p>
+<h3 id="42-airsim-6">4.2 AirSim 空中传感器（6 种类型）<a class="headerlink" href="#42-airsim-6" title="Permanent link">#</a></h3>
 <table>
 <thead>
 <tr>
-<th>Sensor</th>
-<th>Implementation</th>
-<th>Data Format</th>
-<th>Noise Model</th>
+<th>传感器</th>
+<th>实现</th>
+<th>数据格式</th>
+<th>噪声模型</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>RGB Camera</td>
+<td>RGB 相机</td>
 <td><code>APIPCamera</code> + <code>USceneCaptureComponent2D</code></td>
 <td>uint8 BGRA</td>
 <td>--</td>
 </tr>
 <tr>
-<td>Depth Camera</td>
-<td>Post-process material on same component</td>
-<td>float32 (meters) or uint8 (visualization)</td>
+<td>Depth 相机</td>
+<td>同一组件上的后处理材料</td>
+<td>float32（米）或 uint8（可视化）</td>
 <td>--</td>
 </tr>
 <tr>
-<td>Segmentation</td>
-<td>Post-process material on same component</td>
-<td>uint8 label colors</td>
+<td>分割</td>
+<td>同一组件上的后处理材料</td>
+<td>uint8 标签颜色</td>
 <td>--</td>
 </tr>
 <tr>
 <td>IMU</td>
 <td><code>ImuSimple</code> (AirLib)</td>
-<td>Accelerometer, gyroscope, compass</td>
-<td>Angle Random Walk, Velocity Random Walk, Gaussian-Markov bias drift</td>
+<td>加速度计、陀螺仪、指南针</td>
+<td>角度随机游走、速度随机游走、高斯-马尔可夫偏差漂移</td>
 </tr>
 <tr>
 <td>GPS</td>
 <td><code>GpsSimple</code> (AirLib)</td>
-<td>Lat, lon, alt, velocity</td>
-<td>EPH/EPV convergence filter, update rate limiting, latency</td>
+<td>纬度、经度、海拔、速度</td>
+<td>EPH/EPV 收敛滤波器、更新速率限制、延迟</td>
 </tr>
 <tr>
-<td>Barometer</td>
+<td>气压计</td>
 <td><code>BarometerSimple</code> (AirLib)</td>
-<td>Altitude (m), pressure (Pa)</td>
-<td>Gaussian-Markov drift (~10m/hr), uncorrelated noise (~0.2m σ)</td>
+<td>海拔（米），气压（帕）</td>
+<td>高斯-马尔可夫漂移（~10米/小时），不相关噪声（~0.2米σ）</td>
 </tr>
 <tr>
-<td>Magnetometer</td>
+<td>磁力计</td>
 <td><code>MagnetometerSimple</code> (AirLib)</td>
-<td>Body-frame magnetic field (3D)</td>
-<td>Gaussian noise + uniform bias</td>
+<td>体坐标系磁场（三维）</td>
+<td>高斯噪声 + 均匀偏差</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Camera system</strong>: Each drone has 5 camera mount points (front_center, front_right, front_left, bottom_center, back_center). Each mount creates multiple <code>USceneCaptureComponent2D</code> instances for different image types. Images are captured on-demand through the RPC API. Default resolution: 1280×960.</p>
-<p><strong>Sensor noise models</strong>: AirSim implements physically-motivated noise models based on Oliver Woodman's "An introduction to inertial navigation" (Cambridge TR-696):
-- <strong>IMU</strong>: ARW (angle random walk) for gyroscope drift, VRW (velocity random walk) for accelerometer bias, with configurable turn-on bias
-- <strong>GPS</strong>: First-order low-pass filter for horizontal/vertical position error convergence, simulating cold-start behavior
-- <strong>Barometer</strong>: Gaussian-Markov process for slow pressure drift, plus high-frequency measurement noise</p>
-<h3 id="43-combined-sensor-capabilities">4.3 Combined Sensor Capabilities<a class="headerlink" href="#43-combined-sensor-capabilities" title="Permanent link">#</a></h3>
-<p>In SimWorld, <strong>all 16 sensor types can operate simultaneously</strong>:</p>
+<p><strong>相机系统</strong>: 每架无人机有 5 个相机安装点（前中心、前右、前左、下中心、后中心）。每个安装点都会创建多个 <code>USceneCaptureComponent2D</code> 实例，用于拍摄不同类型的图像。图像通过 RPC API 按需采集。默认分辨率：1280×960。</p>
+<p><strong>传感器噪声模型</strong>: AirSim 实现了基于 Oliver Woodman 的《惯性导航导论》（剑桥 TR-696）的物理噪声模型：</p>
+<ul>
+<li>
+<p><strong>IMU</strong>: 采用角度随机游走 (angle random walk, ARW) 算法校正陀螺仪漂移，采用速度随机游走 (velocity random walk, VRW) 算法校正加速度计偏差，并可配置开启偏差。</p>
+</li>
+<li>
+<p><strong>GPS</strong>: 用于水平/垂直位置误差收敛的一阶低通滤波器，模拟冷启动行为</p>
+</li>
+<li>
+<p><strong>气压计</strong>: 采用高斯-马尔可夫过程模拟缓慢的压力漂移，并考虑高频测量噪声</p>
+</li>
+</ul>
+<h3 id="43">4.3 组合传感器能力<a class="headerlink" href="#43" title="Permanent link">#</a></h3>
+<p>在SimWorld中，<strong>所有16种传感器类型可以同时运行</strong>：</p>
 <table>
 <thead>
 <tr>
-<th>Perspective</th>
-<th>Sensors Available</th>
-<th>Total Streams</th>
+<th>角度</th>
+<th>可用传感器</th>
+<th>流的总数</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Ground Vehicle</td>
+<td>地面车辆</td>
 <td>RGB, Depth, Segmentation, Instance Seg, LiDAR, Radar, IMU, GNSS, Collision, Lane Invasion</td>
 <td>10</td>
 </tr>
 <tr>
-<td>Aerial Drone</td>
+<td>无人机</td>
 <td>RGB, Depth, Segmentation, Infrared, IMU, GPS, Barometer, Magnetometer</td>
 <td>8</td>
 </tr>
 <tr>
-<td><strong>Combined</strong></td>
-<td><strong>All of the above, synchronized to the same world state</strong></td>
+<td><strong>组合</strong></td>
+<td><strong>以上所有内容均与同一世界状态同步</strong></td>
 <td><strong>18</strong></td>
 </tr>
 </tbody>
 </table>
-<p>This is a unique capability -- no other simulator provides synchronized ground + aerial multi-modal sensor data in a single rendering pass.</p>
+<p>这是一项独特的功能，因为没有其他模拟器能够在一次渲染过程中提供同步的地面+空中多模态传感器数据。</p>
 <hr />
-<h2 id="5-physics-and-flight-dynamics">5. Physics and Flight Dynamics<a class="headerlink" href="#5-physics-and-flight-dynamics" title="Permanent link">#</a></h2>
-<h3 id="51-ground-vehicle-physics">5.1 Ground Vehicle Physics<a class="headerlink" href="#51-ground-vehicle-physics" title="Permanent link">#</a></h3>
-<p>CARLA uses UE4's native PhysX vehicle physics (<code>AWheeledVehicle</code>):
-- 4-wheel (standard cars) and N-wheel (trucks, buses) configurations
-- Torque curve, steering curve, mass, drag, center of mass tuning
-- Ackermann steering model with PID controller
-- Integration with Project Chrono for higher-fidelity tire models (optional)</p>
-<h3 id="52-drone-flight-dynamics-fastphysicsengine">5.2 Drone Flight Dynamics (FastPhysicsEngine)<a class="headerlink" href="#52-drone-flight-dynamics-fastphysicsengine" title="Permanent link">#</a></h3>
-<p>AirSim implements a <strong>custom rigid-body dynamics engine</strong> running on a dedicated async thread at 333 Hz:</p>
-<p><strong>Integration</strong>: Second-order Verlet method for both linear and angular motion:
-<div class="highlight"><pre><span></span><code>v(t+dt) = v(t) + a(t) × dt
-x(t+dt) = x(t) + v(t+dt) × dt
-</code></pre></div></p>
-<p><strong>Force model</strong>: Each rotor contributes a thrust force vector and torque. Total wrench is the sum over 4 rotors. Aerodynamic drag uses a 6-face box model with velocity-squared dependence:
-<div class="highlight"><pre><span></span><code>F_drag = -0.5 × ρ × Cd × A × |v_rel|² × v̂_rel
-</code></pre></div>
-where <code>v_rel</code> accounts for wind.</p>
-<p><strong>Collision response</strong>: Impulse-based method with Coulomb friction:
-<div class="highlight"><pre><span></span><code>j = -(1 + e) × (v · n) / (1/m + ((I⁻¹(r × n)) × r) · n)
-</code></pre></div>
-Ground lock prevents micro-bouncing on landing surfaces.</p>
-<p><strong>Flight controllers</strong>:
-- <strong>SimpleFlight</strong> (default): Built-in PID controller for position, velocity, and attitude control. Runs within AirLib, no external dependencies.
-- <strong>PX4</strong> (optional): Software-in-the-loop with PX4 Autopilot via MAVLink
-- <strong>ArduPilot</strong> (optional): SITL integration</p>
-<h3 id="53-coordinate-systems">5.3 Coordinate Systems<a class="headerlink" href="#53-coordinate-systems" title="Permanent link">#</a></h3>
+<h2 id="5">5. 物理学和飞行动力学<a class="headerlink" href="#5" title="Permanent link">#</a></h2>
+<h3 id="51">5.1 地面车辆物理<a class="headerlink" href="#51" title="Permanent link">#</a></h3>
+<p>Carla 使用 UE4 的原生 PhysX 车辆物理引擎（<code>AWheeledVehicle</code>）：</p>
+<ul>
+<li>
+<p>4轮（标准轿车）和N轮（卡车、公共汽车）配置</p>
+</li>
+<li>
+<p>扭矩曲线、转向曲线、质量、阻力、质心调校</p>
+</li>
+<li>
+<p>采用PID控制器的阿克曼转向模型</p>
+</li>
+<li>
+<p>与 Project Chrono 集成，实现更高保真度的轮胎模型（可选）</p>
+</li>
+</ul>
+<h3 id="52-fastphysicsengine">5.2 无人机飞行动力学 (FastPhysicsEngine)<a class="headerlink" href="#52-fastphysicsengine" title="Permanent link">#</a></h3>
+<p>AirSim 实现了一个<strong>自定义的刚体动力学引擎</strong>，该引擎运行在专用的异步线程上，频率为 333 Hz：</p>
+<p><strong>积分</strong>: 采用二阶 Verlet 方法计算线运动和角运动：
+$$
+v(t+dt) = v(t) + a(t) \times dt
+$$
+$$
+x(t+dt) = x(t) + v(t+dt) \times dt
+$$</p>
+<p><strong>力模型</strong>: 每个旋翼贡献一个推力矢量和一个扭矩。总扭矩是四个旋翼扭矩之和。空气动力阻力采用六面盒模型，其与速度的平方成正比：
+$$
+F_{drag} = -0.5 \times \rho \times Cd \times A \times |v_{rel}|^2 \times \hat{v}_{rel}
+$$
+其中 <span class="arithmatex">\(\hat{v}_{rel}\)</span> 考虑风的影响。</p>
+<p><strong>碰撞响应</strong>: 基于库仑摩擦的脉冲法：
+$$
+j = - \frac{(1 + e) \times (v \cdot n)}{ \frac{1}{m} + ((I^{-1}(r \times n)) × r) \cdot n}
+$$
+地面锁定功能可防止飞机在着陆面上发生微小弹跳。</p>
+<p><strong>飞控</strong>:
+- <strong>SimpleFlight</strong> (默认): 内置 PID 控制器，用于位置、速度和姿态控制。运行于AirLib库内，无外部依赖。
+- <strong>PX4</strong> (可选): 通过 MAVLink 与 PX4 自动驾驶仪实现软件在环集成
+- <strong>ArduPilot</strong> (可选): SITL集成</p>
+<h3 id="53">5.3 坐标系<a class="headerlink" href="#53" title="Permanent link">#</a></h3>
 <table>
 <thead>
 <tr>
-<th>System</th>
-<th>Convention</th>
-<th>Origin</th>
-<th>Units</th>
+<th>系统</th>
+<th>约定</th>
+<th>原点</th>
+<th>单位</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>UE4 / CARLA</td>
-<td>Left-handed, Z-up</td>
-<td>Map origin (0, 0, 0)</td>
-<td>Centimeters (internally), meters (API)</td>
+<td>UE4 / Carla</td>
+<td>左手系，Z 轴向上</td>
+<td>地图原点 (0, 0, 0)</td>
+<td>厘米（内部单位），米（API单位）</td>
 </tr>
 <tr>
 <td>AirSim</td>
-<td>NED (North-East-Down)</td>
-<td>PlayerStart location</td>
-<td>Meters</td>
+<td>北东地（North-East-Down, NED）</td>
+<td>玩家起始位置</td>
+<td>米</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Coordinate mapping</strong>: AirSim creates a <code>NedTransform</code> at BeginPlay that maps between UE4 world coordinates and the NED frame anchored at the drone's spawn point. For drone-follows-car applications, we use a <strong>relative offset method</strong>:
-1. Record initial CARLA car position <code>(cx₀, cy₀)</code> and AirSim drone NED position <code>(dx₀, dy₀)</code>
-2. Per frame: <code>Δ = (cx - cx₀, cy - cy₀)</code>, target drone NED = <code>(dx₀ + Δx, dy₀ + Δy, -altitude)</code></p>
+<p><strong>坐标映射</strong>: AirSim 在 BeginPlay 时创建一个 <code>NedTransform</code>，用于在 UE4 世界坐标和以无人机生成点为锚点的 NED 坐标系之间进行映射。对于无人机跟随车辆的应用，我们使用<strong>相对偏移方法</strong>：</p>
+<ol>
+<li>
+<p>记录 Carla 汽车的初始位置 <span class="arithmatex">\( (cx_o, cy_o) \)</span> 和 AirSim 无人机 NED 的位置 <span class="arithmatex">\( (dx_o, dy_o) \)</span></p>
+</li>
+<li>
+<p>每帧: <span class="arithmatex">\( \delta = (cx - cx_o, cy - cy_o) \)</span> ，目标无人机 NED = <span class="arithmatex">\( (dx_o + \delta x, dy_o, \delta y) \)</span> 。</p>
+</li>
+</ol>
 <hr />
-<h2 id="6-traffic-and-environment">6. Traffic and Environment<a class="headerlink" href="#6-traffic-and-environment" title="Permanent link">#</a></h2>
-<h3 id="61-traffic-manager">6.1 Traffic Manager<a class="headerlink" href="#61-traffic-manager" title="Permanent link">#</a></h3>
+<h2 id="6">6. 交通与环境<a class="headerlink" href="#6" title="Permanent link">#</a></h2>
+<h3 id="61">6.1 交通管理器<a class="headerlink" href="#61" title="Permanent link">#</a></h3>
 <p>CARLA's Traffic Manager is a <strong>client-side pipeline architecture</strong> running on a dedicated thread:</p>
 <table>
 <thead>
@@ -801,7 +840,7 @@ Ground lock prevents micro-bouncing on landing surfaces.</p>
 </tbody>
 </table>
 <p>The TM maintains an <strong>InMemoryMap</strong> (cached waypoint graph) for O(1) spatial queries and a <strong>SimulationState</strong> tracking all managed actors' kinematics.</p>
-<h3 id="62-weather-system">6.2 Weather System<a class="headerlink" href="#62-weather-system" title="Permanent link">#</a></h3>
+<h3 id="62">6.2 天气系统<a class="headerlink" href="#62" title="Permanent link">#</a></h3>
 <p>15 continuous parameters controlling atmospheric conditions:</p>
 <table>
 <thead>
@@ -865,7 +904,7 @@ Ground lock prevents micro-bouncing on landing surfaces.</p>
 </tbody>
 </table>
 <p>14 named presets covering day/night, clear/cloudy/rain/storm conditions. Weather affects <strong>both</strong> CARLA rendering and AirSim's aerial views simultaneously.</p>
-<h3 id="63-maps-and-road-networks">6.3 Maps and Road Networks<a class="headerlink" href="#63-maps-and-road-networks" title="Permanent link">#</a></h3>
+<h3 id="63">6.3 地图和路网<a class="headerlink" href="#63" title="Permanent link">#</a></h3>
 <table>
 <thead>
 <tr>
@@ -920,8 +959,8 @@ Ground lock prevents micro-bouncing on landing surfaces.</p>
 - <strong>Traffic infrastructure</strong>: Traffic lights (with timing), stop signs, speed limits
 - <strong>Environment objects</strong>: Buildings, vegetation, street furniture (13000+ objects in Town10HD)</p>
 <hr />
-<h2 id="7-actor-system">7. Actor System<a class="headerlink" href="#7-actor-system" title="Permanent link">#</a></h2>
-<h3 id="71-actor-blueprint-library">7.1 Actor Blueprint Library<a class="headerlink" href="#71-actor-blueprint-library" title="Permanent link">#</a></h3>
+<h2 id="7">7. 参与者系统<a class="headerlink" href="#7" title="Permanent link">#</a></h2>
+<h3 id="71">7.1 参与者蓝图库<a class="headerlink" href="#71" title="Permanent link">#</a></h3>
 <table>
 <thead>
 <tr>
@@ -963,7 +1002,7 @@ Ground lock prevents micro-bouncing on landing surfaces.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="72-actor-spawn-pipeline">7.2 Actor Spawn Pipeline<a class="headerlink" href="#72-actor-spawn-pipeline" title="Permanent link">#</a></h3>
+<h3 id="72">7.2 参与者生成管线<a class="headerlink" href="#72" title="Permanent link">#</a></h3>
 <div class="highlight"><pre><span></span><code>Python: world.spawn_actor(blueprint, transform)
   → RPC: carla::rpc::Command::SpawnActor
     → FCarlaServer::FPimpl (game thread)
@@ -974,15 +1013,15 @@ Ground lock prevents micro-bouncing on landing surfaces.</p>
           → FActorRegistry::Register(actor_id, actor)
         → return carla::rpc::Actor (serialized to client)
 </code></pre></div>
-<h3 id="73-pedestrian-ai-navigation">7.3 Pedestrian AI Navigation<a class="headerlink" href="#73-pedestrian-ai-navigation" title="Permanent link">#</a></h3>
+<h3 id="73-ai">7.3 行人 AI 导航<a class="headerlink" href="#73-ai" title="Permanent link">#</a></h3>
 <p>Walkers use UE4's <strong>Recast navigation mesh</strong> for pathfinding:
 - Navigation mesh is pre-built from map geometry
 - <code>AWalkerAIController</code> provides the Python API interface
 - <code>controller.go_to_location(target)</code> triggers A* pathfinding on the navmesh
 - <code>controller.set_max_speed(speed)</code> controls movement speed</p>
 <hr />
-<h2 id="8-application-domains-and-research-capabilities">8. Application Domains and Research Capabilities<a class="headerlink" href="#8-application-domains-and-research-capabilities" title="Permanent link">#</a></h2>
-<h3 id="81-autonomous-driving">8.1 Autonomous Driving<a class="headerlink" href="#81-autonomous-driving" title="Permanent link">#</a></h3>
+<h2 id="8">8. 应用领域和研究能力<a class="headerlink" href="#8" title="Permanent link">#</a></h2>
+<h3 id="81">8.1 自动驾驶<a class="headerlink" href="#81" title="Permanent link">#</a></h3>
 <ul>
 <li>Full ego-vehicle sensor suite (RGB, depth, segmentation, LiDAR, radar, IMU, GNSS)</li>
 <li>Traffic Manager with per-vehicle behavioral parameters</li>
@@ -990,7 +1029,7 @@ Ground lock prevents micro-bouncing on landing surfaces.</p>
 <li>41 vehicle types across 6+ maps with OpenDRIVE road networks</li>
 <li>Deterministic simulation mode for reproducible experiments</li>
 </ul>
-<h3 id="82-uav-navigation-and-control">8.2 UAV Navigation and Control<a class="headerlink" href="#82-uav-navigation-and-control" title="Permanent link">#</a></h3>
+<h3 id="82">8.2 无人机导航与控制<a class="headerlink" href="#82" title="Permanent link">#</a></h3>
 <ul>
 <li>6-DOF flight control: position, velocity, body-frame velocity, yaw rate, path following</li>
 <li>Physics-based dynamics at 333 Hz with wind and aerodynamic drag</li>
@@ -998,24 +1037,24 @@ Ground lock prevents micro-bouncing on landing surfaces.</p>
 <li>Configurable flight controllers (SimpleFlight, PX4, ArduPilot)</li>
 <li>Sensor noise models (IMU, GPS, barometer, magnetometer) for realistic perception</li>
 </ul>
-<h3 id="83-air-ground-cooperative-systems-novel">8.3 Air-Ground Cooperative Systems (Novel)<a class="headerlink" href="#83-air-ground-cooperative-systems-novel" title="Permanent link">#</a></h3>
-<p>This is SimWorld's unique research capability:</p>
+<h3 id="83">8.3 空地协同系统 (新颖)<a class="headerlink" href="#83" title="Permanent link">#</a></h3>
+<p>这是 SimWorld 独有的研究能力：</p>
 <ul>
-<li><strong>Drone-car tracking</strong>: UAV follows ground vehicles with real-time coordinate translation</li>
-<li><strong>Aerial traffic monitoring</strong>: Bird's-eye-view vehicle detection and counting</li>
-<li><strong>Cooperative perception</strong>: Ground-level + aerial sensor fusion datasets</li>
-<li><strong>Multi-agent coordination</strong>: Multiple CARLA vehicles + AirSim drone in shared scenarios</li>
-<li><strong>Emergency response</strong>: Aerial scouting + ground navigation in urban environments</li>
+<li><strong>无人机-车辆跟踪</strong>: 无人机通过实时坐标变换跟踪地面车辆</li>
+<li><strong>空中交通监控</strong>: 鸟瞰式车辆检测与计数</li>
+<li><strong>协同感知</strong>: 地面+空中传感器融合数据集</li>
+<li><strong>多智能体协同</strong>: 多辆 Carla 车辆 + AirSim 无人机在共享场景中</li>
+<li><strong>应急响应</strong>: 城市环境中的空中侦察 + 地面导航</li>
 </ul>
-<h3 id="84-social-navigation">8.4 Social Navigation<a class="headerlink" href="#84-social-navigation" title="Permanent link">#</a></h3>
+<h3 id="84">8.4 社交导航<a class="headerlink" href="#84" title="Permanent link">#</a></h3>
 <ul>
-<li>FPS-style first-person pedestrian control with mouse-look</li>
-<li>52 pedestrian types with AI-controlled navigation</li>
-<li>Large-scale crowd simulation (50+ vehicles + 20+ pedestrians)</li>
-<li>Pedestrian-vehicle interaction in traffic environments</li>
-<li>Variable weather and lighting conditions</li>
+<li>第一人称射击游戏风格，采用鼠标视角的第一人称行人控制</li>
+<li>52 种行人类型，配备 AI 控制的导航</li>
+<li>大规模人群模拟（50辆以上车辆 + 20名以上行人）</li>
+<li>交通环境中的行人-车辆交互</li>
+<li>多变的天气和光照条件</li>
 </ul>
-<h3 id="85-multi-modal-dataset-generation">8.5 Multi-Modal Dataset Generation<a class="headerlink" href="#85-multi-modal-dataset-generation" title="Permanent link">#</a></h3>
+<h3 id="85">8.5 多模态数据集生成<a class="headerlink" href="#85" title="Permanent link">#</a></h3>
 <p>SimWorld enables generating datasets with <strong>unprecedented modality coverage</strong>:</p>
 <table>
 <thead>
@@ -1127,33 +1166,33 @@ Ground lock prevents micro-bouncing on landing surfaces.</p>
 </table>
 <p>All modalities are <strong>synchronized to the same simulation frame</strong> and share the same world state. The off-screen rendering mode (<code>-RenderOffScreen</code>) enables headless operation on GPU servers for large-scale data production.</p>
 <hr />
-<h2 id="9-ros-integration">9. ROS Integration<a class="headerlink" href="#9-ros-integration" title="Permanent link">#</a></h2>
-<p>SimWorld supports dual ROS2 bridges for integration with robotics stacks:</p>
-<h3 id="91-carla-ros-bridge">9.1 CARLA ROS Bridge<a class="headerlink" href="#91-carla-ros-bridge" title="Permanent link">#</a></h3>
+<h2 id="9-ros">9. ROS 集成<a class="headerlink" href="#9-ros" title="Permanent link">#</a></h2>
+<p>SimWorld 支持双 ROS2 桥接器，用于与机器人技术栈集成：</p>
+<h3 id="91-carla-ros">9.1 CARLA ROS 桥<a class="headerlink" href="#91-carla-ros" title="Permanent link">#</a></h3>
 <ul>
-<li>Workspace: <code>carla-ros-bridge</code> (ROS2 Humble)</li>
-<li>Published topics: <code>/carla/world_info</code>, <code>/carla/status</code>, <code>/clock</code>, per-vehicle sensor topics</li>
-<li>Services: <code>/carla/spawn_object</code>, <code>/carla/destroy_object</code>, <code>/carla/get_blueprints</code></li>
-<li>Namespace: <code>/carla/*</code></li>
+<li>工作空间: <code>carla-ros-bridge</code> (ROS2 Humble)</li>
+<li>已发布的主题：<code>/carla/world_info</code>, <code>/carla/status</code>, <code>/clock</code>, 每个车的传感器主体</li>
+<li>服务：<code>/carla/spawn_object</code>, <code>/carla/destroy_object</code>, <code>/carla/get_blueprints</code></li>
+<li>命名空间：<code>/carla/*</code></li>
 </ul>
-<h3 id="92-airsim-ros-wrapper">9.2 AirSim ROS Wrapper<a class="headerlink" href="#92-airsim-ros-wrapper" title="Permanent link">#</a></h3>
+<h3 id="92-airsim-ros">9.2 AirSim ROS 封装器<a class="headerlink" href="#92-airsim-ros" title="Permanent link">#</a></h3>
 <ul>
-<li>Package: <code>airsim_ros_pkgs</code> (ROS2 Humble)</li>
-<li>Published topics: <code>/airsim_node/SimpleFlight/imu/imu</code>, <code>/airsim_node/SimpleFlight/front_center/Scene</code>, GPS, barometer, magnetometer, odometry</li>
-<li>Services: takeoff, land, reset</li>
-<li>Namespace: <code>/airsim_node/*</code></li>
+<li>包：<code>airsim_ros_pkgs</code> (ROS2 Humble)</li>
+<li>已发布的主题：<code>/airsim_node/SimpleFlight/imu/imu</code>, <code>/airsim_node/SimpleFlight/front_center/Scene</code>, GPS, barometer, magnetometer, odometry</li>
+<li>服务: takeoff, land, reset</li>
+<li>命名空间: <code>/airsim_node/*</code></li>
 </ul>
-<h3 id="93-simultaneous-operation">9.3 Simultaneous Operation<a class="headerlink" href="#93-simultaneous-operation" title="Permanent link">#</a></h3>
-<p>Both bridges run concurrently under the same ROS master with <strong>zero namespace conflicts</strong> (<code>/carla/</code> vs <code>/airsim_node/</code>). This enables standard ROS2 tools (rviz2, rosbag2, nav2) to consume both ground and aerial data streams.</p>
+<h3 id="93">9.3 同时运行<a class="headerlink" href="#93" title="Permanent link">#</a></h3>
+<p>这两个桥接器在同一个 ROS 主节点下同时运行，<strong>不存在命名空间冲突</strong>（<code>/carla/</code> 与 <code>/airsim_node/</code>）。这使得标准的 ROS2 工具（rviz2、rosbag2、nav2）能够同时使用地面和空中数据流。</p>
 <hr />
-<h2 id="10-performance-characteristics">10. Performance Characteristics<a class="headerlink" href="#10-performance-characteristics" title="Permanent link">#</a></h2>
-<h3 id="101-system-requirements">10.1 System Requirements<a class="headerlink" href="#101-system-requirements" title="Permanent link">#</a></h3>
+<h2 id="10">10. 性能特征<a class="headerlink" href="#10" title="Permanent link">#</a></h2>
+<h3 id="101">10.1 系统要求<a class="headerlink" href="#101" title="Permanent link">#</a></h3>
 <table>
 <thead>
 <tr>
-<th>Component</th>
-<th>Minimum</th>
-<th>Recommended</th>
+<th>部件</th>
+<th>最低配置</th>
+<th>推荐配置</th>
 </tr>
 </thead>
 <tbody>
@@ -1163,130 +1202,130 @@ Ground lock prevents micro-bouncing on landing surfaces.</p>
 <td>8+ GB VRAM (NVIDIA RTX)</td>
 </tr>
 <tr>
-<td>RAM</td>
+<td>内存</td>
 <td>16 GB</td>
 <td>32 GB</td>
 </tr>
 <tr>
 <td>CPU</td>
-<td>4 cores</td>
-<td>8+ cores</td>
+<td>4 核</td>
+<td>8+ 核</td>
 </tr>
 <tr>
-<td>Disk</td>
-<td>20 GB (packaged)</td>
-<td>40 GB (source + build)</td>
+<td>硬盘</td>
+<td>20 GB (打包)</td>
+<td>40 GB (源代码构建)</td>
 </tr>
 <tr>
-<td>OS</td>
+<td>操作系统</td>
 <td>Ubuntu 18.04+</td>
 <td>Ubuntu 20.04/22.04</td>
 </tr>
 </tbody>
 </table>
-<h3 id="102-gpu-memory-usage-tested-on-rtx-a4000-16-gb">10.2 GPU Memory Usage (Tested on RTX A4000, 16 GB)<a class="headerlink" href="#102-gpu-memory-usage-tested-on-rtx-a4000-16-gb" title="Permanent link">#</a></h3>
+<h3 id="102-rtx-a4000-16-gb">10.2 显存使用 (在 RTX A4000, 16 GB 上测试)<a class="headerlink" href="#102-rtx-a4000-16-gb" title="Permanent link">#</a></h3>
 <table>
 <thead>
 <tr>
-<th>Scenario</th>
-<th>VRAM Usage</th>
+<th>场景</th>
+<th>显存（Video RAM, VRAM）使用</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Idle (Town10HD loaded)</td>
+<td>空闲（Town10HD 已加载）</td>
 <td>~3700 MiB</td>
 </tr>
 <tr>
-<td>+ 3 vehicles + 2 walkers + drone</td>
+<td>+ 3 辆车 + 2 个行人 + 无人机</td>
 <td>~3870 MiB</td>
 </tr>
 <tr>
-<td>3-hour continuous operation</td>
-<td>~3878 MiB (stable, no leak)</td>
+<td>3 小时持续操作</td>
+<td>~3878 MiB (稳定，无泄漏)</td>
 </tr>
 <tr>
-<td>Peak during map loading</td>
+<td>地图加载期间的峰值</td>
 <td>~5000 MiB</td>
 </tr>
 </tbody>
 </table>
-<h3 id="103-stability">10.3 Stability<a class="headerlink" href="#103-stability" title="Permanent link">#</a></h3>
+<h3 id="103">10.3 稳定性<a class="headerlink" href="#103" title="Permanent link">#</a></h3>
 <table>
 <thead>
 <tr>
-<th>Test</th>
-<th>Duration</th>
-<th>Cycles</th>
-<th>Errors</th>
-<th>Result</th>
+<th>测试</th>
+<th>持续时间</th>
+<th>周期</th>
+<th>错误</th>
+<th>结果</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Continuous spawn/destroy + drone</td>
-<td>3 hours</td>
-<td>357</td>
+<td>持续生成/销毁 + 无人机</td>
+<td>3 小时</td>
+<td>357 个</td>
 <td>0</td>
-<td>PASS</td>
+<td>通过</td>
 </tr>
 <tr>
-<td>Map switching (Town01→03→05)</td>
+<td>地图切换 (Town01→03→05)</td>
 <td>~15 min</td>
-<td>3 maps</td>
+<td>3 地图</td>
 <td>0</td>
-<td>PASS</td>
+<td>通过</td>
 </tr>
 <tr>
-<td>89-item comprehensive API test</td>
-<td>~5 min</td>
-<td>89 tests</td>
+<td>包含 89 项的综合 API 测试</td>
+<td>~5 分钟</td>
+<td>89 项</td>
 <td>0</td>
 <td>PASS</td>
 </tr>
 </tbody>
 </table>
-<h3 id="104-known-limitations">10.4 Known Limitations<a class="headerlink" href="#104-known-limitations" title="Permanent link">#</a></h3>
+<h3 id="104">10.4 已知局限性<a class="headerlink" href="#104" title="Permanent link">#</a></h3>
 <table>
 <thead>
 <tr>
-<th>Limitation</th>
-<th>Cause</th>
-<th>Workaround</th>
+<th>局限</th>
+<th>原因</th>
+<th>变通方案</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Autopilot vehicles ≤ 10 with drone</td>
-<td>AirSim physics ↔ CARLA Traffic Manager quaternion conflict</td>
-<td>Limit traffic count or disable autopilot</td>
+<td>配备无人机时自动驾驶车辆 ≤ 10 辆</td>
+<td>AirSim 物理 ↔ CARLA 交通管理器四元数冲突</td>
+<td>限制流量或禁用自动驾驶</td>
 </tr>
 <tr>
-<td>Map switch latency: 2-5 min</td>
-<td>Full asset reload in Shipping build</td>
-<td>Use API with 300s timeout</td>
+<td>地图切换延迟：2-5分钟</td>
+<td>Shipping 构建中的完全资产重新加载</td>
+<td>使用 API 设置超时时间为 300 秒</td>
 </tr>
 <tr>
-<td>Single drone instance</td>
-<td>AirSim settings.json limitation</td>
-<td>Configurable for multi-drone</td>
+<td>单无人机实例</td>
+<td>AirSim settings.json 限制</td>
+<td>可配置用于多无人机</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h2 id="11-build-and-deployment">11. Build and Deployment<a class="headerlink" href="#11-build-and-deployment" title="Permanent link">#</a></h2>
-<h3 id="111-compilation">11.1 Compilation<a class="headerlink" href="#111-compilation" title="Permanent link">#</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># Module-level compilation (avoids features.h cross-compile error)</span>
+<h2 id="11_1">11. 构建和部署<a class="headerlink" href="#11_1" title="Permanent link">#</a></h2>
+<h3 id="111">11.1 编译<a class="headerlink" href="#111" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 模块级编译（避免 features.h 交叉编译错误）</span>
 <span class="nb">export</span><span class="w"> </span><span class="nv">UE4_ROOT</span><span class="o">=</span>/path/to/UnrealEngine-4.26
 <span class="si">${</span><span class="nv">UE4_ROOT</span><span class="si">}</span>/Engine/Build/BatchFiles/Linux/Build.sh<span class="w"> </span>CarlaUE4Editor<span class="w"> </span>Linux<span class="w"> </span>Development<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-project<span class="o">=</span><span class="s2">&quot;/path/to/CarlaUE4.uproject&quot;</span><span class="w"> </span>-module<span class="o">=</span>Carla<span class="w">    </span><span class="c1"># ~290s</span>
 <span class="si">${</span><span class="nv">UE4_ROOT</span><span class="si">}</span>/Engine/Build/BatchFiles/Linux/Build.sh<span class="w"> </span>CarlaUE4Editor<span class="w"> </span>Linux<span class="w"> </span>Development<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-project<span class="o">=</span><span class="s2">&quot;/path/to/CarlaUE4.uproject&quot;</span><span class="w"> </span>-module<span class="o">=</span>AirSim<span class="w">   </span><span class="c1"># ~100s</span>
 </code></pre></div>
-<h3 id="112-packaging">11.2 Packaging<a class="headerlink" href="#112-packaging" title="Permanent link">#</a></h3>
+<h3 id="112">11.2 打包<a class="headerlink" href="#112" title="Permanent link">#</a></h3>
 <div class="highlight"><pre><span></span><code>./Util/BuildTools/Package.sh<span class="w"> </span>--config<span class="o">=</span>Shipping<span class="w"> </span>--no-zip
-<span class="c1"># Output: Dist/CARLA_Shipping_&lt;version&gt;/LinuxNoEditor/ (~19 GB)</span>
-<span class="c1"># Compile: ~800s (656 units), Cook: ~2h (13459 packages)</span>
+<span class="c1"># 输出: Dist/CARLA_Shipping_&lt;version&gt;/LinuxNoEditor/ (~19 GB)</span>
+<span class="c1"># 编译: ~800s (656 units), Cook: ~2h (13459 packages)</span>
 </code></pre></div>
 <h3 id="113-distribution">11.3 Distribution<a class="headerlink" href="#113-distribution" title="Permanent link">#</a></h3>
 <p>Packaged build: <strong>7.3 GB</strong> compressed (excluding debug symbols), containing:
@@ -1415,27 +1454,27 @@ Ground lock prevents micro-bouncing on landing surfaces.</p>
 </tr>
 </tbody>
 </table>
-<p><strong>Key differentiator</strong>: SimWorld is the only platform providing physics-based drone flight, comprehensive ground traffic management, and multi-modal synchronized air-ground sensor data in a single rendering process.</p>
+<p><strong>主要区别</strong>：SimWorld 是唯一一个在单一渲染过程中提供基于物理的无人机飞行、全面的地面交通管理以及多模态同步空地传感器数据的平台。</p>
 <hr />
-<h2 id="13-potential-paper-contributions">13. Potential Paper Contributions<a class="headerlink" href="#13-potential-paper-contributions" title="Permanent link">#</a></h2>
-<h3 id="for-neurips-iclr-submission">For NeurIPS / ICLR Submission<a class="headerlink" href="#for-neurips-iclr-submission" title="Permanent link">#</a></h3>
+<h2 id="13_1">13. 潜在的论文贡献<a class="headerlink" href="#13_1" title="Permanent link">#</a></h2>
+<h3 id="neurips-iclr">提交至 NeurIPS / ICLR<a class="headerlink" href="#neurips-iclr" title="Permanent link">#</a></h3>
 <ol>
-<li><strong>System paper</strong>: Novel architecture solving the single-GameMode constraint for simulator unification</li>
-<li><strong>Benchmark paper</strong>: New benchmark for air-ground cooperative perception</li>
-<li><strong>Dataset paper</strong>: Large-scale multi-modal dataset with synchronized ground + aerial annotations</li>
-<li><strong>Application paper</strong>: Aerial-assisted autonomous driving / social navigation with air-ground data</li>
+<li><strong>系统论文</strong>: 解决模拟器统一中单一游戏模式限制的新型架构</li>
+<li><strong>基准论文</strong>: 空地协同感知的新基准</li>
+<li><strong>数据集论文</strong>: 具有同步地面+空中标注的大规模多模态数据集</li>
+<li><strong>应用论文</strong>: 基于空地数据的空中辅助自动驾驶/社交导航</li>
 </ol>
-<h3 id="potential-evaluation-experiments">Potential Evaluation Experiments<a class="headerlink" href="#potential-evaluation-experiments" title="Permanent link">#</a></h3>
+<h3 id="_2">潜在评估实验<a class="headerlink" href="#_2" title="Permanent link">#</a></h3>
 <ul>
-<li><strong>Object detection</strong>: Compare detection accuracy using ground-only vs. ground+aerial data</li>
-<li><strong>Trajectory prediction</strong>: Pedestrian/vehicle trajectory prediction with aerial context</li>
-<li><strong>Multi-modal fusion</strong>: Sensor fusion benchmarks across 16+ synchronized modalities</li>
-<li><strong>Sim-to-real transfer</strong>: Domain adaptation from SimWorld synthetic data to real-world datasets</li>
-<li><strong>Cooperative perception</strong>: Communication-constrained air-ground perception fusion</li>
-<li><strong>Social navigation</strong>: Pedestrian interaction modeling with drone presence</li>
-<li><strong>RL-based drone control</strong>: Training drone policies for car-following, surveillance, search tasks</li>
+<li><strong>目标检测</strong>: 比较仅使用地面数据和使用地面+航空数据的检测精度</li>
+<li><strong>轨迹预测</strong>: 基于空中环境的行人/车辆轨迹预测</li>
+<li><strong>多模态融合</strong>: 跨 16 种以上同步模态的传感器融合基准测试</li>
+<li><strong>仿真到现实迁移</strong>: 从 SimWorld 合成数据到真实世界数据集的域自适应</li>
+<li><strong>协同感知</strong>: 受通信约束的空地感知融合</li>
+<li><strong>社会导航</strong>: 基于无人机存在的行人交互建模</li>
+<li><strong>基于强化学习的无人机控制</strong>: 训练无人机策略，用于车辆跟踪、监视和搜索任务</li>
 </ul>
-<h3 id="comparable-published-work-at-top-venues">Comparable Published Work at Top Venues<a class="headerlink" href="#comparable-published-work-at-top-venues" title="Permanent link">#</a></h3>
+<h3 id="_3">在顶级场合发表的类似作品<a class="headerlink" href="#_3" title="Permanent link">#</a></h3>
 <ul>
 <li><strong>CARLA</strong>: "CARLA: An Open Urban Driving Simulator" (CoRL 2017)</li>
 <li><strong>AirSim</strong>: "AirSim: High-Fidelity Visual and Physical Simulation for Autonomous Vehicles" (FSR 2017)</li>
@@ -1443,21 +1482,21 @@ Ground lock prevents micro-bouncing on landing surfaces.</p>
 <li><strong>ISAAC Sim</strong>: "Isaac Sim: An Extensible Robotics Simulator" (ICRA 2022)</li>
 <li><strong>MetaDrive</strong>: "MetaDrive: Composing Diverse Driving Scenarios for Generalizable RL" (TPAMI 2022)</li>
 </ul>
-<p>SimWorld fills the gap between driving simulators and aerial simulators, enabling a new class of research at the intersection of autonomous driving, drone navigation, and multi-agent systems.</p>
+<p>SimWorld 填补了驾驶模拟器和航空模拟器之间的空白，在自动驾驶、无人机导航和多智能体系统交叉领域开辟了一类新的研究方向。</p>
 <hr />
-<h2 id="appendix-a-complete-file-inventory">Appendix A: Complete File Inventory<a class="headerlink" href="#appendix-a-complete-file-inventory" title="Permanent link">#</a></h2>
-<h3 id="core-architecture-files">Core Architecture Files<a class="headerlink" href="#core-architecture-files" title="Permanent link">#</a></h3>
+<h2 id="a">附录A：完整文件清单<a class="headerlink" href="#a" title="Permanent link">#</a></h2>
+<h3 id="_4">核心架构文件<a class="headerlink" href="#_4" title="Permanent link">#</a></h3>
 <table>
 <thead>
 <tr>
-<th>File</th>
-<th>Description</th>
+<th>文件</th>
+<th>描述</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>Plugins/AirSim/Source/SimWorldGameMode.h/.cpp</code></td>
-<td>Unified GameMode (432 lines)</td>
+<td>统一的游戏模式 (432 行)</td>
 </tr>
 <tr>
 <td><code>Plugins/Carla/Source/Carla/Game/CarlaGameModeBase.h/.cpp</code></td>
@@ -1465,58 +1504,58 @@ Ground lock prevents micro-bouncing on landing surfaces.</p>
 </tr>
 <tr>
 <td><code>Plugins/Carla/Source/Carla/Game/CarlaEpisode.h/.cpp</code></td>
-<td>Episode manager</td>
+<td>Episode 管理器</td>
 </tr>
 <tr>
 <td><code>Plugins/AirSim/Source/SimMode/SimModeBase.h/.cpp</code></td>
-<td>AirSim simulation mode</td>
+<td>AirSim 仿真模式</td>
 </tr>
 <tr>
 <td><code>Plugins/AirSim/Source/AirSim.Build.cs</code></td>
-<td>Build config (Carla dependency)</td>
+<td>构建配置（Carla 依赖）</td>
 </tr>
 <tr>
 <td><code>Config/DefaultEngine.ini</code></td>
-<td>GameMode registration</td>
+<td>游戏模式注册</td>
 </tr>
 <tr>
 <td><code>Config/DefaultGame.ini</code></td>
-<td>Packaging config</td>
+<td>打包配置</td>
 </tr>
 </tbody>
 </table>
-<h3 id="carla-sensor-files">CARLA Sensor Files<a class="headerlink" href="#carla-sensor-files" title="Permanent link">#</a></h3>
+<h3 id="carla">CARLA 传感器文件<a class="headerlink" href="#carla" title="Permanent link">#</a></h3>
 <table>
 <thead>
 <tr>
-<th>File</th>
-<th>Sensor</th>
+<th>文件</th>
+<th>传感器</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>Sensor/SceneCaptureCamera.h/.cpp</code></td>
-<td>RGB Camera</td>
+<td>RGB 相机</td>
 </tr>
 <tr>
 <td><code>Sensor/DepthCamera.h/.cpp</code></td>
-<td>Depth Camera</td>
+<td>Depth 相机</td>
 </tr>
 <tr>
 <td><code>Sensor/SemanticSegmentationCamera.h/.cpp</code></td>
-<td>Semantic Segmentation</td>
+<td>语义分割</td>
 </tr>
 <tr>
 <td><code>Sensor/InstanceSegmentationCamera.h/.cpp</code></td>
-<td>Instance Segmentation</td>
+<td>实例分割</td>
 </tr>
 <tr>
 <td><code>Sensor/RayCastLidar.h/.cpp</code></td>
-<td>LiDAR</td>
+<td>激光雷达</td>
 </tr>
 <tr>
 <td><code>Sensor/Radar.h/.cpp</code></td>
-<td>Radar</td>
+<td>毫米波雷达</td>
 </tr>
 <tr>
 <td><code>Sensor/InertialMeasurementUnit.h/.cpp</code></td>
@@ -1528,86 +1567,86 @@ Ground lock prevents micro-bouncing on landing surfaces.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="airsim-core-files">AirSim Core Files<a class="headerlink" href="#airsim-core-files" title="Permanent link">#</a></h3>
+<h3 id="airsim">AirSim 核心文件<a class="headerlink" href="#airsim" title="Permanent link">#</a></h3>
 <table>
 <thead>
 <tr>
-<th>File</th>
-<th>Component</th>
+<th>文件</th>
+<th>部件</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>Vehicles/Multirotor/FlyingPawn.h/.cpp</code></td>
-<td>Drone pawn</td>
+<td>无人机棋子</td>
 </tr>
 <tr>
 <td><code>Vehicles/Multirotor/MultirotorPawnSimApi.h/.cpp</code></td>
-<td>Drone API wrapper</td>
+<td>无人机 API 封装器</td>
 </tr>
 <tr>
 <td><code>Vehicles/Multirotor/SimModeWorldMultiRotor.h/.cpp</code></td>
-<td>Multirotor sim mode</td>
+<td>多旋翼飞行器模拟模式</td>
 </tr>
 <tr>
 <td><code>AirLib/include/physics/FastPhysicsEngine.hpp</code></td>
-<td>Drone physics</td>
+<td>无人机物理</td>
 </tr>
 <tr>
 <td><code>AirLib/include/vehicles/multirotor/MultiRotorPhysicsBody.hpp</code></td>
-<td>Rigid body model</td>
+<td>刚体模型</td>
 </tr>
 <tr>
 <td><code>AirLib/include/vehicles/multirotor/api/MultirotorRpcLibServer.hpp</code></td>
-<td>API server</td>
+<td>API 服务端</td>
 </tr>
 <tr>
 <td><code>AirLib/include/sensors/imu/ImuSimple.hpp</code></td>
-<td>IMU with noise</td>
+<td>带噪声的 IMU</td>
 </tr>
 <tr>
 <td><code>AirLib/include/sensors/gps/GpsSimple.hpp</code></td>
-<td>GPS with noise</td>
+<td>带噪声的 GPS</td>
 </tr>
 <tr>
 <td><code>AirLib/include/sensors/barometer/BarometerSimple.hpp</code></td>
-<td>Barometer with noise</td>
+<td>带噪声的气压计</td>
 </tr>
 </tbody>
 </table>
-<h2 id="appendix-b-python-api-quick-reference">Appendix B: Python API Quick Reference<a class="headerlink" href="#appendix-b-python-api-quick-reference" title="Permanent link">#</a></h2>
-<h3 id="carla-api-port-2000">CARLA API (port 2000)<a class="headerlink" href="#carla-api-port-2000" title="Permanent link">#</a></h3>
+<h2 id="bpython-api">附录 B：Python API 快速参考<a class="headerlink" href="#bpython-api" title="Permanent link">#</a></h2>
+<h3 id="carla-api-2000">CARLA API (端口 2000)<a class="headerlink" href="#carla-api-2000" title="Permanent link">#</a></h3>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">carla</span>
 <span class="n">client</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="mi">2000</span><span class="p">)</span>
 <span class="n">world</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_world</span><span class="p">()</span>
 
-<span class="c1"># Environment</span>
+<span class="c1"># 环境</span>
 <span class="n">world</span><span class="o">.</span><span class="n">set_weather</span><span class="p">(</span><span class="n">carla</span><span class="o">.</span><span class="n">WeatherParameters</span><span class="o">.</span><span class="n">ClearNoon</span><span class="p">)</span>
 <span class="n">world</span><span class="o">.</span><span class="n">get_map</span><span class="p">()</span><span class="o">.</span><span class="n">get_spawn_points</span><span class="p">()</span>
 
-<span class="c1"># Actors</span>
+<span class="c1"># 参与者</span>
 <span class="n">bp</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_blueprint_library</span><span class="p">()</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;vehicle.tesla.model3&#39;</span><span class="p">)</span>
 <span class="n">vehicle</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">spawn_actor</span><span class="p">(</span><span class="n">bp</span><span class="p">,</span> <span class="n">spawn_point</span><span class="p">)</span>
 <span class="n">vehicle</span><span class="o">.</span><span class="n">set_autopilot</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="c1"># Sensors</span>
+<span class="c1"># 传感器</span>
 <span class="n">cam_bp</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_blueprint_library</span><span class="p">()</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;sensor.camera.rgb&#39;</span><span class="p">)</span>
 <span class="n">camera</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">spawn_actor</span><span class="p">(</span><span class="n">cam_bp</span><span class="p">,</span> <span class="n">transform</span><span class="p">,</span> <span class="n">attach_to</span><span class="o">=</span><span class="n">vehicle</span><span class="p">)</span>
 <span class="n">camera</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="k">lambda</span> <span class="n">image</span><span class="p">:</span> <span class="n">process</span><span class="p">(</span><span class="n">image</span><span class="p">))</span>
 </code></pre></div>
-<h3 id="airsim-api-port-41451">AirSim API (port 41451)<a class="headerlink" href="#airsim-api-port-41451" title="Permanent link">#</a></h3>
+<h3 id="airsim-api-41451">AirSim API (端口 41451)<a class="headerlink" href="#airsim-api-41451" title="Permanent link">#</a></h3>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">airsim</span>
 <span class="n">client</span> <span class="o">=</span> <span class="n">airsim</span><span class="o">.</span><span class="n">MultirotorClient</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="mi">41451</span><span class="p">)</span>
 <span class="n">client</span><span class="o">.</span><span class="n">confirmConnection</span><span class="p">()</span>
 <span class="n">client</span><span class="o">.</span><span class="n">enableApiControl</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">client</span><span class="o">.</span><span class="n">armDisarm</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="c1"># Flight</span>
+<span class="c1"># 飞行</span>
 <span class="n">client</span><span class="o">.</span><span class="n">takeoffAsync</span><span class="p">()</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
 <span class="n">client</span><span class="o">.</span><span class="n">moveToPositionAsync</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">speed</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
 <span class="n">client</span><span class="o">.</span><span class="n">moveByVelocityAsync</span><span class="p">(</span><span class="n">vx</span><span class="p">,</span> <span class="n">vy</span><span class="p">,</span> <span class="n">vz</span><span class="p">,</span> <span class="n">duration</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
 
-<span class="c1"># Sensors</span>
+<span class="c1"># 传感器</span>
 <span class="n">responses</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">simGetImages</span><span class="p">([</span>
     <span class="n">airsim</span><span class="o">.</span><span class="n">ImageRequest</span><span class="p">(</span><span class="s2">&quot;0&quot;</span><span class="p">,</span> <span class="n">airsim</span><span class="o">.</span><span class="n">ImageType</span><span class="o">.</span><span class="n">Scene</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
     <span class="n">airsim</span><span class="o">.</span><span class="n">ImageRequest</span><span class="p">(</span><span class="s2">&quot;0&quot;</span><span class="p">,</span> <span class="n">airsim</span><span class="o">.</span><span class="n">ImageType</span><span class="o">.</span><span class="n">DepthPerspective</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>
@@ -1616,22 +1655,22 @@ Ground lock prevents micro-bouncing on landing surfaces.</p>
 <span class="n">imu</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">getImuData</span><span class="p">()</span>
 <span class="n">gps</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">getGpsData</span><span class="p">()</span>
 </code></pre></div>
-<h3 id="combined-usage">Combined Usage<a class="headerlink" href="#combined-usage" title="Permanent link">#</a></h3>
+<h3 id="_5">组合使用<a class="headerlink" href="#_5" title="Permanent link">#</a></h3>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">carla</span><span class="o">,</span><span class="w"> </span><span class="nn">airsim</span><span class="o">,</span><span class="w"> </span><span class="nn">threading</span>
 
-<span class="c1"># Both APIs on the same world</span>
+<span class="c1"># 两个 API 都在同一个世界</span>
 <span class="n">carla_client</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="mi">2000</span><span class="p">)</span>
 <span class="n">air_client</span> <span class="o">=</span> <span class="n">airsim</span><span class="o">.</span><span class="n">MultirotorClient</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="mi">41451</span><span class="p">)</span>
 
-<span class="c1"># Spawn CARLA traffic while flying AirSim drone</span>
+<span class="c1"># 在飞行模拟无人机时生成 Carla 交通</span>
 <span class="n">world</span> <span class="o">=</span> <span class="n">carla_client</span><span class="o">.</span><span class="n">get_world</span><span class="p">()</span>
 <span class="n">vehicle</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">spawn_actor</span><span class="p">(</span><span class="n">vehicle_bp</span><span class="p">,</span> <span class="n">spawn_point</span><span class="p">)</span>
 <span class="n">vehicle</span><span class="o">.</span><span class="n">set_autopilot</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="n">air_client</span><span class="o">.</span><span class="n">takeoffAsync</span><span class="p">()</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
-<span class="n">air_client</span><span class="o">.</span><span class="n">moveToZAsync</span><span class="p">(</span><span class="o">-</span><span class="mi">30</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>  <span class="c1"># 30m altitude</span>
+<span class="n">air_client</span><span class="o">.</span><span class="n">moveToZAsync</span><span class="p">(</span><span class="o">-</span><span class="mi">30</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>  <span class="c1"># 30 米高度</span>
 
-<span class="c1"># Collect synchronized ground + aerial data</span>
+<span class="c1"># 收集同步地面+空中数据</span>
 <span class="n">ground_image</span> <span class="o">=</span> <span class="n">carla_camera</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="n">callback</span><span class="p">)</span>
 <span class="n">aerial_images</span> <span class="o">=</span> <span class="n">air_client</span><span class="o">.</span><span class="n">simGetImages</span><span class="p">([</span><span class="o">...</span><span class="p">])</span>
 </code></pre></div>
