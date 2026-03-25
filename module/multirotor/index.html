@@ -5,15 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>Carla Air - 低空模拟器</title>
+    <title>多旋翼 - 低空模拟器</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Carla Air";
-        var mkdocs_page_input_path = "dev/Carla_Air.md";
+        var mkdocs_page_name = "\u591a\u65cb\u7ffc";
+        var mkdocs_page_input_path = "module/multirotor.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -272,7 +272,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Carla Air</li>
+      <li class="breadcrumb-item active">多旋翼</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -281,167 +281,11 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h2 id="_1">统一空地仿真<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
-<p>该模块是一个开源的空地联合仿真平台。它通过在底层 C++ 将全球领先的自动驾驶仿真器（CARLA）与机器人仿真器（AirSim）合并为单一的 <code>ASimWorldGameMode</code>，实现了真正的帧级传感器同步、统一的物理引擎，以及无缝的双 Python API 交互。</p>
-<p><img alt="" src="../../images/dev/CarlaAir.gif" /></p>
-<h2 id="_2">✨ 核心亮点<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
+                <h1 id="_1">多旋翼<a class="headerlink" href="#_1" title="Permanent link">#</a></h1>
+<h2 id="_2">参考<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
 <ul>
-<li>🚀 <strong>单进程深度集成</strong>：拒绝跨进程通信桥接（Bridge），无延迟损耗。CARLA 与 AirSim 共享同一个 UE4 世界、天气系统与物理引擎。</li>
-<li>🎯 <strong>绝对坐标对齐</strong>：彻底解决 CARLA（左手系）与 AirSim（NED）之间的坐标转换问题，误差精确控制在 <code>0.0000m</code>。</li>
-<li>🚁 <strong>内置 FPS 无人机控制</strong>：无需编写任何代码，在仿真窗口内直接使用 <code>WASD</code> + 鼠标 即可像玩 FPS 游戏一样丝滑驾驶无人机。</li>
-<li>🚦 <strong>开箱即用的城市交通</strong>：启动器默认自动生成 30 辆背景车辆与 50 个行人，立即构建逼真城市场景。</li>
-<li>📸 <strong>18路同步传感器</strong>：支持在地面车辆和空中无人机上同时挂载 RGB、激光雷达、深度图、语义分割、IMU 和 GNSS，数据严格对齐。</li>
-<li>🐍 <strong>双 API 无缝协作</strong>：在同一个 Python 脚本中，同时调用 <code>carla.Client</code>（端口 2000）和 <code>airsim.MultirotorClient</code>（端口 41451）。</li>
+<li><a href="https://blog.csdn.net/TLKids/article/details/128931655">Airsim 配置与自定义说明</a></li>
 </ul>
-<hr />
-<h2 id="_3">🎮 快速开始<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
-<h3 id="a">选项 A：使用预编译版本（推荐）<a class="headerlink" href="#a" title="Permanent link">#</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># 1. 下载并解压 CarlaAir-v0.1.7</span>
-tar<span class="w"> </span>xzf<span class="w"> </span>CarlaAir-v0.1.7.tar.gz
-<span class="nb">cd</span><span class="w"> </span>CarlaAir-v0.1.7
-
-<span class="c1"># 2. 一键环境配置（仅首次需要）</span>
-bash<span class="w"> </span>env_setup/setup_env.sh<span class="w">      </span><span class="c1"># 创建 conda 环境，安装依赖，部署 carla 模块</span>
-conda<span class="w"> </span>activate<span class="w"> </span>carlaAir
-bash<span class="w"> </span>env_setup/test_env.sh<span class="w">        </span><span class="c1"># 验证环境：应全部显示 PASS</span>
-
-<span class="c1"># 3. 启动仿真器（自动生成交通流）</span>
-./CarlaAir.sh<span class="w"> </span>Town10HD
-
-<span class="c1"># 4. 运行展示脚本！（另开一个终端）</span>
-conda<span class="w"> </span>activate<span class="w"> </span>carlaAir
-python3<span class="w"> </span>examples/quick_start_showcase.py
-</code></pre></div>
-<blockquote>
-<p><strong>你将看到：</strong> 一辆特斯拉在城市中自动巡航，无人机从空中追踪。4 分屏同时展示 <strong>RGB · 深度图 · 语义分割 · LiDAR 鸟瞰</strong> — 全部实时同步。天气自动轮换。</p>
-</blockquote>
-<h3 id="b">选项 B：从源码编译<a class="headerlink" href="#b" title="Permanent link">#</a></h3>
-<p>如果您需要修改底层 C++ 代码，请参考 <a href="../build_guide_ubuntu/">源码编译指南</a>，了解如何使用 UE4.26 编译 CarlaAir。</p>
-<hr />
-<h2 id="_4">🐍 一个脚本，两个世界<a class="headerlink" href="#_4" title="Permanent link">#</a></h2>
-<p>两套 API 共享<strong>同一个仿真世界</strong> — 无桥接、无同步烦恼。</p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">carla</span><span class="o">,</span><span class="w"> </span><span class="nn">airsim</span>
-
-<span class="n">carla_client</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span> <span class="mi">2000</span><span class="p">)</span>
-<span class="n">air_client</span>   <span class="o">=</span> <span class="n">airsim</span><span class="o">.</span><span class="n">MultirotorClient</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="mi">41451</span><span class="p">)</span>
-<span class="n">world</span> <span class="o">=</span> <span class="n">carla_client</span><span class="o">.</span><span class="n">get_world</span><span class="p">()</span>
-
-<span class="c1"># 一次天气调用，影响所有传感器 — 地面和空中</span>
-<span class="n">world</span><span class="o">.</span><span class="n">set_weather</span><span class="p">(</span><span class="n">carla</span><span class="o">.</span><span class="n">WeatherParameters</span><span class="o">.</span><span class="n">HardRainSunset</span><span class="p">)</span>
-
-<span class="c1"># 生成一辆汽车，自动驾驶</span>
-<span class="n">vehicle</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">spawn_actor</span><span class="p">(</span><span class="n">vehicle_bp</span><span class="p">,</span> <span class="n">spawn_point</span><span class="p">)</span>
-<span class="n">vehicle</span><span class="o">.</span><span class="n">set_autopilot</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="c1"># 无人机起飞 — 同一个世界，同一场雨，同一套物理</span>
-<span class="n">air_client</span><span class="o">.</span><span class="n">takeoffAsync</span><span class="p">()</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
-<span class="n">air_client</span><span class="o">.</span><span class="n">moveToPositionAsync</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="o">-</span><span class="mi">25</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
-</code></pre></div>
-<p><strong>6 个演示脚本</strong> — 逐个试试：</p>
-<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>examples/quick_start_showcase.py<span class="w">   </span><span class="c1"># 🎬 4分屏传感器 + 无人机追踪 + 天气轮换</span>
-python3<span class="w"> </span>examples/drive_vehicle.py<span class="w">          </span><span class="c1"># 🚗 WASD 驾驶特斯拉</span>
-python3<span class="w"> </span>examples/walk_pedestrian.py<span class="w">        </span><span class="c1"># 🚶 鼠标+键盘 城市漫步</span>
-python3<span class="w"> </span>examples/switch_maps.py<span class="w">            </span><span class="c1"># 🗺️  自动飞越全部 13 张地图</span>
-python3<span class="w"> </span>examples/sensor_gallery.py<span class="w">         </span><span class="c1"># 📸 单车 6 传感器网格展示</span>
-python3<span class="w"> </span>examples/air_ground_sync.py<span class="w">        </span><span class="c1"># 🔄 车+无人机分屏：同一场雨，同一世界</span>
-</code></pre></div>
-<p><strong>录制工具</strong> — 录制车辆、无人机、行人轨迹，然后用导演相机回放：</p>
-<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>examples/recording/record_vehicle.py<span class="w">     </span><span class="c1"># 🚗 键盘驾驶并录制车辆轨迹</span>
-python3<span class="w"> </span>examples/recording/record_drone.py<span class="w">       </span><span class="c1"># 🚁 飞行并录制无人机轨迹（零侵入）</span>
-python3<span class="w"> </span>examples/recording/record_walker.py<span class="w">      </span><span class="c1"># 🚶 行走并录制行人轨迹</span>
-python3<span class="w"> </span>examples/recording/demo_director.py<span class="w"> </span><span class="se">\ </span><span class="w">   </span><span class="c1"># 🎬 多轨迹回放 + 自由相机 + MP4 录制</span>
-<span class="w">    </span>trajectories/vehicle_*.json<span class="w"> </span>trajectories/drone_*.json
-</code></pre></div>
-<hr />
-<h2 id="_5">⌨️ 飞行控制说明<a class="headerlink" href="#_5" title="Permanent link">#</a></h2>
-<p>在 CarlaAir 窗口中，使用内置 FPS 控制器直接驾驶无人机（无需代码）：</p>
-<table>
-<thead>
-<tr>
-<th>按键</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>W</code> / <code>A</code> / <code>S</code> / <code>D</code></td>
-<td>前进 / 左移 / 后退 / 右移</td>
-</tr>
-<tr>
-<td><code>Space</code> / <code>Shift</code></td>
-<td>上升 / 下降</td>
-</tr>
-<tr>
-<td><code>Mouse</code></td>
-<td>偏航转向</td>
-</tr>
-<tr>
-<td><code>Scroll</code></td>
-<td>调节速度</td>
-</tr>
-<tr>
-<td><code>N</code></td>
-<td>切换天气</td>
-</tr>
-<tr>
-<td><code>P</code></td>
-<td>碰撞模式切换</td>
-</tr>
-<tr>
-<td><code>H</code></td>
-<td>帮助菜单</td>
-</tr>
-<tr>
-<td><code>1</code> / <code>2</code> / <code>3</code></td>
-<td>传感器画面</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2 id="_6">📚 文档与示例<a class="headerlink" href="#_6" title="Permanent link">#</a></h2>
-<p><strong>完整文档：</strong></p>
-<ul>
-<li>
-<p><a href="../quick_start/">快速入门指南</a></p>
-</li>
-<li>
-<p><a href="../architecture/">技术架构详解</a></p>
-</li>
-<li>
-<p><a href="../coordinate_systems/">坐标系换算</a></p>
-</li>
-<li>
-<p><a href="../modifications/">上游代码修改清单</a></p>
-</li>
-<li>
-<p><a href="../technical_document/">技术文档</a></p>
-</li>
-<li>
-<p><a href="CarlaAir_Release/guide/COORDINATE_SYSTEMS.md">坐标系换算 (CARLA↔AirSim)</a> </p>
-</li>
-<li>
-<p><a href="CarlaAir_Release/guide/Quick-Start.md">快速入门指南</a></p>
-</li>
-<li>
-<p><a href="../FAQ/">常见问题</a></p>
-</li>
-</ul>
-<hr />
-<h2 id="_7">📜 许可证与致谢<a class="headerlink" href="#_7" title="Permanent link">#</a></h2>
-<p>该项目是站在巨人的肩膀上。我们诚挚感谢以下开源项目的开发者：</p>
-<ul>
-<li>
-<p><a href="https://github.com/carla-simulator/carla">CARLA Simulator</a> (MIT License)</p>
-</li>
-<li>
-<p><a href="https://github.com/microsoft/AirSim">Microsoft AirSim</a> (MIT License)</p>
-</li>
-<li>
-<p><a href="https://www.unrealengine.com/">Unreal Engine</a></p>
-</li>
-</ul>
-<p>CARLA 相关的资产遵循 CC-BY 许可证。
-其他相关资产（包括湖南工商大学大学场景、长沙中电软件园场景）和代码基于 <strong>MIT 许可证</strong> 开源。</p>
               
             </div>
           </div><footer>

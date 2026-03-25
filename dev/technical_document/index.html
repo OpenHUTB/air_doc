@@ -1,0 +1,1679 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>面向自主系统的统一空地仿真 - 低空模拟器</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u9762\u5411\u81ea\u4e3b\u7cfb\u7edf\u7684\u7edf\u4e00\u7a7a\u5730\u4eff\u771f";
+        var mkdocs_page_input_path = "dev/technical_document.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 低空模拟器
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="搜索文档" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">主页</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../..">主页</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">构建 AirSim</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../use_precompiled/">下载二进制文件</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../build_windows/">在 Windows 上构建</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../build_linux/">在 Linux 上构建</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../build_macos/">在 macOS 上构建</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../docker_ubuntu/">Linux 上的 Docker</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../azure/">Azure 上的 ArSim</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../unreal_custenv/">定制虚幻引擎环境</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../build_faq/">场景问题和回答</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">使用 AirSim</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../apis/">核心 APIs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../image_apis/">图像 APIs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../apis_cpp/">C++ APIs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://openhutb.github.io/doc/python_api/#airsim.client.MultirotorClient">无人机 API 参考文档</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../api_docs/_build/html/">原始 API 参考文档</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../wiki/">Wiki 文档</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../dev_workflow/">开发工作流</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../settings/">设置</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../map/">地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../camera_views/">相机视角</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../using_car/">汽车模式</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../remote_control/">远程控制</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../xbox_controller/">XBox 控制器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../steering_wheel_installation/">方向盘</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../multi_vehicle/">多车辆</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >传感器</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../sensors/">传感器</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../lidar/">激光雷达</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../distance_sensor/">距离传感器</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../InfraredCamera/">红外相机</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../airsim_ros_pkgs/">ROS: AirSim ROS 包装器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../airsim_tutorial_pkgs/">ROS: AirSim 教程包</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../gazebo_drone/">导入 Gazebo 模型</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../retexturing/">域随机化</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../meshes/">网格顶点缓冲区</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../playback/">播放日志</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../voxel_grid/">体素网格生成器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../event_sim/">事件相机</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">设计</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../design/">架构</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../code_structure/">代码结构</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../adding_new_apis/">添加新的 APIs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../modify_recording_data/">修改记录数据</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../coding_guidelines/">编码指南</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../flight_controller/">飞行控制器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simple_flight/">简单飞行</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hello_drone/">Hello Drone</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">外部飞行控制器</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" >MavLink 和 PX4</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../px4_setup/">AirSim 的 PX4 设置</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../px4_sitl/">软件在环中的 PX4</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../px4_sitl_wsl2/">带有 WSL 2 的 PX4 SITL</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../px4_lockstep/">PX4 Lockstep</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../px4_multi_vehicle/">软件在环中的 PX4 多车辆</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="https://youtu.be/1oY8Qu5maQQ">AirSim 与 Pixhawk</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="https://youtu.be/HNWdYrtw3f0">使用 AirSim 设置 PX4</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="https://www.youtube.com/watch?v=d_FyjKDWQfc&feature=youtu.be">调试姿态估计</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="https://github.com/Microsoft/AirSim/wiki/Intercepting-MavLink-messages">拦截 MavLink 消息</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="https://github.com/Microsoft/AirSim/wiki/Rapid-Descent-on-PX4-drones">PX4 无人机快速下降</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../px4_build/">构建 PX4</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../px4_logging/">PX4/MavLink 日志记录</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../log_viewer/">MavLink 日志查看器</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../mavlinkcom/">MavLinkCom</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../mavlinkcom_mocap/">MavLink MoCap</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >ArduPilot</a>
+    <ul>
+                <li class="toctree-l2"><a class="" href="https://ardupilot.org/dev/docs/building-the-code.html">ArduPilot 软件在环设置</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="https://ardupilot.org/dev/docs/sitl-with-airsim.html">AirSim & ArduPilot</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">升级</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../unreal_upgrade/">升级虚幻引擎</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../upgrade_apis/">升级 APIs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../upgrade_settings/">升级设置</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">贡献教程</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../reinforcement_learning/">强化学习</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://www.youtube.com/watch?v=y09VbdQWvQY">使用 Marketplace 中的环境</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://github.com/simondlevy/AirSimTensorFlow">简单的防撞</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://aka.ms/AutonomousDrivingCookbook">Azure 上的自动驾驶</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../wiki/hexacopter/">构造六旋翼飞行器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../wiki/moveOnPath-demo/">移动路径演示</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../point_clouds/">构建点云</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../drone_survey/">使用无人机进行测量</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../orbit/">轨道轨迹</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://youtu.be/Bp86WiLUC80">导入自定义多旋翼网格</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../object_detection/">Object Detection</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://youtu.be/ZonkdMcwXH4">带有 MAVROS 和 PX4 的 AirSim</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">杂项</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../custom_drone/">真实无人机上的 AirSim</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../cmake_linux/">在 Linux 上安装 cmake</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hard_drive/">硬盘繁忙时的提示</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pfm/">pfm 格式</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../unreal_proj/">设置虚幻引擎环境</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../unreal_blocks/">Blocks 环境</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../who_is_using/">谁在使用 AirSim</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../working_with_plugin_contents/">使用 UE 插件内容</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../wiki/technion/technion/">大学生方程式赛车以色列理工学院自驾赛</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">支持</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../faq/">FAQ</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../SUPPORT/">支持</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../CHANGELOG/">修改记录</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../create_issue/">创建问题</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../CONTRIBUTING/">贡献</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">低空模拟器</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">面向自主系统的统一空地仿真</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">面向自主系统的统一空地仿真<a class="headerlink" href="#_1" title="Permanent link">#</a></h1>
+<hr />
+<h2 id="1">1. 引言和动机<a class="headerlink" href="#1" title="Permanent link">#</a></h2>
+<h3 id="11">1.1 问题<a class="headerlink" href="#11" title="Permanent link">#</a></h3>
+<p>自主系统研究日益需要<strong>联合空地仿真</strong>——即无人机（UAV）与地面车辆/行人在共享的城市环境中共存和交互的场景。应用领域包括：</p>
+<ul>
+<li><strong>对自主交通进行空中监视</strong>: 无人机监控和跟踪地面车辆</li>
+<li><strong>协同感知</strong>: 无人机提供鸟瞰视角，以补充车辆级感知</li>
+<li><strong>社交导航</strong>: 行人、车辆和无人机共享城市空间</li>
+<li><strong>多模态数据集生成</strong>: 同步地面和空中传感器数据</li>
+<li><strong>搜救</strong>: 无人机侦察，地面机器人穿梭于碎片之中</li>
+</ul>
+<p>然而，这两个主流的开源模拟器服务于不同的领域：</p>
+<ul>
+<li><strong>CARLA</strong> (英特尔实验室，巴塞罗那自治大学CVC): 高保真自动驾驶模拟器，包含车辆、行人、交通管理、10多种传感器类型和 OpenDRIVE 道路网络——但<strong>不支持原生无人机</strong>。 </li>
+<li><strong>AirSim</strong> (微软): 无人机和汽车模拟，具备基于物理的飞行动力学、空中传感器和多种飞行控制器后端——但<strong>不包含交通管理、行人AI或城市道路网络</strong>。</li>
+</ul>
+<p>将它们作为<strong>单独的进程</strong>运行，并进行进程间同步是不切实际的：没有共享的物理引擎，没有共享的渲染引擎，没有坐标系对齐，而且由于复制了 UE4 渲染管线，会造成严重的性能开销。</p>
+<h3 id="12">1.2 解决方案<a class="headerlink" href="#12" title="Permanent link">#</a></h3>
+<p>该解决方案将 CARLA 0.9.16 和 AirSim 1.8.1 整合到<strong>一个虚幻引擎进程</strong>中，使得两个 Python API（<code>carla.Client</code> 位于 2000 端口，<code>airsim.MultirotorClient</code> 位于 41451 端口）能够同时在同一个模拟世界中运行。该系统<strong>无需对面向用户的 Python API 进行任何修改</strong>——现有的 CARLA 和 AirSim 脚本无需修改即可正常工作。</p>
+<h3 id="13">1.3 主要贡献<a class="headerlink" href="#13" title="Permanent link">#</a></h3>
+<ol>
+<li><strong>统一游戏模式(GameMode)架构</strong>: 一种新颖的单继承+组合模式（<code>ASimWorldGameMode</code>），解决了UE4每个世界只能有一个游戏模式的基本限制。</li>
+<li><strong>双 API 服务器共存</strong>: 两个独立的 RPC 服务器（CARLA rpclib + AirSim rpclib）在同一进程内运行于不同的端口。</li>
+<li><strong>观察者棋子(Spectator Pawn)解耦</strong>: 一种在满足 CARLA 旁观者要求的同时保留 AirSim 棋子占有模型的技术</li>
+<li><strong>全面的空地联动功能</strong>: 超过 220 个 actor 蓝图、超过 16 种传感器类型、14 种天气预设、13 张地图以及基于物理的无人机飞行——所有这些都可同时访问。</li>
+<li><strong>离屏数据集生成</strong>: 结合地面和空中视角的无头多模态数据采集</li>
+</ol>
+<hr />
+<h2 id="2">2. 系统架构<a class="headerlink" href="#2" title="Permanent link">#</a></h2>
+<h3 id="21-ue4">2.1 核心挑战：UE4 的单一游戏模式限制<a class="headerlink" href="#21-ue4" title="Permanent link">#</a></h3>
+<p>虚幻引擎 4 强制执行一项严格的架构限制：<strong>每个世界（关卡）只能有一个游戏模式</strong>。游戏模式控制着基本的模拟生命周期——玩家生成、游戏规则、比赛状态和初始化顺序。</p>
+<ul>
+<li>CARLA 使用 <code>ACarlaGameModeBase</code> 作为其游戏模式，该模式初始化了Episode 系统、天气系统、交通灯管理器、Actor 工厂、记录器和 RPC 服务器。</li>
+<li>AirSim 使用 <code>AAirSimGameMode</code> 作为其游戏模式，该模式会初始化 SimHUD、读取 settings.json 文件并生成 SimMode 参与者。</li>
+</ul>
+<p>这两种游戏模式无法通过标准的UE4机制<strong>共存</strong>。之前的各种方法（例如，关卡流式传输、仅插件集成）都失败了，因为这两个系统都假定游戏模式关卡(GameMode-level)对模拟生命周期拥有控制权。</p>
+<h3 id="22">2.2 解决方案：单一继承 + 组合模式<a class="headerlink" href="#22" title="Permanent link">#</a></h3>
+<p>该解决方案利用了这两个系统之间的架构不对称性：</p>
+<ul>
+<li>CARLA 的子系统（Episode、天气、交通管理器、Actor 工厂）通过继承和友元(<code>friend</code>)声明与 <code>ACarlaGameModeBase</code> <strong>紧密耦合</strong>。</li>
+<li>AirSim 的模拟逻辑位于 <code>ASimModeBase</code> 中，它继承自 <code>AActor</code>（而非 <code>AGameModeBase</code>），因此可以作为常规世界 Actor 生成。</li>
+</ul>
+<p>这里使用统一的 <code>ASimWorldGameMode</code> 类：</p>
+<div class="highlight"><pre><span></span><code>                    UE4 单游戏模式(GameMode)插槽
+                            |
+                    AGameModeBase (UE4)
+                            |
+                    ACarlaGameModeBase          ← 通过继承的 CARLA 子系统
+                            |
+                    ASimWorldGameMode           ← 占用游戏模式(GameMode)插槽
+                            |
+                            |--- [拥有] ASimModeBase (由 AActor 生成)  ← AirSim 通过组合
+                            |              |
+                            |              |--- FastPhysicsEngine (333 Hz 异步线程)
+                            |              |--- MultirotorRpcLibServer (端口 41451)
+                            |              |--- AFlyingPawn (无人机)
+                            |              |--- ApiProvider (载具 APIs)
+                            |
+                            |--- [继承] UCarlaEpisode
+                            |--- [继承] AWeather
+                            |--- [继承] ACarlaRecorder
+                            |--- [继承] ATrafficLightManager
+                            |--- [继承] ActorDispatcher + ActorFactories
+</code></pre></div>
+<div class="admonition 关键思想">
+<p class="admonition-title">关键思想</p>
+<p>通过让 <code>ASimWorldGameMode</code> <strong>继承</strong>自 <code>ACarlaGameModeBase</code>，可以让所有 CARLA 子系统都经历标准的 UE4 生命周期（<code>InitGame</code> → <code>BeginPlay</code> → <code>Tick</code>）。在 CARLA 初始化完成后，AirSim 的 <code>ASimModeBase</code> 会在 <code>BeginPlay</code> 期间作为<strong>普通 Actor 生成</strong>到游戏世界中。这样就避免了任何插槽冲突，因为 <code>ASimModeBase</code> 不会与 GameMode 插槽竞争。</p>
+</div>
+<h3 id="23">2.3 类层次结构<a class="headerlink" href="#23" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// 统一游戏模式 GameMode（在 AirSim 插件模块中，依赖于 Carla 模块）</span>
+<span class="n">UCLASS</span><span class="p">()</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">AIRSIM_API</span><span class="w"> </span><span class="n">ASimWorldGameMode</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">ACarlaGameModeBase</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// CARLA: 继承了 Episode, 天气Weather, 记录器Recorder, ActorFactories, 交通 Traffic</span>
+<span class="w">    </span><span class="c1">// AirSim: 包含 SimMode, HUD 空间, 输入绑定</span>
+<span class="k">private</span><span class="o">:</span>
+<span class="w">    </span><span class="n">UPROPERTY</span><span class="p">()</span><span class="w"> </span><span class="n">ASimModeBase</span><span class="o">*</span><span class="w"> </span><span class="n">SimMode_</span><span class="p">;</span><span class="w">        </span><span class="c1">// AirSim 仿真 (生成参与者)</span>
+<span class="w">    </span><span class="n">UPROPERTY</span><span class="p">()</span><span class="w"> </span><span class="n">USimHUDWidget</span><span class="o">*</span><span class="w"> </span><span class="n">AirSimWidget_</span><span class="p">;</span><span class="w">  </span><span class="c1">// 调试叠加层</span>
+<span class="w">    </span><span class="n">TSubclassOf</span><span class="o">&lt;</span><span class="n">ASimModeBase</span><span class="o">&gt;</span><span class="w"> </span><span class="n">SimModeClass_</span><span class="p">;</span><span class="w">   </span><span class="c1">// 来自 settings.json</span>
+<span class="p">};</span>
+</code></pre></div>
+<h3 id="24">2.4 初始化序列<a class="headerlink" href="#24" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code>UE4 引擎开始
+│
+├── ASimWorldGameMode 构造函数
+│   ├── ACarlaGameModeBase() → 创建 Episode, Recorder
+│   ├── DefaultPawnClass = nullptr  ← 对 AirSim 至关重要
+│   ├── 加载 BP_Weather 蓝图类
+│   ├── 注册 8 个参与者工厂 (5 个 C++ 和 3 个蓝图)
+│   │   ├── ASensorFactory, AStaticMeshFactory, ATriggerFactory
+│   │   ├── AUtilActorFactory, AAIControllerFactory
+│   │   ├── BP VehicleFactory, WalkerFactory, PropFactory
+│   └── 初始化 AirSim logger 和 ImageWrapper 模块
+│
+├── ACarlaGameModeBase::InitGame()
+│   ├── 生成 Weather 参与者 (从 BP_Weather)
+│   ├── 使用 Episode 生成并注册所有 ActorFactories
+│   ├── 解析 OpenDRIVE 路网 (.xodr)
+│   ├── 根据道路拓扑结构生成生成点
+│   └── 初始化 CarlaGameInstance → FCarlaEngine → 开始 CARLA RPC (port 2000)
+│
+├── ASimWorldGameMode::BeginPlay()
+│   ├── 阶段 1: ACarlaGameModeBase::BeginPlay()
+│   │   ├── 对世界所有参与者进行语义标记
+│   │   ├── 交通灯管理器初始化
+│   │   ├── Episode::InitializeAtBeginPlay()
+│   │   ├── 应用默认天气参数
+│   │   ├── 开始记录器/重放器(Recorder/Replayer)
+│   │   └── 注册环境对象
+│   │
+│   ├── 阶段 2: 创建观察者棋子
+│   │   ├── 生成 ASpectatorPawn (未占有)
+│   │   ├── 注册成为 Episode-&gt;Spectator (友元访问权限)
+│   │   └── 在 ActorDispatcher 注册表中注册
+│   │
+│   └── 阶段 3: AirSim Bootstrap
+│       ├── InitializeAirSimSettings() → 读取配置文件 settings.json
+│       ├── SetUnrealEngineSettings() → 禁用运动模糊，自定义景深
+│       ├── CreateSimMode() → SpawnActor&lt;ASimModeWorldMultiRotor&gt;()
+│       │   └── ASimModeBase::BeginPlay()
+│       │       ├── NED 坐标系设置
+│       │       ├── 创建 ApiProvider 和 WorldSimApi
+│       │       ├── 生成 BP_FlyingPawn (无人机棋子)
+│       │       ├── 创建 MultirotorPawnSimApi
+│       │       │   ├── MultiRotorPhysicsBody (4 个旋翼 + 6 阻力面)
+│       │       │   ├── SimpleFlight 控制器
+│       │       │   └── 传感器: IMU, Barometer, GPS, Magnetometer
+│       │       ├── 创建 FastPhysicsEngine
+│       │       └──以 333 赫兹开始异步物理线程
+│       ├── CreateAirSimWidget() → UMG 调试覆盖
+│       ├── SetupAirSimInputBindings()
+│       └── SimMode_-&gt;startApiServer() → 端口 41451
+│
+└── 两个API均已准备就绪
+    ├── Carla Python API 在端口 2000 上运行
+    └── AirSim Python API 在端口 41451 上运行
+</code></pre></div>
+<h3 id="25">2.5 观察者棋子问题<a class="headerlink" href="#25" title="Permanent link">#</a></h3>
+<p>在 AirSim 中，<strong>必须</strong>将 <code>DefaultPawnClass</code> 设置为 <code>nullptr</code>，因为 UE4 的默认行为是自动生成并拥有一个玩家控制器控制的棋子。如果任一一个棋子被控制，AirSim 的 <code>SimpleFlightApi</code> 输入管道就会中断，那么无人机将无法接收控制命令。</p>
+<p>但是，Carla 希望 <code>Episode-&gt;Spectator</code> 指向一个有效的棋子（用于相机控制、场景观察，以及作为 Python API 的 <code>world.get_spectator()</code> 返回值）。</p>
+<p><strong>解决方案</strong>：生成一个观察者棋子(<code>ASpectatorPawn</code>)对象，但<strong>不拥有它的控制权</strong>。它作为一个“孤儿” 棋子存在（Carla 的 API 可以访问它），但 UE4 的玩家控制器系统无法访问它。我们使用 C++ 友元类(<code>friend class</code>)声明直接设置 <code>Episode-&gt;Spectator</code>（一个私有成员），绕过了 Carla 的正常初始化流程。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// 在 ASimWorldGameMode::BeginPlay() 中，在 Super::BeginPlay() 之后</span>
+<span class="n">FActorSpawnParameters</span><span class="w"> </span><span class="n">SpawnParams</span><span class="p">;</span>
+<span class="n">SpawnParams</span><span class="p">.</span><span class="n">SpawnCollisionHandlingOverride</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ESpawnActorCollisionHandlingMethod</span><span class="o">::</span><span class="n">AlwaysSpawn</span><span class="p">;</span>
+<span class="n">ASpectatorPawn</span><span class="o">*</span><span class="w"> </span><span class="n">Spectator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GetWorld</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SpawnActor</span><span class="o">&lt;</span><span class="n">ASpectatorPawn</span><span class="o">&gt;</span><span class="p">(</span>
+<span class="w">    </span><span class="n">ASpectatorPawn</span><span class="o">::</span><span class="n">StaticClass</span><span class="p">(),</span><span class="w"> </span><span class="o">&amp;</span><span class="n">SpawnTransform</span><span class="p">,</span><span class="w"> </span><span class="n">SpawnParams</span><span class="p">);</span>
+<span class="c1">// 不要调用 PlayerController-&gt;Possess(Spectator)</span>
+<span class="n">Episode</span><span class="o">-&gt;</span><span class="n">Spectator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Spectator</span><span class="p">;</span><span class="w">  </span><span class="c1">// 直接友元访问</span>
+<span class="n">Episode</span><span class="o">-&gt;</span><span class="n">ActorDispatcher</span><span class="o">-&gt;</span><span class="n">GetActorRegistry</span><span class="p">().</span><span class="n">Register</span><span class="p">(</span>
+<span class="w">    </span><span class="n">FCarlaActor</span><span class="o">::</span><span class="n">IdType</span><span class="p">(</span><span class="n">Spectator</span><span class="o">-&gt;</span><span class="n">GetUniqueID</span><span class="p">()),</span><span class="w"> </span><span class="o">*</span><span class="n">Spectator</span><span class="p">);</span>
+</code></pre></div>
+<h3 id="26">2.6 构建系统集成<a class="headerlink" href="#26" title="Permanent link">#</a></h3>
+<p>这两个插件是作为同一个UE4项目的一部分编译的：</p>
+<div class="highlight"><pre><span></span><code>CarlaUE4.uproject
+├── Plugins/Carla/    (LoadingPhase: PostConfigInit)
+│   └── Carla.Build.cs  → libcarla_server.a, librpc.a
+└── Plugins/AirSim/   (LoadingPhase: PreDefault)
+    └── AirSim.Build.cs → PrivateDependency: &quot;Carla&quot;
+                         → AirLib (header-only), rpclib, Eigen3, MavLinkCom
+</code></pre></div>
+<p><strong>单向依赖关系</strong>（AirSim 依赖 Carla：AirSim → Carla）至关重要：<code>AirSim.Build.cs</code> 声明了 <code>PrivateDependencyModuleNames.Add("Carla")</code>，允许 <code>SimWorldGameMode.cpp</code> 包含 Carla 头文件。反向依赖关系不存在，即 Carla 的代码无法识别 AirSim。Carla 源代码仅做了两处修改：</p>
+<ol>
+<li><code>CarlaGameModeBase.h</code>: <code>WeatherClass</code> 和 <code>ActorFactories</code> 从私有的成员 <code>private</code> 更改为受保护的成员 <code>protected</code></li>
+<li><code>CarlaEpisode.h</code>: 添加 <code>friend class ASimWorldGameMode</code></li>
+</ol>
+<h3 id="27">2.7 配置<a class="headerlink" href="#27" title="Permanent link">#</a></h3>
+<p><strong><code>Unreal/CarlaUE4/Config/DefaultEngine.ini</code></strong> (关键条目):
+<div class="highlight"><pre><span></span><code><span class="na">GlobalDefaultGameMode</span><span class="o">=</span><span class="s">/Script/AirSim.SimWorldGameMode</span>
+<span class="na">GameInstanceClass</span><span class="o">=</span><span class="s">/Script/Carla.CarlaGameInstance</span>
+<span class="na">TransitionMap</span><span class="o">=</span><span class="s">/AirSim/AirSimAssets</span>
+<span class="na">r.CustomDepth</span><span class="o">=</span><span class="s">3</span><span class="w">           </span><span class="c1">; 语义分割所需</span>
+<span class="na">bEnableEnhancedDeterminism</span><span class="o">=</span><span class="s">True</span>
+</code></pre></div></p>
+<p><strong><code>Unreal/CarlaUE4/Config/DefaultGame.ini</code></strong> (packaging):
+<div class="highlight"><pre><span></span><code><span class="c1">; 13 CARLA maps + AirSim asset map</span>
+<span class="na">+MapsToCook=(FilePath</span><span class="o">=</span><span class="s">&quot;/Game/Carla/Maps/Town01&quot;</span><span class="na">)</span>
+<span class="na">+MapsToCook=(FilePath</span><span class="o">=</span><span class="s">&quot;/AirSim/AirSimAssets&quot;</span><span class="na">)</span>
+<span class="c1">; 6 AirSim content directories for cooking</span>
+<span class="na">+DirectoriesToAlwaysCook=(Path</span><span class="o">=</span><span class="s">&quot;AirSim/Blueprints&quot;</span><span class="na">)</span>
+<span class="na">+DirectoriesToAlwaysCook=(Path</span><span class="o">=</span><span class="s">&quot;AirSim/Models&quot;</span><span class="na">)</span>
+<span class="na">+DirectoriesToAlwaysCook=(Path</span><span class="o">=</span><span class="s">&quot;AirSim/Weather&quot;</span><span class="na">)</span>
+</code></pre></div></p>
+<p><strong><code>~/Documents/AirSim/settings.json</code></strong> (runtime):
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;SettingsVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.2</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;SimMode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Multirotor&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Vehicles&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;SimpleFlight&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;VehicleType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SimpleFlight&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;AutoCreate&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;Cameras&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;0&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;CaptureSettings&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="nt">&quot;ImageType&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Width&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1280</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Height&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">960</span><span class="p">}]</span><span class="w"> </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<hr />
+<h2 id="3-dual-communication-architecture">3. Dual Communication Architecture<a class="headerlink" href="#3-dual-communication-architecture" title="Permanent link">#</a></h2>
+<h3 id="31-carla-server-port-2000">3.1 CARLA Server (Port 2000)<a class="headerlink" href="#31-carla-server-port-2000" title="Permanent link">#</a></h3>
+<p>CARLA uses a <strong>three-port architecture</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Port</th>
+<th>Protocol</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2000</td>
+<td>rpclib (MessagePack-RPC)</td>
+<td>Synchronous commands: spawn, destroy, weather, tick</td>
+</tr>
+<tr>
+<td>2001</td>
+<td>TCP streaming</td>
+<td>High-throughput sensor data (camera images, LiDAR)</td>
+</tr>
+<tr>
+<td>2002</td>
+<td>TCP secondary</td>
+<td>Multi-GPU synchronization</td>
+</tr>
+</tbody>
+</table>
+<p><strong>RPC binding pattern</strong>: Operations that modify UE4 state are <strong>sync-bound</strong> to the game thread via <code>boost::asio::io_context</code> post-and-wait. Read-only operations are <strong>async-bound</strong> to RPC worker threads.</p>
+<p><strong>Sensor data pipeline</strong>:
+1. Sensor captures data during UE4 tick (game thread)
+2. <code>FPixelReader::SendPixelsInRenderThread()</code> enqueues a render command
+3. GPU pixels are read via <code>FRHICommandListImmediate</code>
+4. Data is serialized through <code>SensorRegistry::Serialize()</code> (type-dispatched)
+5. Sent via dedicated TCP stream (each sensor has a unique stream token)</p>
+<h3 id="32-airsim-server-port-41451">3.2 AirSim Server (Port 41451)<a class="headerlink" href="#32-airsim-server-port-41451" title="Permanent link">#</a></h3>
+<p>AirSim uses a <strong>single-port RPC architecture</strong> via rpclib:</p>
+<table>
+<thead>
+<tr>
+<th>Port</th>
+<th>Protocol</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>41451</td>
+<td>rpclib (MessagePack-RPC)</td>
+<td>All commands: flight control, image capture, sensor queries</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Image capture</strong>: Unlike CARLA's streaming model, AirSim images are requested on-demand through RPC calls (<code>simGetImages</code>). The server reads the UE4 render target synchronously and returns raw pixel data in the RPC response.</p>
+<p><strong>Physics thread interaction</strong>: Flight commands (e.g., <code>moveToPositionAsync</code>) are posted to AirSim's internal command queue. The <code>FastPhysicsEngine</code> running on a dedicated async thread at 333 Hz reads commands and updates the physics state. The RPC server reads back state on demand.</p>
+<h3 id="33-coexistence">3.3 Coexistence<a class="headerlink" href="#33-coexistence" title="Permanent link">#</a></h3>
+<p>Both RPC servers run within the same process, sharing the UE4 world. They do not interfere because:
+- They bind to different ports (2000 vs 41451)
+- They use independent rpclib server instances
+- Game-thread operations are serialized naturally by UE4's single-threaded game loop
+- AirSim's async physics thread operates on its own kinematic state, reading UE4 collision geometry but not modifying CARLA actors</p>
+<hr />
+<h2 id="4-sensor-systems">4. Sensor Systems<a class="headerlink" href="#4-sensor-systems" title="Permanent link">#</a></h2>
+<h3 id="41-carla-ground-sensors-10-types">4.1 CARLA Ground Sensors (10 types)<a class="headerlink" href="#41-carla-ground-sensors-10-types" title="Permanent link">#</a></h3>
+<p>CARLA provides a comprehensive ground-vehicle sensor suite, all spawnable as actors attached to any vehicle:</p>
+<table>
+<thead>
+<tr>
+<th>Sensor</th>
+<th>Class Hierarchy</th>
+<th>Data Format</th>
+<th>Key Parameters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RGB Camera</td>
+<td><code>ASceneCaptureCamera</code> : <code>ASceneCaptureSensor</code> : <code>ASensor</code></td>
+<td>BGRA uint8</td>
+<td>Resolution, FOV, lens distortion</td>
+</tr>
+<tr>
+<td>Depth Camera</td>
+<td><code>ADepthCamera</code> : <code>AShaderBasedSensor</code> : <code>ASceneCaptureSensor</code></td>
+<td>Encoded R+G×256+B×65536, normalized to meters</td>
+<td>Same as RGB</td>
+</tr>
+<tr>
+<td>Semantic Segmentation</td>
+<td><code>ASemanticSegmentationCamera</code> : <code>AShaderBasedSensor</code></td>
+<td>Label index in R channel (20+ CityScapes-compatible classes)</td>
+<td>Same as RGB</td>
+</tr>
+<tr>
+<td>Instance Segmentation</td>
+<td><code>AInstanceSegmentationCamera</code> : <code>AShaderBasedSensor</code></td>
+<td>Per-instance unique color</td>
+<td>Same as RGB</td>
+</tr>
+<tr>
+<td>LiDAR</td>
+<td><code>ARayCastLidar</code> : <code>ARayCastSemanticLidar</code> : <code>ASensor</code></td>
+<td>float32 [x, y, z, intensity] per point</td>
+<td>Channels (16-128), range, points/sec, rotation freq</td>
+</tr>
+<tr>
+<td>Radar</td>
+<td><code>ARadar</code> : <code>ASensor</code></td>
+<td>Per-detection: azimuth, altitude, depth, velocity</td>
+<td>H-FOV, V-FOV, range, points/sec</td>
+</tr>
+<tr>
+<td>IMU</td>
+<td><code>AInertialMeasurementUnit</code> : <code>ASensor</code></td>
+<td>Accelerometer (3D), gyroscope (3D), compass</td>
+<td>Noise std dev, bias</td>
+</tr>
+<tr>
+<td>GNSS</td>
+<td><code>AGnssSensor</code> : <code>ASensor</code></td>
+<td>Latitude, longitude, altitude</td>
+<td>Noise deviation</td>
+</tr>
+<tr>
+<td>Collision</td>
+<td><code>ACollisionSensor</code> : <code>ASensor</code></td>
+<td>Event-driven: other actor, impulse</td>
+<td>--</td>
+</tr>
+<tr>
+<td>Lane Invasion</td>
+<td><code>ALaneInvasionSensor</code> : <code>ASensor</code></td>
+<td>Event-driven: crossed lane markings</td>
+<td>--</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Shader-based rendering</strong>: Depth, segmentation, normals, and optical flow cameras apply post-process materials to UE4's scene capture pipeline. Materials write to the G-buffer channels, which are then read back as pixel data. This achieves pixel-perfect alignment with RGB images at negligible additional rendering cost.</p>
+<p><strong>LiDAR implementation</strong>: Uses UE4 <code>LineTraceSingleByChannel</code> for ray-casting. Points are generated in a rotating pattern matching real LiDAR scan patterns. Intensity is computed via an attenuation model: <code>α × I₀ + β</code>, where I₀ depends on hit distance and material reflectivity. Supports atmospheric attenuation for rain/fog conditions.</p>
+<h3 id="42-airsim-aerial-sensors-6-types">4.2 AirSim Aerial Sensors (6 types)<a class="headerlink" href="#42-airsim-aerial-sensors-6-types" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>Sensor</th>
+<th>Implementation</th>
+<th>Data Format</th>
+<th>Noise Model</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RGB Camera</td>
+<td><code>APIPCamera</code> + <code>USceneCaptureComponent2D</code></td>
+<td>uint8 BGRA</td>
+<td>--</td>
+</tr>
+<tr>
+<td>Depth Camera</td>
+<td>Post-process material on same component</td>
+<td>float32 (meters) or uint8 (visualization)</td>
+<td>--</td>
+</tr>
+<tr>
+<td>Segmentation</td>
+<td>Post-process material on same component</td>
+<td>uint8 label colors</td>
+<td>--</td>
+</tr>
+<tr>
+<td>IMU</td>
+<td><code>ImuSimple</code> (AirLib)</td>
+<td>Accelerometer, gyroscope, compass</td>
+<td>Angle Random Walk, Velocity Random Walk, Gaussian-Markov bias drift</td>
+</tr>
+<tr>
+<td>GPS</td>
+<td><code>GpsSimple</code> (AirLib)</td>
+<td>Lat, lon, alt, velocity</td>
+<td>EPH/EPV convergence filter, update rate limiting, latency</td>
+</tr>
+<tr>
+<td>Barometer</td>
+<td><code>BarometerSimple</code> (AirLib)</td>
+<td>Altitude (m), pressure (Pa)</td>
+<td>Gaussian-Markov drift (~10m/hr), uncorrelated noise (~0.2m σ)</td>
+</tr>
+<tr>
+<td>Magnetometer</td>
+<td><code>MagnetometerSimple</code> (AirLib)</td>
+<td>Body-frame magnetic field (3D)</td>
+<td>Gaussian noise + uniform bias</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Camera system</strong>: Each drone has 5 camera mount points (front_center, front_right, front_left, bottom_center, back_center). Each mount creates multiple <code>USceneCaptureComponent2D</code> instances for different image types. Images are captured on-demand through the RPC API. Default resolution: 1280×960.</p>
+<p><strong>Sensor noise models</strong>: AirSim implements physically-motivated noise models based on Oliver Woodman's "An introduction to inertial navigation" (Cambridge TR-696):
+- <strong>IMU</strong>: ARW (angle random walk) for gyroscope drift, VRW (velocity random walk) for accelerometer bias, with configurable turn-on bias
+- <strong>GPS</strong>: First-order low-pass filter for horizontal/vertical position error convergence, simulating cold-start behavior
+- <strong>Barometer</strong>: Gaussian-Markov process for slow pressure drift, plus high-frequency measurement noise</p>
+<h3 id="43-combined-sensor-capabilities">4.3 Combined Sensor Capabilities<a class="headerlink" href="#43-combined-sensor-capabilities" title="Permanent link">#</a></h3>
+<p>In SimWorld, <strong>all 16 sensor types can operate simultaneously</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Perspective</th>
+<th>Sensors Available</th>
+<th>Total Streams</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ground Vehicle</td>
+<td>RGB, Depth, Segmentation, Instance Seg, LiDAR, Radar, IMU, GNSS, Collision, Lane Invasion</td>
+<td>10</td>
+</tr>
+<tr>
+<td>Aerial Drone</td>
+<td>RGB, Depth, Segmentation, Infrared, IMU, GPS, Barometer, Magnetometer</td>
+<td>8</td>
+</tr>
+<tr>
+<td><strong>Combined</strong></td>
+<td><strong>All of the above, synchronized to the same world state</strong></td>
+<td><strong>18</strong></td>
+</tr>
+</tbody>
+</table>
+<p>This is a unique capability -- no other simulator provides synchronized ground + aerial multi-modal sensor data in a single rendering pass.</p>
+<hr />
+<h2 id="5-physics-and-flight-dynamics">5. Physics and Flight Dynamics<a class="headerlink" href="#5-physics-and-flight-dynamics" title="Permanent link">#</a></h2>
+<h3 id="51-ground-vehicle-physics">5.1 Ground Vehicle Physics<a class="headerlink" href="#51-ground-vehicle-physics" title="Permanent link">#</a></h3>
+<p>CARLA uses UE4's native PhysX vehicle physics (<code>AWheeledVehicle</code>):
+- 4-wheel (standard cars) and N-wheel (trucks, buses) configurations
+- Torque curve, steering curve, mass, drag, center of mass tuning
+- Ackermann steering model with PID controller
+- Integration with Project Chrono for higher-fidelity tire models (optional)</p>
+<h3 id="52-drone-flight-dynamics-fastphysicsengine">5.2 Drone Flight Dynamics (FastPhysicsEngine)<a class="headerlink" href="#52-drone-flight-dynamics-fastphysicsengine" title="Permanent link">#</a></h3>
+<p>AirSim implements a <strong>custom rigid-body dynamics engine</strong> running on a dedicated async thread at 333 Hz:</p>
+<p><strong>Integration</strong>: Second-order Verlet method for both linear and angular motion:
+<div class="highlight"><pre><span></span><code>v(t+dt) = v(t) + a(t) × dt
+x(t+dt) = x(t) + v(t+dt) × dt
+</code></pre></div></p>
+<p><strong>Force model</strong>: Each rotor contributes a thrust force vector and torque. Total wrench is the sum over 4 rotors. Aerodynamic drag uses a 6-face box model with velocity-squared dependence:
+<div class="highlight"><pre><span></span><code>F_drag = -0.5 × ρ × Cd × A × |v_rel|² × v̂_rel
+</code></pre></div>
+where <code>v_rel</code> accounts for wind.</p>
+<p><strong>Collision response</strong>: Impulse-based method with Coulomb friction:
+<div class="highlight"><pre><span></span><code>j = -(1 + e) × (v · n) / (1/m + ((I⁻¹(r × n)) × r) · n)
+</code></pre></div>
+Ground lock prevents micro-bouncing on landing surfaces.</p>
+<p><strong>Flight controllers</strong>:
+- <strong>SimpleFlight</strong> (default): Built-in PID controller for position, velocity, and attitude control. Runs within AirLib, no external dependencies.
+- <strong>PX4</strong> (optional): Software-in-the-loop with PX4 Autopilot via MAVLink
+- <strong>ArduPilot</strong> (optional): SITL integration</p>
+<h3 id="53-coordinate-systems">5.3 Coordinate Systems<a class="headerlink" href="#53-coordinate-systems" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>System</th>
+<th>Convention</th>
+<th>Origin</th>
+<th>Units</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UE4 / CARLA</td>
+<td>Left-handed, Z-up</td>
+<td>Map origin (0, 0, 0)</td>
+<td>Centimeters (internally), meters (API)</td>
+</tr>
+<tr>
+<td>AirSim</td>
+<td>NED (North-East-Down)</td>
+<td>PlayerStart location</td>
+<td>Meters</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Coordinate mapping</strong>: AirSim creates a <code>NedTransform</code> at BeginPlay that maps between UE4 world coordinates and the NED frame anchored at the drone's spawn point. For drone-follows-car applications, we use a <strong>relative offset method</strong>:
+1. Record initial CARLA car position <code>(cx₀, cy₀)</code> and AirSim drone NED position <code>(dx₀, dy₀)</code>
+2. Per frame: <code>Δ = (cx - cx₀, cy - cy₀)</code>, target drone NED = <code>(dx₀ + Δx, dy₀ + Δy, -altitude)</code></p>
+<hr />
+<h2 id="6-traffic-and-environment">6. Traffic and Environment<a class="headerlink" href="#6-traffic-and-environment" title="Permanent link">#</a></h2>
+<h3 id="61-traffic-manager">6.1 Traffic Manager<a class="headerlink" href="#61-traffic-manager" title="Permanent link">#</a></h3>
+<p>CARLA's Traffic Manager is a <strong>client-side pipeline architecture</strong> running on a dedicated thread:</p>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ALSM</td>
+<td>Actor Lifecycle and State Management -- syncs simulation state</td>
+</tr>
+<tr>
+<td>Localization</td>
+<td>Waypoint horizon maintenance, lane change decisions</td>
+</tr>
+<tr>
+<td>Collision</td>
+<td>Polygon-based collision prediction (boost::geometry)</td>
+</tr>
+<tr>
+<td>Traffic Light</td>
+<td>Signal compliance logic</td>
+</tr>
+<tr>
+<td>Motion Plan</td>
+<td>PID controller: separate urban/highway parameters</td>
+</tr>
+<tr>
+<td>Vehicle Light</td>
+<td>Automatic headlight/brake light management</td>
+</tr>
+</tbody>
+</table>
+<p>The TM maintains an <strong>InMemoryMap</strong> (cached waypoint graph) for O(1) spatial queries and a <strong>SimulationState</strong> tracking all managed actors' kinematics.</p>
+<h3 id="62-weather-system">6.2 Weather System<a class="headerlink" href="#62-weather-system" title="Permanent link">#</a></h3>
+<p>15 continuous parameters controlling atmospheric conditions:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Range</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cloudiness</td>
+<td>0-100</td>
+<td>Cloud cover density</td>
+</tr>
+<tr>
+<td>Precipitation</td>
+<td>0-100</td>
+<td>Rain intensity</td>
+</tr>
+<tr>
+<td>PrecipitationDeposits</td>
+<td>0-100</td>
+<td>Water puddle accumulation</td>
+</tr>
+<tr>
+<td>WindIntensity</td>
+<td>0-100</td>
+<td>Wind speed</td>
+</tr>
+<tr>
+<td>SunAzimuthAngle</td>
+<td>0-360</td>
+<td>Sun horizontal angle</td>
+</tr>
+<tr>
+<td>SunAltitudeAngle</td>
+<td>-90 to 90</td>
+<td>Sun elevation (negative = night)</td>
+</tr>
+<tr>
+<td>FogDensity</td>
+<td>0-100</td>
+<td>Volumetric fog thickness</td>
+</tr>
+<tr>
+<td>FogDistance</td>
+<td>0+</td>
+<td>Fog start distance (m)</td>
+</tr>
+<tr>
+<td>Wetness</td>
+<td>0-100</td>
+<td>Surface wetness (reflections)</td>
+</tr>
+<tr>
+<td>DustStorm</td>
+<td>0-100</td>
+<td>Dust/sandstorm intensity</td>
+</tr>
+</tbody>
+</table>
+<p>14 named presets covering day/night, clear/cloudy/rain/storm conditions. Weather affects <strong>both</strong> CARLA rendering and AirSim's aerial views simultaneously.</p>
+<h3 id="63-maps-and-road-networks">6.3 Maps and Road Networks<a class="headerlink" href="#63-maps-and-road-networks" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>Map</th>
+<th>Description</th>
+<th>Spawn Points</th>
+<th>Area</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Town01</td>
+<td>Small town, T-junctions</td>
+<td>252</td>
+<td>~1 km²</td>
+</tr>
+<tr>
+<td>Town02</td>
+<td>Residential area</td>
+<td>~100</td>
+<td>~0.5 km²</td>
+</tr>
+<tr>
+<td>Town03</td>
+<td>Urban downtown, highway ramp</td>
+<td>265</td>
+<td>~2 km²</td>
+</tr>
+<tr>
+<td>Town04</td>
+<td>Highway with small town</td>
+<td>~300</td>
+<td>~5 km²</td>
+</tr>
+<tr>
+<td>Town05</td>
+<td>Urban grid with multi-lane roads</td>
+<td>302</td>
+<td>~3 km²</td>
+</tr>
+<tr>
+<td>Town10HD</td>
+<td>HD downtown with detailed buildings</td>
+<td>155</td>
+<td>~1.5 km²</td>
+</tr>
+</tbody>
+</table>
+<p>Each map includes:
+- <strong>OpenDRIVE</strong> (.xodr): Complete road network definition with lane geometry, junctions, signals
+- <strong>Navigation mesh</strong>: Recast-generated pedestrian walkable areas
+- <strong>Traffic infrastructure</strong>: Traffic lights (with timing), stop signs, speed limits
+- <strong>Environment objects</strong>: Buildings, vegetation, street furniture (13000+ objects in Town10HD)</p>
+<hr />
+<h2 id="7-actor-system">7. Actor System<a class="headerlink" href="#7-actor-system" title="Permanent link">#</a></h2>
+<h3 id="71-actor-blueprint-library">7.1 Actor Blueprint Library<a class="headerlink" href="#71-actor-blueprint-library" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Count</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vehicles</td>
+<td>41</td>
+<td>Tesla Model 3, BMW Gran Tourer, Audi A2, Bus, Truck, Motorcycle, Bicycle</td>
+</tr>
+<tr>
+<td>Walkers</td>
+<td>52</td>
+<td>Male/female adults, children, with diverse clothing and body types</td>
+</tr>
+<tr>
+<td>Sensors</td>
+<td>25</td>
+<td>All sensor types listed in Section 4</td>
+</tr>
+<tr>
+<td>Props</td>
+<td>99</td>
+<td>Barriers, containers, trash cans, vendor stalls, benches</td>
+</tr>
+<tr>
+<td>Other</td>
+<td>3</td>
+<td>Controller types</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td><strong>220</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="72-actor-spawn-pipeline">7.2 Actor Spawn Pipeline<a class="headerlink" href="#72-actor-spawn-pipeline" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code>Python: world.spawn_actor(blueprint, transform)
+  → RPC: carla::rpc::Command::SpawnActor
+    → FCarlaServer::FPimpl (game thread)
+      → UCarlaEpisode::SpawnActorWithInfo()
+        → UActorDispatcher::SpawnActor()
+          → ACarlaActorFactory::SpawnActor()  (type-specific factory)
+            → UWorld::SpawnActor&lt;&gt;()  (UE4 native spawn)
+          → FActorRegistry::Register(actor_id, actor)
+        → return carla::rpc::Actor (serialized to client)
+</code></pre></div>
+<h3 id="73-pedestrian-ai-navigation">7.3 Pedestrian AI Navigation<a class="headerlink" href="#73-pedestrian-ai-navigation" title="Permanent link">#</a></h3>
+<p>Walkers use UE4's <strong>Recast navigation mesh</strong> for pathfinding:
+- Navigation mesh is pre-built from map geometry
+- <code>AWalkerAIController</code> provides the Python API interface
+- <code>controller.go_to_location(target)</code> triggers A* pathfinding on the navmesh
+- <code>controller.set_max_speed(speed)</code> controls movement speed</p>
+<hr />
+<h2 id="8-application-domains-and-research-capabilities">8. Application Domains and Research Capabilities<a class="headerlink" href="#8-application-domains-and-research-capabilities" title="Permanent link">#</a></h2>
+<h3 id="81-autonomous-driving">8.1 Autonomous Driving<a class="headerlink" href="#81-autonomous-driving" title="Permanent link">#</a></h3>
+<ul>
+<li>Full ego-vehicle sensor suite (RGB, depth, segmentation, LiDAR, radar, IMU, GNSS)</li>
+<li>Traffic Manager with per-vehicle behavioral parameters</li>
+<li>Ackermann steering model with PID controller</li>
+<li>41 vehicle types across 6+ maps with OpenDRIVE road networks</li>
+<li>Deterministic simulation mode for reproducible experiments</li>
+</ul>
+<h3 id="82-uav-navigation-and-control">8.2 UAV Navigation and Control<a class="headerlink" href="#82-uav-navigation-and-control" title="Permanent link">#</a></h3>
+<ul>
+<li>6-DOF flight control: position, velocity, body-frame velocity, yaw rate, path following</li>
+<li>Physics-based dynamics at 333 Hz with wind and aerodynamic drag</li>
+<li>Multi-camera aerial sensing (5 mount points per drone)</li>
+<li>Configurable flight controllers (SimpleFlight, PX4, ArduPilot)</li>
+<li>Sensor noise models (IMU, GPS, barometer, magnetometer) for realistic perception</li>
+</ul>
+<h3 id="83-air-ground-cooperative-systems-novel">8.3 Air-Ground Cooperative Systems (Novel)<a class="headerlink" href="#83-air-ground-cooperative-systems-novel" title="Permanent link">#</a></h3>
+<p>This is SimWorld's unique research capability:</p>
+<ul>
+<li><strong>Drone-car tracking</strong>: UAV follows ground vehicles with real-time coordinate translation</li>
+<li><strong>Aerial traffic monitoring</strong>: Bird's-eye-view vehicle detection and counting</li>
+<li><strong>Cooperative perception</strong>: Ground-level + aerial sensor fusion datasets</li>
+<li><strong>Multi-agent coordination</strong>: Multiple CARLA vehicles + AirSim drone in shared scenarios</li>
+<li><strong>Emergency response</strong>: Aerial scouting + ground navigation in urban environments</li>
+</ul>
+<h3 id="84-social-navigation">8.4 Social Navigation<a class="headerlink" href="#84-social-navigation" title="Permanent link">#</a></h3>
+<ul>
+<li>FPS-style first-person pedestrian control with mouse-look</li>
+<li>52 pedestrian types with AI-controlled navigation</li>
+<li>Large-scale crowd simulation (50+ vehicles + 20+ pedestrians)</li>
+<li>Pedestrian-vehicle interaction in traffic environments</li>
+<li>Variable weather and lighting conditions</li>
+</ul>
+<h3 id="85-multi-modal-dataset-generation">8.5 Multi-Modal Dataset Generation<a class="headerlink" href="#85-multi-modal-dataset-generation" title="Permanent link">#</a></h3>
+<p>SimWorld enables generating datasets with <strong>unprecedented modality coverage</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Modality</th>
+<th>Source</th>
+<th>Format</th>
+<th>Resolution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ground RGB</td>
+<td>CARLA camera</td>
+<td>PNG/JPG</td>
+<td>Configurable (up to 4K)</td>
+</tr>
+<tr>
+<td>Ground Depth</td>
+<td>CARLA depth camera</td>
+<td>float32 NPY (meters)</td>
+<td>Same as RGB</td>
+</tr>
+<tr>
+<td>Ground Segmentation</td>
+<td>CARLA seg camera</td>
+<td>uint8 NPY (20+ classes)</td>
+<td>Same as RGB</td>
+</tr>
+<tr>
+<td>Ground Instance Seg</td>
+<td>CARLA instance camera</td>
+<td>RGB (per-instance)</td>
+<td>Same as RGB</td>
+</tr>
+<tr>
+<td>Ground LiDAR</td>
+<td>CARLA ray-cast</td>
+<td>float32 NPY (x,y,z,intensity)</td>
+<td>16-128 channels</td>
+</tr>
+<tr>
+<td>Ground Radar</td>
+<td>CARLA radar</td>
+<td>float32 (azimuth, depth, velocity)</td>
+<td>Configurable</td>
+</tr>
+<tr>
+<td>Ground IMU</td>
+<td>CARLA IMU</td>
+<td>JSON (accel, gyro, compass)</td>
+<td>100+ Hz</td>
+</tr>
+<tr>
+<td>Ground GNSS</td>
+<td>CARLA GNSS</td>
+<td>JSON (lat, lon, alt)</td>
+<td>10+ Hz</td>
+</tr>
+<tr>
+<td>Aerial RGB</td>
+<td>AirSim camera</td>
+<td>PNG/NPY</td>
+<td>1280×960 (configurable)</td>
+</tr>
+<tr>
+<td>Aerial Depth</td>
+<td>AirSim depth</td>
+<td>float32 NPY (meters)</td>
+<td>1280×960</td>
+</tr>
+<tr>
+<td>Aerial Segmentation</td>
+<td>AirSim seg</td>
+<td>PNG (label colors)</td>
+<td>1280×960</td>
+</tr>
+<tr>
+<td>Aerial IMU</td>
+<td>AirSim IMU</td>
+<td>JSON (with noise)</td>
+<td>333 Hz</td>
+</tr>
+<tr>
+<td>Aerial GPS</td>
+<td>AirSim GPS</td>
+<td>JSON (with convergence)</td>
+<td>Configurable</td>
+</tr>
+<tr>
+<td>Aerial Barometer</td>
+<td>AirSim barometer</td>
+<td>JSON (altitude, pressure)</td>
+<td>Configurable</td>
+</tr>
+<tr>
+<td>Ego Vehicle Pose</td>
+<td>CARLA transform</td>
+<td>JSON (x,y,z,pitch,yaw,roll)</td>
+<td>Per frame</td>
+</tr>
+<tr>
+<td>Drone Pose</td>
+<td>AirSim kinematics</td>
+<td>JSON (NED position, quaternion)</td>
+<td>Per frame</td>
+</tr>
+</tbody>
+</table>
+<p>All modalities are <strong>synchronized to the same simulation frame</strong> and share the same world state. The off-screen rendering mode (<code>-RenderOffScreen</code>) enables headless operation on GPU servers for large-scale data production.</p>
+<hr />
+<h2 id="9-ros-integration">9. ROS Integration<a class="headerlink" href="#9-ros-integration" title="Permanent link">#</a></h2>
+<p>SimWorld supports dual ROS2 bridges for integration with robotics stacks:</p>
+<h3 id="91-carla-ros-bridge">9.1 CARLA ROS Bridge<a class="headerlink" href="#91-carla-ros-bridge" title="Permanent link">#</a></h3>
+<ul>
+<li>Workspace: <code>carla-ros-bridge</code> (ROS2 Humble)</li>
+<li>Published topics: <code>/carla/world_info</code>, <code>/carla/status</code>, <code>/clock</code>, per-vehicle sensor topics</li>
+<li>Services: <code>/carla/spawn_object</code>, <code>/carla/destroy_object</code>, <code>/carla/get_blueprints</code></li>
+<li>Namespace: <code>/carla/*</code></li>
+</ul>
+<h3 id="92-airsim-ros-wrapper">9.2 AirSim ROS Wrapper<a class="headerlink" href="#92-airsim-ros-wrapper" title="Permanent link">#</a></h3>
+<ul>
+<li>Package: <code>airsim_ros_pkgs</code> (ROS2 Humble)</li>
+<li>Published topics: <code>/airsim_node/SimpleFlight/imu/imu</code>, <code>/airsim_node/SimpleFlight/front_center/Scene</code>, GPS, barometer, magnetometer, odometry</li>
+<li>Services: takeoff, land, reset</li>
+<li>Namespace: <code>/airsim_node/*</code></li>
+</ul>
+<h3 id="93-simultaneous-operation">9.3 Simultaneous Operation<a class="headerlink" href="#93-simultaneous-operation" title="Permanent link">#</a></h3>
+<p>Both bridges run concurrently under the same ROS master with <strong>zero namespace conflicts</strong> (<code>/carla/</code> vs <code>/airsim_node/</code>). This enables standard ROS2 tools (rviz2, rosbag2, nav2) to consume both ground and aerial data streams.</p>
+<hr />
+<h2 id="10-performance-characteristics">10. Performance Characteristics<a class="headerlink" href="#10-performance-characteristics" title="Permanent link">#</a></h2>
+<h3 id="101-system-requirements">10.1 System Requirements<a class="headerlink" href="#101-system-requirements" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Minimum</th>
+<th>Recommended</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GPU</td>
+<td>4 GB VRAM (Vulkan)</td>
+<td>8+ GB VRAM (NVIDIA RTX)</td>
+</tr>
+<tr>
+<td>RAM</td>
+<td>16 GB</td>
+<td>32 GB</td>
+</tr>
+<tr>
+<td>CPU</td>
+<td>4 cores</td>
+<td>8+ cores</td>
+</tr>
+<tr>
+<td>Disk</td>
+<td>20 GB (packaged)</td>
+<td>40 GB (source + build)</td>
+</tr>
+<tr>
+<td>OS</td>
+<td>Ubuntu 18.04+</td>
+<td>Ubuntu 20.04/22.04</td>
+</tr>
+</tbody>
+</table>
+<h3 id="102-gpu-memory-usage-tested-on-rtx-a4000-16-gb">10.2 GPU Memory Usage (Tested on RTX A4000, 16 GB)<a class="headerlink" href="#102-gpu-memory-usage-tested-on-rtx-a4000-16-gb" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>VRAM Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Idle (Town10HD loaded)</td>
+<td>~3700 MiB</td>
+</tr>
+<tr>
+<td>+ 3 vehicles + 2 walkers + drone</td>
+<td>~3870 MiB</td>
+</tr>
+<tr>
+<td>3-hour continuous operation</td>
+<td>~3878 MiB (stable, no leak)</td>
+</tr>
+<tr>
+<td>Peak during map loading</td>
+<td>~5000 MiB</td>
+</tr>
+</tbody>
+</table>
+<h3 id="103-stability">10.3 Stability<a class="headerlink" href="#103-stability" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Cycles</th>
+<th>Errors</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Continuous spawn/destroy + drone</td>
+<td>3 hours</td>
+<td>357</td>
+<td>0</td>
+<td>PASS</td>
+</tr>
+<tr>
+<td>Map switching (Town01→03→05)</td>
+<td>~15 min</td>
+<td>3 maps</td>
+<td>0</td>
+<td>PASS</td>
+</tr>
+<tr>
+<td>89-item comprehensive API test</td>
+<td>~5 min</td>
+<td>89 tests</td>
+<td>0</td>
+<td>PASS</td>
+</tr>
+</tbody>
+</table>
+<h3 id="104-known-limitations">10.4 Known Limitations<a class="headerlink" href="#104-known-limitations" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>Limitation</th>
+<th>Cause</th>
+<th>Workaround</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Autopilot vehicles ≤ 10 with drone</td>
+<td>AirSim physics ↔ CARLA Traffic Manager quaternion conflict</td>
+<td>Limit traffic count or disable autopilot</td>
+</tr>
+<tr>
+<td>Map switch latency: 2-5 min</td>
+<td>Full asset reload in Shipping build</td>
+<td>Use API with 300s timeout</td>
+</tr>
+<tr>
+<td>Single drone instance</td>
+<td>AirSim settings.json limitation</td>
+<td>Configurable for multi-drone</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="11-build-and-deployment">11. Build and Deployment<a class="headerlink" href="#11-build-and-deployment" title="Permanent link">#</a></h2>
+<h3 id="111-compilation">11.1 Compilation<a class="headerlink" href="#111-compilation" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Module-level compilation (avoids features.h cross-compile error)</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">UE4_ROOT</span><span class="o">=</span>/path/to/UnrealEngine-4.26
+<span class="si">${</span><span class="nv">UE4_ROOT</span><span class="si">}</span>/Engine/Build/BatchFiles/Linux/Build.sh<span class="w"> </span>CarlaUE4Editor<span class="w"> </span>Linux<span class="w"> </span>Development<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-project<span class="o">=</span><span class="s2">&quot;/path/to/CarlaUE4.uproject&quot;</span><span class="w"> </span>-module<span class="o">=</span>Carla<span class="w">    </span><span class="c1"># ~290s</span>
+<span class="si">${</span><span class="nv">UE4_ROOT</span><span class="si">}</span>/Engine/Build/BatchFiles/Linux/Build.sh<span class="w"> </span>CarlaUE4Editor<span class="w"> </span>Linux<span class="w"> </span>Development<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-project<span class="o">=</span><span class="s2">&quot;/path/to/CarlaUE4.uproject&quot;</span><span class="w"> </span>-module<span class="o">=</span>AirSim<span class="w">   </span><span class="c1"># ~100s</span>
+</code></pre></div>
+<h3 id="112-packaging">11.2 Packaging<a class="headerlink" href="#112-packaging" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code>./Util/BuildTools/Package.sh<span class="w"> </span>--config<span class="o">=</span>Shipping<span class="w"> </span>--no-zip
+<span class="c1"># Output: Dist/CARLA_Shipping_&lt;version&gt;/LinuxNoEditor/ (~19 GB)</span>
+<span class="c1"># Compile: ~800s (656 units), Cook: ~2h (13459 packages)</span>
+</code></pre></div>
+<h3 id="113-distribution">11.3 Distribution<a class="headerlink" href="#113-distribution" title="Permanent link">#</a></h3>
+<p>Packaged build: <strong>7.3 GB</strong> compressed (excluding debug symbols), containing:
+- Shipping binary for Linux x86_64
+- 13 cooked maps + AirSim assets
+- 17 example Python scripts
+- CARLA PythonAPI source
+- AirSim configuration template</p>
+<hr />
+<h2 id="12-comparison-with-related-work">12. Comparison with Related Work<a class="headerlink" href="#12-comparison-with-related-work" title="Permanent link">#</a></h2>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>CARLA</th>
+<th>AirSim</th>
+<th>LGSVL</th>
+<th>ISAAC Sim</th>
+<th><strong>SimWorld</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ground vehicles</td>
+<td>✅ 41 types</td>
+<td>✅ Limited</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅ 41 types</td>
+</tr>
+<tr>
+<td>Pedestrians</td>
+<td>✅ 52 types</td>
+<td>❌</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅ 52 types</td>
+</tr>
+<tr>
+<td>Drones (physics-based)</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Traffic Manager</td>
+<td>✅</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>OpenDRIVE road network</td>
+<td>✅</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Weather system</td>
+<td>✅ 15 params</td>
+<td>✅ Basic</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅ 15 params</td>
+</tr>
+<tr>
+<td>Ground sensors (10+)</td>
+<td>✅</td>
+<td>❌</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Aerial sensors (6+)</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Sensor noise models</td>
+<td>Basic</td>
+<td>✅ Detailed</td>
+<td>Basic</td>
+<td>✅</td>
+<td>✅ Detailed</td>
+</tr>
+<tr>
+<td>ROS integration</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅ Dual bridges</td>
+</tr>
+<tr>
+<td>Air-ground joint sim</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Single-process rendering</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Open source</td>
+<td>✅ MIT</td>
+<td>✅ MIT</td>
+<td>❌ Discontinued</td>
+<td>❌ Proprietary</td>
+<td>✅</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Key differentiator</strong>: SimWorld is the only platform providing physics-based drone flight, comprehensive ground traffic management, and multi-modal synchronized air-ground sensor data in a single rendering process.</p>
+<hr />
+<h2 id="13-potential-paper-contributions">13. Potential Paper Contributions<a class="headerlink" href="#13-potential-paper-contributions" title="Permanent link">#</a></h2>
+<h3 id="for-neurips-iclr-submission">For NeurIPS / ICLR Submission<a class="headerlink" href="#for-neurips-iclr-submission" title="Permanent link">#</a></h3>
+<ol>
+<li><strong>System paper</strong>: Novel architecture solving the single-GameMode constraint for simulator unification</li>
+<li><strong>Benchmark paper</strong>: New benchmark for air-ground cooperative perception</li>
+<li><strong>Dataset paper</strong>: Large-scale multi-modal dataset with synchronized ground + aerial annotations</li>
+<li><strong>Application paper</strong>: Aerial-assisted autonomous driving / social navigation with air-ground data</li>
+</ol>
+<h3 id="potential-evaluation-experiments">Potential Evaluation Experiments<a class="headerlink" href="#potential-evaluation-experiments" title="Permanent link">#</a></h3>
+<ul>
+<li><strong>Object detection</strong>: Compare detection accuracy using ground-only vs. ground+aerial data</li>
+<li><strong>Trajectory prediction</strong>: Pedestrian/vehicle trajectory prediction with aerial context</li>
+<li><strong>Multi-modal fusion</strong>: Sensor fusion benchmarks across 16+ synchronized modalities</li>
+<li><strong>Sim-to-real transfer</strong>: Domain adaptation from SimWorld synthetic data to real-world datasets</li>
+<li><strong>Cooperative perception</strong>: Communication-constrained air-ground perception fusion</li>
+<li><strong>Social navigation</strong>: Pedestrian interaction modeling with drone presence</li>
+<li><strong>RL-based drone control</strong>: Training drone policies for car-following, surveillance, search tasks</li>
+</ul>
+<h3 id="comparable-published-work-at-top-venues">Comparable Published Work at Top Venues<a class="headerlink" href="#comparable-published-work-at-top-venues" title="Permanent link">#</a></h3>
+<ul>
+<li><strong>CARLA</strong>: "CARLA: An Open Urban Driving Simulator" (CoRL 2017)</li>
+<li><strong>AirSim</strong>: "AirSim: High-Fidelity Visual and Physical Simulation for Autonomous Vehicles" (FSR 2017)</li>
+<li><strong>Habitat</strong>: "Habitat: A Platform for Embodied AI Research" (ICCV 2019)</li>
+<li><strong>ISAAC Sim</strong>: "Isaac Sim: An Extensible Robotics Simulator" (ICRA 2022)</li>
+<li><strong>MetaDrive</strong>: "MetaDrive: Composing Diverse Driving Scenarios for Generalizable RL" (TPAMI 2022)</li>
+</ul>
+<p>SimWorld fills the gap between driving simulators and aerial simulators, enabling a new class of research at the intersection of autonomous driving, drone navigation, and multi-agent systems.</p>
+<hr />
+<h2 id="appendix-a-complete-file-inventory">Appendix A: Complete File Inventory<a class="headerlink" href="#appendix-a-complete-file-inventory" title="Permanent link">#</a></h2>
+<h3 id="core-architecture-files">Core Architecture Files<a class="headerlink" href="#core-architecture-files" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Plugins/AirSim/Source/SimWorldGameMode.h/.cpp</code></td>
+<td>Unified GameMode (432 lines)</td>
+</tr>
+<tr>
+<td><code>Plugins/Carla/Source/Carla/Game/CarlaGameModeBase.h/.cpp</code></td>
+<td>CARLA base GameMode</td>
+</tr>
+<tr>
+<td><code>Plugins/Carla/Source/Carla/Game/CarlaEpisode.h/.cpp</code></td>
+<td>Episode manager</td>
+</tr>
+<tr>
+<td><code>Plugins/AirSim/Source/SimMode/SimModeBase.h/.cpp</code></td>
+<td>AirSim simulation mode</td>
+</tr>
+<tr>
+<td><code>Plugins/AirSim/Source/AirSim.Build.cs</code></td>
+<td>Build config (Carla dependency)</td>
+</tr>
+<tr>
+<td><code>Config/DefaultEngine.ini</code></td>
+<td>GameMode registration</td>
+</tr>
+<tr>
+<td><code>Config/DefaultGame.ini</code></td>
+<td>Packaging config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="carla-sensor-files">CARLA Sensor Files<a class="headerlink" href="#carla-sensor-files" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Sensor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Sensor/SceneCaptureCamera.h/.cpp</code></td>
+<td>RGB Camera</td>
+</tr>
+<tr>
+<td><code>Sensor/DepthCamera.h/.cpp</code></td>
+<td>Depth Camera</td>
+</tr>
+<tr>
+<td><code>Sensor/SemanticSegmentationCamera.h/.cpp</code></td>
+<td>Semantic Segmentation</td>
+</tr>
+<tr>
+<td><code>Sensor/InstanceSegmentationCamera.h/.cpp</code></td>
+<td>Instance Segmentation</td>
+</tr>
+<tr>
+<td><code>Sensor/RayCastLidar.h/.cpp</code></td>
+<td>LiDAR</td>
+</tr>
+<tr>
+<td><code>Sensor/Radar.h/.cpp</code></td>
+<td>Radar</td>
+</tr>
+<tr>
+<td><code>Sensor/InertialMeasurementUnit.h/.cpp</code></td>
+<td>IMU</td>
+</tr>
+<tr>
+<td><code>Sensor/GnssSensor.h/.cpp</code></td>
+<td>GNSS</td>
+</tr>
+</tbody>
+</table>
+<h3 id="airsim-core-files">AirSim Core Files<a class="headerlink" href="#airsim-core-files" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Component</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Vehicles/Multirotor/FlyingPawn.h/.cpp</code></td>
+<td>Drone pawn</td>
+</tr>
+<tr>
+<td><code>Vehicles/Multirotor/MultirotorPawnSimApi.h/.cpp</code></td>
+<td>Drone API wrapper</td>
+</tr>
+<tr>
+<td><code>Vehicles/Multirotor/SimModeWorldMultiRotor.h/.cpp</code></td>
+<td>Multirotor sim mode</td>
+</tr>
+<tr>
+<td><code>AirLib/include/physics/FastPhysicsEngine.hpp</code></td>
+<td>Drone physics</td>
+</tr>
+<tr>
+<td><code>AirLib/include/vehicles/multirotor/MultiRotorPhysicsBody.hpp</code></td>
+<td>Rigid body model</td>
+</tr>
+<tr>
+<td><code>AirLib/include/vehicles/multirotor/api/MultirotorRpcLibServer.hpp</code></td>
+<td>API server</td>
+</tr>
+<tr>
+<td><code>AirLib/include/sensors/imu/ImuSimple.hpp</code></td>
+<td>IMU with noise</td>
+</tr>
+<tr>
+<td><code>AirLib/include/sensors/gps/GpsSimple.hpp</code></td>
+<td>GPS with noise</td>
+</tr>
+<tr>
+<td><code>AirLib/include/sensors/barometer/BarometerSimple.hpp</code></td>
+<td>Barometer with noise</td>
+</tr>
+</tbody>
+</table>
+<h2 id="appendix-b-python-api-quick-reference">Appendix B: Python API Quick Reference<a class="headerlink" href="#appendix-b-python-api-quick-reference" title="Permanent link">#</a></h2>
+<h3 id="carla-api-port-2000">CARLA API (port 2000)<a class="headerlink" href="#carla-api-port-2000" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">carla</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="mi">2000</span><span class="p">)</span>
+<span class="n">world</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_world</span><span class="p">()</span>
+
+<span class="c1"># Environment</span>
+<span class="n">world</span><span class="o">.</span><span class="n">set_weather</span><span class="p">(</span><span class="n">carla</span><span class="o">.</span><span class="n">WeatherParameters</span><span class="o">.</span><span class="n">ClearNoon</span><span class="p">)</span>
+<span class="n">world</span><span class="o">.</span><span class="n">get_map</span><span class="p">()</span><span class="o">.</span><span class="n">get_spawn_points</span><span class="p">()</span>
+
+<span class="c1"># Actors</span>
+<span class="n">bp</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_blueprint_library</span><span class="p">()</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;vehicle.tesla.model3&#39;</span><span class="p">)</span>
+<span class="n">vehicle</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">spawn_actor</span><span class="p">(</span><span class="n">bp</span><span class="p">,</span> <span class="n">spawn_point</span><span class="p">)</span>
+<span class="n">vehicle</span><span class="o">.</span><span class="n">set_autopilot</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Sensors</span>
+<span class="n">cam_bp</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_blueprint_library</span><span class="p">()</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;sensor.camera.rgb&#39;</span><span class="p">)</span>
+<span class="n">camera</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">spawn_actor</span><span class="p">(</span><span class="n">cam_bp</span><span class="p">,</span> <span class="n">transform</span><span class="p">,</span> <span class="n">attach_to</span><span class="o">=</span><span class="n">vehicle</span><span class="p">)</span>
+<span class="n">camera</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="k">lambda</span> <span class="n">image</span><span class="p">:</span> <span class="n">process</span><span class="p">(</span><span class="n">image</span><span class="p">))</span>
+</code></pre></div>
+<h3 id="airsim-api-port-41451">AirSim API (port 41451)<a class="headerlink" href="#airsim-api-port-41451" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">airsim</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">airsim</span><span class="o">.</span><span class="n">MultirotorClient</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="mi">41451</span><span class="p">)</span>
+<span class="n">client</span><span class="o">.</span><span class="n">confirmConnection</span><span class="p">()</span>
+<span class="n">client</span><span class="o">.</span><span class="n">enableApiControl</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">client</span><span class="o">.</span><span class="n">armDisarm</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Flight</span>
+<span class="n">client</span><span class="o">.</span><span class="n">takeoffAsync</span><span class="p">()</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+<span class="n">client</span><span class="o">.</span><span class="n">moveToPositionAsync</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">speed</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+<span class="n">client</span><span class="o">.</span><span class="n">moveByVelocityAsync</span><span class="p">(</span><span class="n">vx</span><span class="p">,</span> <span class="n">vy</span><span class="p">,</span> <span class="n">vz</span><span class="p">,</span> <span class="n">duration</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+
+<span class="c1"># Sensors</span>
+<span class="n">responses</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">simGetImages</span><span class="p">([</span>
+    <span class="n">airsim</span><span class="o">.</span><span class="n">ImageRequest</span><span class="p">(</span><span class="s2">&quot;0&quot;</span><span class="p">,</span> <span class="n">airsim</span><span class="o">.</span><span class="n">ImageType</span><span class="o">.</span><span class="n">Scene</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+    <span class="n">airsim</span><span class="o">.</span><span class="n">ImageRequest</span><span class="p">(</span><span class="s2">&quot;0&quot;</span><span class="p">,</span> <span class="n">airsim</span><span class="o">.</span><span class="n">ImageType</span><span class="o">.</span><span class="n">DepthPerspective</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>
+    <span class="n">airsim</span><span class="o">.</span><span class="n">ImageRequest</span><span class="p">(</span><span class="s2">&quot;0&quot;</span><span class="p">,</span> <span class="n">airsim</span><span class="o">.</span><span class="n">ImageType</span><span class="o">.</span><span class="n">Segmentation</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+<span class="p">])</span>
+<span class="n">imu</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">getImuData</span><span class="p">()</span>
+<span class="n">gps</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">getGpsData</span><span class="p">()</span>
+</code></pre></div>
+<h3 id="combined-usage">Combined Usage<a class="headerlink" href="#combined-usage" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">carla</span><span class="o">,</span><span class="w"> </span><span class="nn">airsim</span><span class="o">,</span><span class="w"> </span><span class="nn">threading</span>
+
+<span class="c1"># Both APIs on the same world</span>
+<span class="n">carla_client</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="mi">2000</span><span class="p">)</span>
+<span class="n">air_client</span> <span class="o">=</span> <span class="n">airsim</span><span class="o">.</span><span class="n">MultirotorClient</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="mi">41451</span><span class="p">)</span>
+
+<span class="c1"># Spawn CARLA traffic while flying AirSim drone</span>
+<span class="n">world</span> <span class="o">=</span> <span class="n">carla_client</span><span class="o">.</span><span class="n">get_world</span><span class="p">()</span>
+<span class="n">vehicle</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">spawn_actor</span><span class="p">(</span><span class="n">vehicle_bp</span><span class="p">,</span> <span class="n">spawn_point</span><span class="p">)</span>
+<span class="n">vehicle</span><span class="o">.</span><span class="n">set_autopilot</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">air_client</span><span class="o">.</span><span class="n">takeoffAsync</span><span class="p">()</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+<span class="n">air_client</span><span class="o">.</span><span class="n">moveToZAsync</span><span class="p">(</span><span class="o">-</span><span class="mi">30</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>  <span class="c1"># 30m altitude</span>
+
+<span class="c1"># Collect synchronized ground + aerial data</span>
+<span class="n">ground_image</span> <span class="o">=</span> <span class="n">carla_camera</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="n">callback</span><span class="p">)</span>
+<span class="n">aerial_images</span> <span class="o">=</span> <span class="n">air_client</span><span class="o">.</span><span class="n">simGetImages</span><span class="p">([</span><span class="o">...</span><span class="p">])</span>
+</code></pre></div>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>OpenHUTB 版权所有 &copy; 2026</p>
+  </div>
+
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
