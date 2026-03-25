@@ -5,15 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>添加 AirSim 插件 - 低空模拟器</title>
+    <title>CarlaAir 坐标系换算说明 - 低空模拟器</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "\u6dfb\u52a0 AirSim \u63d2\u4ef6";
-        var mkdocs_page_input_path = "dev/add_plugin.md";
+        var mkdocs_page_name = "CarlaAir \u5750\u6807\u7cfb\u6362\u7b97\u8bf4\u660e";
+        var mkdocs_page_input_path = "dev/coordinate_systems.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -272,7 +272,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">添加 AirSim 插件</li>
+      <li class="breadcrumb-item active">CarlaAir 坐标系换算说明</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -281,96 +281,164 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="airsim">添加 AirSim 插件<a class="headerlink" href="#airsim" title="Permanent link">#</a></h1>
-<p>和 HUTB 一样，使用同一套 <a href="https://github.com/OpenHUTB/engine">引擎</a> ，构建方法请参考 <a href="https://openhutb.github.io/doc/build_carla/">从源代码构建链接</a> 。</p>
-<h2 id="airsim_1">构建 AirSim<a class="headerlink" href="#airsim_1" title="Permanent link">#</a></h2>
-<ul>
-<li>安装 Visual Studio 2022。<strong>确保</strong>选择使用 <strong>C++ 和 Windows 10 SDK 10.0.19041 进行桌面开发</strong>（默认选择），并在安装 VS 2022 时在“单个组件”选项卡下选择最新的 .NET Framework SDK。 </li>
-<li>启动 <code>Developer Command Prompt for VS 2022</code>.</li>
-<li>克隆仓库：<code>git clone https://github.com/OpenHUTB/air.git</code> ，然后通过 <code>cd air</code> 进入 air 目录。</li>
-</ul>
-<div class="admonition 注意">
-<p class="admonition-title">注意</p>
-<p>通常不建议将 AirSim 安装在 C 盘。这会导致脚本运行失败，并且需要以管理员模式运行 VS。建议将其克隆到其他盘，例如 D 盘或 E 盘。 </p>
-</div>
-<ul>
-<li>从命令行运行 <code>build.cmd</code> 。这将在 <code>Unreal\Plugins</code> 文件夹中创建可立即使用的插件，可将其放入任何虚幻引擎项目中。</li>
-</ul>
-<div class="admonition 笔记">
-<p class="admonition-title">笔记</p>
-<p>构建过程中会弹出<code>Select Unreal Engine Version</code>，选择 hutb 所对应的虚幻引擎，会为<code>AirSim\Unreal\Environments\Blocks.uproject</code>生成<code>Blocks.sln</code>文件。</p>
-</div>
-<h2 id="_1">添加插件<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
-<p>下面的步骤是把 AirSim 作为一个插件安装到这个 HUTB 场景工程中。</p>
-<p>首先到 AirSim 源码文件夹中找到 <code>AirSim\Unreal\Plugins</code> 文件夹（需要编译后才能获得，参考 <a href="../../build_windows/">在 Windows 上构建 AirSim</a> ），并将<code>AirSim</code>文件夹复制到 <code>hutb\Unreal\CarlaUE4\Plugins</code> 文件夹中，如下图所示：</p>
-<p><img alt="" src="../../images/dev/copy_AirSim_plugin_in_HUTB.jpg" /></p>
-<p>然后打开 <code>hutb\Unreal\CarlaUE4\CarlaUE4.uproject</code> 文件，修改其中的内容，如下图所示，添加 AirSim 的插件支持（注意一定要用英文输入法，同时注意不要忘记逗号等分隔符，如果这里修改的有语法错误，则后面可能会出现错误）。修改完之后保存并关闭文件。</p>
-<p><img alt="" src="../../images/dev/HUTB_add_airsim_support_AdditionalDependencies.png" /></p>
-<p><img alt="" src="../../images/dev/HUTB_add_airsim_support_add_plugin.jpg" /></p>
-<p>使用记事本打开 <code>hutb\Unreal\CarlaUE4\Config\DefaultGame.ini</code> 文件，在打包地图的后面添加 <code>+MapsToCook=(FilePath="/AirSim/AirSimAssets")</code>，以确保虚幻场景工程可以识别 AirSim 的资源，并将其包含进来，如下图所示。修改后保存并关闭文件。</p>
-<p><img alt="" src="../../images/dev/HUTB_add_MapsToCook.jpg" /></p>
-<p>（可以不做）右键点击 <code>hutb\Unreal\CarlaUE4\CarlaUE4.uproject</code> 文件，选择“显示更多选项”，然后选择 <code>Generate Visual Studio project files</code> 选项，如下图所示。这一步会自动检测所有的插件和源文件，并且生成 <code>.sln</code> 工程文件。</p>
-<p><img alt="" src="../../images/dev/HUTB_generate_vs_project_files.jpg" /></p>
-<div class="admonition 提示">
-<p class="admonition-title">提示</p>
-<p>如果右键菜单中没有这个选项，那么可以尝试重启电脑，如果仍然没有，可以尝试打开 <code>CarlaUE4.uproject</code> 文件，然后点击 <code>文件</code> -&gt; <code>刷新Visual Studio工程</code>。</p>
-</div>
-<!-- 
-生成成功后，双击打开 `CarlaUE4.sln`，在 Visual Studio 中确认编译选项为 `Development Editor` 和 `Win64`，同时 `CarlaUE4` 设为启动项，然后点击 `调试` -> `开始执行`。此时，虚幻引擎编辑器右下角出现了`新插件可用`的提示，说明虚幻引擎已经能够识别到 AirSim 插件了。
--->
+                <h1 id="carlaair">CarlaAir 坐标系换算说明<a class="headerlink" href="#carlaair" title="Permanent link">#</a></h1>
+<h2 id="_1">问题<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
+<p>CarlaAir 内部同时运行 CARLA 和 AirSim 两套系统，<strong>它们使用不同的坐标系</strong>：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>CARLA</th>
+<th>AirSim</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>坐标原点</td>
+<td>UE4 世界原点</td>
+<td>AirSim PlayerStart 位置</td>
+</tr>
+<tr>
+<td>X 轴</td>
+<td>同 UE4</td>
+<td>同 UE4，但有原点偏移</td>
+</tr>
+<tr>
+<td>Y 轴</td>
+<td>同 UE4</td>
+<td>同 UE4，但有原点偏移</td>
+</tr>
+<tr>
+<td>Z 轴</td>
+<td><strong>向上为正</strong> (z-up)</td>
+<td><strong>向下为正</strong> (NED, z-down)</td>
+</tr>
+<tr>
+<td>单位</td>
+<td>厘米 (UE4) → Python API 返回<strong>米</strong></td>
+<td>米</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_2">换算公式<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
+<p>在 Town10HD 地图上实测（CarlaAir v0.1.6）：</p>
+<div class="highlight"><pre><span></span><code>airsim_x =  carla_x + 172.20
+airsim_y =  carla_y - 183.86
+airsim_z = -carla_z +  27.45
+</code></pre></div>
+<p>姿态角（pitch/yaw/roll）两侧一致，<strong>不需要换算</strong>。</p>
+<h2 id="_3">换算参数表<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>offset_x</code></td>
+<td><strong>+172.20</strong></td>
+<td>AirSim 原点在 CARLA X 方向的偏移</td>
+</tr>
+<tr>
+<td><code>offset_y</code></td>
+<td><strong>-183.86</strong></td>
+<td>AirSim 原点在 CARLA Y 方向的偏移</td>
+</tr>
+<tr>
+<td><code>offset_z</code></td>
+<td><strong>+27.45</strong></td>
+<td>AirSim 原点在 CARLA Z 方向的偏移（取反后加）</td>
+</tr>
+<tr>
+<td>z 轴翻转</td>
+<td><code>airsim_z = -carla_z + offset_z</code></td>
+<td>CARLA z-up → AirSim NED z-down</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>注意：</strong> 偏移量取决于地图和 AirSim PlayerStart 配置。换地图后需要重新标定。</p>
+</blockquote>
+<h2 id="_4">如何标定<a class="headerlink" href="#_4" title="Permanent link">#</a></h2>
+<p>在两个系统中同时读取无人机位置即可算出偏移量：</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">carla</span><span class="o">,</span><span class="w"> </span><span class="nn">airsim</span>
 
-<p>执行<code>make launch</code>启动虚幻编辑器。
-在关卡编辑器中，将右侧 <code>世界场景设置</code> 中的 <code>游戏模式重载</code> 设置为 <code>AirSimGameMode</code>，如下图所示。点击 <code>保存当前关卡</code> 来保存设置好的环境，这样以后再次打开时就不用再次设置 <code>游戏模式重载</code> 了。</p>
-<div class="admonition 提示">
-<p class="admonition-title">提示</p>
-<p>如果关卡编辑器右侧没有 <code>世界场景设置</code>，则可以点击菜单栏中的 <code>窗口</code>，选中 <code>世界场景设置</code>。</p>
-</div>
-<p><img alt="" src="../../images/dev/HUTB_game_mode_setting.jpg" /></p>
-<p>如下图所示，点击工具栏中的 “运行”，就可以运行仿真了，在跳出的对话框中点 “否”。如果是场景是可执行文件，可以在当前文件夹中添加配置文件<code>settings.json</code>，可以跳过选择步骤。
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;SettingsVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.2</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;SimMode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Multirotor&quot;</span>
-<span class="p">}</span>
-</code></pre></div></p>
-<p><img alt="" src="../../map/images/LandscapeMountains_select_car_or_quadrotor.jpg" /></p>
-<p>点击“否”表示使用无人机、“是”表示使用AirSim的车，但是 AirSimGameMode 运行时，因Town10HD_Opt 因为是分层地图，建筑没有加载，需要是地图 Town10HD，可以正常显示。按数字键<code>1</code>、<code>2</code>、<code>3</code>在场景下显示不同传感器的实时数据。</p>
-<p>然后使用 <a href="https://github.com/OpenHUTB/air/blob/main/PythonClient/multirotor/hello_drone.py">hello_drone.py</a> 来控制模拟四旋翼飞行器进行起飞、移动、降落的动作。</p>
-<div class="admonition 报错">
-<p class="admonition-title">报错</p>
-<p>如果点运行时提示：<code>There were no compatible vehicles created for current SimMode! Check your settings.json.</code>，在菜单中点击<code>运行</code> -&gt; <code>以独立进程运行</code>则可以显示无人机，但是地图没有显示（从配置文件<code>C:\Users\Administrator\Documents\AirSim\settings.json</code>中加载，<code>"SimMode": "ComputerVision"</code>）。</p>
-</div>
-<p>如果是第一次仿真运行这个 <code>Town10</code> 场景，点击 <code>运行</code> 后，视口中一片空白的话（只显示无人机），不要紧张，可能需要一些时间来渲染画面，随着渲染的进行，画面会一点点展示出来。不同性能的计算机的渲染时间也不一样。如果渲染的较长时间的话，也不用担心，因为仅第一次打开的时候需要渲染，第一次渲染完成后，后面的仿真操作就可以直接加载了。如下图所示，渲染完成之后，视口中就会出现一个四旋翼飞行器。点击工具栏的 <code>停止</code> 按钮，即可退出仿真。</p>
-<p><img alt="" src="../../images/dev/HUTB_simulation.gif" /></p>
-<p>至此 AirSim 插件已经加载到虚幻引擎场景工程中了。</p>
-<h3 id="_2">打包<a class="headerlink" href="#_2" title="Permanent link">#</a></h3>
-<p><a href="../../build_faq/#packaging-a-binary-including-the-airsim-plugin">打包注意事项</a></p>
-<p>打包参考 <a href="https://blog.csdn.net/nenchoumi3119/article/details/148474734">链接</a></p>
-<p>可执行文件位于 <a href="https://pan.baidu.com/s/1YJc4Gnhp20Og7VhKkrkXcQ?pwd=hutb">链接</a> 中的 <code>hutb_air_v2.2.1.zip</code>。</p>
-<h2 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">#</a></h2>
-<h6 id="airsimairsim">添加AirSim后（不启用），报找不到AirSim模块定义的错<a class="headerlink" href="#airsimairsim" title="Permanent link">#</a></h6>
-<p>报错信息：
-<div class="highlight"><pre><span></span><code>UnrealBuildTool: ERROR: Could not find definition for module &#39;AirSim&#39;, (referenced via Target -&gt; CarlaUE4.Build.cs)
-</code></pre></div>
-需要在<code>Unreal/CarlaUE4/Source/CarlaUE4/CarlaUE4.Build.cs</code>中添加模块依赖：
-<div class="highlight"><pre><span></span><code><span class="n">PrivateDependencyModuleNames</span><span class="p">.</span><span class="n">AddRange</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="kt">string</span><span class="p">[]</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;AirSim&quot;</span><span class="w"> </span><span class="p">});</span>
-</code></pre></div>
-没解决！</p>
-<h6 id="gbufferviewh">添加插件后编译报找不到GBufferView.h的错<a class="headerlink" href="#gbufferviewh" title="Permanent link">#</a></h6>
-<p><div class="highlight"><pre><span></span><code>无法打开包括文件: “SplineMeshSceneProxy.h”: No such file or directory
-无法打开包括文件: “Renderer/Public/GBufferView.h”: No such file or directory
-</code></pre></div>
-原因：<a href="https://openhutb.github.io/doc/tuto_D_windows_debug/#problems">本地存在多个版本的虚幻引擎，没有使用正确的版本</a> 。</p>
-<h6 id="cicd">CICD报错<a class="headerlink" href="#cicd" title="Permanent link">#</a></h6>
-<div class="highlight"><pre><span></span><code>2025-09-20T12:56:36.2243331Z   C:\actions-runner\_work\hutb\hutb\Unreal\CarlaUE4\Plugins\AirSim\Source\AirBlueprintLib.h(23): fatal error C1083: �޷��򿪰����ļ�: ��common/AirSimSettings.hpp��: No such file or directory
-2025-09-20T12:56:36.2273244Z   [6/61] Module.AirSim.gen.cpp
-2025-09-20T12:56:36.2303779Z   C:\actions-runner\_work\hutb\hutb\Unreal\CarlaUE4\Plugins\AirSim\Source/AirBlueprintLib.h(23): fatal error C1083: �޷��򿪰����ļ�: ��common/AirSimSettings.hpp��: No such file or directory
-</code></pre></div>
-<h2 id="carla">其他（和 Carla 兼容）<a class="headerlink" href="#carla" title="Permanent link">#</a></h2>
-<!-- 更新至 b3178ba -->
+<span class="c1"># CARLA 侧</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="mi">2000</span><span class="p">)</span>
+<span class="n">world</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_world</span><span class="p">()</span>
+<span class="n">drone</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">world</span><span class="o">.</span><span class="n">get_actors</span><span class="p">()</span> <span class="k">if</span> <span class="s1">&#39;drone&#39;</span> <span class="ow">in</span> <span class="n">a</span><span class="o">.</span><span class="n">type_id</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">cl</span> <span class="o">=</span> <span class="n">drone</span><span class="o">.</span><span class="n">get_location</span><span class="p">()</span>
 
-<ul>
-<li><a href="../Carla_Air/">融合 CARLA 与 AirSim </a></li>
-</ul>
+<span class="c1"># AirSim 侧</span>
+<span class="n">ac</span> <span class="o">=</span> <span class="n">airsim</span><span class="o">.</span><span class="n">MultirotorClient</span><span class="p">()</span>
+<span class="n">ac</span><span class="o">.</span><span class="n">confirmConnection</span><span class="p">()</span>
+<span class="n">ap</span> <span class="o">=</span> <span class="n">ac</span><span class="o">.</span><span class="n">getMultirotorState</span><span class="p">()</span><span class="o">.</span><span class="n">kinematics_estimated</span><span class="o">.</span><span class="n">position</span>
+
+<span class="c1"># 偏移量</span>
+<span class="n">offset_x</span> <span class="o">=</span> <span class="n">ap</span><span class="o">.</span><span class="n">x_val</span> <span class="o">-</span> <span class="n">cl</span><span class="o">.</span><span class="n">x</span>
+<span class="n">offset_y</span> <span class="o">=</span> <span class="n">ap</span><span class="o">.</span><span class="n">y_val</span> <span class="o">-</span> <span class="n">cl</span><span class="o">.</span><span class="n">y</span>
+<span class="n">offset_z</span> <span class="o">=</span> <span class="n">ap</span><span class="o">.</span><span class="n">z_val</span> <span class="o">-</span> <span class="p">(</span><span class="o">-</span><span class="n">cl</span><span class="o">.</span><span class="n">z</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;offset_x=</span><span class="si">{</span><span class="n">offset_x</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, offset_y=</span><span class="si">{</span><span class="n">offset_y</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, offset_z=</span><span class="si">{</span><span class="n">offset_z</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="_5">脚本中的处理<a class="headerlink" href="#_5" title="Permanent link">#</a></h2>
+<table>
+<thead>
+<tr>
+<th>脚本</th>
+<th>录制坐标系</th>
+<th>回放方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>record_drone.py</code></td>
+<td><strong>CARLA</strong> (<code>transform</code> 字段)</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>record_drone_airsim_only.py</code></td>
+<td><strong>AirSim NED</strong> (<code>airsim_ned</code> 字段)</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>record_vehicle.py</code></td>
+<td><strong>CARLA</strong> (<code>transform</code> 字段)</td>
+<td>CARLA <code>set_transform</code></td>
+</tr>
+<tr>
+<td><code>record_walker.py</code></td>
+<td><strong>CARLA</strong> (<code>transform</code> 字段)</td>
+<td>CARLA <code>set_transform</code></td>
+</tr>
+<tr>
+<td><code>demo_director.py</code> 车辆/行人</td>
+<td>—</td>
+<td>CARLA <code>set_transform</code>（直接用）</td>
+</tr>
+<tr>
+<td><code>demo_director.py</code> 无人机</td>
+<td>—</td>
+<td>AirSim <code>simSetVehiclePose</code>（自动校准偏移）</td>
+</tr>
+<tr>
+<td><code>replay_drone_airsim_only.py</code></td>
+<td>—</td>
+<td>AirSim <code>simSetVehiclePose</code>（需 <code>airsim_ned</code>）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="demo_director">demo_director 自动校准<a class="headerlink" href="#demo_director" title="Permanent link">#</a></h3>
+<p><code>DroneReplayer</code> 初始化时：
+1. 检测 JSON 中是否有 <code>airsim_ned</code> 字段
+2. 如果只有 <code>transform</code>（CARLA 坐标）→ 读取无人机在 CARLA 和 AirSim 两侧的当前位置，计算偏移量
+3. 回放时每帧 <code>CARLA transform + 偏移 → AirSim NED → simSetVehiclePose</code></p>
+<p>如果 JSON 中有 <code>airsim_ned</code> → 直接使用，不做转换。</p>
+<h2 id="airsim-api">为什么不直接用 AirSim API 录制？<a class="headerlink" href="#airsim-api" title="Permanent link">#</a></h2>
+<p>连接 AirSim Python 客户端会导致 CarlaAir 窗口中的无人机<strong>丢失键盘控制并坠落</strong>。
+因此 <code>record_drone.py</code> 只从 CARLA 侧读取 <code>drone_actor.get_transform()</code>，完全不碰 AirSim。</p>
               
             </div>
           </div><footer>

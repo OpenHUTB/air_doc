@@ -5,15 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>添加 AirSim 插件 - 低空模拟器</title>
+    <title>Carla Air - 低空模拟器</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "\u6dfb\u52a0 AirSim \u63d2\u4ef6";
-        var mkdocs_page_input_path = "dev/add_plugin.md";
+        var mkdocs_page_name = "Carla Air";
+        var mkdocs_page_input_path = "dev/Carla_Air.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -272,7 +272,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">添加 AirSim 插件</li>
+      <li class="breadcrumb-item active">Carla Air</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -281,96 +281,182 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="airsim">添加 AirSim 插件<a class="headerlink" href="#airsim" title="Permanent link">#</a></h1>
-<p>和 HUTB 一样，使用同一套 <a href="https://github.com/OpenHUTB/engine">引擎</a> ，构建方法请参考 <a href="https://openhutb.github.io/doc/build_carla/">从源代码构建链接</a> 。</p>
-<h2 id="airsim_1">构建 AirSim<a class="headerlink" href="#airsim_1" title="Permanent link">#</a></h2>
-<ul>
-<li>安装 Visual Studio 2022。<strong>确保</strong>选择使用 <strong>C++ 和 Windows 10 SDK 10.0.19041 进行桌面开发</strong>（默认选择），并在安装 VS 2022 时在“单个组件”选项卡下选择最新的 .NET Framework SDK。 </li>
-<li>启动 <code>Developer Command Prompt for VS 2022</code>.</li>
-<li>克隆仓库：<code>git clone https://github.com/OpenHUTB/air.git</code> ，然后通过 <code>cd air</code> 进入 air 目录。</li>
-</ul>
-<div class="admonition 注意">
-<p class="admonition-title">注意</p>
-<p>通常不建议将 AirSim 安装在 C 盘。这会导致脚本运行失败，并且需要以管理员模式运行 VS。建议将其克隆到其他盘，例如 D 盘或 E 盘。 </p>
-</div>
-<ul>
-<li>从命令行运行 <code>build.cmd</code> 。这将在 <code>Unreal\Plugins</code> 文件夹中创建可立即使用的插件，可将其放入任何虚幻引擎项目中。</li>
-</ul>
-<div class="admonition 笔记">
-<p class="admonition-title">笔记</p>
-<p>构建过程中会弹出<code>Select Unreal Engine Version</code>，选择 hutb 所对应的虚幻引擎，会为<code>AirSim\Unreal\Environments\Blocks.uproject</code>生成<code>Blocks.sln</code>文件。</p>
-</div>
-<h2 id="_1">添加插件<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
-<p>下面的步骤是把 AirSim 作为一个插件安装到这个 HUTB 场景工程中。</p>
-<p>首先到 AirSim 源码文件夹中找到 <code>AirSim\Unreal\Plugins</code> 文件夹（需要编译后才能获得，参考 <a href="../../build_windows/">在 Windows 上构建 AirSim</a> ），并将<code>AirSim</code>文件夹复制到 <code>hutb\Unreal\CarlaUE4\Plugins</code> 文件夹中，如下图所示：</p>
-<p><img alt="" src="../../images/dev/copy_AirSim_plugin_in_HUTB.jpg" /></p>
-<p>然后打开 <code>hutb\Unreal\CarlaUE4\CarlaUE4.uproject</code> 文件，修改其中的内容，如下图所示，添加 AirSim 的插件支持（注意一定要用英文输入法，同时注意不要忘记逗号等分隔符，如果这里修改的有语法错误，则后面可能会出现错误）。修改完之后保存并关闭文件。</p>
-<p><img alt="" src="../../images/dev/HUTB_add_airsim_support_AdditionalDependencies.png" /></p>
-<p><img alt="" src="../../images/dev/HUTB_add_airsim_support_add_plugin.jpg" /></p>
-<p>使用记事本打开 <code>hutb\Unreal\CarlaUE4\Config\DefaultGame.ini</code> 文件，在打包地图的后面添加 <code>+MapsToCook=(FilePath="/AirSim/AirSimAssets")</code>，以确保虚幻场景工程可以识别 AirSim 的资源，并将其包含进来，如下图所示。修改后保存并关闭文件。</p>
-<p><img alt="" src="../../images/dev/HUTB_add_MapsToCook.jpg" /></p>
-<p>（可以不做）右键点击 <code>hutb\Unreal\CarlaUE4\CarlaUE4.uproject</code> 文件，选择“显示更多选项”，然后选择 <code>Generate Visual Studio project files</code> 选项，如下图所示。这一步会自动检测所有的插件和源文件，并且生成 <code>.sln</code> 工程文件。</p>
-<p><img alt="" src="../../images/dev/HUTB_generate_vs_project_files.jpg" /></p>
-<div class="admonition 提示">
-<p class="admonition-title">提示</p>
-<p>如果右键菜单中没有这个选项，那么可以尝试重启电脑，如果仍然没有，可以尝试打开 <code>CarlaUE4.uproject</code> 文件，然后点击 <code>文件</code> -&gt; <code>刷新Visual Studio工程</code>。</p>
-</div>
-<!-- 
-生成成功后，双击打开 `CarlaUE4.sln`，在 Visual Studio 中确认编译选项为 `Development Editor` 和 `Win64`，同时 `CarlaUE4` 设为启动项，然后点击 `调试` -> `开始执行`。此时，虚幻引擎编辑器右下角出现了`新插件可用`的提示，说明虚幻引擎已经能够识别到 AirSim 插件了。
--->
+                <table>
+  <tr>
+    <td width="160" valign="middle" align="center">
+      <img src="logo_upload.png" alt="CarlaAir Logo" width="140"/>
+    </td>
+    <td valign="middle" align="left">
+      <h1>CarlaAir</h1>
+      <p><b>在 CARLA 世界里飞无人机。</b><br/>
+      将 CARLA 与 AirSim 融合为一——地面车辆与空中无人机，同一世界，同一脚本。</p>
+      <p>
+        <a href="https://youtu.be/a0fZG2dmT1Q"><img src="https://img.shields.io/badge/版本-v0.1.7-blue" alt="Version"/></a>
+        <img src="https://img.shields.io/badge/许可证-MIT-yellow.svg" alt="License: MIT"/>
+        <img src="https://img.shields.io/badge/python-3.8+-blue" alt="Python 3.8+"/>
+        <img src="https://img.shields.io/badge/CARLA-0.9.16-green" alt="CARLA 0.9.16"/>
+        <img src="https://img.shields.io/badge/AirSim-1.8.1-orange" alt="AirSim 1.8.1"/>
+        <img src="https://img.shields.io/badge/平台-Ubuntu%2020.04%20%7C%2022.04-lightgrey" alt="Platform"/>
+        <img src="https://img.shields.io/badge/arXiv-即将发布-b31b1b" alt="arXiv"/>
+      </p>
+      <p>
+        <a href="README.md">English</a> | <a href="README_CN.md">简体中文</a>
+      </p>
+    </td>
+  </tr>
+</table>
 
-<p>执行<code>make launch</code>启动虚幻编辑器。
-在关卡编辑器中，将右侧 <code>世界场景设置</code> 中的 <code>游戏模式重载</code> 设置为 <code>AirSimGameMode</code>，如下图所示。点击 <code>保存当前关卡</code> 来保存设置好的环境，这样以后再次打开时就不用再次设置 <code>游戏模式重载</code> 了。</p>
-<div class="admonition 提示">
-<p class="admonition-title">提示</p>
-<p>如果关卡编辑器右侧没有 <code>世界场景设置</code>，则可以点击菜单栏中的 <code>窗口</code>，选中 <code>世界场景设置</code>。</p>
-</div>
-<p><img alt="" src="../../images/dev/HUTB_game_mode_setting.jpg" /></p>
-<p>如下图所示，点击工具栏中的 “运行”，就可以运行仿真了，在跳出的对话框中点 “否”。如果是场景是可执行文件，可以在当前文件夹中添加配置文件<code>settings.json</code>，可以跳过选择步骤。
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;SettingsVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.2</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;SimMode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Multirotor&quot;</span>
-<span class="p">}</span>
-</code></pre></div></p>
-<p><img alt="" src="../../map/images/LandscapeMountains_select_car_or_quadrotor.jpg" /></p>
-<p>点击“否”表示使用无人机、“是”表示使用AirSim的车，但是 AirSimGameMode 运行时，因Town10HD_Opt 因为是分层地图，建筑没有加载，需要是地图 Town10HD，可以正常显示。按数字键<code>1</code>、<code>2</code>、<code>3</code>在场景下显示不同传感器的实时数据。</p>
-<p>然后使用 <a href="https://github.com/OpenHUTB/air/blob/main/PythonClient/multirotor/hello_drone.py">hello_drone.py</a> 来控制模拟四旋翼飞行器进行起飞、移动、降落的动作。</p>
-<div class="admonition 报错">
-<p class="admonition-title">报错</p>
-<p>如果点运行时提示：<code>There were no compatible vehicles created for current SimMode! Check your settings.json.</code>，在菜单中点击<code>运行</code> -&gt; <code>以独立进程运行</code>则可以显示无人机，但是地图没有显示（从配置文件<code>C:\Users\Administrator\Documents\AirSim\settings.json</code>中加载，<code>"SimMode": "ComputerVision"</code>）。</p>
-</div>
-<p>如果是第一次仿真运行这个 <code>Town10</code> 场景，点击 <code>运行</code> 后，视口中一片空白的话（只显示无人机），不要紧张，可能需要一些时间来渲染画面，随着渲染的进行，画面会一点点展示出来。不同性能的计算机的渲染时间也不一样。如果渲染的较长时间的话，也不用担心，因为仅第一次打开的时候需要渲染，第一次渲染完成后，后面的仿真操作就可以直接加载了。如下图所示，渲染完成之后，视口中就会出现一个四旋翼飞行器。点击工具栏的 <code>停止</code> 按钮，即可退出仿真。</p>
-<p><img alt="" src="../../images/dev/HUTB_simulation.gif" /></p>
-<p>至此 AirSim 插件已经加载到虚幻引擎场景工程中了。</p>
-<h3 id="_2">打包<a class="headerlink" href="#_2" title="Permanent link">#</a></h3>
-<p><a href="../../build_faq/#packaging-a-binary-including-the-airsim-plugin">打包注意事项</a></p>
-<p>打包参考 <a href="https://blog.csdn.net/nenchoumi3119/article/details/148474734">链接</a></p>
-<p>可执行文件位于 <a href="https://pan.baidu.com/s/1YJc4Gnhp20Og7VhKkrkXcQ?pwd=hutb">链接</a> 中的 <code>hutb_air_v2.2.1.zip</code>。</p>
-<h2 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">#</a></h2>
-<h6 id="airsimairsim">添加AirSim后（不启用），报找不到AirSim模块定义的错<a class="headerlink" href="#airsimairsim" title="Permanent link">#</a></h6>
-<p>报错信息：
-<div class="highlight"><pre><span></span><code>UnrealBuildTool: ERROR: Could not find definition for module &#39;AirSim&#39;, (referenced via Target -&gt; CarlaUE4.Build.cs)
-</code></pre></div>
-需要在<code>Unreal/CarlaUE4/Source/CarlaUE4/CarlaUE4.Build.cs</code>中添加模块依赖：
-<div class="highlight"><pre><span></span><code><span class="n">PrivateDependencyModuleNames</span><span class="p">.</span><span class="n">AddRange</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="kt">string</span><span class="p">[]</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;AirSim&quot;</span><span class="w"> </span><span class="p">});</span>
-</code></pre></div>
-没解决！</p>
-<h6 id="gbufferviewh">添加插件后编译报找不到GBufferView.h的错<a class="headerlink" href="#gbufferviewh" title="Permanent link">#</a></h6>
-<p><div class="highlight"><pre><span></span><code>无法打开包括文件: “SplineMeshSceneProxy.h”: No such file or directory
-无法打开包括文件: “Renderer/Public/GBufferView.h”: No such file or directory
-</code></pre></div>
-原因：<a href="https://openhutb.github.io/doc/tuto_D_windows_debug/#problems">本地存在多个版本的虚幻引擎，没有使用正确的版本</a> 。</p>
-<h6 id="cicd">CICD报错<a class="headerlink" href="#cicd" title="Permanent link">#</a></h6>
-<div class="highlight"><pre><span></span><code>2025-09-20T12:56:36.2243331Z   C:\actions-runner\_work\hutb\hutb\Unreal\CarlaUE4\Plugins\AirSim\Source\AirBlueprintLib.h(23): fatal error C1083: �޷��򿪰����ļ�: ��common/AirSimSettings.hpp��: No such file or directory
-2025-09-20T12:56:36.2273244Z   [6/61] Module.AirSim.gen.cpp
-2025-09-20T12:56:36.2303779Z   C:\actions-runner\_work\hutb\hutb\Unreal\CarlaUE4\Plugins\AirSim\Source/AirBlueprintLib.h(23): fatal error C1083: �޷��򿪰����ļ�: ��common/AirSimSettings.hpp��: No such file or directory
-</code></pre></div>
-<h2 id="carla">其他（和 Carla 兼容）<a class="headerlink" href="#carla" title="Permanent link">#</a></h2>
-<!-- 更新至 b3178ba -->
+<p align="center">
+  <a href="https://www.bilibili.com/video/BV1pTQzBkES7/">
+    <img src="teaser_upload.gif" alt="CarlaAir Teaser — 点击观看完整演示视频" width="100%"/>
+  </a>
+</p>
 
+<p align="center">
+  <i>点击 GIF 或 </i><a href="https://www.bilibili.com/video/BV1pTQzBkES7/"><b>B站观看 30 秒完整演示视频（汉斯·季默配乐）</b></a> 🎵 | <a href="https://youtu.be/a0fZG2dmT1Q">YouTube</a>
+</p>
+
+<hr />
+<h2 id="_1">🔥 最新动态<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
 <ul>
-<li><a href="../Carla_Air/">融合 CARLA 与 AirSim </a></li>
+<li><strong>[2026-03]</strong> <code>v0.1.7</code> 发布 — VSync 全屏修复、稳定交通系统、一键环境配置、无人机录制工具、坐标系文档</li>
+<li><strong>[2026-03]</strong> <code>v0.1.6</code> 发布 — 自动交通生成、UE4 原生 Sweep 碰撞、地面夹紧系统</li>
+<li><strong>[2026-03]</strong> <code>v0.1.5</code> 发布 — 12 方向碰撞系统、双语帮助菜单（<code>H</code>）</li>
+<li><strong>[2026-03]</strong> <code>v0.1.4</code> 发布 — ROS2 验证（63 个话题）、首个官方二进制发布</li>
 </ul>
+<hr />
+<p><strong>CarlaAir</strong> 是一个开源的空地联合仿真平台。它通过在底层 C++ 将全球领先的自动驾驶仿真器（CARLA）与机器人仿真器（AirSim）合并为单一的 <code>ASimWorldGameMode</code>，实现了真正的帧级传感器同步、统一的物理引擎，以及无缝的双 Python API 交互。</p>
+<h2 id="_2">✨ 核心亮点<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
+<ul>
+<li>🚀 <strong>单进程深度集成</strong>：拒绝跨进程通信桥接（Bridge），无延迟损耗。CARLA 与 AirSim 共享同一个 UE4 世界、天气系统与物理引擎。</li>
+<li>🎯 <strong>绝对坐标对齐</strong>：彻底解决 CARLA（左手系）与 AirSim（NED）之间的坐标转换问题，误差精确控制在 <code>0.0000m</code>。</li>
+<li>🚁 <strong>内置 FPS 无人机控制</strong>：无需编写任何代码，在仿真窗口内直接使用 <code>WASD</code> + 鼠标 即可像玩 FPS 游戏一样丝滑驾驶无人机。</li>
+<li>🚦 <strong>开箱即用的城市交通</strong>：启动器默认自动生成 30 辆背景车辆与 50 个行人，立即构建逼真城市场景。</li>
+<li>📸 <strong>18路同步传感器</strong>：支持在地面车辆和空中无人机上同时挂载 RGB、激光雷达、深度图、语义分割、IMU 和 GNSS，数据严格对齐。</li>
+<li>🐍 <strong>双 API 无缝协作</strong>：在同一个 Python 脚本中，同时调用 <code>carla.Client</code>（端口 2000）和 <code>airsim.MultirotorClient</code>（端口 41451）。</li>
+</ul>
+<hr />
+<h2 id="_3">🎮 快速开始<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
+<h3 id="a">选项 A：使用预编译版本（推荐）<a class="headerlink" href="#a" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1. 下载并解压 CarlaAir-v0.1.7</span>
+tar<span class="w"> </span>xzf<span class="w"> </span>CarlaAir-v0.1.7.tar.gz
+<span class="nb">cd</span><span class="w"> </span>CarlaAir-v0.1.7
+
+<span class="c1"># 2. 一键环境配置（仅首次需要）</span>
+bash<span class="w"> </span>env_setup/setup_env.sh<span class="w">      </span><span class="c1"># 创建 conda 环境，安装依赖，部署 carla 模块</span>
+conda<span class="w"> </span>activate<span class="w"> </span>carlaAir
+bash<span class="w"> </span>env_setup/test_env.sh<span class="w">        </span><span class="c1"># 验证环境：应全部显示 PASS</span>
+
+<span class="c1"># 3. 启动仿真器（自动生成交通流）</span>
+./CarlaAir.sh<span class="w"> </span>Town10HD
+
+<span class="c1"># 4. 运行展示脚本！（另开一个终端）</span>
+conda<span class="w"> </span>activate<span class="w"> </span>carlaAir
+python3<span class="w"> </span>examples/quick_start_showcase.py
+</code></pre></div>
+<blockquote>
+<p><strong>你将看到：</strong> 一辆特斯拉在城市中自动巡航，无人机从空中追踪。4 分屏同时展示 <strong>RGB · 深度图 · 语义分割 · LiDAR 鸟瞰</strong> — 全部实时同步。天气自动轮换。</p>
+</blockquote>
+<h3 id="b">选项 B：从源码编译<a class="headerlink" href="#b" title="Permanent link">#</a></h3>
+<p>如果您需要修改底层 C++ 代码，请参考 <a href="../build_guide_ubuntu/">源码编译指南</a>，了解如何使用 UE4.26 编译 CarlaAir。</p>
+<hr />
+<h2 id="_4">🐍 一个脚本，两个世界<a class="headerlink" href="#_4" title="Permanent link">#</a></h2>
+<p>两套 API 共享<strong>同一个仿真世界</strong> — 无桥接、无同步烦恼。</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">carla</span><span class="o">,</span><span class="w"> </span><span class="nn">airsim</span>
+
+<span class="n">carla_client</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span> <span class="mi">2000</span><span class="p">)</span>
+<span class="n">air_client</span>   <span class="o">=</span> <span class="n">airsim</span><span class="o">.</span><span class="n">MultirotorClient</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="mi">41451</span><span class="p">)</span>
+<span class="n">world</span> <span class="o">=</span> <span class="n">carla_client</span><span class="o">.</span><span class="n">get_world</span><span class="p">()</span>
+
+<span class="c1"># 一次天气调用，影响所有传感器 — 地面和空中</span>
+<span class="n">world</span><span class="o">.</span><span class="n">set_weather</span><span class="p">(</span><span class="n">carla</span><span class="o">.</span><span class="n">WeatherParameters</span><span class="o">.</span><span class="n">HardRainSunset</span><span class="p">)</span>
+
+<span class="c1"># 生成一辆汽车，自动驾驶</span>
+<span class="n">vehicle</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">spawn_actor</span><span class="p">(</span><span class="n">vehicle_bp</span><span class="p">,</span> <span class="n">spawn_point</span><span class="p">)</span>
+<span class="n">vehicle</span><span class="o">.</span><span class="n">set_autopilot</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># 无人机起飞 — 同一个世界，同一场雨，同一套物理</span>
+<span class="n">air_client</span><span class="o">.</span><span class="n">takeoffAsync</span><span class="p">()</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+<span class="n">air_client</span><span class="o">.</span><span class="n">moveToPositionAsync</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="o">-</span><span class="mi">25</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>6 个演示脚本</strong> — 逐个试试：</p>
+<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>examples/quick_start_showcase.py<span class="w">   </span><span class="c1"># 🎬 4分屏传感器 + 无人机追踪 + 天气轮换</span>
+python3<span class="w"> </span>examples/drive_vehicle.py<span class="w">          </span><span class="c1"># 🚗 WASD 驾驶特斯拉</span>
+python3<span class="w"> </span>examples/walk_pedestrian.py<span class="w">        </span><span class="c1"># 🚶 鼠标+键盘 城市漫步</span>
+python3<span class="w"> </span>examples/switch_maps.py<span class="w">            </span><span class="c1"># 🗺️  自动飞越全部 13 张地图</span>
+python3<span class="w"> </span>examples/sensor_gallery.py<span class="w">         </span><span class="c1"># 📸 单车 6 传感器网格展示</span>
+python3<span class="w"> </span>examples/air_ground_sync.py<span class="w">        </span><span class="c1"># 🔄 车+无人机分屏：同一场雨，同一世界</span>
+</code></pre></div>
+<p><strong>录制工具</strong> — 录制车辆、无人机、行人轨迹，然后用导演相机回放：</p>
+<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>examples/recording/record_vehicle.py<span class="w">     </span><span class="c1"># 🚗 键盘驾驶并录制车辆轨迹</span>
+python3<span class="w"> </span>examples/recording/record_drone.py<span class="w">       </span><span class="c1"># 🚁 飞行并录制无人机轨迹（零侵入）</span>
+python3<span class="w"> </span>examples/recording/record_walker.py<span class="w">      </span><span class="c1"># 🚶 行走并录制行人轨迹</span>
+python3<span class="w"> </span>examples/recording/demo_director.py<span class="w"> </span><span class="se">\ </span><span class="w">   </span><span class="c1"># 🎬 多轨迹回放 + 自由相机 + MP4 录制</span>
+<span class="w">    </span>trajectories/vehicle_*.json<span class="w"> </span>trajectories/drone_*.json
+</code></pre></div>
+<blockquote>
+<p><strong>文档：</strong> <a href="CarlaAir_Release/guide/COORDINATE_SYSTEMS.md">坐标系换算 (CARLA↔AirSim)</a> · <a href="CarlaAir_Release/guide/Quick-Start.md">快速入门指南</a> · <a href="../FAQ/">常见问题</a></p>
+</blockquote>
+<hr />
+<h2 id="_5">⌨️ 飞行控制说明<a class="headerlink" href="#_5" title="Permanent link">#</a></h2>
+<p>在 CarlaAir 窗口中，使用内置 FPS 控制器直接驾驶无人机（无需代码）：</p>
+<table>
+<thead>
+<tr>
+<th>按键</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>W</code> / <code>A</code> / <code>S</code> / <code>D</code></td>
+<td>前进 / 左移 / 后退 / 右移</td>
+</tr>
+<tr>
+<td><code>Space</code> / <code>Shift</code></td>
+<td>上升 / 下降</td>
+</tr>
+<tr>
+<td><code>Mouse</code></td>
+<td>偏航转向</td>
+</tr>
+<tr>
+<td><code>Scroll</code></td>
+<td>调节速度</td>
+</tr>
+<tr>
+<td><code>N</code></td>
+<td>切换天气</td>
+</tr>
+<tr>
+<td><code>P</code></td>
+<td>碰撞模式切换</td>
+</tr>
+<tr>
+<td><code>H</code></td>
+<td>帮助菜单</td>
+</tr>
+<tr>
+<td><code>1</code> / <code>2</code> / <code>3</code></td>
+<td>传感器画面</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_6">📚 文档与示例<a class="headerlink" href="#_6" title="Permanent link">#</a></h2>
+<p><strong>完整文档：</strong>
+- <a href="../quick_start/">快速入门指南</a>
+- <a href="../architecture/">技术架构详解</a>
+- <a href="../coordinate_systems/">坐标系换算</a>
+- <a href="../modifications/">上游代码修改清单</a></p>
+<hr />
+<h2 id="_7">📜 许可证与致谢<a class="headerlink" href="#_7" title="Permanent link">#</a></h2>
+<p>该项目是站在巨人的肩膀上。我们诚挚感谢以下开源项目的开发者：
+- <a href="https://github.com/carla-simulator/carla">CARLA Simulator</a> (MIT License)
+- <a href="https://github.com/microsoft/AirSim">Microsoft AirSim</a> (MIT License)
+- <a href="https://www.unrealengine.com/">Unreal Engine</a></p>
+<p>CARLA 相关的资产遵循 CC-BY 许可证。
+其他相关资产（包括湖南工商大学大学场景、长沙中电软件园场景）和代码基于 <strong>MIT 许可证</strong> 开源。</p>
               
             </div>
           </div><footer>

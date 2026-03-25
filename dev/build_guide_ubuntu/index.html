@@ -5,15 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>添加 AirSim 插件 - 低空模拟器</title>
+    <title>HUTB_air 从源码编译指南 - 低空模拟器</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "\u6dfb\u52a0 AirSim \u63d2\u4ef6";
-        var mkdocs_page_input_path = "dev/add_plugin.md";
+        var mkdocs_page_name = "HUTB_air \u4ece\u6e90\u7801\u7f16\u8bd1\u6307\u5357";
+        var mkdocs_page_input_path = "dev/build_guide_ubuntu.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -272,7 +272,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">添加 AirSim 插件</li>
+      <li class="breadcrumb-item active">HUTB_air 从源码编译指南</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -281,96 +281,166 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="airsim">添加 AirSim 插件<a class="headerlink" href="#airsim" title="Permanent link">#</a></h1>
-<p>和 HUTB 一样，使用同一套 <a href="https://github.com/OpenHUTB/engine">引擎</a> ，构建方法请参考 <a href="https://openhutb.github.io/doc/build_carla/">从源代码构建链接</a> 。</p>
-<h2 id="airsim_1">构建 AirSim<a class="headerlink" href="#airsim_1" title="Permanent link">#</a></h2>
+                <h1 id="hutb_air">HUTB_air 从源码编译指南<a class="headerlink" href="#hutb_air" title="Permanent link">#</a></h1>
+<h2 id="_1">前提条件<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
+<h3 id="_2">系统要求<a class="headerlink" href="#_2" title="Permanent link">#</a></h3>
 <ul>
-<li>安装 Visual Studio 2022。<strong>确保</strong>选择使用 <strong>C++ 和 Windows 10 SDK 10.0.19041 进行桌面开发</strong>（默认选择），并在安装 VS 2022 时在“单个组件”选项卡下选择最新的 .NET Framework SDK。 </li>
-<li>启动 <code>Developer Command Prompt for VS 2022</code>.</li>
-<li>克隆仓库：<code>git clone https://github.com/OpenHUTB/air.git</code> ，然后通过 <code>cd air</code> 进入 air 目录。</li>
+<li><strong>操作系统</strong>: Ubuntu 18.04 / 20.04 / 22.04 (推荐 22.04)</li>
+<li><strong>GPU</strong>: NVIDIA GPU，显存 &gt;= 8GB (推荐 12GB+)</li>
+<li><strong>内存</strong>: &gt;= 32GB RAM</li>
+<li><strong>磁盘</strong>: &gt;= 100GB 可用空间</li>
+<li><strong>显示</strong>: 需要 X11 显示服务 (或 VNC/Xvfb)</li>
 </ul>
-<div class="admonition 注意">
-<p class="admonition-title">注意</p>
-<p>通常不建议将 AirSim 安装在 C 盘。这会导致脚本运行失败，并且需要以管理员模式运行 VS。建议将其克隆到其他盘，例如 D 盘或 E 盘。 </p>
-</div>
-<ul>
-<li>从命令行运行 <code>build.cmd</code> 。这将在 <code>Unreal\Plugins</code> 文件夹中创建可立即使用的插件，可将其放入任何虚幻引擎项目中。</li>
-</ul>
-<div class="admonition 笔记">
-<p class="admonition-title">笔记</p>
-<p>构建过程中会弹出<code>Select Unreal Engine Version</code>，选择 hutb 所对应的虚幻引擎，会为<code>AirSim\Unreal\Environments\Blocks.uproject</code>生成<code>Blocks.sln</code>文件。</p>
-</div>
-<h2 id="_1">添加插件<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
-<p>下面的步骤是把 AirSim 作为一个插件安装到这个 HUTB 场景工程中。</p>
-<p>首先到 AirSim 源码文件夹中找到 <code>AirSim\Unreal\Plugins</code> 文件夹（需要编译后才能获得，参考 <a href="../../build_windows/">在 Windows 上构建 AirSim</a> ），并将<code>AirSim</code>文件夹复制到 <code>hutb\Unreal\CarlaUE4\Plugins</code> 文件夹中，如下图所示：</p>
-<p><img alt="" src="../../images/dev/copy_AirSim_plugin_in_HUTB.jpg" /></p>
-<p>然后打开 <code>hutb\Unreal\CarlaUE4\CarlaUE4.uproject</code> 文件，修改其中的内容，如下图所示，添加 AirSim 的插件支持（注意一定要用英文输入法，同时注意不要忘记逗号等分隔符，如果这里修改的有语法错误，则后面可能会出现错误）。修改完之后保存并关闭文件。</p>
-<p><img alt="" src="../../images/dev/HUTB_add_airsim_support_AdditionalDependencies.png" /></p>
-<p><img alt="" src="../../images/dev/HUTB_add_airsim_support_add_plugin.jpg" /></p>
-<p>使用记事本打开 <code>hutb\Unreal\CarlaUE4\Config\DefaultGame.ini</code> 文件，在打包地图的后面添加 <code>+MapsToCook=(FilePath="/AirSim/AirSimAssets")</code>，以确保虚幻场景工程可以识别 AirSim 的资源，并将其包含进来，如下图所示。修改后保存并关闭文件。</p>
-<p><img alt="" src="../../images/dev/HUTB_add_MapsToCook.jpg" /></p>
-<p>（可以不做）右键点击 <code>hutb\Unreal\CarlaUE4\CarlaUE4.uproject</code> 文件，选择“显示更多选项”，然后选择 <code>Generate Visual Studio project files</code> 选项，如下图所示。这一步会自动检测所有的插件和源文件，并且生成 <code>.sln</code> 工程文件。</p>
-<p><img alt="" src="../../images/dev/HUTB_generate_vs_project_files.jpg" /></p>
-<div class="admonition 提示">
-<p class="admonition-title">提示</p>
-<p>如果右键菜单中没有这个选项，那么可以尝试重启电脑，如果仍然没有，可以尝试打开 <code>CarlaUE4.uproject</code> 文件，然后点击 <code>文件</code> -&gt; <code>刷新Visual Studio工程</code>。</p>
-</div>
-<!-- 
-生成成功后，双击打开 `CarlaUE4.sln`，在 Visual Studio 中确认编译选项为 `Development Editor` 和 `Win64`，同时 `CarlaUE4` 设为启动项，然后点击 `调试` -> `开始执行`。此时，虚幻引擎编辑器右下角出现了`新插件可用`的提示，说明虚幻引擎已经能够识别到 AirSim 插件了。
--->
+<h3 id="_3">软件依赖<a class="headerlink" href="#_3" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 基础编译工具</span>
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>build-essential<span class="w"> </span>cmake<span class="w"> </span>git<span class="w"> </span>clang-10<span class="w"> </span>lld-10
 
-<p>执行<code>make launch</code>启动虚幻编辑器。
-在关卡编辑器中，将右侧 <code>世界场景设置</code> 中的 <code>游戏模式重载</code> 设置为 <code>AirSimGameMode</code>，如下图所示。点击 <code>保存当前关卡</code> 来保存设置好的环境，这样以后再次打开时就不用再次设置 <code>游戏模式重载</code> 了。</p>
-<div class="admonition 提示">
-<p class="admonition-title">提示</p>
-<p>如果关卡编辑器右侧没有 <code>世界场景设置</code>，则可以点击菜单栏中的 <code>窗口</code>，选中 <code>世界场景设置</code>。</p>
-</div>
-<p><img alt="" src="../../images/dev/HUTB_game_mode_setting.jpg" /></p>
-<p>如下图所示，点击工具栏中的 “运行”，就可以运行仿真了，在跳出的对话框中点 “否”。如果是场景是可执行文件，可以在当前文件夹中添加配置文件<code>settings.json</code>，可以跳过选择步骤。
+<span class="c1"># UE4 依赖</span>
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>libvulkan1<span class="w"> </span>vulkan-utils<span class="w"> </span>mesa-vulkan-drivers
+
+<span class="c1"># Python 环境</span>
+conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>simworld<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.7
+conda<span class="w"> </span>activate<span class="w"> </span>simworld
+pip<span class="w"> </span>install<span class="w"> </span><span class="nv">carla</span><span class="o">==</span><span class="m">0</span>.9.16<span class="w"> </span>airsim<span class="w"> </span>numpy<span class="w"> </span>opencv-python<span class="w"> </span>pygame
+</code></pre></div>
+<h2 id="_4">源码位置<a class="headerlink" href="#_4" title="Permanent link">#</a></h2>
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>路径</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UE4 4.26 (CARLA fork)</td>
+<td><code>/mnt/data1/tianle/carla_ue4/</code></td>
+</tr>
+<tr>
+<td>CARLA 源码</td>
+<td><code>/mnt/data1/tianle/carla_source/</code></td>
+</tr>
+<tr>
+<td>AirSim 插件</td>
+<td><code>Unreal/CarlaUE4/Plugins/AirSim/</code></td>
+</tr>
+<tr>
+<td>CarlaAir 核心文件</td>
+<td><code>Plugins/AirSim/Source/SimWorldGameMode.h/.cpp</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="_5">编译步骤<a class="headerlink" href="#_5" title="Permanent link">#</a></h2>
+<h3 id="1">1. 设置环境变量<a class="headerlink" href="#1" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">UE4_ROOT</span><span class="o">=</span>/mnt/data1/tianle/carla_ue4
+<span class="nb">cd</span><span class="w"> </span>/mnt/data1/tianle/carla_source
+</code></pre></div>
+<h3 id="2-airsim-100">2. 编译 AirSim 模块（~100 秒）<a class="headerlink" href="#2-airsim-100" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 仅编译 AirSim 插件（快速迭代时使用）</span>
+make<span class="w"> </span>CarlaUE4Editor<span class="w"> </span><span class="nv">ARGS</span><span class="o">=</span><span class="s2">&quot;-module=AirSim&quot;</span>
+<span class="c1"># 或直接使用 Build.sh</span>
+./Util/BuildTools/BuildCarlaUE4.sh<span class="w"> </span>--build
+</code></pre></div>
+<h3 id="3-carla-290">3. 编译 CARLA 模块（~290 秒）<a class="headerlink" href="#3-carla-290" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 编译 CARLA 插件</span>
+make<span class="w"> </span>CarlaUE4Editor<span class="w"> </span><span class="nv">ARGS</span><span class="o">=</span><span class="s2">&quot;-module=Carla&quot;</span>
+</code></pre></div>
+<h3 id="4-editor">4. 在 Editor 模式中运行（开发调试）<a class="headerlink" href="#4-editor" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 使用一键启动脚本</span>
+./carlaAir.sh<span class="w">                    </span><span class="c1"># 默认 Town10HD, 1280x720</span>
+./carlaAir.sh<span class="w"> </span>Town03<span class="w">             </span><span class="c1"># 指定地图</span>
+./carlaAir.sh<span class="w"> </span>Town10HD<span class="w"> </span><span class="m">1920</span><span class="w"> </span><span class="m">1080</span><span class="w"> </span><span class="c1"># 指定分辨率</span>
+</code></pre></div>
+<h3 id="5-shipping">5. 打包 Shipping 构建（发布用）<a class="headerlink" href="#5-shipping" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 完整打包流程（编译 ~805s + Cook ~2h）</span>
+./Util/BuildTools/Package.sh<span class="w"> </span>--config<span class="o">=</span>Shipping<span class="w"> </span>--no-zip
+
+<span class="c1"># 输出目录</span>
+ls<span class="w"> </span>Dist/CARLA_Shipping_*/LinuxNoEditor/
+</code></pre></div>
+<p><strong>注意</strong>: Package.sh 在最后 rsync PythonAPI wheel 时可能失败（因为 <code>.whl</code> 文件未构建），但这不影响主要构建。手动复制 PythonAPI 文件到输出目录即可。</p>
+<h3 id="6-shipping">6. 运行 Shipping 构建<a class="headerlink" href="#6-shipping" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>Dist/CARLA_Shipping_*/LinuxNoEditor/
+./CarlaUE4.sh<span class="w"> </span>/Game/Carla/Maps/Town10HD<span class="w"> </span>-nosound<span class="w"> </span>-carla-rpc-port<span class="o">=</span><span class="m">2000</span>
+</code></pre></div>
+<h2 id="_6">关键配置文件<a class="headerlink" href="#_6" title="Permanent link">#</a></h2>
+<h3 id="defaultgameini">DefaultGame.ini<a class="headerlink" href="#defaultgameini" title="Permanent link">#</a></h3>
+<p>位于 <code>Unreal/CarlaUE4/Config/DefaultGame.ini</code>。打包时需要确保以下条目存在：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># AirSim 资源目录（必须）</span>
+<span class="na">+DirectoriesToAlwaysCook=(Path</span><span class="o">=</span><span class="s">&quot;/AirSim/Blueprints&quot;</span><span class="na">)</span>
+<span class="na">+DirectoriesToAlwaysCook=(Path</span><span class="o">=</span><span class="s">&quot;/AirSim/HUDAssets&quot;</span><span class="na">)</span>
+<span class="na">+DirectoriesToAlwaysCook=(Path</span><span class="o">=</span><span class="s">&quot;/AirSim/Models&quot;</span><span class="na">)</span>
+<span class="na">+DirectoriesToAlwaysCook=(Path</span><span class="o">=</span><span class="s">&quot;/AirSim/Weather&quot;</span><span class="na">)</span>
+<span class="na">+DirectoriesToAlwaysCook=(Path</span><span class="o">=</span><span class="s">&quot;/AirSim/StarterContent&quot;</span><span class="na">)</span>
+<span class="na">+DirectoriesToAlwaysCook=(Path</span><span class="o">=</span><span class="s">&quot;/AirSim/VehicleAdv&quot;</span><span class="na">)</span>
+
+<span class="c1"># AirSim 地图</span>
+<span class="na">+MapsToCook=(FilePath</span><span class="o">=</span><span class="s">&quot;/AirSim/AirSimAssets&quot;</span><span class="na">)</span>
+</code></pre></div>
+<h3 id="settingsjson">settings.json<a class="headerlink" href="#settingsjson" title="Permanent link">#</a></h3>
+<p>位于 <code>~/Documents/AirSim/settings.json</code>，控制 AirSim 行为：</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;SettingsVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.2</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;SimMode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Multirotor&quot;</span>
+<span class="w">    </span><span class="nt">&quot;SettingsVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.2</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;SimMode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Multirotor&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Vehicles&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;SimpleFlight&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;VehicleType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SimpleFlight&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;AutoCreate&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
-</code></pre></div></p>
-<p><img alt="" src="../../map/images/LandscapeMountains_select_car_or_quadrotor.jpg" /></p>
-<p>点击“否”表示使用无人机、“是”表示使用AirSim的车，但是 AirSimGameMode 运行时，因Town10HD_Opt 因为是分层地图，建筑没有加载，需要是地图 Town10HD，可以正常显示。按数字键<code>1</code>、<code>2</code>、<code>3</code>在场景下显示不同传感器的实时数据。</p>
-<p>然后使用 <a href="https://github.com/OpenHUTB/air/blob/main/PythonClient/multirotor/hello_drone.py">hello_drone.py</a> 来控制模拟四旋翼飞行器进行起飞、移动、降落的动作。</p>
-<div class="admonition 报错">
-<p class="admonition-title">报错</p>
-<p>如果点运行时提示：<code>There were no compatible vehicles created for current SimMode! Check your settings.json.</code>，在菜单中点击<code>运行</code> -&gt; <code>以独立进程运行</code>则可以显示无人机，但是地图没有显示（从配置文件<code>C:\Users\Administrator\Documents\AirSim\settings.json</code>中加载，<code>"SimMode": "ComputerVision"</code>）。</p>
-</div>
-<p>如果是第一次仿真运行这个 <code>Town10</code> 场景，点击 <code>运行</code> 后，视口中一片空白的话（只显示无人机），不要紧张，可能需要一些时间来渲染画面，随着渲染的进行，画面会一点点展示出来。不同性能的计算机的渲染时间也不一样。如果渲染的较长时间的话，也不用担心，因为仅第一次打开的时候需要渲染，第一次渲染完成后，后面的仿真操作就可以直接加载了。如下图所示，渲染完成之后，视口中就会出现一个四旋翼飞行器。点击工具栏的 <code>停止</code> 按钮，即可退出仿真。</p>
-<p><img alt="" src="../../images/dev/HUTB_simulation.gif" /></p>
-<p>至此 AirSim 插件已经加载到虚幻引擎场景工程中了。</p>
-<h3 id="_2">打包<a class="headerlink" href="#_2" title="Permanent link">#</a></h3>
-<p><a href="../../build_faq/#packaging-a-binary-including-the-airsim-plugin">打包注意事项</a></p>
-<p>打包参考 <a href="https://blog.csdn.net/nenchoumi3119/article/details/148474734">链接</a></p>
-<p>可执行文件位于 <a href="https://pan.baidu.com/s/1YJc4Gnhp20Og7VhKkrkXcQ?pwd=hutb">链接</a> 中的 <code>hutb_air_v2.2.1.zip</code>。</p>
-<h2 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">#</a></h2>
-<h6 id="airsimairsim">添加AirSim后（不启用），报找不到AirSim模块定义的错<a class="headerlink" href="#airsimairsim" title="Permanent link">#</a></h6>
-<p>报错信息：
-<div class="highlight"><pre><span></span><code>UnrealBuildTool: ERROR: Could not find definition for module &#39;AirSim&#39;, (referenced via Target -&gt; CarlaUE4.Build.cs)
 </code></pre></div>
-需要在<code>Unreal/CarlaUE4/Source/CarlaUE4/CarlaUE4.Build.cs</code>中添加模块依赖：
-<div class="highlight"><pre><span></span><code><span class="n">PrivateDependencyModuleNames</span><span class="p">.</span><span class="n">AddRange</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="kt">string</span><span class="p">[]</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;AirSim&quot;</span><span class="w"> </span><span class="p">});</span>
-</code></pre></div>
-没解决！</p>
-<h6 id="gbufferviewh">添加插件后编译报找不到GBufferView.h的错<a class="headerlink" href="#gbufferviewh" title="Permanent link">#</a></h6>
-<p><div class="highlight"><pre><span></span><code>无法打开包括文件: “SplineMeshSceneProxy.h”: No such file or directory
-无法打开包括文件: “Renderer/Public/GBufferView.h”: No such file or directory
-</code></pre></div>
-原因：<a href="https://openhutb.github.io/doc/tuto_D_windows_debug/#problems">本地存在多个版本的虚幻引擎，没有使用正确的版本</a> 。</p>
-<h6 id="cicd">CICD报错<a class="headerlink" href="#cicd" title="Permanent link">#</a></h6>
-<div class="highlight"><pre><span></span><code>2025-09-20T12:56:36.2243331Z   C:\actions-runner\_work\hutb\hutb\Unreal\CarlaUE4\Plugins\AirSim\Source\AirBlueprintLib.h(23): fatal error C1083: �޷��򿪰����ļ�: ��common/AirSimSettings.hpp��: No such file or directory
-2025-09-20T12:56:36.2273244Z   [6/61] Module.AirSim.gen.cpp
-2025-09-20T12:56:36.2303779Z   C:\actions-runner\_work\hutb\hutb\Unreal\CarlaUE4\Plugins\AirSim\Source/AirBlueprintLib.h(23): fatal error C1083: �޷��򿪰����ļ�: ��common/AirSimSettings.hpp��: No such file or directory
-</code></pre></div>
-<h2 id="carla">其他（和 Carla 兼容）<a class="headerlink" href="#carla" title="Permanent link">#</a></h2>
-<!-- 更新至 b3178ba -->
-
-<ul>
-<li><a href="../Carla_Air/">融合 CARLA 与 AirSim </a></li>
-</ul>
+<h2 id="_7">编译时间参考<a class="headerlink" href="#_7" title="Permanent link">#</a></h2>
+<table>
+<thead>
+<tr>
+<th>步骤</th>
+<th>时间</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AirSim 模块编译</td>
+<td>~100s</td>
+<td>仅 AirSim 相关 C++</td>
+</tr>
+<tr>
+<td>CARLA 模块编译</td>
+<td>~290s</td>
+<td>CARLA 插件 C++</td>
+</tr>
+<tr>
+<td>Shipping 编译</td>
+<td>~805s</td>
+<td>656 个编译单元</td>
+</tr>
+<tr>
+<td>Cook (资源烘焙)</td>
+<td>~2h</td>
+<td>13459 个包</td>
+</tr>
+<tr>
+<td>TaggedMaterials</td>
+<td>~977s</td>
+<td>实例分割材质</td>
+</tr>
+<tr>
+<td><strong>总计 (完整打包)</strong></td>
+<td><strong>~3.5h</strong></td>
+<td>首次；增量编译更快</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_8">常见问题<a class="headerlink" href="#_8" title="Permanent link">#</a></h2>
+<h3 id="q-10">Q: 首次启动非常慢（~10分钟）<a class="headerlink" href="#q-10" title="Permanent link">#</a></h3>
+<p><strong>A</strong>: 首次运行时 UE4 需要编译 DDC (Derived Data Cache) 和着色器。后续启动约 1 分钟。</p>
+<h3 id="q-packagesh">Q: Package.sh 最后报错<a class="headerlink" href="#q-packagesh" title="Permanent link">#</a></h3>
+<p><strong>A</strong>: 通常是 PythonAPI wheel rsync 失败（<code>set -e</code> 导致脚本中断）。主要的可执行文件和资源已经正确打包，手动复制 PythonAPI 即可。</p>
+<h3 id="q">Q: 打包后的构建缺少地图<a class="headerlink" href="#q" title="Permanent link">#</a></h3>
+<p><strong>A</strong>: 检查 <code>DefaultGame.ini</code> 中的 <code>MapsToCook</code> 条目。确保包含所有需要的地图。</p>
+<h3 id="q-airsim-api">Q: AirSim API 无法连接<a class="headerlink" href="#q-airsim-api" title="Permanent link">#</a></h3>
+<p><strong>A</strong>: 检查 <code>~/Documents/AirSim/settings.json</code> 是否存在且格式正确。Editor 模式下需要等待 AirSim 端口 41451 就绪。</p>
               
             </div>
           </div><footer>

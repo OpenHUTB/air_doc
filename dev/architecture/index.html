@@ -5,15 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>添加 AirSim 插件 - 低空模拟器</title>
+    <title>CarlaAir 详细技术架构 - 低空模拟器</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "\u6dfb\u52a0 AirSim \u63d2\u4ef6";
-        var mkdocs_page_input_path = "dev/add_plugin.md";
+        var mkdocs_page_name = "CarlaAir \u8be6\u7ec6\u6280\u672f\u67b6\u6784";
+        var mkdocs_page_input_path = "dev/architecture.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -272,7 +272,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">添加 AirSim 插件</li>
+      <li class="breadcrumb-item active">CarlaAir 详细技术架构</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -281,96 +281,233 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="airsim">添加 AirSim 插件<a class="headerlink" href="#airsim" title="Permanent link">#</a></h1>
-<p>和 HUTB 一样，使用同一套 <a href="https://github.com/OpenHUTB/engine">引擎</a> ，构建方法请参考 <a href="https://openhutb.github.io/doc/build_carla/">从源代码构建链接</a> 。</p>
-<h2 id="airsim_1">构建 AirSim<a class="headerlink" href="#airsim_1" title="Permanent link">#</a></h2>
-<ul>
-<li>安装 Visual Studio 2022。<strong>确保</strong>选择使用 <strong>C++ 和 Windows 10 SDK 10.0.19041 进行桌面开发</strong>（默认选择），并在安装 VS 2022 时在“单个组件”选项卡下选择最新的 .NET Framework SDK。 </li>
-<li>启动 <code>Developer Command Prompt for VS 2022</code>.</li>
-<li>克隆仓库：<code>git clone https://github.com/OpenHUTB/air.git</code> ，然后通过 <code>cd air</code> 进入 air 目录。</li>
-</ul>
-<div class="admonition 注意">
-<p class="admonition-title">注意</p>
-<p>通常不建议将 AirSim 安装在 C 盘。这会导致脚本运行失败，并且需要以管理员模式运行 VS。建议将其克隆到其他盘，例如 D 盘或 E 盘。 </p>
-</div>
-<ul>
-<li>从命令行运行 <code>build.cmd</code> 。这将在 <code>Unreal\Plugins</code> 文件夹中创建可立即使用的插件，可将其放入任何虚幻引擎项目中。</li>
-</ul>
-<div class="admonition 笔记">
-<p class="admonition-title">笔记</p>
-<p>构建过程中会弹出<code>Select Unreal Engine Version</code>，选择 hutb 所对应的虚幻引擎，会为<code>AirSim\Unreal\Environments\Blocks.uproject</code>生成<code>Blocks.sln</code>文件。</p>
-</div>
-<h2 id="_1">添加插件<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
-<p>下面的步骤是把 AirSim 作为一个插件安装到这个 HUTB 场景工程中。</p>
-<p>首先到 AirSim 源码文件夹中找到 <code>AirSim\Unreal\Plugins</code> 文件夹（需要编译后才能获得，参考 <a href="../../build_windows/">在 Windows 上构建 AirSim</a> ），并将<code>AirSim</code>文件夹复制到 <code>hutb\Unreal\CarlaUE4\Plugins</code> 文件夹中，如下图所示：</p>
-<p><img alt="" src="../../images/dev/copy_AirSim_plugin_in_HUTB.jpg" /></p>
-<p>然后打开 <code>hutb\Unreal\CarlaUE4\CarlaUE4.uproject</code> 文件，修改其中的内容，如下图所示，添加 AirSim 的插件支持（注意一定要用英文输入法，同时注意不要忘记逗号等分隔符，如果这里修改的有语法错误，则后面可能会出现错误）。修改完之后保存并关闭文件。</p>
-<p><img alt="" src="../../images/dev/HUTB_add_airsim_support_AdditionalDependencies.png" /></p>
-<p><img alt="" src="../../images/dev/HUTB_add_airsim_support_add_plugin.jpg" /></p>
-<p>使用记事本打开 <code>hutb\Unreal\CarlaUE4\Config\DefaultGame.ini</code> 文件，在打包地图的后面添加 <code>+MapsToCook=(FilePath="/AirSim/AirSimAssets")</code>，以确保虚幻场景工程可以识别 AirSim 的资源，并将其包含进来，如下图所示。修改后保存并关闭文件。</p>
-<p><img alt="" src="../../images/dev/HUTB_add_MapsToCook.jpg" /></p>
-<p>（可以不做）右键点击 <code>hutb\Unreal\CarlaUE4\CarlaUE4.uproject</code> 文件，选择“显示更多选项”，然后选择 <code>Generate Visual Studio project files</code> 选项，如下图所示。这一步会自动检测所有的插件和源文件，并且生成 <code>.sln</code> 工程文件。</p>
-<p><img alt="" src="../../images/dev/HUTB_generate_vs_project_files.jpg" /></p>
-<div class="admonition 提示">
-<p class="admonition-title">提示</p>
-<p>如果右键菜单中没有这个选项，那么可以尝试重启电脑，如果仍然没有，可以尝试打开 <code>CarlaUE4.uproject</code> 文件，然后点击 <code>文件</code> -&gt; <code>刷新Visual Studio工程</code>。</p>
-</div>
-<!-- 
-生成成功后，双击打开 `CarlaUE4.sln`，在 Visual Studio 中确认编译选项为 `Development Editor` 和 `Win64`，同时 `CarlaUE4` 设为启动项，然后点击 `调试` -> `开始执行`。此时，虚幻引擎编辑器右下角出现了`新插件可用`的提示，说明虚幻引擎已经能够识别到 AirSim 插件了。
--->
+                <h1 id="carlaair">CarlaAir 详细技术架构<a class="headerlink" href="#carlaair" title="Permanent link">#</a></h1>
+<h2 id="_1">系统架构图<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
+<div class="highlight"><pre><span></span><code>┌─────────────────────────────────────────────────────────────────┐
+│                    Unreal Engine 4.26                            │
+│  ┌───────────────────────────────────────────────────────────┐  │
+│  │              ASimWorldGameMode (核心)                      │  │
+│  │  ┌─────────────────────┐  ┌────────────────────────────┐  │  │
+│  │  │  CARLA 子系统        │  │  AirSim 子系统              │  │  │
+│  │  │  (继承自父类)        │  │  (BeginPlay 中引导)         │  │  │
+│  │  │                     │  │                            │  │  │
+│  │  │  ■ CarlaEpisode     │  │  ■ ASimModeBase (Actor)    │  │  │
+│  │  │  ■ Weather          │  │  ■ SimHUDWidget            │  │  │
+│  │  │  ■ Traffic Manager  │  │  ■ AirSim Settings         │  │  │
+│  │  │  ■ ActorDispatcher  │  │  ■ API Server (:41451)     │  │  │
+│  │  │  ■ SensorManager    │  │  ■ PIPCamera System        │  │  │
+│  │  │  ■ ActorFactories   │  │  ■ Physics Engine          │  │  │
+│  │  │  ■ CarlaRecorder    │  │  ■ NedTransform            │  │  │
+│  │  │  ■ RPC Server(:2000)│  │                            │  │  │
+│  │  └─────────────────────┘  └────────────────────────────┘  │  │
+│  └───────────────────────────────────────────────────────────┘  │
+│                                                                 │
+│  ┌──────────────────┐  ┌──────────────────┐                     │
+│  │  Town10HD Map     │  │  AirSim Assets   │                     │
+│  │  (Roads, Buildings│  │  (Drone model,   │                     │
+│  │   Traffic Lights) │  │   Weather, HUD)  │                     │
+│  └──────────────────┘  └──────────────────┘                     │
+└─────────────────────────────────────────────────────────────────┘
+         │                              │
+         ▼                              ▼
+  ┌──────────────┐              ┌──────────────┐
+  │  CARLA Python │              │ AirSim Python │
+  │  Client API   │              │ Client API    │
+  │  (port 2000)  │              │ (port 41451)  │
+  └──────────────┘              └──────────────┘
+</code></pre></div>
+<h2 id="_2">初始化序列<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
+<div class="highlight"><pre><span></span><code>UE4 Engine Start
+  │
+  ├── 1. ASimWorldGameMode::Constructor()
+  │     ├── Super() → ACarlaGameModeBase 初始化 Episode, Recorder, Delegates
+  │     ├── DefaultPawnClass = nullptr
+  │     ├── 加载 BP_Weather → WeatherClass
+  │     ├── 注册 8 个 ActorFactory
+  │     ├── 初始化 AirSim 日志
+  │     └── 加载 AirSim HUD Widget 蓝图
+  │
+  ├── 2. ASimWorldGameMode::BeginPlay()
+  │     ├── Super::BeginPlay()
+  │     │     ├── CARLA Episode 初始化
+  │     │     ├── Weather Actor 生成
+  │     │     ├── ActorFactory 实例化
+  │     │     ├── Traffic Manager 启动
+  │     │     └── CARLA RPC Server 启动 (port 2000)
+  │     │
+  │     ├── 创建 SpectatorPawn（不 possess）
+  │     │     └── 注册到 Episode（可通过 CARLA API 移动 Spectator）
+  │     │
+  │     ├── AirSim 引导
+  │     │     ├── InitializeAirSimSettings() — 读取 settings.json
+  │     │     ├── SetUnrealEngineSettings() — 关闭 MotionBlur, 启用 CustomDepth
+  │     │     ├── CreateSimMode() — SpawnActor&lt;ASimModeWorldMultiRotor&gt;
+  │     │     │     └── SimModeBase::BeginPlay()
+  │     │     │           ├── 获取 PlayerStart Transform
+  │     │     │           ├── 初始化 NedTransform（不移动世界原点!）
+  │     │     │           ├── 创建 WorldSimApi
+  │     │     │           └── 创建无人机 Pawn
+  │     │     ├── CreateAirSimWidget() — HUD Widget 添加到 Viewport
+  │     │     ├── SetupAirSimInputBindings() — R/T/1/2/3/0 键绑定
+  │     │     └── SimMode-&gt;startApiServer() — AirSim RPC Server 启动 (port 41451)
+  │     │
+  │     └── 完成！两个 API 服务器同时运行
+  │
+  ├── 3. Tick Loop (每帧)
+  │     ├── Super::Tick() — CARLA Recorder tick
+  │     └── AirSim Debug Report Widget 更新
+  │
+  └── 4. EndPlay()
+        ├── SimMode-&gt;stopApiServer()
+        ├── 销毁 Widget, SimMode
+        └── Super::EndPlay() — CARLA 清理
+</code></pre></div>
+<h2 id="_3">关键数据流<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
+<h3 id="_4">车辆生成流程<a class="headerlink" href="#_4" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code>Python: world.spawn_actor(vehicle_bp, transform)
+  → CARLA RPC Server
+    → CarlaEpisode::SpawnActor()
+      → ActorDispatcher → VehicleFactory
+        → UE4 World SpawnActor()
+          → 物理引擎接管 (Chaos/PhysX)
+</code></pre></div>
+<h3 id="_5">无人机控制流程<a class="headerlink" href="#_5" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code>Python: client.moveToPositionAsync(x, y, z, speed)
+  → AirSim RPC Server
+    → SimModeWorldMultiRotor
+      → SimpleFlight Controller
+        → NedTransform 坐标转换 (NED → UE4)
+          → Drone Pawn 移动
+</code></pre></div>
+<h3 id="_6">传感器数据流<a class="headerlink" href="#_6" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code>CARLA 传感器:
+  Camera/Lidar/Radar → SensorManager → Raw Data → RPC → Python numpy array
 
-<p>执行<code>make launch</code>启动虚幻编辑器。
-在关卡编辑器中，将右侧 <code>世界场景设置</code> 中的 <code>游戏模式重载</code> 设置为 <code>AirSimGameMode</code>，如下图所示。点击 <code>保存当前关卡</code> 来保存设置好的环境，这样以后再次打开时就不用再次设置 <code>游戏模式重载</code> 了。</p>
-<div class="admonition 提示">
-<p class="admonition-title">提示</p>
-<p>如果关卡编辑器右侧没有 <code>世界场景设置</code>，则可以点击菜单栏中的 <code>窗口</code>，选中 <code>世界场景设置</code>。</p>
-</div>
-<p><img alt="" src="../../images/dev/HUTB_game_mode_setting.jpg" /></p>
-<p>如下图所示，点击工具栏中的 “运行”，就可以运行仿真了，在跳出的对话框中点 “否”。如果是场景是可执行文件，可以在当前文件夹中添加配置文件<code>settings.json</code>，可以跳过选择步骤。
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;SettingsVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.2</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;SimMode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Multirotor&quot;</span>
-<span class="p">}</span>
+AirSim 传感器:
+  PIPCamera → RenderTarget → simGetImages() → RPC → Python numpy array
+</code></pre></div>
+<h2 id="_7">文件修改详情<a class="headerlink" href="#_7" title="Permanent link">#</a></h2>
+<h3 id="3-2">修改清单（共 3 个文件修改，2 个新文件）<a class="headerlink" href="#3-2" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>修改类型</th>
+<th>修改行数</th>
+<th>目的</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SimWorldGameMode.h</code></td>
+<td><strong>新建</strong></td>
+<td>75 行</td>
+<td>统一 GameMode 类声明</td>
+</tr>
+<tr>
+<td><code>SimWorldGameMode.cpp</code></td>
+<td><strong>新建</strong></td>
+<td>548 行</td>
+<td>统一 GameMode 完整实现</td>
+</tr>
+<tr>
+<td><code>CarlaGameModeBase.h</code></td>
+<td>修改 2 处</td>
+<td>~4 行</td>
+<td><code>WeatherClass</code>/<code>ActorFactories</code> → protected</td>
+</tr>
+<tr>
+<td><code>CarlaEpisode.h</code></td>
+<td>修改 1 处</td>
+<td>1 行</td>
+<td>添加 <code>friend class ASimWorldGameMode</code></td>
+</tr>
+<tr>
+<td><code>SimModeBase.cpp</code></td>
+<td>修改 1 处</td>
+<td>~6 行</td>
+<td>注释掉 <code>SetNewWorldOrigin()</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="_8">每个修改的精确位置<a class="headerlink" href="#_8" title="Permanent link">#</a></h3>
+<p><strong>CarlaGameModeBase.h</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1">// 原始: private 区域</span>
+<span class="c1">// 修改: 移到 protected 区域</span>
+<span class="k">protected</span><span class="o">:</span>
+<span class="w">    </span><span class="n">UPROPERTY</span><span class="p">(</span><span class="n">EditAnywhere</span><span class="p">)</span>
+<span class="w">    </span><span class="n">TSubclassOf</span><span class="o">&lt;</span><span class="n">AWeather</span><span class="o">&gt;</span><span class="w"> </span><span class="n">WeatherClass</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">UPROPERTY</span><span class="p">(</span><span class="n">EditAnywhere</span><span class="p">)</span>
+<span class="w">    </span><span class="n">TArray</span><span class="o">&lt;</span><span class="n">TSubclassOf</span><span class="o">&lt;</span><span class="n">ACarlaActorFactory</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">ActorFactories</span><span class="p">;</span>
 </code></pre></div></p>
-<p><img alt="" src="../../map/images/LandscapeMountains_select_car_or_quadrotor.jpg" /></p>
-<p>点击“否”表示使用无人机、“是”表示使用AirSim的车，但是 AirSimGameMode 运行时，因Town10HD_Opt 因为是分层地图，建筑没有加载，需要是地图 Town10HD，可以正常显示。按数字键<code>1</code>、<code>2</code>、<code>3</code>在场景下显示不同传感器的实时数据。</p>
-<p>然后使用 <a href="https://github.com/OpenHUTB/air/blob/main/PythonClient/multirotor/hello_drone.py">hello_drone.py</a> 来控制模拟四旋翼飞行器进行起飞、移动、降落的动作。</p>
-<div class="admonition 报错">
-<p class="admonition-title">报错</p>
-<p>如果点运行时提示：<code>There were no compatible vehicles created for current SimMode! Check your settings.json.</code>，在菜单中点击<code>运行</code> -&gt; <code>以独立进程运行</code>则可以显示无人机，但是地图没有显示（从配置文件<code>C:\Users\Administrator\Documents\AirSim\settings.json</code>中加载，<code>"SimMode": "ComputerVision"</code>）。</p>
-</div>
-<p>如果是第一次仿真运行这个 <code>Town10</code> 场景，点击 <code>运行</code> 后，视口中一片空白的话（只显示无人机），不要紧张，可能需要一些时间来渲染画面，随着渲染的进行，画面会一点点展示出来。不同性能的计算机的渲染时间也不一样。如果渲染的较长时间的话，也不用担心，因为仅第一次打开的时候需要渲染，第一次渲染完成后，后面的仿真操作就可以直接加载了。如下图所示，渲染完成之后，视口中就会出现一个四旋翼飞行器。点击工具栏的 <code>停止</code> 按钮，即可退出仿真。</p>
-<p><img alt="" src="../../images/dev/HUTB_simulation.gif" /></p>
-<p>至此 AirSim 插件已经加载到虚幻引擎场景工程中了。</p>
-<h3 id="_2">打包<a class="headerlink" href="#_2" title="Permanent link">#</a></h3>
-<p><a href="../../build_faq/#packaging-a-binary-including-the-airsim-plugin">打包注意事项</a></p>
-<p>打包参考 <a href="https://blog.csdn.net/nenchoumi3119/article/details/148474734">链接</a></p>
-<p>可执行文件位于 <a href="https://pan.baidu.com/s/1YJc4Gnhp20Og7VhKkrkXcQ?pwd=hutb">链接</a> 中的 <code>hutb_air_v2.2.1.zip</code>。</p>
-<h2 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">#</a></h2>
-<h6 id="airsimairsim">添加AirSim后（不启用），报找不到AirSim模块定义的错<a class="headerlink" href="#airsimairsim" title="Permanent link">#</a></h6>
-<p>报错信息：
-<div class="highlight"><pre><span></span><code>UnrealBuildTool: ERROR: Could not find definition for module &#39;AirSim&#39;, (referenced via Target -&gt; CarlaUE4.Build.cs)
-</code></pre></div>
-需要在<code>Unreal/CarlaUE4/Source/CarlaUE4/CarlaUE4.Build.cs</code>中添加模块依赖：
-<div class="highlight"><pre><span></span><code><span class="n">PrivateDependencyModuleNames</span><span class="p">.</span><span class="n">AddRange</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="kt">string</span><span class="p">[]</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;AirSim&quot;</span><span class="w"> </span><span class="p">});</span>
-</code></pre></div>
-没解决！</p>
-<h6 id="gbufferviewh">添加插件后编译报找不到GBufferView.h的错<a class="headerlink" href="#gbufferviewh" title="Permanent link">#</a></h6>
-<p><div class="highlight"><pre><span></span><code>无法打开包括文件: “SplineMeshSceneProxy.h”: No such file or directory
-无法打开包括文件: “Renderer/Public/GBufferView.h”: No such file or directory
-</code></pre></div>
-原因：<a href="https://openhutb.github.io/doc/tuto_D_windows_debug/#problems">本地存在多个版本的虚幻引擎，没有使用正确的版本</a> 。</p>
-<h6 id="cicd">CICD报错<a class="headerlink" href="#cicd" title="Permanent link">#</a></h6>
-<div class="highlight"><pre><span></span><code>2025-09-20T12:56:36.2243331Z   C:\actions-runner\_work\hutb\hutb\Unreal\CarlaUE4\Plugins\AirSim\Source\AirBlueprintLib.h(23): fatal error C1083: �޷��򿪰����ļ�: ��common/AirSimSettings.hpp��: No such file or directory
-2025-09-20T12:56:36.2273244Z   [6/61] Module.AirSim.gen.cpp
-2025-09-20T12:56:36.2303779Z   C:\actions-runner\_work\hutb\hutb\Unreal\CarlaUE4\Plugins\AirSim\Source/AirBlueprintLib.h(23): fatal error C1083: �޷��򿪰����ļ�: ��common/AirSimSettings.hpp��: No such file or directory
-</code></pre></div>
-<h2 id="carla">其他（和 Carla 兼容）<a class="headerlink" href="#carla" title="Permanent link">#</a></h2>
-<!-- 更新至 b3178ba -->
+<p><strong>CarlaEpisode.h</strong> (~第 338 行):
+<div class="highlight"><pre><span></span><code><span class="c1">// 添加:</span>
+<span class="k">friend</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">ASimWorldGameMode</span><span class="p">;</span>
+</code></pre></div></p>
+<p><strong>SimModeBase.cpp</strong> (~第 119 行):
+<div class="highlight"><pre><span></span><code><span class="c1">// 原始:</span>
+<span class="c1">// this-&gt;GetWorld()-&gt;SetNewWorldOrigin(FIntVector(player_loc) + FIntVector(0, 0, 0));</span>
 
-<ul>
-<li><a href="../Carla_Air/">融合 CARLA 与 AirSim </a></li>
-</ul>
+<span class="c1">// 修改为注释 + 说明:</span>
+<span class="c1">// NOTE: Do NOT call SetNewWorldOrigin() here. In CarlaAir...</span>
+<span class="n">global_ned_transform_</span><span class="p">.</span><span class="n">reset</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">NedTransform</span><span class="p">(</span><span class="n">player_start_transform</span><span class="p">,</span>
+<span class="w">                                             </span><span class="n">UAirBlueprintLib</span><span class="o">::</span><span class="n">GetWorldToMetersScale</span><span class="p">(</span><span class="k">this</span><span class="p">)));</span>
+</code></pre></div></p>
+<h2 id="town10hd">Town10HD 地图布局<a class="headerlink" href="#town10hd" title="Permanent link">#</a></h2>
+<div class="highlight"><pre><span></span><code>                    Y=-69
+                     │
+    Ocean (x&lt;20)     │    Inland City (x&gt;55)
+                     │
+  ┌──────────────────┼──────────────────────────┐
+  │                  │                           │
+  │   Coast/Beach    │    ┌──────────────────┐   │
+  │                  │    │  City Center     │   │
+  │   PlayerStart    │    │  (80, 30)        │   │
+  │   (x≈0, NED     │    │                  │   │
+  │    origin)       │    │  Buildings,      │   │  Y=141
+  │                  │    │  Roads,          │   │
+  │                  │    │  Intersections   │   │
+  │                  │    └──────────────────┘   │
+  │                  │                           │
+  └──────────────────┼──────────────────────────┘
+  X=-115             │                     X=110
+
+  NED 原点在 PlayerStart (x≈0)
+  城市中心在 NED (80, 0, -30) = CARLA (80, 0, 30m高)
+</code></pre></div>
+<h2 id="_9">已知限制和约束<a class="headerlink" href="#_9" title="Permanent link">#</a></h2>
+<table>
+<thead>
+<tr>
+<th>约束</th>
+<th>原因</th>
+<th>解决方案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Walker 不能使用 AI Controller</td>
+<td><code>go_to_location()</code> 触发四元数错误导致 segfault</td>
+<td>使用静态 Walker</td>
+</tr>
+<tr>
+<td><code>simSetCameraPose</code> 在 Shipping 包中崩溃</td>
+<td>C++ abort in Shipping build</td>
+<td>不调用，使用无人机轨道 + yaw tracking</td>
+</tr>
+<tr>
+<td>AirSim 活动时最多 ~8 个 autopilot 车辆</td>
+<td>概率性四元数崩溃</td>
+<td>批量启用 autopilot，延迟 0.5s</td>
+</tr>
+<tr>
+<td>纯 CARLA 脚本可安全处理 50+ 车辆</td>
+<td>无 AirSim 干扰</td>
+<td>展示交通时不启动无人机</td>
+</tr>
+</tbody>
+</table>
               
             </div>
           </div><footer>
