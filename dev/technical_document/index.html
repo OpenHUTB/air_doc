@@ -282,6 +282,7 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="_1">面向自主系统的统一空地仿真<a class="headerlink" href="#_1" title="Permanent link">#</a></h1>
+<p><img alt="" src="../../images/dev/CarlaAir.gif" /></p>
 <hr />
 <h2 id="1">1. 引言和动机<a class="headerlink" href="#1" title="Permanent link">#</a></h2>
 <h3 id="11">1.1 问题<a class="headerlink" href="#11" title="Permanent link">#</a></h3>
@@ -710,12 +711,12 @@
 <tbody>
 <tr>
 <td>地面车辆</td>
-<td>RGB, Depth, Segmentation, Instance Seg, LiDAR, Radar, IMU, GNSS, Collision, Lane Invasion</td>
+<td>RGB、深度、分割、实例分割、激光雷达、雷达、IMU、GNSS、碰撞、 压线</td>
 <td>10</td>
 </tr>
 <tr>
 <td>无人机</td>
-<td>RGB, Depth, Segmentation, Infrared, IMU, GPS, Barometer, Magnetometer</td>
+<td>RGB、深度、分割、红外、IMU、GPS、气压计、磁力计</td>
 <td>8</td>
 </tr>
 <tr>
@@ -804,196 +805,206 @@ $$
 <hr />
 <h2 id="6">6. 交通与环境<a class="headerlink" href="#6" title="Permanent link">#</a></h2>
 <h3 id="61">6.1 交通管理器<a class="headerlink" href="#61" title="Permanent link">#</a></h3>
-<p>CARLA's Traffic Manager is a <strong>client-side pipeline architecture</strong> running on a dedicated thread:</p>
+<p>CARLA 的流量管理器是一个运行在专用线程上的<strong>客户端管线架构</strong>：</p>
 <table>
 <thead>
 <tr>
-<th>Stage</th>
-<th>Function</th>
+<th>阶段</th>
+<th>功能</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>ALSM</td>
-<td>Actor Lifecycle and State Management -- syncs simulation state</td>
+<td>参与者生命周期和状态管理(Actor Lifecycle and State Management, ALSM)——同步模拟状态</td>
 </tr>
 <tr>
-<td>Localization</td>
-<td>Waypoint horizon maintenance, lane change decisions</td>
+<td>定位</td>
+<td>航点视界维护，变道决策</td>
 </tr>
 <tr>
-<td>Collision</td>
-<td>Polygon-based collision prediction (boost::geometry)</td>
+<td>碰撞</td>
+<td>基于多边形的碰撞预测 (boost::geometry)</td>
 </tr>
 <tr>
-<td>Traffic Light</td>
-<td>Signal compliance logic</td>
+<td>交通灯</td>
+<td>信号遵守逻辑</td>
 </tr>
 <tr>
-<td>Motion Plan</td>
-<td>PID controller: separate urban/highway parameters</td>
+<td>运动规划</td>
+<td>PID控制器：分隔的城市/高速公路参数</td>
 </tr>
 <tr>
-<td>Vehicle Light</td>
-<td>Automatic headlight/brake light management</td>
+<td>车灯</td>
+<td>自动前大灯/刹车灯管理</td>
 </tr>
 </tbody>
 </table>
-<p>The TM maintains an <strong>InMemoryMap</strong> (cached waypoint graph) for O(1) spatial queries and a <strong>SimulationState</strong> tracking all managed actors' kinematics.</p>
+<p>交通管理器维护一个用于 O(1) 空间查询的 <strong>内存地图(InMemoryMap)</strong>（缓存的路径点图）和一个跟踪所有受管参与者运动学的 <strong>模拟状态(SimulationState)</strong>。</p>
 <h3 id="62">6.2 天气系统<a class="headerlink" href="#62" title="Permanent link">#</a></h3>
-<p>15 continuous parameters controlling atmospheric conditions:</p>
+<p>控制大气条件的 15 个连续参数：</p>
 <table>
 <thead>
 <tr>
-<th>Parameter</th>
-<th>Range</th>
-<th>Effect</th>
+<th>参数</th>
+<th>范围</th>
+<th>效果</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Cloudiness</td>
 <td>0-100</td>
-<td>Cloud cover density</td>
+<td>云覆盖密度</td>
 </tr>
 <tr>
 <td>Precipitation</td>
 <td>0-100</td>
-<td>Rain intensity</td>
+<td>降雨强度</td>
 </tr>
 <tr>
 <td>PrecipitationDeposits</td>
 <td>0-100</td>
-<td>Water puddle accumulation</td>
+<td>水坑积水</td>
 </tr>
 <tr>
 <td>WindIntensity</td>
 <td>0-100</td>
-<td>Wind speed</td>
+<td>风速</td>
 </tr>
 <tr>
 <td>SunAzimuthAngle</td>
 <td>0-360</td>
-<td>Sun horizontal angle</td>
+<td>太阳水平角</td>
 </tr>
 <tr>
 <td>SunAltitudeAngle</td>
 <td>-90 to 90</td>
-<td>Sun elevation (negative = night)</td>
+<td>太阳高度角（负值 = 夜晚）</td>
 </tr>
 <tr>
 <td>FogDensity</td>
 <td>0-100</td>
-<td>Volumetric fog thickness</td>
+<td>体积雾厚度</td>
 </tr>
 <tr>
 <td>FogDistance</td>
 <td>0+</td>
-<td>Fog start distance (m)</td>
+<td>雾起始距离（米）</td>
 </tr>
 <tr>
 <td>Wetness</td>
 <td>0-100</td>
-<td>Surface wetness (reflections)</td>
+<td>表面湿度（反射）</td>
 </tr>
 <tr>
 <td>DustStorm</td>
 <td>0-100</td>
-<td>Dust/sandstorm intensity</td>
+<td>沙尘暴/沙暴强度</td>
 </tr>
 </tbody>
 </table>
-<p>14 named presets covering day/night, clear/cloudy/rain/storm conditions. Weather affects <strong>both</strong> CARLA rendering and AirSim's aerial views simultaneously.</p>
+<p>4 个预设模式，涵盖白天/夜晚、晴天/阴天/雨天/暴风雨等天气状况。天气会<strong>同时</strong>影响 Carla 渲染和 AirSim 的航拍视图。</p>
 <h3 id="63">6.3 地图和路网<a class="headerlink" href="#63" title="Permanent link">#</a></h3>
 <table>
 <thead>
 <tr>
-<th>Map</th>
-<th>Description</th>
-<th>Spawn Points</th>
-<th>Area</th>
+<th>地图</th>
+<th>描述</th>
+<th>生成点</th>
+<th>面积</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Town01</td>
-<td>Small town, T-junctions</td>
+<td>小镇，T 字路口</td>
 <td>252</td>
 <td>~1 km²</td>
 </tr>
 <tr>
 <td>Town02</td>
-<td>Residential area</td>
+<td>居住区</td>
 <td>~100</td>
 <td>~0.5 km²</td>
 </tr>
 <tr>
 <td>Town03</td>
-<td>Urban downtown, highway ramp</td>
+<td>城市中心区，高速公路匝道</td>
 <td>265</td>
 <td>~2 km²</td>
 </tr>
 <tr>
 <td>Town04</td>
-<td>Highway with small town</td>
+<td>高速公路旁的小镇</td>
 <td>~300</td>
 <td>~5 km²</td>
 </tr>
 <tr>
 <td>Town05</td>
-<td>Urban grid with multi-lane roads</td>
+<td>城市网格，多车道道路</td>
 <td>302</td>
 <td>~3 km²</td>
 </tr>
 <tr>
 <td>Town10HD</td>
-<td>HD downtown with detailed buildings</td>
+<td>高清市中心，建筑细节丰富</td>
 <td>155</td>
 <td>~1.5 km²</td>
 </tr>
 </tbody>
 </table>
-<p>Each map includes:
-- <strong>OpenDRIVE</strong> (.xodr): Complete road network definition with lane geometry, junctions, signals
-- <strong>Navigation mesh</strong>: Recast-generated pedestrian walkable areas
-- <strong>Traffic infrastructure</strong>: Traffic lights (with timing), stop signs, speed limits
-- <strong>Environment objects</strong>: Buildings, vegetation, street furniture (13000+ objects in Town10HD)</p>
+<p>每张地图包含：</p>
+<ul>
+<li>
+<p><strong>OpenDRIVE</strong> (.xodr): 完整的道路网络定义，包括车道几何形状、交叉口和信号灯。</p>
+</li>
+<li>
+<p><strong>导航网格</strong>: 重新生成的行人步行区域</p>
+</li>
+<li>
+<p><strong>交通基础设施</strong>: 交通信号灯（带定时）、停车标志、限速标志</p>
+</li>
+<li>
+<p><strong>环境对象</strong>: 建筑物、植被、街道设施（Town10HD 中包含 13000 多个对象）</p>
+</li>
+</ul>
 <hr />
 <h2 id="7">7. 参与者系统<a class="headerlink" href="#7" title="Permanent link">#</a></h2>
 <h3 id="71">7.1 参与者蓝图库<a class="headerlink" href="#71" title="Permanent link">#</a></h3>
 <table>
 <thead>
 <tr>
-<th>Category</th>
-<th>Count</th>
-<th>Examples</th>
+<th>类别</th>
+<th>数量</th>
+<th>例子</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Vehicles</td>
+<td>载具</td>
 <td>41</td>
-<td>Tesla Model 3, BMW Gran Tourer, Audi A2, Bus, Truck, Motorcycle, Bicycle</td>
+<td>特斯拉 Model 3、宝马 Gran Tourer、奥迪 A2、巴士、卡车、摩托车、自行车</td>
 </tr>
 <tr>
-<td>Walkers</td>
+<td>行人</td>
 <td>52</td>
-<td>Male/female adults, children, with diverse clothing and body types</td>
+<td>男女成年人、儿童，穿着各式各样的服装和体型</td>
 </tr>
 <tr>
-<td>Sensors</td>
+<td>传感器</td>
 <td>25</td>
-<td>All sensor types listed in Section 4</td>
+<td>第 4 节中列出的所有传感器类型</td>
 </tr>
 <tr>
-<td>Props</td>
+<td>道具</td>
 <td>99</td>
-<td>Barriers, containers, trash cans, vendor stalls, benches</td>
+<td>围栏、集装箱、垃圾桶、摊位、长椅</td>
 </tr>
 <tr>
-<td>Other</td>
+<td>其他</td>
 <td>3</td>
-<td>Controller types</td>
+<td>控制器类型</td>
 </tr>
 <tr>
 <td><strong>Total</strong></td>
@@ -1003,39 +1014,49 @@ $$
 </tbody>
 </table>
 <h3 id="72">7.2 参与者生成管线<a class="headerlink" href="#72" title="Permanent link">#</a></h3>
-<div class="highlight"><pre><span></span><code>Python: world.spawn_actor(blueprint, transform)
-  → RPC: carla::rpc::Command::SpawnActor
-    → FCarlaServer::FPimpl (game thread)
-      → UCarlaEpisode::SpawnActorWithInfo()
-        → UActorDispatcher::SpawnActor()
-          → ACarlaActorFactory::SpawnActor()  (type-specific factory)
-            → UWorld::SpawnActor&lt;&gt;()  (UE4 native spawn)
-          → FActorRegistry::Register(actor_id, actor)
-        → return carla::rpc::Actor (serialized to client)
+<div class="highlight"><pre><span></span><code><span class="nl">Python</span><span class="p">:</span><span class="w"> </span><span class="n">world</span><span class="p">.</span><span class="n">spawn_actor</span><span class="p">(</span><span class="n">blueprint</span><span class="p">,</span><span class="w"> </span><span class="n">transform</span><span class="p">)</span>
+<span class="w">  </span><span class="err">→</span><span class="w"> </span><span class="n">RPC</span><span class="o">:</span><span class="w"> </span><span class="n">carla</span><span class="o">::</span><span class="n">rpc</span><span class="o">::</span><span class="n">Command</span><span class="o">::</span><span class="n">SpawnActor</span>
+<span class="w">    </span><span class="err">→</span><span class="w"> </span><span class="n">FCarlaServer</span><span class="o">::</span><span class="n">FPimpl</span><span class="w"> </span><span class="p">(</span><span class="n">game</span><span class="w"> </span><span class="kr">thread</span><span class="p">)</span>
+<span class="w">      </span><span class="err">→</span><span class="w"> </span><span class="n">UCarlaEpisode</span><span class="o">::</span><span class="n">SpawnActorWithInfo</span><span class="p">()</span>
+<span class="w">        </span><span class="err">→</span><span class="w"> </span><span class="n">UActorDispatcher</span><span class="o">::</span><span class="n">SpawnActor</span><span class="p">()</span>
+<span class="w">          </span><span class="err">→</span><span class="w"> </span><span class="n">ACarlaActorFactory</span><span class="o">::</span><span class="n">SpawnActor</span><span class="p">()</span><span class="w">  </span><span class="p">(</span><span class="n">type</span><span class="o">-</span><span class="n">specific</span><span class="w"> </span><span class="n">factory</span><span class="p">)</span>
+<span class="w">            </span><span class="err">→</span><span class="w"> </span><span class="n">UWorld</span><span class="o">::</span><span class="n">SpawnActor</span><span class="o">&lt;&gt;</span><span class="p">()</span><span class="w">  </span><span class="p">(</span><span class="n">UE4</span><span class="w"> </span><span class="n">native</span><span class="w"> </span><span class="n">spawn</span><span class="p">)</span>
+<span class="w">          </span><span class="err">→</span><span class="w"> </span><span class="n">FActorRegistry</span><span class="o">::</span><span class="n">Register</span><span class="p">(</span><span class="n">actor_id</span><span class="p">,</span><span class="w"> </span><span class="n">actor</span><span class="p">)</span>
+<span class="w">        </span><span class="err">→</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">carla</span><span class="o">::</span><span class="n">rpc</span><span class="o">::</span><span class="n">Actor</span><span class="w"> </span><span class="p">(</span><span class="n">serialized</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">client</span><span class="p">)</span>
 </code></pre></div>
 <h3 id="73-ai">7.3 行人 AI 导航<a class="headerlink" href="#73-ai" title="Permanent link">#</a></h3>
-<p>Walkers use UE4's <strong>Recast navigation mesh</strong> for pathfinding:
-- Navigation mesh is pre-built from map geometry
-- <code>AWalkerAIController</code> provides the Python API interface
-- <code>controller.go_to_location(target)</code> triggers A* pathfinding on the navmesh
-- <code>controller.set_max_speed(speed)</code> controls movement speed</p>
+<p>行人使用 UE4 的 <strong>Recast 导航网格</strong>进行寻路</p>
+<ul>
+<li>
+<p>导航网格由地图几何体预先构建</p>
+</li>
+<li>
+<p><code>AWalkerAIController</code> 提供 Python API 接口</p>
+</li>
+<li>
+<p><code>controller.go_to_location(target)</code> 触发导航网格上的 A* 寻路算法</p>
+</li>
+<li>
+<p><code>controller.set_max_speed(speed)</code> 控制移动速度</p>
+</li>
+</ul>
 <hr />
 <h2 id="8">8. 应用领域和研究能力<a class="headerlink" href="#8" title="Permanent link">#</a></h2>
 <h3 id="81">8.1 自动驾驶<a class="headerlink" href="#81" title="Permanent link">#</a></h3>
 <ul>
-<li>Full ego-vehicle sensor suite (RGB, depth, segmentation, LiDAR, radar, IMU, GNSS)</li>
-<li>Traffic Manager with per-vehicle behavioral parameters</li>
-<li>Ackermann steering model with PID controller</li>
-<li>41 vehicle types across 6+ maps with OpenDRIVE road networks</li>
-<li>Deterministic simulation mode for reproducible experiments</li>
+<li>完整的自车传感器套件（RGB、深度、分割、激光雷达、雷达、IMU、GNSS）</li>
+<li>具备车辆行为参数的交通管理器</li>
+<li>配备 PID 控制器的阿克曼转向模型</li>
+<li>涵盖 6 张以上地图的 41 种车辆类型，并采用 OpenDRIVE 路网</li>
+<li>用于可复现实验的确定性仿真模式</li>
 </ul>
 <h3 id="82">8.2 无人机导航与控制<a class="headerlink" href="#82" title="Permanent link">#</a></h3>
 <ul>
-<li>6-DOF flight control: position, velocity, body-frame velocity, yaw rate, path following</li>
-<li>Physics-based dynamics at 333 Hz with wind and aerodynamic drag</li>
-<li>Multi-camera aerial sensing (5 mount points per drone)</li>
-<li>Configurable flight controllers (SimpleFlight, PX4, ArduPilot)</li>
-<li>Sensor noise models (IMU, GPS, barometer, magnetometer) for realistic perception</li>
+<li>六自由度飞行控制：位置、速度、机体坐标系速度、偏航率、路径跟踪</li>
+<li>基于物理的动力学模型，频率为 333 Hz，考虑风阻和空气动力阻力</li>
+<li>多摄像头空中感知（每架无人机 5 个安装点）</li>
+<li>可配置的飞行控制器（SimpleFlight、PX4、ArduPilot）</li>
+<li>传感器噪声模型（IMU、GPS、气压计、磁力计），实现逼真的感知</li>
 </ul>
 <h3 id="83">8.3 空地协同系统 (新颖)<a class="headerlink" href="#83" title="Permanent link">#</a></h3>
 <p>这是 SimWorld 独有的研究能力：</p>
@@ -1055,116 +1076,116 @@ $$
 <li>多变的天气和光照条件</li>
 </ul>
 <h3 id="85">8.5 多模态数据集生成<a class="headerlink" href="#85" title="Permanent link">#</a></h3>
-<p>SimWorld enables generating datasets with <strong>unprecedented modality coverage</strong>:</p>
+<p>SimWorld 能够生成具有<strong>前所未有的模态覆盖范围</strong>的数据集：</p>
 <table>
 <thead>
 <tr>
-<th>Modality</th>
-<th>Source</th>
-<th>Format</th>
-<th>Resolution</th>
+<th>模态</th>
+<th>源</th>
+<th>格式</th>
+<th>分辨率</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Ground RGB</td>
-<td>CARLA camera</td>
+<td>地面 RGB</td>
+<td>Carla 相机</td>
 <td>PNG/JPG</td>
-<td>Configurable (up to 4K)</td>
+<td>可配置（最高可达 4K）</td>
 </tr>
 <tr>
-<td>Ground Depth</td>
+<td>地面深度</td>
 <td>CARLA depth camera</td>
-<td>float32 NPY (meters)</td>
-<td>Same as RGB</td>
+<td>float32 NPY (米)</td>
+<td>与 RGB 相同</td>
 </tr>
 <tr>
-<td>Ground Segmentation</td>
+<td>地面分隔</td>
 <td>CARLA seg camera</td>
-<td>uint8 NPY (20+ classes)</td>
-<td>Same as RGB</td>
+<td>uint8 NPY (20 多个类)</td>
+<td>与 RGB 相同</td>
 </tr>
 <tr>
-<td>Ground Instance Seg</td>
+<td>地面实例分割</td>
 <td>CARLA instance camera</td>
-<td>RGB (per-instance)</td>
-<td>Same as RGB</td>
+<td>RGB (每个实例)</td>
+<td>与 RGB 相同</td>
 </tr>
 <tr>
-<td>Ground LiDAR</td>
+<td>地面激光雷达</td>
 <td>CARLA ray-cast</td>
-<td>float32 NPY (x,y,z,intensity)</td>
-<td>16-128 channels</td>
+<td>float32 NPY (x,y,z,强度)</td>
+<td>16-128 个通道</td>
 </tr>
 <tr>
-<td>Ground Radar</td>
+<td>地面雷达</td>
 <td>CARLA radar</td>
-<td>float32 (azimuth, depth, velocity)</td>
-<td>Configurable</td>
+<td>float32 (方位角、深度、速度)</td>
+<td>可配置</td>
 </tr>
 <tr>
-<td>Ground IMU</td>
+<td>地面 IMU</td>
 <td>CARLA IMU</td>
-<td>JSON (accel, gyro, compass)</td>
+<td>JSON (加速度计、陀螺仪、指南针)</td>
 <td>100+ Hz</td>
 </tr>
 <tr>
-<td>Ground GNSS</td>
+<td>地面 GNSS</td>
 <td>CARLA GNSS</td>
-<td>JSON (lat, lon, alt)</td>
+<td>JSON (纬度、经度、海拔)</td>
 <td>10+ Hz</td>
 </tr>
 <tr>
-<td>Aerial RGB</td>
+<td>空中 RGB</td>
 <td>AirSim camera</td>
 <td>PNG/NPY</td>
-<td>1280×960 (configurable)</td>
+<td>1280×960 (可配置)</td>
 </tr>
 <tr>
-<td>Aerial Depth</td>
+<td>空中深度</td>
 <td>AirSim depth</td>
-<td>float32 NPY (meters)</td>
+<td>float32 NPY (米)</td>
 <td>1280×960</td>
 </tr>
 <tr>
-<td>Aerial Segmentation</td>
+<td>空中分隔</td>
 <td>AirSim seg</td>
-<td>PNG (label colors)</td>
+<td>PNG (标签颜色)</td>
 <td>1280×960</td>
 </tr>
 <tr>
-<td>Aerial IMU</td>
+<td>空中 IMU</td>
 <td>AirSim IMU</td>
-<td>JSON (with noise)</td>
+<td>JSON (带噪音)</td>
 <td>333 Hz</td>
 </tr>
 <tr>
-<td>Aerial GPS</td>
+<td>空中 GPS</td>
 <td>AirSim GPS</td>
 <td>JSON (with convergence)</td>
-<td>Configurable</td>
+<td>可配置</td>
 </tr>
 <tr>
-<td>Aerial Barometer</td>
+<td>空中气压计</td>
 <td>AirSim barometer</td>
-<td>JSON (altitude, pressure)</td>
-<td>Configurable</td>
+<td>JSON (海拔高度，气压)</td>
+<td>可配置</td>
 </tr>
 <tr>
-<td>Ego Vehicle Pose</td>
+<td>自车姿态</td>
 <td>CARLA transform</td>
-<td>JSON (x,y,z,pitch,yaw,roll)</td>
-<td>Per frame</td>
+<td>JSON (x,y,z,俯仰,偏航,横滚)</td>
+<td>每帧</td>
 </tr>
 <tr>
-<td>Drone Pose</td>
+<td>无人机姿态</td>
 <td>AirSim kinematics</td>
-<td>JSON (NED position, quaternion)</td>
-<td>Per frame</td>
+<td>JSON (NED 位置, 四元素)</td>
+<td>每帧</td>
 </tr>
 </tbody>
 </table>
-<p>All modalities are <strong>synchronized to the same simulation frame</strong> and share the same world state. The off-screen rendering mode (<code>-RenderOffScreen</code>) enables headless operation on GPU servers for large-scale data production.</p>
+<p>所有模态均<strong>同步到同一仿真帧</strong>并共享同一世界状态。离屏渲染模式（<code>-RenderOffScreen</code>）支持在 GPU 服务器上进行无头操作，以进行大规模数据处理。</p>
 <hr />
 <h2 id="9-ros">9. ROS 集成<a class="headerlink" href="#9-ros" title="Permanent link">#</a></h2>
 <p>SimWorld 支持双 ROS2 桥接器，用于与机器人技术栈集成：</p>
@@ -1327,20 +1348,32 @@ $$
 <span class="c1"># 输出: Dist/CARLA_Shipping_&lt;version&gt;/LinuxNoEditor/ (~19 GB)</span>
 <span class="c1"># 编译: ~800s (656 units), Cook: ~2h (13459 packages)</span>
 </code></pre></div>
-<h3 id="113-distribution">11.3 Distribution<a class="headerlink" href="#113-distribution" title="Permanent link">#</a></h3>
-<p>Packaged build: <strong>7.3 GB</strong> compressed (excluding debug symbols), containing:
-- Shipping binary for Linux x86_64
-- 13 cooked maps + AirSim assets
-- 17 example Python scripts
-- CARLA PythonAPI source
-- AirSim configuration template</p>
+<h3 id="113">11.3 发布<a class="headerlink" href="#113" title="Permanent link">#</a></h3>
+<p>打包后的版本：<strong>7.3 GB</strong>（压缩后，不含调试符号），包含：</p>
+<ul>
+<li>
+<p>适用于 Linux x86_64 的二进制文件</p>
+</li>
+<li>
+<p>13 张已烘焙好的地图 + AirSim 资产</p>
+</li>
+<li>
+<p>17 个 Python 脚本示例</p>
+</li>
+<li>
+<p>Carla PythonAPI 源代码</p>
+</li>
+<li>
+<p>AirSim 配置模板</p>
+</li>
+</ul>
 <hr />
-<h2 id="12-comparison-with-related-work">12. Comparison with Related Work<a class="headerlink" href="#12-comparison-with-related-work" title="Permanent link">#</a></h2>
+<h2 id="12_1">12. 与相关工作的比较<a class="headerlink" href="#12_1" title="Permanent link">#</a></h2>
 <table>
 <thead>
 <tr>
-<th>Feature</th>
-<th>CARLA</th>
+<th>特性</th>
+<th>Carla</th>
 <th>AirSim</th>
 <th>LGSVL</th>
 <th>ISAAC Sim</th>
@@ -1349,63 +1382,23 @@ $$
 </thead>
 <tbody>
 <tr>
-<td>Ground vehicles</td>
-<td>✅ 41 types</td>
+<td>地面车辆</td>
+<td>✅ 41 类</td>
 <td>✅ Limited</td>
 <td>✅</td>
 <td>✅</td>
-<td>✅ 41 types</td>
+<td>✅ 41 类</td>
 </tr>
 <tr>
-<td>Pedestrians</td>
-<td>✅ 52 types</td>
+<td>行人</td>
+<td>✅ 52 类</td>
 <td>❌</td>
 <td>✅</td>
 <td>✅</td>
-<td>✅ 52 types</td>
+<td>✅ 52 类</td>
 </tr>
 <tr>
-<td>Drones (physics-based)</td>
-<td>❌</td>
-<td>✅</td>
-<td>❌</td>
-<td>❌</td>
-<td>✅</td>
-</tr>
-<tr>
-<td>Traffic Manager</td>
-<td>✅</td>
-<td>❌</td>
-<td>✅</td>
-<td>❌</td>
-<td>✅</td>
-</tr>
-<tr>
-<td>OpenDRIVE road network</td>
-<td>✅</td>
-<td>❌</td>
-<td>✅</td>
-<td>❌</td>
-<td>✅</td>
-</tr>
-<tr>
-<td>Weather system</td>
-<td>✅ 15 params</td>
-<td>✅ Basic</td>
-<td>✅</td>
-<td>✅</td>
-<td>✅ 15 params</td>
-</tr>
-<tr>
-<td>Ground sensors (10+)</td>
-<td>✅</td>
-<td>❌</td>
-<td>✅</td>
-<td>✅</td>
-<td>✅</td>
-</tr>
-<tr>
-<td>Aerial sensors (6+)</td>
+<td>无人机 (基于物理)</td>
 <td>❌</td>
 <td>✅</td>
 <td>❌</td>
@@ -1413,31 +1406,71 @@ $$
 <td>✅</td>
 </tr>
 <tr>
-<td>Sensor noise models</td>
-<td>Basic</td>
-<td>✅ Detailed</td>
-<td>Basic</td>
+<td>交通管理器</td>
 <td>✅</td>
-<td>✅ Detailed</td>
-</tr>
-<tr>
-<td>ROS integration</td>
-<td>✅</td>
-<td>✅</td>
-<td>✅</td>
-<td>✅</td>
-<td>✅ Dual bridges</td>
-</tr>
-<tr>
-<td>Air-ground joint sim</td>
 <td>❌</td>
-<td>❌</td>
-<td>❌</td>
+<td>✅</td>
 <td>❌</td>
 <td>✅</td>
 </tr>
 <tr>
-<td>Single-process rendering</td>
+<td>OpenDRIVE 路网</td>
+<td>✅</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>天气系统</td>
+<td>✅ 15 个参数</td>
+<td>✅ 静态</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅ 15 个参数</td>
+</tr>
+<tr>
+<td>地面传感器 (10+)</td>
+<td>✅</td>
+<td>❌</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>空中传感器 (6+)</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>传感器噪声模型</td>
+<td>基本</td>
+<td>✅ 详细</td>
+<td>基本</td>
+<td>✅</td>
+<td>✅ 详细</td>
+</tr>
+<tr>
+<td>ROS 整合</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅ 双桥</td>
+</tr>
+<tr>
+<td>空地联合仿真</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>单进程渲染</td>
 <td>N/A</td>
 <td>N/A</td>
 <td>N/A</td>
@@ -1445,11 +1478,11 @@ $$
 <td>✅</td>
 </tr>
 <tr>
-<td>Open source</td>
+<td>开源</td>
 <td>✅ MIT</td>
 <td>✅ MIT</td>
-<td>❌ Discontinued</td>
-<td>❌ Proprietary</td>
+<td>❌ 停止使用</td>
+<td>❌ 专利</td>
 <td>✅</td>
 </tr>
 </tbody>
