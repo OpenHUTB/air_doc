@@ -399,7 +399,7 @@
 <h3 id="3-carlagamemodebaseh">3. [修改] CarlaGameModeBase.h<a class="headerlink" href="#3-carlagamemodebaseh" title="Permanent link">#</a></h3>
 <p><strong>路径</strong>: <code>Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Game/CarlaGameModeBase.h</code>
 <strong>修改量</strong>: 2 处，约 4 行</p>
-<p><strong>修改前</strong> (在 <code>private:</code> 区域):
+<p><strong>修改前</strong> (在 <code>private:</code> 区域，注意，也在 public 里!):
 <div class="highlight"><pre><span></span><code><span class="k">private</span><span class="o">:</span>
 <span class="w">    </span><span class="n">UPROPERTY</span><span class="p">(</span><span class="n">EditAnywhere</span><span class="p">)</span>
 <span class="w">    </span><span class="n">TSubclassOf</span><span class="o">&lt;</span><span class="n">AWeather</span><span class="o">&gt;</span><span class="w"> </span><span class="n">WeatherClass</span><span class="p">;</span>
@@ -418,12 +418,13 @@
 <p><strong>影响</strong>: 仅影响访问权限，不改变运行时行为。子类 ASimWorldGameMode 可以在构造函数中设置这些属性。</p>
 <h3 id="4-carlaepisodeh">4. [修改] CarlaEpisode.h<a class="headerlink" href="#4-carlaepisodeh" title="Permanent link">#</a></h3>
 <p><strong>路径</strong>: <code>Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Game/CarlaEpisode.h</code>
-<strong>修改量</strong>: 1 处，1 行</p>
+<strong>修改量</strong>: 1 处，2 行</p>
 <p><strong>添加位置</strong>: 类声明内部，约第 338 行</p>
-<div class="highlight"><pre><span></span><code><span class="k">friend</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">ASimWorldGameMode</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">friend</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">ASimModeBase</span><span class="p">;</span>
+<span class="k">friend</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">ASimWorldGameMode</span><span class="p">;</span>
 </code></pre></div>
 <p><strong>影响</strong>: 允许 SimWorldGameMode 直接访问 Episode 的私有成员（主要是 <code>Spectator</code> 和 <code>ActorDispatcher</code>），用于注册手动创建的 SpectatorPawn。</p>
-<h3 id="5-simmodebasecpp">5. [修改] SimModeBase.cpp<a class="headerlink" href="#5-simmodebasecpp" title="Permanent link">#</a></h3>
+<h3 id="5-simmodebasecpp-airsim">5. [修改] SimModeBase.cpp (位于 AirSim 插件中)<a class="headerlink" href="#5-simmodebasecpp-airsim" title="Permanent link">#</a></h3>
 <p><strong>路径</strong>: <code>Unreal/CarlaUE4/Plugins/AirSim/Source/SimMode/SimModeBase.cpp</code>
 <strong>修改量</strong>: 1 处，约 6 行</p>
 <p><strong>修改前</strong> (~第 119 行):
@@ -441,6 +442,10 @@
 <span class="w">                                             </span><span class="n">UAirBlueprintLib</span><span class="o">::</span><span class="n">GetWorldToMetersScale</span><span class="p">(</span><span class="k">this</span><span class="p">)));</span>
 </code></pre></div></p>
 <p><strong>影响</strong>: 车辆不再穿过地面（z≈0.00 正常行驶），AirSim 无人机坐标系不受影响（NedTransform 仍然使用 PlayerStart 作为原点）。</p>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p>请勿在此处调用 <code>SetNewWorldOrigin()</code>。在 CarlaAir（Carla + AirSim 集成）中，移动世界原点会破坏 Carla 的地形/道路碰撞检测，导致所有地面车辆穿过地图（约 30 米深）。<code>NedTransform</code> 方法使用原始的 <code>player_start_transform</code> 进行初始化，这样无需移动世界即可正确用作 AirSim 坐标转换的 NED 原点。</p>
+</div>
 <h3 id="6-defaultgameini">6. [修改] DefaultGame.ini<a class="headerlink" href="#6-defaultgameini" title="Permanent link">#</a></h3>
 <p><strong>路径</strong>: <code>Unreal/CarlaUE4/Config/DefaultGame.ini</code>
 <strong>修改量</strong>: 新增约 8 行</p>
