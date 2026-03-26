@@ -296,17 +296,17 @@
 </ul>
 <p>然而，这两个主流的开源模拟器服务于不同的领域：</p>
 <ul>
-<li><strong>CARLA</strong> (英特尔实验室，巴塞罗那自治大学CVC): 高保真自动驾驶模拟器，包含车辆、行人、交通管理、10多种传感器类型和 OpenDRIVE 道路网络——但<strong>不支持原生无人机</strong>。 </li>
+<li><strong>Carla</strong> (英特尔实验室，巴塞罗那自治大学CVC): 高保真自动驾驶模拟器，包含车辆、行人、交通管理、10多种传感器类型和 OpenDRIVE 道路网络——但<strong>不支持原生无人机</strong>。 </li>
 <li><strong>AirSim</strong> (微软): 无人机和汽车模拟，具备基于物理的飞行动力学、空中传感器和多种飞行控制器后端——但<strong>不包含交通管理、行人AI或城市道路网络</strong>。</li>
 </ul>
 <p>将它们作为<strong>单独的进程</strong>运行，并进行进程间同步是不切实际的：没有共享的物理引擎，没有共享的渲染引擎，没有坐标系对齐，而且由于复制了 UE4 渲染管线，会造成严重的性能开销。</p>
 <h3 id="12">1.2 解决方案<a class="headerlink" href="#12" title="Permanent link">#</a></h3>
-<p>该解决方案将 CARLA 0.9.16 和 AirSim 1.8.1 整合到<strong>一个虚幻引擎进程</strong>中，使得两个 Python API（<code>carla.Client</code> 位于 2000 端口，<code>airsim.MultirotorClient</code> 位于 41451 端口）能够同时在同一个模拟世界中运行。该系统<strong>无需对面向用户的 Python API 进行任何修改</strong>——现有的 CARLA 和 AirSim 脚本无需修改即可正常工作。</p>
+<p>该解决方案将 Carla 0.9.16 和 AirSim 1.8.1 整合到<strong>一个虚幻引擎进程</strong>中，使得两个 Python API（<code>carla.Client</code> 位于 2000 端口，<code>airsim.MultirotorClient</code> 位于 41451 端口）能够同时在同一个模拟世界中运行。该系统<strong>无需对面向用户的 Python API 进行任何修改</strong>——现有的 Carla 和 AirSim 脚本无需修改即可正常工作。</p>
 <h3 id="13">1.3 主要贡献<a class="headerlink" href="#13" title="Permanent link">#</a></h3>
 <ol>
 <li><strong>统一游戏模式(GameMode)架构</strong>: 一种新颖的单继承+组合模式（<code>ASimWorldGameMode</code>），解决了UE4每个世界只能有一个游戏模式的基本限制。</li>
-<li><strong>双 API 服务器共存</strong>: 两个独立的 RPC 服务器（CARLA rpclib + AirSim rpclib）在同一进程内运行于不同的端口。</li>
-<li><strong>观察者棋子(Spectator Pawn)解耦</strong>: 一种在满足 CARLA 旁观者要求的同时保留 AirSim 棋子占有模型的技术</li>
+<li><strong>双 API 服务器共存</strong>: 两个独立的 RPC 服务器（Carla rpclib + AirSim rpclib）在同一进程内运行于不同的端口。</li>
+<li><strong>观察者棋子(Spectator Pawn)解耦</strong>: 一种在满足 Carla 观察者要求的同时保留 AirSim 棋子占有模型的技术</li>
 <li><strong>全面的空地联动功能</strong>: 超过 220 个 actor 蓝图、超过 16 种传感器类型、14 种天气预设、13 张地图以及基于物理的无人机飞行——所有这些都可同时访问。</li>
 <li><strong>离屏数据集生成</strong>: 结合地面和空中视角的无头多模态数据采集</li>
 </ol>
@@ -315,14 +315,14 @@
 <h3 id="21-ue4">2.1 核心挑战：UE4 的单一游戏模式限制<a class="headerlink" href="#21-ue4" title="Permanent link">#</a></h3>
 <p>虚幻引擎 4 强制执行一项严格的架构限制：<strong>每个世界（关卡）只能有一个游戏模式</strong>。游戏模式控制着基本的模拟生命周期——玩家生成、游戏规则、比赛状态和初始化顺序。</p>
 <ul>
-<li>CARLA 使用 <code>ACarlaGameModeBase</code> 作为其游戏模式，该模式初始化了Episode 系统、天气系统、交通灯管理器、Actor 工厂、记录器和 RPC 服务器。</li>
+<li>Carla 使用 <code>ACarlaGameModeBase</code> 作为其游戏模式，该模式初始化了Episode 系统、天气系统、交通灯管理器、Actor 工厂、记录器和 RPC 服务器。</li>
 <li>AirSim 使用 <code>AAirSimGameMode</code> 作为其游戏模式，该模式会初始化 SimHUD、读取 settings.json 文件并生成 SimMode 参与者。</li>
 </ul>
 <p>这两种游戏模式无法通过标准的UE4机制<strong>共存</strong>。之前的各种方法（例如，关卡流式传输、仅插件集成）都失败了，因为这两个系统都假定游戏模式关卡(GameMode-level)对模拟生命周期拥有控制权。</p>
 <h3 id="22">2.2 解决方案：单一继承 + 组合模式<a class="headerlink" href="#22" title="Permanent link">#</a></h3>
 <p>该解决方案利用了这两个系统之间的架构不对称性：</p>
 <ul>
-<li>CARLA 的子系统（Episode、天气、交通管理器、Actor 工厂）通过继承和友元(<code>friend</code>)声明与 <code>ACarlaGameModeBase</code> <strong>紧密耦合</strong>。</li>
+<li>Carla 的子系统（Episode、天气、交通管理器、Actor 工厂）通过继承和友元(<code>friend</code>)声明与 <code>ACarlaGameModeBase</code> <strong>紧密耦合</strong>。</li>
 <li>AirSim 的模拟逻辑位于 <code>ASimModeBase</code> 中，它继承自 <code>AActor</code>（而非 <code>AGameModeBase</code>），因此可以作为常规世界 Actor 生成。</li>
 </ul>
 <p>这里使用统一的 <code>ASimWorldGameMode</code> 类：</p>
@@ -330,7 +330,7 @@
                             |
                     AGameModeBase (UE4)
                             |
-                    ACarlaGameModeBase          ← 通过继承的 CARLA 子系统
+                    ACarlaGameModeBase          ← 通过继承的 Carla 子系统
                             |
                     ASimWorldGameMode           ← 占用游戏模式(GameMode)插槽
                             |
@@ -349,13 +349,13 @@
 </code></pre></div>
 <div class="admonition 关键思想">
 <p class="admonition-title">关键思想</p>
-<p>通过让 <code>ASimWorldGameMode</code> <strong>继承</strong>自 <code>ACarlaGameModeBase</code>，可以让所有 CARLA 子系统都经历标准的 UE4 生命周期（<code>InitGame</code> → <code>BeginPlay</code> → <code>Tick</code>）。在 CARLA 初始化完成后，AirSim 的 <code>ASimModeBase</code> 会在 <code>BeginPlay</code> 期间作为<strong>普通 Actor 生成</strong>到游戏世界中。这样就避免了任何插槽冲突，因为 <code>ASimModeBase</code> 不会与 GameMode 插槽竞争。</p>
+<p>通过让 <code>ASimWorldGameMode</code> <strong>继承</strong>自 <code>ACarlaGameModeBase</code>，可以让所有 Carla 子系统都经历标准的 UE4 生命周期（<code>InitGame</code> → <code>BeginPlay</code> → <code>Tick</code>）。在 Carla 初始化完成后，AirSim 的 <code>ASimModeBase</code> 会在 <code>BeginPlay</code> 期间作为<strong>普通 Actor 生成</strong>到游戏世界中。这样就避免了任何插槽冲突，因为 <code>ASimModeBase</code> 不会与 GameMode 插槽竞争。</p>
 </div>
 <h3 id="23">2.3 类层次结构<a class="headerlink" href="#23" title="Permanent link">#</a></h3>
 <div class="highlight"><pre><span></span><code><span class="c1">// 统一游戏模式 GameMode（在 AirSim 插件模块中，依赖于 Carla 模块）</span>
 <span class="n">UCLASS</span><span class="p">()</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">AIRSIM_API</span><span class="w"> </span><span class="n">ASimWorldGameMode</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">ACarlaGameModeBase</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="c1">// CARLA: 继承了 Episode, 天气Weather, 记录器Recorder, ActorFactories, 交通 Traffic</span>
+<span class="w">    </span><span class="c1">// Carla: 继承了 Episode, 天气Weather, 记录器Recorder, ActorFactories, 交通 Traffic</span>
 <span class="w">    </span><span class="c1">// AirSim: 包含 SimMode, HUD 空间, 输入绑定</span>
 <span class="k">private</span><span class="o">:</span>
 <span class="w">    </span><span class="n">UPROPERTY</span><span class="p">()</span><span class="w"> </span><span class="n">ASimModeBase</span><span class="o">*</span><span class="w"> </span><span class="n">SimMode_</span><span class="p">;</span><span class="w">        </span><span class="c1">// AirSim 仿真 (生成参与者)</span>
@@ -381,7 +381,7 @@
 │   ├── 使用 Episode 生成并注册所有 ActorFactories
 │   ├── 解析 OpenDRIVE 路网 (.xodr)
 │   ├── 根据道路拓扑结构生成生成点
-│   └── 初始化 CarlaGameInstance → FCarlaEngine → 开始 CARLA RPC (port 2000)
+│   └── 初始化 CarlaGameInstance → FCarlaEngine → 开始 Carla RPC (port 2000)
 │
 ├── ASimWorldGameMode::BeginPlay()
 │   ├── 阶段 1: ACarlaGameModeBase::BeginPlay()
@@ -764,10 +764,18 @@ $$
 j = - \frac{(1 + e) \times (v \cdot n)}{ \frac{1}{m} + ((I^{-1}(r \times n)) × r) \cdot n}
 $$
 地面锁定功能可防止飞机在着陆面上发生微小弹跳。</p>
-<p><strong>飞控</strong>:
-- <strong>SimpleFlight</strong> (默认): 内置 PID 控制器，用于位置、速度和姿态控制。运行于AirLib库内，无外部依赖。
-- <strong>PX4</strong> (可选): 通过 MAVLink 与 PX4 自动驾驶仪实现软件在环集成
-- <strong>ArduPilot</strong> (可选): SITL集成</p>
+<p><strong>飞控</strong>:</p>
+<ul>
+<li>
+<p><strong>SimpleFlight</strong> (默认): 内置 PID 控制器，用于位置、速度和姿态控制。运行于AirLib库内，无外部依赖。</p>
+</li>
+<li>
+<p><strong>PX4</strong> (可选): 通过 MAVLink 与 PX4 自动驾驶仪实现软件在环集成</p>
+</li>
+<li>
+<p><strong>ArduPilot</strong> (可选): SITL集成</p>
+</li>
+</ul>
 <h3 id="53">5.3 坐标系<a class="headerlink" href="#53" title="Permanent link">#</a></h3>
 <table>
 <thead>
@@ -805,7 +813,7 @@ $$
 <hr />
 <h2 id="6">6. 交通与环境<a class="headerlink" href="#6" title="Permanent link">#</a></h2>
 <h3 id="61">6.1 交通管理器<a class="headerlink" href="#61" title="Permanent link">#</a></h3>
-<p>CARLA 的流量管理器是一个运行在专用线程上的<strong>客户端管线架构</strong>：</p>
+<p>Carla 的流量管理器是一个运行在专用线程上的<strong>客户端管线架构</strong>：</p>
 <table>
 <thead>
 <tr>
@@ -1095,43 +1103,43 @@ $$
 </tr>
 <tr>
 <td>地面深度</td>
-<td>CARLA depth camera</td>
+<td>Carla 深度相机</td>
 <td>float32 NPY (米)</td>
 <td>与 RGB 相同</td>
 </tr>
 <tr>
 <td>地面分隔</td>
-<td>CARLA seg camera</td>
+<td>Carla 分割相机</td>
 <td>uint8 NPY (20 多个类)</td>
 <td>与 RGB 相同</td>
 </tr>
 <tr>
 <td>地面实例分割</td>
-<td>CARLA instance camera</td>
+<td>Carla 实例分割相机</td>
 <td>RGB (每个实例)</td>
 <td>与 RGB 相同</td>
 </tr>
 <tr>
 <td>地面激光雷达</td>
-<td>CARLA ray-cast</td>
+<td>Carla ray-cast</td>
 <td>float32 NPY (x,y,z,强度)</td>
 <td>16-128 个通道</td>
 </tr>
 <tr>
 <td>地面雷达</td>
-<td>CARLA radar</td>
+<td>Carla radar</td>
 <td>float32 (方位角、深度、速度)</td>
 <td>可配置</td>
 </tr>
 <tr>
 <td>地面 IMU</td>
-<td>CARLA IMU</td>
+<td>Carla IMU</td>
 <td>JSON (加速度计、陀螺仪、指南针)</td>
 <td>100+ Hz</td>
 </tr>
 <tr>
 <td>地面 GNSS</td>
-<td>CARLA GNSS</td>
+<td>Carla GNSS</td>
 <td>JSON (纬度、经度、海拔)</td>
 <td>10+ Hz</td>
 </tr>
@@ -1173,7 +1181,7 @@ $$
 </tr>
 <tr>
 <td>自车姿态</td>
-<td>CARLA transform</td>
+<td>Carla transform</td>
 <td>JSON (x,y,z,俯仰,偏航,横滚)</td>
 <td>每帧</td>
 </tr>
@@ -1189,7 +1197,7 @@ $$
 <hr />
 <h2 id="9-ros">9. ROS 集成<a class="headerlink" href="#9-ros" title="Permanent link">#</a></h2>
 <p>SimWorld 支持双 ROS2 桥接器，用于与机器人技术栈集成：</p>
-<h3 id="91-carla-ros">9.1 CARLA ROS 桥<a class="headerlink" href="#91-carla-ros" title="Permanent link">#</a></h3>
+<h3 id="91-carla-ros">9.1 Carla ROS 桥<a class="headerlink" href="#91-carla-ros" title="Permanent link">#</a></h3>
 <ul>
 <li>工作空间: <code>carla-ros-bridge</code> (ROS2 Humble)</li>
 <li>已发布的主题：<code>/carla/world_info</code>, <code>/carla/status</code>, <code>/clock</code>, 每个车的传感器主体</li>
@@ -1302,7 +1310,7 @@ $$
 <td>~5 分钟</td>
 <td>89 项</td>
 <td>0</td>
-<td>PASS</td>
+<td>通过</td>
 </tr>
 </tbody>
 </table>
@@ -1318,7 +1326,7 @@ $$
 <tbody>
 <tr>
 <td>配备无人机时自动驾驶车辆 ≤ 10 辆</td>
-<td>AirSim 物理 ↔ CARLA 交通管理器四元数冲突</td>
+<td>AirSim 物理 ↔ Carla 交通管理器四元数冲突</td>
 <td>限制流量或禁用自动驾驶</td>
 </tr>
 <tr>
@@ -1509,7 +1517,7 @@ $$
 </ul>
 <h3 id="_3">在顶级场合发表的类似作品<a class="headerlink" href="#_3" title="Permanent link">#</a></h3>
 <ul>
-<li><strong>CARLA</strong>: "CARLA: An Open Urban Driving Simulator" (CoRL 2017)</li>
+<li><strong>Carla</strong>: "CARLA: An Open Urban Driving Simulator" (CoRL 2017)</li>
 <li><strong>AirSim</strong>: "AirSim: High-Fidelity Visual and Physical Simulation for Autonomous Vehicles" (FSR 2017)</li>
 <li><strong>Habitat</strong>: "Habitat: A Platform for Embodied AI Research" (ICCV 2019)</li>
 <li><strong>ISAAC Sim</strong>: "Isaac Sim: An Extensible Robotics Simulator" (ICRA 2022)</li>
@@ -1533,7 +1541,7 @@ $$
 </tr>
 <tr>
 <td><code>Plugins/Carla/Source/Carla/Game/CarlaGameModeBase.h/.cpp</code></td>
-<td>CARLA base GameMode</td>
+<td>Carla 基础游戏模式 GameMode</td>
 </tr>
 <tr>
 <td><code>Plugins/Carla/Source/Carla/Game/CarlaEpisode.h/.cpp</code></td>
@@ -1557,7 +1565,7 @@ $$
 </tr>
 </tbody>
 </table>
-<h3 id="carla">CARLA 传感器文件<a class="headerlink" href="#carla" title="Permanent link">#</a></h3>
+<h3 id="carla">Carla 传感器文件<a class="headerlink" href="#carla" title="Permanent link">#</a></h3>
 <table>
 <thead>
 <tr>
@@ -1648,7 +1656,7 @@ $$
 </tbody>
 </table>
 <h2 id="bpython-api">附录 B：Python API 快速参考<a class="headerlink" href="#bpython-api" title="Permanent link">#</a></h2>
-<h3 id="carla-api-2000">CARLA API (端口 2000)<a class="headerlink" href="#carla-api-2000" title="Permanent link">#</a></h3>
+<h3 id="carla-api-2000">Carla API (端口 2000)<a class="headerlink" href="#carla-api-2000" title="Permanent link">#</a></h3>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">carla</span>
 <span class="n">client</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="mi">2000</span><span class="p">)</span>
 <span class="n">world</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_world</span><span class="p">()</span>
