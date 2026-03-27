@@ -1,0 +1,1777 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>CARLA + AirSim 集成开发进度记录 - 低空模拟器</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "CARLA + AirSim \u96c6\u6210\u5f00\u53d1\u8fdb\u5ea6\u8bb0\u5f55";
+        var mkdocs_page_input_path = "dev/dev_progress_log.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 低空模拟器
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="搜索文档" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">主页</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../..">主页</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">构建 AirSim</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../use_precompiled/">下载二进制文件</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../build_windows/">在 Windows 上构建</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../build_linux/">在 Linux 上构建</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../build_macos/">在 macOS 上构建</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../docker_ubuntu/">Linux 上的 Docker</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../azure/">Azure 上的 ArSim</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../unreal_custenv/">定制虚幻引擎环境</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../build_faq/">场景问题和回答</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">使用 AirSim</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../apis/">核心 APIs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../image_apis/">图像 APIs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../apis_cpp/">C++ APIs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://openhutb.github.io/doc/python_api/#airsim.client.MultirotorClient">无人机 API 参考文档</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../api_docs/_build/html/">原始 API 参考文档</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../wiki/">Wiki 文档</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../dev_workflow/">开发工作流</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../settings/">设置</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../map/">地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../camera_views/">相机视角</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../using_car/">汽车模式</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../remote_control/">远程控制</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../xbox_controller/">XBox 控制器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../steering_wheel_installation/">方向盘</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../multi_vehicle/">多车辆</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >传感器</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../sensors/">传感器</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../lidar/">激光雷达</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../distance_sensor/">距离传感器</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../InfraredCamera/">红外相机</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../airsim_ros_pkgs/">ROS: AirSim ROS 包装器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../airsim_tutorial_pkgs/">ROS: AirSim 教程包</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../gazebo_drone/">导入 Gazebo 模型</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../retexturing/">域随机化</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../meshes/">网格顶点缓冲区</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../playback/">播放日志</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../voxel_grid/">体素网格生成器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../event_sim/">事件相机</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">设计</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../design/">架构</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../code_structure/">代码结构</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../adding_new_apis/">添加新的 APIs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../modify_recording_data/">修改记录数据</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../coding_guidelines/">编码指南</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../flight_controller/">飞行控制器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simple_flight/">简单飞行</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hello_drone/">Hello Drone</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">外部飞行控制器</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" >MavLink 和 PX4</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../px4_setup/">AirSim 的 PX4 设置</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../px4_sitl/">软件在环中的 PX4</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../px4_sitl_wsl2/">带有 WSL 2 的 PX4 SITL</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../px4_lockstep/">PX4 Lockstep</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../px4_multi_vehicle/">软件在环中的 PX4 多车辆</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="https://youtu.be/1oY8Qu5maQQ">AirSim 与 Pixhawk</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="https://youtu.be/HNWdYrtw3f0">使用 AirSim 设置 PX4</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="https://www.youtube.com/watch?v=d_FyjKDWQfc&feature=youtu.be">调试姿态估计</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="https://github.com/Microsoft/AirSim/wiki/Intercepting-MavLink-messages">拦截 MavLink 消息</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="https://github.com/Microsoft/AirSim/wiki/Rapid-Descent-on-PX4-drones">PX4 无人机快速下降</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../px4_build/">构建 PX4</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../px4_logging/">PX4/MavLink 日志记录</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../log_viewer/">MavLink 日志查看器</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../mavlinkcom/">MavLinkCom</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../mavlinkcom_mocap/">MavLink MoCap</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >ArduPilot</a>
+    <ul>
+                <li class="toctree-l2"><a class="" href="https://ardupilot.org/dev/docs/building-the-code.html">ArduPilot 软件在环设置</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="https://ardupilot.org/dev/docs/sitl-with-airsim.html">AirSim & ArduPilot</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">升级</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../unreal_upgrade/">升级虚幻引擎</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../upgrade_apis/">升级 APIs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../upgrade_settings/">升级设置</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">贡献教程</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../reinforcement_learning/">强化学习</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://www.youtube.com/watch?v=y09VbdQWvQY">使用 Marketplace 中的环境</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://github.com/simondlevy/AirSimTensorFlow">简单的防撞</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://aka.ms/AutonomousDrivingCookbook">Azure 上的自动驾驶</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../wiki/hexacopter/">构造六旋翼飞行器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../wiki/moveOnPath-demo/">移动路径演示</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../point_clouds/">构建点云</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../drone_survey/">使用无人机进行测量</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../orbit/">轨道轨迹</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://youtu.be/Bp86WiLUC80">导入自定义多旋翼网格</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../object_detection/">Object Detection</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://youtu.be/ZonkdMcwXH4">带有 MAVROS 和 PX4 的 AirSim</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">杂项</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../custom_drone/">真实无人机上的 AirSim</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../cmake_linux/">在 Linux 上安装 cmake</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hard_drive/">硬盘繁忙时的提示</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pfm/">pfm 格式</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../unreal_proj/">设置虚幻引擎环境</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../unreal_blocks/">Blocks 环境</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../who_is_using/">谁在使用 AirSim</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../working_with_plugin_contents/">使用 UE 插件内容</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../wiki/technion/technion/">大学生方程式赛车以色列理工学院自驾赛</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">支持</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../faq/">FAQ</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../SUPPORT/">支持</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../CHANGELOG/">修改记录</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../create_issue/">创建问题</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../CONTRIBUTING/">贡献</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">低空模拟器</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">CARLA + AirSim 集成开发进度记录</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="carla-airsim">CARLA + AirSim 集成开发进度记录<a class="headerlink" href="#carla-airsim" title="Permanent link">#</a></h1>
+<blockquote>
+<p>最后更新：2026-03-11</p>
+</blockquote>
+<hr />
+<h2 id="_1">一、项目概述<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
+<p><strong>目标：</strong> 在 CARLA 城镇地图中飞行 AirSim 无人机，两套 API 在同一个 UE4 进程中同时工作。</p>
+<p><strong>当前状态：</strong> ✅ 完全可用 — <code>ASimWorldGameMode</code> 统一 GameMode，CARLA 所有功能（天气、车辆/行人生成、Traffic Manager、OpenDRIVE）+ AirSim 无人机飞行同时工作。</p>
+<p><strong>技术架构：</strong>
+- 单个 UE4 Editor 进程同时运行 CARLA 和 AirSim
+- GameMode：使用统一的 <code>ASimWorldGameMode</code>（继承自 <code>ACarlaGameModeBase</code>，同时集成 AirSim 引导逻辑）
+- GameInstance：使用 CARLA 的 <code>CarlaGameInstance</code>（在 DefaultEngine.ini 中配置）
+- AirSim 的 <code>ASimModeBase</code> 作为普通 Actor 由 GameMode 在 BeginPlay 中 Spawn
+- CARLA Episode 由 <code>ACarlaGameModeBase</code> 构造函数创建，在 <code>BeginPlay()</code> 中初始化（通过继承自动完成）</p>
+<p><strong>硬件环境：</strong>
+- GPU: NVIDIA RTX A4000, 16GB VRAM
+- 系统: Linux (Ubuntu)</p>
+<hr />
+<h2 id="_2">二、关键路径<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>路径</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CARLA 源码根目录</td>
+<td><code>/mnt/data1/tianle/carla_source/</code></td>
+</tr>
+<tr>
+<td>UE4 4.26 引擎</td>
+<td><code>/mnt/data1/tianle/carla_ue4/</code></td>
+</tr>
+<tr>
+<td>CARLA Content</td>
+<td><code>/mnt/data1/tianle/carla_source/Unreal/CarlaUE4/Content/Carla/</code></td>
+</tr>
+<tr>
+<td>独立版 CARLA</td>
+<td><code>/mnt/data1/tianle/carla_standalone/</code></td>
+</tr>
+<tr>
+<td>AirSim 配置文件</td>
+<td><code>/home/tianle/Documents/AirSim/settings.json</code></td>
+</tr>
+<tr>
+<td>Conda 环境</td>
+<td><code>simworld</code>（已安装 airsim 和 carla 包）</td>
+</tr>
+<tr>
+<td>一键启动脚本</td>
+<td><code>/mnt/data1/tianle/carla_source/carlaAir.sh</code></td>
+</tr>
+<tr>
+<td>示例脚本目录</td>
+<td><code>/mnt/data1/tianle/carla_source/examples/</code></td>
+</tr>
+<tr>
+<td>本文档</td>
+<td><code>/mnt/data1/tianle/carla_source/Progress_record/开发进度记录.md</code></td>
+</tr>
+<tr>
+<td>测试教程</td>
+<td><code>/mnt/data1/tianle/carla_source/Progress_record/测试教程.md</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_3">三、功能状态总览<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
+<h3 id="_4">✅ 已可用功能（基础，早期实现）<a class="headerlink" href="#_4" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>城镇地图加载</td>
+<td>Town01-05、Town10HD 及其 <code>_Opt</code> 变体均可加载</td>
+</tr>
+<tr>
+<td>无人机飞行控制</td>
+<td>通过 AirSim Python API 完全控制无人机的起飞、降落、速度、方向</td>
+</tr>
+<tr>
+<td>键盘实时控制</td>
+<td>使用 <code>fly_drone_keyboard.py</code> 脚本，WASD + 空格/Shift 控制移动，Q/E 旋转</td>
+</tr>
+<tr>
+<td>相机/图像获取</td>
+<td>AirSim 相机 API 可用，可获取 RGB、深度图、语义分割图</td>
+</tr>
+<tr>
+<td>交通灯</td>
+<td>CARLA 交通灯系统正常工作</td>
+</tr>
+<tr>
+<td>旁观者(Spectator)控制</td>
+<td>CARLA Spectator API 可用，可设置观察视角</td>
+</tr>
+<tr>
+<td>Episode 设置</td>
+<td>可通过 CARLA API 设置 episode 相关参数</td>
+</tr>
+<tr>
+<td>灯光系统</td>
+<td>CarlaLight / CarlaLightSubsystem 正常工作（已修复 null crash）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="gamemode2026-03-04">✅ 新恢复功能（通过统一 GameMode，2026-03-04）<a class="headerlink" href="#gamemode2026-03-04" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>状态</th>
+<th>验证详情</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>天气控制</td>
+<td>✅</td>
+<td>ClearNoon / HardRainSunset / WetCloudyNoon 均正常</td>
+</tr>
+<tr>
+<td>通过 CARLA API 生成车辆</td>
+<td>✅</td>
+<td>41 种车辆可用，Tesla Model3 验证通过，autopilot 可用</td>
+</tr>
+<tr>
+<td>通过 CARLA API 生成行人</td>
+<td>✅</td>
+<td>52 种行人可用，walker.pedestrian.0001 验证通过</td>
+</tr>
+<tr>
+<td>OpenDRIVE 地图数据</td>
+<td>✅</td>
+<td>Town10HD: 680 waypoints, 200 topology entries</td>
+</tr>
+<tr>
+<td>蓝图库完整性</td>
+<td>✅</td>
+<td>41 车辆 + 52 行人 + 25 传感器</td>
+</tr>
+<tr>
+<td>传感器挂载</td>
+<td>✅</td>
+<td>RGB Camera 挂载到 CARLA 车辆上正常工作</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_5">已解决的根本问题<a class="headerlink" href="#_5" title="Permanent link">#</a></h3>
+<p><strong>GameMode 冲突（核心问题）：</strong> UE4 每个 World 只允许一个 GameMode。之前使用 AirSim 的 GameMode 导致 30+ 个 CARLA 功能不可用。</p>
+<p><strong>解决方案：</strong> 创建 <code>ASimWorldGameMode</code>（继承自 <code>ACarlaGameModeBase</code>）：
+- 所有 CARLA 功能通过继承获得（天气、车辆生成、OpenDRIVE 等）
+- AirSim 引导逻辑从 <code>ASimHUD</code> 移植到 GameMode 的 BeginPlay 中
+- <code>ASimModeBase</code> 作为普通 Actor 被 Spawn，不再竞争 GameMode 槽位
+- 构造函数中手动设置 <code>WeatherClass</code>（BP_Weather）和 <code>ActorFactories</code>（8 个工厂类）</p>
+<hr />
+<h2 id="_6">四、已修改的源码文件<a class="headerlink" href="#_6" title="Permanent link">#</a></h2>
+<h3 id="_7">新建文件<a class="headerlink" href="#_7" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Plugins/AirSim/Source/SimWorldGameMode.h</code></td>
+<td>统一 GameMode 头文件，继承 <code>ACarlaGameModeBase</code></td>
+</tr>
+<tr>
+<td><code>Plugins/AirSim/Source/SimWorldGameMode.cpp</code></td>
+<td>统一 GameMode 实现，移植 AirSim 引导逻辑，设置 Weather/ActorFactories</td>
+</tr>
+<tr>
+<td><code>carlaAir.sh</code></td>
+<td>一键启动脚本，自动等待端口就绪</td>
+</tr>
+<tr>
+<td><code>examples/test_carla_features.py</code></td>
+<td>CARLA 功能测试脚本</td>
+</tr>
+<tr>
+<td><code>examples/test_airsim_drone.py</code></td>
+<td>AirSim 无人机测试脚本</td>
+</tr>
+<tr>
+<td><code>examples/test_combined.py</code></td>
+<td>CARLA + AirSim 联合演示脚本</td>
+</tr>
+<tr>
+<td><code>examples/fly_drone_keyboard.py</code></td>
+<td>键盘实时控制无人机脚本</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_8">修改文件<a class="headerlink" href="#_8" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>修改内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Plugins/AirSim/Source/SimMode/SimModeBase.cpp</code></td>
+<td>移除重复的 CARLA 集成代码；<strong>禁用 <code>SetNewWorldOrigin()</code> 调用</strong>（修复车辆穿地 Bug）</td>
+</tr>
+<tr>
+<td><code>Plugins/Carla/Source/Carla/Game/CarlaGameModeBase.h</code></td>
+<td><code>WeatherClass</code> 和 <code>ActorFactories</code> 从 private 移至 protected</td>
+</tr>
+<tr>
+<td><code>Plugins/Carla/Source/Carla/Server/CarlaServer.cpp</code></td>
+<td>修复 16+ 个 RPC handler 中的 null GameMode crash</td>
+</tr>
+<tr>
+<td><code>Plugins/Carla/Source/Carla/Lights/CarlaLight.cpp</code></td>
+<td><code>GetLocation()</code> 添加 null check</td>
+</tr>
+<tr>
+<td><code>Plugins/Carla/Source/Carla/Lights/CarlaLightSubsystem.cpp</code></td>
+<td><code>GetLights()</code> 添加 IsValid 检查</td>
+</tr>
+<tr>
+<td><code>Plugins/Carla/Source/Carla/Server/CarlaEngine.h</code></td>
+<td>添加 <code>CARLA_API</code> 导出宏</td>
+</tr>
+<tr>
+<td><code>Plugins/Carla/Source/Carla/Server/CarlaServer.h</code></td>
+<td>添加 <code>CARLA_API</code> 导出宏</td>
+</tr>
+<tr>
+<td><code>Plugins/Carla/Source/Carla/Game/CarlaEpisode.h</code></td>
+<td>添加 <code>friend class ASimModeBase;</code> 和 <code>friend class ASimWorldGameMode;</code></td>
+</tr>
+<tr>
+<td><code>Plugins/AirSim/AirSim.Build.cs</code></td>
+<td>添加 <code>"Carla"</code> 和 <code>"Foliage"</code> 模块依赖</td>
+</tr>
+<tr>
+<td><code>Config/DefaultEngine.ini</code></td>
+<td>默认 GameMode → SimWorldGameMode，默认地图 → Town10HD</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="bug">五、已修复的关键 Bug<a class="headerlink" href="#bug" title="Permanent link">#</a></h2>
+<table>
+<thead>
+<tr>
+<th>Bug</th>
+<th>原因</th>
+<th>修复方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>get_world()</code> 时 SIGSEGV 崩溃</td>
+<td>Episode 对象被 UE4 GC 回收</td>
+<td>使用 <code>AddToRoot()</code> 防止 GC</td>
+</tr>
+<tr>
+<td>多个 RPC handler null 崩溃</td>
+<td>16+ 个 handler 假设 CARLA GameMode 存在</td>
+<td>添加 null guard 和 fallback</td>
+</tr>
+<tr>
+<td><code>CarlaLight::GetLocation()</code> 崩溃</td>
+<td><code>GameMode-&gt;GetLMManager()</code> 在 null 上调用</td>
+<td>添加 null check</td>
+</tr>
+<tr>
+<td><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></td>
+<td>运行 5 小时后 GPU 内存泄漏</td>
+<td>启动参数添加 <code>-TexturePoolSize=2048</code></td>
+</tr>
+<tr>
+<td>编辑器模式加载 Cooked 内容失败</td>
+<td><code>CARLA_Latest.tar.gz</code> 包含 Shipping 资产</td>
+<td>下载源码版内容（21GB）</td>
+</tr>
+<tr>
+<td><code>Missing weather class</code></td>
+<td><code>WeatherClass</code> 为 UPROPERTY，需蓝图设置</td>
+<td>构造函数中用 FClassFinder 加载 BP_Weather</td>
+</tr>
+<tr>
+<td><code>AUnrealLog</code> 重复定义</td>
+<td>AirSimGameMode.cpp 已定义该类</td>
+<td>重命名为 <code>ASimWorldUnrealLog</code></td>
+</tr>
+<tr>
+<td>Spectator 缺失 (<code>unable to find spectator</code>)</td>
+<td><code>DefaultPawnClass=nullptr</code> 导致 PlayerController 无 Pawn，Episode 找不到 Spectator</td>
+<td>在 BeginPlay 中生成未 Possess 的 <code>ASpectatorPawn</code>，直接设置 <code>Episode-&gt;Spectator</code> 并注册到 <code>ActorDispatcher</code></td>
+</tr>
+<tr>
+<td>AirSim 无人机不动（设置 DefaultPawnClass 后）</td>
+<td>PlayerController 上有 Possessed Pawn 会干扰 AirSim SimpleFlight 输入</td>
+<td>必须保持 <code>DefaultPawnClass=nullptr</code>，Spectator 不能被 Possess</td>
+</tr>
+<tr>
+<td><strong>CARLA 车辆穿地</strong>（z 从 0 掉到 -30m）</td>
+<td>AirSim <code>SimModeBase::BeginPlay()</code> 调用 <code>SetNewWorldOrigin()</code> 将 UE4 世界坐标原点移至 PlayerStart（z≈30m），导致 Landscape 碰撞几何体失效，车辆失去地面碰撞</td>
+<td>注释掉 <code>SimModeBase.cpp:121</code> 的 <code>SetNewWorldOrigin()</code> 调用，保留 <code>NedTransform</code> 使用原始 <code>player_start_transform</code> 作为 NED 坐标原点</td>
+</tr>
+<tr>
+<td><code>fly_drone_city.py</code> IOLoop 崩溃</td>
+<td>pynput 键盘监听线程中直接调用 AirSim API，与主线程的 tornado IOLoop 冲突</td>
+<td>回调只设置 <code>pending_actions</code> 标志，所有 AirSim API 调用移到主线程循环中处理</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="-b">六-B、测试脚本状态<a class="headerlink" href="#-b" title="Permanent link">#</a></h2>
+<h3 id="test_script"><code>test_script/</code> 目录（核心应用脚本）<a class="headerlink" href="#test_script" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>脚本</th>
+<th>功能</th>
+<th>状态</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>human_traj_col.py</code></td>
+<td>行人 FPS 轨迹采集（pygame 键鼠控制）</td>
+<td>✅ 初始化验证通过</td>
+<td>WalkerControl + 相机正常</td>
+</tr>
+<tr>
+<td><code>human_traj_playback.py</code></td>
+<td>行人轨迹回放 + 可选录像</td>
+<td>✅ 初始化验证通过</td>
+<td>插值回放 + 卡顿检测正常</td>
+</tr>
+<tr>
+<td><code>drone_traj_col.py</code></td>
+<td>无人机轨迹采集（pygame 键盘控制）</td>
+<td>✅ 初始化验证通过</td>
+<td>drone_actor=None（无道具模型），相机正常</td>
+</tr>
+<tr>
+<td><code>drone_traj_playback.py</code></td>
+<td>无人机轨迹回放 + 视锥可视化</td>
+<td>✅ 初始化验证通过</td>
+<td>drone_actor=None，相机和回放正常</td>
+</tr>
+<tr>
+<td><code>diagnostic_test.py</code></td>
+<td>全功能自动化诊断测试</td>
+<td>✅ 全部通过</td>
+<td>CARLA + AirSim 15 项测试</td>
+</tr>
+</tbody>
+</table>
+<h3 id="examples"><code>examples/</code> 目录（示例/验证脚本）<a class="headerlink" href="#examples" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>脚本</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>test_carla_features.py</code></td>
+<td>✅ ALL CARLA TESTS PASSED</td>
+</tr>
+<tr>
+<td><code>test_airsim_drone.py</code></td>
+<td>✅ ALL AIRSIM TESTS PASSED</td>
+</tr>
+<tr>
+<td><code>test_combined.py</code></td>
+<td>✅ Demo complete</td>
+</tr>
+<tr>
+<td><code>fly_drone_keyboard.py</code></td>
+<td>✅ 可用</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_9">已知限制<a class="headerlink" href="#_9" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>限制</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>无人机道具模型不存在</td>
+<td><code>static.prop.drone</code> / <code>static.prop.dji_inspire</code> 不在 CARLA 蓝图库中（99 个 prop 无一为无人机）。脚本正常运行但无可见无人机网格</td>
+</tr>
+<tr>
+<td>快速 AirSim enable/disable</td>
+<td>同一脚本中连续两次 <code>enableApiControl(True/False)</code> 可能导致 "Actor not in registry" 崩溃</td>
+</tr>
+<tr>
+<td><strong>Walker AI Controller + AirSim 冲突</strong></td>
+<td>walker controller 的 <code>go_to_location()</code> 导航与 AirSim 插件冲突，触发四元数归一化异常 (<code>length &gt;= 2.0f * epsilon()</code>) 导致 segfault。解决方案：不使用 walker AI controller，行人作为静态障碍物存在</td>
+</tr>
+<tr>
+<td><code>simSetCameraPose</code> 崩溃</td>
+<td>AirSim 的 <code>simSetCameraPose()</code> 在 Shipping 包中触发 C++ abort（同样的四元数 epsilon 错误），必须避免调用</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_10">六、编译命令<a class="headerlink" href="#_10" title="Permanent link">#</a></h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># 设置环境变量</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">UE4_ROOT</span><span class="o">=</span>/mnt/data1/tianle/carla_ue4
+
+<span class="c1"># 仅编译 Carla 模块（约 290 秒）</span>
+<span class="si">${</span><span class="nv">UE4_ROOT</span><span class="si">}</span>/Engine/Build/BatchFiles/Linux/Build.sh<span class="w"> </span>CarlaUE4Editor<span class="w"> </span>Linux<span class="w"> </span>Development<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-project<span class="o">=</span><span class="s2">&quot;/mnt/data1/tianle/carla_source/Unreal/CarlaUE4/CarlaUE4.uproject&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-module<span class="o">=</span>Carla
+
+<span class="c1"># 仅编译 AirSim 模块（约 100 秒）</span>
+<span class="si">${</span><span class="nv">UE4_ROOT</span><span class="si">}</span>/Engine/Build/BatchFiles/Linux/Build.sh<span class="w"> </span>CarlaUE4Editor<span class="w"> </span>Linux<span class="w"> </span>Development<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-project<span class="o">=</span><span class="s2">&quot;/mnt/data1/tianle/carla_source/Unreal/CarlaUE4/CarlaUE4.uproject&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-module<span class="o">=</span>AirSim
+</code></pre></div>
+<blockquote>
+<p>⚠️ 注意：不要使用 <code>make CarlaUE4Editor</code>，会因 <code>features.h</code> 交叉编译错误而失败。</p>
+</blockquote>
+<hr />
+<h2 id="carlaairsh">七、一键启动 — carlaAir.sh<a class="headerlink" href="#carlaairsh" title="Permanent link">#</a></h2>
+<h3 id="_11">基本用法<a class="headerlink" href="#_11" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/mnt/data1/tianle/carla_source
+
+<span class="c1"># 默认启动（Town10HD, 1280x720, 低画质）</span>
+./carlaAir.sh
+
+<span class="c1"># 指定地图</span>
+./carlaAir.sh<span class="w"> </span>Town03
+
+<span class="c1"># 自定义分辨率</span>
+./carlaAir.sh<span class="w"> </span>Town10HD<span class="w"> </span><span class="m">1920</span><span class="w"> </span><span class="m">1080</span>
+
+<span class="c1"># 前台运行（可看到所有日志）</span>
+./carlaAir.sh<span class="w"> </span>--fg
+
+<span class="c1"># 停止运行</span>
+./carlaAir.sh<span class="w"> </span>--kill
+
+<span class="c1"># 查看实时日志</span>
+./carlaAir.sh<span class="w"> </span>--log
+
+<span class="c1"># 查看帮助</span>
+./carlaAir.sh<span class="w"> </span>--help
+</code></pre></div>
+<h3 id="_12">启动流程<a class="headerlink" href="#_12" title="Permanent link">#</a></h3>
+<ol>
+<li>脚本检查是否有已运行的实例</li>
+<li>设置 DISPLAY 和 Vulkan 环境变量</li>
+<li>后台启动 UE4Editor</li>
+<li>自动轮询 CARLA (2000) 和 AirSim (41451) 端口</li>
+<li>两个端口都就绪后打印 "Ready!" 并提供测试命令</li>
+</ol>
+<h3 id="_13">启动参数说明<a class="headerlink" href="#_13" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-game</code></td>
+<td>以游戏模式运行（非编辑器 UI）</td>
+</tr>
+<tr>
+<td><code>-windowed -ResX -ResY</code></td>
+<td>窗口化运行及分辨率</td>
+</tr>
+<tr>
+<td><code>-carla-rpc-port=2000</code></td>
+<td>CARLA API 监听端口</td>
+</tr>
+<tr>
+<td><code>-quality-level=Low</code></td>
+<td>低画质，节省 GPU 显存</td>
+</tr>
+<tr>
+<td><code>-TexturePoolSize=2048</code></td>
+<td>限制纹理池大小，防止显存泄漏</td>
+</tr>
+<tr>
+<td><code>-unattended -nosound</code></td>
+<td>无需用户交互，禁用声音</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="airsim">八、AirSim 配置<a class="headerlink" href="#airsim" title="Permanent link">#</a></h2>
+<p><strong>文件路径：</strong> <code>/home/tianle/Documents/AirSim/settings.json</code></p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;SettingsVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.2</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;SimMode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Multirotor&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Vehicles&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;SimpleFlight&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;VehicleType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SimpleFlight&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;AutoCreate&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;Cameras&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;0&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;CaptureSettings&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                        </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;ImageType&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Width&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1280</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Height&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">960</span><span class="w"> </span><span class="p">}</span>
+<span class="w">                    </span><span class="p">],</span>
+<span class="w">                    </span><span class="nt">&quot;X&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Y&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Z&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;Pitch&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Roll&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Yaw&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<blockquote>
+<p>注意：统一 GameMode 下 <code>level_name</code> 设置被忽略，地图由启动命令指定。</p>
+</blockquote>
+<hr />
+<h2 id="_14">九、可用地图<a class="headerlink" href="#_14" title="Permanent link">#</a></h2>
+<table>
+<thead>
+<tr>
+<th>地图</th>
+<th>DDC 缓存状态</th>
+<th>预计加载时间</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Town10HD</td>
+<td>✅ 已缓存</td>
+<td>~1 分钟（含 Factory 资源）</td>
+</tr>
+<tr>
+<td>Town01</td>
+<td>❌ 未缓存</td>
+<td>首次 20-30 分钟</td>
+</tr>
+<tr>
+<td>Town02</td>
+<td>❌ 未缓存</td>
+<td>首次 20-30 分钟</td>
+</tr>
+<tr>
+<td>Town03</td>
+<td>❌ 未缓存</td>
+<td>首次 20-30 分钟</td>
+</tr>
+<tr>
+<td>Town04</td>
+<td>❌ 未缓存</td>
+<td>首次 20-30 分钟</td>
+</tr>
+<tr>
+<td>Town05</td>
+<td>❌ 未缓存</td>
+<td>首次 20-30 分钟</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>各地图均有 <code>_Opt</code> 变体版本可用。切换地图：<code>./carlaAir.sh Town03</code></p>
+</blockquote>
+<hr />
+<h2 id="_15">十、开发时间线<a class="headerlink" href="#_15" title="Permanent link">#</a></h2>
+<table>
+<thead>
+<tr>
+<th>日期</th>
+<th>事项</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2026-03-04 (早期)</td>
+<td>项目搭建：AirSim 集成到 CARLA 源码，基本无人机飞行可用</td>
+</tr>
+<tr>
+<td>2026-03-04 (早期)</td>
+<td>Bug 修复：Episode GC、null GameMode crash、CarlaLight 等</td>
+</tr>
+<tr>
+<td>2026-03-04</td>
+<td>创建进度记录文档和无人机飞行教程</td>
+</tr>
+<tr>
+<td>2026-03-04</td>
+<td><strong>核心突破：实现统一 GameMode (<code>ASimWorldGameMode</code>)</strong></td>
+</tr>
+<tr>
+<td>2026-03-04</td>
+<td>修复 WeatherClass/ActorFactories 为 null 的问题</td>
+</tr>
+<tr>
+<td>2026-03-04</td>
+<td>全面验证通过：天气、车辆/行人生成、OpenDRIVE、无人机飞行</td>
+</tr>
+<tr>
+<td>2026-03-04</td>
+<td>创建 <code>carlaAir.sh</code> 一键启动脚本和示例 Python 脚本</td>
+</tr>
+<tr>
+<td>2026-03-04</td>
+<td><strong>修复 Spectator 问题</strong>：<code>DefaultPawnClass=nullptr</code>（AirSim 必需）导致 Spectator 缺失</td>
+</tr>
+<tr>
+<td>2026-03-04</td>
+<td>解决方案：在 BeginPlay 中生成未 Possess 的 SpectatorPawn，直接注册到 Episode</td>
+</tr>
+<tr>
+<td>2026-03-04</td>
+<td>全部 test_script 脚本验证通过（human_traj_col/playback, drone_traj_col/playback）</td>
+</tr>
+<tr>
+<td>2026-03-06</td>
+<td><strong>打包发布：<code>Package.sh</code> 生成 Shipping 独立包（19GB, 13 张地图 + AirSim 插件）</strong></td>
+</tr>
+<tr>
+<td>2026-03-06</td>
+<td>创建 <code>SimWorld.sh</code> 独立包启动脚本（用 <code>CarlaUE4-Linux-Shipping</code> 替代 UE4Editor）</td>
+</tr>
+<tr>
+<td>2026-03-06</td>
+<td>创建 <code>test_package.py</code> — 17 项自动化测试验证独立包功能</td>
+</tr>
+<tr>
+<td>2026-03-06</td>
+<td>创建 <code>demo_flight_city.py</code> — 无人机巡航 + CARLA 交通 + pygame 三面板传感器可视化</td>
+</tr>
+<tr>
+<td>2026-03-06</td>
+<td>创建 <code>demo_drive_and_fly.py</code> — 键盘驾驶 + 无人机自动跟随 + 双画面显示</td>
+</tr>
+<tr>
+<td>2026-03-06</td>
+<td><strong>发现并修复 Walker AI Controller 与 AirSim 冲突 Bug</strong>（segfault，详见下方）</td>
+</tr>
+<tr>
+<td>2026-03-06</td>
+<td><strong>全面 API 测试</strong>：CARLA + AirSim 所有主要 API 自动化验证</td>
+</tr>
+<tr>
+<td>2026-03-09</td>
+<td>创建 12 个示例脚本（3 交互控制 + 5 展示 + 4 联合应用），全部测试通过</td>
+</tr>
+<tr>
+<td>2026-03-09</td>
+<td><strong>修复 showcase_traffic.py 崩溃</strong>：改用 CARLA spectator 高空摄像机替代 AirSim 无人机，支持 50+ 辆车</td>
+</tr>
+<tr>
+<td>2026-03-09</td>
+<td>发现 AirSim + 大量 autopilot 车辆的概率性崩溃限制（&gt;10 辆有风险），制定规避方案</td>
+</tr>
+<tr>
+<td>2026-03-10</td>
+<td><strong>创建分发包</strong>：<code>SimWorld_20260309.tar.gz</code>（7.3GB 压缩, 17GB 解压），排除 debug 符号</td>
+</tr>
+<tr>
+<td>2026-03-10</td>
+<td>编写 <code>README_SimWorld.md</code> 分发文档：Quick Start、脚本列表、API 示例、故障排查</td>
+</tr>
+<tr>
+<td>2026-03-10</td>
+<td>创建 <code>pack_simworld.sh</code> 自动打包脚本，排除 debug/sym/cache 等不必要文件</td>
+</tr>
+<tr>
+<td>2026-03-11</td>
+<td><strong>修复车辆穿地 Bug（根本原因）</strong>：AirSim <code>SetNewWorldOrigin()</code> 破坏 CARLA 地面碰撞（详见下方）</td>
+</tr>
+<tr>
+<td>2026-03-11</td>
+<td>验证修复：30 辆车 z≈0.00（0 辆穿地）+ AirSim 无人机正常，原版 <code>generate_traffic.py</code> 完美兼容</td>
+</tr>
+<tr>
+<td>2026-03-11</td>
+<td>重新打包 Shipping 独立版（含修复），18GB, 13 地图，验证通过（20 辆车 0 穿地 + 无人机正常）</td>
+</tr>
+<tr>
+<td>2026-03-11</td>
+<td>修复 <code>fly_drone_city.py</code> IOLoop 崩溃：pynput 线程调用 AirSim API 导致 tornado 冲突，改为主线程队列处理</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="shipping">十一、Shipping 独立包<a class="headerlink" href="#shipping" title="Permanent link">#</a></h2>
+<h3 id="_16">打包过程<a class="headerlink" href="#_16" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">UE4_ROOT</span><span class="o">=</span>/mnt/data1/tianle/carla_ue4
+<span class="nb">cd</span><span class="w"> </span>/mnt/data1/tianle/carla_source
+./Util/BuildTools/Package.sh<span class="w"> </span>--config<span class="o">=</span>Shipping<span class="w"> </span>--no-zip
+</code></pre></div>
+<p><strong>编译</strong>：656 个编译单元，~805 秒
+<strong>Cook</strong>：13459 个 packages，~2 小时
+<strong>输出</strong>：<code>/mnt/data1/tianle/carla_source/Dist/CARLA_Shipping_1ae5356-dirty/LinuxNoEditor/</code>（19GB）</p>
+<h3 id="_17">打包前配置修改<a class="headerlink" href="#_17" title="Permanent link">#</a></h3>
+<p><code>DefaultGame.ini</code> 中新增 AirSim 内容烹饪路径：
+<div class="highlight"><pre><span></span><code><span class="na">+DirectoriesToAlwaysCook=(Path</span><span class="o">=</span><span class="s">&quot;AirSim/Blueprints&quot;</span><span class="na">)</span>
+<span class="na">+DirectoriesToAlwaysCook=(Path</span><span class="o">=</span><span class="s">&quot;AirSim/HUDAssets&quot;</span><span class="na">)</span>
+<span class="na">+DirectoriesToAlwaysCook=(Path</span><span class="o">=</span><span class="s">&quot;AirSim/Models&quot;</span><span class="na">)</span>
+<span class="na">+DirectoriesToAlwaysCook=(Path</span><span class="o">=</span><span class="s">&quot;AirSim/Weather&quot;</span><span class="na">)</span>
+<span class="na">+DirectoriesToAlwaysCook=(Path</span><span class="o">=</span><span class="s">&quot;AirSim/StarterContent&quot;</span><span class="na">)</span>
+<span class="na">+DirectoriesToAlwaysCook=(Path</span><span class="o">=</span><span class="s">&quot;AirSim/VehicleAdv&quot;</span><span class="na">)</span>
+<span class="na">+MapsToCook=(FilePath</span><span class="o">=</span><span class="s">&quot;/AirSim/AirSimAssets&quot;</span><span class="na">)</span>
+</code></pre></div></p>
+<h3 id="13">包含地图（13 张）<a class="headerlink" href="#13" title="Permanent link">#</a></h3>
+<p>Town01, Town01_Opt, Town02, Town02_Opt, Town03, Town03_Opt, Town04, Town04_Opt, Town05, Town05_Opt, Town10HD, Town10HD_Opt, Town10HD_Opt_NavMesh</p>
+<h3 id="_18">独立包启动<a class="headerlink" href="#_18" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/mnt/data1/tianle/carla_source/Dist/CARLA_Shipping_1ae5356-dirty/LinuxNoEditor
+./SimWorld.sh<span class="w"> </span>Town10HD<span class="w">              </span><span class="c1"># 默认启动</span>
+./SimWorld.sh<span class="w"> </span>Town03<span class="w"> </span>--res<span class="w"> </span>1920x1080<span class="w">  </span><span class="c1"># 指定地图和分辨率</span>
+./SimWorld.sh<span class="w"> </span>--kill<span class="w">                </span><span class="c1"># 停止</span>
+</code></pre></div>
+<h3 id="_19">独立包脚本清单<a class="headerlink" href="#_19" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>脚本</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SimWorld.sh</code></td>
+<td>启动器（地图选择、分辨率、端口、--kill、--log）</td>
+</tr>
+<tr>
+<td><code>test_package.py</code></td>
+<td>17 项自动化测试</td>
+</tr>
+<tr>
+<td><code>demo_flight_city.py</code></td>
+<td>无人机巡航 + 交通 + pygame 传感器三面板</td>
+</tr>
+<tr>
+<td><code>demo_drive_and_fly.py</code></td>
+<td>键盘驾驶 + 无人机跟随 + pygame 双画面</td>
+</tr>
+<tr>
+<td><code>comprehensive_api_test.py</code></td>
+<td>89 项全面 API 自动化测试</td>
+</tr>
+<tr>
+<td><code>examples/</code></td>
+<td>CARLA/AirSim 单项测试和键盘控制脚本</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="carla-airsim_1">十二、坐标系映射（CARLA ↔ AirSim）<a class="headerlink" href="#carla-airsim_1" title="Permanent link">#</a></h2>
+<blockquote>
+<p><strong>2026-03-11 更新</strong>：修复 <code>SetNewWorldOrigin</code> Bug 后，NED 坐标与 CARLA 坐标对齐（x 相同，y 相同，z 取反）。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>CARLA</th>
+<th>AirSim NED</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>坐标系</td>
+<td>左手系，z-up (meters)</td>
+<td>NED，z-down (meters)</td>
+</tr>
+<tr>
+<td>原点</td>
+<td>地图固定原点</td>
+<td>PlayerStart 位置（海岸附近，UE4 x≈0）</td>
+</tr>
+<tr>
+<td>X 正方向</td>
+<td>内陆方向</td>
+<td>内陆方向（与 CARLA 相同）</td>
+</tr>
+<tr>
+<td>Y 正方向</td>
+<td>+Y</td>
+<td>+Y（与 CARLA 相同）</td>
+</tr>
+<tr>
+<td>Z 关系</td>
+<td>z-up</td>
+<td>z-down（NED z = -CARLA z）</td>
+</tr>
+<tr>
+<td>地面 z 值</td>
+<td>~0</td>
+<td>~0（修复后）</td>
+</tr>
+<tr>
+<td>城市中心</td>
+<td>(80, 30, 0)</td>
+<td>NED (80, 30, -25) = 25m 高空</td>
+</tr>
+</tbody>
+</table>
+<p><strong>坐标转换</strong>：
+- CARLA (x, y, z) → AirSim NED: x 相同，y 相同，z 取反
+- 无人机到城市中心：<code>moveToPositionAsync(80, 30, -25, speed)</code> 对应 CARLA (80, 30) 上方 25m</p>
+<p><strong>跟随策略</strong>：使用相对偏移法
+1. 记录车辆初始 CARLA 坐标 <code>(car_x0, car_y0)</code> 和无人机初始 AirSim 坐标 <code>(drone_x0, drone_y0)</code>
+2. 每帧计算车辆位移 <code>dx = car_x - car_x0</code>, <code>dy = car_y - car_y0</code>
+3. 目标无人机位置 = <code>(drone_x0 + dx, drone_y0 + dy, -altitude)</code></p>
+<hr />
+<h2 id="api-2026-03-06">十三、全面 API 测试报告 (2026-03-06)<a class="headerlink" href="#api-2026-03-06" title="Permanent link">#</a></h2>
+<p><strong>89 项测试，全部通过 (89 PASS / 0 FAIL / 0 SKIP)</strong></p>
+<table>
+<thead>
+<tr>
+<th>分类</th>
+<th>测试数</th>
+<th>状态</th>
+<th>覆盖 API</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. CARLA 基础连接</td>
+<td>6</td>
+<td>PASS</td>
+<td>Client, World, Map, Settings, AvailableMaps</td>
+</tr>
+<tr>
+<td>2. CARLA 天气系统</td>
+<td>5</td>
+<td>PASS</td>
+<td>get/set_weather, 预设 + 自定义天气参数</td>
+</tr>
+<tr>
+<td>3. CARLA 蓝图库</td>
+<td>6</td>
+<td>PASS</td>
+<td>BlueprintLibrary filter/find, 属性读取 (220 BP)</td>
+</tr>
+<tr>
+<td>4. CARLA 地图导航</td>
+<td>6</td>
+<td>PASS</td>
+<td>SpawnPoints(155), OpenDRIVE, Topology(200), Waypoints(1280)</td>
+</tr>
+<tr>
+<td>5. CARLA Actor 控制</td>
+<td>11</td>
+<td>PASS</td>
+<td>Vehicle spawn/physics/control/autopilot, Walker spawn/control, BBox</td>
+</tr>
+<tr>
+<td>6. CARLA 传感器</td>
+<td>10</td>
+<td>PASS</td>
+<td>RGB, Depth, Seg, LiDAR, Radar, IMU, GNSS, Collision, Lane, Obstacle</td>
+</tr>
+<tr>
+<td>7. CARLA Spectator</td>
+<td>5</td>
+<td>PASS</td>
+<td>get/set Spectator, TrafficLights(15), Buildings(13352)</td>
+</tr>
+<tr>
+<td>8. CARLA Traffic Manager</td>
+<td>4</td>
+<td>PASS</td>
+<td>TM port, distance, speed diff, ignore lights</td>
+</tr>
+<tr>
+<td>9. AirSim 基础</td>
+<td>5</td>
+<td>PASS</td>
+<td>connect, ping, enableAPI, arm, simMode</td>
+</tr>
+<tr>
+<td>10. AirSim 飞行控制</td>
+<td>8</td>
+<td>PASS</td>
+<td>takeoff, hover, moveToZ/Position/Velocity/VelocityBody, rotateYaw, moveOnPath</td>
+</tr>
+<tr>
+<td>11. AirSim 状态查询</td>
+<td>6</td>
+<td>PASS</td>
+<td>state, GPS, IMU, Barometer, Magnetometer, RotorStates</td>
+</tr>
+<tr>
+<td>12. AirSim 相机图像</td>
+<td>6</td>
+<td>PASS</td>
+<td>RGB(1280x960), Depth, Seg, Infrared, MultiImage, CameraInfo</td>
+</tr>
+<tr>
+<td>13. AirSim Sim API</td>
+<td>5</td>
+<td>PASS</td>
+<td>VehiclePose, ObjectPose, CollisionInfo, IsPaused, HomeGeoPoint</td>
+</tr>
+<tr>
+<td>14. AirSim 降落清理</td>
+<td>3</td>
+<td>PASS</td>
+<td>returnHome, land, disarm</td>
+</tr>
+<tr>
+<td>15. 联合测试</td>
+<td>3</td>
+<td>PASS</td>
+<td>Traffic+Drone, WeatherDuringFlight, Sensors+DroneCamera</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_20">关键数据<a class="headerlink" href="#_20" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CARLA 蓝图总数</td>
+<td>220 (41 vehicles + 52 walkers + 25 sensors + 99 props + 3 others)</td>
+</tr>
+<tr>
+<td>可用地图</td>
+<td>14 张</td>
+</tr>
+<tr>
+<td>生成点</td>
+<td>155 个 (Town10HD)</td>
+</tr>
+<tr>
+<td>道路拓扑</td>
+<td>200 条</td>
+</tr>
+<tr>
+<td>路点 (5m)</td>
+<td>1280 个</td>
+</tr>
+<tr>
+<td>建筑物数</td>
+<td>13352 个</td>
+</tr>
+<tr>
+<td>交通灯</td>
+<td>15 个</td>
+</tr>
+<tr>
+<td>AirSim RGB 分辨率</td>
+<td>1280x960</td>
+</tr>
+<tr>
+<td>AirSim Depth/Seg 分辨率</td>
+<td>256x144</td>
+</tr>
+<tr>
+<td>AirSim 飞行控制方式</td>
+<td>8 种 (位置/速度/体坐标/路径/偏航/悬停)</td>
+</tr>
+<tr>
+<td>AirSim 传感器</td>
+<td>GPS, IMU, 气压计, 磁力计</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="bug-2026-03-11">十四、车辆穿地 Bug 修复 (2026-03-11)<a class="headerlink" href="#bug-2026-03-11" title="Permanent link">#</a></h2>
+<h3 id="_21">问题描述<a class="headerlink" href="#_21" title="Permanent link">#</a></h3>
+<p>在 CarlaAir 中通过 CARLA API 生成的地面车辆会立即穿过地面，掉落约 30 米（从 z≈0.6 到 z≈-29.6）。而在原版 CARLA（无 AirSim 插件）中，相同操作完全正常（z≈0.0）。此 Bug 影响 Editor 和 Shipping 两种构建。</p>
+<h3 id="_22">排查过程<a class="headerlink" href="#_22" title="Permanent link">#</a></h3>
+<ol>
+<li><strong>对比测试</strong>：原版 CARLA（<code>/home/tianle/carla/CARLA_Latest/</code>）加载 Town10HD_Opt，车辆 z≈0.0 正常；CarlaAir 加载 Town10HD，车辆 z≈-29.6 穿地</li>
+<li><strong>排除地图因素</strong>：CarlaAir 使用 Town10HD_Opt 仍然穿地 → 不是地图问题</li>
+<li><strong>确认 AirSim 插件为根因</strong>：唯一区别是 AirSim 插件的存在</li>
+</ol>
+<h3 id="_23">根本原因<a class="headerlink" href="#_23" title="Permanent link">#</a></h3>
+<p><strong>文件</strong>: <code>Plugins/AirSim/Source/SimMode/SimModeBase.cpp</code>，第 121 行</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// BeginPlay() 中：</span>
+<span class="k">this</span><span class="o">-&gt;</span><span class="n">GetWorld</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetNewWorldOrigin</span><span class="p">(</span><span class="n">FIntVector</span><span class="p">(</span><span class="n">player_loc</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">GetWorld</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">OriginLocation</span><span class="p">);</span>
+</code></pre></div>
+<p><strong>机制</strong>：
+1. <code>ASimModeBase::BeginPlay()</code> 获取 PlayerStart/ViewTarget 的位置（Town10HD 中 PlayerStart 在海岸，z≈30m）
+2. 调用 <code>SetNewWorldOrigin()</code> 将 UE4 世界坐标原点移到该位置
+3. 此操作导致 <strong>Landscape/道路碰撞几何体失效</strong> — UE4 的 PhysX 不正确地更新了地面碰撞
+4. CARLA 车辆生成在 z=0.6（来自 OpenDRIVE 数据），但地面碰撞已不存在
+5. 重力将车辆拉到 z≈-30（穿过不可见的地面）</p>
+<p><strong>为什么无人机不受影响</strong>：AirSim 的 Multirotor 使用自定义 <code>FastPhysicsEngine</code>，不依赖 UE4 Landscape 碰撞；而 CARLA 车辆使用 UE4 原生 PhysX，依赖 Landscape 碰撞体。</p>
+<h3 id="_24">修复方案<a class="headerlink" href="#_24" title="Permanent link">#</a></h3>
+<p>注释掉 <code>SetNewWorldOrigin()</code> 调用，保留 <code>NedTransform</code> 使用原始 <code>player_start_transform</code> 作为 NED 坐标原点：</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// 修复前（SimModeBase.cpp:117-125）:</span>
+<span class="n">player_start_transform</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fpv_pawn</span><span class="o">-&gt;</span><span class="n">GetActorTransform</span><span class="p">();</span>
+<span class="n">player_loc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">player_start_transform</span><span class="p">.</span><span class="n">GetLocation</span><span class="p">();</span>
+<span class="k">this</span><span class="o">-&gt;</span><span class="n">GetWorld</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetNewWorldOrigin</span><span class="p">(</span><span class="n">FIntVector</span><span class="p">(</span><span class="n">player_loc</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">GetWorld</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">OriginLocation</span><span class="p">);</span>
+<span class="n">player_start_transform</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fpv_pawn</span><span class="o">-&gt;</span><span class="n">GetActorTransform</span><span class="p">();</span>
+<span class="n">global_ned_transform_</span><span class="p">.</span><span class="n">reset</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">NedTransform</span><span class="p">(</span><span class="n">player_start_transform</span><span class="p">,</span><span class="w"> </span><span class="p">...));</span>
+
+<span class="c1">// 修复后:</span>
+<span class="n">player_start_transform</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fpv_pawn</span><span class="o">-&gt;</span><span class="n">GetActorTransform</span><span class="p">();</span>
+<span class="n">player_loc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">player_start_transform</span><span class="p">.</span><span class="n">GetLocation</span><span class="p">();</span>
+<span class="c1">// NOTE: Do NOT call SetNewWorldOrigin() — it breaks CARLA&#39;s landscape collision</span>
+<span class="n">global_ned_transform_</span><span class="p">.</span><span class="n">reset</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">NedTransform</span><span class="p">(</span><span class="n">player_start_transform</span><span class="p">,</span><span class="w"> </span><span class="p">...));</span>
+</code></pre></div>
+<h3 id="_25">验证结果<a class="headerlink" href="#_25" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>测试项</th>
+<th>修复前</th>
+<th>修复后</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5 辆车辆 z 位置（5s后）</td>
+<td>z≈-27.6（穿地）</td>
+<td>z≈0.00（正常）</td>
+</tr>
+<tr>
+<td>30 辆车辆穿地数</td>
+<td>30/30 全部穿地</td>
+<td>0/30 穿地</td>
+</tr>
+<tr>
+<td>车辆 autopilot 行驶</td>
+<td>无法行驶（在地下）</td>
+<td>18/30 正常行驶</td>
+</tr>
+<tr>
+<td>原版 <code>generate_traffic.py</code></td>
+<td>无法使用</td>
+<td>✅ 完美兼容</td>
+</tr>
+<tr>
+<td>AirSim 无人机飞行</td>
+<td>正常</td>
+<td>正常（不受影响）</td>
+</tr>
+<tr>
+<td>AirSim 相机拍照</td>
+<td>正常</td>
+<td>正常（不受影响）</td>
+</tr>
+<tr>
+<td>CARLA + AirSim 同时运行</td>
+<td>车辆穿地</td>
+<td>✅ 30 辆车 + 无人机完美协同</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_26">坐标系影响<a class="headerlink" href="#_26" title="Permanent link">#</a></h3>
+<p>修复后坐标系映射更新：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>修复前</th>
+<th>修复后</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NED 原点</td>
+<td>UE4 (0,0,0)（原点被移到 PlayerStart）</td>
+<td>PlayerStart 实际位置（海岸附近）</td>
+</tr>
+<tr>
+<td>车辆 z 值</td>
+<td>0.6 → -29.6（穿地）</td>
+<td>0.6 → 0.00（正常）</td>
+</tr>
+<tr>
+<td>无人机 NED (80,30,-25)</td>
+<td>城市中心，25m 高</td>
+<td>城市中心，25m 高（不变）</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="2026-03-09">十五、示例脚本完整列表 (2026-03-09)<a class="headerlink" href="#2026-03-09" title="Permanent link">#</a></h2>
+<!-- Note: section numbering shifted due to insertion of 十四 (车辆穿地修复) -->
+
+<h3 id="_27">时间线<a class="headerlink" href="#_27" title="Permanent link">#</a></h3>
+<ul>
+<li>2026-03-06: 创建前 8 个脚本 (walk_fpv, fly_drone_pygame, drive_car, 4 个 showcase, showcase_maps)</li>
+<li>2026-03-09: 修复 showcase_traffic.py 崩溃问题，创建并测试最后 4 个脚本</li>
+</ul>
+<h3 id="_28">已知限制<a class="headerlink" href="#_28" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>限制</th>
+<th>原因</th>
+<th>解决方案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>~~Walker AI Controller + AirSim 崩溃~~</td>
+<td>~~<code>go_to_location()</code> 触发四元数归一化错误~~</td>
+<td>✅ v0.1 测试已不再复现</td>
+</tr>
+<tr>
+<td>~~大量 autopilot 车辆 + AirSim 崩溃~~</td>
+<td>~~超过 ~10 辆 autopilot 车辆时概率性触发四元数错误~~</td>
+<td>✅ 修复 <code>SetNewWorldOrigin</code> 后 30 辆车稳定运行</td>
+</tr>
+<tr>
+<td>~~<code>simSetCameraPose</code> 崩溃~~</td>
+<td>~~Shipping 构建中 AirSim 内部 C++ abort~~</td>
+<td>✅ v0.1 测试已不再复现</td>
+</tr>
+<tr>
+<td>~~车辆穿地（z 掉到 -30m）~~</td>
+<td>~~AirSim <code>SetNewWorldOrigin()</code> 破坏 Landscape 碰撞~~</td>
+<td>✅ 2026-03-11 修复，注释掉 <code>SetNewWorldOrigin()</code></td>
+</tr>
+<tr>
+<td>地图切换后服务器可能需要重启</td>
+<td>UE4 地图切换 + AirSim 状态不一致</td>
+<td>切换后等待足够时间</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_29">脚本分类与测试结果<a class="headerlink" href="#_29" title="Permanent link">#</a></h3>
+<h4 id="a-3">A. 交互控制 (3 个) — 用户手动操控<a class="headerlink" href="#a-3" title="Permanent link">#</a></h4>
+<table>
+<thead>
+<tr>
+<th>脚本</th>
+<th>功能</th>
+<th>系统</th>
+<th>测试</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>walk_fpv.py</code></td>
+<td>FPS 第一人称行人控制，鼠标视角</td>
+<td>CARLA</td>
+<td>✅ PASS</td>
+</tr>
+<tr>
+<td><code>fly_drone_pygame.py</code></td>
+<td>键盘无人机控制 + RGB/深度/分割三面板</td>
+<td>AirSim</td>
+<td>✅ PASS</td>
+</tr>
+<tr>
+<td><code>drive_car.py</code></td>
+<td>WASD 驾驶 + LiDAR 小地图 + IMU/GNSS</td>
+<td>CARLA</td>
+<td>✅ PASS</td>
+</tr>
+</tbody>
+</table>
+<h4 id="b-5">B. 展示 (5 个) — 自动运行，展示功能<a class="headerlink" href="#b-5" title="Permanent link">#</a></h4>
+<table>
+<thead>
+<tr>
+<th>脚本</th>
+<th>功能</th>
+<th>系统</th>
+<th>测试</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>showcase_weather.py</code></td>
+<td>14 种天气循环 + 地面/航拍双视角</td>
+<td>CARLA+AirSim</td>
+<td>✅ PASS</td>
+</tr>
+<tr>
+<td><code>showcase_sensors.py</code></td>
+<td>6 面板传感器展示 (RGB/深度/语义/LiDAR/雷达/IMU)</td>
+<td>CARLA</td>
+<td>✅ PASS</td>
+</tr>
+<tr>
+<td><code>showcase_traffic.py</code></td>
+<td>50 辆车大规模交通 + 高空鸟瞰 (CARLA spectator)</td>
+<td>CARLA</td>
+<td>✅ PASS</td>
+</tr>
+<tr>
+<td><code>showcase_drone_sensors.py</code></td>
+<td>无人机巡航 + AirSim 全传感器</td>
+<td>AirSim</td>
+<td>✅ PASS</td>
+</tr>
+<tr>
+<td><code>showcase_maps.py</code></td>
+<td>自动切换地图巡览 + 旋转俯瞰</td>
+<td>CARLA</td>
+<td>✅ PASS</td>
+</tr>
+</tbody>
+</table>
+<h4 id="c-4-carla-airsim">C. 联合应用 (4 个) — CARLA + AirSim 协同<a class="headerlink" href="#c-4-carla-airsim" title="Permanent link">#</a></h4>
+<table>
+<thead>
+<tr>
+<th>脚本</th>
+<th>功能</th>
+<th>系统</th>
+<th>测试</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>drone_car_chase.py</code></td>
+<td>无人机追踪 autopilot 汽车，双画面</td>
+<td>CARLA+AirSim</td>
+<td>✅ PASS</td>
+</tr>
+<tr>
+<td><code>aerial_surveillance.py</code></td>
+<td>无人机巡逻 + 车辆检测，RGB/深度/分割三面板</td>
+<td>CARLA+AirSim</td>
+<td>✅ PASS</td>
+</tr>
+<tr>
+<td><code>data_collector.py</code></td>
+<td>多模态数据采集 (RGB/深度/分割/LiDAR/IMU/GNSS/航拍)</td>
+<td>CARLA+AirSim</td>
+<td>✅ PASS</td>
+</tr>
+<tr>
+<td><code>city_tour.py</code></td>
+<td>自动城市巡游，车+无人机双视角，自动切换天气</td>
+<td>CARLA+AirSim</td>
+<td>✅ PASS</td>
+</tr>
+</tbody>
+</table>
+<h3 id="12">合计: 12 个脚本，全部通过测试<a class="headerlink" href="#12" title="Permanent link">#</a></h3>
+<ul>
+<li>纯 CARLA: 5 个</li>
+<li>纯 AirSim: 2 个</li>
+<li>CARLA + AirSim 联合: 5 个</li>
+</ul>
+<hr />
+<h2 id="2026-03-10">十五、分发包 (2026-03-10)<a class="headerlink" href="#2026-03-10" title="Permanent link">#</a></h2>
+<h3 id="_30">打包信息<a class="headerlink" href="#_30" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>压缩包</td>
+<td><code>SimWorld_20260309.tar.gz</code></td>
+</tr>
+<tr>
+<td>压缩后大小</td>
+<td>7.3 GB</td>
+</tr>
+<tr>
+<td>解压后大小</td>
+<td>~17 GB</td>
+</tr>
+<tr>
+<td>位置</td>
+<td><code>/mnt/data1/tianle/SimWorld_20260309.tar.gz</code></td>
+</tr>
+<tr>
+<td>打包脚本</td>
+<td><code>/mnt/data1/tianle/carla_source/pack_simworld.sh</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="2gb">排除内容（节省 ~2GB）<a class="headerlink" href="#2gb" title="Permanent link">#</a></h3>
+<ul>
+<li>Debug 符号：<code>CarlaUE4-Linux-Shipping.debug</code>（1.6GB）+ <code>.sym</code>（80MB）</li>
+<li>Manifest 文件、Dockerfile、<code>__pycache__</code></li>
+<li>根目录测试脚本（<code>test_package.py</code>、<code>comprehensive_api_test.py</code> 等）</li>
+</ul>
+<h3 id="_31">包内目录结构<a class="headerlink" href="#_31" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code>SimWorld/
+├── SimWorld.sh              # 主启动器
+├── README_SimWorld.md       # 使用文档
+├── AirSimConfig/            # AirSim 配置模板
+├── examples/                # 16 个 Python 示例脚本
+├── CarlaUE4/                # UE4 二进制 + 内容 + 插件
+├── Engine/                  # UE4 引擎依赖
+├── PythonAPI/               # CARLA Python API 源码
+├── HDMaps/                  # HD 点云地图
+└── Co-Simulation/           # 联合仿真桥接
+</code></pre></div>
+<h3 id="_32">目标机器要求<a class="headerlink" href="#_32" title="Permanent link">#</a></h3>
+<ul>
+<li>Ubuntu 18.04/20.04/22.04 (x86_64)</li>
+<li>NVIDIA GPU + 驱动 470+（Vulkan 支持）</li>
+<li>16GB+ RAM, 20GB+ 磁盘空间</li>
+<li>Python 3.8+, pip: <code>carla==0.9.15 airsim pygame numpy Pillow</code></li>
+</ul>
+<h3 id="_33">部署步骤<a class="headerlink" href="#_33" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1. 解压</span>
+tar<span class="w"> </span>xzf<span class="w"> </span>SimWorld_20260309.tar.gz
+
+<span class="c1"># 2. 安装 Python 依赖</span>
+pip<span class="w"> </span>install<span class="w"> </span><span class="nv">carla</span><span class="o">==</span><span class="m">0</span>.9.15<span class="w"> </span>airsim<span class="w"> </span>pygame<span class="w"> </span>numpy<span class="w"> </span>Pillow
+
+<span class="c1"># 3. 配置 AirSim</span>
+mkdir<span class="w"> </span>-p<span class="w"> </span>~/Documents/AirSim
+cp<span class="w"> </span>SimWorld/AirSimConfig/settings.json.example<span class="w"> </span>~/Documents/AirSim/settings.json
+
+<span class="c1"># 4. 启动模拟器</span>
+<span class="nb">cd</span><span class="w"> </span>SimWorld<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>./SimWorld.sh
+
+<span class="c1"># 5. 运行示例</span>
+python3<span class="w"> </span>examples/drive_car.py
+</code></pre></div>
+<hr />
+<h2 id="v01-release-2026-03-10">十六、v0.1 Release 测试 (2026-03-10)<a class="headerlink" href="#v01-release-2026-03-10" title="Permanent link">#</a></h2>
+<h3 id="_34">时间线<a class="headerlink" href="#_34" title="Permanent link">#</a></h3>
+<ul>
+<li>2026-03-10: 执行 v0.1 Release 前全部测试任务（T1-T6）</li>
+<li>2026-03-10: 编写测试报告，判定 Release Readiness</li>
+</ul>
+<h3 id="_35">测试结果总览<a class="headerlink" href="#_35" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>任务</th>
+<th>结果</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T1-A Walker AI Controller</td>
+<td>✅ PASS</td>
+<td>Bug #1 不再复现</td>
+</tr>
+<tr>
+<td>T1-B Autopilot 车辆压力</td>
+<td>❌ FAIL</td>
+<td>最大 10 辆，Bug #2 未修复</td>
+</tr>
+<tr>
+<td>T1-C simSetCameraPose</td>
+<td>✅ PASS</td>
+<td>Bug #3 不再复现</td>
+</tr>
+<tr>
+<td>T1-D 快速 enable/disable</td>
+<td>✅ PASS</td>
+<td>Bug #4 不再复现</td>
+</tr>
+<tr>
+<td>T2-A CARLA ROS Bridge</td>
+<td>✅ PASS</td>
+<td>需 5 个兼容性补丁</td>
+</tr>
+<tr>
+<td>T2-B AirSim ROS Wrapper</td>
+<td>✅ PASS</td>
+<td>14 个话题正常</td>
+</tr>
+<tr>
+<td>T2-C 双 ROS 同时运行</td>
+<td>✅ PASS</td>
+<td>无命名空间冲突</td>
+</tr>
+<tr>
+<td>T3 Clean Install Test</td>
+<td>✅ PASS</td>
+<td>20/20 + 88/89</td>
+</tr>
+<tr>
+<td>T4 多地图稳定性</td>
+<td>✅ PASS</td>
+<td>Town01/03/05 全通过</td>
+</tr>
+<tr>
+<td>T5 长时间稳定性</td>
+<td>✅ PASS</td>
+<td>3h+, VRAM 稳定</td>
+</tr>
+<tr>
+<td>T6 离屏渲染 + 数据采集</td>
+<td>✅ PASS</td>
+<td>45 文件 / 53 MB</td>
+</tr>
+</tbody>
+</table>
+<h3 id="release-readiness-ready-for-release">Release Readiness: ✅ Ready for Release<a class="headerlink" href="#release-readiness-ready-for-release" title="Permanent link">#</a></h3>
+<h3 id="_36">更新后的已知限制<a class="headerlink" href="#_36" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>限制</th>
+<th>状态</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Walker AI Controller + AirSim</td>
+<td>✅ 已修复</td>
+<td>不再崩溃，但行人移动速度较慢</td>
+</tr>
+<tr>
+<td>大量 autopilot + AirSim</td>
+<td>✅ 已修复</td>
+<td>修复 <code>SetNewWorldOrigin</code> 后 30 辆车稳定运行 (2026-03-11)</td>
+</tr>
+<tr>
+<td>simSetCameraPose</td>
+<td>✅ 已修复</td>
+<td>Shipping 包中正常工作</td>
+</tr>
+<tr>
+<td>快速 enable/disable</td>
+<td>✅ 已修复</td>
+<td>无需 sleep</td>
+</tr>
+<tr>
+<td>地图切换超时</td>
+<td>⚠️ 已知</td>
+<td>需 300s 超时 + 15-20s 等待</td>
+</tr>
+<tr>
+<td>CARLA ROS Bridge 兼容</td>
+<td>⚠️ 已知</td>
+<td>需 5 个补丁</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_37">详细报告<a class="headerlink" href="#_37" title="Permanent link">#</a></h3>
+<p>完整测试报告：<code>/mnt/data1/tianle/carla_source/Progress_record/v0.1_release_test_report.md</code></p>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>OpenHUTB 版权所有 &copy; 2026</p>
+  </div>
+
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

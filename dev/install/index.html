@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>CarlaAir 安装与运行指南 - 低空模拟器</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "CarlaAir \u5b89\u88c5\u4e0e\u8fd0\u884c\u6307\u5357";
+        var mkdocs_page_input_path = "dev/install.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 低空模拟器
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="搜索文档" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">主页</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../..">主页</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">构建 AirSim</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../use_precompiled/">下载二进制文件</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../build_windows/">在 Windows 上构建</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../build_linux/">在 Linux 上构建</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../build_macos/">在 macOS 上构建</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../docker_ubuntu/">Linux 上的 Docker</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../azure/">Azure 上的 ArSim</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../unreal_custenv/">定制虚幻引擎环境</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../build_faq/">场景问题和回答</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">使用 AirSim</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../apis/">核心 APIs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../image_apis/">图像 APIs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../apis_cpp/">C++ APIs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://openhutb.github.io/doc/python_api/#airsim.client.MultirotorClient">无人机 API 参考文档</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../api_docs/_build/html/">原始 API 参考文档</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../wiki/">Wiki 文档</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../dev_workflow/">开发工作流</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../settings/">设置</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../map/">地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../camera_views/">相机视角</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../using_car/">汽车模式</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../remote_control/">远程控制</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../xbox_controller/">XBox 控制器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../steering_wheel_installation/">方向盘</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../multi_vehicle/">多车辆</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >传感器</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../sensors/">传感器</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../lidar/">激光雷达</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../distance_sensor/">距离传感器</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../InfraredCamera/">红外相机</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../airsim_ros_pkgs/">ROS: AirSim ROS 包装器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../airsim_tutorial_pkgs/">ROS: AirSim 教程包</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../gazebo_drone/">导入 Gazebo 模型</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../retexturing/">域随机化</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../meshes/">网格顶点缓冲区</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../playback/">播放日志</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../voxel_grid/">体素网格生成器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../event_sim/">事件相机</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">设计</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../design/">架构</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../code_structure/">代码结构</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../adding_new_apis/">添加新的 APIs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../modify_recording_data/">修改记录数据</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../coding_guidelines/">编码指南</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../flight_controller/">飞行控制器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simple_flight/">简单飞行</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hello_drone/">Hello Drone</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">外部飞行控制器</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" >MavLink 和 PX4</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../px4_setup/">AirSim 的 PX4 设置</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../px4_sitl/">软件在环中的 PX4</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../px4_sitl_wsl2/">带有 WSL 2 的 PX4 SITL</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../px4_lockstep/">PX4 Lockstep</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../px4_multi_vehicle/">软件在环中的 PX4 多车辆</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="https://youtu.be/1oY8Qu5maQQ">AirSim 与 Pixhawk</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="https://youtu.be/HNWdYrtw3f0">使用 AirSim 设置 PX4</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="https://www.youtube.com/watch?v=d_FyjKDWQfc&feature=youtu.be">调试姿态估计</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="https://github.com/Microsoft/AirSim/wiki/Intercepting-MavLink-messages">拦截 MavLink 消息</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="https://github.com/Microsoft/AirSim/wiki/Rapid-Descent-on-PX4-drones">PX4 无人机快速下降</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../px4_build/">构建 PX4</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../px4_logging/">PX4/MavLink 日志记录</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../log_viewer/">MavLink 日志查看器</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../mavlinkcom/">MavLinkCom</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../mavlinkcom_mocap/">MavLink MoCap</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >ArduPilot</a>
+    <ul>
+                <li class="toctree-l2"><a class="" href="https://ardupilot.org/dev/docs/building-the-code.html">ArduPilot 软件在环设置</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="https://ardupilot.org/dev/docs/sitl-with-airsim.html">AirSim & ArduPilot</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">升级</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../unreal_upgrade/">升级虚幻引擎</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../upgrade_apis/">升级 APIs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../upgrade_settings/">升级设置</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">贡献教程</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../reinforcement_learning/">强化学习</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://www.youtube.com/watch?v=y09VbdQWvQY">使用 Marketplace 中的环境</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://github.com/simondlevy/AirSimTensorFlow">简单的防撞</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://aka.ms/AutonomousDrivingCookbook">Azure 上的自动驾驶</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../wiki/hexacopter/">构造六旋翼飞行器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../wiki/moveOnPath-demo/">移动路径演示</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../point_clouds/">构建点云</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../drone_survey/">使用无人机进行测量</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../orbit/">轨道轨迹</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://youtu.be/Bp86WiLUC80">导入自定义多旋翼网格</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../object_detection/">Object Detection</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://youtu.be/ZonkdMcwXH4">带有 MAVROS 和 PX4 的 AirSim</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">杂项</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../custom_drone/">真实无人机上的 AirSim</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../cmake_linux/">在 Linux 上安装 cmake</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hard_drive/">硬盘繁忙时的提示</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pfm/">pfm 格式</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../unreal_proj/">设置虚幻引擎环境</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../unreal_blocks/">Blocks 环境</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../who_is_using/">谁在使用 AirSim</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../working_with_plugin_contents/">使用 UE 插件内容</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../wiki/technion/technion/">大学生方程式赛车以色列理工学院自驾赛</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">支持</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../faq/">FAQ</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../SUPPORT/">支持</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../CHANGELOG/">修改记录</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../create_issue/">创建问题</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../CONTRIBUTING/">贡献</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">低空模拟器</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">CarlaAir 安装与运行指南</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="carlaair">CarlaAir 安装与运行指南<a class="headerlink" href="#carlaair" title="Permanent link">#</a></h1>
+<p>CarlaAir (SimWorld) 是一个空地一体联合仿真平台，将 Carla 地面仿真与 AirSim 无人机飞行仿真统一在同一个虚拟世界中。</p>
+<h2 id="_1">系统要求<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>最低要求</th>
+<th>推荐配置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>操作系统</td>
+<td>Ubuntu 18.04</td>
+<td>Ubuntu 22.04</td>
+</tr>
+<tr>
+<td>GPU</td>
+<td>NVIDIA GTX 1080 (8GB)</td>
+<td>NVIDIA RTX 3080 (10GB+)</td>
+</tr>
+<tr>
+<td>GPU 驱动</td>
+<td>470+ (Vulkan 支持)</td>
+<td>535+</td>
+</tr>
+<tr>
+<td>内存</td>
+<td>16 GB</td>
+<td>32 GB</td>
+</tr>
+<tr>
+<td>磁盘</td>
+<td>25 GB</td>
+<td>50 GB</td>
+</tr>
+<tr>
+<td>显示</td>
+<td>X11 或 VNC</td>
+<td>本地显示器</td>
+</tr>
+<tr>
+<td>Python</td>
+<td>3.7+</td>
+<td>3.8</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3">快速安装（3 步）<a class="headerlink" href="#3" title="Permanent link">#</a></h2>
+<h3 id="1-python">第 1 步：安装 Python 依赖<a class="headerlink" href="#1-python" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 使用 conda（推荐）</span>
+conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>simworld<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.8<span class="w"> </span>-y
+conda<span class="w"> </span>activate<span class="w"> </span>simworld
+pip<span class="w"> </span>install<span class="w"> </span><span class="nv">carla</span><span class="o">==</span><span class="m">0</span>.9.16<span class="w"> </span>airsim<span class="w"> </span>numpy<span class="w"> </span>opencv-python<span class="w"> </span>pygame
+
+<span class="c1"># 或使用 pip</span>
+pip<span class="w"> </span>install<span class="w"> </span><span class="nv">carla</span><span class="o">==</span><span class="m">0</span>.9.16<span class="w"> </span>airsim<span class="w"> </span>numpy<span class="w"> </span>opencv-python<span class="w"> </span>pygame
+</code></pre></div>
+<h3 id="2-airsim">第 2 步：配置 AirSim 设置<a class="headerlink" href="#2-airsim" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 创建 AirSim 设置目录</span>
+mkdir<span class="w"> </span>-p<span class="w"> </span>~/Documents/AirSim
+
+<span class="c1"># 复制默认设置文件</span>
+cp<span class="w"> </span>settings.json<span class="w"> </span>~/Documents/AirSim/settings.json
+</code></pre></div>
+<p>settings.json 内容（多旋翼无人机模式）:
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;SettingsVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.2</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;SimMode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Multirotor&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Vehicles&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;SimpleFlight&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;VehicleType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SimpleFlight&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;AutoCreate&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;Cameras&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;0&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;CaptureSettings&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                        </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;ImageType&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Width&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1280</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Height&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">960</span><span class="w"> </span><span class="p">}</span>
+<span class="w">                    </span><span class="p">],</span>
+<span class="w">                    </span><span class="nt">&quot;X&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Y&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Z&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;Pitch&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Roll&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Yaw&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<h3 id="3_1">第 3 步：启动仿真器<a class="headerlink" href="#3_1" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 进入安装目录（Shipping 构建）</span>
+<span class="nb">cd</span><span class="w"> </span>/mnt/data1/tianle/carla_source/Dist/CARLA_Shipping_1ae5356-dirty/LinuxNoEditor
+
+<span class="c1"># 一键启动（默认 Town10HD 地图）</span>
+./carla_air.sh
+
+<span class="c1"># 或手动启动</span>
+./CarlaUE4.sh<span class="w"> </span>/Game/Carla/Maps/Town10HD<span class="w"> </span>-nosound<span class="w"> </span>-carla-rpc-port<span class="o">=</span><span class="m">2000</span><span class="w"> </span>-windowed<span class="w"> </span>-ResX<span class="o">=</span><span class="m">1280</span><span class="w"> </span>-ResY<span class="o">=</span><span class="m">720</span>
+</code></pre></div>
+<h2 id="carla_airsh">启动脚本：carla_air.sh<a class="headerlink" href="#carla_airsh" title="Permanent link">#</a></h2>
+<p>将下面的 <code>carla_air.sh</code> 放到安装目录中即可一键启动：</p>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="c1"># carla_air.sh — CarlaAir 一键启动脚本（Shipping 构建版）</span>
+<span class="nb">set</span><span class="w"> </span>-e
+
+<span class="nv">SCRIPT_DIR</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span><span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>dirname<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$0</span><span class="s2">&quot;</span><span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">pwd</span><span class="k">)</span><span class="s2">&quot;</span>
+<span class="nv">MAP</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">1</span><span class="k">:-</span><span class="nv">Town10HD</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="nv">RESX</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">2</span><span class="k">:-</span><span class="nv">1280</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="nv">RESY</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">3</span><span class="k">:-</span><span class="nv">720</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="nv">PORT</span><span class="o">=</span><span class="m">2000</span>
+<span class="nv">AIRSIM_PORT</span><span class="o">=</span><span class="m">41451</span>
+
+<span class="c1"># 检查 AirSim 设置</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>!<span class="w"> </span>-f<span class="w"> </span>~/Documents/AirSim/settings.json<span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;WARNING: ~/Documents/AirSim/settings.json not found!&quot;</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Creating default settings...&quot;</span>
+<span class="w">    </span>mkdir<span class="w"> </span>-p<span class="w"> </span>~/Documents/AirSim
+<span class="w">    </span>cat<span class="w"> </span>&gt;<span class="w"> </span>~/Documents/AirSim/settings.json<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
+<span class="s">{</span>
+<span class="s">    &quot;SettingsVersion&quot;: 1.2,</span>
+<span class="s">    &quot;SimMode&quot;: &quot;Multirotor&quot;,</span>
+<span class="s">    &quot;Vehicles&quot;: {</span>
+<span class="s">        &quot;SimpleFlight&quot;: {</span>
+<span class="s">            &quot;VehicleType&quot;: &quot;SimpleFlight&quot;,</span>
+<span class="s">            &quot;AutoCreate&quot;: true</span>
+<span class="s">        }</span>
+<span class="s">    }</span>
+<span class="s">}</span>
+<span class="s">EOF</span>
+<span class="k">fi</span>
+
+<span class="c1"># Vulkan ICD</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">VK_ICD_FILENAMES</span><span class="o">=</span>/usr/share/vulkan/icd.d/nvidia_icd.json
+<span class="o">[</span><span class="w"> </span>-z<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DISPLAY</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">DISPLAY</span><span class="o">=</span>:1
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;============================================&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  CarlaAir - Air-Ground Co-Simulation&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;============================================&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  Map:        </span><span class="nv">$MAP</span><span class="s2">&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  Resolution: </span><span class="si">${</span><span class="nv">RESX</span><span class="si">}</span><span class="s2">x</span><span class="si">${</span><span class="nv">RESY</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  CARLA port: </span><span class="nv">$PORT</span><span class="s2">&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  AirSim port: </span><span class="nv">$AIRSIM_PORT</span><span class="s2">&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;============================================&quot;</span>
+
+<span class="c1"># 启动</span>
+<span class="s2">&quot;</span><span class="nv">$SCRIPT_DIR</span><span class="s2">/CarlaUE4.sh&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>/Game/Carla/Maps/<span class="nv">$MAP</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-nosound<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-carla-rpc-port<span class="o">=</span><span class="nv">$PORT</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-windowed<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-ResX<span class="o">=</span><span class="nv">$RESX</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-ResY<span class="o">=</span><span class="nv">$RESY</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-quality-level<span class="o">=</span>Low<span class="w"> </span><span class="p">&amp;</span>
+
+<span class="nv">PID</span><span class="o">=</span><span class="nv">$!</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;PID: </span><span class="nv">$PID</span><span class="s2">&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Waiting for servers...&quot;</span>
+
+<span class="c1"># 等待两个端口就绪</span>
+<span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>seq<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">120</span><span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span><span class="nv">CARLA_OK</span><span class="o">=</span>false<span class="p">;</span><span class="w"> </span><span class="nv">AIRSIM_OK</span><span class="o">=</span><span class="nb">false</span>
+<span class="w">    </span>ss<span class="w"> </span>-tlnp<span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-q<span class="w"> </span><span class="s2">&quot;:</span><span class="si">${</span><span class="nv">PORT</span><span class="si">}</span><span class="s2"> &quot;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nv">CARLA_OK</span><span class="o">=</span><span class="nb">true</span>
+<span class="w">    </span>ss<span class="w"> </span>-tlnp<span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-q<span class="w"> </span><span class="s2">&quot;:</span><span class="si">${</span><span class="nv">AIRSIM_PORT</span><span class="si">}</span><span class="s2"> &quot;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nv">AIRSIM_OK</span><span class="o">=</span><span class="nb">true</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nv">$CARLA_OK</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nv">$AIRSIM_OK</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
+<span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Ready! CARLA(:</span><span class="nv">$PORT</span><span class="s2">) + AirSim(:</span><span class="nv">$AIRSIM_PORT</span><span class="s2">) both running.&quot;</span>
+<span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
+<span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Test commands:&quot;</span>
+<span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  python3 -c \&quot;import carla; c=carla.Client(&#39;localhost&#39;,</span><span class="nv">$PORT</span><span class="s2">); print(c.get_world().get_map().name)\&quot;&quot;</span>
+<span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  python3 -c \&quot;import airsim; c=airsim.MultirotorClient(port=</span><span class="nv">$AIRSIM_PORT</span><span class="s2">); c.confirmConnection()\&quot;&quot;</span>
+<span class="w">        </span><span class="nb">exit</span><span class="w"> </span><span class="m">0</span>
+<span class="w">    </span><span class="k">fi</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span>!<span class="w"> </span><span class="nb">kill</span><span class="w"> </span>-0<span class="w"> </span><span class="nv">$PID</span><span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;ERROR: Process crashed during startup!&quot;</span>
+<span class="w">        </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="w">    </span><span class="k">fi</span>
+<span class="w">    </span><span class="o">[</span><span class="w"> </span><span class="k">$((</span><span class="nv">i</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="m">6</span><span class="k">))</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  Still waiting... (</span><span class="si">${</span><span class="nv">i</span><span class="si">}</span><span class="s2">*5s)&quot;</span>
+<span class="w">    </span>sleep<span class="w"> </span><span class="m">5</span>
+<span class="k">done</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;WARNING: Timeout. Servers may still be starting.&quot;</span>
+</code></pre></div>
+<h2 id="_2">验证安装<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
+<p>启动后，打开新终端：</p>
+<div class="highlight"><pre><span></span><code>conda<span class="w"> </span>activate<span class="w"> </span>simworld
+
+<span class="c1"># 测试 CARLA 连接</span>
+python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;</span>
+<span class="s2">import carla</span>
+<span class="s2">client = carla.Client(&#39;localhost&#39;, 2000)</span>
+<span class="s2">client.set_timeout(10)</span>
+<span class="s2">world = client.get_world()</span>
+<span class="s2">print(f&#39;CARLA OK: {world.get_map().name}&#39;)</span>
+<span class="s2">print(f&#39;Spawn points: {len(world.get_map().get_spawn_points())}&#39;)</span>
+<span class="s2">&quot;</span>
+
+<span class="c1"># 测试 AirSim 连接</span>
+python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;</span>
+<span class="s2">import airsim</span>
+<span class="s2">client = airsim.MultirotorClient(port=41451)</span>
+<span class="s2">client.confirmConnection()</span>
+<span class="s2">print(&#39;AirSim OK: Connected&#39;)</span>
+<span class="s2">&quot;</span>
+</code></pre></div>
+<h2 id="_3">可用地图<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
+<table>
+<thead>
+<tr>
+<th>地图名</th>
+<th>描述</th>
+<th>推荐用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Town10HD</td>
+<td>大型沿海城市 (默认)</td>
+<td>综合演示、交通仿真</td>
+</tr>
+<tr>
+<td>Town01</td>
+<td>小型城镇</td>
+<td>基础测试</td>
+</tr>
+<tr>
+<td>Town02</td>
+<td>小型住宅区</td>
+<td>行人场景</td>
+</tr>
+<tr>
+<td>Town03</td>
+<td>城市+隧道</td>
+<td>复杂道路</td>
+</tr>
+<tr>
+<td>Town04</td>
+<td>高速公路+城市</td>
+<td>高速场景</td>
+</tr>
+<tr>
+<td>Town05</td>
+<td>多车道城市</td>
+<td>交通管理</td>
+</tr>
+</tbody>
+</table>
+<p>切换地图: <code>./carla_air.sh Town03</code></p>
+<h2 id="_4">停止仿真器<a class="headerlink" href="#_4" title="Permanent link">#</a></h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># 方法 1: 关闭窗口</span>
+<span class="c1"># 方法 2: 命令行</span>
+pkill<span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;CarlaUE4-Linux-Shipping&quot;</span>
+</code></pre></div>
+<h2 id="_5">目录结构<a class="headerlink" href="#_5" title="Permanent link">#</a></h2>
+<div class="highlight"><pre><span></span><code>LinuxNoEditor/
+├── CarlaUE4.sh              # 原始 UE4 启动脚本
+├── carla_air.sh             # CarlaAir 一键启动脚本（需要手动创建）
+├── CarlaUE4/
+│   ├── Binaries/Linux/      # 可执行文件
+│   └── Content/             # 地图和资源
+├── Engine/                   # UE4 运行时
+└── PythonAPI/               # Python 客户端库
+    └── carla/
+        └── dist/            # carla-0.9.16 wheel
+</code></pre></div>
+<h2 id="_6">常见问题<a class="headerlink" href="#_6" title="Permanent link">#</a></h2>
+<h3 id="q">Q: 启动后黑屏或无画面<a class="headerlink" href="#q" title="Permanent link">#</a></h3>
+<p><strong>A</strong>: 检查 GPU 驱动和 Vulkan 支持：<code>vulkaninfo | head -5</code></p>
+<h3 id="q-carla">Q: Carla 端口连接超时<a class="headerlink" href="#q-carla" title="Permanent link">#</a></h3>
+<p><strong>A</strong>: 首次启动需要 2-5 分钟加载资源。用 <code>ss -tlnp | grep 2000</code> 检查端口。</p>
+<h3 id="q-airsim">Q: AirSim 无法连接<a class="headerlink" href="#q-airsim" title="Permanent link">#</a></h3>
+<p><strong>A</strong>: 确认 <code>~/Documents/AirSim/settings.json</code> 存在。端口 41451 需要在 Carla 之后才就绪。</p>
+<h3 id="q_1">Q: 分辨率太低/画质差<a class="headerlink" href="#q_1" title="Permanent link">#</a></h3>
+<p><strong>A</strong>: 修改启动参数：<code>./carla_air.sh Town10HD 1920 1080</code>。编辑脚本中的 <code>quality-level</code> 为 <code>Medium</code> 或 <code>High</code>。</p>
+<h3 id="q_2">Q: 内存不足<a class="headerlink" href="#q_2" title="Permanent link">#</a></h3>
+<p><strong>A</strong>: Town10HD 需要约 8GB GPU 显存。可尝试 <code>-quality-level=Low</code> 或使用更小的地图如 Town01。</p>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>OpenHUTB 版权所有 &copy; 2026</p>
+  </div>
+
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
