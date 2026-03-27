@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>CarlaAir Demo Recording Toolkit - 低空模拟器</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "CarlaAir Demo Recording Toolkit";
+        var mkdocs_page_input_path = "dev/recording.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 低空模拟器
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="搜索文档" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">主页</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../..">主页</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">构建 AirSim</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../use_precompiled/">下载二进制文件</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../build_windows/">在 Windows 上构建</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../build_linux/">在 Linux 上构建</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../build_macos/">在 macOS 上构建</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../docker_ubuntu/">Linux 上的 Docker</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../azure/">Azure 上的 ArSim</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../unreal_custenv/">定制虚幻引擎环境</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../build_faq/">场景问题和回答</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">使用 AirSim</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../apis/">核心 APIs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../image_apis/">图像 APIs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../apis_cpp/">C++ APIs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://openhutb.github.io/doc/python_api/#airsim.client.MultirotorClient">无人机 API 参考文档</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../api_docs/_build/html/">原始 API 参考文档</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../wiki/">Wiki 文档</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../dev_workflow/">开发工作流</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../settings/">设置</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../map/">地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../camera_views/">相机视角</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../using_car/">汽车模式</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../remote_control/">远程控制</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../xbox_controller/">XBox 控制器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../steering_wheel_installation/">方向盘</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../multi_vehicle/">多车辆</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >传感器</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../sensors/">传感器</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../lidar/">激光雷达</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../distance_sensor/">距离传感器</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../InfraredCamera/">红外相机</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../airsim_ros_pkgs/">ROS: AirSim ROS 包装器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../airsim_tutorial_pkgs/">ROS: AirSim 教程包</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../gazebo_drone/">导入 Gazebo 模型</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../retexturing/">域随机化</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../meshes/">网格顶点缓冲区</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../playback/">播放日志</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../voxel_grid/">体素网格生成器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../event_sim/">事件相机</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">设计</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../design/">架构</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../code_structure/">代码结构</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../adding_new_apis/">添加新的 APIs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../modify_recording_data/">修改记录数据</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../coding_guidelines/">编码指南</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../flight_controller/">飞行控制器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simple_flight/">简单飞行</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hello_drone/">Hello Drone</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">外部飞行控制器</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" >MavLink 和 PX4</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../px4_setup/">AirSim 的 PX4 设置</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../px4_sitl/">软件在环中的 PX4</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../px4_sitl_wsl2/">带有 WSL 2 的 PX4 SITL</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../px4_lockstep/">PX4 Lockstep</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../px4_multi_vehicle/">软件在环中的 PX4 多车辆</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="https://youtu.be/1oY8Qu5maQQ">AirSim 与 Pixhawk</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="https://youtu.be/HNWdYrtw3f0">使用 AirSim 设置 PX4</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="https://www.youtube.com/watch?v=d_FyjKDWQfc&feature=youtu.be">调试姿态估计</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="https://github.com/Microsoft/AirSim/wiki/Intercepting-MavLink-messages">拦截 MavLink 消息</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="https://github.com/Microsoft/AirSim/wiki/Rapid-Descent-on-PX4-drones">PX4 无人机快速下降</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../px4_build/">构建 PX4</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../px4_logging/">PX4/MavLink 日志记录</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../log_viewer/">MavLink 日志查看器</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../mavlinkcom/">MavLinkCom</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../mavlinkcom_mocap/">MavLink MoCap</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >ArduPilot</a>
+    <ul>
+                <li class="toctree-l2"><a class="" href="https://ardupilot.org/dev/docs/building-the-code.html">ArduPilot 软件在环设置</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="https://ardupilot.org/dev/docs/sitl-with-airsim.html">AirSim & ArduPilot</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">升级</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../unreal_upgrade/">升级虚幻引擎</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../upgrade_apis/">升级 APIs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../upgrade_settings/">升级设置</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">贡献教程</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../reinforcement_learning/">强化学习</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://www.youtube.com/watch?v=y09VbdQWvQY">使用 Marketplace 中的环境</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://github.com/simondlevy/AirSimTensorFlow">简单的防撞</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://aka.ms/AutonomousDrivingCookbook">Azure 上的自动驾驶</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../wiki/hexacopter/">构造六旋翼飞行器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../wiki/moveOnPath-demo/">移动路径演示</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../point_clouds/">构建点云</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../drone_survey/">使用无人机进行测量</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../orbit/">轨道轨迹</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://youtu.be/Bp86WiLUC80">导入自定义多旋翼网格</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../object_detection/">Object Detection</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://youtu.be/ZonkdMcwXH4">带有 MAVROS 和 PX4 的 AirSim</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">杂项</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../custom_drone/">真实无人机上的 AirSim</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../cmake_linux/">在 Linux 上安装 cmake</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hard_drive/">硬盘繁忙时的提示</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pfm/">pfm 格式</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../unreal_proj/">设置虚幻引擎环境</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../unreal_blocks/">Blocks 环境</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../who_is_using/">谁在使用 AirSim</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../working_with_plugin_contents/">使用 UE 插件内容</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../wiki/technion/technion/">大学生方程式赛车以色列理工学院自驾赛</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">支持</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../faq/">FAQ</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../SUPPORT/">支持</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../CHANGELOG/">修改记录</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../create_issue/">创建问题</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../CONTRIBUTING/">贡献</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">低空模拟器</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">CarlaAir Demo Recording Toolkit</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="carlaair-demo-recording-toolkit">CarlaAir Demo Recording Toolkit<a class="headerlink" href="#carlaair-demo-recording-toolkit" title="Permanent link">#</a></h1>
+<p>录制 CarlaAir 演示视频的完整工具集。</p>
+<p><strong>工作流：录制轨迹 → 导演拍摄 → 输出视频</strong></p>
+<hr />
+<h2 id="_1">目录<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
+<ul>
+<li><a href="#环境配置">环境配置</a></li>
+<li><a href="#quick-start5分钟上手">Quick Start（5分钟上手）</a></li>
+<li><a href="#脚本详解">脚本详解</a></li>
+<li><a href="#1-record_vehiclepy--录制车辆轨迹">record_vehicle.py — 录制车辆</a></li>
+<li><a href="#2-record_dronepy--录制无人机轨迹">record_drone.py — 录制无人机</a></li>
+<li><a href="#3-record_walkerpy--录制行人轨迹">record_walker.py — 录制行人</a></li>
+<li><a href="#4-demo_directorpy--导演模式回放拍摄">demo_director.py — 导演拍摄</a></li>
+<li><a href="#推荐-demo-拍摄方案">推荐 Demo 拍摄方案</a></li>
+<li><a href="#常见问题">常见问题</a></li>
+</ul>
+<hr />
+<h2 id="_2">环境配置<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
+<h3 id="_3">系统要求<a class="headerlink" href="#_3" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>要求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>操作系统</td>
+<td>Ubuntu 20.04 / 22.04</td>
+</tr>
+<tr>
+<td>GPU</td>
+<td>NVIDIA GPU（推荐 RTX 3070 以上，至少 8GB 显存）</td>
+</tr>
+<tr>
+<td>内存</td>
+<td>32GB+</td>
+</tr>
+<tr>
+<td>Python</td>
+<td>3.8 ~ 3.10（推荐 3.10）</td>
+</tr>
+<tr>
+<td>CarlaAir</td>
+<td>v0.1.6 打包版（已安装在本目录）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="step-1-conda">Step 1: 安装 Conda（如果还没有）<a class="headerlink" href="#step-1-conda" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 如果已经有 conda，跳过这一步</span>
+wget<span class="w"> </span>https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+bash<span class="w"> </span>Miniconda3-latest-Linux-x86_64.sh
+<span class="c1"># 重新打开终端</span>
+</code></pre></div>
+<h3 id="step-2-python">Step 2: 创建 Python 环境<a class="headerlink" href="#step-2-python" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>carlaair<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.10<span class="w"> </span>-y
+conda<span class="w"> </span>activate<span class="w"> </span>carlaair
+</code></pre></div>
+<h3 id="step-3">Step 3: 安装依赖<a class="headerlink" href="#step-3" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/path/to/CarlaAir-v0.1.6
+
+<span class="c1"># 方式 A：一键安装（推荐）</span>
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+
+<span class="c1"># 方式 B：手动安装</span>
+pip<span class="w"> </span>install<span class="w"> </span><span class="nv">carla</span><span class="o">==</span><span class="m">0</span>.9.16<span class="w"> </span>airsim&gt;<span class="o">=</span><span class="m">1</span>.8.1<span class="w"> </span>pygame&gt;<span class="o">=</span><span class="m">2</span>.0<span class="w"> </span>numpy&gt;<span class="o">=</span><span class="m">1</span>.20<span class="w"> </span>opencv-python&gt;<span class="o">=</span><span class="m">4</span>.5
+</code></pre></div>
+<h3 id="step-4">Step 4: 验证安装<a class="headerlink" href="#step-4" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code>conda<span class="w"> </span>activate<span class="w"> </span>carlaair
+python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import carla; import airsim; import pygame; import cv2; print(&#39;All OK!&#39;)&quot;</span>
+</code></pre></div>
+<p>如果输出 <code>All OK!</code> 就说明环境没问题。</p>
+<h3 id="step-5-carlaair">Step 5: 启动 CarlaAir<a class="headerlink" href="#step-5-carlaair" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/path/to/CarlaAir-v0.1.6
+./CarlaAir.sh
+</code></pre></div>
+<p>等待终端出现类似以下信息，说明服务器准备好了：</p>
+<div class="highlight"><pre><span></span><code>[CarlaAir] CARLA server ready on port 2000
+[CarlaAir] AirSim ready on port 41451
+</code></pre></div>
+<blockquote>
+<p><strong>注意：</strong> CarlaAir 需要在一个单独的终端持续运行，录制脚本在另一个终端执行。</p>
+</blockquote>
+<hr />
+<h2 id="5">快速启动（5分钟上手）<a class="headerlink" href="#5" title="Permanent link">#</a></h2>
+<p>打开一个<strong>新终端</strong>，按顺序操作：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1. 激活环境</span>
+conda<span class="w"> </span>activate<span class="w"> </span>carlaair
+<span class="nb">cd</span><span class="w"> </span>/path/to/CarlaAir-v0.1.6
+
+<span class="c1"># 2. 录一段车辆轨迹（开 20~30 秒，按 F1 保存）</span>
+python<span class="w"> </span>examples_record_demo/record_vehicle.py
+
+<span class="c1"># 3. 导演模式：回放刚才的轨迹，自由摄像机拍摄</span>
+python<span class="w"> </span>examples_record_demo/demo_director.py<span class="w"> </span>trajectories/vehicle_*.json
+</code></pre></div>
+<p>导演模式里按 <strong>F</strong> 开始录制 MP4，拍好了再按 <strong>F</strong> 停止。视频保存在 <code>recordings/</code> 目录。</p>
+<p>就这么简单！下面是详细说明。</p>
+<hr />
+<h2 id="_4">脚本详解<a class="headerlink" href="#_4" title="Permanent link">#</a></h2>
+<h3 id="1-record_vehiclepy">1. record_vehicle.py — 录制车辆轨迹<a class="headerlink" href="#1-record_vehiclepy" title="Permanent link">#</a></h3>
+<p>驾驶一辆车，轨迹自动记录为 JSON 文件。</p>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>examples_record_demo/record_vehicle.py
+</code></pre></div>
+<h4 id="_5">操控键位<a class="headerlink" href="#_5" title="Permanent link">#</a></h4>
+<table>
+<thead>
+<tr>
+<th>键位</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>W</strong></td>
+<td>油门（加速）</td>
+</tr>
+<tr>
+<td><strong>S</strong></td>
+<td>刹车</td>
+</tr>
+<tr>
+<td><strong>A / D</strong></td>
+<td>左转 / 右转</td>
+</tr>
+<tr>
+<td><strong>Space</strong></td>
+<td>手刹</td>
+</tr>
+<tr>
+<td><strong>R</strong></td>
+<td>切换倒车</td>
+</tr>
+<tr>
+<td><strong>滚轮</strong></td>
+<td>调整转向灵敏度</td>
+</tr>
+<tr>
+<td><strong>F1</strong></td>
+<td><strong>保存轨迹并退出</strong></td>
+</tr>
+<tr>
+<td><strong>ESC</strong></td>
+<td>退出（不保存）</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_6">可选参数<a class="headerlink" href="#_6" title="Permanent link">#</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># 切换地图（支持 Town01 ~ Town10HD）</span>
+python<span class="w"> </span>examples_record_demo/record_vehicle.py<span class="w"> </span>--map<span class="w"> </span>Town03
+
+<span class="c1"># 切换天气（clear / cloudy / rain / storm / night / sunset / fog）</span>
+python<span class="w"> </span>examples_record_demo/record_vehicle.py<span class="w"> </span>--weather<span class="w"> </span>sunset
+
+<span class="c1"># 换车型（默认 Tesla Model3）</span>
+python<span class="w"> </span>examples_record_demo/record_vehicle.py<span class="w"> </span>--vehicle<span class="w"> </span>vehicle.audi.a2
+
+<span class="c1"># 指定出生点编号</span>
+python<span class="w"> </span>examples_record_demo/record_vehicle.py<span class="w"> </span>--spawn<span class="w"> </span><span class="m">5</span>
+
+<span class="c1"># 组合使用</span>
+python<span class="w"> </span>examples_record_demo/record_vehicle.py<span class="w"> </span>--map<span class="w"> </span>Town05<span class="w"> </span>--weather<span class="w"> </span>night<span class="w"> </span>--vehicle<span class="w"> </span>vehicle.bmw.grandtourer
+</code></pre></div>
+<h4 id="_7">输出<a class="headerlink" href="#_7" title="Permanent link">#</a></h4>
+<p>保存到 <code>trajectories/vehicle_&lt;日期时间&gt;.json</code>，例如：
+<div class="highlight"><pre><span></span><code>trajectories/vehicle_20260319_184504.json
+</code></pre></div></p>
+<h4 id="_8">录制技巧<a class="headerlink" href="#_8" title="Permanent link">#</a></h4>
+<ul>
+<li>建议录 <strong>20~40 秒</strong>（400~800帧），太长回放时间也长</li>
+<li>起步后等 2 秒再加速，避免车辆穿地</li>
+<li>沿主路直行最容易拍出好效果，避免频繁急转</li>
+</ul>
+<hr />
+<h3 id="2-record_dronepy">2. record_drone.py — 录制无人机轨迹<a class="headerlink" href="#2-record_dronepy" title="Permanent link">#</a></h3>
+<p>控制无人机飞行，记录轨迹。<strong>异步模式运行，不会导致卡死。</strong></p>
+<blockquote>
+<p><strong>前提：</strong> 需要先用 CarlaAir 的 H 菜单手动起飞无人机到想要的高度，再运行脚本。</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>examples_record_demo/record_drone.py
+</code></pre></div>
+<h4 id="_9">操控键位<a class="headerlink" href="#_9" title="Permanent link">#</a></h4>
+<table>
+<thead>
+<tr>
+<th>键位</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>W / S</strong></td>
+<td>前进 / 后退</td>
+</tr>
+<tr>
+<td><strong>A / D</strong></td>
+<td>左移 / 右移</td>
+</tr>
+<tr>
+<td><strong>E / Space</strong></td>
+<td>上升</td>
+</tr>
+<tr>
+<td><strong>Shift</strong></td>
+<td>下降</td>
+</tr>
+<tr>
+<td><strong>鼠标左右</strong></td>
+<td>偏航（转向）</td>
+</tr>
+<tr>
+<td><strong>滚轮</strong></td>
+<td>调整飞行速度（1~25 m/s）</td>
+</tr>
+<tr>
+<td><strong>F1</strong></td>
+<td><strong>保存轨迹并退出</strong></td>
+</tr>
+<tr>
+<td><strong>ESC</strong></td>
+<td>退出（不保存）</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_10">可选参数<a class="headerlink" href="#_10" title="Permanent link">#</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># 调整飞行速度（默认 6 m/s）</span>
+python<span class="w"> </span>examples_record_demo/record_drone.py<span class="w"> </span>--speed<span class="w"> </span><span class="m">10</span>
+
+<span class="c1"># 切换地图和天气</span>
+python<span class="w"> </span>examples_record_demo/record_drone.py<span class="w"> </span>--map<span class="w"> </span>Town03<span class="w"> </span>--weather<span class="w"> </span>sunset
+</code></pre></div>
+<h4 id="_11">输出<a class="headerlink" href="#_11" title="Permanent link">#</a></h4>
+<p>保存到 <code>trajectories/drone_&lt;日期时间&gt;.json</code></p>
+<h4 id="_12">录制技巧<a class="headerlink" href="#_12" title="Permanent link">#</a></h4>
+<ul>
+<li>先用 H 菜单起飞到 20~50m 的高度再运行脚本</li>
+<li><strong>匀速直线飞行</strong>效果最好，避免频繁转向</li>
+<li>如果和车辆同时录，尽量<strong>平行于车辆方向</strong>飞行</li>
+</ul>
+<hr />
+<h3 id="3-record_walkerpy">3. record_walker.py — 录制行人轨迹<a class="headerlink" href="#3-record_walkerpy" title="Permanent link">#</a></h3>
+<p>控制一个行人走路，FPS 风格操控。</p>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>examples_record_demo/record_walker.py
+</code></pre></div>
+<h4 id="_13">操控键位<a class="headerlink" href="#_13" title="Permanent link">#</a></h4>
+<table>
+<thead>
+<tr>
+<th>键位</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>W / S / A / D</strong></td>
+<td>前后左右走路</td>
+</tr>
+<tr>
+<td><strong>鼠标</strong></td>
+<td>控制看的方向</td>
+</tr>
+<tr>
+<td><strong>Shift</strong></td>
+<td>跑步（2.5 倍速）</td>
+</tr>
+<tr>
+<td><strong>Space</strong></td>
+<td>跳跃</td>
+</tr>
+<tr>
+<td><strong>滚轮</strong></td>
+<td>调整步行速度</td>
+</tr>
+<tr>
+<td><strong>F1</strong></td>
+<td><strong>保存轨迹并退出</strong></td>
+</tr>
+<tr>
+<td><strong>ESC</strong></td>
+<td>退出（不保存）</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_14">可选参数<a class="headerlink" href="#_14" title="Permanent link">#</a></h4>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>examples_record_demo/record_walker.py<span class="w"> </span>--speed<span class="w"> </span><span class="m">3</span>.0
+python<span class="w"> </span>examples_record_demo/record_walker.py<span class="w"> </span>--map<span class="w"> </span>Town03<span class="w"> </span>--weather<span class="w"> </span>rain
+</code></pre></div>
+<h4 id="_15">输出<a class="headerlink" href="#_15" title="Permanent link">#</a></h4>
+<p>保存到 <code>trajectories/walker_&lt;日期时间&gt;.json</code></p>
+<hr />
+<h3 id="4-demo_directorpy">4. demo_director.py — 导演模式（回放+拍摄）<a class="headerlink" href="#4-demo_directorpy" title="Permanent link">#</a></h3>
+<p><strong>核心工具。</strong> 加载之前录好的轨迹文件，所有角色同时回放，你用自由摄像机拍摄 MP4。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 回放单条轨迹</span>
+python<span class="w"> </span>examples_record_demo/demo_director.py<span class="w"> </span>trajectories/vehicle_20260319_184504.json
+
+<span class="c1"># 回放所有轨迹（人+车+无人机同框）</span>
+python<span class="w"> </span>examples_record_demo/demo_director.py<span class="w"> </span>trajectories/*.json
+
+<span class="c1"># 指定地图、天气、高清录制</span>
+python<span class="w"> </span>examples_record_demo/demo_director.py<span class="w"> </span>--map<span class="w"> </span>Town03<span class="w"> </span>--weather<span class="w"> </span>sunset<span class="w"> </span>--res<span class="w"> </span>1920x1080<span class="w"> </span>--fps<span class="w"> </span><span class="m">30</span><span class="w"> </span>trajectories/*.json
+</code></pre></div>
+<h4 id="_16">操控键位<a class="headerlink" href="#_16" title="Permanent link">#</a></h4>
+<p><strong>摄像机（FPS 风格）：</strong></p>
+<table>
+<thead>
+<tr>
+<th>键位</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>鼠标</strong></td>
+<td>控制镜头朝向（yaw + pitch）</td>
+</tr>
+<tr>
+<td><strong>W</strong></td>
+<td>朝你看的方向前进（含上下）</td>
+</tr>
+<tr>
+<td><strong>S</strong></td>
+<td>后退</td>
+</tr>
+<tr>
+<td><strong>A / D</strong></td>
+<td>水平平移</td>
+</tr>
+<tr>
+<td><strong>E / Space</strong></td>
+<td>纯垂直上升</td>
+</tr>
+<tr>
+<td><strong>Shift / Q</strong></td>
+<td>纯垂直下降</td>
+</tr>
+<tr>
+<td><strong>滚轮</strong></td>
+<td>调速（0.1 ~ 100 m/s，低速精细调节）</td>
+</tr>
+<tr>
+<td><strong>C</strong></td>
+<td>跟随角色（循环切换车/人/飞机）</td>
+</tr>
+<tr>
+<td><strong>X</strong></td>
+<td>脱离跟随，回到自由摄像机</td>
+</tr>
+</tbody>
+</table>
+<p><strong>回放控制：</strong></p>
+<table>
+<thead>
+<tr>
+<th>键位</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>P</strong></td>
+<td>暂停 / 继续</td>
+</tr>
+<tr>
+<td><strong>← / →</strong></td>
+<td>前后跳 50 帧（按住 Shift = 200 帧）</td>
+</tr>
+<tr>
+<td><strong>[ / ]</strong></td>
+<td>调整回放速度（0.25x ~ 4x）</td>
+</tr>
+<tr>
+<td><strong>L</strong></td>
+<td>循环模式开关</td>
+</tr>
+<tr>
+<td><strong>Home</strong></td>
+<td>跳到开头</td>
+</tr>
+</tbody>
+</table>
+<p><strong>天气控制：</strong></p>
+<table>
+<thead>
+<tr>
+<th>键位</th>
+<th>天气</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1</strong></td>
+<td>晴天</td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td>多云</td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
+<td>小雨</td>
+</tr>
+<tr>
+<td><strong>4</strong></td>
+<td>暴风雨</td>
+</tr>
+<tr>
+<td><strong>5</strong></td>
+<td>浓雾</td>
+</tr>
+<tr>
+<td><strong>6</strong></td>
+<td>夜晚</td>
+</tr>
+<tr>
+<td><strong>7</strong></td>
+<td>日落</td>
+</tr>
+<tr>
+<td><strong>8</strong></td>
+<td>黎明</td>
+</tr>
+<tr>
+<td><strong>9</strong></td>
+<td>夜雨</td>
+</tr>
+<tr>
+<td><strong>0</strong></td>
+<td>自动轮播所有天气</td>
+</tr>
+</tbody>
+</table>
+<p><strong>录制与其他：</strong></p>
+<table>
+<thead>
+<tr>
+<th>键位</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>F</strong></td>
+<td>开始 / 停止录制 MP4</td>
+</tr>
+<tr>
+<td><strong>G</strong></td>
+<td>截图（PNG）</td>
+</tr>
+<tr>
+<td><strong>Tab</strong></td>
+<td>开关传感器面板（RGB/Depth/Semantic）</td>
+</tr>
+<tr>
+<td><strong>H</strong></td>
+<td>开关 HUD</td>
+</tr>
+<tr>
+<td><strong>ESC</strong></td>
+<td>退出</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_17">可选参数<a class="headerlink" href="#_17" title="Permanent link">#</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># 高清录制</span>
+--res<span class="w"> </span>1920x1080<span class="w"> </span>--fps<span class="w"> </span><span class="m">30</span>
+
+<span class="c1"># 添加背景交通（AI 自动驾驶的车辆和行人）</span>
+--traffic<span class="w"> </span><span class="m">20</span><span class="w"> </span>--walkers<span class="w"> </span><span class="m">30</span>
+
+<span class="c1"># 循环回放</span>
+--loop
+
+<span class="c1"># 纯导演模式（不回放轨迹，只有自由摄像机）</span>
+--no-trajectories
+
+<span class="c1"># 完整示例</span>
+python<span class="w"> </span>examples_record_demo/demo_director.py<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--map<span class="w"> </span>Town03<span class="w"> </span>--weather<span class="w"> </span>sunset<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--res<span class="w"> </span>1920x1080<span class="w"> </span>--fps<span class="w"> </span><span class="m">30</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--traffic<span class="w"> </span><span class="m">15</span><span class="w"> </span>--walkers<span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--loop<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>trajectories/*.json
+</code></pre></div>
+<h4 id="_18">输出<a class="headerlink" href="#_18" title="Permanent link">#</a></h4>
+<ul>
+<li>视频保存到 <code>recordings/director_&lt;日期时间&gt;.mp4</code></li>
+<li>截图保存到 <code>recordings/screenshot_&lt;日期时间&gt;.png</code></li>
+</ul>
+<hr />
+<h2 id="demo">推荐 Demo 拍摄方案<a class="headerlink" href="#demo" title="Permanent link">#</a></h2>
+<h3 id="demo-1">Demo 1: 空地协同追踪（最经典）<a class="headerlink" href="#demo-1" title="Permanent link">#</a></h3>
+<p>展示车辆在地面行驶、无人机在空中伴飞的空地协同场景。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Step 1: 录制车辆（沿主路直行 30 秒）</span>
+python<span class="w"> </span>examples_record_demo/record_vehicle.py<span class="w"> </span>--map<span class="w"> </span>Town10HD
+
+<span class="c1"># Step 2: 先用 H 菜单起飞无人机，然后录制（平行于道路飞行 30 秒）</span>
+python<span class="w"> </span>examples_record_demo/record_drone.py<span class="w"> </span>--map<span class="w"> </span>Town10HD
+
+<span class="c1"># Step 3: 导演拍摄（侧方 45° 俯视角，让人车飞机同框）</span>
+python<span class="w"> </span>examples_record_demo/demo_director.py<span class="w"> </span>--res<span class="w"> </span>1920x1080<span class="w"> </span>--fps<span class="w"> </span><span class="m">30</span><span class="w"> </span>trajectories/*.json
+</code></pre></div>
+<h3 id="demo-2">Demo 2: 天气变换<a class="headerlink" href="#demo-2" title="Permanent link">#</a></h3>
+<p>展示同一场景在不同天气下的效果。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 录好轨迹后，导演模式里按数字键切换天气</span>
+python<span class="w"> </span>examples_record_demo/demo_director.py<span class="w"> </span>--loop<span class="w"> </span>trajectories/*.json
+<span class="c1"># 按 F 开始录制 → 按 1(晴天) → 等几秒 → 按 4(暴雨) → 按 6(夜晚) → 按 F 停止</span>
+</code></pre></div>
+<h3 id="demo-3">Demo 3: 传感器可视化<a class="headerlink" href="#demo-3" title="Permanent link">#</a></h3>
+<p>展示 CarlaAir 的多模态传感器数据。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 录好车辆轨迹后</span>
+python<span class="w"> </span>examples_record_demo/demo_director.py<span class="w"> </span>trajectories/vehicle_*.json
+<span class="c1"># 按 Tab 打开传感器面板 → 可以看到 RGB / Depth / Semantic 三个子窗口</span>
+<span class="c1"># 按 F 录制</span>
+</code></pre></div>
+<h3 id="demo-4">Demo 4: 多地图展示<a class="headerlink" href="#demo-4" title="Permanent link">#</a></h3>
+<p>展示不同城市环境。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Town01 小镇</span>
+python<span class="w"> </span>examples_record_demo/record_vehicle.py<span class="w"> </span>--map<span class="w"> </span>Town01
+python<span class="w"> </span>examples_record_demo/demo_director.py<span class="w"> </span>--map<span class="w"> </span>Town01<span class="w"> </span>trajectories/vehicle_*.json
+
+<span class="c1"># Town03 郊区</span>
+python<span class="w"> </span>examples_record_demo/record_vehicle.py<span class="w"> </span>--map<span class="w"> </span>Town03
+python<span class="w"> </span>examples_record_demo/demo_director.py<span class="w"> </span>--map<span class="w"> </span>Town03<span class="w"> </span>--weather<span class="w"> </span>sunset<span class="w"> </span>trajectories/vehicle_*.json
+
+<span class="c1"># Town05 城市</span>
+python<span class="w"> </span>examples_record_demo/record_vehicle.py<span class="w"> </span>--map<span class="w"> </span>Town05
+python<span class="w"> </span>examples_record_demo/demo_director.py<span class="w"> </span>--map<span class="w"> </span>Town05<span class="w"> </span>--weather<span class="w"> </span>night<span class="w"> </span>trajectories/vehicle_*.json
+</code></pre></div>
+<h3 id="demo-5">Demo 5: 大规模交通场景<a class="headerlink" href="#demo-5" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 不需要录轨迹，直接用背景交通</span>
+python<span class="w"> </span>examples_record_demo/demo_director.py<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--no-trajectories<span class="w"> </span>--traffic<span class="w"> </span><span class="m">30</span><span class="w"> </span>--walkers<span class="w"> </span><span class="m">50</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--map<span class="w"> </span>Town10HD<span class="w"> </span>--res<span class="w"> </span>1920x1080<span class="w"> </span>--fps<span class="w"> </span><span class="m">30</span>
+<span class="c1"># 用自由摄像机飞来飞去拍摄城市交通</span>
+</code></pre></div>
+<hr />
+<h2 id="_19">目录结构<a class="headerlink" href="#_19" title="Permanent link">#</a></h2>
+<div class="highlight"><pre><span></span><code>CarlaAir-v0.1.6/
+├── CarlaAir.sh               # CarlaAir 启动脚本
+├── examples_record_demo/     # ← 你在这里
+│   ├── README.md             # 本文件
+│   ├── record_vehicle.py     # 录制车辆轨迹
+│   ├── record_drone.py       # 录制无人机轨迹
+│   ├── record_walker.py      # 录制行人轨迹
+│   └── demo_director.py      # 导演模式（回放 + 拍摄）
+├── trajectories/             # 轨迹文件（自动创建）
+│   ├── vehicle_20260319_184504.json
+│   ├── drone_20260319_185012.json
+│   └── walker_20260319_185530.json
+└── recordings/               # 视频和截图（自动创建）
+    ├── director_20260319_190000.mp4
+    └── screenshot_20260319_190030.png
+</code></pre></div>
+<hr />
+<h2 id="_20">常见问题<a class="headerlink" href="#_20" title="Permanent link">#</a></h2>
+<h3 id="q-modulenotfounderror-no-module-named-carla">Q: 运行脚本报 <code>ModuleNotFoundError: No module named 'carla'</code><a class="headerlink" href="#q-modulenotfounderror-no-module-named-carla" title="Permanent link">#</a></h3>
+<p>确保已激活正确的 conda 环境：
+<div class="highlight"><pre><span></span><code>conda<span class="w"> </span>activate<span class="w"> </span>carlaair<span class="w">  </span><span class="c1"># 或你安装了依赖的环境名</span>
+</code></pre></div></p>
+<h3 id="q-version-mismatchclient-0916-vs-simulator-1ae5356-dirty-stdbad_alloc">Q: 提示 <code>Version mismatch</code>（Client 0.9.16 vs Simulator <code>1ae5356-dirty</code>）或 <code>std::bad_alloc</code> 崩溃<a class="headerlink" href="#q-version-mismatchclient-0916-vs-simulator-1ae5356-dirty-stdbad_alloc" title="Permanent link">#</a></h3>
+<p>CarlaAir 的仿真器是 <strong>CARLA 定制分支</strong>，不能与 PyPI 上的 <code>carla==0.9.16</code> 客户端混用，否则会 RPC 不兼容并可能 <code>std::bad_alloc</code>。</p>
+<ol>
+<li>向发布方索取与当前 CarlaAir <strong>同一次编译</strong> 的 Python wheel（<code>carla-*.whl</code>），或从完整 <code>LinuxNoEditor</code> 包里的 <code>PythonAPI/carla/dist/</code> 复制。</li>
+<li>将 <strong>单个</strong> <code>carla-*.whl</code> 放到项目目录：<br />
+<code>CarlaAir-v0.1.6/PythonAPI/carla/dist/</code></li>
+<li>在项目根目录执行：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>./install_matching_carla_api.sh
+<span class="c1"># 或指定路径： ./install_matching_carla_api.sh /path/to/carla-....whl</span>
+</code></pre></div>
+<p>再运行录制脚本。若 <code>PythonAPI/carla/dist/</code> 为空，说明当前压缩包可能漏带了 wheel，需要补发或自行用源码树 <code>Util/BuildTools/BuildPythonAPI.sh</code> 在匹配环境下编译生成。</p>
+<h3 id="q-time-out-while-waiting-for-the-simulator">Q: 运行脚本报 <code>time-out while waiting for the simulator</code><a class="headerlink" href="#q-time-out-while-waiting-for-the-simulator" title="Permanent link">#</a></h3>
+<p>CarlaAir 没有在运行。在另一个终端执行：
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/path/to/CarlaAir-v0.1.6
+./CarlaAir.sh
+</code></pre></div></p>
+<h3 id="q">Q: 无人机脚本打开后无法控制 / 没有画面<a class="headerlink" href="#q" title="Permanent link">#</a></h3>
+<ol>
+<li>确保已经通过 H 菜单起飞了无人机</li>
+<li>如果没有画面但能控制，说明 CARLA 找不到 drone actor，检查 AirSim 是否正常连接</li>
+</ol>
+<h3 id="q_1">Q: 导演模式里速度太快或太慢<a class="headerlink" href="#q_1" title="Permanent link">#</a></h3>
+<p>滚轮可以调速，范围是 <strong>0.1 ~ 100 m/s</strong>：
+- 低速区（&lt; 2 m/s）：每滚一格 ±0.2
+- 中速区（2~10 m/s）：每滚一格 ±1.0
+- 高速区（&gt; 10 m/s）：每滚一格 ±5.0</p>
+<h3 id="q_2">Q: 轨迹回放时角色位置不对<a class="headerlink" href="#q_2" title="Permanent link">#</a></h3>
+<p>确保录制和回放使用的是<strong>同一张地图</strong>。轨迹文件里记录了地图名，切换地图后坐标会不对。</p>
+<h3 id="q_3">Q: 导演模式的回放结束了怎么办<a class="headerlink" href="#q_3" title="Permanent link">#</a></h3>
+<ul>
+<li>按 <strong>P</strong> 暂停后按 <strong>Home</strong> 跳到开头，再按 <strong>P</strong> 继续</li>
+<li>或者启动时加 <code>--loop</code> 循环播放</li>
+</ul>
+<h3 id="q_4">Q: 怎么让录制的视频更流畅<a class="headerlink" href="#q_4" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 使用 30fps + 1080p</span>
+python<span class="w"> </span>examples_record_demo/demo_director.py<span class="w"> </span>--res<span class="w"> </span>1920x1080<span class="w"> </span>--fps<span class="w"> </span><span class="m">30</span><span class="w"> </span>trajectories/*.json
+</code></pre></div>
+<h3 id="q_5">Q: 车辆出生后掉到地下<a class="headerlink" href="#q_5" title="Permanent link">#</a></h3>
+<p>重新录制，起步后<strong>等 2~3 秒</strong>让物理引擎稳定再开始操作。</p>
+<h3 id="q_6">Q: 我想同时录多辆车 / 多个行人<a class="headerlink" href="#q_6" title="Permanent link">#</a></h3>
+<p>每种类型运行多次录制脚本即可，每次都会生成独立的 JSON 文件。导演模式用 <code>trajectories/*.json</code> 可以同时加载所有轨迹。</p>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>OpenHUTB 版权所有 &copy; 2026</p>
+  </div>
+
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

@@ -282,7 +282,7 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="carlaair">CarlaAir 所有修改清单<a class="headerlink" href="#carlaair" title="Permanent link">#</a></h1>
-<p>本文档列出了 CarlaAir 相对于原版 CARLA 0.9.16 和 AirSim 的所有代码修改，方便开发者精确了解改动范围。</p>
+<p>本文档列出了 CarlaAir 相对于原版 Carla 0.9.16 和 AirSim 的所有代码修改，方便开发者精确了解改动范围。</p>
 <h2 id="_1">修改统计<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
 <table>
 <thead>
@@ -316,7 +316,7 @@
 </tbody>
 </table>
 <h2 id="_2">详细修改<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
-<h3 id="1-simworldgamemodeh">1. [新建] SimWorldGameMode.h<a class="headerlink" href="#1-simworldgamemodeh" title="Permanent link">#</a></h3>
+<h3 id="1-simworldgamemodeh-airsim">1. [新建] SimWorldGameMode.h  (位于 AirSim 插件中)<a class="headerlink" href="#1-simworldgamemodeh-airsim" title="Permanent link">#</a></h3>
 <p><strong>路径</strong>: <code>Unreal/CarlaUE4/Plugins/AirSim/Source/SimWorldGameMode.h</code>
 <strong>行数</strong>: 75 行
 <strong>放置在 AirSim 插件目录的原因</strong>: 需要引用 AirSim 头文件 (SimHUDWidget.h, SimModeBase.h, PIPCamera.h, AirSimSettings.hpp)</p>
@@ -331,7 +331,7 @@
 - <code>USimHUDWidget* Widget_</code> — AirSim HUD 控件
 - <code>ASimModeBase* SimMode_</code> — AirSim 模拟模式 Actor
 - <code>APIPCamera* SubwindowCameras_[3]</code> — 子窗口相机</p>
-<h3 id="2-simworldgamemodecpp">2. [新建] SimWorldGameMode.cpp<a class="headerlink" href="#2-simworldgamemodecpp" title="Permanent link">#</a></h3>
+<h3 id="2-simworldgamemodecpp-airsim">2. [新建] SimWorldGameMode.cpp  (位于 AirSim 插件中)<a class="headerlink" href="#2-simworldgamemodecpp-airsim" title="Permanent link">#</a></h3>
 <p><strong>路径</strong>: <code>Unreal/CarlaUE4/Plugins/AirSim/Source/SimWorldGameMode.cpp</code>
 <strong>行数</strong>: 548 行</p>
 <p><strong>关键实现</strong>:</p>
@@ -352,17 +352,17 @@
 <tr>
 <td>BeginPlay</td>
 <td>127-186</td>
-<td>CARLA初始化 → 创建SpectatorPawn → AirSim引导</td>
+<td>Carla 初始化 → 创建SpectatorPawn → AirSim引导</td>
 </tr>
 <tr>
 <td>Tick</td>
 <td>190-198</td>
-<td>CARLA Recorder + AirSim Widget更新</td>
+<td>Carla Recorder + AirSim Widget更新</td>
 </tr>
 <tr>
 <td>EndPlay</td>
 <td>202-224</td>
-<td>停止API → 销毁Widget/SimMode → CARLA清理</td>
+<td>停止API → 销毁Widget/SimMode → Carla 清理</td>
 </tr>
 <tr>
 <td>InitializeAirSimSettings</td>
@@ -463,9 +463,9 @@
 </code></pre></div></p>
 <p><strong>影响</strong>: 打包时包含所有 AirSim 资源（无人机模型、HUD、天气特效等），共 340 个文件。</p>
 <h2 id="_3">未修改的关键文件（供参考）<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
-<p>以下文件是原版 CARLA/AirSim 的，未做修改但对理解系统重要：</p>
+<p>以下文件是原版 Carla/AirSim 的，未做修改但对理解系统重要：</p>
 <ul>
-<li><code>CarlaGameModeBase.cpp</code> — CARLA GameMode 实现</li>
+<li><code>CarlaGameModeBase.cpp</code> — Carla GameMode 实现</li>
 <li><code>CarlaEpisode.cpp</code> — Episode 管理</li>
 <li><code>SimModeWorldMultiRotor.cpp</code> — 多旋翼飞行器模式</li>
 <li><code>SimpleFlight/SimpleFlightApi.cpp</code> — 简单飞行控制器</li>
