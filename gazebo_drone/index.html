@@ -307,14 +307,12 @@
 <h2 id="_1">依赖<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
 <h3 id="gazebo">Gazebo<a class="headerlink" href="#gazebo" title="Permanent link">#</a></h3>
 <p>请确保您已安装 Gazebo 依赖项：</p>
-<div class="highlight"><pre><span></span><code>sudo apt-get install libgazebo9-dev
-</code></pre></div>
+<p><code>sudo apt-get install libgazebo9-dev</code></p>
 <h3 id="airlib">AirLib<a class="headerlink" href="#airlib" title="Permanent link">#</a></h3>
 <p>本项目使用 GCC 8 构建，因此 AirLib 也需要使用 GCC 8 构建。请从 AirSim 根目录运行：</p>
-<div class="highlight"><pre><span></span><code>./clean.sh
+<p><code>./clean.sh
 ./setup.sh
-./build.sh --gcc
-</code></pre></div>
+./build.sh --gcc</code></p>
 <h2 id="airsim">AirSim 模拟器<a class="headerlink" href="#airsim" title="Permanent link">#</a></h2>
 <p>AirSim UE 插件需要使用 clang 编译，因此您不能使用上一步编译的版本。您可以使用我们提供的 <a href="https://pan.baidu.com/s/1n2fJvWff4pbtMe97GOqtvQ?pwd=hutb">二进制文件</a> （位于<code>software/air</code>目录下），也可以将 AirSim 克隆到另一个文件夹，然后不使用上述选项进行编译，之后您就可以 <a href="../build_linux/#how-to-use-airsim">运行 Blocks</a> 或您自己的环境了。</p>
 <h3 id="airsim_1">AirSim 设置<a class="headerlink" href="#airsim_1" title="Permanent link">#</a></h3>
@@ -323,16 +321,14 @@
 您可能需要更改 AirSim 无人机的视觉模型，为此，您可以参考 <a href="https://youtu.be/Bp86WiLUC80">此教程</a> 。</p>
 <h2 id="_2">构建<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
 <p>请从 Air 根文件夹执行此操作：
-<div class="highlight"><pre><span></span><code>cd GazeboDrone
+<code>cd GazeboDrone
 mkdir build &amp;&amp; cd build
 cmake -DCMAKE_C_COMPILER=gcc-8 -DCMAKE_CXX_COMPILER=g++-8 ..
-make
-</code></pre></div></p>
+make</code></p>
 <h2 id="_3">运行<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
 <p>首先运行 Air 模拟器和你的 Gazebo 模型，然后从 Air 根文件夹执行以下命令：</p>
-<div class="highlight"><pre><span></span><code>cd GazeboDrone/build
-./GazeboDrone
-</code></pre></div>
+<p><code>cd GazeboDrone/build
+./GazeboDrone</code></p>
               
             </div>
           </div><footer>

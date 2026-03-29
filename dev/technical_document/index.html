@@ -326,7 +326,7 @@
 <li>AirSim 的模拟逻辑位于 <code>ASimModeBase</code> 中，它继承自 <code>AActor</code>（而非 <code>AGameModeBase</code>），因此可以作为常规世界 Actor 生成。</li>
 </ul>
 <p>这里使用统一的 <code>ASimWorldGameMode</code> 类：</p>
-<div class="highlight"><pre><span></span><code>                    UE4 单游戏模式(GameMode)插槽
+<p><code>UE4 单游戏模式(GameMode)插槽
                             |
                     AGameModeBase (UE4)
                             |
@@ -345,26 +345,25 @@
                             |--- [继承] AWeather
                             |--- [继承] ACarlaRecorder
                             |--- [继承] ATrafficLightManager
-                            |--- [继承] ActorDispatcher + ActorFactories
-</code></pre></div>
+                            |--- [继承] ActorDispatcher + ActorFactories</code></p>
 <div class="admonition 关键思想">
 <p class="admonition-title">关键思想</p>
 <p>通过让 <code>ASimWorldGameMode</code> <strong>继承</strong>自 <code>ACarlaGameModeBase</code>，可以让所有 Carla 子系统都经历标准的 UE4 生命周期（<code>InitGame</code> → <code>BeginPlay</code> → <code>Tick</code>）。在 Carla 初始化完成后，AirSim 的 <code>ASimModeBase</code> 会在 <code>BeginPlay</code> 期间作为<strong>普通 Actor 生成</strong>到游戏世界中。这样就避免了任何插槽冲突，因为 <code>ASimModeBase</code> 不会与 GameMode 插槽竞争。</p>
 </div>
 <h3 id="23">2.3 类层次结构<a class="headerlink" href="#23" title="Permanent link">#</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1">// 统一游戏模式 GameMode（在 AirSim 插件模块中，依赖于 Carla 模块）</span>
-<span class="n">UCLASS</span><span class="p">()</span>
-<span class="k">class</span><span class="w"> </span><span class="nc">AIRSIM_API</span><span class="w"> </span><span class="n">ASimWorldGameMode</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">ACarlaGameModeBase</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="c1">// Carla: 继承了 Episode, 天气Weather, 记录器Recorder, ActorFactories, 交通 Traffic</span>
-<span class="w">    </span><span class="c1">// AirSim: 包含 SimMode, HUD 空间, 输入绑定</span>
-<span class="k">private</span><span class="o">:</span>
-<span class="w">    </span><span class="n">UPROPERTY</span><span class="p">()</span><span class="w"> </span><span class="n">ASimModeBase</span><span class="o">*</span><span class="w"> </span><span class="n">SimMode_</span><span class="p">;</span><span class="w">        </span><span class="c1">// AirSim 仿真 (生成参与者)</span>
-<span class="w">    </span><span class="n">UPROPERTY</span><span class="p">()</span><span class="w"> </span><span class="n">USimHUDWidget</span><span class="o">*</span><span class="w"> </span><span class="n">AirSimWidget_</span><span class="p">;</span><span class="w">  </span><span class="c1">// 调试叠加层</span>
-<span class="w">    </span><span class="n">TSubclassOf</span><span class="o">&lt;</span><span class="n">ASimModeBase</span><span class="o">&gt;</span><span class="w"> </span><span class="n">SimModeClass_</span><span class="p">;</span><span class="w">   </span><span class="c1">// 来自 settings.json</span>
-<span class="p">};</span>
-</code></pre></div>
+<p><code>cpp
+// 统一游戏模式 GameMode（在 AirSim 插件模块中，依赖于 Carla 模块）
+UCLASS()
+class AIRSIM_API ASimWorldGameMode : public ACarlaGameModeBase {
+    // Carla: 继承了 Episode, 天气Weather, 记录器Recorder, ActorFactories, 交通 Traffic
+    // AirSim: 包含 SimMode, HUD 空间, 输入绑定
+private:
+    UPROPERTY() ASimModeBase* SimMode_;        // AirSim 仿真 (生成参与者)
+    UPROPERTY() USimHUDWidget* AirSimWidget_;  // 调试叠加层
+    TSubclassOf&lt;ASimModeBase&gt; SimModeClass_;   // 来自 settings.json
+};</code></p>
 <h3 id="24">2.4 初始化序列<a class="headerlink" href="#24" title="Permanent link">#</a></h3>
-<div class="highlight"><pre><span></span><code>UE4 引擎开始
+<p><code>UE4 引擎开始
 │
 ├── ASimWorldGameMode 构造函数
 │   ├── ACarlaGameModeBase() → 创建 Episode, Recorder
@@ -417,31 +416,29 @@
 │
 └── 两个API均已准备就绪
     ├── Carla Python API 在端口 2000 上运行
-    └── AirSim Python API 在端口 41451 上运行
-</code></pre></div>
+    └── AirSim Python API 在端口 41451 上运行</code></p>
 <h3 id="25">2.5 观察者棋子问题<a class="headerlink" href="#25" title="Permanent link">#</a></h3>
 <p>在 AirSim 中，<strong>必须</strong>将 <code>DefaultPawnClass</code> 设置为 <code>nullptr</code>，因为 UE4 的默认行为是自动生成并拥有一个玩家控制器控制的棋子。如果任一一个棋子被控制，AirSim 的 <code>SimpleFlightApi</code> 输入管道就会中断，那么无人机将无法接收控制命令。</p>
 <p>但是，Carla 希望 <code>Episode-&gt;Spectator</code> 指向一个有效的棋子（用于相机控制、场景观察，以及作为 Python API 的 <code>world.get_spectator()</code> 返回值）。</p>
 <p><strong>解决方案</strong>：生成一个观察者棋子(<code>ASpectatorPawn</code>)对象，但<strong>不拥有它的控制权</strong>。它作为一个“孤儿” 棋子存在（Carla 的 API 可以访问它），但 UE4 的玩家控制器系统无法访问它。我们使用 C++ 友元类(<code>friend class</code>)声明直接设置 <code>Episode-&gt;Spectator</code>（一个私有成员），绕过了 Carla 的正常初始化流程。</p>
-<div class="highlight"><pre><span></span><code><span class="c1">// 在 ASimWorldGameMode::BeginPlay() 中，在 Super::BeginPlay() 之后</span>
-<span class="n">FActorSpawnParameters</span><span class="w"> </span><span class="n">SpawnParams</span><span class="p">;</span>
-<span class="n">SpawnParams</span><span class="p">.</span><span class="n">SpawnCollisionHandlingOverride</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ESpawnActorCollisionHandlingMethod</span><span class="o">::</span><span class="n">AlwaysSpawn</span><span class="p">;</span>
-<span class="n">ASpectatorPawn</span><span class="o">*</span><span class="w"> </span><span class="n">Spectator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GetWorld</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SpawnActor</span><span class="o">&lt;</span><span class="n">ASpectatorPawn</span><span class="o">&gt;</span><span class="p">(</span>
-<span class="w">    </span><span class="n">ASpectatorPawn</span><span class="o">::</span><span class="n">StaticClass</span><span class="p">(),</span><span class="w"> </span><span class="o">&amp;</span><span class="n">SpawnTransform</span><span class="p">,</span><span class="w"> </span><span class="n">SpawnParams</span><span class="p">);</span>
-<span class="c1">// 不要调用 PlayerController-&gt;Possess(Spectator)</span>
-<span class="n">Episode</span><span class="o">-&gt;</span><span class="n">Spectator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Spectator</span><span class="p">;</span><span class="w">  </span><span class="c1">// 直接友元访问</span>
-<span class="n">Episode</span><span class="o">-&gt;</span><span class="n">ActorDispatcher</span><span class="o">-&gt;</span><span class="n">GetActorRegistry</span><span class="p">().</span><span class="n">Register</span><span class="p">(</span>
-<span class="w">    </span><span class="n">FCarlaActor</span><span class="o">::</span><span class="n">IdType</span><span class="p">(</span><span class="n">Spectator</span><span class="o">-&gt;</span><span class="n">GetUniqueID</span><span class="p">()),</span><span class="w"> </span><span class="o">*</span><span class="n">Spectator</span><span class="p">);</span>
-</code></pre></div>
+<p><code>cpp
+// 在 ASimWorldGameMode::BeginPlay() 中，在 Super::BeginPlay() 之后
+FActorSpawnParameters SpawnParams;
+SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+ASpectatorPawn* Spectator = GetWorld()-&gt;SpawnActor&lt;ASpectatorPawn&gt;(
+    ASpectatorPawn::StaticClass(), &amp;SpawnTransform, SpawnParams);
+// 不要调用 PlayerController-&gt;Possess(Spectator)
+Episode-&gt;Spectator = Spectator;  // 直接友元访问
+Episode-&gt;ActorDispatcher-&gt;GetActorRegistry().Register(
+    FCarlaActor::IdType(Spectator-&gt;GetUniqueID()), *Spectator);</code></p>
 <h3 id="26">2.6 构建系统集成<a class="headerlink" href="#26" title="Permanent link">#</a></h3>
 <p>这两个插件是作为同一个UE4项目的一部分编译的：</p>
-<div class="highlight"><pre><span></span><code>CarlaUE4.uproject
+<p><code>CarlaUE4.uproject
 ├── Plugins/Carla/    (LoadingPhase: PostConfigInit)
 │   └── Carla.Build.cs  → libcarla_server.a, librpc.a
 └── Plugins/AirSim/   (LoadingPhase: PreDefault)
-    └── AirSim.Build.cs → PrivateDependency: &quot;Carla&quot;
-                         → AirLib (header-only), rpclib, Eigen3, MavLinkCom
-</code></pre></div>
+    └── AirSim.Build.cs → PrivateDependency: "Carla"
+                         → AirLib (header-only), rpclib, Eigen3, MavLinkCom</code></p>
 <p><strong>单向依赖关系</strong>（AirSim 依赖 Carla：AirSim → Carla）至关重要：<code>AirSim.Build.cs</code> 声明了 <code>PrivateDependencyModuleNames.Add("Carla")</code>，允许 <code>SimWorldGameMode.cpp</code> 包含 Carla 头文件。反向依赖关系不存在，即 Carla 的代码无法识别 AirSim。Carla 源代码仅做了两处修改：</p>
 <ol>
 <li><code>CarlaGameModeBase.h</code>: <code>WeatherClass</code> 和 <code>ActorFactories</code> 从私有的成员 <code>private</code> 更改为受保护的成员 <code>protected</code></li>
@@ -449,36 +446,36 @@
 </ol>
 <h3 id="27">2.7 配置<a class="headerlink" href="#27" title="Permanent link">#</a></h3>
 <p><strong><code>Unreal/CarlaUE4/Config/DefaultEngine.ini</code></strong> (关键条目):
-<div class="highlight"><pre><span></span><code><span class="na">GlobalDefaultGameMode</span><span class="o">=</span><span class="s">/Script/AirSim.SimWorldGameMode</span>
-<span class="na">GameInstanceClass</span><span class="o">=</span><span class="s">/Script/Carla.CarlaGameInstance</span>
-<span class="na">TransitionMap</span><span class="o">=</span><span class="s">/AirSim/AirSimAssets</span>
-<span class="na">r.CustomDepth</span><span class="o">=</span><span class="s">3</span><span class="w">           </span><span class="c1">; 语义分割所需</span>
-<span class="na">bEnableEnhancedDeterminism</span><span class="o">=</span><span class="s">True</span>
-</code></pre></div></p>
+<code>ini
+GlobalDefaultGameMode=/Script/AirSim.SimWorldGameMode
+GameInstanceClass=/Script/Carla.CarlaGameInstance
+TransitionMap=/AirSim/AirSimAssets
+r.CustomDepth=3           ; 语义分割所需
+bEnableEnhancedDeterminism=True</code></p>
 <p><strong><code>Unreal/CarlaUE4/Config/DefaultGame.ini</code></strong> (打包):
-<div class="highlight"><pre><span></span><code><span class="c1">; 13 Carla 地图 + AirSim 资产地图</span>
-<span class="na">+MapsToCook=(FilePath</span><span class="o">=</span><span class="s">&quot;/Game/Carla/Maps/Town01&quot;</span><span class="na">)</span>
-<span class="na">+MapsToCook=(FilePath</span><span class="o">=</span><span class="s">&quot;/AirSim/AirSimAssets&quot;</span><span class="na">)</span>
-<span class="c1">; 6 AirSim 烘焙内容目</span>
-<span class="na">+DirectoriesToAlwaysCook=(Path</span><span class="o">=</span><span class="s">&quot;AirSim/Blueprints&quot;</span><span class="na">)</span>
-<span class="na">+DirectoriesToAlwaysCook=(Path</span><span class="o">=</span><span class="s">&quot;AirSim/Models&quot;</span><span class="na">)</span>
-<span class="na">+DirectoriesToAlwaysCook=(Path</span><span class="o">=</span><span class="s">&quot;AirSim/Weather&quot;</span><span class="na">)</span>
-</code></pre></div></p>
+<code>ini
+; 13 Carla 地图 + AirSim 资产地图
++MapsToCook=(FilePath="/Game/Carla/Maps/Town01")
++MapsToCook=(FilePath="/AirSim/AirSimAssets")
+; 6 AirSim 烘焙内容目
++DirectoriesToAlwaysCook=(Path="AirSim/Blueprints")
++DirectoriesToAlwaysCook=(Path="AirSim/Models")
++DirectoriesToAlwaysCook=(Path="AirSim/Weather")</code></p>
 <p><strong><code>~/Documents/AirSim/settings.json</code></strong> (运行时):
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;SettingsVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.2</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;SimMode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Multirotor&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;Vehicles&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;SimpleFlight&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">&quot;VehicleType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SimpleFlight&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;AutoCreate&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;Cameras&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="nt">&quot;0&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;CaptureSettings&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="nt">&quot;ImageType&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Width&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1280</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Height&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">960</span><span class="p">}]</span><span class="w"> </span><span class="p">}</span>
-<span class="w">            </span><span class="p">}</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div></p>
+<code>json
+{
+    "SettingsVersion": 1.2,
+    "SimMode": "Multirotor",
+    "Vehicles": {
+        "SimpleFlight": {
+            "VehicleType": "SimpleFlight",
+            "AutoCreate": true,
+            "Cameras": {
+                "0": { "CaptureSettings": [{"ImageType": 0, "Width": 1280, "Height": 960}] }
+            }
+        }
+    }
+}</code></p>
 <hr />
 <h2 id="3">3. 双通信架构<a class="headerlink" href="#3" title="Permanent link">#</a></h2>
 <h3 id="31-carla-2000">3.1 Carla 服务端 (端口 2000)<a class="headerlink" href="#31-carla-2000" title="Permanent link">#</a></h3>
@@ -1022,16 +1019,16 @@ $$
 </tbody>
 </table>
 <h3 id="72">7.2 参与者生成管线<a class="headerlink" href="#72" title="Permanent link">#</a></h3>
-<div class="highlight"><pre><span></span><code><span class="nl">Python</span><span class="p">:</span><span class="w"> </span><span class="n">world</span><span class="p">.</span><span class="n">spawn_actor</span><span class="p">(</span><span class="n">blueprint</span><span class="p">,</span><span class="w"> </span><span class="n">transform</span><span class="p">)</span>
-<span class="w">  </span><span class="err">→</span><span class="w"> </span><span class="n">RPC</span><span class="o">:</span><span class="w"> </span><span class="n">carla</span><span class="o">::</span><span class="n">rpc</span><span class="o">::</span><span class="n">Command</span><span class="o">::</span><span class="n">SpawnActor</span>
-<span class="w">    </span><span class="err">→</span><span class="w"> </span><span class="n">FCarlaServer</span><span class="o">::</span><span class="n">FPimpl</span><span class="w"> </span><span class="p">(</span><span class="n">game</span><span class="w"> </span><span class="kr">thread</span><span class="p">)</span>
-<span class="w">      </span><span class="err">→</span><span class="w"> </span><span class="n">UCarlaEpisode</span><span class="o">::</span><span class="n">SpawnActorWithInfo</span><span class="p">()</span>
-<span class="w">        </span><span class="err">→</span><span class="w"> </span><span class="n">UActorDispatcher</span><span class="o">::</span><span class="n">SpawnActor</span><span class="p">()</span>
-<span class="w">          </span><span class="err">→</span><span class="w"> </span><span class="n">ACarlaActorFactory</span><span class="o">::</span><span class="n">SpawnActor</span><span class="p">()</span><span class="w">  </span><span class="p">(</span><span class="n">type</span><span class="o">-</span><span class="n">specific</span><span class="w"> </span><span class="n">factory</span><span class="p">)</span>
-<span class="w">            </span><span class="err">→</span><span class="w"> </span><span class="n">UWorld</span><span class="o">::</span><span class="n">SpawnActor</span><span class="o">&lt;&gt;</span><span class="p">()</span><span class="w">  </span><span class="p">(</span><span class="n">UE4</span><span class="w"> </span><span class="n">native</span><span class="w"> </span><span class="n">spawn</span><span class="p">)</span>
-<span class="w">          </span><span class="err">→</span><span class="w"> </span><span class="n">FActorRegistry</span><span class="o">::</span><span class="n">Register</span><span class="p">(</span><span class="n">actor_id</span><span class="p">,</span><span class="w"> </span><span class="n">actor</span><span class="p">)</span>
-<span class="w">        </span><span class="err">→</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">carla</span><span class="o">::</span><span class="n">rpc</span><span class="o">::</span><span class="n">Actor</span><span class="w"> </span><span class="p">(</span><span class="n">serialized</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">client</span><span class="p">)</span>
-</code></pre></div>
+<p><code>cpp
+Python: world.spawn_actor(blueprint, transform)
+  → RPC: carla::rpc::Command::SpawnActor
+    → FCarlaServer::FPimpl (game thread)
+      → UCarlaEpisode::SpawnActorWithInfo()
+        → UActorDispatcher::SpawnActor()
+          → ACarlaActorFactory::SpawnActor()  (type-specific factory)
+            → UWorld::SpawnActor&lt;&gt;()  (UE4 native spawn)
+          → FActorRegistry::Register(actor_id, actor)
+        → return carla::rpc::Actor (serialized to client)</code></p>
 <h3 id="73-ai">7.3 行人 AI 导航<a class="headerlink" href="#73-ai" title="Permanent link">#</a></h3>
 <p>行人使用 UE4 的 <strong>Recast 导航网格</strong>进行寻路</p>
 <ul>
@@ -1344,18 +1341,20 @@ $$
 <hr />
 <h2 id="11_1">11. 构建和部署<a class="headerlink" href="#11_1" title="Permanent link">#</a></h2>
 <h3 id="111">11.1 编译<a class="headerlink" href="#111" title="Permanent link">#</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># 模块级编译（避免 features.h 交叉编译错误）</span>
-<span class="nb">export</span><span class="w"> </span><span class="nv">UE4_ROOT</span><span class="o">=</span>/path/to/UnrealEngine-4.26
-<span class="si">${</span><span class="nv">UE4_ROOT</span><span class="si">}</span>/Engine/Build/BatchFiles/Linux/Build.sh<span class="w"> </span>CarlaUE4Editor<span class="w"> </span>Linux<span class="w"> </span>Development<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>-project<span class="o">=</span><span class="s2">&quot;/path/to/CarlaUE4.uproject&quot;</span><span class="w"> </span>-module<span class="o">=</span>Carla<span class="w">    </span><span class="c1"># ~290s</span>
-<span class="si">${</span><span class="nv">UE4_ROOT</span><span class="si">}</span>/Engine/Build/BatchFiles/Linux/Build.sh<span class="w"> </span>CarlaUE4Editor<span class="w"> </span>Linux<span class="w"> </span>Development<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>-project<span class="o">=</span><span class="s2">&quot;/path/to/CarlaUE4.uproject&quot;</span><span class="w"> </span>-module<span class="o">=</span>AirSim<span class="w">   </span><span class="c1"># ~100s</span>
-</code></pre></div>
+<p>```bash</p>
+<h1 id="featuresh">模块级编译（避免 features.h 交叉编译错误）<a class="headerlink" href="#featuresh" title="Permanent link">#</a></h1>
+<p>export UE4_ROOT=/path/to/UnrealEngine-4.26
+${UE4_ROOT}/Engine/Build/BatchFiles/Linux/Build.sh CarlaUE4Editor Linux Development \
+    -project="/path/to/CarlaUE4.uproject" -module=Carla    # ~290s
+${UE4_ROOT}/Engine/Build/BatchFiles/Linux/Build.sh CarlaUE4Editor Linux Development \
+    -project="/path/to/CarlaUE4.uproject" -module=AirSim   # ~100s
+```</p>
 <h3 id="112">11.2 打包<a class="headerlink" href="#112" title="Permanent link">#</a></h3>
-<div class="highlight"><pre><span></span><code>./Util/BuildTools/Package.sh<span class="w"> </span>--config<span class="o">=</span>Shipping<span class="w"> </span>--no-zip
-<span class="c1"># 输出: Dist/CARLA_Shipping_&lt;version&gt;/LinuxNoEditor/ (~19 GB)</span>
-<span class="c1"># 编译: ~800s (656 units), Cook: ~2h (13459 packages)</span>
-</code></pre></div>
+<p>```bash
+./Util/BuildTools/Package.sh --config=Shipping --no-zip</p>
+<h1 id="distcarla_shipping_linuxnoeditor-19-gb">输出: Dist/CARLA_Shipping_<version>/LinuxNoEditor/ (~19 GB)<a class="headerlink" href="#distcarla_shipping_linuxnoeditor-19-gb" title="Permanent link">#</a></h1>
+<h1 id="800s-656-units-cook-2h-13459-packages">编译: ~800s (656 units), Cook: ~2h (13459 packages)<a class="headerlink" href="#800s-656-units-cook-2h-13459-packages" title="Permanent link">#</a></h1>
+<p>```</p>
 <h3 id="113">11.3 发布<a class="headerlink" href="#113" title="Permanent link">#</a></h3>
 <p>打包后的版本：<strong>7.3 GB</strong>（压缩后，不含调试符号），包含：</p>
 <ul>
@@ -1657,64 +1656,58 @@ $$
 </table>
 <h2 id="bpython-api">附录 B：Python API 快速参考<a class="headerlink" href="#bpython-api" title="Permanent link">#</a></h2>
 <h3 id="carla-api-2000">Carla API (端口 2000)<a class="headerlink" href="#carla-api-2000" title="Permanent link">#</a></h3>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">carla</span>
-<span class="n">client</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="mi">2000</span><span class="p">)</span>
-<span class="n">world</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_world</span><span class="p">()</span>
-
-<span class="c1"># 环境</span>
-<span class="n">world</span><span class="o">.</span><span class="n">set_weather</span><span class="p">(</span><span class="n">carla</span><span class="o">.</span><span class="n">WeatherParameters</span><span class="o">.</span><span class="n">ClearNoon</span><span class="p">)</span>
-<span class="n">world</span><span class="o">.</span><span class="n">get_map</span><span class="p">()</span><span class="o">.</span><span class="n">get_spawn_points</span><span class="p">()</span>
-
-<span class="c1"># 参与者</span>
-<span class="n">bp</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_blueprint_library</span><span class="p">()</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;vehicle.tesla.model3&#39;</span><span class="p">)</span>
-<span class="n">vehicle</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">spawn_actor</span><span class="p">(</span><span class="n">bp</span><span class="p">,</span> <span class="n">spawn_point</span><span class="p">)</span>
-<span class="n">vehicle</span><span class="o">.</span><span class="n">set_autopilot</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="c1"># 传感器</span>
-<span class="n">cam_bp</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_blueprint_library</span><span class="p">()</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;sensor.camera.rgb&#39;</span><span class="p">)</span>
-<span class="n">camera</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">spawn_actor</span><span class="p">(</span><span class="n">cam_bp</span><span class="p">,</span> <span class="n">transform</span><span class="p">,</span> <span class="n">attach_to</span><span class="o">=</span><span class="n">vehicle</span><span class="p">)</span>
-<span class="n">camera</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="k">lambda</span> <span class="n">image</span><span class="p">:</span> <span class="n">process</span><span class="p">(</span><span class="n">image</span><span class="p">))</span>
-</code></pre></div>
+<p>```python
+import carla
+client = carla.Client('localhost', 2000)
+world = client.get_world()</p>
+<h1 id="_5">环境<a class="headerlink" href="#_5" title="Permanent link">#</a></h1>
+<p>world.set_weather(carla.WeatherParameters.ClearNoon)
+world.get_map().get_spawn_points()</p>
+<h1 id="_6">参与者<a class="headerlink" href="#_6" title="Permanent link">#</a></h1>
+<p>bp = world.get_blueprint_library().find('vehicle.tesla.model3')
+vehicle = world.spawn_actor(bp, spawn_point)
+vehicle.set_autopilot(True)</p>
+<h1 id="_7">传感器<a class="headerlink" href="#_7" title="Permanent link">#</a></h1>
+<p>cam_bp = world.get_blueprint_library().find('sensor.camera.rgb')
+camera = world.spawn_actor(cam_bp, transform, attach_to=vehicle)
+camera.listen(lambda image: process(image))
+```</p>
 <h3 id="airsim-api-41451">AirSim API (端口 41451)<a class="headerlink" href="#airsim-api-41451" title="Permanent link">#</a></h3>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">airsim</span>
-<span class="n">client</span> <span class="o">=</span> <span class="n">airsim</span><span class="o">.</span><span class="n">MultirotorClient</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="mi">41451</span><span class="p">)</span>
-<span class="n">client</span><span class="o">.</span><span class="n">confirmConnection</span><span class="p">()</span>
-<span class="n">client</span><span class="o">.</span><span class="n">enableApiControl</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">client</span><span class="o">.</span><span class="n">armDisarm</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="c1"># 飞行</span>
-<span class="n">client</span><span class="o">.</span><span class="n">takeoffAsync</span><span class="p">()</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
-<span class="n">client</span><span class="o">.</span><span class="n">moveToPositionAsync</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">speed</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
-<span class="n">client</span><span class="o">.</span><span class="n">moveByVelocityAsync</span><span class="p">(</span><span class="n">vx</span><span class="p">,</span> <span class="n">vy</span><span class="p">,</span> <span class="n">vz</span><span class="p">,</span> <span class="n">duration</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
-
-<span class="c1"># 传感器</span>
-<span class="n">responses</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">simGetImages</span><span class="p">([</span>
-    <span class="n">airsim</span><span class="o">.</span><span class="n">ImageRequest</span><span class="p">(</span><span class="s2">&quot;0&quot;</span><span class="p">,</span> <span class="n">airsim</span><span class="o">.</span><span class="n">ImageType</span><span class="o">.</span><span class="n">Scene</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
-    <span class="n">airsim</span><span class="o">.</span><span class="n">ImageRequest</span><span class="p">(</span><span class="s2">&quot;0&quot;</span><span class="p">,</span> <span class="n">airsim</span><span class="o">.</span><span class="n">ImageType</span><span class="o">.</span><span class="n">DepthPerspective</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>
-    <span class="n">airsim</span><span class="o">.</span><span class="n">ImageRequest</span><span class="p">(</span><span class="s2">&quot;0&quot;</span><span class="p">,</span> <span class="n">airsim</span><span class="o">.</span><span class="n">ImageType</span><span class="o">.</span><span class="n">Segmentation</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
-<span class="p">])</span>
-<span class="n">imu</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">getImuData</span><span class="p">()</span>
-<span class="n">gps</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">getGpsData</span><span class="p">()</span>
-</code></pre></div>
-<h3 id="_5">组合使用<a class="headerlink" href="#_5" title="Permanent link">#</a></h3>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">carla</span><span class="o">,</span><span class="w"> </span><span class="nn">airsim</span><span class="o">,</span><span class="w"> </span><span class="nn">threading</span>
-
-<span class="c1"># 两个 API 都在同一个世界</span>
-<span class="n">carla_client</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="mi">2000</span><span class="p">)</span>
-<span class="n">air_client</span> <span class="o">=</span> <span class="n">airsim</span><span class="o">.</span><span class="n">MultirotorClient</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="mi">41451</span><span class="p">)</span>
-
-<span class="c1"># 在飞行模拟无人机时生成 Carla 交通</span>
-<span class="n">world</span> <span class="o">=</span> <span class="n">carla_client</span><span class="o">.</span><span class="n">get_world</span><span class="p">()</span>
-<span class="n">vehicle</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">spawn_actor</span><span class="p">(</span><span class="n">vehicle_bp</span><span class="p">,</span> <span class="n">spawn_point</span><span class="p">)</span>
-<span class="n">vehicle</span><span class="o">.</span><span class="n">set_autopilot</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="n">air_client</span><span class="o">.</span><span class="n">takeoffAsync</span><span class="p">()</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
-<span class="n">air_client</span><span class="o">.</span><span class="n">moveToZAsync</span><span class="p">(</span><span class="o">-</span><span class="mi">30</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>  <span class="c1"># 30 米高度</span>
-
-<span class="c1"># 收集同步地面+空中数据</span>
-<span class="n">ground_image</span> <span class="o">=</span> <span class="n">carla_camera</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="n">callback</span><span class="p">)</span>
-<span class="n">aerial_images</span> <span class="o">=</span> <span class="n">air_client</span><span class="o">.</span><span class="n">simGetImages</span><span class="p">([</span><span class="o">...</span><span class="p">])</span>
-</code></pre></div>
+<p>```python
+import airsim
+client = airsim.MultirotorClient(port=41451)
+client.confirmConnection()
+client.enableApiControl(True)
+client.armDisarm(True)</p>
+<h1 id="_8">飞行<a class="headerlink" href="#_8" title="Permanent link">#</a></h1>
+<p>client.takeoffAsync().join()
+client.moveToPositionAsync(x, y, z, speed).join()
+client.moveByVelocityAsync(vx, vy, vz, duration).join()</p>
+<h1 id="_9">传感器<a class="headerlink" href="#_9" title="Permanent link">#</a></h1>
+<p>responses = client.simGetImages([
+    airsim.ImageRequest("0", airsim.ImageType.Scene, False, False),
+    airsim.ImageRequest("0", airsim.ImageType.DepthPerspective, True),
+    airsim.ImageRequest("0", airsim.ImageType.Segmentation, False, False),
+])
+imu = client.getImuData()
+gps = client.getGpsData()
+```</p>
+<h3 id="_10">组合使用<a class="headerlink" href="#_10" title="Permanent link">#</a></h3>
+<p>```python
+import carla, airsim, threading</p>
+<h1 id="api">两个 API 都在同一个世界<a class="headerlink" href="#api" title="Permanent link">#</a></h1>
+<p>carla_client = carla.Client('localhost', 2000)
+air_client = airsim.MultirotorClient(port=41451)</p>
+<h1 id="carla_1">在飞行模拟无人机时生成 Carla 交通<a class="headerlink" href="#carla_1" title="Permanent link">#</a></h1>
+<p>world = carla_client.get_world()
+vehicle = world.spawn_actor(vehicle_bp, spawn_point)
+vehicle.set_autopilot(True)</p>
+<p>air_client.takeoffAsync().join()
+air_client.moveToZAsync(-30, 5).join()  # 30 米高度</p>
+<h1 id="_11">收集同步地面+空中数据<a class="headerlink" href="#_11" title="Permanent link">#</a></h1>
+<p>ground_image = carla_camera.listen(callback)
+aerial_images = air_client.simGetImages([...])
+```</p>
               
             </div>
           </div><footer>

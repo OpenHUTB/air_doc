@@ -283,12 +283,12 @@
               
                 <h1 id="carlaair">CarlaAir 详细技术架构<a class="headerlink" href="#carlaair" title="Permanent link">#</a></h1>
 <h2 id="_1">系统架构图<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
-<div class="highlight"><pre><span></span><code>┌─────────────────────────────────────────────────────────────────┐
+<p><code>┌─────────────────────────────────────────────────────────────────┐
 │                    Unreal Engine 4.26                            │
 │  ┌───────────────────────────────────────────────────────────┐  │
 │  │              ASimWorldGameMode (核心)                      │  │
 │  │  ┌─────────────────────┐  ┌────────────────────────────┐  │  │
-│  │  │  CARLA 子系统        │  │  AirSim 子系统              │  │  │
+│  │  │  Carla 子系统        │  │  AirSim 子系统              │  │  │
 │  │  │  (继承自父类)        │  │  (BeginPlay 中引导)         │  │  │
 │  │  │                     │  │                            │  │  │
 │  │  │  ■ CarlaEpisode     │  │  ■ ASimModeBase (Actor)    │  │  │
@@ -311,81 +311,77 @@
          │                              │
          ▼                              ▼
   ┌──────────────┐              ┌──────────────┐
-  │  CARLA Python │              │ AirSim Python │
+  │  Carla Python │              │ AirSim Python │
   │  Client API   │              │ Client API    │
   │  (port 2000)  │              │ (port 41451)  │
-  └──────────────┘              └──────────────┘
-</code></pre></div>
+  └──────────────┘              └──────────────┘</code></p>
 <h2 id="_2">初始化序列<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
-<div class="highlight"><pre><span></span><code>UE4 Engine Start
+<p><code>UE4 引擎开始
   │
-  ├── 1. ASimWorldGameMode::Constructor()
-  │     ├── Super() → ACarlaGameModeBase 初始化 Episode, Recorder, Delegates
-  │     ├── DefaultPawnClass = nullptr
-  │     ├── 加载 BP_Weather → WeatherClass
-  │     ├── 注册 8 个 ActorFactory
-  │     ├── 初始化 AirSim 日志
-  │     └── 加载 AirSim HUD Widget 蓝图
+  ├── 1. ASimWorldGameMode 构造函数
+  │     ├── Super() → 父类 ACarlaGameModeBase 初始化轮次, 记录器, 标签代理(Delegates)
+  │     ├── 将默认棋子类(DefaultPawnClass)设置为空(nullptr)，防止虚幻引擎自动生成棋子（会打断无人机控制）
+  │     ├── 使用天气蓝图(BP_Weather)构建天气类(WeatherClass)
+  │     ├── 注册 8 个动作者工厂(ActorFactory)
+  │     ├── 初始化 AirSim 记录器
+  │     └── 加载 AirSim 头显小工具蓝图
   │
   ├── 2. ASimWorldGameMode::BeginPlay()
   │     ├── Super::BeginPlay()
-  │     │     ├── CARLA Episode 初始化
-  │     │     ├── Weather Actor 生成
-  │     │     ├── ActorFactory 实例化
-  │     │     ├── Traffic Manager 启动
-  │     │     └── CARLA RPC Server 启动 (port 2000)
+  │     │     ├── Carla 轮次(Episode)初始化
+  │     │     ├── 天气(Weather)动作者生成
+  │     │     ├── 动作者工厂(ActorFactory)实例化
+  │     │     ├── 交通管理器启动
+  │     │     └── Carla RPC 服务器启动 (port 2000)
   │     │
-  │     ├── 创建 SpectatorPawn（不 possess）
-  │     │     └── 注册到 Episode（可通过 CARLA API 移动 Spectator）
+  │     ├── 创建观察者棋子(SpectatorPawn, 不持有）
+  │     │     └── 注册到 Carla 轮次中的观察者（可通过 Carla API 移动观察者）
   │     │
   │     ├── AirSim 引导
-  │     │     ├── InitializeAirSimSettings() — 读取 settings.json
-  │     │     ├── SetUnrealEngineSettings() — 关闭 MotionBlur, 启用 CustomDepth
+  │     │     ├── InitializeAirSimSettings() — 读取 settings.json （地图由 Carla 加载，会忽略 AirSim 中的关卡名设置）
+  │     │     ├── SetUnrealEngineSettings() — 关闭运动模糊(MotionBlur), 启用自定义景深(CustomDepth)
   │     │     ├── CreateSimMode() — SpawnActor&lt;ASimModeWorldMultiRotor&gt;
   │     │     │     └── SimModeBase::BeginPlay()
   │     │     │           ├── 获取 PlayerStart Transform
-  │     │     │           ├── 初始化 NedTransform（不移动世界原点!）
+  │     │     │           ├── 初始化北东地变换 NedTransform（不移动世界原点!）
   │     │     │           ├── 创建 WorldSimApi
-  │     │     │           └── 创建无人机 Pawn
-  │     │     ├── CreateAirSimWidget() — HUD Widget 添加到 Viewport
+  │     │     │           └── 创建无人机棋子
+  │     │     ├── CreateAirSimWidget() — 头显小工具添加到视窗（比如传感器数据显示）
   │     │     ├── SetupAirSimInputBindings() — R/T/1/2/3/0 键绑定
   │     │     └── SimMode-&gt;startApiServer() — AirSim RPC Server 启动 (port 41451)
   │     │
   │     └── 完成！两个 API 服务器同时运行
   │
   ├── 3. Tick Loop (每帧)
-  │     ├── Super::Tick() — CARLA Recorder tick
+  │     ├── Super::Tick() — Carla Recorder tick
   │     └── AirSim Debug Report Widget 更新
   │
   └── 4. EndPlay()
         ├── SimMode-&gt;stopApiServer()
         ├── 销毁 Widget, SimMode
-        └── Super::EndPlay() — CARLA 清理
-</code></pre></div>
+        └── Super::EndPlay() — Carla 清理</code></p>
 <h2 id="_3">关键数据流<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
 <h3 id="_4">车辆生成流程<a class="headerlink" href="#_4" title="Permanent link">#</a></h3>
-<div class="highlight"><pre><span></span><code>Python: world.spawn_actor(vehicle_bp, transform)
-  → CARLA RPC Server
+<p><code>Python: world.spawn_actor(vehicle_bp, transform)
+  → Carla RPC Server
     → CarlaEpisode::SpawnActor()
       → ActorDispatcher → VehicleFactory
         → UE4 World SpawnActor()
-          → 物理引擎接管 (Chaos/PhysX)
-</code></pre></div>
+          → 物理引擎接管 (Chaos/PhysX)</code></p>
 <h3 id="_5">无人机控制流程<a class="headerlink" href="#_5" title="Permanent link">#</a></h3>
-<div class="highlight"><pre><span></span><code>Python: client.moveToPositionAsync(x, y, z, speed)
+<p><code>Python: client.moveToPositionAsync(x, y, z, speed)
   → AirSim RPC Server
     → SimModeWorldMultiRotor
       → SimpleFlight Controller
         → NedTransform 坐标转换 (NED → UE4)
-          → Drone Pawn 移动
-</code></pre></div>
+          → Drone Pawn 移动</code></p>
 <h3 id="_6">传感器数据流<a class="headerlink" href="#_6" title="Permanent link">#</a></h3>
-<div class="highlight"><pre><span></span><code>CARLA 传感器:
-  Camera/Lidar/Radar → SensorManager → Raw Data → RPC → Python numpy array
-
-AirSim 传感器:
+<p>```
+Carla 传感器:
+  Camera/Lidar/Radar → SensorManager → Raw Data → RPC → Python numpy array</p>
+<p>AirSim 传感器:
   PIPCamera → RenderTarget → simGetImages() → RPC → Python numpy array
-</code></pre></div>
+```</p>
 <h2 id="_7">文件修改详情<a class="headerlink" href="#_7" title="Permanent link">#</a></h2>
 <h3 id="3-2">修改清单（共 3 个文件修改，2 个新文件）<a class="headerlink" href="#3-2" title="Permanent link">#</a></h3>
 <table>
@@ -432,30 +428,32 @@ AirSim 传感器:
 </table>
 <h3 id="_8">每个修改的精确位置<a class="headerlink" href="#_8" title="Permanent link">#</a></h3>
 <p><strong>CarlaGameModeBase.h</strong>:
-<div class="highlight"><pre><span></span><code><span class="c1">// 原始: private 区域</span>
-<span class="c1">// 修改: 移到 protected 区域</span>
-<span class="k">protected</span><span class="o">:</span>
-<span class="w">    </span><span class="n">UPROPERTY</span><span class="p">(</span><span class="n">EditAnywhere</span><span class="p">)</span>
-<span class="w">    </span><span class="n">TSubclassOf</span><span class="o">&lt;</span><span class="n">AWeather</span><span class="o">&gt;</span><span class="w"> </span><span class="n">WeatherClass</span><span class="p">;</span>
-
-<span class="w">    </span><span class="n">UPROPERTY</span><span class="p">(</span><span class="n">EditAnywhere</span><span class="p">)</span>
-<span class="w">    </span><span class="n">TArray</span><span class="o">&lt;</span><span class="n">TSubclassOf</span><span class="o">&lt;</span><span class="n">ACarlaActorFactory</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">ActorFactories</span><span class="p">;</span>
-</code></pre></div></p>
+```cpp
+// 原始: private 区域
+// 修改: 移到 protected 区域
+protected:
+    UPROPERTY(EditAnywhere)
+    TSubclassOf<AWeather> WeatherClass;</p>
+<pre><code>UPROPERTY(EditAnywhere)
+TArray&lt;TSubclassOf&lt;ACarlaActorFactory&gt;&gt; ActorFactories;
+</code></pre>
+<p>```</p>
 <p><strong>CarlaEpisode.h</strong> (~第 338 行):
-<div class="highlight"><pre><span></span><code><span class="c1">// 添加:</span>
-<span class="k">friend</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">ASimWorldGameMode</span><span class="p">;</span>
-</code></pre></div></p>
+<code>cpp
+// 添加:
+friend class ASimWorldGameMode;</code></p>
 <p><strong>SimModeBase.cpp</strong> (~第 119 行):
-<div class="highlight"><pre><span></span><code><span class="c1">// 原始:</span>
-<span class="c1">// this-&gt;GetWorld()-&gt;SetNewWorldOrigin(FIntVector(player_loc) + FIntVector(0, 0, 0));</span>
-
-<span class="c1">// 修改为注释 + 说明:</span>
-<span class="c1">// NOTE: Do NOT call SetNewWorldOrigin() here. In CarlaAir...</span>
-<span class="n">global_ned_transform_</span><span class="p">.</span><span class="n">reset</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">NedTransform</span><span class="p">(</span><span class="n">player_start_transform</span><span class="p">,</span>
-<span class="w">                                             </span><span class="n">UAirBlueprintLib</span><span class="o">::</span><span class="n">GetWorldToMetersScale</span><span class="p">(</span><span class="k">this</span><span class="p">)));</span>
-</code></pre></div></p>
+```cpp
+// 原始:
+// this-&gt;GetWorld()-&gt;SetNewWorldOrigin(FIntVector(player_loc) + FIntVector(0, 0, 0));</p>
+<p>// 修改为注释 + 说明:
+// NOTE: Do NOT call SetNewWorldOrigin() here. In CarlaAir...
+global_ned_transform_.reset(new NedTransform(player_start_transform,
+                                             UAirBlueprintLib::GetWorldToMetersScale(this)));
+```</p>
 <h2 id="town10hd">Town10HD 地图布局<a class="headerlink" href="#town10hd" title="Permanent link">#</a></h2>
-<div class="highlight"><pre><span></span><code>                    Y=-69
+<p>```
+                    Y=-69
                      │
     Ocean (x&lt;20)     │    Inland City (x&gt;55)
                      │
@@ -471,11 +469,10 @@ AirSim 传感器:
   │                  │    └──────────────────┘   │
   │                  │                           │
   └──────────────────┼──────────────────────────┘
-  X=-115             │                     X=110
-
-  NED 原点在 PlayerStart (x≈0)
-  城市中心在 NED (80, 0, -30) = CARLA (80, 0, 30m高)
-</code></pre></div>
+  X=-115             │                     X=110</p>
+<p>NED 原点在 PlayerStart (x≈0)
+  城市中心在 NED (80, 0, -30) = Carla (80, 0, 30m高)
+```</p>
 <h2 id="_9">已知限制和约束<a class="headerlink" href="#_9" title="Permanent link">#</a></h2>
 <table>
 <thead>

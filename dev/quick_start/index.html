@@ -296,21 +296,21 @@
 <hr />
 <h2 id="environment-setup">Environment Setup / 环境配置<a class="headerlink" href="#environment-setup" title="Permanent link">#</a></h2>
 <p>使用自动化脚本一键配置 Python 环境和依赖：</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># 创建 conda 环境并安装所有依赖</span>
-bash<span class="w"> </span>env_setup/setup_env.sh
-
-<span class="c1"># 验证环境是否正确配置</span>
-bash<span class="w"> </span>env_setup/test_env.sh
-</code></pre></div>
+<p>```bash</p>
+<h1 id="conda">创建 conda 环境并安装所有依赖<a class="headerlink" href="#conda" title="Permanent link">#</a></h1>
+<p>bash env_setup/setup_env.sh</p>
+<h1 id="_1">验证环境是否正确配置<a class="headerlink" href="#_1" title="Permanent link">#</a></h1>
+<p>bash env_setup/test_env.sh
+```</p>
 <p><code>setup_env.sh</code> 会创建 <code>carlaAir</code> conda 环境，安装 CARLA Python API、AirSim、PyGame、OpenCV 等依赖。
 <code>test_env.sh</code> 会检查所有依赖是否可导入。</p>
 <p>配置完成后，激活环境：</p>
-<div class="highlight"><pre><span></span><code>conda<span class="w"> </span>activate<span class="w"> </span>carlaAir
-</code></pre></div>
+<p><code>bash
+conda activate carlaAir</code></p>
 <hr />
 <h2 id="launch">Launch / 启动仿真器<a class="headerlink" href="#launch" title="Permanent link">#</a></h2>
-<div class="highlight"><pre><span></span><code>./CarlaAir.sh<span class="w"> </span>Town10HD
-</code></pre></div>
+<p><code>bash
+./CarlaAir.sh Town10HD</code></p>
 <p>等待看到 "Ready! Both servers are running." 即表示启动成功。</p>
 <p><strong>端口说明 / Ports:</strong>
 | 服务 Service | 端口 Port | 用途 Purpose |
@@ -323,8 +323,8 @@ bash<span class="w"> </span>env_setup/test_env.sh
 <hr />
 <h2 id="first-experience">First Experience / 首次体验<a class="headerlink" href="#first-experience" title="Permanent link">#</a></h2>
 <p>启动成功后，运行你的第一个 CarlaAir 脚本：</p>
-<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>examples/quick_start_showcase.py
-</code></pre></div>
+<p><code>bash
+python3 examples/quick_start_showcase.py</code></p>
 <p>这个脚本会自动演示 CarlaAir 的核心能力：
 1. 在城市中生成一辆 Tesla，无人机起飞并锁定跟踪
 2. 车辆沿道路行驶，无人机在上方自动跟随
@@ -376,9 +376,9 @@ bash<span class="w"> </span>env_setup/test_env.sh
 </tbody>
 </table>
 <p>运行方式 / Usage:</p>
-<div class="highlight"><pre><span></span><code>conda<span class="w"> </span>activate<span class="w"> </span>carlaAir
-python3<span class="w"> </span>examples/drive_vehicle.py
-</code></pre></div>
+<p><code>bash
+conda activate carlaAir
+python3 examples/drive_vehicle.py</code></p>
 <hr />
 <h2 id="recording-toolkit">Recording Toolkit / 录制工具<a class="headerlink" href="#recording-toolkit" title="Permanent link">#</a></h2>
 <p><code>examples_record_demo/</code> 目录提供了轨迹录制与回放工具，用于制作高质量演示视频：</p>
@@ -434,26 +434,25 @@ python3<span class="w"> </span>examples/drive_vehicle.py
 <li>时间步固定，帧帧一致，适合录制平滑视频</li>
 </ul>
 <p><strong>同步模式配置要求 / Configuration:</strong></p>
-<div class="highlight"><pre><span></span><code><span class="c1"># 开启同步模式</span>
-<span class="n">settings</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_settings</span><span class="p">()</span>
-<span class="n">settings</span><span class="o">.</span><span class="n">synchronous_mode</span> <span class="o">=</span> <span class="kc">True</span>
-<span class="n">settings</span><span class="o">.</span><span class="n">fixed_delta_seconds</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="mi">30</span>  <span class="c1"># 固定 30 FPS</span>
-<span class="n">world</span><span class="o">.</span><span class="n">apply_settings</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
-
-<span class="c1"># Traffic Manager 也需要同步</span>
-<span class="n">tm</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_trafficmanager</span><span class="p">(</span><span class="mi">8000</span><span class="p">)</span>
-<span class="n">tm</span><span class="o">.</span><span class="n">set_synchronous_mode</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="c1"># 主循环中每帧调用</span>
-<span class="n">world</span><span class="o">.</span><span class="n">tick</span><span class="p">()</span>
-</code></pre></div>
+<p>```python</p>
+<h1 id="_2">开启同步模式<a class="headerlink" href="#_2" title="Permanent link">#</a></h1>
+<p>settings = world.get_settings()
+settings.synchronous_mode = True
+settings.fixed_delta_seconds = 1.0 / 30  # 固定 30 FPS
+world.apply_settings(settings)</p>
+<h1 id="traffic-manager">Traffic Manager 也需要同步<a class="headerlink" href="#traffic-manager" title="Permanent link">#</a></h1>
+<p>tm = client.get_trafficmanager(8000)
+tm.set_synchronous_mode(True)</p>
+<h1 id="_3">主循环中每帧调用<a class="headerlink" href="#_3" title="Permanent link">#</a></h1>
+<p>world.tick()
+```</p>
 <blockquote>
 <p><strong>重要提示</strong>: 脚本退出时<strong>必须恢复异步模式</strong>，否则仿真器会冻结：</p>
-<div class="highlight"><pre><span></span><code><span class="n">settings</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_settings</span><span class="p">()</span>
-<span class="n">settings</span><span class="o">.</span><span class="n">synchronous_mode</span> <span class="o">=</span> <span class="kc">False</span>
-<span class="n">settings</span><span class="o">.</span><span class="n">fixed_delta_seconds</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="n">world</span><span class="o">.</span><span class="n">apply_settings</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
-</code></pre></div>
+<p><code>python
+settings = world.get_settings()
+settings.synchronous_mode = False
+settings.fixed_delta_seconds = None
+world.apply_settings(settings)</code></p>
 </blockquote>
 <hr />
 <h2 id="coordinate-systems">Coordinate Systems / 坐标系统<a class="headerlink" href="#coordinate-systems" title="Permanent link">#</a></h2>
@@ -525,8 +524,8 @@ python3<span class="w"> </span>examples/drive_vehicle.py
 </tbody>
 </table>
 <p>启动时指定地图 / Launch with specific map:</p>
-<div class="highlight"><pre><span></span><code>./CarlaAir.sh<span class="w"> </span>Town03
-</code></pre></div>
+<p><code>bash
+./CarlaAir.sh Town03</code></p>
 <blockquote>
 <p><strong>关于 _Opt 变体</strong>: 从 CARLA 官方包中可以获取 <code>Town01_Opt</code> 等优化版地图。<code>_Opt</code> 变体使用分层加载（Level Streaming），减少显存占用，适合低配 GPU。</p>
 </blockquote>
@@ -546,7 +545,7 @@ python3<span class="w"> </span>examples/drive_vehicle.py
 <p>官方文档 / Official docs: https://microsoft.github.io/AirSim/</p>
 <hr />
 <h2 id="faq-troubleshooting">FAQ / Troubleshooting / 常见问题<a class="headerlink" href="#faq-troubleshooting" title="Permanent link">#</a></h2>
-<h3 id="_1">仿真器启动相关<a class="headerlink" href="#_1" title="Permanent link">#</a></h3>
+<h3 id="_4">仿真器启动相关<a class="headerlink" href="#_4" title="Permanent link">#</a></h3>
 <table>
 <thead>
 <tr>
@@ -573,7 +572,7 @@ python3<span class="w"> </span>examples/drive_vehicle.py
 </tr>
 </tbody>
 </table>
-<h3 id="_2">脚本运行相关<a class="headerlink" href="#_2" title="Permanent link">#</a></h3>
+<h3 id="_5">脚本运行相关<a class="headerlink" href="#_5" title="Permanent link">#</a></h3>
 <table>
 <thead>
 <tr>
@@ -612,7 +611,7 @@ python3<span class="w"> </span>examples/drive_vehicle.py
 </tr>
 </tbody>
 </table>
-<h3 id="_3">坐标与地图相关<a class="headerlink" href="#_3" title="Permanent link">#</a></h3>
+<h3 id="_6">坐标与地图相关<a class="headerlink" href="#_6" title="Permanent link">#</a></h3>
 <table>
 <thead>
 <tr>

@@ -66,14 +66,6 @@
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#airsim">构建 AirSim</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_4">构建虚幻环境</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#airsim_1">如何使用 AirSim</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_5">[可选] 设置遥控器（仅限多旋翼飞行器）</a>
-    </li>
         </ul>
     </li>
     </ul>
@@ -324,16 +316,18 @@
 <ul>
 <li>克隆 AirSim 并构建它：</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="c1"># 前往克隆 GitHub 项目的文件夹</span>
-git<span class="w"> </span>clone<span class="w"> </span>https://github.com/OpenHUTB/air.git
-<span class="nb">cd</span><span class="w"> </span>air
-</code></pre></div>
+<p>```bash</p>
+<h1 id="github">前往克隆 GitHub 项目的文件夹<a class="headerlink" href="#github" title="Permanent link">#</a></h1>
+<p>git clone https://github.com/OpenHUTB/air.git
+cd air
+```</p>
 <p>默认情况下，AirSim 使用 clang 8 进行构建，以兼容 UE 4.25。安装脚本将安装正确版本的 cmake、llvm 和 eigen。</p>
 <p>在 Apple Silicon 上构建需要 CMake 3.19.2 。</p>
-<div class="highlight"><pre><span></span><code>./setup.sh
-./build.sh
-<span class="c1"># 使用 ./build.sh --debug 在调试模式下构建</span>
-</code></pre></div>
+<p>```bash
+./setup.sh
+./build.sh</p>
+<h1 id="buildsh-debug">使用 ./build.sh --debug 在调试模式下构建<a class="headerlink" href="#buildsh-debug" title="Permanent link">#</a></h1>
+<p>```</p>
 <h3 id="_4">构建虚幻环境<a class="headerlink" href="#_4" title="Permanent link">#</a></h3>
 <p>最后，您需要一个虚幻项目来托管您的载具环境。AirSim 自带一个内置的“Blocks 环境”，您可以使用它，也可以创建自己的环境。如果您想设置自己的环境，请参阅 <a href="../unreal_proj/">设置虚幻环境</a> 。</p>
 <h2 id="airsim_1">如何使用 AirSim<a class="headerlink" href="#airsim_1" title="Permanent link">#</a></h2>

@@ -332,13 +332,12 @@
 </table>
 <h2 id="_4">配置子窗口<a class="headerlink" href="#_4" title="Permanent link">#</a></h2>
 <p>现在您可以选择上述每个子窗口显示的内容。例如，您可以选择在第一个窗口中显示表面法线（而不是深度信息），在第二个窗口中显示视差（而不是分割信息）。以下是您可以在 <a href="../settings/">settings.json</a> 文件中使用的设置值：</p>
-<div class="highlight"><pre><span></span><code>{
-  &quot;SubWindows&quot;: [
-    {&quot;WindowID&quot;: 1, &quot;CameraName&quot;: &quot;0&quot;, &quot;ImageType&quot;: 5, &quot;VehicleName&quot;: &quot;&quot;, &quot;Visible&quot;: false},
-    {&quot;WindowID&quot;: 2, &quot;CameraName&quot;: &quot;0&quot;, &quot;ImageType&quot;: 3, &quot;VehicleName&quot;: &quot;&quot;, &quot;Visible&quot;: false}
+<p><code>{
+  "SubWindows": [
+    {"WindowID": 1, "CameraName": "0", "ImageType": 5, "VehicleName": "", "Visible": false},
+    {"WindowID": 2, "CameraName": "0", "ImageType": 3, "VehicleName": "", "Visible": false}
   ]
-}
-</code></pre></div>
+}</code></p>
 <h2 id="_5">性能影响<a class="headerlink" href="#_5" title="Permanent link">#</a></h2>
 <p><em>注意</em>：本部分内容已过时，尚未更新以反映新的性能提升变化。</p>
 <p>渲染这些视图确实会影响游戏的帧率，因为这会增加 GPU 的负担。以下显示了打开这些视图时对帧率的影响。</p>

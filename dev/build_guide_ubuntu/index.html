@@ -292,18 +292,17 @@
 <li><strong>显示</strong>: 需要 X11 显示服务 (或 VNC/Xvfb)</li>
 </ul>
 <h3 id="_3">软件依赖<a class="headerlink" href="#_3" title="Permanent link">#</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># 基础编译工具</span>
-sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>build-essential<span class="w"> </span>cmake<span class="w"> </span>git<span class="w"> </span>clang-10<span class="w"> </span>lld-10
-
-<span class="c1"># UE4 依赖</span>
-sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>libvulkan1<span class="w"> </span>vulkan-utils<span class="w"> </span>mesa-vulkan-drivers
-
-<span class="c1"># Python 环境</span>
-conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>simworld<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.7
-conda<span class="w"> </span>activate<span class="w"> </span>simworld
-pip<span class="w"> </span>install<span class="w"> </span><span class="nv">carla</span><span class="o">==</span><span class="m">0</span>.9.16<span class="w"> </span>airsim<span class="w"> </span>numpy<span class="w"> </span>opencv-python<span class="w"> </span>pygame
-</code></pre></div>
-<h2 id="_4">源码位置<a class="headerlink" href="#_4" title="Permanent link">#</a></h2>
+<p>```bash</p>
+<h1 id="_4">基础编译工具<a class="headerlink" href="#_4" title="Permanent link">#</a></h1>
+<p>sudo apt install build-essential cmake git clang-10 lld-10</p>
+<h1 id="ue4">UE4 依赖<a class="headerlink" href="#ue4" title="Permanent link">#</a></h1>
+<p>sudo apt install libvulkan1 vulkan-utils mesa-vulkan-drivers</p>
+<h1 id="python">Python 环境<a class="headerlink" href="#python" title="Permanent link">#</a></h1>
+<p>conda create -n simworld python=3.7
+conda activate simworld
+pip install carla==0.9.16 airsim numpy opencv-python pygame
+```</p>
+<h2 id="_5">源码位置<a class="headerlink" href="#_5" title="Permanent link">#</a></h2>
 <table>
 <thead>
 <tr>
@@ -330,67 +329,70 @@ pip<span class="w"> </span>install<span class="w"> </span><span class="nv">carla
 </tr>
 </tbody>
 </table>
-<h2 id="_5">编译步骤<a class="headerlink" href="#_5" title="Permanent link">#</a></h2>
+<h2 id="_6">编译步骤<a class="headerlink" href="#_6" title="Permanent link">#</a></h2>
 <h3 id="1">1. 设置环境变量<a class="headerlink" href="#1" title="Permanent link">#</a></h3>
-<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">UE4_ROOT</span><span class="o">=</span>/mnt/data1/tianle/carla_ue4
-<span class="nb">cd</span><span class="w"> </span>/mnt/data1/tianle/carla_source
-</code></pre></div>
+<p><code>bash
+export UE4_ROOT=/mnt/data1/tianle/carla_ue4
+cd /mnt/data1/tianle/carla_source</code></p>
 <h3 id="2-airsim-100">2. 编译 AirSim 模块（~100 秒）<a class="headerlink" href="#2-airsim-100" title="Permanent link">#</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># 仅编译 AirSim 插件（快速迭代时使用）</span>
-make<span class="w"> </span>CarlaUE4Editor<span class="w"> </span><span class="nv">ARGS</span><span class="o">=</span><span class="s2">&quot;-module=AirSim&quot;</span>
-<span class="c1"># 或直接使用 Build.sh</span>
-./Util/BuildTools/BuildCarlaUE4.sh<span class="w"> </span>--build
-</code></pre></div>
+<p>```bash</p>
+<h1 id="airsim">仅编译 AirSim 插件（快速迭代时使用）<a class="headerlink" href="#airsim" title="Permanent link">#</a></h1>
+<p>make CarlaUE4Editor ARGS="-module=AirSim"</p>
+<h1 id="buildsh">或直接使用 Build.sh<a class="headerlink" href="#buildsh" title="Permanent link">#</a></h1>
+<p>./Util/BuildTools/BuildCarlaUE4.sh --build
+```</p>
 <h3 id="3-carla-290">3. 编译 CARLA 模块（~290 秒）<a class="headerlink" href="#3-carla-290" title="Permanent link">#</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># 编译 CARLA 插件</span>
-make<span class="w"> </span>CarlaUE4Editor<span class="w"> </span><span class="nv">ARGS</span><span class="o">=</span><span class="s2">&quot;-module=Carla&quot;</span>
-</code></pre></div>
+<p>```bash</p>
+<h1 id="carla">编译 CARLA 插件<a class="headerlink" href="#carla" title="Permanent link">#</a></h1>
+<p>make CarlaUE4Editor ARGS="-module=Carla"
+```</p>
 <h3 id="4-editor">4. 在 Editor 模式中运行（开发调试）<a class="headerlink" href="#4-editor" title="Permanent link">#</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># 使用一键启动脚本</span>
-./carlaAir.sh<span class="w">                    </span><span class="c1"># 默认 Town10HD, 1280x720</span>
-./carlaAir.sh<span class="w"> </span>Town03<span class="w">             </span><span class="c1"># 指定地图</span>
-./carlaAir.sh<span class="w"> </span>Town10HD<span class="w"> </span><span class="m">1920</span><span class="w"> </span><span class="m">1080</span><span class="w"> </span><span class="c1"># 指定分辨率</span>
-</code></pre></div>
+<p>```bash</p>
+<h1 id="_7">使用一键启动脚本<a class="headerlink" href="#_7" title="Permanent link">#</a></h1>
+<p>./carlaAir.sh                    # 默认 Town10HD, 1280x720
+./carlaAir.sh Town03             # 指定地图
+./carlaAir.sh Town10HD 1920 1080 # 指定分辨率
+```</p>
 <h3 id="5-shipping">5. 打包 Shipping 构建（发布用）<a class="headerlink" href="#5-shipping" title="Permanent link">#</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># 完整打包流程（编译 ~805s + Cook ~2h）</span>
-./Util/BuildTools/Package.sh<span class="w"> </span>--config<span class="o">=</span>Shipping<span class="w"> </span>--no-zip
-
-<span class="c1"># 输出目录</span>
-ls<span class="w"> </span>Dist/CARLA_Shipping_*/LinuxNoEditor/
-</code></pre></div>
+<p>```bash</p>
+<h1 id="805s-cook-2h">完整打包流程（编译 ~805s + Cook ~2h）<a class="headerlink" href="#805s-cook-2h" title="Permanent link">#</a></h1>
+<p>./Util/BuildTools/Package.sh --config=Shipping --no-zip</p>
+<h1 id="_8">输出目录<a class="headerlink" href="#_8" title="Permanent link">#</a></h1>
+<p>ls Dist/CARLA_Shipping_*/LinuxNoEditor/
+```</p>
 <p><strong>注意</strong>: Package.sh 在最后 rsync PythonAPI wheel 时可能失败（因为 <code>.whl</code> 文件未构建），但这不影响主要构建。手动复制 PythonAPI 文件到输出目录即可。</p>
 <h3 id="6-shipping">6. 运行 Shipping 构建<a class="headerlink" href="#6-shipping" title="Permanent link">#</a></h3>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>Dist/CARLA_Shipping_*/LinuxNoEditor/
-./CarlaUE4.sh<span class="w"> </span>/Game/Carla/Maps/Town10HD<span class="w"> </span>-nosound<span class="w"> </span>-carla-rpc-port<span class="o">=</span><span class="m">2000</span>
-</code></pre></div>
-<h2 id="_6">关键配置文件<a class="headerlink" href="#_6" title="Permanent link">#</a></h2>
+<p><code>bash
+cd Dist/CARLA_Shipping_*/LinuxNoEditor/
+./CarlaUE4.sh /Game/Carla/Maps/Town10HD -nosound -carla-rpc-port=2000</code></p>
+<h2 id="_9">关键配置文件<a class="headerlink" href="#_9" title="Permanent link">#</a></h2>
 <h3 id="defaultgameini">DefaultGame.ini<a class="headerlink" href="#defaultgameini" title="Permanent link">#</a></h3>
 <p>位于 <code>Unreal/CarlaUE4/Config/DefaultGame.ini</code>。打包时需要确保以下条目存在：</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># AirSim 资源目录（必须）</span>
-<span class="na">+DirectoriesToAlwaysCook=(Path</span><span class="o">=</span><span class="s">&quot;/AirSim/Blueprints&quot;</span><span class="na">)</span>
-<span class="na">+DirectoriesToAlwaysCook=(Path</span><span class="o">=</span><span class="s">&quot;/AirSim/HUDAssets&quot;</span><span class="na">)</span>
-<span class="na">+DirectoriesToAlwaysCook=(Path</span><span class="o">=</span><span class="s">&quot;/AirSim/Models&quot;</span><span class="na">)</span>
-<span class="na">+DirectoriesToAlwaysCook=(Path</span><span class="o">=</span><span class="s">&quot;/AirSim/Weather&quot;</span><span class="na">)</span>
-<span class="na">+DirectoriesToAlwaysCook=(Path</span><span class="o">=</span><span class="s">&quot;/AirSim/StarterContent&quot;</span><span class="na">)</span>
-<span class="na">+DirectoriesToAlwaysCook=(Path</span><span class="o">=</span><span class="s">&quot;/AirSim/VehicleAdv&quot;</span><span class="na">)</span>
-
-<span class="c1"># AirSim 地图</span>
-<span class="na">+MapsToCook=(FilePath</span><span class="o">=</span><span class="s">&quot;/AirSim/AirSimAssets&quot;</span><span class="na">)</span>
-</code></pre></div>
+<p>```ini</p>
+<h1 id="airsim_1">AirSim 资源目录（必须）<a class="headerlink" href="#airsim_1" title="Permanent link">#</a></h1>
+<p>+DirectoriesToAlwaysCook=(Path="/AirSim/Blueprints")
++DirectoriesToAlwaysCook=(Path="/AirSim/HUDAssets")
++DirectoriesToAlwaysCook=(Path="/AirSim/Models")
++DirectoriesToAlwaysCook=(Path="/AirSim/Weather")
++DirectoriesToAlwaysCook=(Path="/AirSim/StarterContent")
++DirectoriesToAlwaysCook=(Path="/AirSim/VehicleAdv")</p>
+<h1 id="airsim_2">AirSim 地图<a class="headerlink" href="#airsim_2" title="Permanent link">#</a></h1>
+<p>+MapsToCook=(FilePath="/AirSim/AirSimAssets")
+```</p>
 <h3 id="settingsjson">settings.json<a class="headerlink" href="#settingsjson" title="Permanent link">#</a></h3>
 <p>位于 <code>~/Documents/AirSim/settings.json</code>，控制 AirSim 行为：</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;SettingsVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.2</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;SimMode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Multirotor&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;Vehicles&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;SimpleFlight&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">&quot;VehicleType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SimpleFlight&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;AutoCreate&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-<h2 id="_7">编译时间参考<a class="headerlink" href="#_7" title="Permanent link">#</a></h2>
+<p><code>json
+{
+    "SettingsVersion": 1.2,
+    "SimMode": "Multirotor",
+    "Vehicles": {
+        "SimpleFlight": {
+            "VehicleType": "SimpleFlight",
+            "AutoCreate": true
+        }
+    }
+}</code></p>
+<h2 id="_10">编译时间参考<a class="headerlink" href="#_10" title="Permanent link">#</a></h2>
 <table>
 <thead>
 <tr>
@@ -432,7 +434,7 @@ ls<span class="w"> </span>Dist/CARLA_Shipping_*/LinuxNoEditor/
 </tr>
 </tbody>
 </table>
-<h2 id="_8">常见问题<a class="headerlink" href="#_8" title="Permanent link">#</a></h2>
+<h2 id="_11">常见问题<a class="headerlink" href="#_11" title="Permanent link">#</a></h2>
 <h3 id="q-10">Q: 首次启动非常慢（~10分钟）<a class="headerlink" href="#q-10" title="Permanent link">#</a></h3>
 <p><strong>A</strong>: 首次运行时 UE4 需要编译 DDC (Derived Data Cache) 和着色器。后续启动约 1 分钟。</p>
 <h3 id="q-packagesh">Q: Package.sh 最后报错<a class="headerlink" href="#q-packagesh" title="Permanent link">#</a></h3>

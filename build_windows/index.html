@@ -350,15 +350,15 @@
 <p>请参阅 <a href="../apis/">使用 API</a>  和 <a href="../settings/">settings.json</a>  了解各种可用选项。</p>
 <h2 id="_4">文档构建<a class="headerlink" href="#_4" title="Permanent link">#</a></h2>
 <p>安装依赖：
-<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>sphinx-rtd-theme
-pip<span class="w"> </span>install<span class="w"> </span>msgpack-rpc-python
-pip<span class="w"> </span>install<span class="w"> </span>numpy
-pip<span class="w"> </span>install<span class="w"> </span>airsim
-</code></pre></div>
+<code>shell
+pip install sphinx-rtd-theme
+pip install msgpack-rpc-python
+pip install numpy
+pip install airsim</code>
 构建：
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>air_doc/docs/api_docs
-make.bat<span class="w"> </span>html
-</code></pre></div></p>
+<code>shell
+cd air_doc/docs/api_docs
+make.bat html</code></p>
 <div class="admonition 注意">
 <p class="admonition-title">注意</p>
 <p>python 3.7 和 3.9 安装 airsim 包时会报错：<code>ModuleNotFoundError: No module named 'numpy'</code>，</p>

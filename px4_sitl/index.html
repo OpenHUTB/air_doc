@@ -313,64 +313,60 @@
 </li>
 <li>
 <p>获取 PX4 源代码并构建 PX4 的 posix SITL 版本：
-    <div class="highlight"><pre><span></span><code>mkdir -p PX4
-cd PX4
-git clone https://github.com/PX4/PX4-Autopilot.git --recursive
-bash ./PX4-Autopilot/Tools/setup/ubuntu.sh --no-nuttx --no-sim-tools
-cd PX4-Autopilot
-</code></pre></div>
+    <code>mkdir -p PX4
+    cd PX4
+    git clone https://github.com/PX4/PX4-Autopilot.git --recursive
+    bash ./PX4-Autopilot/Tools/setup/ubuntu.sh --no-nuttx --no-sim-tools
+    cd PX4-Autopilot</code>
     从 <a href="https://github.com/PX4/PX4-Autopilot/releases">https://github.com/PX4/PX4-Autopilot/releases</a> 找到最新的稳定版本，并检出与该版本匹配的源代码，例如：
-    <div class="highlight"><pre><span></span><code>git checkout v1.11.3
-</code></pre></div></p>
+    <code>git checkout v1.11.3</code></p>
 </li>
 <li>
 <p>使用以下命令在 SITL 模式下构建并启动 PX4 固件：
-    <div class="highlight"><pre><span></span><code>make px4_sitl_default none_iris
-</code></pre></div>
+    <code>make px4_sitl_default none_iris</code>
    如果您使用的是旧版本 v1.8.*，请改用以下命令：<code>make posix_sitl_ekf2 none_iris</code>。 </p>
 </li>
 <li>
 <p>您应该会看到一条消息，提示 SITL PX4 应用正在等待模拟器 (AirSim) 连接。您还会看到有关为 PX4 应用的 MAVLink 连接配置了哪些端口的信息。默认端口最近有所更改，因此请仔细检查以确保 AirSim 设置正确。
-    <div class="highlight"><pre><span></span><code>INFO  [simulator] Waiting for simulator to connect on TCP port 4560
-INFO  [init] Mixer: etc/mixers/quad_w.main.mix on /dev/pwm_output0
-INFO  [mavlink] mode: Normal, data rate: 4000000 B/s on udp port 14570 remote port 14550
-INFO  [mavlink] mode: Onboard, data rate: 4000000 B/s on udp port 14580 remote port 14540
-</code></pre></div></p>
+    <code>INFO  [simulator] Waiting for simulator to connect on TCP port 4560
+    INFO  [init] Mixer: etc/mixers/quad_w.main.mix on /dev/pwm_output0
+    INFO  [mavlink] mode: Normal, data rate: 4000000 B/s on udp port 14570 remote port 14550
+    INFO  [mavlink] mode: Onboard, data rate: 4000000 B/s on udp port 14580 remote port 14540</code></p>
 <p>注意：这也是一个交互式 PX4 控制台，输入 <code>help</code> 可查看可在此处输入的命令列表。这些命令大多是底层 PX4 命令，但其中一些可用于调试。</p>
 </li>
 <li>
 <p>现在编辑 <a href="../settings/">AirSim 设置</a> 文件，确保 UDP 和 TCP 端口设置匹配：
-    <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;SettingsVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.2</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;SimMode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Multirotor&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;ClockType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SteppableClock&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;Vehicles&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;PX4&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">&quot;VehicleType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PX4Multirotor&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;UseSerial&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;LockStep&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;UseTcp&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;TcpPort&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4560</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;ControlPortLocal&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">14540</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;ControlPortRemote&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">14580</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;Sensors&quot;</span><span class="p">:{</span>
-<span class="w">                </span><span class="nt">&quot;Barometer&quot;</span><span class="p">:{</span>
-<span class="w">                    </span><span class="nt">&quot;SensorType&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
-<span class="w">                    </span><span class="nt">&quot;Enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">                    </span><span class="nt">&quot;PressureFactorSigma&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0001825</span>
-<span class="w">                </span><span class="p">}</span>
-<span class="w">            </span><span class="p">},</span>
-<span class="w">            </span><span class="nt">&quot;Parameters&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="nt">&quot;NAV_RCL_ACT&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;NAV_DLL_ACT&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;COM_OBL_ACT&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;LPE_LAT&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">47.641468</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;LPE_LON&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">-122.140165</span>
-<span class="w">            </span><span class="p">}</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+    <code>json
+    {
+        "SettingsVersion": 1.2,
+        "SimMode": "Multirotor",
+        "ClockType": "SteppableClock",
+        "Vehicles": {
+            "PX4": {
+                "VehicleType": "PX4Multirotor",
+                "UseSerial": false,
+                "LockStep": true,
+                "UseTcp": true,
+                "TcpPort": 4560,
+                "ControlPortLocal": 14540,
+                "ControlPortRemote": 14580,
+                "Sensors":{
+                    "Barometer":{
+                        "SensorType": 1,
+                        "Enabled": true,
+                        "PressureFactorSigma": 0.0001825
+                    }
+                },
+                "Parameters": {
+                    "NAV_RCL_ACT": 0,
+                    "NAV_DLL_ACT": 0,
+                    "COM_OBL_ACT": 1,
+                    "LPE_LAT": 47.641468,
+                    "LPE_LON": -122.140165
+                }
+            }
+        }
+    }</code>
     请注意，PX4 <code>[simulator]</code> 使用的是 TCP 协议，因此我们需要添加<code>"UseTcp": true,</code>。另外，我们还启用了 <code>LockStep</code> 功能，更多信息请参阅 <a href="../px4_lockstep/">PX4 LockStep</a> 文档。气压计设置能够让 PX4 正常工作，因为 AirSim 默认的气压计会产生过多的噪声。此设置可以稍微降低噪声，从而使 PX4 更快地锁定 GPS 信号。</p>
 </li>
 <li>
@@ -378,11 +374,10 @@ INFO  [mavlink] mode: Onboard, data rate: 4000000 B/s on udp port 14580 remote p
 </li>
 <li>
 <p>现在运行你的 Unreal AirSim 环境，它应该会通过 TCP 连接到 SITL PX4。你应该会在 SITL PX4 窗口中看到一系列消息。具体来说，以下消息会告诉你 AirSim 已正确连接，并且 GPS 融合稳定：
-    <div class="highlight"><pre><span></span><code>INFO  [simulator] Simulator connected on UDP port 14560
-INFO  [mavlink] partner IP: 127.0.0.1
-INFO  [ecl/EKF] EKF GPS checks passed (WGS-84 origin set)
-INFO  [ecl/EKF] EKF commencing GPS fusion
-</code></pre></div></p>
+    <code>INFO  [simulator] Simulator connected on UDP port 14560
+    INFO  [mavlink] partner IP: 127.0.0.1
+    INFO  [ecl/EKF] EKF GPS checks passed (WGS-84 origin set)
+    INFO  [ecl/EKF] EKF commencing GPS fusion</code></p>
 <p>如果您没有看到这些消息，请检查您的端口设置。</p>
 </li>
 <li>
@@ -391,53 +386,43 @@ INFO  [ecl/EKF] EKF commencing GPS fusion
 </ol>
 <h2 id="gps">设置 GPS 原点<a class="headerlink" href="#gps" title="Permanent link">#</a></h2>
 <p>请注意，以上设置是在 <code>settings.json</code> 文件的 <code>params</code> 部分中提供的：
-<div class="highlight"><pre><span></span><code>    &quot;LPE_LAT&quot;: 47.641468,
-    &quot;LPE_LON&quot;: -122.140165,
-</code></pre></div></p>
+<code>"LPE_LAT": 47.641468,
+    "LPE_LON": -122.140165,</code></p>
 <p>需要配置 PX4 SITL 模式才能正确获取原点位置。原点位置需要设置为与 <a href="../settings/#origingeopoint">OriginGeopoint</a> 中定义的坐标相同的坐标。</p>
 <p>您也可以在 SITL PX4 控制台窗口中运行以下命令，以检查这些值是否设置正确。</p>
-<div class="highlight"><pre><span></span><code>param show LPE_LAT
-param show LPE_LON
-</code></pre></div>
+<p><code>param show LPE_LAT
+param show LPE_LON</code></p>
 <h2 id="smooth-offboard-transitions">Smooth Offboard Transitions<a class="headerlink" href="#smooth-offboard-transitions" title="Permanent link">#</a></h2>
 <p>请注意，上述设置在 <code>settings.json</code> 文件的 <code>params</code> 部分中提供：
-<div class="highlight"><pre><span></span><code>    &quot;COM_OBL_ACT&quot;: 1
-</code></pre></div></p>
+<code>"COM_OBL_ACT": 1</code></p>
 <p>这会使无人机在每次完成远程控制指令后自动悬停（默认设置为降落）。悬停可以使多个远程指令之间的过渡更加平滑。您可以通过运行以下 PX4 控制台命令来检查此设置：</p>
-<div class="highlight"><pre><span></span><code>param show COM_OBL_ACT
-</code></pre></div>
+<p><code>param show COM_OBL_ACT</code></p>
 <h2 id="_1">检查主位置<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
 <p>如果您使用 DroneShell 执行命令（解锁、起飞等），则应等待返航位置设置完毕。您将在 PX4 SITL 控制台中看到以下消息输出：</p>
-<div class="highlight"><pre><span></span><code>INFO  [commander] home: 47.6414680, -122.1401672, 119.99
-INFO  [tone_alarm] home_set
-</code></pre></div>
+<p><code>INFO  [commander] home: 47.6414680, -122.1401672, 119.99
+INFO  [tone_alarm] home_set</code></p>
 <p>现在，DroneShell 的“pos”命令应该会报告这个位置，并且 PX4 应该会接受这些命令。如果您尝试在没有返航位置的情况下起飞，您将会看到以下消息：</p>
-<div class="highlight"><pre><span></span><code>WARN  [commander] Takeoff denied, disarm and re-try
-</code></pre></div>
+<p><code>WARN  [commander] Takeoff denied, disarm and re-try</code></p>
 <p>设置好归位位置后，检查“pos”命令报告的本地位置：</p>
-<div class="highlight"><pre><span></span><code>Local position: x=-0.0326988, y=0.00656854, z=5.48506
-</code></pre></div>
+<p><code>Local position: x=-0.0326988, y=0.00656854, z=5.48506</code></p>
 <p>如果 z 坐标值像这样过大，则起飞可能无法按预期进行。重置 SITL 和仿真应该可以解决这个问题。</p>
 <h2 id="wsl-2">WSL 2<a class="headerlink" href="#wsl-2" title="Permanent link">#</a></h2>
 <p>适用于 Linux 的 Windows 子系统版本 2 在虚拟机中运行。这需要额外的设置——请参阅 <a href="../px4_sitl_wsl2/">其他说明</a> 。</p>
 <h2 id="_2">没有遥控器<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
 <p>请注意，上述设置在 <code>settings.json</code> 文件的 <code>params</code> 部分中提供：</p>
-<div class="highlight"><pre><span></span><code>    &quot;NAV_RCL_ACT&quot;: 0,
-    &quot;NAV_DLL_ACT&quot;: 0,
-</code></pre></div>
+<p><code>"NAV_RCL_ACT": 0,
+    "NAV_DLL_ACT": 0,</code></p>
 <p>如果您计划不使用遥控器，仅通过 Python 脚本等方式操控 SITL 模式的 PX4，则需要进行此设置。这些参数可以防止 PX4 在每次移动指令完成后都触发“安全模式”。您可以使用以下 PX4 命令来检查这些值是否设置正确：</p>
-<div class="highlight"><pre><span></span><code>param show NAV_RCL_ACT
-param show NAV_DLL_ACT
-</code></pre></div>
+<p><code>param show NAV_RCL_ACT
+param show NAV_DLL_ACT</code></p>
 <div class="admonition 注意">
 <p class="admonition-title">注意</p>
 <p><code>请勿</code>在真正的无人机上进行此操作，因为如果没有这些安全措施，飞行非常危险。</p>
 </div>
 <h2 id="_3">手动设置参数<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
 <p>您也可以在 PX4 控制台中运行以下命令来手动设置所有这些参数：</p>
-<div class="highlight"><pre><span></span><code>param set NAV_RCL_ACT 0
-param set NAV_DLL_ACT 0
-</code></pre></div>
+<p><code>param set NAV_RCL_ACT 0
+param set NAV_DLL_ACT 0</code></p>
 <h2 id="_4">建立多载具仿真<a class="headerlink" href="#_4" title="Permanent link">#</a></h2>
 <p>您可以使用 AirSim 在 SITL 模式下模拟多架无人机。但是，这需要设置多个 PX4 固件模拟器实例，以便监听每架无人机在独立 TCP 端口（4560、4561 等）上的连接。请参阅 <a href="../px4_multi_vehicle/">此专门页面</a> ，了解如何在 SITL 模式下设置多个 PX4 实例。</p>
 <h2 id="virtualbox-ubuntu">使用 VirtualBox Ubuntu<a class="headerlink" href="#virtualbox-ubuntu" title="Permanent link">#</a></h2>

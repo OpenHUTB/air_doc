@@ -322,10 +322,9 @@
 </table>
 <h2 id="_2">换算公式<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
 <p>在 Town10HD 地图上实测（CarlaAir v0.1.6）：</p>
-<div class="highlight"><pre><span></span><code>airsim_x =  carla_x + 172.20
+<p><code>airsim_x =  carla_x + 172.20
 airsim_y =  carla_y - 183.86
-airsim_z = -carla_z +  27.45
-</code></pre></div>
+airsim_z = -carla_z +  27.45</code></p>
 <p>姿态角（pitch/yaw/roll）两侧一致，<strong>不需要换算</strong>。</p>
 <h2 id="_3">换算参数表<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
 <table>
@@ -364,26 +363,24 @@ airsim_z = -carla_z +  27.45
 </blockquote>
 <h2 id="_4">如何标定<a class="headerlink" href="#_4" title="Permanent link">#</a></h2>
 <p>在两个系统中同时读取无人机位置即可算出偏移量：</p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">carla</span><span class="o">,</span><span class="w"> </span><span class="nn">airsim</span>
-
-<span class="c1"># CARLA 侧</span>
-<span class="n">client</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="mi">2000</span><span class="p">)</span>
-<span class="n">world</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_world</span><span class="p">()</span>
-<span class="n">drone</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">world</span><span class="o">.</span><span class="n">get_actors</span><span class="p">()</span> <span class="k">if</span> <span class="s1">&#39;drone&#39;</span> <span class="ow">in</span> <span class="n">a</span><span class="o">.</span><span class="n">type_id</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">cl</span> <span class="o">=</span> <span class="n">drone</span><span class="o">.</span><span class="n">get_location</span><span class="p">()</span>
-
-<span class="c1"># AirSim 侧</span>
-<span class="n">ac</span> <span class="o">=</span> <span class="n">airsim</span><span class="o">.</span><span class="n">MultirotorClient</span><span class="p">()</span>
-<span class="n">ac</span><span class="o">.</span><span class="n">confirmConnection</span><span class="p">()</span>
-<span class="n">ap</span> <span class="o">=</span> <span class="n">ac</span><span class="o">.</span><span class="n">getMultirotorState</span><span class="p">()</span><span class="o">.</span><span class="n">kinematics_estimated</span><span class="o">.</span><span class="n">position</span>
-
-<span class="c1"># 偏移量</span>
-<span class="n">offset_x</span> <span class="o">=</span> <span class="n">ap</span><span class="o">.</span><span class="n">x_val</span> <span class="o">-</span> <span class="n">cl</span><span class="o">.</span><span class="n">x</span>
-<span class="n">offset_y</span> <span class="o">=</span> <span class="n">ap</span><span class="o">.</span><span class="n">y_val</span> <span class="o">-</span> <span class="n">cl</span><span class="o">.</span><span class="n">y</span>
-<span class="n">offset_z</span> <span class="o">=</span> <span class="n">ap</span><span class="o">.</span><span class="n">z_val</span> <span class="o">-</span> <span class="p">(</span><span class="o">-</span><span class="n">cl</span><span class="o">.</span><span class="n">z</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;offset_x=</span><span class="si">{</span><span class="n">offset_x</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, offset_y=</span><span class="si">{</span><span class="n">offset_y</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, offset_z=</span><span class="si">{</span><span class="n">offset_z</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</code></pre></div>
-<h2 id="_5">脚本中的处理<a class="headerlink" href="#_5" title="Permanent link">#</a></h2>
+<p>```python
+import carla, airsim</p>
+<h1 id="carla">CARLA 侧<a class="headerlink" href="#carla" title="Permanent link">#</a></h1>
+<p>client = carla.Client('localhost', 2000)
+world = client.get_world()
+drone = [a for a in world.get_actors() if 'drone' in a.type_id][0]
+cl = drone.get_location()</p>
+<h1 id="airsim">AirSim 侧<a class="headerlink" href="#airsim" title="Permanent link">#</a></h1>
+<p>ac = airsim.MultirotorClient()
+ac.confirmConnection()
+ap = ac.getMultirotorState().kinematics_estimated.position</p>
+<h1 id="_5">偏移量<a class="headerlink" href="#_5" title="Permanent link">#</a></h1>
+<p>offset_x = ap.x_val - cl.x
+offset_y = ap.y_val - cl.y
+offset_z = ap.z_val - (-cl.z)
+print(f"offset_x={offset_x:.4f}, offset_y={offset_y:.4f}, offset_z={offset_z:.4f}")
+```</p>
+<h2 id="_6">脚本中的处理<a class="headerlink" href="#_6" title="Permanent link">#</a></h2>
 <table>
 <thead>
 <tr>

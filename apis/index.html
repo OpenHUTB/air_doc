@@ -77,80 +77,6 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#hello-drone">Hello Drone</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#hello-car">Hello Car</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#api">常用 API</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#api_1">图像 / 计算机视觉 API</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#api_2">暂停和继续 API</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#api_3">碰撞 API</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#api_4">时间 API</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#api_5">视线和世界范围 API</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#api_6">天气 API </a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#apis_1">记录 APIs</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#api_7">风 API</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#api_8">激光雷达 API</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#apis_2">灯光控制 APIs</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#api_9">纹理 API</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_2">多载具</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_3">坐标系统</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#api_10">载具特定 API</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#api_11">汽车 API</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#api_12">多旋翼 API</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#getmultirotorstate">getMultirotorState</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#max_wait_seconds">异步方法、持续时间和 max_wait_seconds</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#drivetrain">drivetrain</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#yaw_mode">yaw_mode</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#lookahead-adaptive_lookahead">lookahead 和 adaptive_lookahead</a>
-    </li>
-        </ul>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#api_13">在真实载具上使用 API</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#airsim-api">向 AirSim 添加新的 API</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#references-and-examples">References and Examples</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#c">C++ 用户</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_4">经常问到的问题</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#api_14">运行 API 时，引擎运行速度明显变慢。</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#windows">我的Windows系统还需要其他软件吗？</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#python_1">我应该使用哪个版本的Python？</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#import-cv2">import cv2时出错</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#typeerrorasyncioloop-float">TypeError：不支持的操作数类型：'AsyncIOLoop' 和 'float'</a>
-    </li>
-        </ul>
-    </li>
     </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../image_apis/">图像 APIs</a>
@@ -374,20 +300,17 @@
 <h2 id="python">Python 快速入门<a class="headerlink" href="#python" title="Permanent link">#</a></h2>
 <p>如果您想使用 Python 调用 AirSim API，我们建议使用带有 Python 3.5 或更高版本的 Anaconda，但某些代码也可能适用于 Python 2.7（ <a href="../CONTRIBUTING/">帮助我们</a> 提高兼容性！）。</p>
 <p>首先安装 Python 虚拟环境：
-<div class="highlight"><pre><span></span><code>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>air<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.8
-conda<span class="w"> </span>activate<span class="w"> </span>air
-</code></pre></div></p>
+<code>shell
+conda create -n air python=3.8
+conda activate air</code></p>
 <p>首先安装这个包：</p>
-<div class="highlight"><pre><span></span><code>pip install msgpack-rpc-python
-</code></pre></div>
+<p><code>pip install msgpack-rpc-python</code></p>
 <p>您可以从 <a href="https://github.com/OpenHUTB/air/releases">releases</a> 获取 AirSim 二进制文件，也可以从源代码编译（<a href="../build_windows/">Windows</a>、<a href="../build_linux/">Linux</a>）。一旦您可以运行 AirSim，请选择 Car 作为载具，然后导航到 <code>PythonClient\car\</code> 文件夹并运行：</p>
-<div class="highlight"><pre><span></span><code>python hello_car.py
-</code></pre></div>
+<p><code>python hello_car.py</code></p>
 <p>如果您正在使用 Visual Studio 2019，则只需打开 AirSim.sln ，将 PythonClient 设置为启动项目，并选择 <code>car\hello_car.py</code> 作为启动脚本。</p>
 <h3 id="air">安装 Air 包<a class="headerlink" href="#air" title="Permanent link">#</a></h3>
 <p>您也可以简单地通过以下方式安装 <code>air</code> 包：，</p>
-<div class="highlight"><pre><span></span><code>pip install hutb
-</code></pre></div>
+<p><code>pip install hutb</code></p>
 <p>您可以在代码仓库的 <code>PythonClient</code> 文件夹中找到该包的源代码和示例。</p>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
@@ -399,74 +322,70 @@ conda<span class="w"> </span>activate<span class="w"> </span>air
 </div>
 <h2 id="hello-drone">Hello Drone<a class="headerlink" href="#hello-drone" title="Permanent link">#</a></h2>
 <p>下面介绍了如何使用 Python 的 AirSim API 来控制模拟四旋翼飞行器，准备运行示例 <a href="https://github.com/OpenHUTB/air/blob/main/PythonClient/multirotor/hello_drone.py">hello_drone.py</a>（另请参阅 <a href="../apis_cpp/#hello_drone">C++ 示例</a>）：</p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">airsim</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
-
-<span class="c1"># 连接到 AirSim 模拟器</span>
-<span class="n">client</span> <span class="o">=</span> <span class="n">airsim</span><span class="o">.</span><span class="n">MultirotorClient</span><span class="p">()</span>
-<span class="n">client</span><span class="o">.</span><span class="n">confirmConnection</span><span class="p">()</span>
-<span class="n">client</span><span class="o">.</span><span class="n">enableApiControl</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">client</span><span class="o">.</span><span class="n">armDisarm</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="c1"># Async 方法返回 Future。调用 join() 等待任务完成。</span>
-<span class="n">client</span><span class="o">.</span><span class="n">takeoffAsync</span><span class="p">()</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
-<span class="n">client</span><span class="o">.</span><span class="n">moveToPositionAsync</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
-
-<span class="c1"># 获取图像</span>
-<span class="n">responses</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">simGetImages</span><span class="p">([</span>
-    <span class="n">airsim</span><span class="o">.</span><span class="n">ImageRequest</span><span class="p">(</span><span class="s2">&quot;0&quot;</span><span class="p">,</span> <span class="n">airsim</span><span class="o">.</span><span class="n">ImageType</span><span class="o">.</span><span class="n">DepthVis</span><span class="p">),</span>
-    <span class="n">airsim</span><span class="o">.</span><span class="n">ImageRequest</span><span class="p">(</span><span class="s2">&quot;1&quot;</span><span class="p">,</span> <span class="n">airsim</span><span class="o">.</span><span class="n">ImageType</span><span class="o">.</span><span class="n">DepthPlanar</span><span class="p">,</span> <span class="kc">True</span><span class="p">)])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Retrieved images: </span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">responses</span><span class="p">))</span>
-
-<span class="c1"># 对图像执行一些操作</span>
-<span class="k">for</span> <span class="n">response</span> <span class="ow">in</span> <span class="n">responses</span><span class="p">:</span>
-    <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">pixels_as_float</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Type </span><span class="si">%d</span><span class="s2">, size </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">image_type</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">image_data_float</span><span class="p">)))</span>
-        <span class="n">airsim</span><span class="o">.</span><span class="n">write_pfm</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="s1">&#39;/temp/py1.pfm&#39;</span><span class="p">),</span> <span class="n">airsim</span><span class="o">.</span><span class="n">get_pfm_array</span><span class="p">(</span><span class="n">response</span><span class="p">))</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Type </span><span class="si">%d</span><span class="s2">, size </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">image_type</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">image_data_uint8</span><span class="p">)))</span>
-        <span class="n">airsim</span><span class="o">.</span><span class="n">write_file</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="s1">&#39;/temp/py1.png&#39;</span><span class="p">),</span> <span class="n">response</span><span class="o">.</span><span class="n">image_data_uint8</span><span class="p">)</span>
-</code></pre></div>
+<p>```python
+import airsim
+import os</p>
+<h1 id="airsim">连接到 AirSim 模拟器<a class="headerlink" href="#airsim" title="Permanent link">#</a></h1>
+<p>client = airsim.MultirotorClient()
+client.confirmConnection()
+client.enableApiControl(True)
+client.armDisarm(True)</p>
+<h1 id="async-future-join">Async 方法返回 Future。调用 join() 等待任务完成。<a class="headerlink" href="#async-future-join" title="Permanent link">#</a></h1>
+<p>client.takeoffAsync().join()
+client.moveToPositionAsync(-10, 10, -10, 5).join()</p>
+<h1 id="_2">获取图像<a class="headerlink" href="#_2" title="Permanent link">#</a></h1>
+<p>responses = client.simGetImages([
+    airsim.ImageRequest("0", airsim.ImageType.DepthVis),
+    airsim.ImageRequest("1", airsim.ImageType.DepthPlanar, True)])
+print('Retrieved images: %d', len(responses))</p>
+<h1 id="_3">对图像执行一些操作<a class="headerlink" href="#_3" title="Permanent link">#</a></h1>
+<p>for response in responses:
+    if response.pixels_as_float:
+        print("Type %d, size %d" % (response.image_type, len(response.image_data_float)))
+        airsim.write_pfm(os.path.normpath('/temp/py1.pfm'), airsim.get_pfm_array(response))
+    else:
+        print("Type %d, size %d" % (response.image_type, len(response.image_data_uint8)))
+        airsim.write_file(os.path.normpath('/temp/py1.png'), response.image_data_uint8)
+```</p>
 <h2 id="hello-car">Hello Car<a class="headerlink" href="#hello-car" title="Permanent link">#</a></h2>
 <p>下面是如何使用 Python 的 AirSim API 控制模拟汽车（另请参见 <a href="../apis_cpp/#hello_car">C++ 示例</a> ）：</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># 准备运行示例：PythonClient/car/hello_car.py</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">airsim</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<p>```python</p>
+<h1 id="pythonclientcarhello_carpy">准备运行示例：PythonClient/car/hello_car.py<a class="headerlink" href="#pythonclientcarhello_carpy" title="Permanent link">#</a></h1>
+<p>import airsim
+import time</p>
+<h1 id="airsim_1">连接到 AirSim 模拟器<a class="headerlink" href="#airsim_1" title="Permanent link">#</a></h1>
+<p>client = airsim.CarClient()
+client.confirmConnection()
+client.enableApiControl(True)
+car_controls = airsim.CarControls()</p>
+<p>while True:
+    # 获取车辆状态
+    car_state = client.getCarState()
+    print("Speed %d, Gear %d" % (car_state.speed, car_state.gear))</p>
+<pre><code># 控制车辆
+car_controls.throttle = 1
+car_controls.steering = 1
+client.setCarControls(car_controls)
 
-<span class="c1"># 连接到 AirSim 模拟器</span>
-<span class="n">client</span> <span class="o">=</span> <span class="n">airsim</span><span class="o">.</span><span class="n">CarClient</span><span class="p">()</span>
-<span class="n">client</span><span class="o">.</span><span class="n">confirmConnection</span><span class="p">()</span>
-<span class="n">client</span><span class="o">.</span><span class="n">enableApiControl</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">car_controls</span> <span class="o">=</span> <span class="n">airsim</span><span class="o">.</span><span class="n">CarControls</span><span class="p">()</span>
+# 让汽车开一会儿
+time.sleep(1)
 
-<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-    <span class="c1"># 获取车辆状态</span>
-    <span class="n">car_state</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">getCarState</span><span class="p">()</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Speed </span><span class="si">%d</span><span class="s2">, Gear </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">car_state</span><span class="o">.</span><span class="n">speed</span><span class="p">,</span> <span class="n">car_state</span><span class="o">.</span><span class="n">gear</span><span class="p">))</span>
+# 从汽车中获取相机图像
+responses = client.simGetImages([
+    airsim.ImageRequest(0, airsim.ImageType.DepthVis),
+    airsim.ImageRequest(1, airsim.ImageType.DepthPlanar, True)])
+print('Retrieved images: %d', len(responses))
 
-    <span class="c1"># 控制车辆</span>
-    <span class="n">car_controls</span><span class="o">.</span><span class="n">throttle</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="n">car_controls</span><span class="o">.</span><span class="n">steering</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="n">client</span><span class="o">.</span><span class="n">setCarControls</span><span class="p">(</span><span class="n">car_controls</span><span class="p">)</span>
-
-    <span class="c1"># 让汽车开一会儿</span>
-    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-
-    <span class="c1"># 从汽车中获取相机图像</span>
-    <span class="n">responses</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">simGetImages</span><span class="p">([</span>
-        <span class="n">airsim</span><span class="o">.</span><span class="n">ImageRequest</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">airsim</span><span class="o">.</span><span class="n">ImageType</span><span class="o">.</span><span class="n">DepthVis</span><span class="p">),</span>
-        <span class="n">airsim</span><span class="o">.</span><span class="n">ImageRequest</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">airsim</span><span class="o">.</span><span class="n">ImageType</span><span class="o">.</span><span class="n">DepthPlanar</span><span class="p">,</span> <span class="kc">True</span><span class="p">)])</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Retrieved images: </span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">responses</span><span class="p">))</span>
-
-    <span class="c1"># 对图像执行一些操作</span>
-    <span class="k">for</span> <span class="n">response</span> <span class="ow">in</span> <span class="n">responses</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">pixels_as_float</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Type </span><span class="si">%d</span><span class="s2">, size </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">image_type</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">image_data_float</span><span class="p">)))</span>
-            <span class="n">airsim</span><span class="o">.</span><span class="n">write_pfm</span><span class="p">(</span><span class="s1">&#39;py1.pfm&#39;</span><span class="p">,</span> <span class="n">airsim</span><span class="o">.</span><span class="n">get_pfm_array</span><span class="p">(</span><span class="n">response</span><span class="p">))</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Type </span><span class="si">%d</span><span class="s2">, size </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">image_type</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">image_data_uint8</span><span class="p">)))</span>
-            <span class="n">airsim</span><span class="o">.</span><span class="n">write_file</span><span class="p">(</span><span class="s1">&#39;py1.png&#39;</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">image_data_uint8</span><span class="p">)</span>
-</code></pre></div>
+# 对图像执行一些操作
+for response in responses:
+    if response.pixels_as_float:
+        print("Type %d, size %d" % (response.image_type, len(response.image_data_float)))
+        airsim.write_pfm('py1.pfm', airsim.get_pfm_array(response))
+    else:
+        print("Type %d, size %d" % (response.image_type, len(response.image_data_uint8)))
+        airsim.write_file('py1.png', response.image_data_uint8)
+</code></pre>
+<p>```</p>
 <h2 id="api">常用 API<a class="headerlink" href="#api" title="Permanent link">#</a></h2>
 <ul>
 <li><code>reset</code>: 这会将车辆重置到其原始启动状态。请注意，调用 reset 后必须再次调用 <code>enableApiControl</code> 和 <code>armDisarm</code> 。</li>
@@ -487,21 +406,18 @@ conda<span class="w"> </span>activate<span class="w"> </span>air
 <h3 id="api_4">时间 API<a class="headerlink" href="#api_4" title="Permanent link">#</a></h3>
 <p>AirSim 假设您的环境中存在 <code>EngineSky/BP_Sky_Sphere</code> 类的天空球体，并且包含 <a href="https://github.com/microsoft/AirSim/blob/v1.4.0-linux/Unreal/Plugins/AirSim/Source/SimMode/SimModeBase.cpp#L224">ADirectionalLight actor</a> 。默认情况下，场景中的太阳位置不会随时间移动。您可以使用 <a href="../settings/#timeofday">设置</a> 来设置 AirSim 用于计算场景中太阳位置的纬度、经度、日期和时间。</p>
 <p>您还可以使用以下 API 调用根据给定的日期时间设置太阳位置：</p>
-<div class="highlight"><pre><span></span><code>simSetTimeOfDay(self, is_enabled, start_datetime = &quot;&quot;, is_start_datetime_dst = False, celestial_clock_speed = 1, update_interval_secs = 60, move_sun = True)
-</code></pre></div>
+<p><code>simSetTimeOfDay(self, is_enabled, start_datetime = "", is_start_datetime_dst = False, celestial_clock_speed = 1, update_interval_secs = 60, move_sun = True)</code></p>
 <p><code>is_enabled</code> 参数必须为 <code>True</code> 才能启用时间效果。如果为 <code>False</code>，则太阳位置将重置为环境中的原始位置。</p>
 <p>其它参数与 <a href="../settings/#timeofday">设置</a> 相同。</p>
 <h3 id="api_5">视线和世界范围 API<a class="headerlink" href="#api_5" title="Permanent link">#</a></h3>
 <p>要测试模拟器中从车辆到某个点或两点之间的视线，请分别使用 <code>simTestLineOfSightToPoint(point, vehicle_name)</code> 和 <code>simTestLineOfSightBetweenPoints(point1, point2)</code> 函数。模拟器的世界范围以两个 <code>GeoPoints</code> 向量的形式表示，可以使用 <code>simGetWorldExtents()</code> 函数获取。</p>
 <h3 id="api_6">天气 API <span id="weather-apis"></span><a class="headerlink" href="#api_6" title="Permanent link">#</a></h3>
 <p>默认情况下，所有天气效果均已禁用。要启用天气效果，请先调用：</p>
-<div class="highlight"><pre><span></span><code>simEnableWeather(True)
-</code></pre></div>
+<p><code>simEnableWeather(True)</code></p>
 <p>可以使用 <code>simSetWeatherParameter</code> 方法启用各种天气效果，该方法采用 <code>WeatherParameter</code>，例如，</p>
-<div class="highlight"><pre><span></span><code>client.simSetWeatherParameter(airsim.WeatherParameter.Rain, 0.25);
-</code></pre></div>
+<p><code>client.simSetWeatherParameter(airsim.WeatherParameter.Rain, 0.25);</code></p>
 <p>第二个参数值从0到1。第一个参数提供以下选项：</p>
-<div class="highlight"><pre><span></span><code>class WeatherParameter:
+<p><code>class WeatherParameter:
     Rain = 0
     Roadwetness = 1
     Snow = 2
@@ -509,24 +425,23 @@ conda<span class="w"> </span>activate<span class="w"> </span>air
     MapleLeaf = 4
     RoadLeaf = 5
     Dust = 6
-    Fog = 7
-</code></pre></div>
+    Fog = 7</code></p>
 <p>请注意，湿润道路<code>Roadwetness</code>、路上积雪 <code>RoadSnow</code> 和 路上叶子<code>RoadLeaf</code> 效果需要在场景中添加 <a href="https://github.com/OpenHUTB/air/tree/main/Unreal/Plugins/AirSim/Content/Weather/WeatherFX">材质</a> 。</p>
 <p>请参阅 <a href="https://github.com/OpenHUTB/air/blob/main/PythonClient/environment/weather.py">示例代码</a> 以了解更多详细信息。</p>
 <h3 id="apis_1">记录 APIs<a class="headerlink" href="#apis_1" title="Permanent link">#</a></h3>
 <p>记录 API 可用于通过 API 开始记录数据。可以使用 <a href="../settings/#recording">设置</a> 指定要记录的数据。要开始记录，请使用：</p>
-<div class="highlight"><pre><span></span><code>client.startRecording()
-</code></pre></div>
+<p><code>client.startRecording()</code></p>
 <p>类似地，要停止记录，请使用 <code>client.stopRecording()</code>。要检查记录是否正在运行，请调用 <code>client.isRecording()</code>，返回一个布尔值<code>bool</code>。</p>
 <p>此 API 与使用 <code>R</code> 键切换记录功能配合使用，因此，如果使用 <code>R</code> 键启用记录功能，<code>isRecording()</code> 将返回 <code>True</code>，并且可以通过 API 使用 <code>stopRecording()</code> 停止记录。同样，如果在视口中按下 <code>R</code> 键，使用 API 启动的录制也会停止。如果使用 API 启动或停止录制，LogMessage 也会显示在视口的左上角。</p>
 <p>请注意，这只会保存设置中指定的数据。为了更自由地存储数据（例如某些传感器信息），或以其他格式或布局存储数据，请使用其他 API 获取数据并根据需要保存。有关如何修改正在记录的运动学数据的详细信息，请参阅 <a href="../modify_recording_data/">修改记录数据</a> 。</p>
 <h3 id="api_7">风 API<a class="headerlink" href="#api_7" title="Permanent link">#</a></h3>
 <p>可以使用 <code>simSetWind()</code> 在模拟过程中更改风向。风向以世界坐标系、NED 方向和米/秒为单位指定。</p>
 <p>例如，要设置北（前进）方向的风速为 20 米/秒 ：</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># 将风向设置为 NED（前进方向）的 (20,0,0)</span>
-<span class="n">wind</span> <span class="o">=</span> <span class="n">airsim</span><span class="o">.</span><span class="n">Vector3r</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-<span class="n">client</span><span class="o">.</span><span class="n">simSetWind</span><span class="p">(</span><span class="n">wind</span><span class="p">)</span>
-</code></pre></div>
+<p>```python</p>
+<h1 id="ned-2000">将风向设置为 NED（前进方向）的 (20,0,0)<a class="headerlink" href="#ned-2000" title="Permanent link">#</a></h1>
+<p>wind = airsim.Vector3r(20, 0, 0)
+client.simSetWind(wind)
+```</p>
 <p>另请参阅 <a href="https://github.com/OpenHUTB/air/blob/main/PythonClient/multirotor/set_wind.py">set_wind.py</a> 中的示例脚本</p>
 <h3 id="api_8">激光雷达 API<a class="headerlink" href="#api_8" title="Permanent link">#</a></h3>
 <p>AirSim 提供 API 来检索车载激光雷达传感器的点云数据。您可以在 <a href="../settings/">settings.json</a> 中设置通道数、每秒点数、水平和垂直视场等参数。</p>
@@ -542,9 +457,9 @@ conda<span class="w"> </span>activate<span class="w"> </span>air
 <li><code>simSetObjectMaterial</code>: 此函数使用现有的虚幻材质资源设置对象的材质。它接受两个字符串参数：<code>object_name</code> 和 <code>material_name</code> 。</li>
 <li><code>simSetObjectMaterialFromTexture</code>: 此函数使用纹理路径设置对象的材质。它接受两个字符串参数：<code>object_name</code> 和 <code>texture_path</code>。 </li>
 </ul>
-<h3 id="_2">多载具<a class="headerlink" href="#_2" title="Permanent link">#</a></h3>
+<h3 id="_4">多载具<a class="headerlink" href="#_4" title="Permanent link">#</a></h3>
 <p>AirSim 支持多载具并通过 API 进行控制。请参阅 <a href="../multi_vehicle/">多载具</a> 文档。</p>
-<h3 id="_3">坐标系统<a class="headerlink" href="#_3" title="Permanent link">#</a></h3>
+<h3 id="_5">坐标系统<a class="headerlink" href="#_5" title="Permanent link">#</a></h3>
 <p>所有 AirSim API 均使用 NED 坐标系，即 +X 代表北、+Y 代表东、+Z 代表下。所有单位均为 SI 系统。请注意，这与虚幻引擎内部使用的坐标系不同。在虚幻引擎中，+Z 代表上而不是下，长度单位是厘米而不是米。AirSim API 负责相应的转换。车辆的起点在 NED 系统中始终是坐标 (0, 0, 0)。因此，当从虚幻坐标转换为 NED 时，我们首先减去起始偏移量，然后按比例缩放 100 以进行厘米到米的转换。车辆在放置 Player Start 组件的虚幻环境中生成。 <a href="../settings/">settings.json</a> 中有一个名为 <code>OriginGeopoint</code> 的设置，它为 Player Start 组件分配地理经度、经度和海拔。</p>
 <h2 id="api_10">载具特定 API<a class="headerlink" href="#api_10" title="Permanent link">#</a></h2>
 <h3 id="api_11">汽车 API<a class="headerlink" href="#api_11" title="Permanent link">#</a></h3>
@@ -560,12 +475,13 @@ conda<span class="w"> </span>activate<span class="w"> </span>air
 <p>此 API 一次调用即可返回飞行器的状态。状态包括碰撞、估计运动学（即通过融合传感器计算的运动学）和时间戳（自纪元以来的纳秒数）。此处的运动学包含六个物理量：位置、方向、线速度和角速度、线加速度和角加速度。请注意，simple_slight 当前不支持状态估计器，这意味着对于 simple_flight，估计运动学值和地面真实运动学值将相同。不过，PX4 可以使用除角加速度之外的估计运动学值。所有物理量均采用 NED 坐标系，除角速度和加速度采用机身坐标系外，其他物理量均采用世界坐标系的 SI 单位。</p>
 <h4 id="max_wait_seconds">异步方法、持续时间和 max_wait_seconds<a class="headerlink" href="#max_wait_seconds" title="Permanent link">#</a></h4>
 <p>许多 API 方法都包含名为<code>duration</code>或<code>max_wait_seconds</code>的参数，并以<em>Async</em>作为后缀，例如 <code>takeoffAsync</code>。这些方法在 AirSim 中启动任务后会立即返回，以便您的客户端代码可以在该任务执行期间执行其他操作。如果您想等待此任务完成，可以像这样调用 <code>waitOnLastTask</code>：</p>
-<div class="highlight"><pre><span></span><code><span class="c1">//C++</span>
-<span class="n">client</span><span class="p">.</span><span class="n">takeoffAsync</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">waitOnLastTask</span><span class="p">();</span>
-</code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="cp"># Python</span>
-<span class="n">client</span><span class="p">.</span><span class="n">takeoffAsync</span><span class="p">().</span><span class="n">join</span><span class="p">()</span>
-</code></pre></div>
+<p><code>cpp
+//C++
+client.takeoffAsync()-&gt;waitOnLastTask();</code></p>
+<p>```cpp</p>
+<h1 id="python_1">Python<a class="headerlink" href="#python_1" title="Permanent link">#</a></h1>
+<p>client.takeoffAsync().join()
+```</p>
 <p>如果您启动另一个命令，它会自动取消上一个任务并启动新的命令。这允许您使用一种模式，您的代码会持续进行感知，计算新的轨迹，并在 AirSim 中将该路径发送给车辆。每个新发出的轨迹都会取消之前的轨迹，从而使您的代码能够在新的传感器数据到达时持续进行更新。</p>
 <p>所有 <em>异步</em> 方法在 Python 中返回的是 <code>concurrent.futures.Future</code>（在 C++ 中返回的是 <code>std::future</code>）。请注意，这些 Future 类目前不支持检查状态或取消任务；它们只允许等待任务完成。不过，AirSim 提供了 <code>cancelLastTask</code> 接口。</p>
 <h4 id="drivetrain">drivetrain<a class="headerlink" href="#drivetrain" title="Permanent link">#</a></h4>
@@ -594,18 +510,17 @@ conda<span class="w"> </span>activate<span class="w"> </span>air
 </ul>
 <h2 id="c">C++ 用户<a class="headerlink" href="#c" title="Permanent link">#</a></h2>
 <p>如果要使用 C++ 的 API 和示例，请参阅 <a href="../apis_cpp/">C++ API 指南</a> 。</p>
-<h2 id="_4">经常问到的问题<a class="headerlink" href="#_4" title="Permanent link">#</a></h2>
+<h2 id="_6">经常问到的问题<a class="headerlink" href="#_6" title="Permanent link">#</a></h2>
 <h4 id="api_14">运行 API 时，引擎运行速度明显变慢。<a class="headerlink" href="#api_14" title="Permanent link">#</a></h4>
 <p>如果发现虚幻引擎窗口失去焦点时，虚幻引擎运行速度明显变慢，则在虚幻编辑器中转到“编辑-&gt;编辑器首选项”，在“搜索”框中键入“CPU”，并确保“在后台运行时减少 CPU 使用率”未选中。</p>
 <h4 id="windows">我的Windows系统还需要其他软件吗？<a class="headerlink" href="#windows" title="Permanent link">#</a></h4>
 <p>您应该安装带有 VC++ 的 VS2019、Windows SDK 10.0 和 Python。要使用 Python API，您需要 Python 3.5 或更高版本（使用 Anaconda 安装）。</p>
-<h4 id="python_1">我应该使用哪个版本的Python？<a class="headerlink" href="#python_1" title="Permanent link">#</a></h4>
+<h4 id="python_2">我应该使用哪个版本的Python？<a class="headerlink" href="#python_2" title="Permanent link">#</a></h4>
 <p>我们推荐使用 <a href="https://www.anaconda.com/download/">Anaconda</a> 来获取 Python 工具和库。我们的代码已在 Python 3.5.3 和 Anaconda 4.4.0 环境下测试通过。这一点很重要，因为已知旧版本存在一些 <a href="https://stackoverflow.com/a/45934992/207661">问题</a> 。</p>
 <h4 id="import-cv2"><code>import cv2</code>时出错<a class="headerlink" href="#import-cv2" title="Permanent link">#</a></h4>
 <p>您可以使用以下命令安装 OpenCV：
-<div class="highlight"><pre><span></span><code>conda install opencv
-pip install opencv-python
-</code></pre></div></p>
+<code>conda install opencv
+pip install opencv-python</code></p>
 <h4 id="typeerrorasyncioloop-float">TypeError：不支持的操作数类型：'AsyncIOLoop' 和 'float'<a class="headerlink" href="#typeerrorasyncioloop-float" title="Permanent link">#</a></h4>
 <p>如果您安装了 Jupyter，就会出现此错误，因为它似乎会破坏 msgpackrpc 库。请创建一个新的 Python 环境，并仅安装所需的最小软件包。</p>
               

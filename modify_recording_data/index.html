@@ -291,11 +291,11 @@
 <p>然而，默认记录的数据可能不足以满足您的使用需求，因此最好记录其他数据，例如IMU、GPS传感器、旋翼速度（适用于旋翼飞行器）等。您可以使用现有的 Python 和 C++ API 来获取信息并按需存储，尤其适用于激光雷达数据。此外，您还可以通过修改 Air 内部的记录方法来添加 GPS 等小型字段或内部数据（例如虚幻引擎位置或其他数据）。本页面将介绍您可能需要修改的具体方法。</p>
 <p>记录的数据以制表符分隔的格式写入 <code>airsim_rec.txt</code> 文件，图像则保存在 <code>images/</code> 文件夹中。默认情况下，整个文件夹位于<code>Documents(文档)</code>文件夹中（或在设置中指定），并以 <code>%Y-%M-%D-%H-%M-%S</code> 格式记录开始时间戳。</p>
 <p>汽车载具记录以下字段：</p>
-<div class="highlight"><pre><span></span><code>VehicleName TimeStamp   POS_X   POS_Y   POS_Z   Q_W Q_X Q_Y Q_Z Throttle    Steering    Brake   Gear    Handbrake   RPM Speed   ImageFile
-</code></pre></div>
+<p><code>text
+VehicleName TimeStamp   POS_X   POS_Y   POS_Z   Q_W Q_X Q_Y Q_Z Throttle    Steering    Brake   Gear    Handbrake   RPM Speed   ImageFile</code></p>
 <p>对于多旋翼飞行器：</p>
-<div class="highlight"><pre><span></span><code>VehicleName TimeStamp   POS_X   POS_Y   POS_Z   Q_W Q_X Q_Y Q_Z ImageFile
-</code></pre></div>
+<p><code>text
+VehicleName TimeStamp   POS_X   POS_Y   POS_Z   Q_W Q_X Q_Y Q_Z ImageFile</code></p>
 <h2 id="_2">代码改变<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
 <div class="admonition 注意">
 <p class="admonition-title">注意</p>
@@ -304,35 +304,36 @@
 <p>填充要存储的数据的主要方法是 <a href="https://github.com/OpenHUTB/air/blob/880c5541fd4824ee2cd9bb82ca5f611eb1ab236a/Unreal/Plugins/AirSim/Source/PawnSimApi.cpp#L544"><code>PawnSimApi::getRecordFileLine</code></a>，它是所有载具的基本方法，Car 重写了它以记录附加数据，如 <a href="https://github.com/OpenHUTB/air/blob/880c5541fd4824ee2cd9bb82ca5f611eb1ab236a/Unreal/Plugins/AirSim/Source/Vehicles/Car/CarPawnSimApi.cpp#L34"><code>CarPawnSimApi::getRecordFileLine</code></a> 所示。</p>
 <p>要记录多旋翼飞行器的更多数据，可以在 <a href="https://github.com/OpenHUTB/air/tree/main/Unreal/Plugins/AirSim/Source/Vehicles/Multirotor">MultirotorPawnSimApi.cpp/h</a> 文件中添加类似的方法，该方法会覆盖基类的实现并附加其他数据。当前记录的数据也可以根据需要进行修改和删除。</p>
 <p>例如，记录多旋翼飞行器的 GPS、IMU 和气压计数据：</p>
-<div class="highlight"><pre><span></span><code><span class="c1">// MultirotorPawnSimApi.cpp</span>
-<span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="nf">MultirotorPawnSimApi::getRecordFileLine</span><span class="p">(</span><span class="kt">bool</span><span class="w"> </span><span class="n">is_header_line</span><span class="p">)</span><span class="w"> </span><span class="k">const</span>
-<span class="p">{</span>
-<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">common_line</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PawnSimApi</span><span class="o">::</span><span class="n">getRecordFileLine</span><span class="p">(</span><span class="n">is_header_line</span><span class="p">);</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">is_header_line</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">common_line</span><span class="w"> </span><span class="o">+</span>
-<span class="w">               </span><span class="s">&quot;Latitude</span><span class="se">\t</span><span class="s">Longitude</span><span class="se">\t</span><span class="s">Altitude</span><span class="se">\t</span><span class="s">Pressure</span><span class="se">\t</span><span class="s">AccX</span><span class="se">\t</span><span class="s">AccY</span><span class="se">\t</span><span class="s">AccZ</span><span class="se">\t</span><span class="s">&quot;</span><span class="p">;</span>
-<span class="w">    </span><span class="p">}</span>
+<p>```cpp
+// MultirotorPawnSimApi.cpp
+std::string MultirotorPawnSimApi::getRecordFileLine(bool is_header_line) const
+{
+    std::string common_line = PawnSimApi::getRecordFileLine(is_header_line);
+    if (is_header_line) {
+        return common_line +
+               "Latitude\tLongitude\tAltitude\tPressure\tAccX\tAccY\tAccZ\t";
+    }</p>
+<pre><code>const auto&amp; state = vehicle_api_-&gt;getMultirotorState();
+const auto&amp; bar_data = vehicle_api_-&gt;getBarometerData("");
+const auto&amp; imu_data = vehicle_api_-&gt;getImuData("");
 
-<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vehicle_api_</span><span class="o">-&gt;</span><span class="n">getMultirotorState</span><span class="p">();</span>
-<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">bar_data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vehicle_api_</span><span class="o">-&gt;</span><span class="n">getBarometerData</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
-<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">imu_data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vehicle_api_</span><span class="o">-&gt;</span><span class="n">getImuData</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+std::ostringstream ss;
+ss &lt;&lt; common_line;
+ss &lt;&lt; state.gps_location.latitude &lt;&lt; "\t" &lt;&lt; state.gps_location.longitude &lt;&lt; "\t"
+   &lt;&lt; state.gps_location.altitude &lt;&lt; "\t";
 
-<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">ostringstream</span><span class="w"> </span><span class="n">ss</span><span class="p">;</span>
-<span class="w">    </span><span class="n">ss</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">common_line</span><span class="p">;</span>
-<span class="w">    </span><span class="n">ss</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">state</span><span class="p">.</span><span class="n">gps_location</span><span class="p">.</span><span class="n">latitude</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\t</span><span class="s">&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">state</span><span class="p">.</span><span class="n">gps_location</span><span class="p">.</span><span class="n">longitude</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\t</span><span class="s">&quot;</span>
-<span class="w">       </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">state</span><span class="p">.</span><span class="n">gps_location</span><span class="p">.</span><span class="n">altitude</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\t</span><span class="s">&quot;</span><span class="p">;</span>
+ss &lt;&lt; bar_data.pressure &lt;&lt; "\t";
 
-<span class="w">    </span><span class="n">ss</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">bar_data</span><span class="p">.</span><span class="n">pressure</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\t</span><span class="s">&quot;</span><span class="p">;</span>
+ss &lt;&lt; imu_data.linear_acceleration.x() &lt;&lt; "\t" &lt;&lt; imu_data.linear_acceleration.y() &lt;&lt; "\t"
+   &lt;&lt; imu_data.linear_acceleration.z() &lt;&lt; "\t";
 
-<span class="w">    </span><span class="n">ss</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">imu_data</span><span class="p">.</span><span class="n">linear_acceleration</span><span class="p">.</span><span class="n">x</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\t</span><span class="s">&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">imu_data</span><span class="p">.</span><span class="n">linear_acceleration</span><span class="p">.</span><span class="n">y</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\t</span><span class="s">&quot;</span>
-<span class="w">       </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">imu_data</span><span class="p">.</span><span class="n">linear_acceleration</span><span class="p">.</span><span class="n">z</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\t</span><span class="s">&quot;</span><span class="p">;</span>
-
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ss</span><span class="p">.</span><span class="n">str</span><span class="p">();</span>
-<span class="p">}</span>
-</code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="c1">// MultirotorPawnSimApi.h</span>
-<span class="k">virtual</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="nf">getRecordFileLine</span><span class="p">(</span><span class="kt">bool</span><span class="w"> </span><span class="n">is_header_line</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">override</span><span class="p">;</span>
-</code></pre></div>
+return ss.str();
+</code></pre>
+<p>}
+```</p>
+<p><code>cpp
+// MultirotorPawnSimApi.h
+virtual std::string getRecordFileLine(bool is_header_line) const override;</code></p>
               
             </div>
           </div><footer>

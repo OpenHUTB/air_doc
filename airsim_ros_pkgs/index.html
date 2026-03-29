@@ -381,31 +381,31 @@
 <ul>
 <li>构建 AirSim</li>
 </ul>
-<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/OpenHUTB/air.git<span class="p">;</span>
-<span class="nb">cd</span><span class="w"> </span>air<span class="p">;</span>
-./setup.sh<span class="p">;</span>
-./build.sh<span class="p">;</span>
-</code></pre></div>
+<p><code>shell
+git clone https://github.com/OpenHUTB/air.git;
+cd air;
+./setup.sh;
+./build.sh;</code></p>
 <ul>
 <li>确保已按照上面的安装页面中所述设置ROS的环境变量。为方便起见，将<code>source</code>命令添加到<code>.bashrc</code>中（用特定的版本名替换<code>mediatic</code>）：</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;source /opt/ros/melodic/setup.bash&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc
-<span class="nb">source</span><span class="w"> </span>~/.bashrc
-</code></pre></div>
+<p><code>shell
+echo "source /opt/ros/melodic/setup.bash" &gt;&gt; ~/.bashrc
+source ~/.bashrc</code></p>
 <ul>
 <li>构建 ROS 包</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>ros<span class="p">;</span>
-catkin<span class="w"> </span>build<span class="p">;</span><span class="w"> </span><span class="c1"># 或 catkin_make</span>
-</code></pre></div>
+<p><code>shell
+cd ros;
+catkin build; # 或 catkin_make</code></p>
 <p>如果默认GCC不是8或更高（使用<code>GCC--version</code>检查），则编译将失败。在这种情况下，请显式使用<code>gcc-8</code>，如下所示</p>
-<div class="highlight"><pre><span></span><code>catkin<span class="w"> </span>build<span class="w"> </span>-DCMAKE_C_COMPILER<span class="o">=</span>gcc-8<span class="w"> </span>-DCMAKE_CXX_COMPILER<span class="o">=</span>g++-8
-</code></pre></div>
+<p><code>shell
+catkin build -DCMAKE_C_COMPILER=gcc-8 -DCMAKE_CXX_COMPILER=g++-8</code></p>
 <h2 id="_3">运行<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
-<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>devel/setup.bash<span class="p">;</span>
-roslaunch<span class="w"> </span>airsim_ros_pkgs<span class="w"> </span>airsim_node.launch<span class="p">;</span>
-roslaunch<span class="w"> </span>airsim_ros_pkgs<span class="w"> </span>rviz.launch<span class="p">;</span>
-</code></pre></div>
+<p><code>shell
+source devel/setup.bash;
+roslaunch airsim_ros_pkgs airsim_node.launch;
+roslaunch airsim_ros_pkgs rviz.launch;</code></p>
 <div class="admonition 注意">
 <p class="admonition-title">注意</p>
 <p>如果在运行<code>roslaunch airsim_ros_pkgs airsim_node.launch</code>时出错，请运行<code>catkin clean</code>，然后重试</p>
@@ -663,18 +663,18 @@ or
 对于 WSL 2：
 <code>export WSL_HOST_IP=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}')</code>
 现在，就像 <a href="#running">在 Linux 运行部分一样</a> ，执行以下命令： </p>
-<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>devel/setup.bash
-roslaunch<span class="w"> </span>airsim_ros_pkgs<span class="w"> </span>airsim_node.launch<span class="w"> </span>output:<span class="o">=</span>screen<span class="w"> </span>host:<span class="o">=</span><span class="nv">$WSL_HOST_IP</span>
-roslaunch<span class="w"> </span>airsim_ros_pkgs<span class="w"> </span>rviz.launch
-</code></pre></div>
+<p><code>shell
+source devel/setup.bash
+roslaunch airsim_ros_pkgs airsim_node.launch output:=screen host:=$WSL_HOST_IP
+roslaunch airsim_ros_pkgs rviz.launch</code></p>
 <h3 id="docker-ros">使用 Docker 运行 ROS<a class="headerlink" href="#docker-ros" title="Permanent link">#</a></h3>
 <p><a href="https://github.com/microsoft/AirSim/tree/main/tools/Dockerfile-ROS"><code>tools</code></a> 目录中包含一个 Dockerfile 文件。要构建 <code>airsim-ros</code> 镜像，请执行以下操作：</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>tools
-docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>airsim-ros<span class="w"> </span>-f<span class="w"> </span>Dockerfile-ROS<span class="w"> </span>.
-</code></pre></div>
+<p><code>shell
+cd tools
+docker build -t airsim-ros -f Dockerfile-ROS .</code></p>
 <p>要运行程序，请替换以下 AirSim 文件夹的路径：</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-it<span class="w"> </span>--net<span class="o">=</span>host<span class="w"> </span>-v<span class="w"> </span>&lt;your-AirSim-folder-path&gt;:/home/testuser/AirSim<span class="w"> </span>airsim-ros:latest<span class="w"> </span>bash
-</code></pre></div>
+<p><code>shell
+docker run --rm -it --net=host -v &lt;your-AirSim-folder-path&gt;:/home/testuser/AirSim airsim-ros:latest bash</code></p>
 <p>上述命令会将 AirSim 目录挂载到容器内的主目录中。您在主机上对源文件所做的任何更改都会在容器内生效，这对于开发和测试非常有用。现在，请按照 <a href="#build">构建</a> 步骤编译并运行 ROS 封装程序。</p>
               
             </div>

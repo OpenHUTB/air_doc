@@ -294,17 +294,14 @@
 <p><img alt="image" src="../images/event_sim.png" /></p>
 <h4 id="_2">使用<a class="headerlink" href="#_2" title="Permanent link">#</a></h4>
 <p>运行事件模拟器并与 AirSim 配合使用的示例脚本位于 <a href="https://github.com/microsoft/AirSim/blob/main/PythonClient/eventcamera_sim/test_event_sim.py">test_event_sim.py</a> 。以下可选命令行参数可以传递给此脚本。</p>
-<div class="highlight"><pre><span></span><code>args.width, args.height (float): 模拟事件相机的分辨率
+<p><code>args.width, args.height (float): 模拟事件相机的分辨率
 args.save (bool): 是否将事件数据保存到文件；args.debug（布尔值）：是否将模拟事件显示为图像, 
-args.debug (bool): 是否将模拟事件显示为图像
-</code></pre></div>
+args.debug (bool): 是否将模拟事件显示为图像</code></p>
 <p>实际事件模拟的实现是用 Python 和 numba 编写的，位于 <a href="https://github.com/microsoft/AirSim/blob/main/PythonClient/eventcamera_sim/event_simulator.py">event_simulator.py</a> 。事件模拟器按如下方式初始化，参数控制相机的分辨率。</p>
-<div class="highlight"><pre><span></span><code>from event_simulator import *
-ev_sim = EventSimulator(W, H)
-</code></pre></div>
+<p><code>from event_simulator import *
+ev_sim = EventSimulator(W, H)</code></p>
 <p>事件的实际计算是通过 <code>image_callback</code> 函数触发的，该函数会在每次获取新的 RGB 图像时执行。由于缺少“先前”的图像，该函数首次调用时会作为事件模拟器的初始化。</p>
-<p><div class="highlight"><pre><span></span><code>event_img, events = ev_sim.image_callback(img, ts_delta)
-</code></pre></div>
+<p><code>event_img, events = ev_sim.image_callback(img, ts_delta)</code>
 此函数类似于回调函数（每次收到新图像时都会调用），它返回一个包含 +1/-1 值的一维数组，表示事件图像，仅指示每个像素是否检测到事件，而不指示事件发生的时间/数量。此一维数组可以转换为红/蓝事件图像，如函数 <code>convert_event_img_rgb</code> 所示。<code>events</code> 是一个 numpy 数组，其中包含事件，每个事件的格式为 <code>&lt;x&gt; &lt;y&gt; &lt;timestamp&gt; &lt;pol&gt;</code>。</p>
 <p>通过此函数，事件模拟器计算过去图像和当前图像之间的差异，并计算事件流，然后将其作为 NumPy 数组返回。之后，可以将此数组追加到文件中。</p>
 <p>为了达到事件模拟的视觉保真度/性能水平，可以调整许多参数。主要调整因素如下：</p>

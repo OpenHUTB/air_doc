@@ -286,9 +286,10 @@
 <h2 id="connection-issues">连接问题 / Connection Issues<a class="headerlink" href="#connection-issues" title="Permanent link">#</a></h2>
 <h3 id="q-carla-client">Q: CARLA Client 连接超时<a class="headerlink" href="#q-carla-client" title="Permanent link">#</a></h3>
 <p><strong>A</strong>: 首次启动需要 2-5 分钟加载资源（首次可能需要约 10 分钟编译着色器）。</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># 检查端口是否就绪</span>
-ss<span class="w"> </span>-tlnp<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="m">2000</span>
-</code></pre></div>
+<p>```bash</p>
+<h1 id="_1">检查端口是否就绪<a class="headerlink" href="#_1" title="Permanent link">#</a></h1>
+<p>ss -tlnp | grep 2000
+```</p>
 <h3 id="q-airsim-41451">Q: AirSim 无法连接（端口 41451）<a class="headerlink" href="#q-airsim-41451" title="Permanent link">#</a></h3>
 <p><strong>A</strong>: AirSim 服务器在 CARLA 之后启动，需要额外等待。确认 <code>~/Documents/AirSim/settings.json</code> 存在。</p>
 <h3 id="q-api">Q: 两个 API 可以同时使用吗？<a class="headerlink" href="#q-api" title="Permanent link">#</a></h3>
@@ -301,24 +302,23 @@ ss<span class="w"> </span>-tlnp<span class="w"> </span><span class="p">|</span><
 - <strong>同步模式</strong>: 适合数据采集、演示回放、视频录制 — 需要固定时间步和帧帧一致</p>
 <h3 id="q_1">Q: 如何开启同步模式？<a class="headerlink" href="#q_1" title="Permanent link">#</a></h3>
 <p><strong>A</strong>: 需要同时配置 World 和 Traffic Manager：</p>
-<div class="highlight"><pre><span></span><code><span class="n">settings</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_settings</span><span class="p">()</span>
-<span class="n">settings</span><span class="o">.</span><span class="n">synchronous_mode</span> <span class="o">=</span> <span class="kc">True</span>
-<span class="n">settings</span><span class="o">.</span><span class="n">fixed_delta_seconds</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="mi">30</span>
-<span class="n">world</span><span class="o">.</span><span class="n">apply_settings</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
-
-<span class="n">tm</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_trafficmanager</span><span class="p">(</span><span class="mi">8000</span><span class="p">)</span>
-<span class="n">tm</span><span class="o">.</span><span class="n">set_synchronous_mode</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="c1"># 主循环中每帧调用</span>
-<span class="n">world</span><span class="o">.</span><span class="n">tick</span><span class="p">()</span>
-</code></pre></div>
+<p>```python
+settings = world.get_settings()
+settings.synchronous_mode = True
+settings.fixed_delta_seconds = 1.0 / 30
+world.apply_settings(settings)</p>
+<p>tm = client.get_trafficmanager(8000)
+tm.set_synchronous_mode(True)</p>
+<h1 id="_2">主循环中每帧调用<a class="headerlink" href="#_2" title="Permanent link">#</a></h1>
+<p>world.tick()
+```</p>
 <h3 id="q_2">Q: 同步模式下仿真器冻结了<a class="headerlink" href="#q_2" title="Permanent link">#</a></h3>
 <p><strong>A</strong>: 脚本退出时<strong>必须恢复异步模式</strong>，否则仿真器会一直等待 <code>world.tick()</code> 而冻结：</p>
-<div class="highlight"><pre><span></span><code><span class="n">settings</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_settings</span><span class="p">()</span>
-<span class="n">settings</span><span class="o">.</span><span class="n">synchronous_mode</span> <span class="o">=</span> <span class="kc">False</span>
-<span class="n">settings</span><span class="o">.</span><span class="n">fixed_delta_seconds</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="n">world</span><span class="o">.</span><span class="n">apply_settings</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
-</code></pre></div>
+<p><code>python
+settings = world.get_settings()
+settings.synchronous_mode = False
+settings.fixed_delta_seconds = None
+world.apply_settings(settings)</code></p>
 <p>建议在脚本中使用 <code>try/finally</code> 结构确保退出时始终恢复。</p>
 <hr />
 <h2 id="coordinate-systems">坐标系统 / Coordinate Systems<a class="headerlink" href="#coordinate-systems" title="Permanent link">#</a></h2>
@@ -358,10 +358,10 @@ ss<span class="w"> </span>-tlnp<span class="w"> </span><span class="p">|</span><
 <h2 id="vehicles-pedestrians">车辆和行人 / Vehicles &amp; Pedestrians<a class="headerlink" href="#vehicles-pedestrians" title="Permanent link">#</a></h2>
 <h3 id="q_3">Q: 车辆行驶异常/抽搐/路径不稳<a class="headerlink" href="#q_3" title="Permanent link">#</a></h3>
 <p><strong>A</strong>: 使用 Traffic Manager 的 <code>hybrid_physics_mode</code> 可以改善远距离车辆的物理模拟稳定性：</p>
-<div class="highlight"><pre><span></span><code><span class="n">tm</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_trafficmanager</span><span class="p">(</span><span class="mi">8000</span><span class="p">)</span>
-<span class="n">tm</span><span class="o">.</span><span class="n">set_hybrid_physics_mode</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">tm</span><span class="o">.</span><span class="n">set_hybrid_physics_radius</span><span class="p">(</span><span class="mf">50.0</span><span class="p">)</span>  <span class="c1"># 50 米内使用完整物理</span>
-</code></pre></div>
+<p><code>python
+tm = client.get_trafficmanager(8000)
+tm.set_hybrid_physics_mode(True)
+tm.set_hybrid_physics_radius(50.0)  # 50 米内使用完整物理</code></p>
 <h3 id="q-walker-go_to_location">Q: Walker 使用 <code>go_to_location()</code> 崩溃<a class="headerlink" href="#q-walker-go_to_location" title="Permanent link">#</a></h3>
 <p><strong>A</strong>: 已知限制。Walker AI Controller 在 CarlaAir 中会触发 segfault。<strong>只使用静态 Walker</strong>（不调用 <code>go_to_location()</code>）。</p>
 <h3 id="q_4">Q: 多少车辆才安全？<a class="headerlink" href="#q_4" title="Permanent link">#</a></h3>
@@ -373,12 +373,12 @@ ss<span class="w"> </span>-tlnp<span class="w"> </span><span class="p">|</span><
 <h2 id="drone">无人机 / Drone<a class="headerlink" href="#drone" title="Permanent link">#</a></h2>
 <h3 id="q_5">Q: 无人机不响应指令<a class="headerlink" href="#q_5" title="Permanent link">#</a></h3>
 <p><strong>A</strong>: 确保调用了正确的初始化序列：</p>
-<div class="highlight"><pre><span></span><code><span class="n">client</span> <span class="o">=</span> <span class="n">airsim</span><span class="o">.</span><span class="n">MultirotorClient</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="mi">41451</span><span class="p">)</span>
-<span class="n">client</span><span class="o">.</span><span class="n">confirmConnection</span><span class="p">()</span>
-<span class="n">client</span><span class="o">.</span><span class="n">enableApiControl</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">client</span><span class="o">.</span><span class="n">armDisarm</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">client</span><span class="o">.</span><span class="n">takeoffAsync</span><span class="p">()</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
-</code></pre></div>
+<p><code>python
+client = airsim.MultirotorClient(port=41451)
+client.confirmConnection()
+client.enableApiControl(True)
+client.armDisarm(True)
+client.takeoffAsync().join()</code></p>
 <h3 id="q-airsim">Q: AirSim 客户端连接后干扰了无人机控制<a class="headerlink" href="#q-airsim" title="Permanent link">#</a></h3>
 <p><strong>A</strong>: 如果你在交互飞行的同时另一个脚本也连接了 AirSim，可能导致控制冲突。录制无人机轨迹时请使用专用脚本 <code>examples_record_demo/record_drone.py</code>，它内部处理了控制权管理。</p>
 <h3 id="q-simsetcamerapose">Q: <code>simSetCameraPose</code> 导致崩溃<a class="headerlink" href="#q-simsetcamerapose" title="Permanent link">#</a></h3>
@@ -387,8 +387,8 @@ ss<span class="w"> </span>-tlnp<span class="w"> </span><span class="p">|</span><
 <h2 id="weather-maps">天气和地图 / Weather &amp; Maps<a class="headerlink" href="#weather-maps" title="Permanent link">#</a></h2>
 <h3 id="q_6">Q: 如何切换地图？<a class="headerlink" href="#q_6" title="Permanent link">#</a></h3>
 <p><strong>A</strong>: 启动时指定地图名称：</p>
-<div class="highlight"><pre><span></span><code>./CarlaAir.sh<span class="w"> </span>Town03
-</code></pre></div>
+<p><code>bash
+./CarlaAir.sh Town03</code></p>
 <p>可用地图：Town01, Town02, Town03, Town04, Town05, Town10HD。</p>
 <h3 id="q_7">Q: 天气变化会影响无人机吗？<a class="headerlink" href="#q_7" title="Permanent link">#</a></h3>
 <p><strong>A</strong>: 是的，天气是统一的。CARLA 的 <code>set_weather()</code> 会同时影响地面和空中视角（雨、雾、光照等）。</p>

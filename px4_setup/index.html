@@ -335,33 +335,32 @@
 <li>进入“飞行模式(Flight Mode)”选项卡，选择其中一个遥控器开关作为“模式通道(Mode Channel)”。然后，为该开关的两个位置分别设置（例如）“稳定(Stabilized)飞行模式”和“姿态(Attitude)飞行模式”。 </li>
 <li>前往 QGroundControl 的“调校”部分，并设置合适的数值。例如，对于 Fly Sky 的 FS-TH9X 遥控器，以下设置可提供更真实的操控感：悬停油门Throttle = mid+1 mark ，横滚和俯仰灵敏度 = mid-3 mark，高度和位置控制灵敏度 = mid-2 mark。 </li>
 <li>在 <a href="../settings/">Air 设置</a> 文件中，将 PX4 指定为您的载具配置，如下所示： 
-<div class="highlight"><pre><span></span><code>    {
-        &quot;SettingsVersion&quot;: 1.2,
-        &quot;SimMode&quot;: &quot;Multirotor&quot;,
-        &quot;ClockType&quot;: &quot;SteppableClock&quot;,
-        &quot;Vehicles&quot;: {
-            &quot;PX4&quot;: {
-                &quot;VehicleType&quot;: &quot;PX4Multirotor&quot;,
-                &quot;UseSerial&quot;: true,
-                &quot;LockStep&quot;: true,
-                &quot;Sensors&quot;:{
-                    &quot;Barometer&quot;:{
-                        &quot;SensorType&quot;: 1,
-                        &quot;Enabled&quot;: true,
-                        &quot;PressureFactorSigma&quot;: 0.0001825
+<code>{
+        "SettingsVersion": 1.2,
+        "SimMode": "Multirotor",
+        "ClockType": "SteppableClock",
+        "Vehicles": {
+            "PX4": {
+                "VehicleType": "PX4Multirotor",
+                "UseSerial": true,
+                "LockStep": true,
+                "Sensors":{
+                    "Barometer":{
+                        "SensorType": 1,
+                        "Enabled": true,
+                        "PressureFactorSigma": 0.0001825
                     }
                 },
-                &quot;Parameters&quot;: {
-                    &quot;NAV_RCL_ACT&quot;: 0,
-                    &quot;NAV_DLL_ACT&quot;: 0,
-                    &quot;COM_OBL_ACT&quot;: 1,
-                    &quot;LPE_LAT&quot;: 47.641468,
-                    &quot;LPE_LON&quot;: -122.140165
+                "Parameters": {
+                    "NAV_RCL_ACT": 0,
+                    "NAV_DLL_ACT": 0,
+                    "COM_OBL_ACT": 1,
+                    "LPE_LAT": 47.641468,
+                    "LPE_LON": -122.140165
                 }
             }
         }
-    }
-</code></pre></div></li>
+    }</code></li>
 </ol>
 <div class="admonition 注意">
 <p class="admonition-title">注意</p>
@@ -384,14 +383,12 @@
 <p>在 Linux 系统中，可以通过运行 <code>ls /dev/serial/by-id</code> 命令来查找设备。如果看到类似 <code>usb-3D_Robotics_PX4_FMU_v2.x_0-if00</code> 的设备名称，就可以使用该名称进行连接，例如：<code>SerialPort":"/dev/serial/by-id/usb-3D_Robotics_PX4_FMU_v2.x_0-if00"</code>。需要注意的是，这个长名称实际上是指向实际名称的符号链接。使用 <code>ls -l ...</code> 命令可以找到该符号链接，它通常类似于 <code>/dev/ttyACM0</code>，因此也可以使用 <code>SerialPort":"/dev/ttyACM0,115200"</code>。但是，这种映射方式与 Windows 类似，它是自动分配的，并且可能会发生变化。而长名称即使在实际的 TTY 串口设备映射发生变化时仍然有效。</p>
 <h4 id="warn-commander-takeoff-denied-disarm-and-re-try">WARN  [commander] Takeoff denied, disarm and re-try<a class="headerlink" href="#warn-commander-takeoff-denied-disarm-and-re-try" title="Permanent link">#</a></h4>
 <p>如果 PX4 尚未计算出返航位置，您就尝试起飞，就会发生这种情况。PX4 会在接收到 GPS 信号后报告返航位置，届时您将看到以下消息：</p>
-<div class="highlight"><pre><span></span><code>INFO  [commander] home: 47.6414680, -122.1401672, 119.99
-INFO  [tone_alarm] home_set
-</code></pre></div>
+<p><code>INFO  [commander] home: 47.6414680, -122.1401672, 119.99
+INFO  [tone_alarm] home_set</code></p>
 <p>但在此之前，PX4 仍会拒绝起飞指令。</p>
 <h4 id="_4">当我发出指令让无人机执行某项任务时，它总是会降落。<a class="headerlink" href="#_4" title="Permanent link">#</a></h4>
 <p>例如，您使用命令 <code>DroneShell moveToPosition -z -20 -x 50 -y 0</code>，程序会执行该命令，但当无人机到达目标位置时，它却开始降落。这是 PX4 在离线模式完成后默认的行为。要让无人机悬停，请设置以下 PX4 参数：</p>
-<div class="highlight"><pre><span></span><code>param set COM_OBL_ACT 1
-</code></pre></div>
+<p><code>param set COM_OBL_ACT 1</code></p>
 <h4 id="_5">我收到消息长度不匹配的错误。<a class="headerlink" href="#_5" title="Permanent link">#</a></h4>
 <p>您可能需要在 QGC 中将 MAV_PROTO_VER 参数设置为“始终使用版本 1(<code>Always use version 1</code>)”。请参阅 <a href="https://github.com/Microsoft/AirSim/issues/546">此问题</a> 了解更多详情。</p>
               

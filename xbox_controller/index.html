@@ -305,23 +305,23 @@
 <ol>
 <li>
 <p>使用 MavLinkTest.exe 连接到 Pixhawk 串行端口，如下所示：
-<div class="highlight"><pre><span></span><code>MavLinkTest.exe -serial:*,115200 -proxy:127.0.0.1:14550 -server:127.0.0.1:14570
-</code></pre></div></p>
+<code>MavLinkTest.exe -serial:*,115200 -proxy:127.0.0.1:14550 -server:127.0.0.1:14570</code></p>
 </li>
 <li>
 <p>使用以下 <code>~/Documents/AirSim/settings.json</code> 设置运行 AirSim 虚幻模拟器：
-<div class="highlight"><pre><span></span><code>&quot;Vehicles&quot;: {
-    &quot;PX4&quot;: {
-        &quot;VehicleType&quot;: &quot;PX4Multirotor&quot;,
-
-        &quot;SitlIp&quot;: &quot;&quot;,
-        &quot;SitlPort&quot;: 14560,
-        &quot;UdpIp&quot;: &quot;127.0.0.1&quot;,
-        &quot;UdpPort&quot;: 14570,
-        &quot;UseSerial&quot;: false
-    }
+```
+"Vehicles": {
+    "PX4": {
+        "VehicleType": "PX4Multirotor",</p>
+<pre><code>"SitlIp": "",
+"SitlPort": 14560,
+"UdpIp": "127.0.0.1",
+"UdpPort": 14570,
+"UseSerial": false
+</code></pre>
+<p>}
 }
-</code></pre></div></p>
+```</p>
 </li>
 </ol>
 <h2 id="_1">高级<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>

@@ -319,12 +319,12 @@
 </tbody>
 </table>
 <p>例如，要使传感器指向地面（用于类似气压计的高度测量），可以按如下方式修改其方向 - </p>
-<div class="highlight"><pre><span></span><code><span class="nt">&quot;Distance&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;SensorType&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;Enabled&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;Yaw&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Pitch&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">-90</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Roll&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
-<span class="p">}</span>
-</code></pre></div>
+<p><code>json
+"Distance": {
+    "SensorType": 5,
+    "Enabled" : true,
+    "Yaw": 0, "Pitch": -90, "Roll": 0
+}</code></p>
 <p><strong>注意：</strong> 对于汽车，传感器默认放置在载具中心上方 1 米处。这是必需的，因为如果传感器位于车内，则可能会给出异常数据。但这不会影响传感器的测量值，例如测量两辆车之间的距离。有关使用示例，请参阅 <a href="https://github.com/Microsoft/AirSim/blob/main/PythonClient/car/distance_sensor_multi.py"><code>PythonClient/car/distance_sensor_multi.py</code></a>。 </p>
               
             </div>
