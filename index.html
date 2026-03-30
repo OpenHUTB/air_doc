@@ -339,12 +339,105 @@
 </ul>
 <p>有关更多详细信息，请参阅 <a href="docs/use_precompiled.md">使用预编译二进制文件</a> 文档。</p>
 <h2 id="_4">如何使用<a class="headerlink" href="#_4" title="Permanent link">#</a></h2>
-<h3 id="_5">手动控制<a class="headerlink" href="#_5" title="Permanent link">#</a></h3>
+<h3 id="_5">快捷键效果 <span id="shortcut"></span><a class="headerlink" href="#_5" title="Permanent link">#</a></h3>
+<p>按 F10 查看各种可用的天气效果选项。您还可以使用 <a href="apis#weather-apis">APIs</a> 控制天气。按 F1 查看其他可用选项。</p>
+<p><img alt="record screenshot" src="images/weather_menu.png" /></p>
+<table>
+<thead>
+<tr>
+<th>键</th>
+<th>动作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><font color="#f8805a"><code>F1</code></font></td>
+<td>弹出帮助信息</td>
+</tr>
+<tr>
+<td><font color="#f8805a"><code>F10</code></font></td>
+<td>参数设置</td>
+</tr>
+<tr>
+<td><font color="#f8805a"><code>F</code></font></td>
+<td>切换到第一人称视角（FPV）</td>
+</tr>
+<tr>
+<td><font color="#f8805a"><code>B</code></font></td>
+<td>切换到"跟随"视角</td>
+</tr>
+<tr>
+<td><font color="#f8805a"><code>\</code></font></td>
+<td>切换到地面观察者视角（俯视）</td>
+</tr>
+<tr>
+<td><font color="#f8805a"><code>/</code></font></td>
+<td>切换到“弹簧臂跟随”模式（相对于“跟随”视角更平）</td>
+</tr>
+<tr>
+<td><font color="#f8805a"><code>F3</code></font></td>
+<td>按下F1时切换线框模式</td>
+</tr>
+<tr>
+<td><font color="#f8805a"><code>M</code></font></td>
+<td>切换到手动相机控制</td>
+</tr>
+<tr>
+<td><font color="#f8805a"><code>Page Up/Down</code></font></td>
+<td>向上/向下移动</td>
+</tr>
+<tr>
+<td><font color="#f8805a"><code>W, S</code></font></td>
+<td>俯仰控制</td>
+</tr>
+<tr>
+<td><font color="#f8805a"><code>A, D</code></font></td>
+<td>偏航控制</td>
+</tr>
+<tr>
+<td><font color="#f8805a"><code>R</code></font></td>
+<td>切换记录</td>
+</tr>
+<tr>
+<td><font color="#f8805a"><code>;</code></font></td>
+<td>切换调试报告（物理、动力学、旋转等实时数据）</td>
+</tr>
+<tr>
+<td><font color="#f8805a"><code>0</code></font></td>
+<td>切换所有子窗口</td>
+</tr>
+<tr>
+<td><font color="#f8805a"><code>1</code></font></td>
+<td>切换深度子窗口</td>
+</tr>
+<tr>
+<td><font color="#f8805a"><code>2</code></font></td>
+<td>切换分割子窗口</td>
+</tr>
+<tr>
+<td><font color="#f8805a"><code>3</code></font></td>
+<td>切换场景子窗口</td>
+</tr>
+<tr>
+<td><font color="#f8805a"><code>T</code></font></td>
+<td>切换轨迹线</td>
+</tr>
+<tr>
+<td><font color="#f8805a"><code>Backspace</code></font></td>
+<td>重置一切</td>
+</tr>
+<tr>
+<td><font color="#f8805a"><code>方向键 [汽车模式]</code></font></td>
+<td>驾驶汽车</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_6">手动控制<a class="headerlink" href="#_6" title="Permanent link">#</a></h3>
 <p>如果您拥有如下所示的遥控器 (Remote Control, RC)，则可以在模拟器中手动控制无人机。对于汽车，您可以使用箭头键手动驾驶。</p>
 <p><a href="remote_control/">更多详细信息</a></p>
 <p><img alt="record screenshot" src="images/AirSimDroneManual.gif" /></p>
 <p><img alt="record screenshot" src="images/AirSimCarManual.gif" /></p>
-<h3 id="_6">程序控制<a class="headerlink" href="#_6" title="Permanent link">#</a></h3>
+<h3 id="_7">程序控制<a class="headerlink" href="#_7" title="Permanent link">#</a></h3>
 <p>Air 提供 API，方便您在模拟中以编程方式与飞行器进行交互。您可以使用这些 API 检索图像、获取状态、控制飞行器等等。这些 API 通过 RPC 公开，并可通过多种语言访问，包括 C++、Python、C# 和 Java。</p>
 <p>这些 API 也可作为独立的跨平台库的一部分使用，因此您可以将它们部署到车辆的配套计算机上。这样，您就可以在模拟器中编写和测试代码，然后在真实车辆上执行。迁移学习及相关研究是我们的重点领域之一。</p>
 <p>请注意，您可以使用 <a href="settings/#simmode">SimMode 设置</a> 来指定默认车辆或新的 ComputerVision 模式，这样您就不会在每次启动 AirSim 时收到提示。</p>
@@ -356,16 +449,13 @@
 <p><a href="apis/">更多详细 API 信息</a></p>
 </li>
 </ul>
-<h3 id="_7">收集训练数据<a class="headerlink" href="#_7" title="Permanent link">#</a></h3>
+<h3 id="_8">收集训练数据<a class="headerlink" href="#_8" title="Permanent link">#</a></h3>
 <p>您可以通过两种方式从 AirSim 生成用于深度学习的训练数据。最简单的方法是直接按下右下角的“录制”按钮。这将开始记录每一帧的姿势和图像。数据记录代码非常简单，您可以根据自己的喜好进行修改。</p>
 <p><img alt="record screenshot" src="images/record_data.png" /></p>
 <p>按照您所需的方式生成训练数据的更好方法是访问 API。这使您可以完全控制记录数据的方式、内容、位置和时间。</p>
-<h3 id="_8">计算机视觉模式<a class="headerlink" href="#_8" title="Permanent link">#</a></h3>
+<h3 id="_9">计算机视觉模式<a class="headerlink" href="#_9" title="Permanent link">#</a></h3>
 <p>AirSim 的另一种使用方式是所谓的“计算机视觉”模式。在此模式下，您无需使用车辆或物理引擎。您可以使用键盘在场景中移动，或使用 API 将可用的摄像头定位到任意姿势，并收集诸如深度、视差、表面法线或物体分割等图像。</p>
 <p><a href="image_apis/">更多详细信息</a></p>
-<h3 id="_9">天气效果<a class="headerlink" href="#_9" title="Permanent link">#</a></h3>
-<p>按 F10 查看各种可用的天气效果选项。您还可以使用 <a href="apis#weather-apis">APIs</a> 控制天气。按 F1 查看其他可用选项。</p>
-<p><img alt="record screenshot" src="images/weather_menu.png" /></p>
 <h2 id="_10">教程<a class="headerlink" href="#_10" title="Permanent link">#</a></h2>
 <ul>
 <li><a href="https://youtu.be/1oY8Qu5maQQ">视频 - 使用 Pixhawk 教程设置 AirSim</a> </li>
@@ -423,7 +513,7 @@
 <h2 id="_16">常问问题<a class="headerlink" href="#_16" title="Permanent link">#</a></h2>
 <p>如果您遇到问题，请查看 <a href="faq/">常见问题解答</a> 并随时在 <a href="https://github.com/OpenHUTB/air/issues">AirSim</a> 存储库中发布问题。</p>
 <h2 id="_17">行为守则<a class="headerlink" href="#_17" title="Permanent link">#</a></h2>
-<p>本项目已采用 <a href="https://opensource.microsoft.com/codeofconduct/">微软开源行为准则</a> 。更多信息请参阅行为准则常见问题解答，或联系 <a href="mailto:OpenHUTB@qq.com">OpenHUTB@qq.com</a> 提出其他问题或意见。</p>
+<p>本项目已采用 <a href="https://opensource.microsoft.com/codeofconduct/">微软开源行为准则</a> 。更多信息请参阅行为准则常见问题解答，或联系 <a href="mailto:open@hutb.edu.cn">open@hutb.edu.cn</a> 提出其他问题或意见。</p>
 <h2 id="_18">许可证<a class="headerlink" href="#_18" title="Permanent link">#</a></h2>
 <p>本项目遵循 MIT 许可证发布。请查看 <a href="LICENSE">许可证文件</a> 了解更多详情。</p>
               
