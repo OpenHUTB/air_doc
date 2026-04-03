@@ -285,7 +285,18 @@
 <p>该模块是一个开源的空地联合仿真平台。它通过在底层 C++ 将全球领先的自动驾驶仿真器（Carla）与机器人仿真器（AirSim）合并为单一的 <code>ASimWorldGameMode</code>，实现了真正的帧级传感器同步、统一的物理引擎，以及无缝的双 Python API 交互。</p>
 <p><img alt="" src="../../images/calar_air/teaser_video.gif" /></p>
 <p><img alt="" src="../../images/dev/CarlaAir.gif" /></p>
-<h2 id="_2">✨ 核心亮点<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
+<h2 id="_2">📌 目录<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
+<ul>
+<li><a href="#highlights">✨ 核心亮点</a></li>
+<li><a href="#platform_comparison">🏆 平台对比</a> — 15 款仿真器横向对比</li>
+<li><a href="#quick_start">🎮 快速开始</a> — 4 步上手</li>
+<li><a href="#one_script">🐍 一个脚本，两个世界</a> — 双 API 代码示例</li>
+<li><a href="#research_directions">🔬 研究方向与工作流</a> — W1–W5 验证工作流</li>
+<li><a href="#flight_controls">⌨️ 飞行控制说明</a></li>
+<li><a href="#documentation">📚 文档与教程</a> — 8 个渐进式教程</li>
+<li><a href="#license">📜 许可证与致谢</a></li>
+</ul>
+<h2 id="_3">✨ 核心亮点 <span id="highlights"></span><a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
 <table>
 <thead>
 <tr>
@@ -300,7 +311,7 @@
 </tr>
 <tr>
 <td>🎯 <strong>绝对坐标对齐</strong></td>
-<td>Carla（左手系）与 AirSim（NED）坐标系之间精确 <code>0.0000 m</code> 误差。</td>
+<td>Carla（左手系）与 AirSim（北东地，NED）坐标系之间精确 <code>0.0000 m</code> 误差。</td>
 </tr>
 <tr>
 <td>📸 <strong>多达 18 种传感器模态</strong></td>
@@ -334,7 +345,7 @@
 </table>
 <p><img alt="" src="../../images/calar_air/teaser_final.jpg" /></p>
 <hr />
-<h2 id="_3">🏆 平台对比<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
+<h2 id="_4">🏆 平台对比 <span id="platform_comparison"></span><a class="headerlink" href="#_4" title="Permanent link">#</a></h2>
 <p>CARLA-Air 与 14 个现有仿真平台的全面对比（基于<a href="https://arxiv.org/abs/2603.28032">技术报告</a>表 1）。</p>
 <table>
   <thead>
@@ -447,7 +458,7 @@
 † 行人 AI 继承自 CARLA，功能完整；联合场景下高密度 Actor 的行为是当前工程优化目标。</sup></p>
 
 <hr />
-<h2 id="_4">🎮 快速开始<a class="headerlink" href="#_4" title="Permanent link">#</a></h2>
+<h2 id="_5">🎮 快速开始 <span id="quick_start"></span><a class="headerlink" href="#_5" title="Permanent link">#</a></h2>
 <h3 id="a">选项 A：使用预编译版本（推荐）<a class="headerlink" href="#a" title="Permanent link">#</a></h3>
 <p>```bash</p>
 <h1 id="1-carlaair-v017">1. 下载并解压 CarlaAir-v0.1.7<a class="headerlink" href="#1-carlaair-v017" title="Permanent link">#</a></h1>
@@ -469,19 +480,19 @@ python3 examples/quick_start_showcase.py
 <h3 id="b">选项 B：从源码编译<a class="headerlink" href="#b" title="Permanent link">#</a></h3>
 <p>如果您需要修改底层 C++ 代码，请参考 <a href="../build_guide_ubuntu/">源码编译指南</a>，了解如何使用 UE4.26 编译 CarlaAir。</p>
 <hr />
-<h2 id="_5">🐍 一个脚本，两个世界<a class="headerlink" href="#_5" title="Permanent link">#</a></h2>
+<h2 id="_6">🐍 一个脚本，两个世界 <span id="one_script"></span><a class="headerlink" href="#_6" title="Permanent link">#</a></h2>
 <p>两套 API 共享<strong>同一个仿真世界</strong> — 无桥接、无同步烦恼。</p>
 <p>```python
 import carla, airsim</p>
 <p>carla_client = carla.Client("localhost", 2000)
 air_client   = airsim.MultirotorClient(port=41451)
 world = carla_client.get_world()</p>
-<h1 id="_6">一次天气调用，影响所有传感器 — 地面和空中<a class="headerlink" href="#_6" title="Permanent link">#</a></h1>
+<h1 id="_7">一次天气调用，影响所有传感器 — 地面和空中<a class="headerlink" href="#_7" title="Permanent link">#</a></h1>
 <p>world.set_weather(carla.WeatherParameters.HardRainSunset)</p>
-<h1 id="_7">生成一辆汽车，自动驾驶<a class="headerlink" href="#_7" title="Permanent link">#</a></h1>
+<h1 id="_8">生成一辆汽车，自动驾驶<a class="headerlink" href="#_8" title="Permanent link">#</a></h1>
 <p>vehicle = world.spawn_actor(vehicle_bp, spawn_point)
 vehicle.set_autopilot(True)</p>
-<h1 id="_8">无人机起飞 — 同一个世界，同一场雨，同一套物理<a class="headerlink" href="#_8" title="Permanent link">#</a></h1>
+<h1 id="_9">无人机起飞 — 同一个世界，同一场雨，同一套物理<a class="headerlink" href="#_9" title="Permanent link">#</a></h1>
 <p>air_client.takeoffAsync().join()
 air_client.moveToPositionAsync(80, 30, -25, 5)
 ```</p>
@@ -501,7 +512,7 @@ python3 examples/recording/record_walker.py      # 🚶 行走并录制行人轨
 python3 examples/recording/demo_director.py \    # 🎬 多轨迹回放 + 自由相机 + MP4 录制
     trajectories/vehicle_*.json trajectories/drone_*.json</code></p>
 <hr />
-<h2 id="_9">🔬 研究方向与工作流<a class="headerlink" href="#_9" title="Permanent link">#</a></h2>
+<h2 id="_10">🔬 研究方向与工作流 <span id="research_directions"></span><a class="headerlink" href="#_10" title="Permanent link">#</a></h2>
 <p>CARLA-Air 旨在支持空地一体具身智能的四大研究方向：</p>
 <ol>
 <li><strong>空地协同</strong> -- 异构空地智能体在共享城市环境中协作。</li>
@@ -567,7 +578,7 @@ python3 examples/recording/demo_director.py \    # 🎬 多轨迹回放 + 自由
 <p><b>ROS 2 支持</b>：63 个 Topic 覆盖双仿真后端</p>
 <p><img alt="" src="../../images/calar_air/ROS_demo.gif" /></p>
 <hr />
-<h2 id="_10">⌨️ 飞行控制说明<a class="headerlink" href="#_10" title="Permanent link">#</a></h2>
+<h2 id="_11">⌨️ 飞行控制说明 <span id="flight_controls"></span><a class="headerlink" href="#_11" title="Permanent link">#</a></h2>
 <p>仿真器运行时，点击窗口内部捕获鼠标：</p>
 <table>
 <thead>
@@ -616,7 +627,7 @@ python3 examples/recording/demo_director.py \    # 🎬 多轨迹回放 + 自由
 </tbody>
 </table>
 <hr />
-<h2 id="_11">📚 文档与教程<a class="headerlink" href="#_11" title="Permanent link">#</a></h2>
+<h2 id="_12">📚 文档与教程 <span id="documentation"></span><a class="headerlink" href="#_12" title="Permanent link">#</a></h2>
 <p>我们提供了 <strong>6 个精选 Python 示例</strong>，展示核心空地协同能力：</p>
 <table>
 <thead>
@@ -750,7 +761,7 @@ python3 examples/recording/demo_director.py \    # 🎬 多轨迹回放 + 自由
 </li>
 </ul>
 <hr />
-<h2 id="_12">📜 许可证与致谢<a class="headerlink" href="#_12" title="Permanent link">#</a></h2>
+<h2 id="_13">📜 许可证与致谢  <span id="license"></span><a class="headerlink" href="#_13" title="Permanent link">#</a></h2>
 <p>该项目是站在巨人的肩膀上。我们诚挚感谢以下开源项目的开发者：</p>
 <ul>
 <li>
