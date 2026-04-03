@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
     
       <script>
         // Current page data
@@ -291,6 +292,7 @@
           <li class="breadcrumb-item">设计</li>
       <li class="breadcrumb-item active">代码结构</li>
     <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/code_structure.md" class="icon icon-github"> 在 GitHub 上编辑</a>
     </li>
   </ul>
   <hr/>
@@ -298,8 +300,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="_1">代码结构<a class="headerlink" href="#_1" title="Permanent link">#</a></h1>
-<h2 id="airlib">AirLib<a class="headerlink" href="#airlib" title="Permanent link">#</a></h2>
+                <h1 id="_1">代码结构</h1>
+<h2 id="airlib">AirLib</h2>
 <p>大部分代码位于 AirLib 库中。这是一个独立的库，您可以使用任何 C++11 编译器对其进行编译。</p>
 <p>AirLib由以下组件构成：</p>
 <ol>
@@ -311,7 +313,7 @@
 <p>除此之外，所有常用工具都定义在 <a href="https://github.com/OpenHUTB/air/tree/main/AirLib/include/common"><code>common/</code></a> 子文件夹中。其中一个重要的文件是 <a href="https://github.com/OpenHUTB/air/blob/main/AirLib/include/common/AirSimSettings.hpp">AirSimSettings.hpp</a>，如果需要在 <code>settings.json</code> 中添加任何新字段，则需要修改此文件。</p>
 <p>Air 支持多旋翼飞行器的不同固件，例如其自身的 SimpleFlight、PX4 和 ArduPilot，与每个固件通信的文件都放置在 <a href="https://github.com/OpenHUTB/air/tree/main/AirLib/include/vehicles/multirotor/firmwares"><code>multirotor/firmwares</code></a> 中的相应子文件夹中。</p>
 <p>特定载具的 API 定义在 <code>api/</code> 子文件夹中，同时定义的还有所需的结构体。<a href="https://github.com/OpenHUTB/air/tree/main/AirLib/src"><code>AirLib/src/</code></a> 目录包含 .cpp 文件，其中实现了 .hpp 文件中定义的各种方法。例如，<a href="https://github.com/OpenHUTB/air/blob/main/AirLib/src/vehicles/multirotor/api/MultirotorApiBase.cpp">MultirotorApiBase.cpp</a> 包含多旋翼飞行器 API 的基本实现，如有需要，也可以在特定的固件文件中对其进行重写。</p>
-<h2 id="unrealpluginsairsim">Unreal/Plugins/AirSim<a class="headerlink" href="#unrealpluginsairsim" title="Permanent link">#</a></h2>
+<h2 id="unrealpluginsairsim">Unreal/Plugins/AirSim</h2>
 <p>这是项目中唯一依赖于虚幻引擎的部分。我们将其隔离，以便也能像在 <a href="https://microsoft.github.io/AirSim/Unity.html">Unity</a> 平台上那样，为其他平台实现模拟器。虚幻引擎代码利用了其基于 UObject 的类，包括蓝图。<code>Source/</code> 文件夹包含 C++ 文件，而 <code>Content/</code> 文件夹包含蓝图和资源文件。一些主要组件如下所述：</p>
 <ol>
 <li><em>SimMode_ 类</em>: SimMode 类有助于实现多种不同的模式，例如纯计算机视觉模式，该模式下没有车辆，也没有针对特定车辆（目前包括汽车和多旋翼飞行器）的仿真。载具类位于 <a href="https://github.com/OpenHUTB/air/tree/main/Unreal/Plugins/AirSim/Source/Vehicles"><code>Vehicles/</code></a> 目录中。 </li>
@@ -320,15 +322,15 @@
 <li><em>WorldSimApi</em>: 实现了大部分与环境和载具无关的 API</li>
 </ol>
 <p>除此之外，<a href="https://github.com/OpenHUTB/air/blob/main/Unreal/Plugins/AirSim/Source/PIPCamera.cpp"><code>PIPCamera</code></a> 包含相机初始化代码，<a href="https://github.com/OpenHUTB/air/blob/main/Unreal/Plugins/AirSim/Source/UnrealImageCapture.cpp"><code>UnrealImageCapture</code></a> 和 <a href="https://github.com/OpenHUTB/air/blob/main/Unreal/Plugins/AirSim/Source/RenderRequest.cpp"><code>RenderRequest</code></a> 包含图像渲染代码。<a href="https://github.com/microsoft/AirSim/blob/main/Unreal/Plugins/AirSim/Source/AirBlueprintLib.cpp"><code>AirBlueprintLib</code></a> 包含许多用于与<a href="https://github.com/OpenHUTB/engine">引擎</a>交互的实用工具和封装方法。</p>
-<h2 id="mavlinkcom">MavLinkCom<a class="headerlink" href="#mavlinkcom" title="Permanent link">#</a></h2>
+<h2 id="mavlinkcom">MavLinkCom</h2>
 <p>这是 <a href="https://github.com/lovettchris">Chris Lovett</a> 开发的库，它提供了用于与 MavLink 设备通信的 C++ 类。该库是独立的，可用于任何项目。更多信息请访问 <a href="../mavlinkcom/">MavLinkCom</a> 。</p>
-<h2 id="_2">示例程序<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
+<h2 id="_2">示例程序</h2>
 <p>我们创建了一些示例程序来演示如何使用 API。请参阅 HelloDrone 和 DroneShell。DroneShell 演示了如何使用 UDP 连接到模拟器。该模拟器运行着一个服务器（类似于 DroneServer）。</p>
-<h2 id="pythonclient">PythonClient<a class="headerlink" href="#pythonclient" title="Permanent link">#</a></h2>
+<h2 id="pythonclient">PythonClient</h2>
 <p><a href="https://github.com/OpenHUTB/air/tree/main/PythonClient">PythonClient</a> 包含 Python API 封装文件和演示其用法的示例程序。</p>
-<h2 id="_3">贡献<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
+<h2 id="_3">贡献</h2>
 <p>查看 <a href="../CONTRIBUTING/">贡献指南</a></p>
-<h2 id="_4">引擎框架<a class="headerlink" href="#_4" title="Permanent link">#</a></h2>
+<h2 id="_4">引擎框架</h2>
 <p>下图展示了<a href="https://github.com/OpenHUTB/engine">模拟器引擎</a>如何加载和调用 <a href="https://github.com/OpenHUTB/air">Air</a> ：</p>
 <p><img alt="AirSimConstruction" src="../images/airsim_startup.png" /></p>
               
@@ -358,6 +360,10 @@
   <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
     
+        <span>
+          <a href="https://github.com/OpenHUTB/air_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
     
       <span><a href="../design/" style="color: #fcfcfc">&laquo; 前一页</a></span>
     
@@ -370,8 +376,13 @@
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

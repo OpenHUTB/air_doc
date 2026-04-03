@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
     
       <script>
         // Current page data
@@ -297,6 +298,7 @@
           <li class="breadcrumb-item">杂项</li>
       <li class="breadcrumb-item active">Blocks 环境</li>
     <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/unreal_blocks.md" class="icon icon-github"> 在 GitHub 上编辑</a>
     </li>
   </ul>
   <hr/>
@@ -304,19 +306,19 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="airsim-blocks">为 AirSim 设置 Blocks 环境<a class="headerlink" href="#airsim-blocks" title="Permanent link">#</a></h1>
+                <h1 id="airsim-blocks">为 AirSim 设置 Blocks 环境</h1>
 <p>Blocks 环境位于代码库的<code>Unreal/Environments/Blocks</code>文件夹中，其设计非常轻量。这意味着它非常基础，但运行速度很快。</p>
 <p>以下是启动和运行 Blocks 环境的快速步骤：</p>
-<h2 id="windows">Windows<a class="headerlink" href="#windows" title="Permanent link">#</a></h2>
+<h2 id="windows">Windows</h2>
 <ol>
 <li>确保你已经<a href="../build_windows/">安装了 Unreal 并构建了 AirSim</a>。</li>
 <li>导航到文件夹<code>AirSim\Unreal\Environments\Blocks</code>，双击 Blocks.sln 文件以在 Visual Studio 中打开。默认情况下，此项目配置为 Visual Studio 2019。但是，如果您想为 Visual Studio 2022 生成此项目，请在虚幻编辑器中转到“编辑-&gt;编辑器首选项-&gt;源代码”，并在“源代码编辑器”设置中选择“Visual Studio 2022”。 </li>
 <li>确保<code>Blocks</code>项目是启动项目，构建配置设置为<code>DebugGame_Editor</code>和<code>Win64</code>。按 F5 运行。</li>
 <li>按下虚幻编辑器中的“播放”按钮，您将看到类似以下视频的内容。另请参阅<a href="https://github.com/Microsoft/AirSim/#how-to-use-it">如何使用 AirSim</a>。 </li>
 </ol>
-<h3 id="_1">更改代码并重建<a class="headerlink" href="#_1" title="Permanent link">#</a></h3>
+<h3 id="_1">更改代码并重建</h3>
 <p>对于 Windows，您只需在 Visual Studio 中更改代码，按 F5 并重新运行即可。<code>AirSim\Unreal\Environments\Blocks</code>文件夹中有一些批处理文件，可用于同步代码、清理代码等。</p>
-<h2 id="linux">Linux<a class="headerlink" href="#linux" title="Permanent link">#</a></h2>
+<h2 id="linux">Linux</h2>
 <ol>
 <li>确保你已经<a href="../build_linux/">构建了虚幻引擎和 AirSim</a>。 </li>
 <li>导航到您的 UnrealEngine repo 文件夹并运行<code>Engine/Binaries/Linux/UE4Editor</code>，这将启动虚幻编辑器。 </li>
@@ -326,12 +328,12 @@
 <li>按下虚幻编辑器中的“播放”按钮，您将看到类似以下视频的内容。另请参阅<a href="https://github.com/microsoft/AirSim/#how-to-use-it">如何使用 AirSim</a>。 </li>
 </ol>
 <p><a href="https://www.youtube.com/watch?v=-r_QGaxMT4A"><img alt="Blocks Demo Video" src="../images/blocks_video.png" /></a></p>
-<h3 id="_2">更改代码并重建<a class="headerlink" href="#_2" title="Permanent link">#</a></h3>
+<h3 id="_2">更改代码并重建</h3>
 <p>对于 Linux，请在 AirLib 或 Unreal/Plugins 文件夹中更改代码，然后运行 <code>./build.sh</code> 进行重建。此步骤还会将构建输出复制到 Blocks 示例项目中。然后，您可以再次按照上述步骤重新运行。</p>
-<h2 id="_3">选择您的车辆：汽车或多旋翼飞行器<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
+<h2 id="_3">选择您的车辆：汽车或多旋翼飞行器</h2>
 <p>AirSim 默认会生成多旋翼飞行器。您可以轻松将其更改为汽车，并使用 AirSim 的所有功能。请参阅 <a href="../using_car/">使用汽车</a> 指南。</p>
-<h2 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">#</a></h2>
-<h4 id="_buitdata">我看到有关“_BuitData”文件丢失的警告。<a class="headerlink" href="#_buitdata" title="Permanent link">#</a></h4>
+<h2 id="faq">FAQ</h2>
+<h4 id="_buitdata">我看到有关“_BuitData”文件丢失的警告。</h4>
 <p>这些是中间文件，您可以放心地忽略它。</p>
               
             </div>
@@ -360,6 +362,10 @@
   <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
     
+        <span>
+          <a href="https://github.com/OpenHUTB/air_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
     
       <span><a href="../unreal_proj/" style="color: #fcfcfc">&laquo; 前一页</a></span>
     
@@ -372,8 +378,13 @@
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

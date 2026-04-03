@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra.css" rel="stylesheet" />
     
       <script>
         // Current page data
@@ -274,6 +275,7 @@
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
       <li class="breadcrumb-item active">CarlaAir Quick-Start Guide / 快速入门指南</li>
     <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/dev/quick_start.md" class="icon icon-github"> 在 GitHub 上编辑</a>
     </li>
   </ul>
   <hr/>
@@ -281,11 +283,11 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="carlaair-quick-start-guide">CarlaAir Quick-Start Guide / 快速入门指南<a class="headerlink" href="#carlaair-quick-start-guide" title="Permanent link">#</a></h1>
+                <h1 id="carlaair-quick-start-guide">CarlaAir Quick-Start Guide / 快速入门指南</h1>
 <p>欢迎使用 <strong>CarlaAir</strong> — 空地一体联合仿真平台。
 本指南帮助你从零开始，10 分钟内完成首次体验。</p>
 <hr />
-<h2 id="prerequisites">Prerequisites / 前置条件<a class="headerlink" href="#prerequisites" title="Permanent link">#</a></h2>
+<h2 id="prerequisites">Prerequisites / 前置条件</h2>
 <p>在开始之前，请确认以下环境已准备好：</p>
 <ul>
 <li><strong>Conda</strong> — 已安装 Miniconda 或 Anaconda</li>
@@ -294,12 +296,12 @@
 <li><strong>Ubuntu 系统</strong> — 推荐 Ubuntu 20.04 / 22.04</li>
 </ul>
 <hr />
-<h2 id="environment-setup">Environment Setup / 环境配置<a class="headerlink" href="#environment-setup" title="Permanent link">#</a></h2>
+<h2 id="environment-setup">Environment Setup / 环境配置</h2>
 <p>使用自动化脚本一键配置 Python 环境和依赖：</p>
 <p>```bash</p>
-<h1 id="conda">创建 conda 环境并安装所有依赖<a class="headerlink" href="#conda" title="Permanent link">#</a></h1>
+<h1 id="conda">创建 conda 环境并安装所有依赖</h1>
 <p>bash env_setup/setup_env.sh</p>
-<h1 id="_1">验证环境是否正确配置<a class="headerlink" href="#_1" title="Permanent link">#</a></h1>
+<h1 id="_1">验证环境是否正确配置</h1>
 <p>bash env_setup/test_env.sh
 ```</p>
 <p><code>setup_env.sh</code> 会创建 <code>carlaAir</code> conda 环境，安装 CARLA Python API、AirSim、PyGame、OpenCV 等依赖。
@@ -308,7 +310,7 @@
 <p><code>bash
 conda activate carlaAir</code></p>
 <hr />
-<h2 id="launch">Launch / 启动仿真器<a class="headerlink" href="#launch" title="Permanent link">#</a></h2>
+<h2 id="launch">Launch / 启动仿真器</h2>
 <p><code>bash
 ./CarlaAir.sh Town10HD</code></p>
 <p>等待看到 "Ready! Both servers are running." 即表示启动成功。</p>
@@ -321,7 +323,7 @@ conda activate carlaAir</code></p>
 <p><strong>提示</strong>: 首次启动需要 2-5 分钟加载资源和编译着色器，请耐心等待。</p>
 </blockquote>
 <hr />
-<h2 id="first-experience">First Experience / 首次体验<a class="headerlink" href="#first-experience" title="Permanent link">#</a></h2>
+<h2 id="first-experience">First Experience / 首次体验</h2>
 <p>启动成功后，运行你的第一个 CarlaAir 脚本：</p>
 <p><code>bash
 python3 examples/quick_start_showcase.py</code></p>
@@ -332,7 +334,7 @@ python3 examples/quick_start_showcase.py</code></p>
 4. 天气自动循环切换（晴天、雨天、雾天、日落等）</p>
 <p><strong>操作 / Controls:</strong> <code>N</code> 手动切换天气，<code>ESC</code> 退出。</p>
 <hr />
-<h2 id="interactive-demos">Interactive Demos / 交互式示例<a class="headerlink" href="#interactive-demos" title="Permanent link">#</a></h2>
+<h2 id="interactive-demos">Interactive Demos / 交互式示例</h2>
 <p><code>examples/</code> 目录包含 6 个经过测试的示例脚本，涵盖 CarlaAir 的各项能力：</p>
 <table>
 <thead>
@@ -380,7 +382,7 @@ python3 examples/quick_start_showcase.py</code></p>
 conda activate carlaAir
 python3 examples/drive_vehicle.py</code></p>
 <hr />
-<h2 id="recording-toolkit">Recording Toolkit / 录制工具<a class="headerlink" href="#recording-toolkit" title="Permanent link">#</a></h2>
+<h2 id="recording-toolkit">Recording Toolkit / 录制工具</h2>
 <p><code>examples_record_demo/</code> 目录提供了轨迹录制与回放工具，用于制作高质量演示视频：</p>
 <table>
 <thead>
@@ -418,16 +420,16 @@ python3 examples/drive_vehicle.py</code></p>
 3. 用 ffmpeg 将帧序列合成视频</p>
 <p>详见 <code>examples_record_demo/README.md</code>。</p>
 <hr />
-<h2 id="synchronous-vs-asynchronous-mode">Synchronous vs Asynchronous Mode / 同步与异步模式<a class="headerlink" href="#synchronous-vs-asynchronous-mode" title="Permanent link">#</a></h2>
+<h2 id="synchronous-vs-asynchronous-mode">Synchronous vs Asynchronous Mode / 同步与异步模式</h2>
 <p>CarlaAir 支持两种运行模式，不同场景下需要选择合适的模式：</p>
-<h3 id="asynchronous-mode">Asynchronous Mode / 异步模式（默认）<a class="headerlink" href="#asynchronous-mode" title="Permanent link">#</a></h3>
+<h3 id="asynchronous-mode">Asynchronous Mode / 异步模式（默认）</h3>
 <p>适用于<strong>交互式操作</strong>：在 CarlaAir 窗口中驾驶车辆、操控无人机。</p>
 <ul>
 <li>仿真器按自身节奏推进，客户端随时读取最新状态</li>
 <li>帧率不固定，画面流畅但时间步不均匀</li>
 <li>适合：键盘驾驶、实时飞行、手动探索</li>
 </ul>
-<h3 id="synchronous-mode">Synchronous Mode / 同步模式<a class="headerlink" href="#synchronous-mode" title="Permanent link">#</a></h3>
+<h3 id="synchronous-mode">Synchronous Mode / 同步模式</h3>
 <p>适用于<strong>数据采集、演示回放、视频录制</strong>等需要精确控制的场景。</p>
 <ul>
 <li>仿真器每帧等待客户端调用 <code>world.tick()</code> 后才推进</li>
@@ -435,15 +437,15 @@ python3 examples/drive_vehicle.py</code></p>
 </ul>
 <p><strong>同步模式配置要求 / Configuration:</strong></p>
 <p>```python</p>
-<h1 id="_2">开启同步模式<a class="headerlink" href="#_2" title="Permanent link">#</a></h1>
+<h1 id="_2">开启同步模式</h1>
 <p>settings = world.get_settings()
 settings.synchronous_mode = True
 settings.fixed_delta_seconds = 1.0 / 30  # 固定 30 FPS
 world.apply_settings(settings)</p>
-<h1 id="traffic-manager">Traffic Manager 也需要同步<a class="headerlink" href="#traffic-manager" title="Permanent link">#</a></h1>
+<h1 id="traffic-manager">Traffic Manager 也需要同步</h1>
 <p>tm = client.get_trafficmanager(8000)
 tm.set_synchronous_mode(True)</p>
-<h1 id="_3">主循环中每帧调用<a class="headerlink" href="#_3" title="Permanent link">#</a></h1>
+<h1 id="_3">主循环中每帧调用</h1>
 <p>world.tick()
 ```</p>
 <blockquote>
@@ -455,7 +457,7 @@ settings.fixed_delta_seconds = None
 world.apply_settings(settings)</code></p>
 </blockquote>
 <hr />
-<h2 id="coordinate-systems">Coordinate Systems / 坐标系统<a class="headerlink" href="#coordinate-systems" title="Permanent link">#</a></h2>
+<h2 id="coordinate-systems">Coordinate Systems / 坐标系统</h2>
 <p>CarlaAir 中有两套坐标系统并存，编写脚本时需注意转换：</p>
 <table>
 <thead>
@@ -487,7 +489,7 @@ world.apply_settings(settings)</code></p>
 <p>两套 API 的世界原点不同，具体换算关系详见：
 <code>examples_record_demo/COORDINATE_SYSTEMS.md</code></p>
 <hr />
-<h2 id="available-maps">Available Maps / 可用地图<a class="headerlink" href="#available-maps" title="Permanent link">#</a></h2>
+<h2 id="available-maps">Available Maps / 可用地图</h2>
 <p>CarlaAir 内置 6 张城市地图：</p>
 <table>
 <thead>
@@ -530,22 +532,22 @@ world.apply_settings(settings)</code></p>
 <p><strong>关于 _Opt 变体</strong>: 从 CARLA 官方包中可以获取 <code>Town01_Opt</code> 等优化版地图。<code>_Opt</code> 变体使用分层加载（Level Streaming），减少显存占用，适合低配 GPU。</p>
 </blockquote>
 <hr />
-<h2 id="api-reference-api">API Reference / API 参考<a class="headerlink" href="#api-reference-api" title="Permanent link">#</a></h2>
-<h3 id="carla-python-api-port-2000">CARLA Python API (port 2000)<a class="headerlink" href="#carla-python-api-port-2000" title="Permanent link">#</a></h3>
+<h2 id="api-reference-api">API Reference / API 参考</h2>
+<h3 id="carla-python-api-port-2000">CARLA Python API (port 2000)</h3>
 <p>核心类 / Core classes:
 - <code>carla.Client</code> — 连接仿真器
 - <code>carla.World</code> — 世界管理（天气、Actor、传感器）
 - <code>carla.Actor</code> — 车辆、行人、传感器等实体
 - <code>carla.Transform</code> / <code>carla.Location</code> — 位姿与坐标</p>
 <p>官方文档 / Official docs: https://carla.readthedocs.io/en/0.9.16/</p>
-<h3 id="airsim-python-api-port-41451">AirSim Python API (port 41451)<a class="headerlink" href="#airsim-python-api-port-41451" title="Permanent link">#</a></h3>
+<h3 id="airsim-python-api-port-41451">AirSim Python API (port 41451)</h3>
 <p>核心类 / Core classes:
 - <code>airsim.MultirotorClient</code> — 无人机控制
 - <code>airsim.ImageRequest</code> — 图像采集请求</p>
 <p>官方文档 / Official docs: https://microsoft.github.io/AirSim/</p>
 <hr />
-<h2 id="faq-troubleshooting">FAQ / Troubleshooting / 常见问题<a class="headerlink" href="#faq-troubleshooting" title="Permanent link">#</a></h2>
-<h3 id="_4">仿真器启动相关<a class="headerlink" href="#_4" title="Permanent link">#</a></h3>
+<h2 id="faq-troubleshooting">FAQ / Troubleshooting / 常见问题</h2>
+<h3 id="_4">仿真器启动相关</h3>
 <table>
 <thead>
 <tr>
@@ -572,7 +574,7 @@ world.apply_settings(settings)</code></p>
 </tr>
 </tbody>
 </table>
-<h3 id="_5">脚本运行相关<a class="headerlink" href="#_5" title="Permanent link">#</a></h3>
+<h3 id="_5">脚本运行相关</h3>
 <table>
 <thead>
 <tr>
@@ -611,7 +613,7 @@ world.apply_settings(settings)</code></p>
 </tr>
 </tbody>
 </table>
-<h3 id="_6">坐标与地图相关<a class="headerlink" href="#_6" title="Permanent link">#</a></h3>
+<h3 id="_6">坐标与地图相关</h3>
 <table>
 <thead>
 <tr>
@@ -657,6 +659,10 @@ world.apply_settings(settings)</code></p>
   <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
     
+        <span>
+          <a href="https://github.com/OpenHUTB/air_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
     
     
   </span>
@@ -665,8 +671,13 @@ world.apply_settings(settings)</code></p>
     <script>var base_url = "../..";</script>
     <script src="../../js/theme_extra.js"></script>
     <script src="../../js/theme.js"></script>
-      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
       <script src="../../search/main.js"></script>
     <script>
         jQuery(function () {

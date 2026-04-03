@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
     
       <script>
         // Current page data
@@ -296,6 +297,7 @@
           <li class="breadcrumb-item">MavLink 和 PX4</li>
       <li class="breadcrumb-item active">软件在环中的 PX4</li>
     <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/px4_sitl.md" class="icon icon-github"> 在 GitHub 上编辑</a>
     </li>
   </ul>
   <hr/>
@@ -303,7 +305,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="px4">设置 PX4 软件在环<a class="headerlink" href="#px4" title="Permanent link">#</a></h1>
+                <h1 id="px4">设置 PX4 软件在环</h1>
 <p><a href="http://dev.px4.io">PX4</a> 软件提供了其堆栈的“软件在环”仿真 (software-in-loop, SITL) 版本，可在 Linux 上运行。如果您使用的是 Windows，则可以使用 <a href="https://dev.px4.io/master/en/setup/dev_env_windows_cygwin.html">Cygwin 工具链</a> ，或者您可以使用适用于 <a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10">Linux 的 Windows 子系统</a> 并按照 PX4 Linux 工具链的设置进行操作。</p>
 <p>如果您使用的是 WSL2，请阅读这些 <a href="../px4_sitl_wsl2/">附加说明</a> 。</p>
 <p><strong>请注意</strong> ，每次停止虚幻应用程序时，都必须重新启动 px4 应用程序。</p>
@@ -384,7 +386,7 @@
 <p>您应该也可以在 SITL 模式下使用 QGroundControl。请确保没有插入 Pixhawk 硬件，否则 QGroundControl 会选择使用它。请注意，由于我们没有实体飞控板，因此无法直接连接遥控器。所以，您可以选择使用 Xbox 360 控制器，或者通过 USB 连接遥控器（例如，FrSky Taranis X9D Plus），或者使用教练 USB 线缆连接到您的电脑。这样，您的遥控器就会像一个虚拟摇杆一样工作。您需要在 QGroundControl 中进行额外的设置才能使用虚拟摇杆进行遥控器控制。除非您计划在 AirSim 中手动操控无人机，否则无需进行此操作。使用 Python API 进行自主飞行不需要遥控器，请参阅下文“无遥控器（<code>No Remote Control</code>）”部分。 </p>
 </li>
 </ol>
-<h2 id="gps">设置 GPS 原点<a class="headerlink" href="#gps" title="Permanent link">#</a></h2>
+<h2 id="gps">设置 GPS 原点</h2>
 <p>请注意，以上设置是在 <code>settings.json</code> 文件的 <code>params</code> 部分中提供的：
 <code>"LPE_LAT": 47.641468,
     "LPE_LON": -122.140165,</code></p>
@@ -392,12 +394,12 @@
 <p>您也可以在 SITL PX4 控制台窗口中运行以下命令，以检查这些值是否设置正确。</p>
 <p><code>param show LPE_LAT
 param show LPE_LON</code></p>
-<h2 id="smooth-offboard-transitions">Smooth Offboard Transitions<a class="headerlink" href="#smooth-offboard-transitions" title="Permanent link">#</a></h2>
+<h2 id="smooth-offboard-transitions">Smooth Offboard Transitions</h2>
 <p>请注意，上述设置在 <code>settings.json</code> 文件的 <code>params</code> 部分中提供：
 <code>"COM_OBL_ACT": 1</code></p>
 <p>这会使无人机在每次完成远程控制指令后自动悬停（默认设置为降落）。悬停可以使多个远程指令之间的过渡更加平滑。您可以通过运行以下 PX4 控制台命令来检查此设置：</p>
 <p><code>param show COM_OBL_ACT</code></p>
-<h2 id="_1">检查主位置<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
+<h2 id="_1">检查主位置</h2>
 <p>如果您使用 DroneShell 执行命令（解锁、起飞等），则应等待返航位置设置完毕。您将在 PX4 SITL 控制台中看到以下消息输出：</p>
 <p><code>INFO  [commander] home: 47.6414680, -122.1401672, 119.99
 INFO  [tone_alarm] home_set</code></p>
@@ -406,9 +408,9 @@ INFO  [tone_alarm] home_set</code></p>
 <p>设置好归位位置后，检查“pos”命令报告的本地位置：</p>
 <p><code>Local position: x=-0.0326988, y=0.00656854, z=5.48506</code></p>
 <p>如果 z 坐标值像这样过大，则起飞可能无法按预期进行。重置 SITL 和仿真应该可以解决这个问题。</p>
-<h2 id="wsl-2">WSL 2<a class="headerlink" href="#wsl-2" title="Permanent link">#</a></h2>
+<h2 id="wsl-2">WSL 2</h2>
 <p>适用于 Linux 的 Windows 子系统版本 2 在虚拟机中运行。这需要额外的设置——请参阅 <a href="../px4_sitl_wsl2/">其他说明</a> 。</p>
-<h2 id="_2">没有遥控器<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
+<h2 id="_2">没有遥控器</h2>
 <p>请注意，上述设置在 <code>settings.json</code> 文件的 <code>params</code> 部分中提供：</p>
 <p><code>"NAV_RCL_ACT": 0,
     "NAV_DLL_ACT": 0,</code></p>
@@ -419,15 +421,15 @@ param show NAV_DLL_ACT</code></p>
 <p class="admonition-title">注意</p>
 <p><code>请勿</code>在真正的无人机上进行此操作，因为如果没有这些安全措施，飞行非常危险。</p>
 </div>
-<h2 id="_3">手动设置参数<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
+<h2 id="_3">手动设置参数</h2>
 <p>您也可以在 PX4 控制台中运行以下命令来手动设置所有这些参数：</p>
 <p><code>param set NAV_RCL_ACT 0
 param set NAV_DLL_ACT 0</code></p>
-<h2 id="_4">建立多载具仿真<a class="headerlink" href="#_4" title="Permanent link">#</a></h2>
+<h2 id="_4">建立多载具仿真</h2>
 <p>您可以使用 AirSim 在 SITL 模式下模拟多架无人机。但是，这需要设置多个 PX4 固件模拟器实例，以便监听每架无人机在独立 TCP 端口（4560、4561 等）上的连接。请参阅 <a href="../px4_multi_vehicle/">此专门页面</a> ，了解如何在 SITL 模式下设置多个 PX4 实例。</p>
-<h2 id="virtualbox-ubuntu">使用 VirtualBox Ubuntu<a class="headerlink" href="#virtualbox-ubuntu" title="Permanent link">#</a></h2>
+<h2 id="virtualbox-ubuntu">使用 VirtualBox Ubuntu</h2>
 <p>如果您想在 <code>VirtualBox Ubuntu</code> 虚拟机中运行上述 posix_sitl 程序，那么它的 IP 地址将与本地主机不同。因此，在这种情况下，您需要编辑 <a href="../settings/">配置文件</a> ，将 UdpIp 和 SitlIp 更改为虚拟机的 IP 地址，并将 LocalIpAddress 设置为运行虚幻引擎的主机的 IP 地址。</p>
-<h2 id="_5">遥控器<a class="headerlink" href="#_5" title="Permanent link">#</a></h2>
+<h2 id="_5">遥控器</h2>
 <p>模拟无人机的操控方式有多种，可以使用遥控器或类似 Xbox 游戏手柄的操纵杆。请参阅 <a href="../remote_control/#rc-setup-for-px4">遥控器</a> 部分。</p>
               
             </div>
@@ -456,6 +458,10 @@ param set NAV_DLL_ACT 0</code></p>
   <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
     
+        <span>
+          <a href="https://github.com/OpenHUTB/air_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
     
       <span><a href="../px4_setup/" style="color: #fcfcfc">&laquo; 前一页</a></span>
     
@@ -468,8 +474,13 @@ param set NAV_DLL_ACT 0</code></p>
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

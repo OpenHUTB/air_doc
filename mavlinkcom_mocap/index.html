@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
     
       <script>
         // Current page data
@@ -178,12 +179,6 @@
                 <li class="toctree-l2 current"><a class="reference internal current" href="#">MavLink MoCap</a>
     <ul class="current">
     <li class="toctree-l3"><a class="reference internal" href="#dependencies">Dependencies:</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#setup-rigidbody">Setup RigidBody</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#mavlinktest">MavLinkTest</a>
-    </li>
-        </ul>
     </li>
     </ul>
                 </li>
@@ -286,6 +281,7 @@
           <li class="breadcrumb-item">MavLink 和 PX4</li>
       <li class="breadcrumb-item active">MavLink MoCap</li>
     <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/mavlinkcom_mocap.md" class="icon icon-github"> 在 GitHub 上编辑</a>
     </li>
   </ul>
   <hr/>
@@ -293,18 +289,18 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="welcome-to-mavlinkmocap">Welcome to MavLinkMoCap<a class="headerlink" href="#welcome-to-mavlinkmocap" title="Permanent link">#</a></h1>
+                <h1 id="welcome-to-mavlinkmocap">Welcome to MavLinkMoCap</h1>
 <p>This folder contains the MavLinkMoCap library which connects to a OptiTrack camera system
 for accurate indoor location.</p>
-<h2 id="dependencies">Dependencies:<a class="headerlink" href="#dependencies" title="Permanent link">#</a></h2>
+<h2 id="dependencies">Dependencies:</h2>
 <ul>
 <li><a href="http://www.optitrack.com/products/motive/">OptiTrack Motive</a>.</li>
 <li><a href="../mavlinkcom/">MavLinkCom</a>.</li>
 </ul>
-<h3 id="setup-rigidbody">Setup RigidBody<a class="headerlink" href="#setup-rigidbody" title="Permanent link">#</a></h3>
+<h3 id="setup-rigidbody">Setup RigidBody</h3>
 <p>First you need to define a RigidBody named 'Quadrocopter' using Motive.
 See <a href="http://wiki.optitrack.com/index.php?title=Rigid_Body_Tracking">Rigid_Body_Tracking</a>.</p>
-<h3 id="mavlinktest">MavLinkTest<a class="headerlink" href="#mavlinktest" title="Permanent link">#</a></h3>
+<h3 id="mavlinktest">MavLinkTest</h3>
 <p>Use MavLinkTest to talk to your PX4 drone, with "-server:addr:port", for example, when connected
 to drone wifi use: </p>
 <pre><code>MavLinkMoCap -server:10.42.0.228:14590 "-project:D:\OptiTrack\Motive Project 2016-12-19 04.09.42 PM.ttp"
@@ -342,6 +338,10 @@ now has a home position and is ready to fly.</p>
   <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
     
+        <span>
+          <a href="https://github.com/OpenHUTB/air_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
     
       <span><a href="../mavlinkcom/" style="color: #fcfcfc">&laquo; 前一页</a></span>
     
@@ -354,8 +354,13 @@ now has a home position and is ready to fly.</p>
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

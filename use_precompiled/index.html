@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
     
       <script>
         // Current page data
@@ -285,6 +286,7 @@
           <li class="breadcrumb-item">构建 AirSim</li>
       <li class="breadcrumb-item active">下载二进制文件</li>
     <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/use_precompiled.md" class="icon icon-github"> 在 GitHub 上编辑</a>
     </li>
   </ul>
   <hr/>
@@ -292,18 +294,18 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="_1">下载二进制文件<a class="headerlink" href="#_1" title="Permanent link">#</a></h1>
+                <h1 id="_1">下载二进制文件</h1>
 <p>您只需下载预编译的二进制文件并运行即可立即开始使用。如果您想设置自己的虚幻环境，请参阅 <a href="https://github.com/Microsoft/AirSim/#how-to-get-it">这些说明</a> 。</p>
-<h3 id="_2">虚幻引擎<a class="headerlink" href="#_2" title="Permanent link">#</a></h3>
+<h3 id="_2">虚幻引擎</h3>
 <p><strong>Windows, Linux</strong>: 从 <a href="https://pan.baidu.com/s/1n2fJvWff4pbtMe97GOqtvQ?pwd=hutb">最新版本</a> <code>software/air</code>目录中下载适合您所选择的环境的二进制文件（可编辑的场景资产位于<a href="http://172.20.46.154:8090/traffic/Content">校园网内网服务器</a> 和 <a href="https://github.com/OpenHUTB/air/tree/main/Unreal/Environments/Blocks">Block 场景</a> ）。</p>
 <p>一些预编译的二进制环境文件可能包含多个文件（例如 <code>City.zip.001</code> 和 <code>City.zip.002</code>）。请确保在启动环境之前下载这 2 个文件。使用 <a href="https://www.7-zip.org/download.html">7zip 软件</a> （包含 7z 命令）解压这些文件。在 Linux 上，将第一个文件名<code>City.zip.001</code>作为参数传递给 7z 命令，它会检测所有其他对应的压缩文件，解压命令为：<code>7z x City.zip.001</code>。</p>
 <p><strong>macOS</strong>:  你需要 <a href="../build_linux/">自己构建它</a> </p>
-<h3 id="unity">Unity (实验)<a class="headerlink" href="#unity" title="Permanent link">#</a></h3>
+<h3 id="unity">Unity (实验)</h3>
 <p><a href="https://assetstore.unity.com/">Unity Asset Store</a> 现已提供一个名为 Windridge City 的免费环境，作为 AirSim 在 Unity 上的实验版本。</p>
 <p><strong>注意</strong>：这是一个旧版本，许多功能和 API 可能无法使用。</p>
-<h2 id="_3">控制车辆<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
+<h2 id="_3">控制车辆</h2>
 <p>我们的大多数用户通常使用 <a href="../apis/">APIs</a> 来控制车辆。当然，您也可以手动控制车辆。您可以使用键盘、游戏手柄或 <a href="../steering_wheel_installation/">方向盘</a> 来驾驶车辆。要手动操控无人机，您需要 XBox 控制器或遥控器（欢迎 <a href="../CONTRIBUTING/">贡献</a> 键盘支持）。更多详情，请参阅遥控器设置。或者，您可以使用 <a href="../apis/">APIs</a> 进行编程控制，或使用所谓的 <a href="../image_apis/">计算机视觉模式</a> ，通过键盘在环境中移动。</p>
-<h2 id="gpu">没有好的 GPU？<a class="headerlink" href="#gpu" title="Permanent link">#</a></h2>
+<h2 id="gpu">没有好的 GPU？</h2>
 <p>AirSim 二进制文件（例如 CityEnviron）需要强大的 GPU 才能流畅运行。您可以在 Windows 上编辑 <code>run.bat</code> 文件（如果该文件不存在，请创建并添加以下内容）以低分辨率模式运行它们，如下所示：</p>
 <p><code>batch
 start CityEnviron -ResX=640 -ResY=480 -windowed</code></p>
@@ -355,6 +357,10 @@ True
   <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
     
+        <span>
+          <a href="https://github.com/OpenHUTB/air_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
     
       <span><a href=".." style="color: #fcfcfc">&laquo; 前一页</a></span>
     
@@ -367,8 +373,13 @@ True
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

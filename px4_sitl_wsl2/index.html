@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
     
       <script>
         // Current page data
@@ -278,6 +279,7 @@
           <li class="breadcrumb-item">MavLink 和 PX4</li>
       <li class="breadcrumb-item active">带有 WSL 2 的 PX4 SITL</li>
     <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/px4_sitl_wsl2.md" class="icon icon-github"> 在 GitHub 上编辑</a>
     </li>
   </ul>
   <hr/>
@@ -285,7 +287,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="px4-software-in-loop-with-wsl-2">PX4 Software-in-Loop with WSL 2<a class="headerlink" href="#px4-software-in-loop-with-wsl-2" title="Permanent link">#</a></h1>
+                <h1 id="px4-software-in-loop-with-wsl-2">PX4 Software-in-Loop with WSL 2</h1>
 <p>The <a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10">Windows subsystem for Linux version
 2</a> uses a Virtual Machine which has a
 separate IP address from your Windows host machine. This means PX4 cannot find AirSim using
@@ -360,7 +362,7 @@ please edit the Linux file in <code>ROMFS/px4fmu_common/init.d-posix/rcS</code> 
 for the <code>PX4_SIM_HOST_ADDR</code> environment variable and is passing that through to the PX4 
 simulator like this:</p>
 <p>```shell</p>
-<h1 id="if-px4_sim_host_addr-environment-variable-is-empty-use-localhost">If PX4_SIM_HOST_ADDR environment variable is empty use localhost.<a class="headerlink" href="#if-px4_sim_host_addr-environment-variable-is-empty-use-localhost" title="Permanent link">#</a></h1>
+<h1 id="if-px4_sim_host_addr-environment-variable-is-empty-use-localhost">If PX4_SIM_HOST_ADDR environment variable is empty use localhost.</h1>
 <p>if [ -z "${PX4_SIM_HOST_ADDR}" ]; then
     echo "PX4 SIM HOST: localhost"
     simulator start -c $simulator_tcp_port
@@ -401,6 +403,10 @@ fi
   <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
     
+        <span>
+          <a href="https://github.com/OpenHUTB/air_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
     
       <span><a href="../px4_sitl/" style="color: #fcfcfc">&laquo; 前一页</a></span>
     
@@ -413,8 +419,13 @@ fi
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra.css" rel="stylesheet" />
     
       <script>
         // Current page data
@@ -274,6 +275,7 @@
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
       <li class="breadcrumb-item active">山脉景观</li>
     <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/map/LandscapeMountains.md" class="icon icon-github"> 在 GitHub 上编辑</a>
     </li>
   </ul>
   <hr/>
@@ -281,10 +283,10 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="_1">山脉景观<a class="headerlink" href="#_1" title="Permanent link">#</a></h1>
+                <h1 id="_1">山脉景观</h1>
 <p><a href="https://blog.csdn.net/DoomGT/article/details/132500116">地图简介</a> 。</p>
-<h2 id="_2">使用虚幻商城中的场景工程<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
-<h3 id="_3">下载安装“山脉景观”场景工程<a class="headerlink" href="#_3" title="Permanent link">#</a></h3>
+<h2 id="_2">使用虚幻商城中的场景工程</h2>
+<h3 id="_3">下载安装“山脉景观”场景工程</h3>
 <p>“山脉景观” 是非常经典的官方教学用虚拟场景，它包含了完整的虚幻引擎工程文件，它可以在 Epic Games 启动程序中免费下载和安装。本节的实例以 “山脉景观” 场景为例，详细讲解如何使用虚幻商城中第一类已有完整工程文件的场景。同时设置 CV Mode 模式，在新建的场景中自由浏览，初步感受一下虚幻引擎中逼真的视觉渲染效果。</p>
 <p>点击 <a href="https://www.fab.com/zh-cn/">fab</a> 中的 <a href="https://www.fab.com/zh-cn/listings/5d47ae85-ff9b-4e9a-af30-95f23ffc0782">LandscapeMountains场景链接</a> ，并添加到我的库中（需要登录），然后点击<code>在启动器中查看</code>，如下图所示。</p>
 <p><img alt="" src="../images/LandscapeMountains_fab.png" /></p>
@@ -314,7 +316,7 @@
 <p>此时不要直接关闭 Visual Studio 2022，要等待其后台处理完成后才能关闭。点击左下角的小方框即可看到此时的后台有没有在处理过程中，下图展示的是 Visual Studio 2022 的后台正在进行分析代码。同时注意要把编译模式设置为 <code>DebugGame Editor</code> 和 <code>Win64</code>。另外右侧的解决方案管理器中，要把 <code>LandscapeMountain</code> 设置为启动项目（具体如何设置参见 1.3.3 节）。</p>
 <p><img alt="" src="../images/LandscapeMountains_VS_setting.jpg" /></p>
 <p>至此 <code>山脉景观</code> 场景工程创建完成。可以把 Visual Studio 和虚幻引擎都关闭了，来准备下一节添加 AirSim 插件。</p>
-<h3 id="airsim">添加 AirSim 插件<a class="headerlink" href="#airsim" title="Permanent link">#</a></h3>
+<h3 id="airsim">添加 AirSim 插件</h3>
 <p>有了虚幻场景工程，还不能做仿真，下面的步骤是把 AirSim 作为一个插件安装到这个场景工程中。</p>
 <p>首先到 AirSim 源码文件夹中找到 <code>AirSim\Unreal\Plugins</code> 文件夹（需要编译后才能获得，1.3.2节），并将其复制到 <code>LandscapeMountains</code> 文件夹中，如下图所示：</p>
 <p><img alt="" src="../images/LandscapeMountains_copy_plugin.jpg" /></p>
@@ -340,8 +342,8 @@
 <p>如果是第一次仿真运行这个 <code>山脉景观</code> 场景，点击 <code>运行</code> 后，视口中一偏空白的话，不要紧张，可能需要一些时间来渲染画面，随着渲染的进行，画面会一点点展示出来。不同性能的计算机的渲染时间也不一样。如果渲染的较长时间的话，也不用担心，因为仅第一次打开的时候需要渲染，第一次渲染完成后，后面的仿真操作就可以直接加载了。渲染完成之后，视口中就会出现一个飞行的四旋翼，如下图所示。点击工具栏的 <code>停止</code> 按钮，即可退出仿真。</p>
 <p><img alt="" src="../images/LandscapeMountains_simulation.jpg" /></p>
 <p>至此 AirSim 插件已经加载到虚幻引擎场景工程中了。</p>
-<h2 id="1">实例1：浏览游戏中的美景<a class="headerlink" href="#1" title="Permanent link">#</a></h2>
-<h3 id="cv-mode">设置为 CV Mode<a class="headerlink" href="#cv-mode" title="Permanent link">#</a></h3>
+<h2 id="1">实例1：浏览游戏中的美景</h2>
+<h3 id="cv-mode">设置为 CV Mode</h3>
 <p>上一节运行仿真时，是在开始时选择无人机或者无人机车仿真模式。除了这种方式外，还有一种可以提前设置仿真模式的方法。AirSim在仿真启动时会自动读取 <code>C:\Users\用户名\Documents\AirSim</code> 文件夹下面的 <code>settings.json</code> 文件内容，并进行初始化设置，如下图所示。电脑第一次运行AirSim时应该会自动创建这个文件，如果没有的话，需要手动创建。在以后的仿真学习中，我们会经常使用到这个设置文件。</p>
 <p><img alt="" src="../images/LandscapeMountains_setting.json.jpg" /></p>
 <p>AirSim 的仿真模式有3种，除了四旋翼无人机仿真和无人车仿真，还有一种是 <code>Computer Vision</code> 模式。在这种模式下，仿真中没有任何无人机或无人车，也没有动力学模型，但是可以用键盘控制视角，或者也可以使用 APIs 来控制相机的位置和角度，以此来收集很多图片作为数据集。</p>
@@ -349,7 +351,7 @@
 <p><img alt="" src="../images/LandscapeMountains_setting_SimMode.jpg" /></p>
 <p>这里的 <code>SimMode</code> 标签就是设置 AirSim 的仿真模式，如果想做多旋翼无人机仿真，就设置成 <code>Multirotor</code>，如果想做无人车仿真，就设置成 <code>Car</code>。本节我们体验一下 <code>Computer Vision</code> 仿真模式。修改好之后，保存并关闭文件。</p>
 <p>在虚幻引擎的关卡编辑器中，点击上方工具栏的 <code>运行</code>，跟之前不一样的是，此时没有了询问是否选择无人机车的窗口，而是直接开始仿真。视口中没有任何无人机和无人车。将鼠标移动到视口中并点击鼠标左键，此时就进入了浏览模式。在浏览模式下，鼠标是不显示且不能移动的，键盘上同时按 <code>Shift + F1</code> 则可以退出浏览模式。所以要想停止仿真或者关闭窗口等操作，都需要先退出浏览模式。</p>
-<h3 id="_4">设置初始位置<a class="headerlink" href="#_4" title="Permanent link">#</a></h3>
+<h3 id="_4">设置初始位置</h3>
 <p>在仿真开始的时候，视口中所处的场景中的位置是在比较高的高空中，使用键盘移动的话，很久才能移动到地面上。如果使用无人机仿真，在仿真开始的时候，无人机是在半空中，会直接往下掉，所以需要将初始位置放置到一个合适的地面上。</p>
 <p>在 <code>世界大纲视图</code> 中搜索 <code>Player Start</code>，可以发现有好几个类似名字的 Actor，如下图所示。</p>
 <p><img alt="" src="../images/LandscapeMountains_PlayerStart.jpg" /></p>
@@ -361,7 +363,7 @@
 <p>右下角参数面板中的 <code>位置</code> 可以设置 <code>Player Start</code> 在虚幻引擎场景中的位置，可以直接修改坐标来改变其位置，这里的坐标是虚幻引擎世界坐标系下的坐标，修改起来非常麻烦。还有一种方法，将鼠标放在在中间的白点或者红绿蓝三个坐标轴上时，就可以用鼠标左键拖动 <code>Player Start</code> Actor了。将其移动到期望的位置，然后保存当前关卡。修改完成后，点击 <code>运行</code>，仿真开始的位置就是刚刚修改的位置。</p>
 <p>如果出现 <code>BAD Size</code> 标识，如下图所示，说明此初始位置与其他 Actor 发生了碰撞，需要将其移出。</p>
 <p><img alt="" src="../images/LandscapeMountains_collision.jpg" /></p>
-<h3 id="_5">视角控制<a class="headerlink" href="#_5" title="Permanent link">#</a></h3>
+<h3 id="_5">视角控制</h3>
 <p>在浏览模式中，视角是可以控制的，视角的运动包括3个方向的平移运动（上下、左右、前后）和2个方向的旋转运动（俯仰、偏航）。使用键盘可以控制视角完成自由运动，键盘按键与视角运动的对应如下：</p>
 <ul>
 <li>上下箭头按键：控制视角前后平移运动</li>
@@ -371,14 +373,14 @@
 <li>A、D按键：控制视角偏航旋转运动</li>
 </ul>
 <p>在关卡编辑器中点击 <code>运行</code> 后，把鼠标移动到中间的视口中，点击鼠标左键，即可进入浏览模式，此时就可以用键盘自由地控制视角在场景中移动，浏览美景。在浏览模式中，鼠标是不能移出视口的，更不能点击视口以外的按钮，当需要退出时，需要同时按键盘上的 <code>Shift + F1</code> 键，即可退出浏览模式。</p>
-<h3 id="actor">Actor 参数调节<a class="headerlink" href="#actor" title="Permanent link">#</a></h3>
+<h3 id="actor">Actor 参数调节</h3>
 <p>场景是由很多的 Actor 组成的，其中的山、路、云、树木等都可以看做是一个 Actor，例如下图中所示，<code>山脉景观</code> 场景中一段桥梁就是一个 Actor。每个 Actor 都有其相应的参数，如位置信息等，这些参数都可以调整。</p>
 <p><img alt="" src="../images/LandscapeMountains_adjust_actor_parameter.jpg" /></p>
 <p>原始的 <code>山脉景观</code> 场景中有比较大的雾气，影响了浏览美景的视野，只需要将雾气有关的 Actor 的雾密度参数调低就可以减小雾气的浓度。</p>
 <p>在关卡编辑器右侧的 <code>世界大纲视图</code> 中搜索 <code>fog</code>，搜索出来两个跟雾气有关的 Actor，（只有在仿真进行中才会有 <code>ExponentialHeightFog</code>）。点击选中 <code>ExponentialHeightFog</code> Actor，将参数面板的 <code>雾密度</code> 参数设为 0，如下图所示。这时在仿真中视野可见度会好很多，景色也会更美。关于天气的控制，后续会有更详细的介绍。</p>
 <p><img alt="" src="../images/LandscapeMountains_fog.jpg" /></p>
 <p>后续可以使用这样的方法调节各种 Actor 的参数，来达到自己想要的效果。</p>
-<h2 id="_6">参考<a class="headerlink" href="#_6" title="Permanent link">#</a></h2>
+<h2 id="_6">参考</h2>
 <ul>
 <li><a href="https://zhuanlan.zhihu.com/p/619214564">开始使用 AirSim</a></li>
 </ul>
@@ -405,6 +407,10 @@
   <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
     
+        <span>
+          <a href="https://github.com/OpenHUTB/air_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
     
     
   </span>
@@ -413,8 +419,13 @@
     <script>var base_url = "../..";</script>
     <script src="../../js/theme_extra.js"></script>
     <script src="../../js/theme.js"></script>
-      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
       <script src="../../search/main.js"></script>
     <script>
         jQuery(function () {

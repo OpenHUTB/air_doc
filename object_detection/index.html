@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
     
       <script>
         // Current page data
@@ -283,6 +284,7 @@
           <li class="breadcrumb-item">贡献教程</li>
       <li class="breadcrumb-item active">Object Detection</li>
     <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/object_detection.md" class="icon icon-github"> 在 GitHub 上编辑</a>
     </li>
   </ul>
   <hr/>
@@ -290,12 +292,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="object-detection">Object Detection<a class="headerlink" href="#object-detection" title="Permanent link">#</a></h1>
-<h2 id="about">About<a class="headerlink" href="#about" title="Permanent link">#</a></h2>
+                <h1 id="object-detection">Object Detection</h1>
+<h2 id="about">About</h2>
 <p>This feature lets you generate object detection using existing cameras in AirSim, similar to detection DNN. <br />
 Using the API you can control which object to detect by name and radius from camera. <br />
 One can control these settings for each camera, image type and vehicle combination separately.</p>
-<h2 id="api">API<a class="headerlink" href="#api" title="Permanent link">#</a></h2>
+<h2 id="api">API</h2>
 <ul>
 <li>
 <p>Set mesh name to detect in wildcard format <br />
@@ -322,7 +324,7 @@ DetectionInfo
     box2D = Box2D()
     box3D = Box3D()
     relative_pose = Pose()</code></p>
-<h2 id="usage-example">Usage example<a class="headerlink" href="#usage-example" title="Permanent link">#</a></h2>
+<h2 id="usage-example">Usage example</h2>
 <p>Python script <a href="https://github.com/microsoft/AirSim/blob/main/PythonClient/detection/detection.py">detection.py</a> shows how to set detection parameters and shows the result in OpenCV capture.</p>
 <p>A minimal example using API with Blocks environment to detect Cylinder objects:
 ```python
@@ -387,6 +389,10 @@ Cylinder: &lt;DetectionInfo&gt; {   'box2D': &lt;Box2D&gt; {   'max': &lt;Vector
   <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
     
+        <span>
+          <a href="https://github.com/OpenHUTB/air_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
     
       <span><a href="../orbit/" style="color: #fcfcfc">&laquo; 前一页</a></span>
     
@@ -399,8 +405,13 @@ Cylinder: &lt;DetectionInfo&gt; {   'box2D': &lt;Box2D&gt; {   'max': &lt;Vector
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

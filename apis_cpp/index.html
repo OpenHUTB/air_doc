@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
     
       <script>
         // Current page data
@@ -285,6 +286,7 @@
           <li class="breadcrumb-item">使用 AirSim</li>
       <li class="breadcrumb-item active">C++ APIs</li>
     <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/apis_cpp.md" class="icon icon-github"> 在 GitHub 上编辑</a>
     </li>
   </ul>
   <hr/>
@@ -292,23 +294,23 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="c-apis-for-airsim">使用 C++ APIs for AirSim<a class="headerlink" href="#c-apis-for-airsim" title="Permanent link">#</a></h1>
+                <h1 id="c-apis-for-airsim">使用 C++ APIs for AirSim</h1>
 <p>如果您还没有阅读 <a href="../apis/">通用 API 文档</a> ，请先阅读。本文档描述了 C++ 示例和其他 C++ 相关的细节。</p>
-<h2 id="_1">快速入门<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
+<h2 id="_1">快速入门</h2>
 <p>最快的入门方法是在 Visual Studio 2019 中打开 AirSim.sln。您将在解决方案中看到 <a href="https://github.com/Microsoft/AirSim/tree/main/HelloCar/">Hello Car</a> and <a href="https://github.com/Microsoft/AirSim/tree/main/HelloDrone/">Hello Drone</a> 和 <a href="https://github.com/Microsoft/AirSim/tree/main/HelloDrone/">Hello Drone</a> 的示例。这些示例将向您展示需要在 VC++ 项目中设置的包含路径和库路径。如果您使用的是 Linux，则可以在 cmake 文件或编译器命令行中指定这些路径。</p>
-<h4 id="_2">头文件和库的目录<a class="headerlink" href="#_2" title="Permanent link">#</a></h4>
+<h4 id="_2">头文件和库的目录</h4>
 <ul>
 <li>头文件目录: <code>$(ProjectDir)..\AirLib\deps\rpclib\include;include;$(ProjectDir)..\AirLib\deps\eigen3;$(ProjectDir)..\AirLib\include</code></li>
 <li>依赖: <code>rpc.lib</code></li>
 <li>库文件目录: <code>$(ProjectDir)\..\AirLib\deps\MavLinkCom\lib\$(Platform)\$(Configuration);$(ProjectDir)\..\AirLib\deps\rpclib\lib\$(Platform)\$(Configuration);$(ProjectDir)\..\AirLib\lib\$(Platform)\$(Configuration)</code></li>
 <li>引用：将 AirLib 和 MavLinkCom 引用到项目引用中。（右键单击您的项目，然后前往<code>References</code>，<code>Add reference...</code>，然后选择 AirLib 和 MavLinkCom）</li>
 </ul>
-<h2 id="hello-car">Hello Car<a class="headerlink" href="#hello-car" title="Permanent link">#</a></h2>
+<h2 id="hello-car">Hello Car</h2>
 <p>以下是如何使用 C++ 的 AirSim API 来控制模拟汽车（另请参阅 <a href="../apis/#hello_car">Python 示例</a> ）：</p>
 <p>```cpp</p>
 <p>// ready to run example: https://github.com/Microsoft/AirSim/blob/main/HelloCar/main.cpp</p>
-<h1 id="include">include <iostream><a class="headerlink" href="#include" title="Permanent link">#</a></h1>
-<h1 id="include-vehiclescarapicarrpclibclienthpp">include "vehicles/car/api/CarRpcLibClient.hpp"<a class="headerlink" href="#include-vehiclescarapicarrpclibclienthpp" title="Permanent link">#</a></h1>
+<h1 id="include">include <iostream></h1>
+<h1 id="include-vehiclescarapicarrpclibclienthpp">include "vehicles/car/api/CarRpcLibClient.hpp"</h1>
 <p>int main()
 {
     msr::airlib::CarRpcLibClient client;
@@ -335,12 +337,12 @@ return 0;
 </code></pre>
 <p>}
 ```</p>
-<h2 id="hello-drone">Hello Drone<a class="headerlink" href="#hello-drone" title="Permanent link">#</a></h2>
+<h2 id="hello-drone">Hello Drone</h2>
 <p>下面介绍了如何使用 C++ 的 AirSim API 来控制模拟四旋翼飞行器（另请参阅 <a href="../apis/#hello_drone">Python 示例</a> ）：</p>
 <p>```cpp</p>
 <p>// ready to run example: https://github.com/Microsoft/AirSim/blob/main/HelloDrone/main.cpp</p>
-<h1 id="include_1">include <iostream><a class="headerlink" href="#include_1" title="Permanent link">#</a></h1>
-<h1 id="include-vehiclesmultirotorapimultirotorrpclibclienthpp">include "vehicles/multirotor/api/MultirotorRpcLibClient.hpp"<a class="headerlink" href="#include-vehiclesmultirotorapimultirotorrpclibclienthpp" title="Permanent link">#</a></h1>
+<h1 id="include_1">include <iostream></h1>
+<h1 id="include-vehiclesmultirotorapimultirotorrpclibclienthpp">include "vehicles/multirotor/api/MultirotorRpcLibClient.hpp"</h1>
 <p>int main()
 {
     msr::airlib::MultirotorRpcLibClient client;</p>
@@ -364,7 +366,7 @@ return 0;
 </code></pre>
 <p>}
 ```</p>
-<h2 id="_3">参见<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
+<h2 id="_3">参见</h2>
 <ul>
 <li>如何在其它项目中使用 AirSim 内部基础设施的 <a href="https://github.com/microsoft/AirSim/tree/main/Examples">示例</a> </li>
 <li><a href="https://github.com/microsoft/AirSim/tree/main/DroneShell">DroneShell</a> 应用程序展示了如何使用 C++ API 制作简单的界面来控制无人机 </li>
@@ -398,6 +400,10 @@ return 0;
   <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
     
+        <span>
+          <a href="https://github.com/OpenHUTB/air_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
     
       <span><a href="../image_apis/" style="color: #fcfcfc">&laquo; 前一页</a></span>
     
@@ -410,8 +416,13 @@ return 0;
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

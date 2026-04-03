@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
     
       <script>
         // Current page data
@@ -283,6 +284,7 @@
           <li class="breadcrumb-item">使用 AirSim</li>
       <li class="breadcrumb-item active">域随机化</li>
     <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/retexturing.md" class="icon icon-github"> 在 GitHub 上编辑</a>
     </li>
   </ul>
   <hr/>
@@ -290,8 +292,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="_1">运行时纹理交换<a class="headerlink" href="#_1" title="Permanent link">#</a></h1>
-<h2 id="_2">如何让参与者可重新纹理化<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
+                <h1 id="_1">运行时纹理交换</h1>
+<h2 id="_2">如何让参与者可重新纹理化</h2>
 <p>要实现纹理可交换，Actor 必须从父类 TextureShuffleActor 派生。
 父类可以通过 Actor 蓝图中的“设置”选项卡进行设置。</p>
 <p><img alt="Parent Class" src="../images/tex_shuffle_actor.png" /></p>
@@ -302,7 +304,7 @@
 <p>在蓝图类中静态设置动态材质可能会导致渲染错误。在蓝图类中的所有 Actor 实例上设置该属性似乎效果更好。</p>
 </div>
 <p><img alt="TextureSwappableMaterial" src="../images/tex_swap_material.png" /></p>
-<h2 id="_3">如何定义可供选择的纹理集<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
+<h2 id="_3">如何定义可供选择的纹理集</h2>
 <p>通常，某些参与者子集会彼此共享一组纹理选项。（例如，属于同一建筑物的墙壁）</p>
 <p>使用虚幻引擎的群组编辑功能可以轻松设置这些分组。
 选择所有应具有相同纹理选择的实例，然后通过“详细信息”面板同时将纹理添加到所有实例。
@@ -310,7 +312,7 @@
 <p><img alt="Group Editing" src="../images/tex_swap_group_editing.png" /></p>
 <p>理想的做法是从较大的分组到较小的分组，只需取消选择参与者即可缩小分组范围，最后应用任何单个参与者的属性。</p>
 <p><img alt="Subset Editing" src="../images/tex_swap_subset.png" /></p>
-<h2 id="api">如何通过 API 交换纹理<a class="headerlink" href="#api" title="Permanent link">#</a></h2>
+<h2 id="api">如何通过 API 交换纹理</h2>
 <p>以下 API 适用于 C++ 和 Python。（此处显示 C++）</p>
 <p><code>C++
 std::vector&lt;std::string&gt; simSwapTextures(const std::string&amp; tags, int tex_id);</code></p>
@@ -368,6 +370,10 @@ print(c.simSwapTextures("chair, right", 0))
   <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
     
+        <span>
+          <a href="https://github.com/OpenHUTB/air_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
     
       <span><a href="../gazebo_drone/" style="color: #fcfcfc">&laquo; 前一页</a></span>
     
@@ -380,8 +386,13 @@ print(c.simSwapTextures("chair, right", 0))
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

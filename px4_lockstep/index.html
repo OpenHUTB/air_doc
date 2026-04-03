@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
     
       <script>
         // Current page data
@@ -278,6 +279,7 @@
           <li class="breadcrumb-item">MavLink 和 PX4</li>
       <li class="breadcrumb-item active">PX4 Lockstep</li>
     <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/px4_lockstep.md" class="icon icon-github"> 在 GitHub 上编辑</a>
     </li>
   </ul>
   <hr/>
@@ -285,7 +287,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="lockstep">LockStep<a class="headerlink" href="#lockstep" title="Permanent link">#</a></h1>
+                <h1 id="lockstep">LockStep</h1>
 <p>The latest version of PX4 supports a new <a href="https://docs.px4.io/master/en/simulation/#lockstep-simulation">lockstep
 feature</a> when communicating with the
 simulator over TCP.  Lockstep is an important feature because it synchronizes PX4 and the simulator
@@ -316,7 +318,7 @@ it takes AirSim to really process that update loop.</p>
 <p>There will be some side effects to <code>lockstep</code>, namely, slower update loops caused by running AirSim
 on an underpowered machine or from expensive sensors (like Lidar) will create some visible jerkiness
 in the simulated flight if you look at the updates on screen in realtime.</p>
-<h1 id="disabling-lockstep">Disabling LockStep<a class="headerlink" href="#disabling-lockstep" title="Permanent link">#</a></h1>
+<h1 id="disabling-lockstep">Disabling LockStep</h1>
 <p>If you are running PX4 in cygwin, there is an <a href="https://github.com/microsoft/AirSim/issues/3415">open issue with 
 lockstep</a>. PX4 is configured to use lockstep by 
 default. To disable this feature, first <a href="https://docs.px4.io/master/en/simulation/#disable-lockstep-simulation">disable it in 
@@ -367,6 +369,10 @@ the host system time without waiting on AirSim.</li>
   <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
     
+        <span>
+          <a href="https://github.com/OpenHUTB/air_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
     
       <span><a href="../px4_sitl_wsl2/" style="color: #fcfcfc">&laquo; 前一页</a></span>
     
@@ -379,8 +385,13 @@ the host system time without waiting on AirSim.</li>
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

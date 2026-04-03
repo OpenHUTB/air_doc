@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra.css" rel="stylesheet" />
     
       <script>
         // Current page data
@@ -274,6 +275,7 @@
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
       <li class="breadcrumb-item active">CarlaAir 详细技术架构</li>
     <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/dev/architecture.md" class="icon icon-github"> 在 GitHub 上编辑</a>
     </li>
   </ul>
   <hr/>
@@ -281,8 +283,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="carlaair">CarlaAir 详细技术架构<a class="headerlink" href="#carlaair" title="Permanent link">#</a></h1>
-<h2 id="_1">系统架构图<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
+                <h1 id="carlaair">CarlaAir 详细技术架构</h1>
+<h2 id="_1">系统架构图</h2>
 <p><code>┌─────────────────────────────────────────────────────────────────┐
 │                    Unreal Engine 4.26                            │
 │  ┌───────────────────────────────────────────────────────────┐  │
@@ -315,7 +317,7 @@
   │  Client API   │              │ Client API    │
   │  (port 2000)  │              │ (port 41451)  │
   └──────────────┘              └──────────────┘</code></p>
-<h2 id="_2">初始化序列<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
+<h2 id="_2">初始化序列</h2>
 <p><code>UE4 引擎开始
   │
   ├── 1. ASimWorldGameMode 构造函数
@@ -360,30 +362,30 @@
         ├── SimMode-&gt;stopApiServer()
         ├── 销毁 Widget, SimMode
         └── Super::EndPlay() — Carla 清理</code></p>
-<h2 id="_3">关键数据流<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
-<h3 id="_4">车辆生成流程<a class="headerlink" href="#_4" title="Permanent link">#</a></h3>
+<h2 id="_3">关键数据流</h2>
+<h3 id="_4">车辆生成流程</h3>
 <p><code>Python: world.spawn_actor(vehicle_bp, transform)
   → Carla RPC Server
     → CarlaEpisode::SpawnActor()
       → ActorDispatcher → VehicleFactory
         → UE4 World SpawnActor()
           → 物理引擎接管 (Chaos/PhysX)</code></p>
-<h3 id="_5">无人机控制流程<a class="headerlink" href="#_5" title="Permanent link">#</a></h3>
+<h3 id="_5">无人机控制流程</h3>
 <p><code>Python: client.moveToPositionAsync(x, y, z, speed)
   → AirSim RPC Server
     → SimModeWorldMultiRotor
       → SimpleFlight Controller
         → NedTransform 坐标转换 (NED → UE4)
           → Drone Pawn 移动</code></p>
-<h3 id="_6">传感器数据流<a class="headerlink" href="#_6" title="Permanent link">#</a></h3>
+<h3 id="_6">传感器数据流</h3>
 <p>```
 Carla 传感器:
   Camera/Lidar/Radar → SensorManager → Raw Data → RPC → Python numpy array</p>
 <p>AirSim 传感器:
   PIPCamera → RenderTarget → simGetImages() → RPC → Python numpy array
 ```</p>
-<h2 id="_7">文件修改详情<a class="headerlink" href="#_7" title="Permanent link">#</a></h2>
-<h3 id="3-2">修改清单（共 3 个文件修改，2 个新文件）<a class="headerlink" href="#3-2" title="Permanent link">#</a></h3>
+<h2 id="_7">文件修改详情</h2>
+<h3 id="3-2">修改清单（共 3 个文件修改，2 个新文件）</h3>
 <table>
 <thead>
 <tr>
@@ -426,7 +428,7 @@ Carla 传感器:
 </tr>
 </tbody>
 </table>
-<h3 id="_8">每个修改的精确位置<a class="headerlink" href="#_8" title="Permanent link">#</a></h3>
+<h3 id="_8">每个修改的精确位置</h3>
 <p><strong>CarlaGameModeBase.h</strong>:
 ```cpp
 // 原始: private 区域
@@ -451,7 +453,7 @@ friend class ASimWorldGameMode;</code></p>
 global_ned_transform_.reset(new NedTransform(player_start_transform,
                                              UAirBlueprintLib::GetWorldToMetersScale(this)));
 ```</p>
-<h2 id="town10hd">Town10HD 地图布局<a class="headerlink" href="#town10hd" title="Permanent link">#</a></h2>
+<h2 id="town10hd">Town10HD 地图布局</h2>
 <p>```
                     Y=-69
                      │
@@ -473,7 +475,7 @@ global_ned_transform_.reset(new NedTransform(player_start_transform,
 <p>NED 原点在 PlayerStart (x≈0)
   城市中心在 NED (80, 0, -30) = Carla (80, 0, 30m高)
 ```</p>
-<h2 id="_9">已知限制和约束<a class="headerlink" href="#_9" title="Permanent link">#</a></h2>
+<h2 id="_9">已知限制和约束</h2>
 <table>
 <thead>
 <tr>
@@ -528,6 +530,10 @@ global_ned_transform_.reset(new NedTransform(player_start_transform,
   <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
     
+        <span>
+          <a href="https://github.com/OpenHUTB/air_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
     
     
   </span>
@@ -536,8 +542,13 @@ global_ned_transform_.reset(new NedTransform(player_start_transform,
     <script>var base_url = "../..";</script>
     <script src="../../js/theme_extra.js"></script>
     <script src="../../js/theme.js"></script>
-      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
       <script src="../../search/main.js"></script>
     <script>
         jQuery(function () {

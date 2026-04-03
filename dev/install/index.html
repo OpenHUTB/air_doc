@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra.css" rel="stylesheet" />
     
       <script>
         // Current page data
@@ -274,6 +275,7 @@
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
       <li class="breadcrumb-item active">CarlaAir 安装与运行指南</li>
     <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/dev/install.md" class="icon icon-github"> 在 GitHub 上编辑</a>
     </li>
   </ul>
   <hr/>
@@ -281,9 +283,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="carlaair">CarlaAir 安装与运行指南<a class="headerlink" href="#carlaair" title="Permanent link">#</a></h1>
+                <h1 id="carlaair">CarlaAir 安装与运行指南</h1>
 <p>CarlaAir (SimWorld) 是一个空地一体联合仿真平台，将 Carla 地面仿真与 AirSim 无人机飞行仿真统一在同一个虚拟世界中。</p>
-<h2 id="_1">系统要求<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
+<h2 id="_1">系统要求</h2>
 <table>
 <thead>
 <tr>
@@ -330,21 +332,21 @@
 </tr>
 </tbody>
 </table>
-<h2 id="3">快速安装（3 步）<a class="headerlink" href="#3" title="Permanent link">#</a></h2>
-<h3 id="1-python">第 1 步：安装 Python 依赖<a class="headerlink" href="#1-python" title="Permanent link">#</a></h3>
+<h2 id="3">快速安装（3 步）</h2>
+<h3 id="1-python">第 1 步：安装 Python 依赖</h3>
 <p>```bash</p>
-<h1 id="conda">使用 conda（推荐）<a class="headerlink" href="#conda" title="Permanent link">#</a></h1>
+<h1 id="conda">使用 conda（推荐）</h1>
 <p>conda create -n simworld python=3.8 -y
 conda activate simworld
 pip install carla==0.9.16 airsim numpy opencv-python pygame</p>
-<h1 id="pip">或使用 pip<a class="headerlink" href="#pip" title="Permanent link">#</a></h1>
+<h1 id="pip">或使用 pip</h1>
 <p>pip install carla==0.9.16 airsim numpy opencv-python pygame
 ```</p>
-<h3 id="2-airsim">第 2 步：配置 AirSim 设置<a class="headerlink" href="#2-airsim" title="Permanent link">#</a></h3>
+<h3 id="2-airsim">第 2 步：配置 AirSim 设置</h3>
 <p>```bash</p>
-<h1 id="airsim">创建 AirSim 设置目录<a class="headerlink" href="#airsim" title="Permanent link">#</a></h1>
+<h1 id="airsim">创建 AirSim 设置目录</h1>
 <p>mkdir -p ~/Documents/AirSim</p>
-<h1 id="_2">复制默认设置文件<a class="headerlink" href="#_2" title="Permanent link">#</a></h1>
+<h1 id="_2">复制默认设置文件</h1>
 <p>cp settings.json ~/Documents/AirSim/settings.json
 ```</p>
 <p>settings.json 内容（多旋翼无人机模式）:
@@ -368,28 +370,28 @@ pip install carla==0.9.16 airsim numpy opencv-python pygame</p>
         }
     }
 }</code></p>
-<h3 id="3_1">第 3 步：启动仿真器<a class="headerlink" href="#3_1" title="Permanent link">#</a></h3>
+<h3 id="3_1">第 3 步：启动仿真器</h3>
 <p>```bash</p>
-<h1 id="shipping">进入安装目录（Shipping 构建）<a class="headerlink" href="#shipping" title="Permanent link">#</a></h1>
+<h1 id="shipping">进入安装目录（Shipping 构建）</h1>
 <p>cd /mnt/data1/tianle/carla_source/Dist/CARLA_Shipping_1ae5356-dirty/LinuxNoEditor</p>
-<h1 id="town10hd">一键启动（默认 Town10HD 地图）<a class="headerlink" href="#town10hd" title="Permanent link">#</a></h1>
+<h1 id="town10hd">一键启动（默认 Town10HD 地图）</h1>
 <p>./carla_air.sh</p>
-<h1 id="_3">或手动启动<a class="headerlink" href="#_3" title="Permanent link">#</a></h1>
+<h1 id="_3">或手动启动</h1>
 <p>./CarlaUE4.sh /Game/Carla/Maps/Town10HD -nosound -carla-rpc-port=2000 -windowed -ResX=1280 -ResY=720
 ```</p>
-<h2 id="carla_airsh">启动脚本：carla_air.sh<a class="headerlink" href="#carla_airsh" title="Permanent link">#</a></h2>
+<h2 id="carla_airsh">启动脚本：carla_air.sh</h2>
 <p>将下面的 <code>carla_air.sh</code> 放到安装目录中即可一键启动：</p>
 <p>```bash</p>
-<h1 id="binbash">!/bin/bash<a class="headerlink" href="#binbash" title="Permanent link">#</a></h1>
-<h1 id="carla_airsh-carlaair-shipping">carla_air.sh — CarlaAir 一键启动脚本（Shipping 构建版）<a class="headerlink" href="#carla_airsh-carlaair-shipping" title="Permanent link">#</a></h1>
+<h1 id="binbash">!/bin/bash</h1>
+<h1 id="carla_airsh-carlaair-shipping">carla_air.sh — CarlaAir 一键启动脚本（Shipping 构建版）</h1>
 <p>set -e</p>
-<p>SCRIPT_DIR="<span class="arithmatex">\((cd "\)</span>(dirname "<span 1:-Town10HD="1:-Town10HD" class="arithmatex">\(0")" &amp;&amp; pwd)"
-MAP="\)</span>"
-RESX="<span 3:-720="3:-720" class="arithmatex">\({2:-1280}"
-RESY="\)</span>"
+<p>SCRIPT_DIR="$(cd "$(dirname "$0")" &amp;&amp; pwd)"
+MAP="${1:-Town10HD}"
+RESX="${2:-1280}"
+RESY="${3:-720}"
 PORT=2000
 AIRSIM_PORT=41451</p>
-<h1 id="airsim_1">检查 AirSim 设置<a class="headerlink" href="#airsim_1" title="Permanent link">#</a></h1>
+<h1 id="airsim_1">检查 AirSim 设置</h1>
 <p>if [ ! -f ~/Documents/AirSim/settings.json ]; then
     echo "WARNING: ~/Documents/AirSim/settings.json not found!"
     echo "Creating default settings..."
@@ -407,40 +409,40 @@ AIRSIM_PORT=41451</p>
 }
 EOF
 fi</p>
-<h1 id="vulkan-icd">Vulkan ICD<a class="headerlink" href="#vulkan-icd" title="Permanent link">#</a></h1>
+<h1 id="vulkan-icd">Vulkan ICD</h1>
 <p>export VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/nvidia_icd.json
 [ -z "$DISPLAY" ] &amp;&amp; export DISPLAY=:1</p>
 <p>echo "============================================"
 echo "  CarlaAir - Air-Ground Co-Simulation"
 echo "============================================"
 echo "  Map:        $MAP"
-echo "  Resolution: <span RESY="RESY" class="arithmatex">\({RESX}x\)</span>"
+echo "  Resolution: ${RESX}x${RESY}"
 echo "  CARLA port: $PORT"
 echo "  AirSim port: $AIRSIM_PORT"
 echo "============================================"</p>
-<h1 id="_4">启动<a class="headerlink" href="#_4" title="Permanent link">#</a></h1>
-<p>"<span class="arithmatex">\(SCRIPT_DIR/CarlaUE4.sh" \
-    /Game/Carla/Maps/\)</span>MAP \
+<h1 id="_4">启动</h1>
+<p>"$SCRIPT_DIR/CarlaUE4.sh" \
+    /Game/Carla/Maps/$MAP \
     -nosound \
-    -carla-rpc-port=<span class="arithmatex">\(PORT \
+    -carla-rpc-port=$PORT \
     -windowed \
-    -ResX=\)</span>RESX \
+    -ResX=$RESX \
     -ResY=$RESY \
     -quality-level=Low &amp;</p>
 <p>PID=$!
 echo "PID: $PID"
 echo "Waiting for servers..."</p>
-<h1 id="_5">等待两个端口就绪<a class="headerlink" href="#_5" title="Permanent link">#</a></h1>
-<p>for i in <span PORT="PORT" class="arithmatex">\((seq 1 120); do
+<h1 id="_5">等待两个端口就绪</h1>
+<p>for i in $(seq 1 120); do
     CARLA_OK=false; AIRSIM_OK=false
-    ss -tlnp 2&gt;/dev/null | grep -q ":\)</span> " &amp;&amp; CARLA_OK=true
-    ss -tlnp 2&gt;/dev/null | grep -q ":<span class="arithmatex">\({AIRSIM_PORT} " &amp;&amp; AIRSIM_OK=true
-    if <span class="arithmatex">(CARLA_OK &amp;&amp; <span class="arithmatex">\(AIRSIM_OK; then
+    ss -tlnp 2&gt;/dev/null | grep -q ":${PORT} " &amp;&amp; CARLA_OK=true
+    ss -tlnp 2&gt;/dev/null | grep -q ":${AIRSIM_PORT} " &amp;&amp; AIRSIM_OK=true
+    if $CARLA_OK &amp;&amp; $AIRSIM_OK; then
         echo ""
-        echo "Ready! CARLA(:\)</span>PORT) + AirSim(:\)</span>AIRSIM_PORT) both running."
+        echo "Ready! CARLA(:$PORT) + AirSim(:$AIRSIM_PORT) both running."
         echo ""
         echo "Test commands:"
-        echo "  python3 -c \"import carla; c=carla.Client('localhost',\)</span>PORT); print(c.get_world().get_map().name)\""
+        echo "  python3 -c \"import carla; c=carla.Client('localhost',$PORT); print(c.get_world().get_map().name)\""
         echo "  python3 -c \"import airsim; c=airsim.MultirotorClient(port=$AIRSIM_PORT); c.confirmConnection()\""
         exit 0
     fi
@@ -448,16 +450,16 @@ echo "Waiting for servers..."</p>
         echo "ERROR: Process crashed during startup!"
         exit 1
     fi
-    [ <span class="arithmatex" i="i">\(((i % 6)) -eq 0 ] &amp;&amp; echo "  Still waiting... (\)</span>*5s)"
+    [ $((i % 6)) -eq 0 ] &amp;&amp; echo "  Still waiting... (${i}*5s)"
     sleep 5
 done
 echo "WARNING: Timeout. Servers may still be starting."
 ```</p>
-<h2 id="_6">验证安装<a class="headerlink" href="#_6" title="Permanent link">#</a></h2>
+<h2 id="_6">验证安装</h2>
 <p>启动后，打开新终端：</p>
 <p>```bash
 conda activate simworld</p>
-<h1 id="carla">测试 CARLA 连接<a class="headerlink" href="#carla" title="Permanent link">#</a></h1>
+<h1 id="carla">测试 CARLA 连接</h1>
 <p>python3 -c "
 import carla
 client = carla.Client('localhost', 2000)
@@ -466,7 +468,7 @@ world = client.get_world()
 print(f'CARLA OK: {world.get_map().name}')
 print(f'Spawn points: {len(world.get_map().get_spawn_points())}')
 "</p>
-<h1 id="airsim_2">测试 AirSim 连接<a class="headerlink" href="#airsim_2" title="Permanent link">#</a></h1>
+<h1 id="airsim_2">测试 AirSim 连接</h1>
 <p>python3 -c "
 import airsim
 client = airsim.MultirotorClient(port=41451)
@@ -474,7 +476,7 @@ client.confirmConnection()
 print('AirSim OK: Connected')
 "
 ```</p>
-<h2 id="_7">可用地图<a class="headerlink" href="#_7" title="Permanent link">#</a></h2>
+<h2 id="_7">可用地图</h2>
 <table>
 <thead>
 <tr>
@@ -517,13 +519,13 @@ print('AirSim OK: Connected')
 </tbody>
 </table>
 <p>切换地图: <code>./carla_air.sh Town03</code></p>
-<h2 id="_8">停止仿真器<a class="headerlink" href="#_8" title="Permanent link">#</a></h2>
+<h2 id="_8">停止仿真器</h2>
 <p>```bash</p>
-<h1 id="1">方法 1: 关闭窗口<a class="headerlink" href="#1" title="Permanent link">#</a></h1>
-<h1 id="2">方法 2: 命令行<a class="headerlink" href="#2" title="Permanent link">#</a></h1>
+<h1 id="1">方法 1: 关闭窗口</h1>
+<h1 id="2">方法 2: 命令行</h1>
 <p>pkill -f "CarlaUE4-Linux-Shipping"
 ```</p>
-<h2 id="_9">目录结构<a class="headerlink" href="#_9" title="Permanent link">#</a></h2>
+<h2 id="_9">目录结构</h2>
 <p><code>LinuxNoEditor/
 ├── CarlaUE4.sh              # 原始 UE4 启动脚本
 ├── carla_air.sh             # CarlaAir 一键启动脚本（需要手动创建）
@@ -534,16 +536,16 @@ print('AirSim OK: Connected')
 └── PythonAPI/               # Python 客户端库
     └── carla/
         └── dist/            # carla-0.9.16 wheel</code></p>
-<h2 id="_10">常见问题<a class="headerlink" href="#_10" title="Permanent link">#</a></h2>
-<h3 id="q">Q: 启动后黑屏或无画面<a class="headerlink" href="#q" title="Permanent link">#</a></h3>
+<h2 id="_10">常见问题</h2>
+<h3 id="q">Q: 启动后黑屏或无画面</h3>
 <p><strong>A</strong>: 检查 GPU 驱动和 Vulkan 支持：<code>vulkaninfo | head -5</code></p>
-<h3 id="q-carla">Q: Carla 端口连接超时<a class="headerlink" href="#q-carla" title="Permanent link">#</a></h3>
+<h3 id="q-carla">Q: Carla 端口连接超时</h3>
 <p><strong>A</strong>: 首次启动需要 2-5 分钟加载资源。用 <code>ss -tlnp | grep 2000</code> 检查端口。</p>
-<h3 id="q-airsim">Q: AirSim 无法连接<a class="headerlink" href="#q-airsim" title="Permanent link">#</a></h3>
+<h3 id="q-airsim">Q: AirSim 无法连接</h3>
 <p><strong>A</strong>: 确认 <code>~/Documents/AirSim/settings.json</code> 存在。端口 41451 需要在 Carla 之后才就绪。</p>
-<h3 id="q_1">Q: 分辨率太低/画质差<a class="headerlink" href="#q_1" title="Permanent link">#</a></h3>
+<h3 id="q_1">Q: 分辨率太低/画质差</h3>
 <p><strong>A</strong>: 修改启动参数：<code>./carla_air.sh Town10HD 1920 1080</code>。编辑脚本中的 <code>quality-level</code> 为 <code>Medium</code> 或 <code>High</code>。</p>
-<h3 id="q_2">Q: 内存不足<a class="headerlink" href="#q_2" title="Permanent link">#</a></h3>
+<h3 id="q_2">Q: 内存不足</h3>
 <p><strong>A</strong>: Town10HD 需要约 8GB GPU 显存。可尝试 <code>-quality-level=Low</code> 或使用更小的地图如 Town01。</p>
               
             </div>
@@ -568,6 +570,10 @@ print('AirSim OK: Connected')
   <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
     
+        <span>
+          <a href="https://github.com/OpenHUTB/air_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
     
     
   </span>
@@ -576,8 +582,13 @@ print('AirSim OK: Connected')
     <script>var base_url = "../..";</script>
     <script src="../../js/theme_extra.js"></script>
     <script src="../../js/theme.js"></script>
-      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
       <script src="../../search/main.js"></script>
     <script>
         jQuery(function () {

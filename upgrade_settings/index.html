@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
     
       <script>
         // Current page data
@@ -295,6 +296,7 @@
           <li class="breadcrumb-item">升级</li>
       <li class="breadcrumb-item active">升级设置</li>
     <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/upgrade_settings.md" class="icon icon-github"> 在 GitHub 上编辑</a>
     </li>
   </ul>
   <hr/>
@@ -302,22 +304,22 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="_1">升级设置<a class="headerlink" href="#_1" title="Permanent link">#</a></h1>
+                <h1 id="_1">升级设置</h1>
 <p>AirSim 1.2 中的设置架构已更改，以提高灵活性和界面简洁性。如果您有旧版的 <a href="../settings/">settings.json</a> 文件，您可以删除它并重新启动 AirSim，或者使用本指南进行手动升级。</p>
-<h2 id="_2">快捷方式<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
+<h2 id="_2">快捷方式</h2>
 <p>我们建议直接删除 <a href="../settings/">settings.json</a> 文件，然后重新添加所需的设置。有关可用设置的完整信息，请参阅 <a href="../settings/">文档</a> 。</p>
-<h2 id="_3">改变<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
-<h3 id="usagescenario">UsageScenario<a class="headerlink" href="#usagescenario" title="Permanent link">#</a></h3>
+<h2 id="_3">改变</h2>
+<h3 id="usagescenario">UsageScenario</h3>
 <p>之前我们使用 <code>UsageScenario</code> 来指定 <code>ComputerVision</code> 模式。现在我们改用 <code>"SimMode": "ComputerVision"</code>。</p>
-<h3 id="cameradefaults">CameraDefaults 和改变相机设置<a class="headerlink" href="#cameradefaults" title="Permanent link">#</a></h3>
+<h3 id="cameradefaults">CameraDefaults 和改变相机设置</h3>
 <p>之前，我们在根目录中有 <code>CaptureSettings</code> 和 <code>NoiseSettings</code>。现在，它们被合并到新的 CameraDefaults 元素中。 <a href="../settings/#camera_settings">此元素的架构</a> 稍后将用于配置车辆上的摄像头。</p>
-<h3 id="gimbal">Gimbal<a class="headerlink" href="#gimbal" title="Permanent link">#</a></h3>
+<h3 id="gimbal">Gimbal</h3>
 <p>现在，<a href="../settings/#Gimbal">Gimbal 元素</a> （而不是旧的 Gimble 元素）已移出 <code>CaptureSettings</code>。</p>
-<h3 id="cameraid-cameraname">CameraID 到 CameraName<a class="headerlink" href="#cameraid-cameraname" title="Permanent link">#</a></h3>
+<h3 id="cameraid-cameraname">CameraID 到 CameraName</h3>
 <p>现在所有设置都通过 <a href="../image_apis/#available_cameras">名称</a> 而不是 ID 来引用相机。</p>
-<h3 id="px4">使用 PX4<a class="headerlink" href="#px4" title="Permanent link">#</a></h3>
+<h3 id="px4">使用 PX4</h3>
 <p>新的“车辆”元素允许指定要创建的车辆。要使用 PX4，请参阅 <a href="../settings/#using_px4">本节</a> 。</p>
-<h3 id="additionalcameras">AdditionalCameras<a class="headerlink" href="#additionalcameras" title="Permanent link">#</a></h3>
+<h3 id="additionalcameras">AdditionalCameras</h3>
 <p>旧的<code>AdditionalCameras</code>设置现在被车辆设置中的 <a href="../settings/#Common_Vehicle_Setting">Cameras元素</a> 取代。</p>
               
             </div>
@@ -346,6 +348,10 @@
   <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
     
+        <span>
+          <a href="https://github.com/OpenHUTB/air_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
     
       <span><a href="../upgrade_apis/" style="color: #fcfcfc">&laquo; 前一页</a></span>
     
@@ -358,8 +364,13 @@
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

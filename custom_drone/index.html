@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
     
       <script>
         // Current page data
@@ -277,6 +278,7 @@
           <li class="breadcrumb-item">杂项</li>
       <li class="breadcrumb-item active">真实无人机上的 AirSim</li>
     <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/custom_drone.md" class="icon icon-github"> 在 GitHub 上编辑</a>
     </li>
   </ul>
   <hr/>
@@ -284,7 +286,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="airlib">在真正的无人机上使用 AirLib<a class="headerlink" href="#airlib" title="Permanent link">#</a></h1>
+                <h1 id="airlib">在真正的无人机上使用 AirLib</h1>
 <p>AirLib 库可以编译并部署到真实无人机的配套计算机上。在我们的测试中，我们将一台技嘉 Brix BXi7-5500 超紧凑型 PC 安装在无人机上，并通过 USB 连接到 Pixhawk 飞行控制器。这台技嘉 PC 运行的是 Ubuntu 系统，因此我们可以通过 Wi-Fi SSH 连接到它：</p>
 <p><img alt="Flamewheel" src="../images/Flamewheel.png" /></p>
 <p>连接成功后，您可以使用以下命令行运行 MavLinkTest：
@@ -301,7 +303,7 @@ orbit 10 2</code></p>
 <p>在 MavLinkTest 和 DroneShell 中，某些命令（例如 <code>orbit</code>）的名称不同，语法也不同（例如 <code>circlebypath -radius 10 -velocity 21</code>）。</p>
 </div>
 <p>无人机着陆后，您可以停止 MavLinkTest 并复制生成的 *.mavlink 日志文件。</p>
-<h1 id="droneserver-droneshell">DroneServer 和 DroneShell<a class="headerlink" href="#droneserver-droneshell" title="Permanent link">#</a></h1>
+<h1 id="droneserver-droneshell">DroneServer 和 DroneShell</h1>
 <p>确认 MavLinkTest 运行正常后，您还可以按如下方式运行 DroneServer 和 DroneShell。首先，使用本地代理运行 MavLinkTest，将所有数据发送到 DroneServer：</p>
 <p><code>MavLinkTest -serial:/dev/ttyACM0,115200 -logdir:. -proxy:127.0.0.1:14560</code>
 将 ~/Documents/AirSim/settings.json 中改为 "serial":false，因为我们希望 DroneServer 查找此 UDP 连接。</p>
@@ -319,9 +321,9 @@ DroneShell
 ==||=&gt; takeoff
 ==||=&gt; circlebypath -radius 10 -velocity 2
 ```</p>
-<h2 id="px4">PX4 专用工具<a class="headerlink" href="#px4" title="Permanent link">#</a></h2>
+<h2 id="px4">PX4 专用工具</h2>
 <p>您可以运行 MavlinkCom 库和 MavLinkTest 应用程序来测试您的配套计算机和飞行控制器之间的连接。</p>
-<h2 id="_1">这是如何运作的？<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
+<h2 id="_1">这是如何运作的？</h2>
 <p>AirSim 使用了由 @lovettchris 开发的 MavLinkCom 组件。MavLinkCom 采用代理架构，您可以使用串口或 UDP 协议与 PX4 建立连接，其他组件可以共享此连接。当 PX4 发送 MavLink 消息时，所有组件都会收到该消息。如果某个组件发送消息，则只有 PX4 会收到该消息。这使得您可以将任意数量的组件连接到 PX4。<a href="https://github.com/microsoft/AirSim/blob/main/AirLib/include/vehicles/multirotor/firmwares/mavlink/MavLinkMultirotorApi.hpp#L600">该代码</a> 为 LogViewer 和 QGC 打开连接。您可以根据需要添加更多功能。</p>
 <p>如果要同时使用 QGC 和 AirSim，则需要将串口分配给 QGC 使用。QGC 会打开一个 TCP 连接作为代理，这样任何其他组件都可以连接到 QGC 并向 QGC 发送 MavLinkMessage 消息，然后 QGC 会将该消息转发给 PX4。因此，您需要指示 AirSim 连接到 QGC 并将串口分配给 QGC 使用。</p>
 <p>对于配套控制板，我们之前的做法是在无人机上安装一块技嘉Brix主板。这是一台功能齐全的x86计算机，可以通过USB接口连接到PX4。Brix主板上安装了Ubuntu系统，并运行了 <a href="https://github.com/Microsoft/AirSim/tree/main/DroneServer">DroneServer</a> 软件。DroneServer创建了一个API接口，我们可以通过C++客户端代码（或Python代码）与之通信，并将API调用转换为MavLink消息。这样，就可以针对同一个API编写代码，在模拟器中进行测试，然后在实际飞行器上运行相同的代码。因此，配套计算机上运行着DroneServer以及客户端代码。</p>
@@ -352,6 +354,10 @@ DroneShell
   <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
     
+        <span>
+          <a href="https://github.com/OpenHUTB/air_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
     
       <span><a href="../object_detection/" style="color: #fcfcfc">&laquo; 前一页</a></span>
     
@@ -364,8 +370,13 @@ DroneShell
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

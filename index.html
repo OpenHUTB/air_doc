@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/theme.css" />
     <link rel="stylesheet" href="css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="extra.css" rel="stylesheet" />
     
       <script>
         // Current page data
@@ -277,6 +278,7 @@
           <li class="breadcrumb-item">主页</li>
       <li class="breadcrumb-item active">主页</li>
     <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/README.md" class="icon icon-github"> 在 GitHub 上编辑</a>
     </li>
   </ul>
   <hr/>
@@ -284,7 +286,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h2 id="_1">低空模拟器<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
+                <h2 id="_1">低空模拟器</h2>
 <!-- Badges (flat): https://github.com/pudding0503/github-badge-collection -->
 <p align=center>
     <a href="https://github.com/OpenHUTB/air/actions">
@@ -303,7 +305,7 @@
 
 <p>该项目基于 <a href="https://github.com/microsoft/AirSim">AirSim</a> 项目，可单独使用，也可以将其作为一个插件集成到  HUTB 项目中，配置方法请参考 <a href="dev/add_plugin/">链接</a> 。</p>
 <p>2017年，微软研究院创建了 AirSim，作为人工智能研究和实验的模拟平台。2022 年微软调整战略，放弃了该项目的维护，我们在 AirSim 的基础之上继续开发，经过多年发展，这个研究项目已实现其目标，并取得了长足进展——成为共享研究代码和测试空中人工智能开发与模拟新想法的常用方式。此外，时间也推动了我们将技术应用于现实世界的方式不断进步，尤其是在空中机动和自主系统方面。例如，无人机送货不再是科幻故事，而是商业现实，这意味着新的需求需要满足。我们在此过程中收获颇丰，并感谢社区成员一直以来的积极参与。</p>
-<h1 id="_2">欢迎来到低空模拟器<a class="headerlink" href="#_2" title="Permanent link">#</a></h1>
+<h1 id="_2">欢迎来到低空模拟器</h1>
 <p>低空模拟器 Air 是一款基于虚幻引擎的无人机、汽车等模拟器。它是开源的跨平台仿真器，支持使用 PX4 和 ArduPilot 等主流飞行控制器进行软件在环仿真，以及使用 PX4 进行硬件在环仿真，以实现物理和视觉上逼真的模拟。它以虚幻插件的形式开发，可以轻松集成到任何虚幻环境中。</p>
 <p>我们的目标是将 Air 开发为一个人工智能研究平台，用于试验自动驾驶汽车的深度学习、计算机视觉和强化学习算法。为此，Air 还开放了 API，以便以独立于平台的方式检索数据和控制车辆。</p>
 <p><strong>观看 1.5 分钟的快速演示</strong></p>
@@ -311,8 +313,8 @@
 <p><a href="https://youtu.be/-WfTr1-OBGQ"><img alt="AirSim Drone Demo Video" src="images/demo_video.png" /></a></p>
 <p>Air 中的汽车</p>
 <p><a href="https://youtu.be/gnz1X3UNM5Y"><img alt="AirSim Car Demo Video" src="images/car_demo_video.png" /></a></p>
-<h2 id="_3">如何获取<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
-<h3 id="windows">Windows<a class="headerlink" href="#windows" title="Permanent link">#</a></h3>
+<h2 id="_3">如何获取</h2>
+<h3 id="windows">Windows</h3>
 <p><a href="https://github.com/OpenHUTB/air/actions/workflows/test_windows.yml"><img alt="Build Status" src="https://github.com/OpenHUTB/air/actions/workflows/test_windows.yml/badge.svg" /></a></p>
 <ul>
 <li>
@@ -322,7 +324,7 @@
 <p><a href="build_windows/">构建它</a></p>
 </li>
 </ul>
-<h3 id="linux">Linux<a class="headerlink" href="#linux" title="Permanent link">#</a></h3>
+<h3 id="linux">Linux</h3>
 <p><a href="https://github.comOpenHUTB/air/actions/workflows/test_ubuntu.yml"><img alt="Build Status" src="https://github.com/OpenHUTB/air/actions/workflows/test_ubuntu.yml/badge.svg" /></a></p>
 <ul>
 <li>
@@ -332,14 +334,14 @@
 <p><a href="build_linux/">构建它</a></p>
 </li>
 </ul>
-<h3 id="macos">macOS<a class="headerlink" href="#macos" title="Permanent link">#</a></h3>
+<h3 id="macos">macOS</h3>
 <p><a href="https://github.com/OpenHUTB/air/actions/workflows/test_macos.yml"><img alt="构建状态" src="https://github.com/OpenHUTB/air/actions/workflows/test_macos.yml/badge.svg" /></a></p>
 <ul>
 <li><a href="build_macos/">构建它</a></li>
 </ul>
 <p>有关更多详细信息，请参阅 <a href="docs/use_precompiled.md">使用预编译二进制文件</a> 文档。</p>
-<h2 id="_4">如何使用<a class="headerlink" href="#_4" title="Permanent link">#</a></h2>
-<h3 id="_5">快捷键效果 <span id="shortcut"></span><a class="headerlink" href="#_5" title="Permanent link">#</a></h3>
+<h2 id="_4">如何使用</h2>
+<h3 id="_5">快捷键效果 <span id="shortcut"></span></h3>
 <p>按 F10 查看各种可用的天气效果选项。您还可以使用 <a href="apis#weather-apis">APIs</a> 控制天气。按 F1 查看其他可用选项。</p>
 <p><img alt="record screenshot" src="images/weather_menu.png" /></p>
 <table>
@@ -432,12 +434,12 @@
 </tr>
 </tbody>
 </table>
-<h3 id="_6">手动控制<a class="headerlink" href="#_6" title="Permanent link">#</a></h3>
+<h3 id="_6">手动控制</h3>
 <p>如果您拥有如下所示的遥控器 (Remote Control, RC)，则可以在模拟器中手动控制无人机。对于汽车，您可以使用箭头键手动驾驶。</p>
 <p><a href="remote_control/">更多详细信息</a></p>
 <p><img alt="record screenshot" src="images/AirSimDroneManual.gif" /></p>
 <p><img alt="record screenshot" src="images/AirSimCarManual.gif" /></p>
-<h3 id="_7">程序控制<a class="headerlink" href="#_7" title="Permanent link">#</a></h3>
+<h3 id="_7">程序控制</h3>
 <p>Air 提供 API，方便您在模拟中以编程方式与飞行器进行交互。您可以使用这些 API 检索图像、获取状态、控制飞行器等等。这些 API 通过 RPC 公开，并可通过多种语言访问，包括 C++、Python、C# 和 Java。</p>
 <p>这些 API 也可作为独立的跨平台库的一部分使用，因此您可以将它们部署到车辆的配套计算机上。这样，您就可以在模拟器中编写和测试代码，然后在真实车辆上执行。迁移学习及相关研究是我们的重点领域之一。</p>
 <p>请注意，您可以使用 <a href="settings/#simmode">SimMode 设置</a> 来指定默认车辆或新的 ComputerVision 模式，这样您就不会在每次启动 AirSim 时收到提示。</p>
@@ -449,14 +451,14 @@
 <p><a href="apis/">更多详细 API 信息</a></p>
 </li>
 </ul>
-<h3 id="_8">收集训练数据<a class="headerlink" href="#_8" title="Permanent link">#</a></h3>
+<h3 id="_8">收集训练数据</h3>
 <p>您可以通过两种方式从 AirSim 生成用于深度学习的训练数据。最简单的方法是直接按下右下角的“录制”按钮。这将开始记录每一帧的姿势和图像。数据记录代码非常简单，您可以根据自己的喜好进行修改。</p>
 <p><img alt="record screenshot" src="images/record_data.png" /></p>
 <p>按照您所需的方式生成训练数据的更好方法是访问 API。这使您可以完全控制记录数据的方式、内容、位置和时间。</p>
-<h3 id="_9">计算机视觉模式<a class="headerlink" href="#_9" title="Permanent link">#</a></h3>
+<h3 id="_9">计算机视觉模式</h3>
 <p>AirSim 的另一种使用方式是所谓的“计算机视觉”模式。在此模式下，您无需使用车辆或物理引擎。您可以使用键盘在场景中移动，或使用 API 将可用的摄像头定位到任意姿势，并收集诸如深度、视差、表面法线或物体分割等图像。</p>
 <p><a href="image_apis/">更多详细信息</a></p>
-<h2 id="_10">教程<a class="headerlink" href="#_10" title="Permanent link">#</a></h2>
+<h2 id="_10">教程</h2>
 <ul>
 <li><a href="https://youtu.be/1oY8Qu5maQQ">视频 - 使用 Pixhawk 教程设置 AirSim</a> </li>
 <li><a href="https://youtu.be/HNWdYrtw3f0">视频 - 使用 AirSim 和 Pixhawk 教程</a></li>
@@ -466,8 +468,8 @@
 <li><a href="https://aka.ms/AutonomousDrivingCookbook">自动驾驶烹饪手册</a> </li>
 <li><a href="https://github.com/simondlevy/AirSimTensorFlow">使用 TensorFlow 实现简单的防碰撞</a> </li>
 </ul>
-<h2 id="_11">参加<a class="headerlink" href="#_11" title="Permanent link">#</a></h2>
-<h3 id="_12">论文<a class="headerlink" href="#_12" title="Permanent link">#</a></h3>
+<h2 id="_11">参加</h2>
+<h3 id="_12">论文</h3>
 <p>更多技术细节请参阅 <a href="https://arxiv.org/abs/1705.05065">AirSim 论文（FSR 2017 会议）)</a> 。请引用：</p>
 <p><code>@inproceedings{airsim2017fsr,
   author = {Shital Shah and Debadeepta Dey and Chris Lovett and Ashish Kapoor},
@@ -477,18 +479,18 @@
   eprint = {arXiv:1705.05065},
   url = {https://arxiv.org/abs/1705.05065}
 }</code></p>
-<h3 id="_13">贡献<a class="headerlink" href="#_13" title="Permanent link">#</a></h3>
+<h3 id="_13">贡献</h3>
 <p>如果您正在寻找可以做出贡献的领域，请查看 <a href="https://github.com/OpenHUTB/air/issues">未解决的问题</a> 。</p>
 <ul>
 <li><a href="design/">更多关于 AirSim 设计的信息</a></li>
 <li><a href="code_structure/">有关代码结构的更多信息</a></li>
 <li><a href="CONTRIBUTING/">贡献指南</a></li>
 </ul>
-<h3 id="airsim">谁在使用 AirSim？<a class="headerlink" href="#airsim" title="Permanent link">#</a></h3>
+<h3 id="airsim">谁在使用 AirSim？</h3>
 <p>我们维护着一份我们所知的一些项目、人员和团体的 <a href="who_is_using/">列表</a> 。如果您希望被收录在此列表中，请 <a href="https://github.com/OpenHUTB/air/issues">在此处提交申请</a> 。</p>
-<h2 id="_14">联系<a class="headerlink" href="#_14" title="Permanent link">#</a></h2>
+<h2 id="_14">联系</h2>
 <p>加入我们的 <a href="https://github.com/OpenHUTB/air/discussions">GitHub 讨论组</a> 以了解最新动态或提出任何问题。</p>
-<h2 id="_15">最新动态<a class="headerlink" href="#_15" title="Permanent link">#</a></h2>
+<h2 id="_15">最新动态</h2>
 <ul>
 <li><a href="dev/Carla_Air/">融合 Carla 与 AirSim</a></li>
 <li><a href="./module/modules_list.md">模块分析</a></li>
@@ -510,11 +512,11 @@
 <li><a href="https://github.com/microsoft/AirSim/pulls?page=6&amp;q=is%3Apr+is%3Aclosed+sort%3Aupdated-desc#:~:text=1-,Control%20manual%20camera%20speed%20through%20the%20keyboard,-%233221%20by%20saihv">通过键盘控制手动相机速度</a> </li>
 </ul>
 <p>如需查看完整的变更列表，请查看我们的 <a href="docs/CHANGELOG.md">变更日志</a></p>
-<h2 id="_16">常问问题<a class="headerlink" href="#_16" title="Permanent link">#</a></h2>
+<h2 id="_16">常问问题</h2>
 <p>如果您遇到问题，请查看 <a href="faq/">常见问题解答</a> 并随时在 <a href="https://github.com/OpenHUTB/air/issues">AirSim</a> 存储库中发布问题。</p>
-<h2 id="_17">行为守则<a class="headerlink" href="#_17" title="Permanent link">#</a></h2>
+<h2 id="_17">行为守则</h2>
 <p>本项目已采用 <a href="https://opensource.microsoft.com/codeofconduct/">微软开源行为准则</a> 。更多信息请参阅行为准则常见问题解答，或联系 <a href="mailto:open@hutb.edu.cn">open@hutb.edu.cn</a> 提出其他问题或意见。</p>
-<h2 id="_18">许可证<a class="headerlink" href="#_18" title="Permanent link">#</a></h2>
+<h2 id="_18">许可证</h2>
 <p>本项目遵循 MIT 许可证发布。请查看 <a href="LICENSE">许可证文件</a> 了解更多详情。</p>
               
             </div>
@@ -542,6 +544,10 @@
   <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
     
+        <span>
+          <a href="https://github.com/OpenHUTB/air_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
     
     
       <span><a href="use_precompiled/" style="color: #fcfcfc">后一页 &raquo;</a></span>
@@ -552,8 +558,13 @@
     <script>var base_url = ".";</script>
     <script src="js/theme_extra.js"></script>
     <script src="js/theme.js"></script>
-      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="js/umlconvert.js"></script>
       <script src="search/main.js"></script>
     <script>
         jQuery(function () {

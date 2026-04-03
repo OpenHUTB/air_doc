@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra.css" rel="stylesheet" />
     
       <script>
         // Current page data
@@ -274,6 +275,7 @@
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
       <li class="breadcrumb-item active">CarlaAir 所有修改清单</li>
     <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/dev/modifications.md" class="icon icon-github"> 在 GitHub 上编辑</a>
     </li>
   </ul>
   <hr/>
@@ -281,9 +283,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="carlaair">CarlaAir 所有修改清单<a class="headerlink" href="#carlaair" title="Permanent link">#</a></h1>
+                <h1 id="carlaair">CarlaAir 所有修改清单</h1>
 <p>本文档列出了 CarlaAir 相对于原版 Carla 0.9.16 和 AirSim 的所有代码修改，方便开发者精确了解改动范围。</p>
-<h2 id="_1">修改统计<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
+<h2 id="_1">修改统计</h2>
 <table>
 <thead>
 <tr>
@@ -315,8 +317,8 @@
 </tr>
 </tbody>
 </table>
-<h2 id="_2">详细修改<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
-<h3 id="1-simworldgamemodeh-airsim">1. [新建] SimWorldGameMode.h  (位于 AirSim 插件中)<a class="headerlink" href="#1-simworldgamemodeh-airsim" title="Permanent link">#</a></h3>
+<h2 id="_2">详细修改</h2>
+<h3 id="1-simworldgamemodeh-airsim">1. [新建] SimWorldGameMode.h  (位于 AirSim 插件中)</h3>
 <p><strong>路径</strong>: <code>Unreal/CarlaUE4/Plugins/AirSim/Source/SimWorldGameMode.h</code>
 <strong>行数</strong>: 75 行
 <strong>放置在 AirSim 插件目录的原因</strong>: 需要引用 AirSim 头文件 (SimHUDWidget.h, SimModeBase.h, PIPCamera.h, AirSimSettings.hpp)</p>
@@ -331,7 +333,7 @@ class AIRSIM_API ASimWorldGameMode : public ACarlaGameModeBase</code></p>
 - <code>USimHUDWidget* Widget_</code> — AirSim HUD 控件
 - <code>ASimModeBase* SimMode_</code> — AirSim 模拟模式 Actor
 - <code>APIPCamera* SubwindowCameras_[3]</code> — 子窗口相机</p>
-<h3 id="2-simworldgamemodecpp-airsim">2. [新建] SimWorldGameMode.cpp  (位于 AirSim 插件中)<a class="headerlink" href="#2-simworldgamemodecpp-airsim" title="Permanent link">#</a></h3>
+<h3 id="2-simworldgamemodecpp-airsim">2. [新建] SimWorldGameMode.cpp  (位于 AirSim 插件中)</h3>
 <p><strong>路径</strong>: <code>Unreal/CarlaUE4/Plugins/AirSim/Source/SimWorldGameMode.cpp</code>
 <strong>行数</strong>: 548 行</p>
 <p><strong>关键实现</strong>:</p>
@@ -396,7 +398,7 @@ class AIRSIM_API ASimWorldGameMode : public ACarlaGameModeBase</code></p>
 </tr>
 </tbody>
 </table>
-<h3 id="3-carlagamemodebaseh">3. [修改] CarlaGameModeBase.h<a class="headerlink" href="#3-carlagamemodebaseh" title="Permanent link">#</a></h3>
+<h3 id="3-carlagamemodebaseh">3. [修改] CarlaGameModeBase.h</h3>
 <p><strong>路径</strong>: <code>Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Game/CarlaGameModeBase.h</code>
 <strong>修改量</strong>: 2 处，约 4 行</p>
 <p><strong>修改前</strong> (在 <code>private:</code> 区域，注意，也在 public 里!):
@@ -418,7 +420,7 @@ TArray&lt;TSubclassOf&lt;ACarlaActorFactory&gt;&gt; ActorFactories;
 </code></pre>
 <p>```</p>
 <p><strong>影响</strong>: 仅影响访问权限，不改变运行时行为。子类 ASimWorldGameMode 可以在构造函数中设置这些属性。</p>
-<h3 id="4-carlaepisodeh">4. [修改] CarlaEpisode.h<a class="headerlink" href="#4-carlaepisodeh" title="Permanent link">#</a></h3>
+<h3 id="4-carlaepisodeh">4. [修改] CarlaEpisode.h</h3>
 <p><strong>路径</strong>: <code>Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Game/CarlaEpisode.h</code>
 <strong>修改量</strong>: 1 处，2 行</p>
 <p><strong>添加位置</strong>: 类声明内部，约第 338 行</p>
@@ -426,7 +428,7 @@ TArray&lt;TSubclassOf&lt;ACarlaActorFactory&gt;&gt; ActorFactories;
 friend class ASimModeBase;
 friend class ASimWorldGameMode;</code></p>
 <p><strong>影响</strong>: 允许 SimWorldGameMode 直接访问 Episode 的私有成员（主要是 <code>Spectator</code> 和 <code>ActorDispatcher</code>），用于注册手动创建的 SpectatorPawn。</p>
-<h3 id="5-simmodebasecpp-airsim">5. [修改] SimModeBase.cpp (位于 AirSim 插件中)<a class="headerlink" href="#5-simmodebasecpp-airsim" title="Permanent link">#</a></h3>
+<h3 id="5-simmodebasecpp-airsim">5. [修改] SimModeBase.cpp (位于 AirSim 插件中)</h3>
 <p><strong>路径</strong>: <code>Unreal/CarlaUE4/Plugins/AirSim/Source/SimMode/SimModeBase.cpp</code>
 <strong>修改量</strong>: 1 处，约 6 行</p>
 <p><strong>修改前</strong> (~第 119 行):
@@ -448,23 +450,23 @@ global_ned_transform_.reset(new NedTransform(player_start_transform,
 <p class="admonition-title">注意</p>
 <p>请勿在此处调用 <code>SetNewWorldOrigin()</code>。在 CarlaAir（Carla + AirSim 集成）中，移动世界原点会破坏 Carla 的地形/道路碰撞检测，导致所有地面车辆穿过地图（约 30 米深）。<code>NedTransform</code> 方法使用原始的 <code>player_start_transform</code> 进行初始化，这样无需移动世界即可正确用作 AirSim 坐标转换的 NED 原点。</p>
 </div>
-<h3 id="6-defaultgameini">6. [修改] DefaultGame.ini<a class="headerlink" href="#6-defaultgameini" title="Permanent link">#</a></h3>
+<h3 id="6-defaultgameini">6. [修改] DefaultGame.ini</h3>
 <p><strong>路径</strong>: <code>Unreal/CarlaUE4/Config/DefaultGame.ini</code>
 <strong>修改量</strong>: 新增约 8 行</p>
 <p><strong>新增内容</strong>:
 ```ini</p>
-<h1 id="airsim-content-directories-to-cook">AirSim content directories to cook<a class="headerlink" href="#airsim-content-directories-to-cook" title="Permanent link">#</a></h1>
+<h1 id="airsim-content-directories-to-cook">AirSim content directories to cook</h1>
 <p>+DirectoriesToAlwaysCook=(Path="/AirSim/Blueprints")
 +DirectoriesToAlwaysCook=(Path="/AirSim/HUDAssets")
 +DirectoriesToAlwaysCook=(Path="/AirSim/Models")
 +DirectoriesToAlwaysCook=(Path="/AirSim/Weather")
 +DirectoriesToAlwaysCook=(Path="/AirSim/StarterContent")
 +DirectoriesToAlwaysCook=(Path="/AirSim/VehicleAdv")</p>
-<h1 id="airsim-assets-map">AirSim assets map<a class="headerlink" href="#airsim-assets-map" title="Permanent link">#</a></h1>
+<h1 id="airsim-assets-map">AirSim assets map</h1>
 <p>+MapsToCook=(FilePath="/AirSim/AirSimAssets")
 ```</p>
 <p><strong>影响</strong>: 打包时包含所有 AirSim 资源（无人机模型、HUD、天气特效等），共 340 个文件。</p>
-<h2 id="_3">未修改的关键文件（供参考）<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
+<h2 id="_3">未修改的关键文件（供参考）</h2>
 <p>以下文件是原版 Carla/AirSim 的，未做修改但对理解系统重要：</p>
 <ul>
 <li><code>CarlaGameModeBase.cpp</code> — Carla GameMode 实现</li>
@@ -497,6 +499,10 @@ global_ned_transform_.reset(new NedTransform(player_start_transform,
   <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
     
+        <span>
+          <a href="https://github.com/OpenHUTB/air_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
     
     
   </span>
@@ -505,8 +511,13 @@ global_ned_transform_.reset(new NedTransform(player_start_transform,
     <script>var base_url = "../..";</script>
     <script src="../../js/theme_extra.js"></script>
     <script src="../../js/theme.js"></script>
-      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
       <script src="../../search/main.js"></script>
     <script>
         jQuery(function () {

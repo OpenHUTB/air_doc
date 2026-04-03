@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../../../css/theme.css" />
     <link rel="stylesheet" href="../../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../../extra.css" rel="stylesheet" />
     
       <script>
         // Current page data
@@ -303,6 +304,7 @@
           <li class="breadcrumb-item">杂项</li>
       <li class="breadcrumb-item active">大学生方程式赛车以色列理工学院自驾赛</li>
     <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/wiki/technion/technion.md" class="icon icon-github"> 在 GitHub 上编辑</a>
     </li>
   </ul>
   <hr/>
@@ -310,7 +312,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="-airsim">方程式学生以色列理工学院无人驾驶赛车 - 基于 AirSim<a class="headerlink" href="#-airsim" title="Permanent link">#</a></h1>
+                <h1 id="-airsim">方程式学生以色列理工学院无人驾驶赛车 - 基于 AirSim</h1>
 <p>要查看 AirSim git 和原始 README，请转到 <a href="https://github.com/Microsoft/AirSim">AirSim git</a>。</p>
 <p>该项目旨在为方程式学生无人驾驶赛车比赛训练和实现自动驾驶算法。在此类比赛中，一辆由学生设计和制造的方程式赛车需要穿越之前从未见过的、由交通锥标记的赛道。
 我们提供了一个用于方程式学生赛车和无人驾驶赛车比赛环境的模拟器。该模拟器基于 AirSim。</p>
@@ -322,38 +324,38 @@
 <p>环境场景由 <a href="https://www.polypixel3d.com/">PolyPixel</a> 提供。</p>
 <p><img alt="imitation learning" src="../../images/technion/imitation_learning_real_example.gif" /><br />
 <em>仅基于 AirSim 数据，使用经过训练的模仿学习模型在现实世界中驾驶</em>  </p>
-<h2 id="_1">先决条件<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
+<h2 id="_1">先决条件</h2>
 <ul>
 <li>操作系统：Windows 10</li>
 <li>GPU: Nvidia GTX 1080 或更高版本（推荐）</li>
 <li>软件: Unreal Engine 4.18 和 Visual Studio 2017 (see <a href="https://github.com/Microsoft/AirSim/blob/master/docs/unreal_upgrade.md">upgrade instructions</a>)</li>
 <li>注意：此存储库是从 AirSim 1.2 分支出来的</li>
 </ul>
-<h2 id="_2">如何获取<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
-<h3 id="windows">Windows<a class="headerlink" href="#windows" title="Permanent link">#</a></h3>
+<h2 id="_2">如何获取</h2>
+<h3 id="windows">Windows</h3>
 <ul>
 <li><a href="../build_FSTDriverless_windows/">构建</a></li>
 </ul>
-<h2 id="_3">如何使用<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
-<h3 id="_4">选择模式：汽车、多旋翼或计算机视觉<a class="headerlink" href="#_4" title="Permanent link">#</a></h3>
+<h2 id="_3">如何使用</h2>
+<h3 id="_4">选择模式：汽车、多旋翼或计算机视觉</h3>
 <p>默认情况下，AirSim 会提示您选择“Car”或“Multirotor”模式。您可以使用 <a href="https://github.com/Microsoft/AirSim/blob/master/docs/settings.md#simmode">SimMode 设置</a> 将默认车辆指定为“Car”（Formula Technion Student 赛车）。</p>
-<h3 id="_5">手动驾驶<a class="headerlink" href="#_5" title="Permanent link">#</a></h3>
+<h3 id="_5">手动驾驶</h3>
 <p>如果您有如下所示的方向盘（罗技 G920），您可以在模拟器中手动控制车辆。您也可以使用箭头键手动驾驶。</p>
 <p><a href="../../../steering_wheel_installation/">更多细节</a></p>
 <p><img alt="steering_wheel" src="../../images/steering_wheel.gif" /></p>
-<h3 id="_6">利用模仿学习来驾驶汽车<a class="headerlink" href="#_6" title="Permanent link">#</a></h3>
+<h3 id="_6">利用模仿学习来驾驶汽车</h3>
 <p>我们利用模仿学习训练了一个深度学习模型，使其能够仅通过一个摄像头作为输入来驾驶一辆方程式赛车。我们的训练代码文件可在 <a href="https://github.com/FSTDriverless/AirSim/tree/master/PythonClient/imitation_learning">此处</a> 获取，这些代码文件基于 <a href="https://github.com/Microsoft/AutonomousDrivingCookbook">AirSim cookbook</a>。</p>
-<h3 id="_7">收集训练数据<a class="headerlink" href="#_7" title="Permanent link">#</a></h3>
+<h3 id="_7">收集训练数据</h3>
 <p>我们添加了一些<a href="../graphic_features/">图形功能</a>，以简化数据记录过程。
 您可以使用<a href="../cameras_positioning/">此</a>教程更改摄像机的位置。</p>
 <p>您可以通过两种方式从 AirSim 生成用于深度学习的训练数据。最简单的方法是直接点击右下角的“记录”按钮。这将开始记录每一帧的姿势和图像。数据记录代码非常简单，您可以根据自己的喜好进行修改。</p>
 <p><img alt="record screenshot" src="../../images/technion/recording_button_small.png" /></p>
 <p>按照您所需的方式生成训练数据的更好方法是访问 API。这使您可以完全控制记录数据的方式、内容、位置和时间。</p>
-<h3 id="_8">实车实现<a class="headerlink" href="#_8" title="Permanent link">#</a></h3>
+<h3 id="_8">实车实现</h3>
 <p>您可以在此 <a href="https://github.com/FSTDriverless/FSTImplementation">存储库</a> 中找到我们在 Nvidia Jetson TX2 上对该算法的实现。</p>
-<h3 id="_9">方程式大学生以色列理工学院算法团队<a class="headerlink" href="#_9" title="Permanent link">#</a></h3>
+<h3 id="_9">方程式大学生以色列理工学院算法团队</h3>
 <p><a href="https://www.linkedin.com/in/tom-hirshberg-93935b16b/">Tom Hirshberg</a>, <a href="https://www.linkedin.com/in/dean-zadok-36886791/">Dean Zadok</a> 和 <a href="https://www.linkedin.com/in/amir-biran-199891125/">Amir Biran</a>.  </p>
-<h3 id="_10">致谢<a class="headerlink" href="#_10" title="Permanent link">#</a></h3>
+<h3 id="_10">致谢</h3>
 <p>我们要感谢我们的导师：Kira Radinsky 博士、Ashish Kapoor 博士和 Boaz Sternfeld。
 感谢以色列理工学院智能系统实验室 (ISL) 的支持。</p>
               
@@ -383,6 +385,10 @@
   <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
     
+        <span>
+          <a href="https://github.com/OpenHUTB/air_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
     
       <span><a href="../../../working_with_plugin_contents/" style="color: #fcfcfc">&laquo; 前一页</a></span>
     
@@ -395,8 +401,13 @@
     <script>var base_url = "../../..";</script>
     <script src="../../../js/theme_extra.js"></script>
     <script src="../../../js/theme.js"></script>
-      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../../js/umlconvert.js"></script>
       <script src="../../../search/main.js"></script>
     <script>
         jQuery(function () {

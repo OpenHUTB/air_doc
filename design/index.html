@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
     
       <script>
         // Current page data
@@ -277,6 +278,7 @@
           <li class="breadcrumb-item">设计</li>
       <li class="breadcrumb-item active">架构</li>
     <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/design.md" class="icon icon-github"> 在 GitHub 上编辑</a>
     </li>
   </ul>
   <hr/>
@@ -284,7 +286,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="_1">论文<a class="headerlink" href="#_1" title="Permanent link">#</a></h1>
+                <h1 id="_1">论文</h1>
 <p>您可以阅读 <a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2017/02/aerial-informatics-robotics.pdf">正在撰写的论文（暂未完成）</a> 了解更多关于架构和设计方面的信息。您可以这样引用：</p>
 <p><code>@techreport{MSR-TR-2017-9,
      title = { {A}erial {I}nformatics and {R}obotics Platform },
@@ -293,7 +295,7 @@
      institution = {Microsoft Research},
      number = { {M}{S}{R}-{T}{R}-2017-9} }
 }</code></p>
-<h1 id="_2">架构<a class="headerlink" href="#_2" title="Permanent link">#</a></h1>
+<h1 id="_2">架构</h1>
 <p>下面概述了不同组件之间如何相互作用。</p>
 <p><img alt="architecture diagram" src="../paper/overview.png" /></p>
               
@@ -323,6 +325,10 @@
   <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
     
+        <span>
+          <a href="https://github.com/OpenHUTB/air_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
     
       <span><a href="../event_sim/" style="color: #fcfcfc">&laquo; 前一页</a></span>
     
@@ -335,8 +341,13 @@
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

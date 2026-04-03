@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
     
       <script>
         // Current page data
@@ -288,6 +289,7 @@
           <li class="breadcrumb-item">MavLink 和 PX4</li>
       <li class="breadcrumb-item active">MavLink 日志查看器</li>
     <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/log_viewer.md" class="icon icon-github"> 在 GitHub 上编辑</a>
     </li>
   </ul>
   <hr/>
@@ -295,17 +297,17 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="_1">日志查看器<a class="headerlink" href="#_1" title="Permanent link">#</a></h1>
+                <h1 id="_1">日志查看器</h1>
 <p>LogViewer 是一款 Windows WPF 应用，用于显示从虚幻模拟器获取的 MavLink 数据流。
 您可以使用它来监控无人机飞行过程中的运行情况。
 例如，下图显示了模拟器生成的 x、y 和 z 陀螺仪传感器信息的实时图表。</p>
-<h3 id="_2">使用<a class="headerlink" href="#_2" title="Permanent link">#</a></h3>
+<h3 id="_2">使用</h3>
 <p>您可以打开一个日志文件，它支持 .mavlink 和 PX4 *.ulg 文件，然后您将在左侧的树状视图中看到日志的内容，您选择的任何指标都将添加到右侧。
 您可以使用每个图表右上角的小关闭框关闭每个图表，
 并且您可以使用顶部工具栏上的“分组图表”按钮将图表分组，使它们共享相同的纵轴。</p>
 <p><img alt="Log Viewer" src="../images/log_viewer.png" /></p>
 <p>还有一个地图选项，可以绘制无人机的 GPS 路径。您还可以加载多个日志文件，以便比较每个日志文件的数据。</p>
-<h3 id="_3">实时<a class="headerlink" href="#_3" title="Permanent link">#</a></h3>
+<h3 id="_3">实时</h3>
 <p>如果在运行模拟之前连接 LogViewer，您还可以获得实时视图。</p>
 <p><img alt="connect" src="../images/log_viewer_connect.png" /></p>
 <p>为了使其正常工作，您需要使用以下设置配置 <code>settings.json</code>：
@@ -325,11 +327,11 @@
 <p>如果您确实选择了 <code>vEthernet (WSL)</code>，那么请确保您还将 <code>LocalHostIp</code> 和 <code>LogViewerHostIp</code> 设置为匹配的 WSL 以太网地址，例如 <code>172.31.64.1</code>。</p>
 <p>然后按下记录按钮（工具栏右侧的三角形）。现在启动模拟器，数据将开始流入 LogViewer。</p>
 <p>日志查看器中的无人机视图显示了来自 PX4 的实际估算位置，因此这是检查 PX4 是否与模拟器同步的好方法。有时，随着姿态估算与实际情况的同步，您可能会看到一些漂移，在发生严重碰撞后，这种情况会更加明显。</p>
-<h3 id="_4">安装<a class="headerlink" href="#_4" title="Permanent link">#</a></h3>
+<h3 id="_4">安装</h3>
 <p>如果您无法构建 LogViewer.sln，还可以 <a href="https://lovettsoftwarestorage.blob.core.windows.net/downloads/Px4LogViewer/Px4LogViewer.application">单击一次安装程序。</a> 。</p>
-<h3 id="_5">配置<a class="headerlink" href="#_5" title="Permanent link">#</a></h3>
+<h3 id="_5">配置</h3>
 <p>您可以通过编辑 [settings.json 文件) 在模拟器中配置魔术端口号 14388。如果您在 LogViewer 连接对话框中更改了端口号，请确保在 <code>settings.json</code> 文件中进行相应的更改。</p>
-<h3 id="_6">调试<a class="headerlink" href="#_6" title="Permanent link">#</a></h3>
+<h3 id="_6">调试</h3>
 <p>有关如何使用 LogViewer 调试您正在设置的情况的更多信息，请参阅 <a href="../px4_logging/">PX4 日志记录</a> 。</p>
               
             </div>
@@ -358,6 +360,10 @@
   <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
     
+        <span>
+          <a href="https://github.com/OpenHUTB/air_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
     
       <span><a href="../px4_logging/" style="color: #fcfcfc">&laquo; 前一页</a></span>
     
@@ -370,8 +376,13 @@
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

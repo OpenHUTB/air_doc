@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
     
       <script>
         // Current page data
@@ -291,6 +292,7 @@
           <li class="breadcrumb-item">设计</li>
       <li class="breadcrumb-item active">添加新的 APIs</li>
     <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/adding_new_apis.md" class="icon icon-github"> 在 GitHub 上编辑</a>
     </li>
   </ul>
   <hr/>
@@ -298,15 +300,15 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="airsim-api">向 AirSim 添加新的 API<a class="headerlink" href="#airsim-api" title="Permanent link">#</a></h1>
+                <h1 id="airsim-api">向 AirSim 添加新的 API</h1>
 <p>添加新的 API 需要修改源代码。许多更改是机械的，并且是 AirSim 支持的各个抽象级别所必需的。下面列出了需要修改的主要文件，并附上了一些提交和 PR 以供演示。PR 或提交的特定部分可能在某些地方有链接，但查看完整的 diff 有助于更好地了解工作流程。此外，如果您不确定如何进行更改或需要获取反馈，请随时提交问题或 PR 草稿。</p>
-<h2 id="api">实现 API<a class="headerlink" href="#api" title="Permanent link">#</a></h2>
+<h2 id="api">实现 API</h2>
 <p>在添加包装器代码来调用和处理 API 之前，需要先实现它。具体实现的文件取决于它的具体功能。下面给出了一些示例，希望能帮助您入门。</p>
-<h3 id="api_1">基于车辆的 API<a class="headerlink" href="#api_1" title="Permanent link">#</a></h3>
+<h3 id="api_1">基于车辆的 API</h3>
 <p><code>moveByVelocityBodyFrameAsync</code> API 用于多旋翼飞行器 X-Y 框架中基于速度的运动。</p>
 <p>主要实现在 <a href="https://github.com/microsoft/AirSim/pull/3169/files#diff-29ac01a05077b6e8e1f09221a113f779c952a80dc8823725eb451a9fc5d7de5f">MultirotorBaseApi.cpp</a> 中完成，其中实现了大多数多旋翼 API。</p>
 <p>在某些情况下，可能需要额外的结构来存储数据，<a href="https://github.com/microsoft/AirSim/pull/3242"><code>getRotorStates</code> API</a> 就是一个很好的例子，这里 <code>RotorStates</code> 结构体在两处被定义，用于从 RPC 转换为内部代码。此外，它还需要在 AirLib 以及 Unreal/Plugins 中进行修改才能实现。</p>
-<h3 id="api_2">环境相关的 API<a class="headerlink" href="#api_2" title="Permanent link">#</a></h3>
+<h3 id="api_2">环境相关的 API</h3>
 <p>这些 API 需要与模拟环境本身交互，因此很可能在 <code>Unreal/Plugins</code> 文件夹中实现。</p>
 <ul>
 <li>
@@ -316,9 +318,9 @@
 <p><code>simAddVehicle</code> API 用于在运行时创建车辆 - <a href="https://github.com/microsoft/AirSim/pull/2390/files#diff-fcc0aa1fbc74a924fccd12589295aceeea59074c94256eccba7df3ce85d3a26c">SimMode*, WorldSimApi 文件</a> </p>
 </li>
 </ul>
-<h3 id="api_3">物理相关的 API<a class="headerlink" href="#api_3" title="Permanent link">#</a></h3>
+<h3 id="api_3">物理相关的 API</h3>
 <p><code>simSetWind</code> API 展示了一个修改物理行为并为其添加 API + 设置字段的示例。有关代码的详细信息，请参阅 <a href="https://github.com/microsoft/AirSim/pull/2867">PR</a>。</p>
-<h2 id="rpc">RPC 包装器<a class="headerlink" href="#rpc" title="Permanent link">#</a></h2>
+<h2 id="rpc">RPC 包装器</h2>
 <p>这些 API 通过 <a href="https://github.com/sztomi">TamÃ¡s Szelei</a> 开发的 <a href="http://rpclib.net/">rpclib</a> 使用 TCP/IP 上的 <a href="https://github.com/msgpack-rpc/msgpack-rpc">msgpack-rpc 协议</a> ，该库允许您使用多种编程语言，包括 C++、C#、Python、Java 等。AirSim 启动时，会打开 41451 端口（可通过 <a href="../settings/">设置</a> 更改）并监听传入请求。Python 或 C++ 客户端代码连接到此端口，并使用 <a href="https://msgpack.org">msgpack 序列化格式</a> 发送 RPC 调用。</p>
 <p>要添加 RPC 代码来调用新的 API，请按照以下步骤操作。其他 API 的实现请参见文件中定义的部分。</p>
 <ol>
@@ -332,7 +334,7 @@
 <p>在 <a href="https://github.com/microsoft/AirSim/blob/main/PythonClient/airsim/client.py">client.py</a> 中添加 Python 客户端 API 方法。如果需要，请在 <a href="https://github.com/microsoft/AirSim/blob/main/PythonClient/airsim/types.py">types.py</a> 中添加或修改结构体定义。 </p>
 </li>
 </ol>
-<h2 id="_1">测试<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
+<h2 id="_1">测试</h2>
 <p>需要进行测试以确保 API 能够按预期运行。为此，您必须使用源代码构建的 AirSim 和 Blocks 环境。此外，如果使用 Python API，则必须使用源代码中的 <code>airsim</code> 软件包，而不是 PyPI 软件包。以下介绍了 2 种使用源代码软件包的方法</p>
 <ol>
 <li>
@@ -371,6 +373,10 @@
   <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
     
+        <span>
+          <a href="https://github.com/OpenHUTB/air_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
     
       <span><a href="../code_structure/" style="color: #fcfcfc">&laquo; 前一页</a></span>
     
@@ -383,8 +389,13 @@
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

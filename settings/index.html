@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
     
       <script>
         // Current page data
@@ -114,16 +115,6 @@
     <li class="toctree-l3"><a class="reference internal" href="#capturesettings">CaptureSettings</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#noisesettings">NoiseSettings</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#_8">随机噪声</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#_9">水平凹凸变形</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#_10">水平噪声线</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#_11">水平线畸变</a>
-    </li>
-        </ul>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#gimbal">Gimbal</a>
     </li>
@@ -138,10 +129,6 @@
     <li class="toctree-l3"><a class="reference internal" href="#_15">常用车辆设置</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#px4">使用 PX4</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#px4_1">其他 PX4 设置</a>
-    </li>
-        </ul>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#ardupilot">使用 ArduPilot</a>
     </li>
@@ -361,6 +348,7 @@
           <li class="breadcrumb-item">使用 AirSim</li>
       <li class="breadcrumb-item active">设置</li>
     <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/settings.md" class="icon icon-github"> 在 GitHub 上编辑</a>
     </li>
   </ul>
   <hr/>
@@ -368,8 +356,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="airsim">AirSim 设置<a class="headerlink" href="#airsim" title="Permanent link">#</a></h1>
-<h2 id="_1">设置存储在哪里？<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
+                <h1 id="airsim">AirSim 设置</h1>
+<h2 id="_1">设置存储在哪里？</h2>
 <p>AirSim 正在按以下顺序搜索设置定义。将使用第一个匹配项：</p>
 <ol>
 <li>
@@ -397,14 +385,14 @@
 </li>
 </ol>
 <p>该文件采用常见的 <a href="https://en.wikipedia.org/wiki/JSON">json 格式</a>。首次启动时，AirSim 会在用户主文件夹中创建 <code>settings.json</code> 文件，该文件不包含任何设置。为避免出现问题，请始终使用 ASCII 格式保存 json 文件。  </p>
-<h2 id="_2">如何在汽车和多旋翼飞行器之间进行选择？<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
+<h2 id="_2">如何在汽车和多旋翼飞行器之间进行选择？</h2>
 <p>默认使用多旋翼飞行器。要使用汽车，只需设置<code>"SimMode": "Car"</code>，如下所示： </p>
 <p><code>{
   "SettingsVersion": 1.2,
   "SimMode": "Car"
 }</code></p>
 <p>要选择多旋翼飞行器，请设置 <code>"SimMode": "Multirotor"</code>。如果您想提示用户选择飞行器类型，请使用 <code>"SimMode": ""</code>。</p>
-<h2 id="_3">可用设置及其默认值<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
+<h2 id="_3">可用设置及其默认值</h2>
 <p>以下是可用设置及其默认值的完整列表。如果 json 文件中缺少任何设置，则使用默认值。某些默认值仅以“""”指定，这意味着实际值可能根据您使用的车辆选择。例如，<code>ViewMode</code>设置的默认值为<code>""</code>，对于无人机，其默认值为<code>"FlyWithMe"</code>，对于汽车，其默认值为<code>"SpringArmChase"</code>。</p>
 <p><strong>警告：</strong> 请勿将以下所有内容复制粘贴到您的 settings.json 中。我们强烈建议您仅添加那些您不想使用默认值的设置。唯一必需的元素是<code>"SettingsVersion"</code>。 </p>
 <p>```json
@@ -573,13 +561,13 @@
   }
 }
 ```</p>
-<h2 id="simmode">SimMode<a class="headerlink" href="#simmode" title="Permanent link">#</a></h2>
+<h2 id="simmode">SimMode</h2>
 <p>SimMode 决定使用哪种模拟模式。以下是当前支持的值：
 - <code>""</code>: 提示用户选择飞行器类型：多旋翼飞行器或汽车
 - <code>"Multirotor"</code>: 使用多旋翼飞行器模拟
 - <code>"Car"</code>: 使用汽车模拟
 - <code>"ComputerVision"</code>: 仅使用摄像头，不使用飞行器或物理系统</p>
-<h2 id="viewmode">ViewMode<a class="headerlink" href="#viewmode" title="Permanent link">#</a></h2>
+<h2 id="viewmode">ViewMode</h2>
 <p>ViewMode 决定了默认使用哪个摄像头以及摄像头如何跟随飞行器。对于多旋翼飞行器，默认 ViewMode 为<code>"FlyWithMe"</code>，而对于汽车，默认 ViewMode 为<code>"SpringArmChase"</code>。</p>
 <ul>
 <li><code>FlyWithMe</code>: 以 6 个自由度从后面追赶车辆</li>
@@ -589,12 +577,12 @@
 <li><code>SpringArmChase</code>: 使用安装在（隐形）臂上的摄像头追逐车辆，该臂通过弹簧连接到车辆上（因此在运动中有一定的延迟）。</li>
 <li><code>NoDisplay</code>: 这将冻结主屏幕的渲染，但子窗口、录制和 API 的渲染仍然有效。此模式有助于在“无头”模式下节省资源，因为在“无头”模式下，您只需获取图像，而不关心主屏幕上渲染的内容。这也可能提高录制图像的 FPS。</li>
 </ul>
-<h2 id="timeofday">TimeOfDay<a class="headerlink" href="#timeofday" title="Permanent link">#</a></h2>
+<h2 id="timeofday">TimeOfDay</h2>
 <p>此设置控制环境中太阳的位置。默认情况下，<code>Enabled</code>为 false，这意味着太阳的位置将保留在环境中的默认位置，并且不会随时间变化。如果<code>Enabled</code>为 true，则使用<code>OriginGeopoint</code>部分中指定的经度、纬度和高度，针对<code>StartDateTime</code>中指定的日期（字符串格式为 <a href="https://en.cppreference.com/w/cpp/io/manip/get_time">%Y-%m-%d %H:%M:%S</a> ）计算太阳位置，例如<code>2018-02-12 15:20:00</code>。如果此字符串为空，则使用当前日期和时间。如果<code>StartDateTimeDst</code>为 true，则我们会调整夏令时。然后，太阳的位置将按照<code>UpdateIntervalSecs</code>中指定的间隔持续更新。在某些情况下，可能希望天体时钟运行得比模拟时钟更快或更慢。这可以使用<code>CelestialClockSpeed</code>来指定，例如，值 100 表示模拟时钟每 1 秒，太阳的位置就会前进 100 秒，因此太阳在天空中的移动速度会更快。</p>
 <p>另请参阅 <a href="../apis/#time-of-day-api">时间 API</a> 。</p>
-<h2 id="origingeopoint">OriginGeopoint<a class="headerlink" href="#origingeopoint" title="Permanent link">#</a></h2>
+<h2 id="origingeopoint">OriginGeopoint</h2>
 <p>此设置指定放置在虚幻环境中的玩家起始点组件的纬度、经度和海拔高度。飞行器的起始点使用此变换计算。请注意，所有通过 API 公开的坐标均使用国际单位制 (SI) 的 NED 系统，这意味着每辆车的起始点在 NED 系统中为 (0, 0, 0)。时间设置是根据<code>OriginGeopoint</code>中指定的地理坐标计算的。</p>
-<h2 id="subwindows">SubWindows<a class="headerlink" href="#subwindows" title="Permanent link">#</a></h2>
+<h2 id="subwindows">SubWindows</h2>
 <p>此设置决定了按下 1、2、3 键时可见的 3 个子窗口中分别显示的内容。</p>
 <ul>
 <li><code>WindowID</code>: 可以是 0 到 2</li>
@@ -617,7 +605,7 @@
         {"WindowID": 1, "CameraName": "0", "ImageType": 5, "VehicleName": "Car2", "Visible": false},
         {"WindowID": 2, "CameraName": "0", "ImageType": 0, "VehicleName": "Car1", "Visible": false}
     ]</code></p>
-<h2 id="_4">记录<a class="headerlink" href="#_4" title="Permanent link">#</a></h2>
+<h2 id="_4">记录</h2>
 <p>记录功能允许您以指定的时间间隔记录位置、方向、速度等数据以及捕获的图像。您可以按下右下角的红色录制按钮或 R 键开始录制。数据存储在<code>Documents\AirSim</code>文件夹（或使用<code>Folder</code>指定的文件夹）中，每个录制会话都会有一个带有时间戳的子文件夹，并以制表符分隔的文件形式保存。</p>
 <ul>
 <li><code>RecordInterval</code>: 指定捕获两幅图像之间的最小间隔（以秒为单位）。</li>
@@ -640,63 +628,63 @@
     { "CameraName": "0", "ImageType": 0, "PixelsAsFloat": false, "VehicleName": "Car2", "Compress": true }
 ]</code></p>
 <p>查看修改记录数据来了解如何 <a href="../modify_recording_data/">修改正在记录的</a> 运动学数据的详细信息。</p>
-<h2 id="clockspeed">ClockSpeed<a class="headerlink" href="#clockspeed" title="Permanent link">#</a></h2>
+<h2 id="clockspeed">ClockSpeed</h2>
 <p>此设置允许您设置模拟时钟相对于挂钟的速度。例如，值为 5.0 表示当挂钟已过去 1 秒时，模拟时钟已过去 5 秒（即模拟运行速度更快）。值为 0.1 表示模拟时钟比挂钟慢 10 倍。值为 1 表示模拟实时运行。需要注意的是，模拟时钟运行速度越快，模拟质量可能会下降。您可能会看到一些伪影，例如物体越过障碍物，因为未检测到碰撞。但是，降低模拟时钟速度（即值小于 1.0）通常可以提高模拟质量。</p>
-<h2 id="_5">分割设置<a class="headerlink" href="#_5" title="Permanent link">#</a></h2>
+<h2 id="_5">分割设置</h2>
 <p><code>InitMethod</code> 决定了启动时如何初始化对象 ID 以生成 <a href="../image_apis/#segmentation">分割</a>。值为 "" 或 "CommonObjectsRandomIDs"（默认值）表示在启动时为每个对象分配随机 ID。这将生成为每个对象分配随机颜色的分割视图。值为 "None" 表示不初始化对象 ID。这将导致分割视图呈现单一纯色。如果您计划使用 <a href="../image_apis/#segmentation">API</a> 设置对象 ID，此模式非常有用，并且可以在像 CityEnviron 这样的大型环境中节省启动时的大量延迟。</p>
 <p>如果<code>OverrideExisting</code>为假，则初始化不会改变已经分配的非零对象 ID，否则会改变。</p>
 <p>如果<code>MeshNamingMethod</code>为“”或“OwnerName”，则我们使用网格的所有者名称生成随机哈希值作为对象ID。如果为“StaticMeshName”，则我们使用静态网格的名称生成随机哈希值作为对象ID。请注意，这种方式无法区分同一个静态网格的不同实例，但名称通常更直观。</p>
-<h2 id="_6">风的设置<a class="headerlink" href="#_6" title="Permanent link">#</a></h2>
+<h2 id="_6">风的设置</h2>
 <p>此设置指定世界坐标系中北纬方向的风速。值以米/秒为单位。默认情况下，速度为 0，即无风。</p>
-<h2 id="camera-director">Camera Director 设置<a class="headerlink" href="#camera-director" title="Permanent link">#</a></h2>
+<h2 id="camera-director">Camera Director 设置</h2>
 <p>此元素指定用于在 ViewPort 中跟随车辆的摄像机的设置。</p>
 <ul>
 <li><code>FollowDistance</code>: 摄像头跟随车辆的距离，汽车默认为-8（8米），其他默认为-3。 </li>
 <li><code>X, Y, Z, Yaw, Roll, Pitch</code>: 这些元素允许您指定摄像机相对于车辆的位置和方向。位置采用国际单位制 (SI) 的 NED 坐标系，原点设置为虚幻环境中的玩家起始位置。方向以度为单位。 </li>
 </ul>
-<h2 id="_7">相机设置<a class="headerlink" href="#_7" title="Permanent link">#</a></h2>
+<h2 id="_7">相机设置</h2>
 <p>根级别的<code>CameraDefaults</code>元素指定所有摄像头的默认值。这些默认值可以在“Vehicles”类中的<code>Cameras</code>元素中为单个摄像头覆盖，具体方法请见后文。</p>
-<h3 id="imagetype">关于 ImageType 元素的注释<a class="headerlink" href="#imagetype" title="Permanent link">#</a></h3>
+<h3 id="imagetype">关于 ImageType 元素的注释</h3>
 <p>JSON 数组中的 <code>ImageType</code> 元素决定了设置应用于哪种图像类型。有效值在 <a href="../image_apis/#available-imagetype">ImageType 部分</a> 中进行了说明。此外，我们还支持特殊值 <code>ImageType: -1</code>，用于将设置应用于外部摄像头（即您正在屏幕上查看的内容）。</p>
 <p>例如，<code>CaptureSettings</code>元素是 json 数组，因此您可以轻松添加多种图像类型的设置。</p>
-<h3 id="capturesettings">CaptureSettings<a class="headerlink" href="#capturesettings" title="Permanent link">#</a></h3>
+<h3 id="capturesettings">CaptureSettings</h3>
 <p><code>CaptureSettings</code> 决定了不同图像类型（例如场景、深度、视差、表面法线和分割视图）的渲染方式。“Width”、“Height” 和 “FOV” 的设置含义不言自明。“AutoExposureSpeed” 决定了人眼适应的速度。我们通常将其设置为较高的值（例如 100），以避免图像采集过程中出现伪影。同样，我们默认将“MotionBlurAmount”设置为 0，以避免地面实况图像中出现伪影。<code>ProjectionMode</code> 决定了采集相机使用的投影方式，可以采用“perspective”（默认）或“orthographic”值。如果投影模式为“orthographic”，则<code>OrthoWidth</code>决定了采集投影区域的宽度（以米为单位）。</p>
 <p>有关其他设置的说明，请参阅<a href="https://docs.unrealengine.com/latest/INT/Engine/Rendering/PostProcessEffects/AutomaticExposure/">本文</a>。</p>
-<h3 id="noisesettings">NoiseSettings<a class="headerlink" href="#noisesettings" title="Permanent link">#</a></h3>
+<h3 id="noisesettings">NoiseSettings</h3>
 <p>“噪声设置 (<code>NoiseSettings</code>)” 允许为指定类型的图像添加噪声，以模拟相机传感器噪声、干扰和其他伪影。默认情况下不添加噪声，即<code>Enabled: false</code>。如果设置为<code>Enabled: true</code>，则会启用以下不同类型的噪声和干扰伪影，每种类型都可以通过设置进一步调整。噪声效果通过着色器实现，该着色器在虚幻引擎中作为后期处理材质创建，名为 <a href="https://github.com/Microsoft/AirSim/blob/main/Unreal/Plugins/AirSim/Content/HUDAssets/CameraSensorNoise.uasset">CameraSensorNoise</a>。</p>
 <p>相机噪声和干扰模拟演示：</p>
 <p><a href="https://youtu.be/1BeCEZmQyp0"><img alt="AirSim Drone Demo Video" src="../images/camera_noise_demo.png" /></a></p>
-<h4 id="_8">随机噪声<a class="headerlink" href="#_8" title="Permanent link">#</a></h4>
+<h4 id="_8">随机噪声</h4>
 <p>这将添加具有以下参数的随机噪声斑点。
 * <code>RandContrib</code>: 这决定了噪声像素与图像像素的混合比，0 表示无噪声，1 表示只有噪声。
 * <code>RandSpeed</code>: 这决定了噪声波动的速度，1 表示没有波动，而更高的值（如 1E6）表示完全波动。
 * <code>RandSize</code>: 这决定了噪声的粗略程度，1 表示每个像素都有自己的噪声，而更高的值表示超过 1 个像素共享相同的噪声值。 
 * <code>RandDensity</code>: 这决定了总共有多少像素会有噪点，1 表示所有像素，而值越高表示像素数量越少（呈指数级）。</p>
-<h4 id="_9">水平凹凸变形<a class="headerlink" href="#_9" title="Permanent link">#</a></h4>
+<h4 id="_9">水平凹凸变形</h4>
 <p>这会增加水平凹凸/闪烁/重影效果。
 * <code>HorzWaveContrib</code>: 这决定了噪声像素与图像像素的混合比，0 表示无噪声，1 表示只有噪声。
 * <code>HorzWaveStrength</code>: 这决定了效果的整体强度。
 * <code>HorzWaveVertSize</code>: 这决定了有多少垂直像素会受到该效果的影响。
 * <code>HorzWaveScreenSize</code>: 这决定了屏幕的多少部分会受到该效果的影响。</p>
-<h4 id="_10">水平噪声线<a class="headerlink" href="#_10" title="Permanent link">#</a></h4>
+<h4 id="_10">水平噪声线</h4>
 <p>这会在水平线上增加噪声区域。
 * <code>HorzNoiseLinesContrib</code>: 这决定了噪声像素与图像像素的混合比，0 表示无噪声，1 表示只有噪声。
 * <code>HorzNoiseLinesDensityY</code>: 这决定了水平线上有多少像素受到影响。
 * <code>HorzNoiseLinesDensityXY</code>: 这决定了屏幕上有多少行受到影响。</p>
-<h4 id="_11">水平线畸变<a class="headerlink" href="#_11" title="Permanent link">#</a></h4>
+<h4 id="_11">水平线畸变</h4>
 <p>这增加了水平线的波动。
 * <code>HorzDistortionContrib</code>: 这决定了噪声像素与图像像素的混合比，0 表示无噪声，1 表示只有噪声。
 * <code>HorzDistortionStrength</code>: 这决定了失真程度有多大。</p>
-<h3 id="gimbal">Gimbal<a class="headerlink" href="#gimbal" title="Permanent link">#</a></h3>
+<h3 id="gimbal">Gimbal</h3>
 <p><code>Gimbal</code>元素允许冻结摄像机的俯仰、横滚和/或偏航方向。除非<code>ImageType</code>为-1，否则此设置将被忽略。<code>Stabilization</code>默认为0，表示无万向节，即摄像机方向在所有轴上随车身方向而变化。值为1表示完全稳定。0到1之间的值作为<code>Pitch</code>、<code>Roll</code>和<code>Yaw</code> 元素中指定的固定角度（以度为单位，在世界坐标系中）和车身方向的权重。当json中省略任何角度或将其设置为NaN时，该角度不稳定（即它会随车身一起移动）。</p>
-<h3 id="_12">虚幻引擎<a class="headerlink" href="#_12" title="Permanent link">#</a></h3>
+<h3 id="_12">虚幻引擎</h3>
 <p>此元素包含虚幻引擎特有的设置。这些设置将在 Unity 项目中被忽略。
 * <code>PixelFormatOverride</code>: 这包含一个包含<code>ImageType</code>和<code>PixelFormat</code>设置的元素列表。每个元素都允许您覆盖<code>ImageType</code>设置指定的捕获实例化的 UTextureRenderTarget2D 对象的默认像素格式。指定此元素可以防止由意外像素格式引起的崩溃（有关这些崩溃的示例，请参阅 <a href="https://github.com/microsoft/AirSim/issues/4120">#4120</a> 和 <a href="https://github.com/microsoft/AirSim/issues/4339">#4339</a>。完整的像素格式列表可在<a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/Core/EPixelFormat/">此处</a>查看。</p>
-<h2 id="_13">外接摄像头<a class="headerlink" href="#_13" title="Permanent link">#</a></h2>
+<h2 id="_13">外接摄像头</h2>
 <p>此元素允许指定独立于车辆上安装的摄像头（例如闭路电视摄像头）。这些摄像头是固定摄像头，不会随车辆移动。该元素中的键是摄像头的名称，值（即设置）与上面描述的<code>CameraDefaults</code>相同。所有摄像头 API 均可与外部摄像头配合使用，包括通过在 API 调用中传递参数<code>external=True</code>来捕获图像、更改姿势等。</p>
-<h2 id="_14">车辆设置<a class="headerlink" href="#_14" title="Permanent link">#</a></h2>
+<h2 id="_14">车辆设置</h2>
 <p>每种模拟模式都会遍历此设置中指定的车辆列表，并创建具有<code>"AutoCreate": true</code> 的车辆。此设置中指定的每辆车辆都有一个键，该键将成为车辆的名称。如果缺少<code>"Vehicles"</code>元素，则此列表将填充名为“PhysXCar”的默认车辆和名为“SimpleFlight”的默认多旋翼飞行器。</p>
-<h3 id="_15">常用车辆设置<a class="headerlink" href="#_15" title="Permanent link">#</a></h3>
+<h3 id="_15">常用车辆设置</h3>
 <ul>
 <li><code>VehicleType</code>: 这可以是以下任意一种：<code>PhysXCar</code>、<code>SimpleFlight</code>、<code>PX4Multirotor</code>、<code>ComputerVision</code>、<code>ArduCopter</code> 和 <code>ArduRover</code>。由于没有默认值，因此必须指定此元素。</li>
 <li><code>PawnPath</code>: 这允许覆盖用于载具的 pawn 蓝图。例如，您可以在 AirSim 代码之外的项目中，为仓库机器人创建一个源自 ACarPawn 的新 pawn 蓝图，然后在此处指定其路径。另请参阅 <a href="./#PawnPaths">PawnPaths</a>。请注意，您必须在全局 <code>PawnPaths</code> 对象中使用您专有定义的对象名称指定自定义 pawn 蓝图类路径，并在 <code>Vehicles</code> 设置中引用该名称。例如： 
@@ -738,14 +726,14 @@
       }
     }
 }</code></p>
-<h3 id="px4">使用 PX4<a class="headerlink" href="#px4" title="Permanent link">#</a></h3>
+<h3 id="px4">使用 PX4</h3>
 <p>默认情况下，我们使用 <a href="../simple_flight/">simple_flight</a>，因此您无需单独进行 HITL 或 SITL 设置。我们还为高级用户提供 <a href="../px4_setup/">"PX4"</a> 支持。要将 PX4 与 AirSim 配合使用，您可以使用以下<code>Vehicles</code>设置：</p>
 <p><code>"Vehicles": {
     "PX4": {
       "VehicleType": "PX4Multirotor",
     }
 }</code></p>
-<h4 id="px4_1">其他 PX4 设置<a class="headerlink" href="#px4_1" title="Permanent link">#</a></h4>
+<h4 id="px4_1">其他 PX4 设置</h4>
 <p>PX4 默认启用 <strong>硬件在环</strong> 设置。PX4 还有其他各种设置及其默认值：</p>
 <p><code>"Vehicles": {
     "PX4": {
@@ -789,28 +777,28 @@
 此 Pawn 的 MavLink 节点可以通过 UDP 远程连接，也可以连接到本地串行端口。
 如果是串行连接，则将 UseSerial 设置为 true，否则将 UseSerial 设置为 false。对于串行连接，您还需要设置适当的 SerialBaudRate。默认值 115200 适用于 Pixhawk 2 版本，
 通过 USB 连接。</p>
-<p>通过串口与 PX4 无人机通信时，HIL_* 消息和飞行器控制消息共享同一串口。通过 UDP 或 TCP 通信时，PX4 需要两个独立的通道。如果 UseTcp 为 false，则使用 UdpIp 和 UdpPort 发送 HIL_* 消息，否则使用 TcpPort。PX4 在 1.9.2 版本中新增了 TCP 支持，并添加了 <code>lockstep</code> 功能，因为 TCP 提供的消息传递保证是 lockstep 正常运行的必要条件。
+<p>通过串口与 PX4 无人机通信时，HIL_<em> 消息和飞行器控制消息共享同一串口。通过 UDP 或 TCP 通信时，PX4 需要两个独立的通道。如果 UseTcp 为 false，则使用 UdpIp 和 UdpPort 发送 HIL_</em> 消息，否则使用 TcpPort。PX4 在 1.9.2 版本中新增了 TCP 支持，并添加了 <code>lockstep</code> 功能，因为 TCP 提供的消息传递保证是 lockstep 正常运行的必要条件。
 在这种情况下，AirSim 将成为 TCP 服务器，并等待来自 PX4 应用程序的连接。用于控制飞行器的第二个通道由 (ControlIp, ControlPort) 定义，并且始终为 UDP 通道。</p>
 <p>传感器 <code>Sensors</code> 部分可以为模拟传感器提供自定义设置，请参阅
 <a href="../sensors/">Sensors</a>。<code>Parameters</code> 部分可以在 PX4 连接初始化期间设置 PX4 参数。有关示例，请参阅 <a href="../px4_sitl/">设置 PX4 软件在环</a> 。</p>
-<h3 id="ardupilot">使用 ArduPilot<a class="headerlink" href="#ardupilot" title="Permanent link">#</a></h3>
+<h3 id="ardupilot">使用 ArduPilot</h3>
 <p><a href="https://ardupilot.org/">ArduPilot</a> 直升机和漫游车在最新的 AirSim 主分支及版本 <code>v1.3.0</code> 及更高版本中均受支持。有关设置和使用方法，请参阅 <a href="https://ardupilot.org/dev/docs/sitl-with-airsim.html">ArduPilot SITL 与 AirSim 的配合使用</a> 。</p>
-<h2 id="_16">其他设置<a class="headerlink" href="#_16" title="Permanent link">#</a></h2>
-<h3 id="enginesound">EngineSound<a class="headerlink" href="#enginesound" title="Permanent link">#</a></h3>
+<h2 id="_16">其他设置</h2>
+<h3 id="enginesound">EngineSound</h3>
 <p>要关闭引擎声音，请使用 <a href="./">设置</a> <code>"EngineSound": false</code>。目前此设置仅适用于汽车。</p>
-<h3 id="pawnpaths">PawnPaths<a class="headerlink" href="#pawnpaths" title="Permanent link">#</a></h3>
+<h3 id="pawnpaths">PawnPaths</h3>
 <p>这允许您指定自己的车辆 pawn 蓝图，例如，您可以用自己的车辆替换 AirSim 中的默认车辆。您的车辆蓝图可以位于您自己的虚幻项目的 Content 文件夹中（即 AirSim 插件文件夹之外）。例如，如果您的项目中有一个位于<code>Content\MyCar\MySedanBP.uasset</code>文件中的车辆蓝图，那么您可以设置<code>"DefaultCar": {"PawnBP":"Class'/Game/MyCar/MySedanBP.MySedanBP_C'"}</code>。<code>XYZ.XYZ_C</code>是指定 BP<code>XYZ</code>类所需的特殊符号。请注意，您的 BP 必须衍生自 CarPawn 类。默认情况下并非如此，但您可以在打开 BP 后，使用 UE 编辑器工具栏中的“类设置”按钮，然后在“类选项”中选择“Car Pawn”作为父类设置，从而重新设置 BP 的父类。建议禁用“自动附身玩家”和“自动附身AI”，并在BP详情中将AI控制器类别设置为“无”。如果您正在创建二进制文件，请确保您的资源已包含在打包选项中以供烘焙。</p>
-<h3 id="physicsenginename">PhysicsEngineName<a class="headerlink" href="#physicsenginename" title="Permanent link">#</a></h3>
+<h3 id="physicsenginename">PhysicsEngineName</h3>
 <p>对于汽车，我们目前仅支持 PhysX（无论此设置中的值如何）。对于多旋翼飞行器，我们支持<code>"FastPhysicsEngine"</code>和<code>"ExternalPhysicsEngine"</code>。<code>"ExternalPhysicsEngine"</code>允许通过 setVehiclePose () 控制无人机，使无人机保持原位直到下一次调用。这对于使用外部模拟器或沿已保存的路径移动 AirSim 无人机尤其有用。</p>
-<h3 id="localhostip">LocalHostIp 设置<a class="headerlink" href="#localhostip" title="Permanent link">#</a></h3>
+<h3 id="localhostip">LocalHostIp 设置</h3>
 <p>现在，当连接到远程机器时，您可能需要选择一个特定的以太网适配器来连接这些机器，例如，它可能是通过以太网、Wi-Fi、其他特殊的虚拟适配器或VPN。您的电脑可能有多个网络，而这些网络可能不允许相互通信，在这种情况下，来自一个网络的UDP消息将无法传递到其他网络。</p>
 <p>因此，LocalHostIp 允许您配置如何访问这些机器。默认值 127.0.0.1 无法访问外部机器，
 仅当您要通信的所有内容都包含在一台 PC 上时才使用此默认值。</p>
-<h3 id="apiserverport">ApiServerPort<a class="headerlink" href="#apiserverport" title="Permanent link">#</a></h3>
+<h3 id="apiserverport">ApiServerPort</h3>
 <p>此设置决定了 airsim 客户端使用的服务器端口，默认端口为 41451。通过指定不同的端口，用户可以并行运行多个环境以加速数据收集过程。</p>
-<h3 id="speedunitfactor">SpeedUnitFactor<a class="headerlink" href="#speedunitfactor" title="Permanent link">#</a></h3>
+<h3 id="speedunitfactor">SpeedUnitFactor</h3>
 <p>与“米/秒”相关的速度单位换算系数，默认值为 1。与 SpeedUnitLabel 结合使用。该系数仅可用于显示目的，例如在汽车行驶时显示速度。例如，要获取 “英里/小时”(<code>miles/hr</code>) 的速度，请使用系数 2.23694。</p>
-<h3 id="speedunitlabel">SpeedUnitLabel<a class="headerlink" href="#speedunitlabel" title="Permanent link">#</a></h3>
+<h3 id="speedunitlabel">SpeedUnitLabel</h3>
 <p>速度单位标签，默认为 <code>m/s</code>。与 SpeedUnitFactor 配合使用。</p>
               
             </div>
@@ -839,6 +827,10 @@
   <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
     
+        <span>
+          <a href="https://github.com/OpenHUTB/air_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
     
       <span><a href="../dev_workflow/" style="color: #fcfcfc">&laquo; 前一页</a></span>
     
@@ -851,8 +843,13 @@
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

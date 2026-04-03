@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra.css" rel="stylesheet" />
     
       <script>
         // Current page data
@@ -274,6 +275,7 @@
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
       <li class="breadcrumb-item active">carla-air v0.1 Release 测试报告</li>
     <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/dev/v0.1_release_test_report.md" class="icon icon-github"> 在 GitHub 上编辑</a>
     </li>
   </ul>
   <hr/>
@@ -281,7 +283,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="carla-air-v01-release">carla-air v0.1 Release 测试报告<a class="headerlink" href="#carla-air-v01-release" title="Permanent link">#</a></h1>
+                <h1 id="carla-air-v01-release">carla-air v0.1 Release 测试报告</h1>
 <blockquote>
 <p><strong>测试日期</strong>：2026-03-10
 <strong>测试环境</strong>：NVIDIA RTX A4000 (16GB VRAM), Ubuntu Linux, ROS2 Humble
@@ -289,8 +291,8 @@
 <strong>服务器模式</strong>：<code>-RenderOffScreen</code> (无头渲染)</p>
 </blockquote>
 <hr />
-<h2 id="bug">一、Bug 修复报告<a class="headerlink" href="#bug" title="Permanent link">#</a></h2>
-<h3 id="bug-1walker-ai-controller-airsim">Bug #1：Walker AI Controller 与 AirSim 冲突<a class="headerlink" href="#bug-1walker-ai-controller-airsim" title="Permanent link">#</a></h3>
+<h2 id="bug">一、Bug 修复报告</h2>
+<h3 id="bug-1walker-ai-controller-airsim">Bug #1：Walker AI Controller 与 AirSim 冲突</h3>
 <table>
 <thead>
 <tr>
@@ -317,7 +319,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="bug-2-autopilot">Bug #2：大量 Autopilot 车辆导致崩溃<a class="headerlink" href="#bug-2-autopilot" title="Permanent link">#</a></h3>
+<h3 id="bug-2-autopilot">Bug #2：大量 Autopilot 车辆导致崩溃</h3>
 <table>
 <thead>
 <tr>
@@ -348,7 +350,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="bug-3simsetcamerapose-shipping">Bug #3：<code>simSetCameraPose</code> 在 Shipping 包中崩溃<a class="headerlink" href="#bug-3simsetcamerapose-shipping" title="Permanent link">#</a></h3>
+<h3 id="bug-3simsetcamerapose-shipping">Bug #3：<code>simSetCameraPose</code> 在 Shipping 包中崩溃</h3>
 <table>
 <thead>
 <tr>
@@ -375,7 +377,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="bug-4-enabledisable-airsim-api">Bug #4：快速连续 enable/disable AirSim API 崩溃<a class="headerlink" href="#bug-4-enabledisable-airsim-api" title="Permanent link">#</a></h3>
+<h3 id="bug-4-enabledisable-airsim-api">Bug #4：快速连续 enable/disable AirSim API 崩溃</h3>
 <table>
 <thead>
 <tr>
@@ -399,7 +401,7 @@
 </tbody>
 </table>
 <hr />
-<h2 id="_1">二、测试结果汇总表<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
+<h2 id="_1">二、测试结果汇总表</h2>
 <table>
 <thead>
 <tr>
@@ -479,13 +481,13 @@
 </tbody>
 </table>
 <hr />
-<h2 id="_2">三、各测试详细记录<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
-<h3 id="t1bug">T1：Bug 修复验证<a class="headerlink" href="#t1bug" title="Permanent link">#</a></h3>
+<h2 id="_2">三、各测试详细记录</h2>
+<h3 id="t1bug">T1：Bug 修复验证</h3>
 <p><strong>T1-A (Walker AI)</strong>: 在 Town10HD 上生成 <code>walker.pedestrian.0049</code>，附加 <code>controller.ai.walker</code>，调用 <code>go_to_location()</code> 指向 140m 外目标点。30 秒内行人从 (118.3, 75.7) 移动到 (118.3, 74.9)，位移 0.74m。服务器全程稳定，无四元数错误。</p>
 <p><strong>T1-B (Autopilot 车辆)</strong>: 从 5 辆开始逐步增加，每次+5。达到 15 辆时触发 <code>std::runtime_error: length &gt;= 2.0f * std::numeric_limits&lt;float&gt;::epsilon()</code> 并 segfault。最大稳定数量确认为 10 辆。</p>
 <p><strong>T1-C (simSetCameraPose)</strong>: 测试俯仰角 -30°, -45°, -90°（直视下方）, 0°（水平），每次 pose 变更后 <code>ping()</code> 响应正常，<code>simGetImages()</code> 返回 1280x960 图像。</p>
 <p><strong>T1-D (快速 enable/disable)</strong>: 25 个 True/False 循环，无 sleep，全部成功。</p>
-<h3 id="t2ros">T2：ROS 支持测试<a class="headerlink" href="#t2ros" title="Permanent link">#</a></h3>
+<h3 id="t2ros">T2：ROS 支持测试</h3>
 <p><strong>T2-A (CARLA ROS Bridge)</strong>:
 - 源码构建：<code>carla-ros-bridge</code> (master, commit e9063d9) + <code>carla_msgs</code> + <code>astuff_sensor_msgs</code>
 - 工作空间：<code>/mnt/data1/tianle/carla_ros_ws/</code>，13 个包，构建耗时 25.6s
@@ -505,12 +507,12 @@
 - CARLA bridge 使用 <code>/carla/</code> 命名空间
 - AirSim 使用 <code>/airsim_node/</code> 命名空间
 - 无冲突，21+ 话题 + 6 服务同时工作</p>
-<h3 id="t3clean-install-test">T3：Clean Install Test<a class="headerlink" href="#t3clean-install-test" title="Permanent link">#</a></h3>
+<h3 id="t3clean-install-test">T3：Clean Install Test</h3>
 <ul>
 <li><strong>test_package.py</strong>: 20/20 PASS（CARLA 基础 7 项 + Actor/传感器 4 项 + AirSim 无人机 8 项 + 联合 1 项）</li>
 <li><strong>comprehensive_api_test.py</strong>: 88/89 PASS（1 项 FAIL：test 89 传感器附加到已销毁车辆，属于测试脚本顺序问题，非平台 bug）</li>
 </ul>
-<h3 id="t4">T4：多地图稳定性<a class="headerlink" href="#t4" title="Permanent link">#</a></h3>
+<h3 id="t4">T4：多地图稳定性</h3>
 <p>使用 API <code>client.load_world()</code> 依次切换地图，每张地图测试 5 项功能：</p>
 <table>
 <thead>
@@ -555,7 +557,7 @@
 </tbody>
 </table>
 <p>注意：地图切换需要 300s 超时（默认 120s 不够），切换后等待 15-20 秒。</p>
-<h3 id="t5">T5：长时间稳定性<a class="headerlink" href="#t5" title="Permanent link">#</a></h3>
+<h3 id="t5">T5：长时间稳定性</h3>
 <ul>
 <li><strong>测试场景</strong>：Town10HD，无人机悬停 30m + 每 30 秒生成/销毁 3 辆车 + 2 个行人</li>
 <li><strong>注意</strong>：车辆未启用 autopilot（Bug #2 workaround，启用 autopilot 会在约 5 分钟内触发四元数崩溃）</li>
@@ -612,7 +614,7 @@
 <li><strong>Cycles</strong>: 357，<strong>0 错误</strong></li>
 <li><strong>结论</strong>: VRAM 无持续增长趋势（+178 MiB 后完全稳定），无 <code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></li>
 </ul>
-<h3 id="t6">T6：离屏渲染 + 数据集采集<a class="headerlink" href="#t6" title="Permanent link">#</a></h3>
+<h3 id="t6">T6：离屏渲染 + 数据集采集</h3>
 <ul>
 <li><strong>服务器模式</strong>：<code>-RenderOffScreen</code>（无需显示器）</li>
 <li><strong>CARLA 地面数据</strong>：5 帧 × 3 模态（RGB 1280x720 PNG + Depth NPY + Segmentation NPY）</li>
@@ -622,7 +624,7 @@
 <li><strong>结论</strong>：离屏渲染完全正常，可用于无头服务器上的大规模数据生产</li>
 </ul>
 <hr />
-<h2 id="release-readiness">四、Release Readiness 判定<a class="headerlink" href="#release-readiness" title="Permanent link">#</a></h2>
+<h2 id="release-readiness">四、Release Readiness 判定</h2>
 <p><strong>Hard Requirements 完成情况</strong>（以下全部通过方可 release）：
 - [x] T2-A：CARLA ROS Bridge 连通性
 - [x] T2-B：AirSim ROS Wrapper 连通性
@@ -647,7 +649,7 @@
 </li>
 </ol>
 <hr />
-<h2 id="_3">五、测试脚本与数据存档<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
+<h2 id="_3">五、测试脚本与数据存档</h2>
 <table>
 <thead>
 <tr>
@@ -713,6 +715,10 @@
   <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
     
+        <span>
+          <a href="https://github.com/OpenHUTB/air_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
     
     
   </span>
@@ -721,8 +727,13 @@
     <script>var base_url = "../..";</script>
     <script src="../../js/theme_extra.js"></script>
     <script src="../../js/theme.js"></script>
-      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
       <script src="../../search/main.js"></script>
     <script>
         jQuery(function () {

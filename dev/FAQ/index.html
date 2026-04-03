@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra.css" rel="stylesheet" />
     
       <script>
         // Current page data
@@ -274,6 +275,7 @@
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
       <li class="breadcrumb-item active">CarlaAir FAQ / 常见问题</li>
     <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/dev/FAQ.md" class="icon icon-github"> 在 GitHub 上编辑</a>
     </li>
   </ul>
   <hr/>
@@ -281,26 +283,26 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="carlaair-faq">CarlaAir FAQ / 常见问题<a class="headerlink" href="#carlaair-faq" title="Permanent link">#</a></h1>
+                <h1 id="carlaair-faq">CarlaAir FAQ / 常见问题</h1>
 <hr />
-<h2 id="connection-issues">连接问题 / Connection Issues<a class="headerlink" href="#connection-issues" title="Permanent link">#</a></h2>
-<h3 id="q-carla-client">Q: CARLA Client 连接超时<a class="headerlink" href="#q-carla-client" title="Permanent link">#</a></h3>
+<h2 id="connection-issues">连接问题 / Connection Issues</h2>
+<h3 id="q-carla-client">Q: CARLA Client 连接超时</h3>
 <p><strong>A</strong>: 首次启动需要 2-5 分钟加载资源（首次可能需要约 10 分钟编译着色器）。</p>
 <p>```bash</p>
-<h1 id="_1">检查端口是否就绪<a class="headerlink" href="#_1" title="Permanent link">#</a></h1>
+<h1 id="_1">检查端口是否就绪</h1>
 <p>ss -tlnp | grep 2000
 ```</p>
-<h3 id="q-airsim-41451">Q: AirSim 无法连接（端口 41451）<a class="headerlink" href="#q-airsim-41451" title="Permanent link">#</a></h3>
+<h3 id="q-airsim-41451">Q: AirSim 无法连接（端口 41451）</h3>
 <p><strong>A</strong>: AirSim 服务器在 CARLA 之后启动，需要额外等待。确认 <code>~/Documents/AirSim/settings.json</code> 存在。</p>
-<h3 id="q-api">Q: 两个 API 可以同时使用吗？<a class="headerlink" href="#q-api" title="Permanent link">#</a></h3>
+<h3 id="q-api">Q: 两个 API 可以同时使用吗？</h3>
 <p><strong>A</strong>: 是的，这正是 CarlaAir 的核心功能。CARLA API (port 2000) 和 AirSim API (port 41451) 同时运行，操控同一个世界。</p>
 <hr />
-<h2 id="sync-async-mode">同步 / 异步模式 / Sync &amp; Async Mode<a class="headerlink" href="#sync-async-mode" title="Permanent link">#</a></h2>
-<h3 id="q">Q: 什么时候用同步模式，什么时候用异步模式？<a class="headerlink" href="#q" title="Permanent link">#</a></h3>
+<h2 id="sync-async-mode">同步 / 异步模式 / Sync &amp; Async Mode</h2>
+<h3 id="q">Q: 什么时候用同步模式，什么时候用异步模式？</h3>
 <p><strong>A</strong>:
 - <strong>异步模式（默认）</strong>: 适合交互式操作 — 键盘驾驶车辆、手动操控无人机、实时探索
 - <strong>同步模式</strong>: 适合数据采集、演示回放、视频录制 — 需要固定时间步和帧帧一致</p>
-<h3 id="q_1">Q: 如何开启同步模式？<a class="headerlink" href="#q_1" title="Permanent link">#</a></h3>
+<h3 id="q_1">Q: 如何开启同步模式？</h3>
 <p><strong>A</strong>: 需要同时配置 World 和 Traffic Manager：</p>
 <p>```python
 settings = world.get_settings()
@@ -309,10 +311,10 @@ settings.fixed_delta_seconds = 1.0 / 30
 world.apply_settings(settings)</p>
 <p>tm = client.get_trafficmanager(8000)
 tm.set_synchronous_mode(True)</p>
-<h1 id="_2">主循环中每帧调用<a class="headerlink" href="#_2" title="Permanent link">#</a></h1>
+<h1 id="_2">主循环中每帧调用</h1>
 <p>world.tick()
 ```</p>
-<h3 id="q_2">Q: 同步模式下仿真器冻结了<a class="headerlink" href="#q_2" title="Permanent link">#</a></h3>
+<h3 id="q_2">Q: 同步模式下仿真器冻结了</h3>
 <p><strong>A</strong>: 脚本退出时<strong>必须恢复异步模式</strong>，否则仿真器会一直等待 <code>world.tick()</code> 而冻结：</p>
 <p><code>python
 settings = world.get_settings()
@@ -321,8 +323,8 @@ settings.fixed_delta_seconds = None
 world.apply_settings(settings)</code></p>
 <p>建议在脚本中使用 <code>try/finally</code> 结构确保退出时始终恢复。</p>
 <hr />
-<h2 id="coordinate-systems">坐标系统 / Coordinate Systems<a class="headerlink" href="#coordinate-systems" title="Permanent link">#</a></h2>
-<h3 id="q-airsim-carla">Q: AirSim 和 CARLA 的坐标系统有什么区别？<a class="headerlink" href="#q-airsim-carla" title="Permanent link">#</a></h3>
+<h2 id="coordinate-systems">坐标系统 / Coordinate Systems</h2>
+<h3 id="q-airsim-carla">Q: AirSim 和 CARLA 的坐标系统有什么区别？</h3>
 <p><strong>A</strong>: 两套 API 使用不同的坐标约定：</p>
 <table>
 <thead>
@@ -352,26 +354,26 @@ world.apply_settings(settings)</code></p>
 </table>
 <p>关键换算：AirSim NED z = -CARLA z。
 例如 CARLA 中 30 米高空对应 AirSim NED z = -30。</p>
-<h3 id="q-carla">Q: 无人机位置和 CARLA 车辆位置对不上<a class="headerlink" href="#q-carla" title="Permanent link">#</a></h3>
+<h3 id="q-carla">Q: 无人机位置和 CARLA 车辆位置对不上</h3>
 <p><strong>A</strong>: 两套 API 的世界原点不同，不能直接用一个 API 的坐标去另一个 API 中定位。详细换算方法请参考 <code>examples_record_demo/COORDINATE_SYSTEMS.md</code>。</p>
 <hr />
-<h2 id="vehicles-pedestrians">车辆和行人 / Vehicles &amp; Pedestrians<a class="headerlink" href="#vehicles-pedestrians" title="Permanent link">#</a></h2>
-<h3 id="q_3">Q: 车辆行驶异常/抽搐/路径不稳<a class="headerlink" href="#q_3" title="Permanent link">#</a></h3>
+<h2 id="vehicles-pedestrians">车辆和行人 / Vehicles &amp; Pedestrians</h2>
+<h3 id="q_3">Q: 车辆行驶异常/抽搐/路径不稳</h3>
 <p><strong>A</strong>: 使用 Traffic Manager 的 <code>hybrid_physics_mode</code> 可以改善远距离车辆的物理模拟稳定性：</p>
 <p><code>python
 tm = client.get_trafficmanager(8000)
 tm.set_hybrid_physics_mode(True)
 tm.set_hybrid_physics_radius(50.0)  # 50 米内使用完整物理</code></p>
-<h3 id="q-walker-go_to_location">Q: Walker 使用 <code>go_to_location()</code> 崩溃<a class="headerlink" href="#q-walker-go_to_location" title="Permanent link">#</a></h3>
+<h3 id="q-walker-go_to_location">Q: Walker 使用 <code>go_to_location()</code> 崩溃</h3>
 <p><strong>A</strong>: 已知限制。Walker AI Controller 在 CarlaAir 中会触发 segfault。<strong>只使用静态 Walker</strong>（不调用 <code>go_to_location()</code>）。</p>
-<h3 id="q_4">Q: 多少车辆才安全？<a class="headerlink" href="#q_4" title="Permanent link">#</a></h3>
+<h3 id="q_4">Q: 多少车辆才安全？</h3>
 <p><strong>A</strong>:
 - 纯 CARLA（无无人机）：50+ 辆安全
 - AirSim 无人机激活时：建议 ≤ 8 辆 autopilot
 - 使用 <code>try_spawn_actor()</code> 而非 <code>spawn_actor()</code> 避免碰撞点生成失败</p>
 <hr />
-<h2 id="drone">无人机 / Drone<a class="headerlink" href="#drone" title="Permanent link">#</a></h2>
-<h3 id="q_5">Q: 无人机不响应指令<a class="headerlink" href="#q_5" title="Permanent link">#</a></h3>
+<h2 id="drone">无人机 / Drone</h2>
+<h3 id="q_5">Q: 无人机不响应指令</h3>
 <p><strong>A</strong>: 确保调用了正确的初始化序列：</p>
 <p><code>python
 client = airsim.MultirotorClient(port=41451)
@@ -379,28 +381,28 @@ client.confirmConnection()
 client.enableApiControl(True)
 client.armDisarm(True)
 client.takeoffAsync().join()</code></p>
-<h3 id="q-airsim">Q: AirSim 客户端连接后干扰了无人机控制<a class="headerlink" href="#q-airsim" title="Permanent link">#</a></h3>
+<h3 id="q-airsim">Q: AirSim 客户端连接后干扰了无人机控制</h3>
 <p><strong>A</strong>: 如果你在交互飞行的同时另一个脚本也连接了 AirSim，可能导致控制冲突。录制无人机轨迹时请使用专用脚本 <code>examples_record_demo/record_drone.py</code>，它内部处理了控制权管理。</p>
-<h3 id="q-simsetcamerapose">Q: <code>simSetCameraPose</code> 导致崩溃<a class="headerlink" href="#q-simsetcamerapose" title="Permanent link">#</a></h3>
+<h3 id="q-simsetcamerapose">Q: <code>simSetCameraPose</code> 导致崩溃</h3>
 <p><strong>A</strong>: 在 Shipping 构建中 <code>simSetCameraPose</code> 会触发 C++ abort。<strong>不要调用此函数</strong>。使用无人机自身的 yaw + 轨道飞行来改变视角。</p>
 <hr />
-<h2 id="weather-maps">天气和地图 / Weather &amp; Maps<a class="headerlink" href="#weather-maps" title="Permanent link">#</a></h2>
-<h3 id="q_6">Q: 如何切换地图？<a class="headerlink" href="#q_6" title="Permanent link">#</a></h3>
+<h2 id="weather-maps">天气和地图 / Weather &amp; Maps</h2>
+<h3 id="q_6">Q: 如何切换地图？</h3>
 <p><strong>A</strong>: 启动时指定地图名称：</p>
 <p><code>bash
 ./CarlaAir.sh Town03</code></p>
 <p>可用地图：Town01, Town02, Town03, Town04, Town05, Town10HD。</p>
-<h3 id="q_7">Q: 天气变化会影响无人机吗？<a class="headerlink" href="#q_7" title="Permanent link">#</a></h3>
+<h3 id="q_7">Q: 天气变化会影响无人机吗？</h3>
 <p><strong>A</strong>: 是的，天气是统一的。CARLA 的 <code>set_weather()</code> 会同时影响地面和空中视角（雨、雾、光照等）。</p>
 <hr />
-<h2 id="performance">性能 / Performance<a class="headerlink" href="#performance" title="Permanent link">#</a></h2>
-<h3 id="q_8">Q: 帧率太低<a class="headerlink" href="#q_8" title="Permanent link">#</a></h3>
+<h2 id="performance">性能 / Performance</h2>
+<h3 id="q_8">Q: 帧率太低</h3>
 <p><strong>A</strong>:
 - 使用较小的地图（Town01 比 Town10HD 轻量得多）
 - 减少生成的 Actor 数量
 - 降低窗口分辨率
 - 使用 <code>-quality-level=Low</code> 参数</p>
-<h3 id="q-gpu">Q: GPU 显存不足<a class="headerlink" href="#q-gpu" title="Permanent link">#</a></h3>
+<h3 id="q-gpu">Q: GPU 显存不足</h3>
 <p><strong>A</strong>: Town10HD 需要约 8GB 显存。尝试 Town01/Town02 等小地图，或使用 <code>_Opt</code> 变体地图（分层加载，减少显存占用）。</p>
               
             </div>
@@ -425,6 +427,10 @@ client.takeoffAsync().join()</code></p>
   <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
     
+        <span>
+          <a href="https://github.com/OpenHUTB/air_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
     
     
   </span>
@@ -433,8 +439,13 @@ client.takeoffAsync().join()</code></p>
     <script>var base_url = "../..";</script>
     <script src="../../js/theme_extra.js"></script>
     <script src="../../js/theme.js"></script>
-      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
       <script src="../../search/main.js"></script>
     <script>
         jQuery(function () {

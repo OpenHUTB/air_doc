@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
     
       <script>
         // Current page data
@@ -277,6 +278,7 @@
           <li class="breadcrumb-item">使用 AirSim</li>
       <li class="breadcrumb-item active">事件相机</li>
     <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/event_sim.md" class="icon icon-github"> 在 GitHub 上编辑</a>
     </li>
   </ul>
   <hr/>
@@ -285,14 +287,14 @@
             <div class="section" itemprop="articleBody">
               
                 <p>Air 提供了一个基于 Python 的事件相机模拟器，旨在实现性能和与模拟一起实时运行的能力。</p>
-<h4 id="_1">事件相机<a class="headerlink" href="#_1" title="Permanent link">#</a></h4>
+<h4 id="_1">事件相机</h4>
 <p>事件相机是一种特殊的视觉传感器，它测量对数亮度的变化，并仅报告“事件”。每个事件由一组四个值组成，每当对数亮度的绝对变化超过某个阈值时就会生成。事件包含测量的时间戳、像素位置（x 和 y 坐标）和极性：根据对数亮度是增加还是减少，极性为 +1/-1。大多数事件相机的时间分辨率为微秒级，这使其速度明显快于 RGB 传感器，并且还具有高动态范围和低运动模糊的特点。有关事件相机的更多详细信息，请参阅 <a href="http://rpg.ifi.uzh.ch/docs/scaramuzza/Tutorial_on_Event_Cameras_Scaramuzza.pdf">RPG-UZH 的本教程</a> 。</p>
-<h4 id="air">Air 事件模拟器<a class="headerlink" href="#air" title="Permanent link">#</a></h4>
+<h4 id="air">Air 事件模拟器</h4>
 <p>Air 事件模拟器使用两张连续的 RGB 图像（转换为灰度图像），并根据两幅图像之间对数亮度的变化计算过渡期间可能发生的“历史事件”。这些事件以字节流的形式报告，格式如下：</p>
 <p><code>&lt;x&gt; &lt;y&gt; &lt;timestamp&gt; &lt;pol&gt;</code></p>
 <p>x 和 y 分别代表事件触发的像素位置，timestamp 是以微秒为单位的全局时间戳，pol 的值根据亮度是增加还是减少而取 +1 或 -1。除了这个字节流之外，还会构建一个二维帧上的事件累积图，称为“事件图像”，其中 +1 事件显示为红色像素，-1 事件显示为蓝色像素。事件图像示例如下所示：</p>
 <p><img alt="image" src="../images/event_sim.png" /></p>
-<h4 id="_2">使用<a class="headerlink" href="#_2" title="Permanent link">#</a></h4>
+<h4 id="_2">使用</h4>
 <p>运行事件模拟器并与 AirSim 配合使用的示例脚本位于 <a href="https://github.com/microsoft/AirSim/blob/main/PythonClient/eventcamera_sim/test_event_sim.py">test_event_sim.py</a> 。以下可选命令行参数可以传递给此脚本。</p>
 <p><code>args.width, args.height (float): 模拟事件相机的分辨率
 args.save (bool): 是否将事件数据保存到文件；args.debug（布尔值）：是否将模拟事件显示为图像, 
@@ -311,13 +313,13 @@ ev_sim = EventSimulator(W, H)</code></p>
 </ol>
 <p>!!! 注意：
     目前每对图像生成的事件数量也有最大限制，该限制也可以进行调整。</p>
-<h4 id="_3">算法<a class="headerlink" href="#_3" title="Permanent link">#</a></h4>
+<h4 id="_3">算法</h4>
 <p>事件模拟器的工作原理大致遵循以下操作：
 1. 计算当前帧和前一帧的对数强度之差。 
 2. 遍历所有像素，根据对数强度变化的阈值计算每个像素的极性。
-3. 根据强度变化超过阈值的程度，确定每个像素要触发的事件数。设 <span class="arithmatex">\(N_{max}\)</span> 为单个像素可发生的最大事件数，则在像素位置 <span class="arithmatex">\(u\)</span> 处要模拟的总触发次数为 <span class="arithmatex">\(N_e(u) = min(N_{max}, \frac{\Delta L(u)}{TOL})\)</span> 
+3. 根据强度变化超过阈值的程度，确定每个像素要触发的事件数。设 $N_{max}$ 为单个像素可发生的最大事件数，则在像素位置 $u$ 处要模拟的总触发次数为 $N_e(u) = min(N_{max}, \frac{\Delta L(u)}{TOL})$ 
 4. 通过对前一帧图像和当前帧图像之间经过的时间间隔进行插值，确定每个插值事件的时间戳。
-<span class="arithmatex">\(t = t_{prev} + \frac{\Delta T}{N_e(u)}\)</span><br />
+$t = t_{prev} + \frac{\Delta T}{N_e(u)}$<br />
 5. 通过模拟每个像素的事件生成输出字节流，并按时间戳排序。</p>
               
             </div>
@@ -346,6 +348,10 @@ ev_sim = EventSimulator(W, H)</code></p>
   <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
     
+        <span>
+          <a href="https://github.com/OpenHUTB/air_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
     
       <span><a href="../voxel_grid/" style="color: #fcfcfc">&laquo; 前一页</a></span>
     
@@ -358,8 +364,13 @@ ev_sim = EventSimulator(W, H)</code></p>
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

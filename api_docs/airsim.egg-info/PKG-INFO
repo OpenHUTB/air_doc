@@ -1,4 +1,4 @@
-Metadata-Version: 2.1
+Metadata-Version: 2.4
 Name: airsim
 Version: 2.2.1
 Summary: Open source simulator based on Unreal Engine for autonomous vehicles from Microsoft AI & Research
@@ -13,6 +13,15 @@ Description-Content-Type: text/markdown
 Requires-Dist: msgpack-rpc-python
 Requires-Dist: numpy
 Requires-Dist: opencv-contrib-python
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: license
+Dynamic: requires-dist
+Dynamic: summary
 
 # 低空模拟器的 Python API
 

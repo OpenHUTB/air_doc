@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
     
       <script>
         // Current page data
@@ -291,6 +292,7 @@
           <li class="breadcrumb-item">升级</li>
       <li class="breadcrumb-item active">升级 APIs</li>
     <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/upgrade_apis.md" class="icon icon-github"> 在 GitHub 上编辑</a>
     </li>
   </ul>
   <hr/>
@@ -298,11 +300,11 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="api">升级 API 客户端代码<a class="headerlink" href="#api" title="Permanent link">#</a></h1>
+                <h1 id="api">升级 API 客户端代码</h1>
 <p>AirSim v1.2中有几个API更改，我们希望消除不一致性，增加未来的扩展性，并提供更干净的接口。然而，其中许多更改都是<em>破坏性的更改</em>，这意味着您需要修改与AirSim对话的客户端代码。</p>
-<h2 id="_1">更快的方法<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
+<h2 id="_1">更快的方法</h2>
 <p>虽然您需要在客户端代码中做的大多数更改都相当容易，但更快捷的方法就是查看示例代码（例如 <a href="https://github.com/OpenHUTB/air/tree/main/PythonClient/multirotor/hello_drone.py">Hello Drone</a> 或 <a href="https://github.com/OpenHUTB/air/tree/main/PythonClient/car/hello_car.py">Hello Car</a> ）以了解更改的要点。</p>
-<h2 id="airsim">导入 AirSim<a class="headerlink" href="#airsim" title="Permanent link">#</a></h2>
+<h2 id="airsim">导入 AirSim</h2>
 <p>不是</p>
 <p><code>python
 from AirSimClient import *</code>
@@ -316,7 +318,7 @@ import airsim</code></p>
 import setup_path 
 import airsim</code></p>
 <p>这里 setup_path.py 应该存在于你的文件夹中，它将设置 <code>airsim</code> 包在 <code>PythonClient</code> repo 文件夹中的路径。PythonClient 文件夹中的所有示例都使用此方法。</p>
-<h2 id="airsim_1">使用 AirSim 类<a class="headerlink" href="#airsim_1" title="Permanent link">#</a></h2>
+<h2 id="airsim_1">使用 AirSim 类</h2>
 <p>由于我们现在已将所有内容都包含在包中，因此您需要为 AirSim 类使用明确的命名空间，如下所示。</p>
 <p>不是</p>
 <p><code>python
@@ -324,7 +326,7 @@ client1 = CarClient()</code></p>
 <p>而是使用这个：</p>
 <p><code>python
 client1 = airsim.CarClient()</code></p>
-<h2 id="airsim_2">AirSim 类型<a class="headerlink" href="#airsim_2" title="Permanent link">#</a></h2>
+<h2 id="airsim_2">AirSim 类型</h2>
 <p>我们已将所有类型移至 <code>airsim</code> 命名空间。</p>
 <p>不是</p>
 <p>```python
@@ -336,7 +338,7 @@ image_type = AirSimImageType.DepthVis</p>
 image_type = airsim.ImageType.DepthVis</p>
 <p>d = airsim.DrivetrainType.MaxDegreeOfFreedom
 ```</p>
-<h2 id="_2">获取图像<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
+<h2 id="_2">获取图像</h2>
 <p>以下内容并无新意，只是上述内容的组合。请注意，所有之前使用 <code>camera_id</code> 的 API 现在均改为使用 <code>camera_name</code>。您可以点击此处查看 <a href="../image_apis/#avilable_cameras">可用的相机</a> 。</p>
 <p>不是</p>
 <p><code>python
@@ -344,7 +346,7 @@ responses = client.simGetImages([ImageRequest(0, AirSimImageType.DepthVis)])</co
 <p>而是使用这个：</p>
 <p><code>python
 responses = client.simGetImages([airsim.ImageRequest("0", airsim.ImageType.DepthVis)])</code></p>
-<h2 id="_3">实用方法<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
+<h2 id="_3">实用方法</h2>
 <p>在早期版本中，我们提供了一些实用方法作为 <code>AirSimClientBase</code> 的一部分。现在，这些方法已移至 <code>airsim</code> 命名空间，以提供更具 Python 风格的接口。</p>
 <p>不是</p>
 <p>```python
@@ -356,7 +358,7 @@ AirSimClientBase.write_png(my_path, img_rgba) </p>
 airsim.write_png(my_path, img_rgba)</p>
 <p>airsim.wait_key('Press any key')
 ```</p>
-<h2 id="_4">相机名称<a class="headerlink" href="#_4" title="Permanent link">#</a></h2>
+<h2 id="_4">相机名称</h2>
 <p>AirSim 现在使用 <a href="../image_apis/#available_cameras">名称</a> （而非索引号）来引用摄像头。但为了保持向后兼容性，这些名称将使用旧索引号作为字符串别名。</p>
 <p>不是</p>
 <p><code>python
@@ -364,10 +366,10 @@ client.simGetCameraInfo(0)</code></p>
 <p>而是使用这个：</p>
 <p>```python
 client.simGetCameraInfo("0")</p>
-<h1 id="_5">或者<a class="headerlink" href="#_5" title="Permanent link">#</a></h1>
+<h1 id="_5">或者</h1>
 <p>client.simGetCameraInfo("front-center")
 ```</p>
-<h2 id="_6">异步方法<a class="headerlink" href="#_6" title="Permanent link">#</a></h2>
+<h2 id="_6">异步方法</h2>
 <p>对于多旋翼飞行器，AirSim 中存在多种方法，例如 <code>takeoff</code> 或 <code>moveByVelocityZ</code>，这些方法需要较长时间才能完成。现在，所有这些方法都已重命名，并添加了后缀 <em>Async</em>，如下所示。</p>
 <p>不是</p>
 <p>```python
@@ -380,19 +382,19 @@ client.takeoffAsync().join()</p>
 <p>client.moveToPositionAsync(-10, 10, -10, 5).join()
 ```</p>
 <p>这里 <code>.join()</code> 是对 Python <code>Future</code> 类的调用，用于等待异步调用完成。你也可以选择在调用过程中执行其他计算。</p>
-<h2 id="_7">纯模拟方法<a class="headerlink" href="#_7" title="Permanent link">#</a></h2>
+<h2 id="_7">纯模拟方法</h2>
 <p>现在，我们已经清楚地区分了仅在模拟中可用的方法和可能在实际车辆上可用的方法。仅用于模拟的方法以 <code>sim</code> 为前缀，如下所示。</p>
 <p><code>getCollisionInfo()      重命名为       simGetCollisionInfo()
 getCameraInfo()         重命名为       simGetCameraInfo()
 setCameraOrientation()  重命名为       simSetCameraOrientation()</code></p>
-<h2 id="_8">状态信息<a class="headerlink" href="#_8" title="Permanent link">#</a></h2>
+<h2 id="_8">状态信息</h2>
 <p>此前，<code>CarState</code> 仅包含模拟信息，例如 <code>kinematics_true</code>。未来，<code>CarState</code> 将仅包含可在现实世界中获取的信息。</p>
 <p><code>python
 k = car_state.kinematics_true</code></p>
 <p>使用这个：</p>
 <p>```python
 k = car_state.kinematics_estimated</p>
-<h1 id="_9">或者<a class="headerlink" href="#_9" title="Permanent link">#</a></h1>
+<h1 id="_9">或者</h1>
 <p>k = client.simGetGroundTruthKinematics()
 ```</p>
               
@@ -422,6 +424,10 @@ k = car_state.kinematics_estimated</p>
   <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
     
+        <span>
+          <a href="https://github.com/OpenHUTB/air_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
     
       <span><a href="../unreal_upgrade/" style="color: #fcfcfc">&laquo; 前一页</a></span>
     
@@ -434,8 +440,13 @@ k = car_state.kinematics_estimated</p>
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

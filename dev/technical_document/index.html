@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra.css" rel="stylesheet" />
     
       <script>
         // Current page data
@@ -274,6 +275,7 @@
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
       <li class="breadcrumb-item active">面向自主系统的统一空地仿真</li>
     <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/dev/technical_document.md" class="icon icon-github"> 在 GitHub 上编辑</a>
     </li>
   </ul>
   <hr/>
@@ -281,11 +283,11 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="_1">面向自主系统的统一空地仿真<a class="headerlink" href="#_1" title="Permanent link">#</a></h1>
+                <h1 id="_1">面向自主系统的统一空地仿真</h1>
 <p><img alt="" src="../../images/dev/CarlaAir.gif" /></p>
 <hr />
-<h2 id="1">1. 引言和动机<a class="headerlink" href="#1" title="Permanent link">#</a></h2>
-<h3 id="11">1.1 问题<a class="headerlink" href="#11" title="Permanent link">#</a></h3>
+<h2 id="1">1. 引言和动机</h2>
+<h3 id="11">1.1 问题</h3>
 <p>自主系统研究日益需要<strong>联合空地仿真</strong>——即无人机（UAV）与地面车辆/行人在共享的城市环境中共存和交互的场景。应用领域包括：</p>
 <ul>
 <li><strong>对自主交通进行空中监视</strong>: 无人机监控和跟踪地面车辆</li>
@@ -300,9 +302,9 @@
 <li><strong>AirSim</strong> (微软): 无人机和汽车模拟，具备基于物理的飞行动力学、空中传感器和多种飞行控制器后端——但<strong>不包含交通管理、行人AI或城市道路网络</strong>。</li>
 </ul>
 <p>将它们作为<strong>单独的进程</strong>运行，并进行进程间同步是不切实际的：没有共享的物理引擎，没有共享的渲染引擎，没有坐标系对齐，而且由于复制了 UE4 渲染管线，会造成严重的性能开销。</p>
-<h3 id="12">1.2 解决方案<a class="headerlink" href="#12" title="Permanent link">#</a></h3>
+<h3 id="12">1.2 解决方案</h3>
 <p>该解决方案将 Carla 0.9.16 和 AirSim 1.8.1 整合到<strong>一个虚幻引擎进程</strong>中，使得两个 Python API（<code>carla.Client</code> 位于 2000 端口，<code>airsim.MultirotorClient</code> 位于 41451 端口）能够同时在同一个模拟世界中运行。该系统<strong>无需对面向用户的 Python API 进行任何修改</strong>——现有的 Carla 和 AirSim 脚本无需修改即可正常工作。</p>
-<h3 id="13">1.3 主要贡献<a class="headerlink" href="#13" title="Permanent link">#</a></h3>
+<h3 id="13">1.3 主要贡献</h3>
 <ol>
 <li><strong>统一游戏模式(GameMode)架构</strong>: 一种新颖的单继承+组合模式（<code>ASimWorldGameMode</code>），解决了UE4每个世界只能有一个游戏模式的基本限制。</li>
 <li><strong>双 API 服务器共存</strong>: 两个独立的 RPC 服务器（Carla rpclib + AirSim rpclib）在同一进程内运行于不同的端口。</li>
@@ -311,15 +313,15 @@
 <li><strong>离屏数据集生成</strong>: 结合地面和空中视角的无头多模态数据采集</li>
 </ol>
 <hr />
-<h2 id="2">2. 系统架构<a class="headerlink" href="#2" title="Permanent link">#</a></h2>
-<h3 id="21-ue4">2.1 核心挑战：UE4 的单一游戏模式限制<a class="headerlink" href="#21-ue4" title="Permanent link">#</a></h3>
+<h2 id="2">2. 系统架构</h2>
+<h3 id="21-ue4">2.1 核心挑战：UE4 的单一游戏模式限制</h3>
 <p>虚幻引擎 4 强制执行一项严格的架构限制：<strong>每个世界（关卡）只能有一个游戏模式</strong>。游戏模式控制着基本的模拟生命周期——玩家生成、游戏规则、比赛状态和初始化顺序。</p>
 <ul>
 <li>Carla 使用 <code>ACarlaGameModeBase</code> 作为其游戏模式，该模式初始化了Episode 系统、天气系统、交通灯管理器、Actor 工厂、记录器和 RPC 服务器。</li>
 <li>AirSim 使用 <code>AAirSimGameMode</code> 作为其游戏模式，该模式会初始化 SimHUD、读取 settings.json 文件并生成 SimMode 参与者。</li>
 </ul>
 <p>这两种游戏模式无法通过标准的UE4机制<strong>共存</strong>。之前的各种方法（例如，关卡流式传输、仅插件集成）都失败了，因为这两个系统都假定游戏模式关卡(GameMode-level)对模拟生命周期拥有控制权。</p>
-<h3 id="22">2.2 解决方案：单一继承 + 组合模式<a class="headerlink" href="#22" title="Permanent link">#</a></h3>
+<h3 id="22">2.2 解决方案：单一继承 + 组合模式</h3>
 <p>该解决方案利用了这两个系统之间的架构不对称性：</p>
 <ul>
 <li>Carla 的子系统（Episode、天气、交通管理器、Actor 工厂）通过继承和友元(<code>friend</code>)声明与 <code>ACarlaGameModeBase</code> <strong>紧密耦合</strong>。</li>
@@ -350,7 +352,7 @@
 <p class="admonition-title">关键思想</p>
 <p>通过让 <code>ASimWorldGameMode</code> <strong>继承</strong>自 <code>ACarlaGameModeBase</code>，可以让所有 Carla 子系统都经历标准的 UE4 生命周期（<code>InitGame</code> → <code>BeginPlay</code> → <code>Tick</code>）。在 Carla 初始化完成后，AirSim 的 <code>ASimModeBase</code> 会在 <code>BeginPlay</code> 期间作为<strong>普通 Actor 生成</strong>到游戏世界中。这样就避免了任何插槽冲突，因为 <code>ASimModeBase</code> 不会与 GameMode 插槽竞争。</p>
 </div>
-<h3 id="23">2.3 类层次结构<a class="headerlink" href="#23" title="Permanent link">#</a></h3>
+<h3 id="23">2.3 类层次结构</h3>
 <p><code>cpp
 // 统一游戏模式 GameMode（在 AirSim 插件模块中，依赖于 Carla 模块）
 UCLASS()
@@ -362,7 +364,7 @@ private:
     UPROPERTY() USimHUDWidget* AirSimWidget_;  // 调试叠加层
     TSubclassOf&lt;ASimModeBase&gt; SimModeClass_;   // 来自 settings.json
 };</code></p>
-<h3 id="24">2.4 初始化序列<a class="headerlink" href="#24" title="Permanent link">#</a></h3>
+<h3 id="24">2.4 初始化序列</h3>
 <p><code>UE4 引擎开始
 │
 ├── ASimWorldGameMode 构造函数
@@ -417,7 +419,7 @@ private:
 └── 两个API均已准备就绪
     ├── Carla Python API 在端口 2000 上运行
     └── AirSim Python API 在端口 41451 上运行</code></p>
-<h3 id="25">2.5 观察者棋子问题<a class="headerlink" href="#25" title="Permanent link">#</a></h3>
+<h3 id="25">2.5 观察者棋子问题</h3>
 <p>在 AirSim 中，<strong>必须</strong>将 <code>DefaultPawnClass</code> 设置为 <code>nullptr</code>，因为 UE4 的默认行为是自动生成并拥有一个玩家控制器控制的棋子。如果任一一个棋子被控制，AirSim 的 <code>SimpleFlightApi</code> 输入管道就会中断，那么无人机将无法接收控制命令。</p>
 <p>但是，Carla 希望 <code>Episode-&gt;Spectator</code> 指向一个有效的棋子（用于相机控制、场景观察，以及作为 Python API 的 <code>world.get_spectator()</code> 返回值）。</p>
 <p><strong>解决方案</strong>：生成一个观察者棋子(<code>ASpectatorPawn</code>)对象，但<strong>不拥有它的控制权</strong>。它作为一个“孤儿” 棋子存在（Carla 的 API 可以访问它），但 UE4 的玩家控制器系统无法访问它。我们使用 C++ 友元类(<code>friend class</code>)声明直接设置 <code>Episode-&gt;Spectator</code>（一个私有成员），绕过了 Carla 的正常初始化流程。</p>
@@ -431,7 +433,7 @@ ASpectatorPawn* Spectator = GetWorld()-&gt;SpawnActor&lt;ASpectatorPawn&gt;(
 Episode-&gt;Spectator = Spectator;  // 直接友元访问
 Episode-&gt;ActorDispatcher-&gt;GetActorRegistry().Register(
     FCarlaActor::IdType(Spectator-&gt;GetUniqueID()), *Spectator);</code></p>
-<h3 id="26">2.6 构建系统集成<a class="headerlink" href="#26" title="Permanent link">#</a></h3>
+<h3 id="26">2.6 构建系统集成</h3>
 <p>这两个插件是作为同一个UE4项目的一部分编译的：</p>
 <p><code>CarlaUE4.uproject
 ├── Plugins/Carla/    (LoadingPhase: PostConfigInit)
@@ -444,7 +446,7 @@ Episode-&gt;ActorDispatcher-&gt;GetActorRegistry().Register(
 <li><code>CarlaGameModeBase.h</code>: <code>WeatherClass</code> 和 <code>ActorFactories</code> 从私有的成员 <code>private</code> 更改为受保护的成员 <code>protected</code></li>
 <li><code>CarlaEpisode.h</code>: 添加 <code>friend class ASimWorldGameMode</code></li>
 </ol>
-<h3 id="27">2.7 配置<a class="headerlink" href="#27" title="Permanent link">#</a></h3>
+<h3 id="27">2.7 配置</h3>
 <p><strong><code>Unreal/CarlaUE4/Config/DefaultEngine.ini</code></strong> (关键条目):
 <code>ini
 GlobalDefaultGameMode=/Script/AirSim.SimWorldGameMode
@@ -477,8 +479,8 @@ bEnableEnhancedDeterminism=True</code></p>
     }
 }</code></p>
 <hr />
-<h2 id="3">3. 双通信架构<a class="headerlink" href="#3" title="Permanent link">#</a></h2>
-<h3 id="31-carla-2000">3.1 Carla 服务端 (端口 2000)<a class="headerlink" href="#31-carla-2000" title="Permanent link">#</a></h3>
+<h2 id="3">3. 双通信架构</h2>
+<h3 id="31-carla-2000">3.1 Carla 服务端 (端口 2000)</h3>
 <p>Carla 是用 <strong>三端口架构</strong>：</p>
 <table>
 <thead>
@@ -513,7 +515,7 @@ bEnableEnhancedDeterminism=True</code></p>
 3. GPU 像素通过 <code>FRHICommandListImmediate</code> 读取
 4. 数据通过 <code>SensorRegistry::Serialize()</code>（类型分发）进行序列化。
 5. 通过专用 TCP 流发送（每个传感器都有一个唯一的流令牌）</p>
-<h3 id="32-airsim-41451">3.2 AirSim 服务端 (端口 41451)<a class="headerlink" href="#32-airsim-41451" title="Permanent link">#</a></h3>
+<h3 id="32-airsim-41451">3.2 AirSim 服务端 (端口 41451)</h3>
 <p>AirSim 使用 rpclib 实现的<strong>单端口 RPC 架构</strong>：</p>
 <table>
 <thead>
@@ -533,7 +535,7 @@ bEnableEnhancedDeterminism=True</code></p>
 </table>
 <p><strong>图像采集</strong>: 与 Carla 的流式传输模型不同，AirSim 图像是通过 RPC 调用（<code>simGetImages</code>）按需请求的。服务器同步读取 UE4 渲染目标，并在 RPC 响应中返回原始像素数据。</p>
 <p><strong>物理线程交互</strong>: 飞行指令（例如 <code>moveToPositionAsync</code>）被发布到 AirSim 的内部指令队列。运行在专用异步线程上、频率为 333 Hz 的 <code>FastPhysicsEngine</code> 读取指令并更新物理状态。RPC 服务器按需读取状态。</p>
-<h3 id="33">3.3 共存<a class="headerlink" href="#33" title="Permanent link">#</a></h3>
+<h3 id="33">3.3 共存</h3>
 <p>这两个 RPC 服务器运行在同一个进程中，共享同一个 UE4 世界。它们之间不会相互干扰，因为：</p>
 <ul>
 <li>
@@ -550,8 +552,8 @@ bEnableEnhancedDeterminism=True</code></p>
 </li>
 </ul>
 <hr />
-<h2 id="4">4. 传感器系统<a class="headerlink" href="#4" title="Permanent link">#</a></h2>
-<h3 id="41-carla-10">4.1 Carla 地面传感器 (10 种类型)<a class="headerlink" href="#41-carla-10" title="Permanent link">#</a></h3>
+<h2 id="4">4. 传感器系统</h2>
+<h3 id="41-carla-10">4.1 Carla 地面传感器 (10 种类型)</h3>
 <p>Carla 提供了一套全面的真实载具传感器套件，所有传感器都可以作为 Actor 附加到任何车辆上：</p>
 <table>
 <thead>
@@ -627,7 +629,7 @@ bEnableEnhancedDeterminism=True</code></p>
 </table>
 <p><strong>基于着色器的渲染</strong>: 深度、分割、法线和光流像机将后处理材质应用于 UE4 的场景捕获管线。材质写入几何 (Geometry, G) 缓冲区通道，然后作为像素数据读取。这以极低的额外渲染成本实现了与 RGB 图像的像素级完美对齐。</p>
 <p><strong>激光雷达实现</strong>: 使用 UE4 <code>LineTraceSingleByChannel</code> 进行光线投射。点云以旋转模式生成，与真实的激光雷达扫描模式相匹配。强度通过衰减模型 <code>α × I₀ + β</code> 计算，其中 I₀ 取决于探测距离和材质反射率。支持雨雾等大气衰减。</p>
-<h3 id="42-airsim-6">4.2 AirSim 空中传感器（6 种类型）<a class="headerlink" href="#42-airsim-6" title="Permanent link">#</a></h3>
+<h3 id="42-airsim-6">4.2 AirSim 空中传感器（6 种类型）</h3>
 <table>
 <thead>
 <tr>
@@ -695,7 +697,7 @@ bEnableEnhancedDeterminism=True</code></p>
 <p><strong>气压计</strong>: 采用高斯-马尔可夫过程模拟缓慢的压力漂移，并考虑高频测量噪声</p>
 </li>
 </ul>
-<h3 id="43">4.3 组合传感器能力<a class="headerlink" href="#43" title="Permanent link">#</a></h3>
+<h3 id="43">4.3 组合传感器能力</h3>
 <p>在SimWorld中，<strong>所有16种传感器类型可以同时运行</strong>：</p>
 <table>
 <thead>
@@ -725,8 +727,8 @@ bEnableEnhancedDeterminism=True</code></p>
 </table>
 <p>这是一项独特的功能，因为没有其他模拟器能够在一次渲染过程中提供同步的地面+空中多模态传感器数据。</p>
 <hr />
-<h2 id="5">5. 物理学和飞行动力学<a class="headerlink" href="#5" title="Permanent link">#</a></h2>
-<h3 id="51">5.1 地面车辆物理<a class="headerlink" href="#51" title="Permanent link">#</a></h3>
+<h2 id="5">5. 物理学和飞行动力学</h2>
+<h3 id="51">5.1 地面车辆物理</h3>
 <p>Carla 使用 UE4 的原生 PhysX 车辆物理引擎（<code>AWheeledVehicle</code>）：</p>
 <ul>
 <li>
@@ -742,24 +744,25 @@ bEnableEnhancedDeterminism=True</code></p>
 <p>与 Project Chrono 集成，实现更高保真度的轮胎模型（可选）</p>
 </li>
 </ul>
-<h3 id="52-fastphysicsengine">5.2 无人机飞行动力学 (FastPhysicsEngine)<a class="headerlink" href="#52-fastphysicsengine" title="Permanent link">#</a></h3>
+<h3 id="52-fastphysicsengine">5.2 无人机飞行动力学 (FastPhysicsEngine)</h3>
 <p>AirSim 实现了一个<strong>自定义的刚体动力学引擎</strong>，该引擎运行在专用的异步线程上，频率为 333 Hz：</p>
 <p><strong>积分</strong>: 采用二阶 Verlet 方法计算线运动和角运动：
-$$
+<script type="math/tex; mode=display">
 v(t+dt) = v(t) + a(t) \times dt
-$$
-$$
+</script>
+<script type="math/tex; mode=display">
 x(t+dt) = x(t) + v(t+dt) \times dt
-$$</p>
+</script>
+</p>
 <p><strong>力模型</strong>: 每个旋翼贡献一个推力矢量和一个扭矩。总扭矩是四个旋翼扭矩之和。空气动力阻力采用六面盒模型，其与速度的平方成正比：
-$$
+<script type="math/tex; mode=display">
 F_{drag} = -0.5 \times \rho \times Cd \times A \times |v_{rel}|^2 \times \hat{v}_{rel}
-$$
-其中 <span class="arithmatex">\(\hat{v}_{rel}\)</span> 考虑风的影响。</p>
+</script>
+其中 <script type="math/tex">\hat{v}_{rel}</script> 考虑风的影响。</p>
 <p><strong>碰撞响应</strong>: 基于库仑摩擦的脉冲法：
-$$
+<script type="math/tex; mode=display">
 j = - \frac{(1 + e) \times (v \cdot n)}{ \frac{1}{m} + ((I^{-1}(r \times n)) × r) \cdot n}
-$$
+</script>
 地面锁定功能可防止飞机在着陆面上发生微小弹跳。</p>
 <p><strong>飞控</strong>:</p>
 <ul>
@@ -773,7 +776,7 @@ $$
 <p><strong>ArduPilot</strong> (可选): SITL集成</p>
 </li>
 </ul>
-<h3 id="53">5.3 坐标系<a class="headerlink" href="#53" title="Permanent link">#</a></h3>
+<h3 id="53">5.3 坐标系</h3>
 <table>
 <thead>
 <tr>
@@ -801,15 +804,16 @@ $$
 <p><strong>坐标映射</strong>: AirSim 在 BeginPlay 时创建一个 <code>NedTransform</code>，用于在 UE4 世界坐标和以无人机生成点为锚点的 NED 坐标系之间进行映射。对于无人机跟随车辆的应用，我们使用<strong>相对偏移方法</strong>：</p>
 <ol>
 <li>
-<p>记录 Carla 汽车的初始位置 <span class="arithmatex">\( (cx_o, cy_o) \)</span> 和 AirSim 无人机 NED 的位置 <span class="arithmatex">\( (dx_o, dy_o) \)</span></p>
+<p>记录 Carla 汽车的初始位置 <script type="math/tex"> (cx_o, cy_o) </script> 和 AirSim 无人机 NED 的位置 <script type="math/tex"> (dx_o, dy_o) </script>
+</p>
 </li>
 <li>
-<p>每帧: <span class="arithmatex">\( \Delta = (cx - cx_o, cy - cy_o) \)</span> ，目标无人机 NED = <span class="arithmatex">\( (dx_o + \Delta x, dy_o, \Delta y) \)</span> 。</p>
+<p>每帧: <script type="math/tex"> \Delta = (cx - cx_o, cy - cy_o) </script> ，目标无人机 NED = <script type="math/tex"> (dx_o + \Delta x, dy_o, \Delta y) </script> 。</p>
 </li>
 </ol>
 <hr />
-<h2 id="6">6. 交通与环境<a class="headerlink" href="#6" title="Permanent link">#</a></h2>
-<h3 id="61">6.1 交通管理器<a class="headerlink" href="#61" title="Permanent link">#</a></h3>
+<h2 id="6">6. 交通与环境</h2>
+<h3 id="61">6.1 交通管理器</h3>
 <p>Carla 的流量管理器是一个运行在专用线程上的<strong>客户端管线架构</strong>：</p>
 <table>
 <thead>
@@ -846,7 +850,7 @@ $$
 </tbody>
 </table>
 <p>交通管理器维护一个用于 O(1) 空间查询的 <strong>内存地图(InMemoryMap)</strong>（缓存的路径点图）和一个跟踪所有受管参与者运动学的 <strong>模拟状态(SimulationState)</strong>。</p>
-<h3 id="62">6.2 天气系统<a class="headerlink" href="#62" title="Permanent link">#</a></h3>
+<h3 id="62">6.2 天气系统</h3>
 <p>控制大气条件的 15 个连续参数：</p>
 <table>
 <thead>
@@ -910,7 +914,7 @@ $$
 </tbody>
 </table>
 <p>4 个预设模式，涵盖白天/夜晚、晴天/阴天/雨天/暴风雨等天气状况。天气会<strong>同时</strong>影响 Carla 渲染和 AirSim 的航拍视图。</p>
-<h3 id="63">6.3 地图和路网<a class="headerlink" href="#63" title="Permanent link">#</a></h3>
+<h3 id="63">6.3 地图和路网</h3>
 <table>
 <thead>
 <tr>
@@ -975,8 +979,8 @@ $$
 </li>
 </ul>
 <hr />
-<h2 id="7">7. 参与者系统<a class="headerlink" href="#7" title="Permanent link">#</a></h2>
-<h3 id="71">7.1 参与者蓝图库<a class="headerlink" href="#71" title="Permanent link">#</a></h3>
+<h2 id="7">7. 参与者系统</h2>
+<h3 id="71">7.1 参与者蓝图库</h3>
 <table>
 <thead>
 <tr>
@@ -1018,7 +1022,7 @@ $$
 </tr>
 </tbody>
 </table>
-<h3 id="72">7.2 参与者生成管线<a class="headerlink" href="#72" title="Permanent link">#</a></h3>
+<h3 id="72">7.2 参与者生成管线</h3>
 <p><code>cpp
 Python: world.spawn_actor(blueprint, transform)
   → RPC: carla::rpc::Command::SpawnActor
@@ -1029,7 +1033,7 @@ Python: world.spawn_actor(blueprint, transform)
             → UWorld::SpawnActor&lt;&gt;()  (UE4 native spawn)
           → FActorRegistry::Register(actor_id, actor)
         → return carla::rpc::Actor (serialized to client)</code></p>
-<h3 id="73-ai">7.3 行人 AI 导航<a class="headerlink" href="#73-ai" title="Permanent link">#</a></h3>
+<h3 id="73-ai">7.3 行人 AI 导航</h3>
 <p>行人使用 UE4 的 <strong>Recast 导航网格</strong>进行寻路</p>
 <ul>
 <li>
@@ -1046,8 +1050,8 @@ Python: world.spawn_actor(blueprint, transform)
 </li>
 </ul>
 <hr />
-<h2 id="8">8. 应用领域和研究能力<a class="headerlink" href="#8" title="Permanent link">#</a></h2>
-<h3 id="81">8.1 自动驾驶<a class="headerlink" href="#81" title="Permanent link">#</a></h3>
+<h2 id="8">8. 应用领域和研究能力</h2>
+<h3 id="81">8.1 自动驾驶</h3>
 <ul>
 <li>完整的自车传感器套件（RGB、深度、分割、激光雷达、雷达、IMU、GNSS）</li>
 <li>具备车辆行为参数的交通管理器</li>
@@ -1055,7 +1059,7 @@ Python: world.spawn_actor(blueprint, transform)
 <li>涵盖 6 张以上地图的 41 种车辆类型，并采用 OpenDRIVE 路网</li>
 <li>用于可复现实验的确定性仿真模式</li>
 </ul>
-<h3 id="82">8.2 无人机导航与控制<a class="headerlink" href="#82" title="Permanent link">#</a></h3>
+<h3 id="82">8.2 无人机导航与控制</h3>
 <ul>
 <li>六自由度飞行控制：位置、速度、机体坐标系速度、偏航率、路径跟踪</li>
 <li>基于物理的动力学模型，频率为 333 Hz，考虑风阻和空气动力阻力</li>
@@ -1063,7 +1067,7 @@ Python: world.spawn_actor(blueprint, transform)
 <li>可配置的飞行控制器（SimpleFlight、PX4、ArduPilot）</li>
 <li>传感器噪声模型（IMU、GPS、气压计、磁力计），实现逼真的感知</li>
 </ul>
-<h3 id="83">8.3 空地协同系统 (新颖)<a class="headerlink" href="#83" title="Permanent link">#</a></h3>
+<h3 id="83">8.3 空地协同系统 (新颖)</h3>
 <p>这是 SimWorld 独有的研究能力：</p>
 <ul>
 <li><strong>无人机-车辆跟踪</strong>: 无人机通过实时坐标变换跟踪地面车辆</li>
@@ -1072,7 +1076,7 @@ Python: world.spawn_actor(blueprint, transform)
 <li><strong>多智能体协同</strong>: 多辆 Carla 车辆 + AirSim 无人机在共享场景中</li>
 <li><strong>应急响应</strong>: 城市环境中的空中侦察 + 地面导航</li>
 </ul>
-<h3 id="84">8.4 社交导航<a class="headerlink" href="#84" title="Permanent link">#</a></h3>
+<h3 id="84">8.4 社交导航</h3>
 <ul>
 <li>第一人称射击游戏风格，采用鼠标视角的第一人称行人控制</li>
 <li>52 种行人类型，配备 AI 控制的导航</li>
@@ -1080,7 +1084,7 @@ Python: world.spawn_actor(blueprint, transform)
 <li>交通环境中的行人-车辆交互</li>
 <li>多变的天气和光照条件</li>
 </ul>
-<h3 id="85">8.5 多模态数据集生成<a class="headerlink" href="#85" title="Permanent link">#</a></h3>
+<h3 id="85">8.5 多模态数据集生成</h3>
 <p>SimWorld 能够生成具有<strong>前所未有的模态覆盖范围</strong>的数据集：</p>
 <table>
 <thead>
@@ -1192,27 +1196,27 @@ Python: world.spawn_actor(blueprint, transform)
 </table>
 <p>所有模态均<strong>同步到同一仿真帧</strong>并共享同一世界状态。离屏渲染模式（<code>-RenderOffScreen</code>）支持在 GPU 服务器上进行无头操作，以进行大规模数据处理。</p>
 <hr />
-<h2 id="9-ros">9. ROS 集成<a class="headerlink" href="#9-ros" title="Permanent link">#</a></h2>
+<h2 id="9-ros">9. ROS 集成</h2>
 <p>SimWorld 支持双 ROS2 桥接器，用于与机器人技术栈集成：</p>
-<h3 id="91-carla-ros">9.1 Carla ROS 桥<a class="headerlink" href="#91-carla-ros" title="Permanent link">#</a></h3>
+<h3 id="91-carla-ros">9.1 Carla ROS 桥</h3>
 <ul>
 <li>工作空间: <code>carla-ros-bridge</code> (ROS2 Humble)</li>
 <li>已发布的主题：<code>/carla/world_info</code>, <code>/carla/status</code>, <code>/clock</code>, 每个车的传感器主体</li>
 <li>服务：<code>/carla/spawn_object</code>, <code>/carla/destroy_object</code>, <code>/carla/get_blueprints</code></li>
 <li>命名空间：<code>/carla/*</code></li>
 </ul>
-<h3 id="92-airsim-ros">9.2 AirSim ROS 封装器<a class="headerlink" href="#92-airsim-ros" title="Permanent link">#</a></h3>
+<h3 id="92-airsim-ros">9.2 AirSim ROS 封装器</h3>
 <ul>
 <li>包：<code>airsim_ros_pkgs</code> (ROS2 Humble)</li>
 <li>已发布的主题：<code>/airsim_node/SimpleFlight/imu/imu</code>, <code>/airsim_node/SimpleFlight/front_center/Scene</code>, GPS, barometer, magnetometer, odometry</li>
 <li>服务: takeoff, land, reset</li>
 <li>命名空间: <code>/airsim_node/*</code></li>
 </ul>
-<h3 id="93">9.3 同时运行<a class="headerlink" href="#93" title="Permanent link">#</a></h3>
+<h3 id="93">9.3 同时运行</h3>
 <p>这两个桥接器在同一个 ROS 主节点下同时运行，<strong>不存在命名空间冲突</strong>（<code>/carla/</code> 与 <code>/airsim_node/</code>）。这使得标准的 ROS2 工具（rviz2、rosbag2、nav2）能够同时使用地面和空中数据流。</p>
 <hr />
-<h2 id="10">10. 性能特征<a class="headerlink" href="#10" title="Permanent link">#</a></h2>
-<h3 id="101">10.1 系统要求<a class="headerlink" href="#101" title="Permanent link">#</a></h3>
+<h2 id="10">10. 性能特征</h2>
+<h3 id="101">10.1 系统要求</h3>
 <table>
 <thead>
 <tr>
@@ -1249,7 +1253,7 @@ Python: world.spawn_actor(blueprint, transform)
 </tr>
 </tbody>
 </table>
-<h3 id="102-rtx-a4000-16-gb">10.2 显存使用 (在 RTX A4000, 16 GB 上测试)<a class="headerlink" href="#102-rtx-a4000-16-gb" title="Permanent link">#</a></h3>
+<h3 id="102-rtx-a4000-16-gb">10.2 显存使用 (在 RTX A4000, 16 GB 上测试)</h3>
 <table>
 <thead>
 <tr>
@@ -1276,7 +1280,7 @@ Python: world.spawn_actor(blueprint, transform)
 </tr>
 </tbody>
 </table>
-<h3 id="103">10.3 稳定性<a class="headerlink" href="#103" title="Permanent link">#</a></h3>
+<h3 id="103">10.3 稳定性</h3>
 <table>
 <thead>
 <tr>
@@ -1311,7 +1315,7 @@ Python: world.spawn_actor(blueprint, transform)
 </tr>
 </tbody>
 </table>
-<h3 id="104">10.4 已知局限性<a class="headerlink" href="#104" title="Permanent link">#</a></h3>
+<h3 id="104">10.4 已知局限性</h3>
 <table>
 <thead>
 <tr>
@@ -1339,23 +1343,23 @@ Python: world.spawn_actor(blueprint, transform)
 </tbody>
 </table>
 <hr />
-<h2 id="11_1">11. 构建和部署<a class="headerlink" href="#11_1" title="Permanent link">#</a></h2>
-<h3 id="111">11.1 编译<a class="headerlink" href="#111" title="Permanent link">#</a></h3>
+<h2 id="11_1">11. 构建和部署</h2>
+<h3 id="111">11.1 编译</h3>
 <p>```bash</p>
-<h1 id="featuresh">模块级编译（避免 features.h 交叉编译错误）<a class="headerlink" href="#featuresh" title="Permanent link">#</a></h1>
+<h1 id="featuresh">模块级编译（避免 features.h 交叉编译错误）</h1>
 <p>export UE4_ROOT=/path/to/UnrealEngine-4.26
 ${UE4_ROOT}/Engine/Build/BatchFiles/Linux/Build.sh CarlaUE4Editor Linux Development \
     -project="/path/to/CarlaUE4.uproject" -module=Carla    # ~290s
 ${UE4_ROOT}/Engine/Build/BatchFiles/Linux/Build.sh CarlaUE4Editor Linux Development \
     -project="/path/to/CarlaUE4.uproject" -module=AirSim   # ~100s
 ```</p>
-<h3 id="112">11.2 打包<a class="headerlink" href="#112" title="Permanent link">#</a></h3>
+<h3 id="112">11.2 打包</h3>
 <p>```bash
 ./Util/BuildTools/Package.sh --config=Shipping --no-zip</p>
-<h1 id="distcarla_shipping_linuxnoeditor-19-gb">输出: Dist/CARLA_Shipping_<version>/LinuxNoEditor/ (~19 GB)<a class="headerlink" href="#distcarla_shipping_linuxnoeditor-19-gb" title="Permanent link">#</a></h1>
-<h1 id="800s-656-units-cook-2h-13459-packages">编译: ~800s (656 units), Cook: ~2h (13459 packages)<a class="headerlink" href="#800s-656-units-cook-2h-13459-packages" title="Permanent link">#</a></h1>
+<h1 id="distcarla_shipping_linuxnoeditor-19-gb">输出: Dist/CARLA_Shipping_<version>/LinuxNoEditor/ (~19 GB)</h1>
+<h1 id="800s-656-units-cook-2h-13459-packages">编译: ~800s (656 units), Cook: ~2h (13459 packages)</h1>
 <p>```</p>
-<h3 id="113">11.3 发布<a class="headerlink" href="#113" title="Permanent link">#</a></h3>
+<h3 id="113">11.3 发布</h3>
 <p>打包后的版本：<strong>7.3 GB</strong>（压缩后，不含调试符号），包含：</p>
 <ul>
 <li>
@@ -1375,7 +1379,7 @@ ${UE4_ROOT}/Engine/Build/BatchFiles/Linux/Build.sh CarlaUE4Editor Linux Developm
 </li>
 </ul>
 <hr />
-<h2 id="12_1">12. 与相关工作的比较<a class="headerlink" href="#12_1" title="Permanent link">#</a></h2>
+<h2 id="12_1">12. 与相关工作的比较</h2>
 <table>
 <thead>
 <tr>
@@ -1496,15 +1500,15 @@ ${UE4_ROOT}/Engine/Build/BatchFiles/Linux/Build.sh CarlaUE4Editor Linux Developm
 </table>
 <p><strong>主要区别</strong>：SimWorld 是唯一一个在单一渲染过程中提供基于物理的无人机飞行、全面的地面交通管理以及多模态同步空地传感器数据的平台。</p>
 <hr />
-<h2 id="13_1">13. 潜在的论文贡献<a class="headerlink" href="#13_1" title="Permanent link">#</a></h2>
-<h3 id="neurips-iclr">提交至 NeurIPS / ICLR<a class="headerlink" href="#neurips-iclr" title="Permanent link">#</a></h3>
+<h2 id="13_1">13. 潜在的论文贡献</h2>
+<h3 id="neurips-iclr">提交至 NeurIPS / ICLR</h3>
 <ol>
 <li><strong>系统论文</strong>: 解决模拟器统一中单一游戏模式限制的新型架构</li>
 <li><strong>基准论文</strong>: 空地协同感知的新基准</li>
 <li><strong>数据集论文</strong>: 具有同步地面+空中标注的大规模多模态数据集</li>
 <li><strong>应用论文</strong>: 基于空地数据的空中辅助自动驾驶/社交导航</li>
 </ol>
-<h3 id="_2">潜在评估实验<a class="headerlink" href="#_2" title="Permanent link">#</a></h3>
+<h3 id="_2">潜在评估实验</h3>
 <ul>
 <li><strong>目标检测</strong>: 比较仅使用地面数据和使用地面+航空数据的检测精度</li>
 <li><strong>轨迹预测</strong>: 基于空中环境的行人/车辆轨迹预测</li>
@@ -1514,7 +1518,7 @@ ${UE4_ROOT}/Engine/Build/BatchFiles/Linux/Build.sh CarlaUE4Editor Linux Developm
 <li><strong>社会导航</strong>: 基于无人机存在的行人交互建模</li>
 <li><strong>基于强化学习的无人机控制</strong>: 训练无人机策略，用于车辆跟踪、监视和搜索任务</li>
 </ul>
-<h3 id="_3">在顶级场合发表的类似作品<a class="headerlink" href="#_3" title="Permanent link">#</a></h3>
+<h3 id="_3">在顶级场合发表的类似作品</h3>
 <ul>
 <li><strong>Carla</strong>: "CARLA: An Open Urban Driving Simulator" (CoRL 2017)</li>
 <li><strong>AirSim</strong>: "AirSim: High-Fidelity Visual and Physical Simulation for Autonomous Vehicles" (FSR 2017)</li>
@@ -1524,8 +1528,8 @@ ${UE4_ROOT}/Engine/Build/BatchFiles/Linux/Build.sh CarlaUE4Editor Linux Developm
 </ul>
 <p>SimWorld 填补了驾驶模拟器和航空模拟器之间的空白，在自动驾驶、无人机导航和多智能体系统交叉领域开辟了一类新的研究方向。</p>
 <hr />
-<h2 id="a">附录A：完整文件清单<a class="headerlink" href="#a" title="Permanent link">#</a></h2>
-<h3 id="_4">核心架构文件<a class="headerlink" href="#_4" title="Permanent link">#</a></h3>
+<h2 id="a">附录A：完整文件清单</h2>
+<h3 id="_4">核心架构文件</h3>
 <table>
 <thead>
 <tr>
@@ -1564,7 +1568,7 @@ ${UE4_ROOT}/Engine/Build/BatchFiles/Linux/Build.sh CarlaUE4Editor Linux Developm
 </tr>
 </tbody>
 </table>
-<h3 id="carla">Carla 传感器文件<a class="headerlink" href="#carla" title="Permanent link">#</a></h3>
+<h3 id="carla">Carla 传感器文件</h3>
 <table>
 <thead>
 <tr>
@@ -1607,7 +1611,7 @@ ${UE4_ROOT}/Engine/Build/BatchFiles/Linux/Build.sh CarlaUE4Editor Linux Developm
 </tr>
 </tbody>
 </table>
-<h3 id="airsim">AirSim 核心文件<a class="headerlink" href="#airsim" title="Permanent link">#</a></h3>
+<h3 id="airsim">AirSim 核心文件</h3>
 <table>
 <thead>
 <tr>
@@ -1654,36 +1658,36 @@ ${UE4_ROOT}/Engine/Build/BatchFiles/Linux/Build.sh CarlaUE4Editor Linux Developm
 </tr>
 </tbody>
 </table>
-<h2 id="bpython-api">附录 B：Python API 快速参考<a class="headerlink" href="#bpython-api" title="Permanent link">#</a></h2>
-<h3 id="carla-api-2000">Carla API (端口 2000)<a class="headerlink" href="#carla-api-2000" title="Permanent link">#</a></h3>
+<h2 id="bpython-api">附录 B：Python API 快速参考</h2>
+<h3 id="carla-api-2000">Carla API (端口 2000)</h3>
 <p>```python
 import carla
 client = carla.Client('localhost', 2000)
 world = client.get_world()</p>
-<h1 id="_5">环境<a class="headerlink" href="#_5" title="Permanent link">#</a></h1>
+<h1 id="_5">环境</h1>
 <p>world.set_weather(carla.WeatherParameters.ClearNoon)
 world.get_map().get_spawn_points()</p>
-<h1 id="_6">参与者<a class="headerlink" href="#_6" title="Permanent link">#</a></h1>
+<h1 id="_6">参与者</h1>
 <p>bp = world.get_blueprint_library().find('vehicle.tesla.model3')
 vehicle = world.spawn_actor(bp, spawn_point)
 vehicle.set_autopilot(True)</p>
-<h1 id="_7">传感器<a class="headerlink" href="#_7" title="Permanent link">#</a></h1>
+<h1 id="_7">传感器</h1>
 <p>cam_bp = world.get_blueprint_library().find('sensor.camera.rgb')
 camera = world.spawn_actor(cam_bp, transform, attach_to=vehicle)
 camera.listen(lambda image: process(image))
 ```</p>
-<h3 id="airsim-api-41451">AirSim API (端口 41451)<a class="headerlink" href="#airsim-api-41451" title="Permanent link">#</a></h3>
+<h3 id="airsim-api-41451">AirSim API (端口 41451)</h3>
 <p>```python
 import airsim
 client = airsim.MultirotorClient(port=41451)
 client.confirmConnection()
 client.enableApiControl(True)
 client.armDisarm(True)</p>
-<h1 id="_8">飞行<a class="headerlink" href="#_8" title="Permanent link">#</a></h1>
+<h1 id="_8">飞行</h1>
 <p>client.takeoffAsync().join()
 client.moveToPositionAsync(x, y, z, speed).join()
 client.moveByVelocityAsync(vx, vy, vz, duration).join()</p>
-<h1 id="_9">传感器<a class="headerlink" href="#_9" title="Permanent link">#</a></h1>
+<h1 id="_9">传感器</h1>
 <p>responses = client.simGetImages([
     airsim.ImageRequest("0", airsim.ImageType.Scene, False, False),
     airsim.ImageRequest("0", airsim.ImageType.DepthPerspective, True),
@@ -1692,19 +1696,19 @@ client.moveByVelocityAsync(vx, vy, vz, duration).join()</p>
 imu = client.getImuData()
 gps = client.getGpsData()
 ```</p>
-<h3 id="_10">组合使用<a class="headerlink" href="#_10" title="Permanent link">#</a></h3>
+<h3 id="_10">组合使用</h3>
 <p>```python
 import carla, airsim, threading</p>
-<h1 id="api">两个 API 都在同一个世界<a class="headerlink" href="#api" title="Permanent link">#</a></h1>
+<h1 id="api">两个 API 都在同一个世界</h1>
 <p>carla_client = carla.Client('localhost', 2000)
 air_client = airsim.MultirotorClient(port=41451)</p>
-<h1 id="carla_1">在飞行模拟无人机时生成 Carla 交通<a class="headerlink" href="#carla_1" title="Permanent link">#</a></h1>
+<h1 id="carla_1">在飞行模拟无人机时生成 Carla 交通</h1>
 <p>world = carla_client.get_world()
 vehicle = world.spawn_actor(vehicle_bp, spawn_point)
 vehicle.set_autopilot(True)</p>
 <p>air_client.takeoffAsync().join()
 air_client.moveToZAsync(-30, 5).join()  # 30 米高度</p>
-<h1 id="_11">收集同步地面+空中数据<a class="headerlink" href="#_11" title="Permanent link">#</a></h1>
+<h1 id="_11">收集同步地面+空中数据</h1>
 <p>ground_image = carla_camera.listen(callback)
 aerial_images = air_client.simGetImages([...])
 ```</p>
@@ -1731,6 +1735,10 @@ aerial_images = air_client.simGetImages([...])
   <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
     
+        <span>
+          <a href="https://github.com/OpenHUTB/air_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
     
     
   </span>
@@ -1739,8 +1747,13 @@ aerial_images = air_client.simGetImages([...])
     <script>var base_url = "../..";</script>
     <script src="../../js/theme_extra.js"></script>
     <script src="../../js/theme.js"></script>
-      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
       <script src="../../search/main.js"></script>
     <script>
         jQuery(function () {

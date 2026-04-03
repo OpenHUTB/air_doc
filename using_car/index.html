@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
     
       <script>
         // Current page data
@@ -285,6 +286,7 @@
           <li class="breadcrumb-item">使用 AirSim</li>
       <li class="breadcrumb-item active">汽车模式</li>
     <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/using_car.md" class="icon icon-github"> 在 GitHub 上编辑</a>
     </li>
   </ul>
   <hr/>
@@ -292,20 +294,20 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="airsim">如何在 AirSim 中使用汽车<a class="headerlink" href="#airsim" title="Permanent link">#</a></h1>
+                <h1 id="airsim">如何在 AirSim 中使用汽车</h1>
 <p>默认情况下，AirSim 会提示用户选择要使用的车辆。您可以通过设置 <a href="../settings/#SimMode">SimMode</a> 轻松更改此设置。例如，如果您想使用汽车，只需在 <a href="../settings/">settings.json</a>（位于 <code>~/Documents/AirSim</code> 文件夹中）中设置 SimMode 即可，如下所示：</p>
 <p><code>{
   "SettingsVersion": 1.2,
   "SimMode": "Car"
 }</code></p>
 <p>现在，当您重新启动 AirSim 时，您应该会看到汽车自动生成。</p>
-<h2 id="_1">手动驾驶<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
+<h2 id="_1">手动驾驶</h2>
 <p>请使用键盘方向键进行手动驾驶。空格键用于拉手刹。手动驾驶模式下，档位设置为“自动(auto)”。</p>
-<h2 id="apis">使用 APIs<a class="headerlink" href="#apis" title="Permanent link">#</a></h2>
+<h2 id="apis">使用 APIs</h2>
 <p>您可以通过调用各种客户端语言（包括 C++ 和 Python）的 API 来控制车辆、获取状态和图像。更多详情，请参阅 <a href="../apis/">API 文档</a> 。</p>
-<h2 id="_2">改变视角<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
+<h2 id="_2">改变视角</h2>
 <p>默认情况下，摄像头会从车辆后方追击。您可以按 <code>F</code> 键进入 FPV 视图，然后按 <code>/</code> 键切换回后方追击。按 F1 键可以查看更多键盘快捷键。</p>
-<h2 id="_3">相机<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
+<h2 id="_3">相机</h2>
 <p>车辆默认安装有 5 个摄像头：中央摄像头、左侧摄像头、右侧摄像头、驾驶员摄像头和倒车摄像头。您可以通过指定 <a href="../image_apis/#available_cameras">名称</a> 来选择这些摄像头的图像。</p>
               
             </div>
@@ -334,6 +336,10 @@
   <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
     
+        <span>
+          <a href="https://github.com/OpenHUTB/air_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
     
       <span><a href="../camera_views/" style="color: #fcfcfc">&laquo; 前一页</a></span>
     
@@ -346,8 +352,13 @@
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

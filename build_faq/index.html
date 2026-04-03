@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
     
       <script>
         // Current page data
@@ -329,6 +330,7 @@
           <li class="breadcrumb-item">构建 AirSim</li>
       <li class="breadcrumb-item active">场景问题和回答</li>
     <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/build_faq.md" class="icon icon-github"> 在 GitHub 上编辑</a>
     </li>
   </ul>
   <hr/>
@@ -336,9 +338,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="_1">常见问题<a class="headerlink" href="#_1" title="Permanent link">#</a></h1>
+                <h1 id="_1">常见问题</h1>
 <hr />
-<h2 id="windows">Windows 构建<a class="headerlink" href="#windows" title="Permanent link">#</a></h2>
+<h2 id="windows">Windows 构建</h2>
 <ul>
 <li><a href="#how-to-force-unreal-to-use-visual-studio-2019">如何强制 Unreal 使用 Visual Studio 2019？</a></li>
 <li><a href="#i-get-error-where-is-not-recognized-as-an-internal-or-external-command">报错: 'where' is not recognized as an internal or external command</a></li>
@@ -350,7 +352,7 @@
 <li><a href="#unreal-still-uses-vs2015-or-im-getting-some-link-error">Unreal 仍然使用 VS2015，否则我会收到一些链接错误</a></li>
 </ul>
 <hr />
-<h2 id="linux">Linux 构建<a class="headerlink" href="#linux" title="Permanent link">#</a></h2>
+<h2 id="linux">Linux 构建</h2>
 <ul>
 <li><a href="#im-getting-error-myproject-could-not-be-compiled-try-rebuilding-from-source-manually">报错：<code>&lt;MyProject&gt; could not be compiled. Try rebuilding from source manually</code>.</a></li>
 <li><a href="#unreal-crashed-how-do-i-know-what-went-wrong">Unreal崩溃了！我怎么知道哪里出了问题？</a></li>
@@ -362,16 +364,16 @@
 <li><a href="#where-can-i-find-more-info-on-running-unreal-on-linux">在哪里可以找到有关在 Linux 上运行 Unreal 的更多信息？</a></li>
 </ul>
 <hr />
-<h2 id="_2">其他<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
+<h2 id="_2">其他</h2>
 <ul>
 <li><a href="#packaging-a-binary-including-the-airsim-plugin">打包 AirSim</a></li>
 </ul>
 <hr />
 <!-- ======================================================================= -->
-<h2 id="windows_1">Windows 构建<a class="headerlink" href="#windows_1" title="Permanent link">#</a></h2>
+<h2 id="windows_1">Windows 构建</h2>
 <!-- ======================================================================= -->
 
-<h6 id="unreal-visual-studio-2019">如何强制 Unreal 使用 Visual Studio 2019？<a class="headerlink" href="#unreal-visual-studio-2019" title="Permanent link">#</a></h6>
+<h6 id="unreal-visual-studio-2019">如何强制 Unreal 使用 Visual Studio 2019？</h6>
 <blockquote>
 <p>If the default <code>update_from_git.bat</code> file results in VS 2017 project, then you may need to run the <code>C:\Program Files\Epic Games\UE_4.25\Engine\Binaries\DotNET\UnrealBuildTool.exe</code> tool manually, with the command line options <code>-projectfiles -project=&lt;your.uproject&gt;  -game -rocket -progress -2019</code>.</p>
 <p>If you are upgrading from 4.18 to 4.25 you may also need to add <code>BuildSettingsVersion.V2</code> to your <code>*.Target.cs</code> and <code>*Editor.Target.cs</code> build files, like this:</p>
@@ -394,13 +396,13 @@
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="where-is-not-recognized-as-an-internal-or-external-command">报错: 'where' is not recognized as an internal or external command<a class="headerlink" href="#where-is-not-recognized-as-an-internal-or-external-command" title="Permanent link">#</a></h6>
+<h6 id="where-is-not-recognized-as-an-internal-or-external-command">报错: 'where' is not recognized as an internal or external command</h6>
 <blockquote>
 <p>您必须将 <code>C:\WINDOWS\SYSTEM32</code> 添加到您的 PATH 环境变量中。 </p>
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="myproject-could-not-be-compiled-try-rebuilding-from-source-manually">报错 <code>&lt;MyProject&gt; could not be compiled. Try rebuilding from source manually</code><a class="headerlink" href="#myproject-could-not-be-compiled-try-rebuilding-from-source-manually" title="Permanent link">#</a></h6>
+<h6 id="myproject-could-not-be-compiled-try-rebuilding-from-source-manually">报错 <code>&lt;MyProject&gt; could not be compiled. Try rebuilding from source manually</code></h6>
 <blockquote>
 <p>当出现编译错误时，就会发生这种情况。日志存储在 <code>&lt;My-Project&gt;\Saved\Logs</code> 中，可用于查找问题。 </p>
 <p>一个常见问题可能是 Visual Studio 版本冲突，AirSim 使用的是 VS 2019，而 UE 使用的是 VS 2017，可以通过在日志文件中搜索<code>2017</code>来找到。在这种情况下，请参阅上面的答案。</p>
@@ -408,31 +410,31 @@
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="i-get-error-c100-an-internal-error-has-occurred-in-the-compiler-when-running-buildcmd">I get <code>error C100 : An internal error has occurred in the compiler</code> when running build.cmd<a class="headerlink" href="#i-get-error-c100-an-internal-error-has-occurred-in-the-compiler-when-running-buildcmd" title="Permanent link">#</a></h6>
+<h6 id="i-get-error-c100-an-internal-error-has-occurred-in-the-compiler-when-running-buildcmd">I get <code>error C100 : An internal error has occurred in the compiler</code> when running build.cmd</h6>
 <blockquote>
 <p>We have noticed this happening with VS version <code>15.9.0</code> and have checked-in a workaround in AirSim code. If you have this VS version, please make sure to pull the latest AirSim code.</p>
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="corecrth-no-such-file-or-directory-or-windows-sdk-version-81-not-found">报错："'corecrt.h': No such file or directory" or "Windows SDK version 8.1 not found"<a class="headerlink" href="#corecrth-no-such-file-or-directory-or-windows-sdk-version-81-not-found" title="Permanent link">#</a></h6>
+<h6 id="corecrth-no-such-file-or-directory-or-windows-sdk-version-81-not-found">报错："'corecrt.h': No such file or directory" or "Windows SDK version 8.1 not found"</h6>
 <blockquote>
 <p>Very likely you don't have <a href="https://developercommunity.visualstudio.com/content/problem/3754/cant-compile-c-program-because-of-sdk-81cant-add-a.html">Windows SDK</a> installed with Visual Studio.</p>
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="px4-airsim">如何将 PX4 固件与 AirSim 一起使用？<a class="headerlink" href="#px4-airsim" title="Permanent link">#</a></h6>
+<h6 id="px4-airsim">如何将 PX4 固件与 AirSim 一起使用？</h6>
 <blockquote>
 <p>默认情况下，AirSim 使用其内置固件 <a href="../simple_flight/">simple_flight</a> 。如果您只想使用它，则无需进行其他设置。如果您想改用 PX4，请参阅 <a href="../px4_setup/">本指南</a> 。 </p>
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="visual-studio">在 Visual Studio 中做了更改，但没有效果<a class="headerlink" href="#visual-studio" title="Permanent link">#</a></h6>
+<h6 id="visual-studio">在 Visual Studio 中做了更改，但没有效果</h6>
 <blockquote>
 <p>有时，如果仅更改头文件，Unreal + VS 构建系统可能无法重新编译。为了确保重新编译，请将一些基于 Unreal 的 cpp 文件（例如 AirSimGameMode.cpp）设置为“dirty”。 </p>
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="unreal-vs2015">Unreal 仍然使用 VS2015，否则我会收到一些链接错误<a class="headerlink" href="#unreal-vs2015" title="Permanent link">#</a></h6>
+<h6 id="unreal-vs2015">Unreal 仍然使用 VS2015，否则我会收到一些链接错误</h6>
 <blockquote>
 <p>运行多个版本的 VS 可能会导致编译 UE 项目时出现问题。其中一个问题是 UE 会尝试使用旧版本的 VS 进行编译，而旧版本的 VS 可能无法正常工作。虚幻引擎中有两个设置，一个用于引擎，一个用于项目，用于调整要使用的 VS 版本。 </p>
 <ol>
@@ -448,10 +450,10 @@
 </ol>
 </blockquote>
 <hr />
-<h2 id="linux_1">Linux 构建<a class="headerlink" href="#linux_1" title="Permanent link">#</a></h2>
+<h2 id="linux_1">Linux 构建</h2>
 <!-- ======================================================================= -->
 
-<h6 id="myproject-could-not-be-compiled-try-rebuilding-from-source-manually_1">报错：<code>&lt;MyProject&gt; could not be compiled. Try rebuilding from source manually</code>.<a class="headerlink" href="#myproject-could-not-be-compiled-try-rebuilding-from-source-manually_1" title="Permanent link">#</a></h6>
+<h6 id="myproject-could-not-be-compiled-try-rebuilding-from-source-manually_1">报错：<code>&lt;MyProject&gt; could not be compiled. Try rebuilding from source manually</code>.</h6>
 <blockquote>
 <p>这可能是由于编译错误或你的 gch 文件已过期造成的。查看你的控制台窗口。你看到下面这样的内容了吗？</p>
 <p><code>fatal error: file '/usr/include/linux/version.h''/usr/include/linux/version.h' has been modified since the precompiled header</code></p>
@@ -460,43 +462,43 @@
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="unreal">Unreal崩溃了！我怎么知道哪里出了问题？<a class="headerlink" href="#unreal" title="Permanent link">#</a></h6>
+<h6 id="unreal">Unreal崩溃了！我怎么知道哪里出了问题？</h6>
 <blockquote>
 <p>前往 <code>MyUnrealProject/Saved/Crashes</code> 文件夹，并在其子目录中搜索 <code>MyProject.log</code> 文件。在该文件末尾，您将看到堆栈跟踪和消息。您还可以查看 <code>Diagnostics.txt</code> 文件。 </p>
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="linux-ide">如何在 Linux 上使用 IDE？<a class="headerlink" href="#linux-ide" title="Permanent link">#</a></h6>
+<h6 id="linux-ide">如何在 Linux 上使用 IDE？</h6>
 <blockquote>
 <p>您可以使用 Qt Creator 或 CodeLite。Qt Creator 的使用说明可在 <a href="https://docs.unrealengine.com/en-US/SharingAndReleasing/Linux/BeginnerLinuxDeveloper/SettingUpQtCreator/index.html">此处</a> 获取。</p>
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="windows-linux">我可以从 Windows 机器交叉编译 Linux 吗？<a class="headerlink" href="#windows-linux" title="Permanent link">#</a></h6>
+<h6 id="windows-linux">我可以从 Windows 机器交叉编译 Linux 吗？</h6>
 <blockquote>
 <p>是的，可以，但我们还没有测试过。您可以在 <a href="https://docs.unrealengine.com/latest/INT/Platforms/Linux/GettingStarted/index.html">这里</a> 找到说明。</p>
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="airsim-stdlib">AirSim 使用什么编译器和 stdlib？<a class="headerlink" href="#airsim-stdlib" title="Permanent link">#</a></h6>
+<h6 id="airsim-stdlib">AirSim 使用什么编译器和 stdlib？</h6>
 <blockquote>
 <p>我们使用与虚幻引擎相同的编译器 <strong>Clang 8</strong>，以及 stdlib <strong>libc++</strong>。AirSim 的 <code>setup.sh</code> 会自动下载它们。</p>
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="airsim-cmake">AirSim 构建使用哪个版本的 CMake？<a class="headerlink" href="#airsim-cmake" title="Permanent link">#</a></h6>
+<h6 id="airsim-cmake">AirSim 构建使用哪个版本的 CMake？</h6>
 <blockquote>
 <p>3.10.0 或更高版本。这<em>不是</em> Ubuntu 16.04 的默认版本，因此 setup.sh 会为您安装。您可以使用 <code>cmake --version</code> 检查您的 CMake 版本。如果您使用的是旧版本，请按照 <a href="../cmake_linux/">这些说明</a> 操作或访问  <a href="https://cmake.org/install/">CMake 网站</a> 。 </p>
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="bashonwindows-airsim">我可以在 BashOnWindows 中编译 AirSim 吗？<a class="headerlink" href="#bashonwindows-airsim" title="Permanent link">#</a></h6>
+<h6 id="bashonwindows-airsim">我可以在 BashOnWindows 中编译 AirSim 吗？</h6>
 <blockquote>
 <p>是的，但是您无法从 BashOnWindows 运行虚幻引擎。因此，这对于检查 Linux 编译情况很有用，但对于端到端运行则不然。请参阅 <a href="https://msdn.microsoft.com/en-us/commandline/wsl/install_guide">BashOnWindows 安装指南</a> 。请确保使用最新版本（Windows 10 Creators Edition），因为之前的版本存在各种问题。另外，不要从 <code>Visual Studio Command Prompt</code>中调用 <code>bash</code>，否则 CMake 可能会找到 VC++ 并尝试使用它！ </p>
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="linux-unreal">在哪里可以找到有关在 Linux 上运行 Unreal 的更多信息？<a class="headerlink" href="#linux-unreal" title="Permanent link">#</a></h6>
+<h6 id="linux-unreal">在哪里可以找到有关在 Linux 上运行 Unreal 的更多信息？</h6>
 <blockquote>
 <p>从这里开始： <a href="https://docs.unrealengine.com/latest/INT/Platforms/Linux/index.html">Linux 上的引擎</a></p>
 <p><a href="https://wiki.unrealengine.com/Building_On_Linux#Clang">在 Linux 上构建引擎</a></p>
@@ -504,10 +506,10 @@
 <p><a href="https://wiki.unrealengine.com/Compiling_For_Linux">引擎交叉编译</a></p>
 </blockquote>
 <hr />
-<h2 id="_3">其他<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
+<h2 id="_3">其他</h2>
 <!-- ======================================================================= -->
 
-<h6 id="airsim">打包包含 AirSim 插件的二进制文件 <span id="packaging-a-binary-including-the-airsim-plugin"></span><a class="headerlink" href="#airsim" title="Permanent link">#</a></h6>
+<h6 id="airsim">打包包含 AirSim 插件的二进制文件 <span id="packaging-a-binary-including-the-airsim-plugin"></span></h6>
 <blockquote>
 <p>为了将自定义环境与 AirSim 插件打包在一起，需要进行一些项目设置，以确保 AirSim 所需的所有资源都包含在包中。在<code>Edit -&gt; Project Settings... -&gt; Project -&gt; Packaging</code>下，请确保正确配置以下设置：</p>
 <ul>
@@ -542,6 +544,10 @@
   <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
     
+        <span>
+          <a href="https://github.com/OpenHUTB/air_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
     
       <span><a href="../unreal_custenv/" style="color: #fcfcfc">&laquo; 前一页</a></span>
     
@@ -554,8 +560,13 @@
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

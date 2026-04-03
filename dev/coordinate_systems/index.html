@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra.css" rel="stylesheet" />
     
       <script>
         // Current page data
@@ -274,6 +275,7 @@
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
       <li class="breadcrumb-item active">CarlaAir 坐标系换算说明</li>
     <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/dev/coordinate_systems.md" class="icon icon-github"> 在 GitHub 上编辑</a>
     </li>
   </ul>
   <hr/>
@@ -281,8 +283,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="carlaair">CarlaAir 坐标系换算说明<a class="headerlink" href="#carlaair" title="Permanent link">#</a></h1>
-<h2 id="_1">问题<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
+                <h1 id="carlaair">CarlaAir 坐标系换算说明</h1>
+<h2 id="_1">问题</h2>
 <p>CarlaAir 内部同时运行 CARLA 和 AirSim 两套系统，<strong>它们使用不同的坐标系</strong>：</p>
 <table>
 <thead>
@@ -320,13 +322,13 @@
 </tr>
 </tbody>
 </table>
-<h2 id="_2">换算公式<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
+<h2 id="_2">换算公式</h2>
 <p>在 Town10HD 地图上实测（CarlaAir v0.1.6）：</p>
 <p><code>airsim_x =  carla_x + 172.20
 airsim_y =  carla_y - 183.86
 airsim_z = -carla_z +  27.45</code></p>
 <p>姿态角（pitch/yaw/roll）两侧一致，<strong>不需要换算</strong>。</p>
-<h2 id="_3">换算参数表<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
+<h2 id="_3">换算参数表</h2>
 <table>
 <thead>
 <tr>
@@ -361,26 +363,26 @@ airsim_z = -carla_z +  27.45</code></p>
 <blockquote>
 <p><strong>注意：</strong> 偏移量取决于地图和 AirSim PlayerStart 配置。换地图后需要重新标定。</p>
 </blockquote>
-<h2 id="_4">如何标定<a class="headerlink" href="#_4" title="Permanent link">#</a></h2>
+<h2 id="_4">如何标定</h2>
 <p>在两个系统中同时读取无人机位置即可算出偏移量：</p>
 <p>```python
 import carla, airsim</p>
-<h1 id="carla">CARLA 侧<a class="headerlink" href="#carla" title="Permanent link">#</a></h1>
+<h1 id="carla">CARLA 侧</h1>
 <p>client = carla.Client('localhost', 2000)
 world = client.get_world()
 drone = [a for a in world.get_actors() if 'drone' in a.type_id][0]
 cl = drone.get_location()</p>
-<h1 id="airsim">AirSim 侧<a class="headerlink" href="#airsim" title="Permanent link">#</a></h1>
+<h1 id="airsim">AirSim 侧</h1>
 <p>ac = airsim.MultirotorClient()
 ac.confirmConnection()
 ap = ac.getMultirotorState().kinematics_estimated.position</p>
-<h1 id="_5">偏移量<a class="headerlink" href="#_5" title="Permanent link">#</a></h1>
+<h1 id="_5">偏移量</h1>
 <p>offset_x = ap.x_val - cl.x
 offset_y = ap.y_val - cl.y
 offset_z = ap.z_val - (-cl.z)
 print(f"offset_x={offset_x:.4f}, offset_y={offset_y:.4f}, offset_z={offset_z:.4f}")
 ```</p>
-<h2 id="_6">脚本中的处理<a class="headerlink" href="#_6" title="Permanent link">#</a></h2>
+<h2 id="_6">脚本中的处理</h2>
 <table>
 <thead>
 <tr>
@@ -427,13 +429,13 @@ print(f"offset_x={offset_x:.4f}, offset_y={offset_y:.4f}, offset_z={offset_z:.4f
 </tr>
 </tbody>
 </table>
-<h3 id="demo_director">demo_director 自动校准<a class="headerlink" href="#demo_director" title="Permanent link">#</a></h3>
+<h3 id="demo_director">demo_director 自动校准</h3>
 <p><code>DroneReplayer</code> 初始化时：
 1. 检测 JSON 中是否有 <code>airsim_ned</code> 字段
 2. 如果只有 <code>transform</code>（CARLA 坐标）→ 读取无人机在 CARLA 和 AirSim 两侧的当前位置，计算偏移量
 3. 回放时每帧 <code>CARLA transform + 偏移 → AirSim NED → simSetVehiclePose</code></p>
 <p>如果 JSON 中有 <code>airsim_ned</code> → 直接使用，不做转换。</p>
-<h2 id="airsim-api">为什么不直接用 AirSim API 录制？<a class="headerlink" href="#airsim-api" title="Permanent link">#</a></h2>
+<h2 id="airsim-api">为什么不直接用 AirSim API 录制？</h2>
 <p>连接 AirSim Python 客户端会导致 CarlaAir 窗口中的无人机<strong>丢失键盘控制并坠落</strong>。
 因此 <code>record_drone.py</code> 只从 CARLA 侧读取 <code>drone_actor.get_transform()</code>，完全不碰 AirSim。</p>
               
@@ -459,6 +461,10 @@ print(f"offset_x={offset_x:.4f}, offset_y={offset_y:.4f}, offset_z={offset_z:.4f
   <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
     
+        <span>
+          <a href="https://github.com/OpenHUTB/air_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
     
     
   </span>
@@ -467,8 +473,13 @@ print(f"offset_x={offset_x:.4f}, offset_y={offset_y:.4f}, offset_z={offset_z:.4f
     <script>var base_url = "../..";</script>
     <script src="../../js/theme_extra.js"></script>
     <script src="../../js/theme.js"></script>
-      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
       <script src="../../search/main.js"></script>
     <script>
         jQuery(function () {

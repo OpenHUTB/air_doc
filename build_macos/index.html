@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
     
       <script>
         // Current page data
@@ -59,10 +60,6 @@
     <li class="toctree-l2"><a class="reference internal" href="#_1">主机</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#_2">预构建设置</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#_3">下载虚幻引擎</a>
-    </li>
-        </ul>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#airsim">构建 AirSim</a>
     </li>
@@ -291,6 +288,7 @@
           <li class="breadcrumb-item">构建 AirSim</li>
       <li class="breadcrumb-item active">在 macOS 上构建</li>
     <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/build_macos.md" class="icon icon-github"> 在 GitHub 上编辑</a>
     </li>
   </ul>
   <hr/>
@@ -298,26 +296,26 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="macos-airsim">在 macOS 上构建 AirSim<a class="headerlink" href="#macos-airsim" title="Permanent link">#</a></h1>
+                <h1 id="macos-airsim">在 macOS 上构建 AirSim</h1>
 <p>目前仅测试了 <strong>Catalina (10.15)</strong> 。理论上，AirSim 应该可以在更高版本的 macOS 和 Apple Silicon 硬件上运行，但此路径尚未得到官方支持。</p>
 <p>我们有两个选择 - 您可以在 docker 容器或主机内构建。</p>
-<h2 id="docker">Docker<a class="headerlink" href="#docker" title="Permanent link">#</a></h2>
+<h2 id="docker">Docker</h2>
 <p>请参阅 <a href="../docker_ubuntu/">此处</a> 的说明</p>
-<h2 id="_1">主机<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
-<h3 id="_2">预构建设置<a class="headerlink" href="#_2" title="Permanent link">#</a></h3>
-<h4 id="_3">下载虚幻引擎<a class="headerlink" href="#_3" title="Permanent link">#</a></h4>
+<h2 id="_1">主机</h2>
+<h3 id="_2">预构建设置</h3>
+<h4 id="_3">下载虚幻引擎</h4>
 <ol>
 <li><a href="https://www.unrealengine.com/download">下载</a> Epic Games 启动器。虽然虚幻引擎是开源的，可以免费下载，但仍然需要注册。</li>
 <li>运行 Epic Games 启动器，打开左侧窗格中的<code>Library</code>选项卡。点击<code>Add Versions</code>，此时将显示下载<strong>虚幻 4.27</strong> 的选项，如下所示。如果您安装了多个版本的虚幻，请确保通过点击相应版本“启动”按钮旁边的向下箭头<strong>将 4.27 设置为当前版本</strong>。</li>
 </ol>
 <p><strong>注意</strong>: AirSim 也适用于 UE 4.24 及以上版本，但我们推荐使用 4.27 版本。</p>
 <p><strong>注意</strong>: 如果您拥有 UE 4.16 或更早版本的项目，请参阅 <a href="../unreal_upgrade/">升级指南</a> 来升级您的项目。</p>
-<h3 id="airsim">构建 AirSim<a class="headerlink" href="#airsim" title="Permanent link">#</a></h3>
+<h3 id="airsim">构建 AirSim</h3>
 <ul>
 <li>克隆 AirSim 并构建它：</li>
 </ul>
 <p>```bash</p>
-<h1 id="github">前往克隆 GitHub 项目的文件夹<a class="headerlink" href="#github" title="Permanent link">#</a></h1>
+<h1 id="github">前往克隆 GitHub 项目的文件夹</h1>
 <p>git clone https://github.com/OpenHUTB/air.git
 cd air
 ```</p>
@@ -326,11 +324,11 @@ cd air
 <p>```bash
 ./setup.sh
 ./build.sh</p>
-<h1 id="buildsh-debug">使用 ./build.sh --debug 在调试模式下构建<a class="headerlink" href="#buildsh-debug" title="Permanent link">#</a></h1>
+<h1 id="buildsh-debug">使用 ./build.sh --debug 在调试模式下构建</h1>
 <p>```</p>
-<h3 id="_4">构建虚幻环境<a class="headerlink" href="#_4" title="Permanent link">#</a></h3>
+<h3 id="_4">构建虚幻环境</h3>
 <p>最后，您需要一个虚幻项目来托管您的载具环境。AirSim 自带一个内置的“Blocks 环境”，您可以使用它，也可以创建自己的环境。如果您想设置自己的环境，请参阅 <a href="../unreal_proj/">设置虚幻环境</a> 。</p>
-<h2 id="airsim_1">如何使用 AirSim<a class="headerlink" href="#airsim_1" title="Permanent link">#</a></h2>
+<h2 id="airsim_1">如何使用 AirSim</h2>
 <ul>
 <li>浏览到 <code>AirSim/Unreal/Environments/Blocks</code>.</li>
 <li>从终端运行 <code>./GenerateProjectFiles.sh &lt;UE_PATH&gt;</code> ，其中 <code>UE_PATH</code> 是虚幻引擎安装文件夹的路径。（默认情况下，该路径为 <code>/Users/Shared/Epic\ Games/UE_4.27/</code>）该脚本会创建一个名为 Blocks.xcworkspace 的 XCode 工作区。</li>
@@ -342,7 +340,7 @@ cd air
 <p class="admonition-title">提示</p>
 </div>
 <p>转到“编辑-&gt;编辑器首选项”，在“搜索”框中输入“CPU”，并确保未选中“在后台时使用较少的 CPU”(Use Less CPU when in Background)。</p>
-<h3 id="_5">[可选] 设置遥控器（仅限多旋翼飞行器）<a class="headerlink" href="#_5" title="Permanent link">#</a></h3>
+<h3 id="_5">[可选] 设置遥控器（仅限多旋翼飞行器）</h3>
 <p>如需手动飞行，则需要遥控器。更多详情，请参阅 <a href="../remote_control/">遥控器设置</a> 。</p>
 <p>或者，您可以使用 <a href="../apis/">APIs</a> 进行编程控制，或者使用所谓的 <a href="../image_apis/">计算机视觉模式</a> 通过键盘移动。</p>
               
@@ -372,6 +370,10 @@ cd air
   <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
     
+        <span>
+          <a href="https://github.com/OpenHUTB/air_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
     
       <span><a href="../build_linux/" style="color: #fcfcfc">&laquo; 前一页</a></span>
     
@@ -384,8 +386,13 @@ cd air
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

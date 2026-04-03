@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
     
       <script>
         // Current page data
@@ -288,6 +289,7 @@
           <li class="breadcrumb-item">MavLink 和 PX4</li>
       <li class="breadcrumb-item active">PX4/MavLink 日志记录</li>
     <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/px4_logging.md" class="icon icon-github"> 在 GitHub 上编辑</a>
     </li>
   </ul>
   <hr/>
@@ -295,9 +297,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="px4mavlink-logging">PX4/MavLink Logging<a class="headerlink" href="#px4mavlink-logging" title="Permanent link">#</a></h1>
+                <h1 id="px4mavlink-logging">PX4/MavLink Logging</h1>
 <p>Thanks to <a href="https://github.com/clovett">Chris Lovett</a> for developing various tools for PX4/MavLink logging mentioned on this page!</p>
-<h2 id="logging-mavlink-messages">Logging MavLink Messages<a class="headerlink" href="#logging-mavlink-messages" title="Permanent link">#</a></h2>
+<h2 id="logging-mavlink-messages">Logging MavLink Messages</h2>
 <p>AirSim can capture mavlink log files if you add the following to the PX4 section of your <code>settings.json</code> file:</p>
 <p><code>json
 {
@@ -311,18 +313,18 @@
     }
 }</code></p>
 <p>AirSim will create a timestamped log file in this folder for each "armed/disarmed" flight session.</p>
-<p>You will then see log files organized by date in d:\temp\logs, specifically *input.mavlink and *output.mavlink files.</p>
-<h2 id="mavlink-logviewer">MavLink LogViewer<a class="headerlink" href="#mavlink-logviewer" title="Permanent link">#</a></h2>
+<p>You will then see log files organized by date in d:\temp\logs, specifically <em>input.mavlink and </em>output.mavlink files.</p>
+<h2 id="mavlink-logviewer">MavLink LogViewer</h2>
 <p>For MavLink enabled drones, you can also use our <a href="../log_viewer/">Log Viewer</a> to visualize the streams of data.
 If you enable this form of realtime logging you should not use the "Logs" setting above, these two forms of logging
 are mutually exclusive.</p>
-<h2 id="px4-log-in-sitl-mode">PX4 Log in SITL Mode<a class="headerlink" href="#px4-log-in-sitl-mode" title="Permanent link">#</a></h2>
+<h2 id="px4-log-in-sitl-mode">PX4 Log in SITL Mode</h2>
 <p>In SITL mode, please a log file is produced when drone is armed. The SITL terminal will contain the path to the log file, it should look something like this
 <code>INFO  [logger] Opened log file: rootfs/fs/microsd/log/2017-03-27/20_02_49.ulg</code></p>
-<h2 id="px4-log-in-hitl-mode">PX4 Log in HITL Mode<a class="headerlink" href="#px4-log-in-hitl-mode" title="Permanent link">#</a></h2>
+<h2 id="px4-log-in-hitl-mode">PX4 Log in HITL Mode</h2>
 <p>If you are using Pixhawk hardware in HIL mode, then set parameter <code>SYS_LOGGER=1</code>
 using QGroundControl. PX4 will write log file on device which you can download at later date using QGroundControl.</p>
-<h2 id="debugging-a-bad-flight">Debugging a bad flight<a class="headerlink" href="#debugging-a-bad-flight" title="Permanent link">#</a></h2>
+<h2 id="debugging-a-bad-flight">Debugging a bad flight</h2>
 <p>You can use these *.mavlink log files to debug a bad flight using the <a href="../log_viewer/">LogViewer</a>.
 For example, AirSim/PX4 flight may misbehave if you run it on an under powered computer.
 The following shows what might happen in that situation.</p>
@@ -374,6 +376,10 @@ a lovely flat line.</p>
   <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
     
+        <span>
+          <a href="https://github.com/OpenHUTB/air_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
     
       <span><a href="../px4_build/" style="color: #fcfcfc">&laquo; 前一页</a></span>
     
@@ -386,8 +392,13 @@ a lovely flat line.</p>
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

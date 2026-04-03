@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra.css" rel="stylesheet" />
     
       <script>
         // Current page data
@@ -277,6 +278,7 @@
           <li class="breadcrumb-item">贡献教程</li>
       <li class="breadcrumb-item active">移动路径演示</li>
     <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/wiki/moveOnPath-demo.md" class="icon icon-github"> 在 GitHub 上编辑</a>
     </li>
   </ul>
   <hr/>
@@ -284,7 +286,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="moveonpath">无人机沿着路径移动(moveOnPath)演示<a class="headerlink" href="#moveonpath" title="Permanent link">#</a></h1>
+                <h1 id="moveonpath">无人机沿着路径移动(moveOnPath)演示</h1>
 <p>在 DroneShell 中添加了一个 moveOnPath 命令，它会调用 DroneControlBase::moveOnPath 方法。为了演示这一点，我从虚幻商城下载了 <a href="https://www.unrealengine.com/marketplace/modular-neighborhood-pack">Modular Neighborhood 包</a> ，并将玩家的起始位置设置为以下位置：
 <code>text
 x=310.0 cm, y=11200.0 cm, z=235.0 cm</code></p>
@@ -329,6 +331,10 @@ param set NAV_DLL_ACT 0</code></p>
   <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
     
+        <span>
+          <a href="https://github.com/OpenHUTB/air_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
     
       <span><a href="../hexacopter/" style="color: #fcfcfc">&laquo; 前一页</a></span>
     
@@ -341,8 +347,13 @@ param set NAV_DLL_ACT 0</code></p>
     <script>var base_url = "../..";</script>
     <script src="../../js/theme_extra.js"></script>
     <script src="../../js/theme.js"></script>
-      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
       <script src="../../search/main.js"></script>
     <script>
         jQuery(function () {

@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra.css" rel="stylesheet" />
     
       <script>
         // Current page data
@@ -274,6 +275,7 @@
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
       <li class="breadcrumb-item active">CARLA + AirSim 集成开发进度记录</li>
     <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/dev/dev_progress_log.md" class="icon icon-github"> 在 GitHub 上编辑</a>
     </li>
   </ul>
   <hr/>
@@ -281,12 +283,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="carla-airsim">CARLA + AirSim 集成开发进度记录<a class="headerlink" href="#carla-airsim" title="Permanent link">#</a></h1>
+                <h1 id="carla-airsim">CARLA + AirSim 集成开发进度记录</h1>
 <blockquote>
 <p>最后更新：2026-03-11</p>
 </blockquote>
 <hr />
-<h2 id="_1">一、项目概述<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
+<h2 id="_1">一、项目概述</h2>
 <p><strong>目标：</strong> 在 CARLA 城镇地图中飞行 AirSim 无人机，两套 API 在同一个 UE4 进程中同时工作。</p>
 <p><strong>当前状态：</strong> ✅ 完全可用 — <code>ASimWorldGameMode</code> 统一 GameMode，CARLA 所有功能（天气、车辆/行人生成、Traffic Manager、OpenDRIVE）+ AirSim 无人机飞行同时工作。</p>
 <p><strong>技术架构：</strong>
@@ -299,7 +301,7 @@
 - GPU: NVIDIA RTX A4000, 16GB VRAM
 - 系统: Linux (Ubuntu)</p>
 <hr />
-<h2 id="_2">二、关键路径<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
+<h2 id="_2">二、关键路径</h2>
 <table>
 <thead>
 <tr>
@@ -351,8 +353,8 @@
 </tbody>
 </table>
 <hr />
-<h2 id="_3">三、功能状态总览<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
-<h3 id="_4">✅ 已可用功能（基础，早期实现）<a class="headerlink" href="#_4" title="Permanent link">#</a></h3>
+<h2 id="_3">三、功能状态总览</h2>
+<h3 id="_4">✅ 已可用功能（基础，早期实现）</h3>
 <table>
 <thead>
 <tr>
@@ -395,7 +397,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="gamemode2026-03-04">✅ 新恢复功能（通过统一 GameMode，2026-03-04）<a class="headerlink" href="#gamemode2026-03-04" title="Permanent link">#</a></h3>
+<h3 id="gamemode2026-03-04">✅ 新恢复功能（通过统一 GameMode，2026-03-04）</h3>
 <table>
 <thead>
 <tr>
@@ -437,7 +439,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="_5">已解决的根本问题<a class="headerlink" href="#_5" title="Permanent link">#</a></h3>
+<h3 id="_5">已解决的根本问题</h3>
 <p><strong>GameMode 冲突（核心问题）：</strong> UE4 每个 World 只允许一个 GameMode。之前使用 AirSim 的 GameMode 导致 30+ 个 CARLA 功能不可用。</p>
 <p><strong>解决方案：</strong> 创建 <code>ASimWorldGameMode</code>（继承自 <code>ACarlaGameModeBase</code>）：
 - 所有 CARLA 功能通过继承获得（天气、车辆生成、OpenDRIVE 等）
@@ -445,8 +447,8 @@
 - <code>ASimModeBase</code> 作为普通 Actor 被 Spawn，不再竞争 GameMode 槽位
 - 构造函数中手动设置 <code>WeatherClass</code>（BP_Weather）和 <code>ActorFactories</code>（8 个工厂类）</p>
 <hr />
-<h2 id="_6">四、已修改的源码文件<a class="headerlink" href="#_6" title="Permanent link">#</a></h2>
-<h3 id="_7">新建文件<a class="headerlink" href="#_7" title="Permanent link">#</a></h3>
+<h2 id="_6">四、已修改的源码文件</h2>
+<h3 id="_7">新建文件</h3>
 <table>
 <thead>
 <tr>
@@ -485,7 +487,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="_8">修改文件<a class="headerlink" href="#_8" title="Permanent link">#</a></h3>
+<h3 id="_8">修改文件</h3>
 <table>
 <thead>
 <tr>
@@ -537,7 +539,7 @@
 </tbody>
 </table>
 <hr />
-<h2 id="bug">五、已修复的关键 Bug<a class="headerlink" href="#bug" title="Permanent link">#</a></h2>
+<h2 id="bug">五、已修复的关键 Bug</h2>
 <table>
 <thead>
 <tr>
@@ -605,8 +607,8 @@
 </tbody>
 </table>
 <hr />
-<h2 id="-b">六-B、测试脚本状态<a class="headerlink" href="#-b" title="Permanent link">#</a></h2>
-<h3 id="test_script"><code>test_script/</code> 目录（核心应用脚本）<a class="headerlink" href="#test_script" title="Permanent link">#</a></h3>
+<h2 id="-b">六-B、测试脚本状态</h2>
+<h3 id="test_script"><code>test_script/</code> 目录（核心应用脚本）</h3>
 <table>
 <thead>
 <tr>
@@ -649,7 +651,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="examples"><code>examples/</code> 目录（示例/验证脚本）<a class="headerlink" href="#examples" title="Permanent link">#</a></h3>
+<h3 id="examples"><code>examples/</code> 目录（示例/验证脚本）</h3>
 <table>
 <thead>
 <tr>
@@ -676,7 +678,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="_9">已知限制<a class="headerlink" href="#_9" title="Permanent link">#</a></h3>
+<h3 id="_9">已知限制</h3>
 <table>
 <thead>
 <tr>
@@ -704,15 +706,15 @@
 </tbody>
 </table>
 <hr />
-<h2 id="_10">六、编译命令<a class="headerlink" href="#_10" title="Permanent link">#</a></h2>
+<h2 id="_10">六、编译命令</h2>
 <p>```bash</p>
-<h1 id="_11">设置环境变量<a class="headerlink" href="#_11" title="Permanent link">#</a></h1>
+<h1 id="_11">设置环境变量</h1>
 <p>export UE4_ROOT=/mnt/data1/tianle/carla_ue4</p>
-<h1 id="carla-290">仅编译 Carla 模块（约 290 秒）<a class="headerlink" href="#carla-290" title="Permanent link">#</a></h1>
+<h1 id="carla-290">仅编译 Carla 模块（约 290 秒）</h1>
 <p>${UE4_ROOT}/Engine/Build/BatchFiles/Linux/Build.sh CarlaUE4Editor Linux Development \
   -project="/mnt/data1/tianle/carla_source/Unreal/CarlaUE4/CarlaUE4.uproject" \
   -module=Carla</p>
-<h1 id="airsim-100">仅编译 AirSim 模块（约 100 秒）<a class="headerlink" href="#airsim-100" title="Permanent link">#</a></h1>
+<h1 id="airsim-100">仅编译 AirSim 模块（约 100 秒）</h1>
 <p>${UE4_ROOT}/Engine/Build/BatchFiles/Linux/Build.sh CarlaUE4Editor Linux Development \
   -project="/mnt/data1/tianle/carla_source/Unreal/CarlaUE4/CarlaUE4.uproject" \
   -module=AirSim
@@ -721,26 +723,26 @@
 <p>⚠️ 注意：不要使用 <code>make CarlaUE4Editor</code>，会因 <code>features.h</code> 交叉编译错误而失败。</p>
 </blockquote>
 <hr />
-<h2 id="carlaairsh">七、一键启动 — carlaAir.sh<a class="headerlink" href="#carlaairsh" title="Permanent link">#</a></h2>
-<h3 id="_12">基本用法<a class="headerlink" href="#_12" title="Permanent link">#</a></h3>
+<h2 id="carlaairsh">七、一键启动 — carlaAir.sh</h2>
+<h3 id="_12">基本用法</h3>
 <p>```bash
 cd /mnt/data1/tianle/carla_source</p>
-<h1 id="town10hd-1280x720">默认启动（Town10HD, 1280x720, 低画质）<a class="headerlink" href="#town10hd-1280x720" title="Permanent link">#</a></h1>
+<h1 id="town10hd-1280x720">默认启动（Town10HD, 1280x720, 低画质）</h1>
 <p>./carlaAir.sh</p>
-<h1 id="_13">指定地图<a class="headerlink" href="#_13" title="Permanent link">#</a></h1>
+<h1 id="_13">指定地图</h1>
 <p>./carlaAir.sh Town03</p>
-<h1 id="_14">自定义分辨率<a class="headerlink" href="#_14" title="Permanent link">#</a></h1>
+<h1 id="_14">自定义分辨率</h1>
 <p>./carlaAir.sh Town10HD 1920 1080</p>
-<h1 id="_15">前台运行（可看到所有日志）<a class="headerlink" href="#_15" title="Permanent link">#</a></h1>
+<h1 id="_15">前台运行（可看到所有日志）</h1>
 <p>./carlaAir.sh --fg</p>
-<h1 id="_16">停止运行<a class="headerlink" href="#_16" title="Permanent link">#</a></h1>
+<h1 id="_16">停止运行</h1>
 <p>./carlaAir.sh --kill</p>
-<h1 id="_17">查看实时日志<a class="headerlink" href="#_17" title="Permanent link">#</a></h1>
+<h1 id="_17">查看实时日志</h1>
 <p>./carlaAir.sh --log</p>
-<h1 id="_18">查看帮助<a class="headerlink" href="#_18" title="Permanent link">#</a></h1>
+<h1 id="_18">查看帮助</h1>
 <p>./carlaAir.sh --help
 ```</p>
-<h3 id="_19">启动流程<a class="headerlink" href="#_19" title="Permanent link">#</a></h3>
+<h3 id="_19">启动流程</h3>
 <ol>
 <li>脚本检查是否有已运行的实例</li>
 <li>设置 DISPLAY 和 Vulkan 环境变量</li>
@@ -748,7 +750,7 @@ cd /mnt/data1/tianle/carla_source</p>
 <li>自动轮询 CARLA (2000) 和 AirSim (41451) 端口</li>
 <li>两个端口都就绪后打印 "Ready!" 并提供测试命令</li>
 </ol>
-<h3 id="_20">启动参数说明<a class="headerlink" href="#_20" title="Permanent link">#</a></h3>
+<h3 id="_20">启动参数说明</h3>
 <table>
 <thead>
 <tr>
@@ -784,7 +786,7 @@ cd /mnt/data1/tianle/carla_source</p>
 </tbody>
 </table>
 <hr />
-<h2 id="airsim">八、AirSim 配置<a class="headerlink" href="#airsim" title="Permanent link">#</a></h2>
+<h2 id="airsim">八、AirSim 配置</h2>
 <p><strong>文件路径：</strong> <code>/home/tianle/Documents/AirSim/settings.json</code></p>
 <p><code>json
 {
@@ -810,7 +812,7 @@ cd /mnt/data1/tianle/carla_source</p>
 <p>注意：统一 GameMode 下 <code>level_name</code> 设置被忽略，地图由启动命令指定。</p>
 </blockquote>
 <hr />
-<h2 id="_21">九、可用地图<a class="headerlink" href="#_21" title="Permanent link">#</a></h2>
+<h2 id="_21">九、可用地图</h2>
 <table>
 <thead>
 <tr>
@@ -856,7 +858,7 @@ cd /mnt/data1/tianle/carla_source</p>
 <p>各地图均有 <code>_Opt</code> 变体版本可用。切换地图：<code>./carlaAir.sh Town03</code></p>
 </blockquote>
 <hr />
-<h2 id="_22">十、开发时间线<a class="headerlink" href="#_22" title="Permanent link">#</a></h2>
+<h2 id="_22">十、开发时间线</h2>
 <table>
 <thead>
 <tr>
@@ -976,8 +978,8 @@ cd /mnt/data1/tianle/carla_source</p>
 </tbody>
 </table>
 <hr />
-<h2 id="shipping">十一、Shipping 独立包<a class="headerlink" href="#shipping" title="Permanent link">#</a></h2>
-<h3 id="_23">打包过程<a class="headerlink" href="#_23" title="Permanent link">#</a></h3>
+<h2 id="shipping">十一、Shipping 独立包</h2>
+<h3 id="_23">打包过程</h3>
 <p><code>bash
 export UE4_ROOT=/mnt/data1/tianle/carla_ue4
 cd /mnt/data1/tianle/carla_source
@@ -985,7 +987,7 @@ cd /mnt/data1/tianle/carla_source
 <p><strong>编译</strong>：656 个编译单元，~805 秒
 <strong>Cook</strong>：13459 个 packages，~2 小时
 <strong>输出</strong>：<code>/mnt/data1/tianle/carla_source/Dist/CARLA_Shipping_1ae5356-dirty/LinuxNoEditor/</code>（19GB）</p>
-<h3 id="_24">打包前配置修改<a class="headerlink" href="#_24" title="Permanent link">#</a></h3>
+<h3 id="_24">打包前配置修改</h3>
 <p><code>DefaultGame.ini</code> 中新增 AirSim 内容烹饪路径：
 <code>ini
 +DirectoriesToAlwaysCook=(Path="AirSim/Blueprints")
@@ -995,15 +997,15 @@ cd /mnt/data1/tianle/carla_source
 +DirectoriesToAlwaysCook=(Path="AirSim/StarterContent")
 +DirectoriesToAlwaysCook=(Path="AirSim/VehicleAdv")
 +MapsToCook=(FilePath="/AirSim/AirSimAssets")</code></p>
-<h3 id="13">包含地图（13 张）<a class="headerlink" href="#13" title="Permanent link">#</a></h3>
+<h3 id="13">包含地图（13 张）</h3>
 <p>Town01, Town01_Opt, Town02, Town02_Opt, Town03, Town03_Opt, Town04, Town04_Opt, Town05, Town05_Opt, Town10HD, Town10HD_Opt, Town10HD_Opt_NavMesh</p>
-<h3 id="_25">独立包启动<a class="headerlink" href="#_25" title="Permanent link">#</a></h3>
+<h3 id="_25">独立包启动</h3>
 <p><code>bash
 cd /mnt/data1/tianle/carla_source/Dist/CARLA_Shipping_1ae5356-dirty/LinuxNoEditor
 ./SimWorld.sh Town10HD              # 默认启动
 ./SimWorld.sh Town03 --res 1920x1080  # 指定地图和分辨率
 ./SimWorld.sh --kill                # 停止</code></p>
-<h3 id="_26">独立包脚本清单<a class="headerlink" href="#_26" title="Permanent link">#</a></h3>
+<h3 id="_26">独立包脚本清单</h3>
 <table>
 <thead>
 <tr>
@@ -1039,7 +1041,7 @@ cd /mnt/data1/tianle/carla_source/Dist/CARLA_Shipping_1ae5356-dirty/LinuxNoEdito
 </tbody>
 </table>
 <hr />
-<h2 id="carla-airsim_1">十二、坐标系映射（CARLA ↔ AirSim）<a class="headerlink" href="#carla-airsim_1" title="Permanent link">#</a></h2>
+<h2 id="carla-airsim_1">十二、坐标系映射（CARLA ↔ AirSim）</h2>
 <blockquote>
 <p><strong>2026-03-11 更新</strong>：修复 <code>SetNewWorldOrigin</code> Bug 后，NED 坐标与 CARLA 坐标对齐（x 相同，y 相同，z 取反）。</p>
 </blockquote>
@@ -1097,7 +1099,7 @@ cd /mnt/data1/tianle/carla_source/Dist/CARLA_Shipping_1ae5356-dirty/LinuxNoEdito
 2. 每帧计算车辆位移 <code>dx = car_x - car_x0</code>, <code>dy = car_y - car_y0</code>
 3. 目标无人机位置 = <code>(drone_x0 + dx, drone_y0 + dy, -altitude)</code></p>
 <hr />
-<h2 id="api-2026-03-06">十三、全面 API 测试报告 (2026-03-06)<a class="headerlink" href="#api-2026-03-06" title="Permanent link">#</a></h2>
+<h2 id="api-2026-03-06">十三、全面 API 测试报告 (2026-03-06)</h2>
 <p><strong>89 项测试，全部通过 (89 PASS / 0 FAIL / 0 SKIP)</strong></p>
 <table>
 <thead>
@@ -1201,7 +1203,7 @@ cd /mnt/data1/tianle/carla_source/Dist/CARLA_Shipping_1ae5356-dirty/LinuxNoEdito
 </tr>
 </tbody>
 </table>
-<h3 id="_27">关键数据<a class="headerlink" href="#_27" title="Permanent link">#</a></h3>
+<h3 id="_27">关键数据</h3>
 <table>
 <thead>
 <tr>
@@ -1257,16 +1259,16 @@ cd /mnt/data1/tianle/carla_source/Dist/CARLA_Shipping_1ae5356-dirty/LinuxNoEdito
 </tbody>
 </table>
 <hr />
-<h2 id="bug-2026-03-11">十四、车辆穿地 Bug 修复 (2026-03-11)<a class="headerlink" href="#bug-2026-03-11" title="Permanent link">#</a></h2>
-<h3 id="_28">问题描述<a class="headerlink" href="#_28" title="Permanent link">#</a></h3>
+<h2 id="bug-2026-03-11">十四、车辆穿地 Bug 修复 (2026-03-11)</h2>
+<h3 id="_28">问题描述</h3>
 <p>在 CarlaAir 中通过 CARLA API 生成的地面车辆会立即穿过地面，掉落约 30 米（从 z≈0.6 到 z≈-29.6）。而在原版 CARLA（无 AirSim 插件）中，相同操作完全正常（z≈0.0）。此 Bug 影响 Editor 和 Shipping 两种构建。</p>
-<h3 id="_29">排查过程<a class="headerlink" href="#_29" title="Permanent link">#</a></h3>
+<h3 id="_29">排查过程</h3>
 <ol>
 <li><strong>对比测试</strong>：原版 CARLA（<code>/home/tianle/carla/CARLA_Latest/</code>）加载 Town10HD_Opt，车辆 z≈0.0 正常；CarlaAir 加载 Town10HD，车辆 z≈-29.6 穿地</li>
 <li><strong>排除地图因素</strong>：CarlaAir 使用 Town10HD_Opt 仍然穿地 → 不是地图问题</li>
 <li><strong>确认 AirSim 插件为根因</strong>：唯一区别是 AirSim 插件的存在</li>
 </ol>
-<h3 id="_30">根本原因<a class="headerlink" href="#_30" title="Permanent link">#</a></h3>
+<h3 id="_30">根本原因</h3>
 <p><strong>文件</strong>: <code>Plugins/AirSim/Source/SimMode/SimModeBase.cpp</code>，第 121 行</p>
 <p><code>cpp
 // BeginPlay() 中：
@@ -1278,7 +1280,7 @@ this-&gt;GetWorld()-&gt;SetNewWorldOrigin(FIntVector(player_loc) + this-&gt;GetW
 4. CARLA 车辆生成在 z=0.6（来自 OpenDRIVE 数据），但地面碰撞已不存在
 5. 重力将车辆拉到 z≈-30（穿过不可见的地面）</p>
 <p><strong>为什么无人机不受影响</strong>：AirSim 的 Multirotor 使用自定义 <code>FastPhysicsEngine</code>，不依赖 UE4 Landscape 碰撞；而 CARLA 车辆使用 UE4 原生 PhysX，依赖 Landscape 碰撞体。</p>
-<h3 id="_31">修复方案<a class="headerlink" href="#_31" title="Permanent link">#</a></h3>
+<h3 id="_31">修复方案</h3>
 <p>注释掉 <code>SetNewWorldOrigin()</code> 调用，保留 <code>NedTransform</code> 使用原始 <code>player_start_transform</code> 作为 NED 坐标原点：</p>
 <p>```cpp
 // 修复前（SimModeBase.cpp:117-125）:
@@ -1293,7 +1295,7 @@ player_loc = player_start_transform.GetLocation();
 // NOTE: Do NOT call SetNewWorldOrigin() — it breaks CARLA's landscape collision
 global_ned_transform_.reset(new NedTransform(player_start_transform, ...));
 ```</p>
-<h3 id="_32">验证结果<a class="headerlink" href="#_32" title="Permanent link">#</a></h3>
+<h3 id="_32">验证结果</h3>
 <table>
 <thead>
 <tr>
@@ -1340,7 +1342,7 @@ global_ned_transform_.reset(new NedTransform(player_start_transform, ...));
 </tr>
 </tbody>
 </table>
-<h3 id="_33">坐标系影响<a class="headerlink" href="#_33" title="Permanent link">#</a></h3>
+<h3 id="_33">坐标系影响</h3>
 <p>修复后坐标系映射更新：</p>
 <table>
 <thead>
@@ -1369,15 +1371,15 @@ global_ned_transform_.reset(new NedTransform(player_start_transform, ...));
 </tbody>
 </table>
 <hr />
-<h2 id="2026-03-09">十五、示例脚本完整列表 (2026-03-09)<a class="headerlink" href="#2026-03-09" title="Permanent link">#</a></h2>
+<h2 id="2026-03-09">十五、示例脚本完整列表 (2026-03-09)</h2>
 <!-- Note: section numbering shifted due to insertion of 十四 (车辆穿地修复) -->
 
-<h3 id="_34">时间线<a class="headerlink" href="#_34" title="Permanent link">#</a></h3>
+<h3 id="_34">时间线</h3>
 <ul>
 <li>2026-03-06: 创建前 8 个脚本 (walk_fpv, fly_drone_pygame, drive_car, 4 个 showcase, showcase_maps)</li>
 <li>2026-03-09: 修复 showcase_traffic.py 崩溃问题，创建并测试最后 4 个脚本</li>
 </ul>
-<h3 id="_35">已知限制<a class="headerlink" href="#_35" title="Permanent link">#</a></h3>
+<h3 id="_35">已知限制</h3>
 <table>
 <thead>
 <tr>
@@ -1414,8 +1416,8 @@ global_ned_transform_.reset(new NedTransform(player_start_transform, ...));
 </tr>
 </tbody>
 </table>
-<h3 id="_36">脚本分类与测试结果<a class="headerlink" href="#_36" title="Permanent link">#</a></h3>
-<h4 id="a-3">A. 交互控制 (3 个) — 用户手动操控<a class="headerlink" href="#a-3" title="Permanent link">#</a></h4>
+<h3 id="_36">脚本分类与测试结果</h3>
+<h4 id="a-3">A. 交互控制 (3 个) — 用户手动操控</h4>
 <table>
 <thead>
 <tr>
@@ -1446,7 +1448,7 @@ global_ned_transform_.reset(new NedTransform(player_start_transform, ...));
 </tr>
 </tbody>
 </table>
-<h4 id="b-5">B. 展示 (5 个) — 自动运行，展示功能<a class="headerlink" href="#b-5" title="Permanent link">#</a></h4>
+<h4 id="b-5">B. 展示 (5 个) — 自动运行，展示功能</h4>
 <table>
 <thead>
 <tr>
@@ -1489,7 +1491,7 @@ global_ned_transform_.reset(new NedTransform(player_start_transform, ...));
 </tr>
 </tbody>
 </table>
-<h4 id="c-4-carla-airsim">C. 联合应用 (4 个) — CARLA + AirSim 协同<a class="headerlink" href="#c-4-carla-airsim" title="Permanent link">#</a></h4>
+<h4 id="c-4-carla-airsim">C. 联合应用 (4 个) — CARLA + AirSim 协同</h4>
 <table>
 <thead>
 <tr>
@@ -1526,15 +1528,15 @@ global_ned_transform_.reset(new NedTransform(player_start_transform, ...));
 </tr>
 </tbody>
 </table>
-<h3 id="12">合计: 12 个脚本，全部通过测试<a class="headerlink" href="#12" title="Permanent link">#</a></h3>
+<h3 id="12">合计: 12 个脚本，全部通过测试</h3>
 <ul>
 <li>纯 CARLA: 5 个</li>
 <li>纯 AirSim: 2 个</li>
 <li>CARLA + AirSim 联合: 5 个</li>
 </ul>
 <hr />
-<h2 id="2026-03-10">十五、分发包 (2026-03-10)<a class="headerlink" href="#2026-03-10" title="Permanent link">#</a></h2>
-<h3 id="_37">打包信息<a class="headerlink" href="#_37" title="Permanent link">#</a></h3>
+<h2 id="2026-03-10">十五、分发包 (2026-03-10)</h2>
+<h3 id="_37">打包信息</h3>
 <table>
 <thead>
 <tr>
@@ -1565,13 +1567,13 @@ global_ned_transform_.reset(new NedTransform(player_start_transform, ...));
 </tr>
 </tbody>
 </table>
-<h3 id="2gb">排除内容（节省 ~2GB）<a class="headerlink" href="#2gb" title="Permanent link">#</a></h3>
+<h3 id="2gb">排除内容（节省 ~2GB）</h3>
 <ul>
 <li>Debug 符号：<code>CarlaUE4-Linux-Shipping.debug</code>（1.6GB）+ <code>.sym</code>（80MB）</li>
 <li>Manifest 文件、Dockerfile、<code>__pycache__</code></li>
 <li>根目录测试脚本（<code>test_package.py</code>、<code>comprehensive_api_test.py</code> 等）</li>
 </ul>
-<h3 id="_38">包内目录结构<a class="headerlink" href="#_38" title="Permanent link">#</a></h3>
+<h3 id="_38">包内目录结构</h3>
 <p><code>SimWorld/
 ├── SimWorld.sh              # 主启动器
 ├── README_SimWorld.md       # 使用文档
@@ -1582,35 +1584,35 @@ global_ned_transform_.reset(new NedTransform(player_start_transform, ...));
 ├── PythonAPI/               # CARLA Python API 源码
 ├── HDMaps/                  # HD 点云地图
 └── Co-Simulation/           # 联合仿真桥接</code></p>
-<h3 id="_39">目标机器要求<a class="headerlink" href="#_39" title="Permanent link">#</a></h3>
+<h3 id="_39">目标机器要求</h3>
 <ul>
 <li>Ubuntu 18.04/20.04/22.04 (x86_64)</li>
 <li>NVIDIA GPU + 驱动 470+（Vulkan 支持）</li>
 <li>16GB+ RAM, 20GB+ 磁盘空间</li>
 <li>Python 3.8+, pip: <code>carla==0.9.15 airsim pygame numpy Pillow</code></li>
 </ul>
-<h3 id="_40">部署步骤<a class="headerlink" href="#_40" title="Permanent link">#</a></h3>
+<h3 id="_40">部署步骤</h3>
 <p>```bash</p>
-<h1 id="1">1. 解压<a class="headerlink" href="#1" title="Permanent link">#</a></h1>
+<h1 id="1">1. 解压</h1>
 <p>tar xzf SimWorld_20260309.tar.gz</p>
-<h1 id="2-python">2. 安装 Python 依赖<a class="headerlink" href="#2-python" title="Permanent link">#</a></h1>
+<h1 id="2-python">2. 安装 Python 依赖</h1>
 <p>pip install carla==0.9.15 airsim pygame numpy Pillow</p>
-<h1 id="3-airsim">3. 配置 AirSim<a class="headerlink" href="#3-airsim" title="Permanent link">#</a></h1>
+<h1 id="3-airsim">3. 配置 AirSim</h1>
 <p>mkdir -p ~/Documents/AirSim
 cp SimWorld/AirSimConfig/settings.json.example ~/Documents/AirSim/settings.json</p>
-<h1 id="4">4. 启动模拟器<a class="headerlink" href="#4" title="Permanent link">#</a></h1>
+<h1 id="4">4. 启动模拟器</h1>
 <p>cd SimWorld &amp;&amp; ./SimWorld.sh</p>
-<h1 id="5">5. 运行示例<a class="headerlink" href="#5" title="Permanent link">#</a></h1>
+<h1 id="5">5. 运行示例</h1>
 <p>python3 examples/drive_car.py
 ```</p>
 <hr />
-<h2 id="v01-release-2026-03-10">十六、v0.1 Release 测试 (2026-03-10)<a class="headerlink" href="#v01-release-2026-03-10" title="Permanent link">#</a></h2>
-<h3 id="_41">时间线<a class="headerlink" href="#_41" title="Permanent link">#</a></h3>
+<h2 id="v01-release-2026-03-10">十六、v0.1 Release 测试 (2026-03-10)</h2>
+<h3 id="_41">时间线</h3>
 <ul>
 <li>2026-03-10: 执行 v0.1 Release 前全部测试任务（T1-T6）</li>
 <li>2026-03-10: 编写测试报告，判定 Release Readiness</li>
 </ul>
-<h3 id="_42">测试结果总览<a class="headerlink" href="#_42" title="Permanent link">#</a></h3>
+<h3 id="_42">测试结果总览</h3>
 <table>
 <thead>
 <tr>
@@ -1677,8 +1679,8 @@ cp SimWorld/AirSimConfig/settings.json.example ~/Documents/AirSim/settings.json<
 </tr>
 </tbody>
 </table>
-<h3 id="release-readiness-ready-for-release">Release Readiness: ✅ Ready for Release<a class="headerlink" href="#release-readiness-ready-for-release" title="Permanent link">#</a></h3>
-<h3 id="_43">更新后的已知限制<a class="headerlink" href="#_43" title="Permanent link">#</a></h3>
+<h3 id="release-readiness-ready-for-release">Release Readiness: ✅ Ready for Release</h3>
+<h3 id="_43">更新后的已知限制</h3>
 <table>
 <thead>
 <tr>
@@ -1720,7 +1722,7 @@ cp SimWorld/AirSimConfig/settings.json.example ~/Documents/AirSim/settings.json<
 </tr>
 </tbody>
 </table>
-<h3 id="_44">详细报告<a class="headerlink" href="#_44" title="Permanent link">#</a></h3>
+<h3 id="_44">详细报告</h3>
 <p>完整测试报告：<code>/mnt/data1/tianle/carla_source/Progress_record/v0.1_release_test_report.md</code></p>
               
             </div>
@@ -1745,6 +1747,10 @@ cp SimWorld/AirSimConfig/settings.json.example ~/Documents/AirSim/settings.json<
   <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
     
+        <span>
+          <a href="https://github.com/OpenHUTB/air_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
     
     
   </span>
@@ -1753,8 +1759,13 @@ cp SimWorld/AirSimConfig/settings.json.example ~/Documents/AirSim/settings.json<
     <script>var base_url = "../..";</script>
     <script src="../../js/theme_extra.js"></script>
     <script src="../../js/theme.js"></script>
-      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
       <script src="../../search/main.js"></script>
     <script>
         jQuery(function () {

@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../../../css/theme.css" />
     <link rel="stylesheet" href="../../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../../extra.css" rel="stylesheet" />
     
       <script>
         // Current page data
@@ -274,6 +275,7 @@
     <li><a href="../../.." class="icon icon-home" aria-label="Docs"></a></li>
       <li class="breadcrumb-item active">在 Windows 上使用 FST 无人驾驶环境构建 AirSim</li>
     <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/wiki/technion/build_FSTDriverless_windows.md" class="icon icon-github"> 在 GitHub 上编辑</a>
     </li>
   </ul>
   <hr/>
@@ -281,8 +283,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="windows-fst-airsim">在 Windows 上使用 FST 无人驾驶环境构建 AirSim<a class="headerlink" href="#windows-fst-airsim" title="Permanent link">#</a></h1>
-<h2 id="_1">安装虚幻引擎<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
+                <h1 id="windows-fst-airsim">在 Windows 上使用 FST 无人驾驶环境构建 AirSim</h1>
+<h2 id="_1">安装虚幻引擎</h2>
 <ol>
 <li><a href="https://www.unrealengine.com/download">下载</a> Epic Games 启动器。虽然虚幻引擎是开源的，可以免费下载，但仍然需要注册。</li>
 <li>运行 Epic Games 启动器，从左侧打开“库”选项卡，点击“添加版本”，此时会显示下载虚幻 4.18 的选项，如下所示。如果您安装了多个版本的虚幻引擎，请点击相应版本“启动”按钮旁边的向下箭头，确保 4.18 为“当前版本”。</li>
@@ -291,13 +293,13 @@
 <p class="admonition-title">注意</p>
 <p>本项目仅适用于 UE 4.18。如果您拥有 UE 4.16 或更早版本的项目，请参阅 <a href="https://github.com/Microsoft/AirSim/blob/master/docs/unreal_upgrade.md">升级指南</a> 来升级您的项目。</p>
 </div>
-<h2 id="airsim">构建 AirSim<a class="headerlink" href="#airsim" title="Permanent link">#</a></h2>
+<h2 id="airsim">构建 AirSim</h2>
 <ol>
 <li>您将需要 Visual Studio 2017（确保安装 VC++ 和 Windows SDK 8.x）。</li>
 <li>启动 VS 2017 的 <code>x64 Native Tools Command Prompt</code>。为仓库创建一个文件夹并运行 <code>git clone https://github.com/OpenHUTB/air.git</code>。</li>
 <li>从命令行运行 <code>build.cmd</code>。这将在 <code>Unreal\Plugins</code> 文件夹中创建可立即使用的插件，可将其放入任何 Unreal 项目中。</li>
 </ol>
-<h2 id="_2">创建和设置虚幻环境<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
+<h2 id="_2">创建和设置虚幻环境</h2>
 <p>最后，您需要一个虚幻项目来托管您的车辆环境。请按照以下列表创建一个模拟 FSD 比赛的环境。</p>
 <ol>
 <li>确保已构建 AirSim 并已安装 Unreal 4.18，如上所述。</li>
@@ -389,7 +391,7 @@
 </ol>
 <p>预备……开始……开始！！！
 您现在正在 FSD Unreal 环境中运行 AirSim。</p>
-<h2 id="g920">设置方向盘（罗技 G920）<a class="headerlink" href="#g920" title="Permanent link">#</a></h2>
+<h2 id="g920">设置方向盘（罗技 G920）</h2>
 <p>如果您想手动驾驶，则需要方向盘。有关更多详细信息，请参阅 <a href="../../../steering_wheel_installation/">方向盘说明</a> 。</p>
 <p>或者，您可以使用 <a href="https://github.com/Microsoft/AirSim/blob/master/docs/apis.md">API</a> 进行编程控制，或者使用所谓的 <a href="https://github.com/Microsoft/AirSim/blob/master/docs/image_apis.md">计算机视觉模式</a> 使用键盘移动。</p>
               
@@ -415,6 +417,10 @@
   <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
     
+        <span>
+          <a href="https://github.com/OpenHUTB/air_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
     
     
   </span>
@@ -423,8 +429,13 @@
     <script>var base_url = "../../..";</script>
     <script src="../../../js/theme_extra.js"></script>
     <script src="../../../js/theme.js"></script>
-      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../../js/umlconvert.js"></script>
       <script src="../../../search/main.js"></script>
     <script>
         jQuery(function () {

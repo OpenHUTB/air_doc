@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
     
       <script>
         // Current page data
@@ -156,20 +157,6 @@
     <li class="toctree-l3"><a class="reference internal" href="#px4-software-in-loop">设置 PX4 软件在环(Software-in-Loop)</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#_2">常见问题解答</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#_3">无人机飞行不正常，总是“乱飞”。</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#arducopter-mavlink">我可以使用 Arducopter 或其他 MavLink 实现吗？</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#pixhawk">它找不到我的 Pixhawk 硬件</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#warn-commander-takeoff-denied-disarm-and-re-try">WARN  [commander] Takeoff denied, disarm and re-try</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#_4">当我发出指令让无人机执行某项任务时，它总是会降落。</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#_5">我收到消息长度不匹配的错误。</a>
-    </li>
-        </ul>
     </li>
     </ul>
                 </li>
@@ -300,6 +287,7 @@
           <li class="breadcrumb-item">MavLink 和 PX4</li>
       <li class="breadcrumb-item active">AirSim 的 PX4 设置</li>
     <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/px4_setup.md" class="icon icon-github"> 在 GitHub 上编辑</a>
     </li>
   </ul>
   <hr/>
@@ -307,13 +295,13 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="air-px4">Air 的 PX4 设置<a class="headerlink" href="#air-px4" title="Permanent link">#</a></h1>
+                <h1 id="air-px4">Air 的 PX4 设置</h1>
 <p><a href="http://github.com/px4/firmware">PX4 软件栈</a>是一款开源且非常流行的飞行控制器，支持多种飞控板和传感器，并内置任务规划等高级功能。请访问 <a href="http://px4.io">px4.io</a> 了解更多信息。</p>
 <div class="admonition 警告">
 <p class="admonition-title">警告</p>
 <p>虽然所有版本的 AirSim 都经过 PX4 测试以确保兼容性，但设置 PX4 并非易事。除非您至少具备中级 PX4 协议栈的使用经验，否则我们建议您使用 <a href="../simple_flight/">simple_flight</a> ，它现在是 AirSim 的默认设置。</p>
 </div>
-<h2 id="_1">支持的硬件<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
+<h2 id="_1">支持的硬件</h2>
 <p>以下 Pixhawk 硬件已通过 Air 测试：</p>
 <ol>
 <li><a href="http://www.banggood.com/Pixhawk-PX4-2_4_8-Flight-Controller-32-Bit-ARM-PX4FMU-PX4IO-Combo-for-Multicopters-p-1040416.html">Pixhawk PX4 2.4.8</a></li>
@@ -324,7 +312,7 @@
 <li><a href="https://shop.holybro.com/pixhawk-4beta-launch_p1089.html">Pixhawk 4 from Holybro</a></li>
 </ol>
 <p>PX4 固件 1.11.2 版本也适用于 Pixhawk 4 设备。</p>
-<h2 id="px4">设置 PX4 硬件在环<a class="headerlink" href="#px4" title="Permanent link">#</a></h2>
+<h2 id="px4">设置 PX4 硬件在环</h2>
 <p>为此，您需要使用上面列出的支持设备之一。如果要进行手动飞行，您还需要遥控器和发射器。</p>
 <ol>
 <li>请确保您的遥控接收器已与遥控发射器配对。将遥控发射器连接到飞控的遥控端口。更多信息请参阅您的遥控器手册和 <a href="https://docs.px4.io/en/getting_started/rc_transmitter_receiver.html">PX4文档</a> 。</li>
@@ -369,27 +357,27 @@
 <p>完成上述设置后，您应该可以使用遥控器 (Remote Control, RC) 操控 Air 飞行。通常，您可以通过将遥控器的两根摇杆向下并向内拉合来启动飞行器。初始设置完成后，您无需再使用 QGroundControl。通常，稳定 Stabilized 模式（而非手动 Manual 模式）能为初学者提供更好的飞行体验。请参阅 <a href="https://docs.px4.io/master/en/flying/basic_flying.html">PX4 基础飞行指南</a> 。</p>
 <p>您还可以通过 <a href="../apis/">Python API</a> 控制无人机。</p>
 <p>请参阅 <a href="https://youtu.be/HNWdYrtw3f0">演示视频</a> 和 <a href="https://youtu.be/1oY8Qu5maQQ">Unreal Air 设置视频</a> ，其中展示了本文档中的所有设置步骤。</p>
-<h2 id="px4-software-in-loop">设置 PX4 软件在环(Software-in-Loop)<a class="headerlink" href="#px4-software-in-loop" title="Permanent link">#</a></h2>
+<h2 id="px4-software-in-loop">设置 PX4 软件在环(Software-in-Loop)</h2>
 <p>PX4 SITL 模式不需要您使用 Pixhawk 或 Pixracer 等单独的设备。事实上，PX4 团队推荐使用这种方式将 PX4 与模拟器配合使用。然而，这种方式的设置确实比较复杂。请参阅 <a href="../px4_sitl/">此专门页面</a> 了解如何在 SITL 模式下设置 PX4。</p>
-<h2 id="_2">常见问题解答<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
-<h4 id="_3">无人机飞行不正常，总是“乱飞”。<a class="headerlink" href="#_3" title="Permanent link">#</a></h4>
+<h2 id="_2">常见问题解答</h2>
+<h4 id="_3">无人机飞行不正常，总是“乱飞”。</h4>
 <p>造成这种情况的原因有很多。首先，请确保无人机在启动模拟器时不会从高处坠落。如果您创建了自定义的引擎环境，并且玩家起始点设置得过高，则可能会出现这种情况。似乎当这种情况发生时，PX4 的内部校准会出错。</p>
 <p>您 <a href="#setting-up-px4-hardware-in-loop">还应该使用 QGroundControl</a> ，并确保您可以在 QGroundControl 中正确解锁和起飞。</p>
 <p>最后，在极少数情况下，这也可能是机器性能问题，请检查您的 <a href="../hard_drive/">硬盘性能</a> 。</p>
-<h4 id="arducopter-mavlink">我可以使用 Arducopter 或其他 MavLink 实现吗？<a class="headerlink" href="#arducopter-mavlink" title="Permanent link">#</a></h4>
+<h4 id="arducopter-mavlink">我可以使用 Arducopter 或其他 MavLink 实现吗？</h4>
 <p>我们的代码已使用 <a href="https://dev.px4.io/">PX4 固件</a> 进行测试。我们尚未测试 Arducopter 或其他 MAVLink 实现。部分飞行 API 会在 MAV_CMD_DO_SET_MODE 消息中使用 PX4 自定义模式（例如 PX4_CUSTOM_MAIN_MODE_AUTO）。</p>
-<h4 id="pixhawk">它找不到我的 Pixhawk 硬件<a class="headerlink" href="#pixhawk" title="Permanent link">#</a></h4>
+<h4 id="pixhawk">它找不到我的 Pixhawk 硬件</h4>
 <p>检查 settings.json 文件中是否存在这样一行：<code>"SerialPort":"*,115200"</code>。这里的星号表示“查找任何看起来像 Pixhawk 设备的串口”，但这并非适用于所有类型的 Pixhawk 硬件。因此，在 Windows 系统中，您可以使用设备管理器找到实际的 COM 端口，在<code>Ports (COM &amp; LPT)</code> 下查找，插入设备并查看显示的新 COM 端口。假设您看到一个名为<code>USB Serial Port (COM5)</code>的新端口。那么，请将 SerialPort 设置更改为：<code>"SerialPort":"COM5,115200"</code>。</p>
 <p>在 Linux 系统中，可以通过运行 <code>ls /dev/serial/by-id</code> 命令来查找设备。如果看到类似 <code>usb-3D_Robotics_PX4_FMU_v2.x_0-if00</code> 的设备名称，就可以使用该名称进行连接，例如：<code>SerialPort":"/dev/serial/by-id/usb-3D_Robotics_PX4_FMU_v2.x_0-if00"</code>。需要注意的是，这个长名称实际上是指向实际名称的符号链接。使用 <code>ls -l ...</code> 命令可以找到该符号链接，它通常类似于 <code>/dev/ttyACM0</code>，因此也可以使用 <code>SerialPort":"/dev/ttyACM0,115200"</code>。但是，这种映射方式与 Windows 类似，它是自动分配的，并且可能会发生变化。而长名称即使在实际的 TTY 串口设备映射发生变化时仍然有效。</p>
-<h4 id="warn-commander-takeoff-denied-disarm-and-re-try">WARN  [commander] Takeoff denied, disarm and re-try<a class="headerlink" href="#warn-commander-takeoff-denied-disarm-and-re-try" title="Permanent link">#</a></h4>
+<h4 id="warn-commander-takeoff-denied-disarm-and-re-try">WARN  [commander] Takeoff denied, disarm and re-try</h4>
 <p>如果 PX4 尚未计算出返航位置，您就尝试起飞，就会发生这种情况。PX4 会在接收到 GPS 信号后报告返航位置，届时您将看到以下消息：</p>
 <p><code>INFO  [commander] home: 47.6414680, -122.1401672, 119.99
 INFO  [tone_alarm] home_set</code></p>
 <p>但在此之前，PX4 仍会拒绝起飞指令。</p>
-<h4 id="_4">当我发出指令让无人机执行某项任务时，它总是会降落。<a class="headerlink" href="#_4" title="Permanent link">#</a></h4>
+<h4 id="_4">当我发出指令让无人机执行某项任务时，它总是会降落。</h4>
 <p>例如，您使用命令 <code>DroneShell moveToPosition -z -20 -x 50 -y 0</code>，程序会执行该命令，但当无人机到达目标位置时，它却开始降落。这是 PX4 在离线模式完成后默认的行为。要让无人机悬停，请设置以下 PX4 参数：</p>
 <p><code>param set COM_OBL_ACT 1</code></p>
-<h4 id="_5">我收到消息长度不匹配的错误。<a class="headerlink" href="#_5" title="Permanent link">#</a></h4>
+<h4 id="_5">我收到消息长度不匹配的错误。</h4>
 <p>您可能需要在 QGC 中将 MAV_PROTO_VER 参数设置为“始终使用版本 1(<code>Always use version 1</code>)”。请参阅 <a href="https://github.com/Microsoft/AirSim/issues/546">此问题</a> 了解更多详情。</p>
               
             </div>
@@ -418,6 +406,10 @@ INFO  [tone_alarm] home_set</code></p>
   <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
     
+        <span>
+          <a href="https://github.com/OpenHUTB/air_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
     
       <span><a href="../hello_drone/" style="color: #fcfcfc">&laquo; 前一页</a></span>
     
@@ -430,8 +422,13 @@ INFO  [tone_alarm] home_set</code></p>
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

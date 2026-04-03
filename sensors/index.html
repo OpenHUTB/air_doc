@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
     
       <script>
         // Current page data
@@ -100,38 +101,12 @@
                 <li class="toctree-l2 current"><a class="reference internal current" href="#">传感器</a>
     <ul class="current">
     <li class="toctree-l3"><a class="reference internal" href="#_1">默认传感器</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#_2">多旋翼</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#_3">车</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#computervision">ComputerVision</a>
-    </li>
-        </ul>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#_4">配置默认传感器列表</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#_5">配置特定车辆传感器列表</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#_6">传感器特定设置</a>
-    </li>
-        </ul>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#api">传感器 API</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#_8">气压计</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#imu">惯性测量单元（IMU）</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#gps">GPS</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#_9">磁力计</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#_10">距离传感器</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#_11">激光雷达</a>
-    </li>
-        </ul>
     </li>
     </ul>
                 </li>
@@ -312,6 +287,7 @@
           <li class="breadcrumb-item">传感器</li>
       <li class="breadcrumb-item active">传感器</li>
     <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/sensors.md" class="icon icon-github"> 在 GitHub 上编辑</a>
     </li>
   </ul>
   <hr/>
@@ -319,7 +295,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="airsim">AirSim 中的传感器<a class="headerlink" href="#airsim" title="Permanent link">#</a></h1>
+                <h1 id="airsim">AirSim 中的传感器</h1>
 <p>AirSim 目前支持以下传感器。
 每个传感器都与一个指定其传感器类型的整数枚举相关联。</p>
 <ul>
@@ -332,25 +308,25 @@
 <li>Lidar = 6</li>
 </ul>
 <p><strong>笔记</strong> :  摄像头的配置与其他传感器不同，并且没有与之关联的枚举。请参阅 <a href="../settings/">常规设置</a> 和 <a href="../image_apis/">图像 API</a> ，了解摄像头的配置和 API。 </p>
-<h2 id="_1">默认传感器<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
+<h2 id="_1">默认传感器</h2>
 <p>如果在<code>settings.json</code>中未指定任何传感器，则根据模拟模式默认启用以下传感器。</p>
-<h3 id="_2">多旋翼<a class="headerlink" href="#_2" title="Permanent link">#</a></h3>
+<h3 id="_2">多旋翼</h3>
 <ul>
 <li>Imu</li>
 <li>Magnetometer</li>
 <li>Gps</li>
 <li>Barometer</li>
 </ul>
-<h3 id="_3">车<a class="headerlink" href="#_3" title="Permanent link">#</a></h3>
+<h3 id="_3">车</h3>
 <ul>
 <li>Gps</li>
 </ul>
-<h3 id="computervision">ComputerVision<a class="headerlink" href="#computervision" title="Permanent link">#</a></h3>
+<h3 id="computervision">ComputerVision</h3>
 <ul>
 <li>None</li>
 </ul>
 <p>在后台，<a href="https://github.com/Microsoft/AirSim/blob/main/AirLib/include/common/AirSimSettings.hpp">AirSimSettings.hpp</a> 中的 <code>createDefaultSensorSettings</code> 方法根据 <code>settings.json</code> 文件中指定的模拟模式，使用默认参数设置上述传感器。</p>
-<h2 id="_4">配置默认传感器列表<a class="headerlink" href="#_4" title="Permanent link">#</a></h2>
+<h2 id="_4">配置默认传感器列表</h2>
 <p>可以在设置 json 中配置默认传感器列表：</p>
 <p>```json
 "DefaultSensors": {
@@ -426,7 +402,7 @@
 </code></pre>
 <p>},
 ```</p>
-<h2 id="_5">配置特定车辆传感器列表<a class="headerlink" href="#_5" title="Permanent link">#</a></h2>
+<h2 id="_5">配置特定车辆传感器列表</h2>
 <p>车辆可以覆盖上面列出的部分默认传感器。激光雷达和距离传感器
 默认情况下不会添加到车辆中，因此您需要通过这种方式添加它们。每个传感器必须具有有效的
 “SensorType”，并且可以定义部分属性来覆盖上面显示的默认值，
@@ -464,13 +440,13 @@
 </code></pre>
 <p>}
 ```</p>
-<h3 id="_6">传感器特定设置<a class="headerlink" href="#_6" title="Permanent link">#</a></h3>
+<h3 id="_6">传感器特定设置</h3>
 <p>有关这些传感器设置含义的详细信息，请参阅以下页面：</p>
 <ul>
 <li><a href="../lidar/">激光雷达传感器设置</a></li>
 <li><a href="../distance_sensor/">距离传感器设置</a></li>
 </ul>
-<h5 id="_7">用于调试的服务器端可视化<a class="headerlink" href="#_7" title="Permanent link">#</a></h5>
+<h5 id="_7">用于调试的服务器端可视化</h5>
 <p>默认情况下，距离传感器触碰的点不会绘制在视口上。如需启用触碰点绘制功能，请通过设置 json 启用<code>DrawDebugPoints</code>设置。例如：</p>
 <p><code>json
 "Distance": {
@@ -479,34 +455,34 @@
     ...
     "DrawDebugPoints": true
 }</code></p>
-<h2 id="api">传感器 API<a class="headerlink" href="#api" title="Permanent link">#</a></h2>
+<h2 id="api">传感器 API</h2>
 <p>直接跳转到 <a href="https://github.com/Microsoft/AirSim/blob/main/PythonClient/multirotor/hello_drone.py"><code>hello_drone.py</code></a> 或 <a href="https://github.com/Microsoft/AirSim/blob/main/HelloDrone/main.cpp"><code>hello_drone.cpp</code></a> 查看示例用法，或者参阅下文了解完整 API。</p>
-<h3 id="_8">气压计<a class="headerlink" href="#_8" title="Permanent link">#</a></h3>
+<h3 id="_8">气压计</h3>
 <p><code>cpp
 msr::airlib::BarometerBase::Output getBarometerData(const std::string&amp; barometer_name, const std::string&amp; vehicle_name);</code></p>
 <p><code>python
 barometer_data = client.getBarometerData(barometer_name = "", vehicle_name = "")</code></p>
-<h3 id="imu">惯性测量单元（IMU）<a class="headerlink" href="#imu" title="Permanent link">#</a></h3>
+<h3 id="imu">惯性测量单元（IMU）</h3>
 <p><code>cpp
 msr::airlib::ImuBase::Output getImuData(const std::string&amp; imu_name = "", const std::string&amp; vehicle_name = "");</code></p>
 <p><code>python
 imu_data = client.getImuData(imu_name = "", vehicle_name = "")</code></p>
-<h3 id="gps">GPS<a class="headerlink" href="#gps" title="Permanent link">#</a></h3>
+<h3 id="gps">GPS</h3>
 <p><code>cpp
 msr::airlib::GpsBase::Output getGpsData(const std::string&amp; gps_name = "", const std::string&amp; vehicle_name = "");</code>
 <code>python
 gps_data = client.getGpsData(gps_name = "", vehicle_name = "")</code></p>
-<h3 id="_9">磁力计<a class="headerlink" href="#_9" title="Permanent link">#</a></h3>
+<h3 id="_9">磁力计</h3>
 <p><code>cpp
 msr::airlib::MagnetometerBase::Output getMagnetometerData(const std::string&amp; magnetometer_name = "", const std::string&amp; vehicle_name = "");</code>
 <code>python
 magnetometer_data = client.getMagnetometerData(magnetometer_name = "", vehicle_name = "")</code></p>
-<h3 id="_10">距离传感器<a class="headerlink" href="#_10" title="Permanent link">#</a></h3>
+<h3 id="_10">距离传感器</h3>
 <p><code>cpp
 msr::airlib::DistanceSensorData getDistanceSensorData(const std::string&amp; distance_sensor_name = "", const std::string&amp; vehicle_name = "");</code>
 <code>python
 distance_sensor_data = client.getDistanceSensorData(distance_sensor_name = "", vehicle_name = "")</code></p>
-<h3 id="_11">激光雷达<a class="headerlink" href="#_11" title="Permanent link">#</a></h3>
+<h3 id="_11">激光雷达</h3>
 <p>有关 Lidar API，请参阅 <a href="../lidar/">lidar 页面</a>。</p>
               
             </div>
@@ -535,6 +511,10 @@ distance_sensor_data = client.getDistanceSensorData(distance_sensor_name = "", v
   <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
     
+        <span>
+          <a href="https://github.com/OpenHUTB/air_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
     
       <span><a href="../multi_vehicle/" style="color: #fcfcfc">&laquo; 前一页</a></span>
     
@@ -547,8 +527,13 @@ distance_sensor_data = client.getDistanceSensorData(distance_sensor_name = "", v
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

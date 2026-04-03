@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra.css" rel="stylesheet" />
     
       <script>
         // Current page data
@@ -274,6 +275,7 @@
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
       <li class="breadcrumb-item active">HUTB_air 从源码编译指南</li>
     <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/dev/build_guide_ubuntu.md" class="icon icon-github"> 在 GitHub 上编辑</a>
     </li>
   </ul>
   <hr/>
@@ -281,9 +283,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="hutb_air">HUTB_air 从源码编译指南<a class="headerlink" href="#hutb_air" title="Permanent link">#</a></h1>
-<h2 id="_1">前提条件<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
-<h3 id="_2">系统要求<a class="headerlink" href="#_2" title="Permanent link">#</a></h3>
+                <h1 id="hutb_air">HUTB_air 从源码编译指南</h1>
+<h2 id="_1">前提条件</h2>
+<h3 id="_2">系统要求</h3>
 <ul>
 <li><strong>操作系统</strong>: Ubuntu 18.04 / 20.04 / 22.04 (推荐 22.04)</li>
 <li><strong>GPU</strong>: NVIDIA GPU，显存 &gt;= 8GB (推荐 12GB+)</li>
@@ -291,18 +293,18 @@
 <li><strong>磁盘</strong>: &gt;= 100GB 可用空间</li>
 <li><strong>显示</strong>: 需要 X11 显示服务 (或 VNC/Xvfb)</li>
 </ul>
-<h3 id="_3">软件依赖<a class="headerlink" href="#_3" title="Permanent link">#</a></h3>
+<h3 id="_3">软件依赖</h3>
 <p>```bash</p>
-<h1 id="_4">基础编译工具<a class="headerlink" href="#_4" title="Permanent link">#</a></h1>
+<h1 id="_4">基础编译工具</h1>
 <p>sudo apt install build-essential cmake git clang-10 lld-10</p>
-<h1 id="ue4">UE4 依赖<a class="headerlink" href="#ue4" title="Permanent link">#</a></h1>
+<h1 id="ue4">UE4 依赖</h1>
 <p>sudo apt install libvulkan1 vulkan-utils mesa-vulkan-drivers</p>
-<h1 id="python">Python 环境<a class="headerlink" href="#python" title="Permanent link">#</a></h1>
+<h1 id="python">Python 环境</h1>
 <p>conda create -n simworld python=3.7
 conda activate simworld
 pip install carla==0.9.16 airsim numpy opencv-python pygame
 ```</p>
-<h2 id="_5">源码位置<a class="headerlink" href="#_5" title="Permanent link">#</a></h2>
+<h2 id="_5">源码位置</h2>
 <table>
 <thead>
 <tr>
@@ -329,57 +331,57 @@ pip install carla==0.9.16 airsim numpy opencv-python pygame
 </tr>
 </tbody>
 </table>
-<h2 id="_6">编译步骤<a class="headerlink" href="#_6" title="Permanent link">#</a></h2>
-<h3 id="1">1. 设置环境变量<a class="headerlink" href="#1" title="Permanent link">#</a></h3>
+<h2 id="_6">编译步骤</h2>
+<h3 id="1">1. 设置环境变量</h3>
 <p><code>bash
 export UE4_ROOT=/mnt/data1/tianle/carla_ue4
 cd /mnt/data1/tianle/carla_source</code></p>
-<h3 id="2-airsim-100">2. 编译 AirSim 模块（~100 秒）<a class="headerlink" href="#2-airsim-100" title="Permanent link">#</a></h3>
+<h3 id="2-airsim-100">2. 编译 AirSim 模块（~100 秒）</h3>
 <p>```bash</p>
-<h1 id="airsim">仅编译 AirSim 插件（快速迭代时使用）<a class="headerlink" href="#airsim" title="Permanent link">#</a></h1>
+<h1 id="airsim">仅编译 AirSim 插件（快速迭代时使用）</h1>
 <p>make CarlaUE4Editor ARGS="-module=AirSim"</p>
-<h1 id="buildsh">或直接使用 Build.sh<a class="headerlink" href="#buildsh" title="Permanent link">#</a></h1>
+<h1 id="buildsh">或直接使用 Build.sh</h1>
 <p>./Util/BuildTools/BuildCarlaUE4.sh --build
 ```</p>
-<h3 id="3-carla-290">3. 编译 CARLA 模块（~290 秒）<a class="headerlink" href="#3-carla-290" title="Permanent link">#</a></h3>
+<h3 id="3-carla-290">3. 编译 CARLA 模块（~290 秒）</h3>
 <p>```bash</p>
-<h1 id="carla">编译 CARLA 插件<a class="headerlink" href="#carla" title="Permanent link">#</a></h1>
+<h1 id="carla">编译 CARLA 插件</h1>
 <p>make CarlaUE4Editor ARGS="-module=Carla"
 ```</p>
-<h3 id="4-editor">4. 在 Editor 模式中运行（开发调试）<a class="headerlink" href="#4-editor" title="Permanent link">#</a></h3>
+<h3 id="4-editor">4. 在 Editor 模式中运行（开发调试）</h3>
 <p>```bash</p>
-<h1 id="_7">使用一键启动脚本<a class="headerlink" href="#_7" title="Permanent link">#</a></h1>
+<h1 id="_7">使用一键启动脚本</h1>
 <p>./carlaAir.sh                    # 默认 Town10HD, 1280x720
 ./carlaAir.sh Town03             # 指定地图
 ./carlaAir.sh Town10HD 1920 1080 # 指定分辨率
 ```</p>
-<h3 id="5-shipping">5. 打包 Shipping 构建（发布用）<a class="headerlink" href="#5-shipping" title="Permanent link">#</a></h3>
+<h3 id="5-shipping">5. 打包 Shipping 构建（发布用）</h3>
 <p>```bash</p>
-<h1 id="805s-cook-2h">完整打包流程（编译 ~805s + Cook ~2h）<a class="headerlink" href="#805s-cook-2h" title="Permanent link">#</a></h1>
+<h1 id="805s-cook-2h">完整打包流程（编译 ~805s + Cook ~2h）</h1>
 <p>./Util/BuildTools/Package.sh --config=Shipping --no-zip</p>
-<h1 id="_8">输出目录<a class="headerlink" href="#_8" title="Permanent link">#</a></h1>
+<h1 id="_8">输出目录</h1>
 <p>ls Dist/CARLA_Shipping_*/LinuxNoEditor/
 ```</p>
 <p><strong>注意</strong>: Package.sh 在最后 rsync PythonAPI wheel 时可能失败（因为 <code>.whl</code> 文件未构建），但这不影响主要构建。手动复制 PythonAPI 文件到输出目录即可。</p>
-<h3 id="6-shipping">6. 运行 Shipping 构建<a class="headerlink" href="#6-shipping" title="Permanent link">#</a></h3>
+<h3 id="6-shipping">6. 运行 Shipping 构建</h3>
 <p><code>bash
 cd Dist/CARLA_Shipping_*/LinuxNoEditor/
 ./CarlaUE4.sh /Game/Carla/Maps/Town10HD -nosound -carla-rpc-port=2000</code></p>
-<h2 id="_9">关键配置文件<a class="headerlink" href="#_9" title="Permanent link">#</a></h2>
-<h3 id="defaultgameini">DefaultGame.ini<a class="headerlink" href="#defaultgameini" title="Permanent link">#</a></h3>
+<h2 id="_9">关键配置文件</h2>
+<h3 id="defaultgameini">DefaultGame.ini</h3>
 <p>位于 <code>Unreal/CarlaUE4/Config/DefaultGame.ini</code>。打包时需要确保以下条目存在：</p>
 <p>```ini</p>
-<h1 id="airsim_1">AirSim 资源目录（必须）<a class="headerlink" href="#airsim_1" title="Permanent link">#</a></h1>
+<h1 id="airsim_1">AirSim 资源目录（必须）</h1>
 <p>+DirectoriesToAlwaysCook=(Path="/AirSim/Blueprints")
 +DirectoriesToAlwaysCook=(Path="/AirSim/HUDAssets")
 +DirectoriesToAlwaysCook=(Path="/AirSim/Models")
 +DirectoriesToAlwaysCook=(Path="/AirSim/Weather")
 +DirectoriesToAlwaysCook=(Path="/AirSim/StarterContent")
 +DirectoriesToAlwaysCook=(Path="/AirSim/VehicleAdv")</p>
-<h1 id="airsim_2">AirSim 地图<a class="headerlink" href="#airsim_2" title="Permanent link">#</a></h1>
+<h1 id="airsim_2">AirSim 地图</h1>
 <p>+MapsToCook=(FilePath="/AirSim/AirSimAssets")
 ```</p>
-<h3 id="settingsjson">settings.json<a class="headerlink" href="#settingsjson" title="Permanent link">#</a></h3>
+<h3 id="settingsjson">settings.json</h3>
 <p>位于 <code>~/Documents/AirSim/settings.json</code>，控制 AirSim 行为：</p>
 <p><code>json
 {
@@ -392,7 +394,7 @@ cd Dist/CARLA_Shipping_*/LinuxNoEditor/
         }
     }
 }</code></p>
-<h2 id="_10">编译时间参考<a class="headerlink" href="#_10" title="Permanent link">#</a></h2>
+<h2 id="_10">编译时间参考</h2>
 <table>
 <thead>
 <tr>
@@ -434,14 +436,14 @@ cd Dist/CARLA_Shipping_*/LinuxNoEditor/
 </tr>
 </tbody>
 </table>
-<h2 id="_11">常见问题<a class="headerlink" href="#_11" title="Permanent link">#</a></h2>
-<h3 id="q-10">Q: 首次启动非常慢（~10分钟）<a class="headerlink" href="#q-10" title="Permanent link">#</a></h3>
+<h2 id="_11">常见问题</h2>
+<h3 id="q-10">Q: 首次启动非常慢（~10分钟）</h3>
 <p><strong>A</strong>: 首次运行时 UE4 需要编译 DDC (Derived Data Cache) 和着色器。后续启动约 1 分钟。</p>
-<h3 id="q-packagesh">Q: Package.sh 最后报错<a class="headerlink" href="#q-packagesh" title="Permanent link">#</a></h3>
+<h3 id="q-packagesh">Q: Package.sh 最后报错</h3>
 <p><strong>A</strong>: 通常是 PythonAPI wheel rsync 失败（<code>set -e</code> 导致脚本中断）。主要的可执行文件和资源已经正确打包，手动复制 PythonAPI 即可。</p>
-<h3 id="q">Q: 打包后的构建缺少地图<a class="headerlink" href="#q" title="Permanent link">#</a></h3>
+<h3 id="q">Q: 打包后的构建缺少地图</h3>
 <p><strong>A</strong>: 检查 <code>DefaultGame.ini</code> 中的 <code>MapsToCook</code> 条目。确保包含所有需要的地图。</p>
-<h3 id="q-airsim-api">Q: AirSim API 无法连接<a class="headerlink" href="#q-airsim-api" title="Permanent link">#</a></h3>
+<h3 id="q-airsim-api">Q: AirSim API 无法连接</h3>
 <p><strong>A</strong>: 检查 <code>~/Documents/AirSim/settings.json</code> 是否存在且格式正确。Editor 模式下需要等待 AirSim 端口 41451 就绪。</p>
               
             </div>
@@ -466,6 +468,10 @@ cd Dist/CARLA_Shipping_*/LinuxNoEditor/
   <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
     
+        <span>
+          <a href="https://github.com/OpenHUTB/air_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
     
     
   </span>
@@ -474,8 +480,13 @@ cd Dist/CARLA_Shipping_*/LinuxNoEditor/
     <script>var base_url = "../..";</script>
     <script src="../../js/theme_extra.js"></script>
     <script src="../../js/theme.js"></script>
-      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
       <script src="../../search/main.js"></script>
     <script>
         jQuery(function () {

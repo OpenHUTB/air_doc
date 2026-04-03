@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
     
       <script>
         // Current page data
@@ -283,6 +284,7 @@
           <li class="breadcrumb-item">使用 AirSim</li>
       <li class="breadcrumb-item active">XBox 控制器</li>
     <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/xbox_controller.md" class="icon icon-github"> 在 GitHub 上编辑</a>
     </li>
   </ul>
   <hr/>
@@ -290,7 +292,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="xbox">XBox 控制器<a class="headerlink" href="#xbox" title="Permanent link">#</a></h1>
+                <h1 id="xbox">XBox 控制器</h1>
 <p>要将 XBox 控制器与 AirSim 一起使用，请按照以下步骤操作：</p>
 <ol>
 <li>连接 XBox 控制器，以便它显示在您的 PC 游戏控制器中：</li>
@@ -324,9 +326,9 @@
 ```</p>
 </li>
 </ol>
-<h2 id="_1">高级<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
+<h2 id="_1">高级</h2>
 <p>如果 QGroundControl 中未显示“操纵杆”选项卡，请点击工具栏左侧的紫色<code>Q</code>图标，打开“首选项”面板。前往“常规”选项卡，勾选“虚拟操纵杆”复选框。返回设置屏幕（齿轮图标），点击“参数”选项卡，在搜索框中输入 <code>COM_RC_IN_MODE</code>，并将其值更改为 <code>操纵杆/无 RC 检查(Joystick/No RC Checks)</code> 或 <code>Virtual RC by Joystick(通过操纵杆进行虚拟 RC)</code>。</p>
-<h3 id="_2">其他选项<a class="headerlink" href="#_2" title="Permanent link">#</a></h3>
+<h3 id="_2">其他选项</h3>
 <p>查看 <a href="../remote_control/">遥控器选项</a></p>
               
             </div>
@@ -355,6 +357,10 @@
   <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
     
+        <span>
+          <a href="https://github.com/OpenHUTB/air_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
     
       <span><a href="../remote_control/" style="color: #fcfcfc">&laquo; 前一页</a></span>
     
@@ -367,8 +373,13 @@
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

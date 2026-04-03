@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
     
       <script>
         // Current page data
@@ -281,6 +282,7 @@
           <li class="breadcrumb-item">使用 AirSim</li>
       <li class="breadcrumb-item active">网格顶点缓冲区</li>
     <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/meshes.md" class="icon icon-github"> 在 GitHub 上编辑</a>
     </li>
   </ul>
   <hr/>
@@ -288,9 +290,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="air">如何在 AIR 中访问网格<a class="headerlink" href="#air" title="Permanent link">#</a></h1>
+                <h1 id="air">如何在 AIR 中访问网格</h1>
 <p>Air 支持访问构成场景的静态网格。</p>
-<h2 id="_1">网格结构体<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
+<h2 id="_1">网格结构体</h2>
 <p>每个网格都用以下结构体表示。
 ```cpp
 struct MeshPositionVertexBuffersResponse {</p>
@@ -312,7 +314,7 @@ std::string name;
 </ul>
 </li>
 </ul>
-<h2 id="_2">如何使用<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
+<h2 id="_2">如何使用</h2>
 <p>获取场景网格的 API 非常简单。但是需要注意的是，该函数调用开销很大，因此应尽量避免调用。通常情况下，这没有问题，因为该函数仅访问静态网格，而对于大多数应用程序来说，这些网格在程序运行期间不会发生变化。</p>
 <p>请注意，您需要使用第三方库或自定义代码才能与接收到的网格进行交互。下面我使用 <a href="https://github.com/libigl/libigl">libigl</a> 的 Python 绑定来可视化接收到的网格。</p>
 <p>```python
@@ -320,7 +322,7 @@ import airsim</p>
 <p>AIRSIM_HOST_IP='127.0.0.1'</p>
 <p>client = airsim.VehicleClient(ip=AIRSIM_HOST_IP)
 client.confirmConnection()</p>
-<h1 id="_3">通过此函数接收返回的网格列表。<a class="headerlink" href="#_3" title="Permanent link">#</a></h1>
+<h1 id="_3">通过此函数接收返回的网格列表。</h1>
 <p>meshes=client.simGetMeshPositionVertexBuffers()</p>
 <p>index=0
 for m in meshes:
@@ -384,6 +386,10 @@ for m in meshes:
   <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
     
+        <span>
+          <a href="https://github.com/OpenHUTB/air_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
     
       <span><a href="../retexturing/" style="color: #fcfcfc">&laquo; 前一页</a></span>
     
@@ -396,8 +402,13 @@ for m in meshes:
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

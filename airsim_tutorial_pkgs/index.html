@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
     
       <script>
         // Current page data
@@ -289,6 +290,7 @@
           <li class="breadcrumb-item">使用 AirSim</li>
       <li class="breadcrumb-item active">ROS: AirSim 教程包</li>
     <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/airsim_tutorial_pkgs.md" class="icon icon-github"> 在 GitHub 上编辑</a>
     </li>
   </ul>
   <hr/>
@@ -296,10 +298,10 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="airsim-ros">AirSim ROS 教程<a class="headerlink" href="#airsim-ros" title="Permanent link">#</a></h1>
+                <h1 id="airsim-ros">AirSim ROS 教程</h1>
 <p>这是一组 AirSim 的示例 <code>settings.json</code>、roslaunch 和 rviz 文件，旨在帮助您了解如何在 ROS 中使用 AirSim。
 有关 ROS API，请参阅 <a href="https://github.com/microsoft/AirSim/blob/main/ros/src/airsim_ros_pkgs/README.md">airsim_ros_pkgs</a> 。</p>
-<h2 id="_1">设置<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
+<h2 id="_1">设置</h2>
 <p>确保 <a href="../airsim_ros_pkgs/">airsim_ros_pkgs 设置</a> 已完成并且先决条件已安装。</p>
 <p><code>shell
 $ cd PATH_TO/AirSim/ros
@@ -311,8 +313,8 @@ catkin build airsim_tutorial_pkgs -DCMAKE_C_COMPILER=gcc-8 -DCMAKE_CXX_COMPILER=
 <p class="admonition-title">笔记</p>
 <p>为了运行示例，以及每次打开新终端时，都需要获取 <code>setup.bash</code> 文件。如果您经常使用 ROS 包装器，最好将 <code>source PATH_TO/AirSim/ros/devel/setup.bash</code> 添加到 <code>~/.profile</code> 或 <code>~/.bashrc</code>，这样可以避免运行每次打开终端时都需要运行该命令。</p>
 </div>
-<h2 id="_2">例子<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
-<h3 id="_3">配备单目摄像头、深度摄像头和激光雷达的单架无人机<a class="headerlink" href="#_3" title="Permanent link">#</a></h3>
+<h2 id="_2">例子</h2>
+<h3 id="_3">配备单目摄像头、深度摄像头和激光雷达的单架无人机</h3>
 <ul>
 <li>Settings.json - <a href="https://github.com/microsoft/AirSim/blob/main/ros/src/airsim_tutorial_pkgs/settings/front_stereo_and_center_mono.json">front_stereo_and_center_mono.json</a>
  ```shell
@@ -327,7 +329,7 @@ catkin build airsim_tutorial_pkgs -DCMAKE_C_COMPILER=gcc-8 -DCMAKE_CXX_COMPILER=
  $ roslaunch airsim_tutorial_pkgs front_stereo_and_center_mono.launch
  <code>``
  上述命令将使用 tf 启动 rviz，使用 [depth_image_proc](https://wiki.ros.org/depth_image_proc) 使用 [</code>depth_to_pointcloud` 启动文件](https://github.com/microsoft/AirSim/blob/main/ros/src/airsim_tutorial_pkgs/launch/front_stereo_and_center_mono/depth_to_pointcloud.launch) 注册 RGBD 云，以及激光雷达点云。 </p>
-<h3 id="2-imu">2 架无人机，分别配备摄像头、激光雷达和 IMU<a class="headerlink" href="#2-imu" title="Permanent link">#</a></h3>
+<h3 id="2-imu">2 架无人机，分别配备摄像头、激光雷达和 IMU</h3>
 <ul>
 <li>Settings.json - <a href="https://github.com/microsoft/AirSim/blob/main/ros/src/airsim_tutorial_pkgs/settings/two_drones_camera_lidar_imu.json">two_drones_camera_lidar_imu.json</a> </li>
 </ul>
@@ -340,7 +342,7 @@ catkin build airsim_tutorial_pkgs -DCMAKE_C_COMPILER=gcc-8 -DCMAKE_CXX_COMPILER=
  $ roslaunch airsim_ros_pkgs rviz.launch
  <code>``
 您可以在 rviz 中查看 tfs。然后运行</code>rostopic list<code>和</code>rosservice list` 来检查可用的服务。   </p>
-<h3 id="25">25架无人机组成一个方形图案<a class="headerlink" href="#25" title="Permanent link">#</a></h3>
+<h3 id="25">25架无人机组成一个方形图案</h3>
 <ul>
 <li>Settings.json - <a href="https://github.com/microsoft/AirSim/blob/main/ros/src/airsim_tutorial_pkgs/settings/twenty_five_drones.json">twenty_five_drones.json</a> </li>
 </ul>
@@ -381,6 +383,10 @@ catkin build airsim_tutorial_pkgs -DCMAKE_C_COMPILER=gcc-8 -DCMAKE_CXX_COMPILER=
   <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
     
+        <span>
+          <a href="https://github.com/OpenHUTB/air_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
     
       <span><a href="../airsim_ros_pkgs/" style="color: #fcfcfc">&laquo; 前一页</a></span>
     
@@ -393,8 +399,13 @@ catkin build airsim_tutorial_pkgs -DCMAKE_C_COMPILER=gcc-8 -DCMAKE_CXX_COMPILER=
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

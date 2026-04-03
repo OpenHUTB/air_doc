@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
     
       <script>
         // Current page data
@@ -285,6 +286,7 @@
           <li class="breadcrumb-item">使用 AirSim</li>
       <li class="breadcrumb-item active">相机视角</li>
     <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/camera_views.md" class="icon icon-github"> 在 GitHub 上编辑</a>
     </li>
   </ul>
   <hr/>
@@ -292,13 +294,13 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="_1">相机视角<a class="headerlink" href="#_1" title="Permanent link">#</a></h1>
+                <h1 id="_1">相机视角</h1>
 <p>屏幕上显示的相机视图是您可以通过 <a href="../image_apis/">simGetImages API</a> 获取的相机视图。</p>
 <p><img alt="Cameras" src="../images/cameras.png" /></p>
 <p>从左到右依次为深度视图、分割视图和FPV视图。有关各种可用视图的说明，请参阅 <a href="../image_apis/">图像 API</a> 。</p>
-<h2 id="_2">开启/关闭视图<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
+<h2 id="_2">开启/关闭视图</h2>
 <p>按下 F1 键可查看用于开启/关闭任意或所有视图的快捷键。您还可以在此处选择各种视图模式，例如“与我一起飞行(Fly with Me)”模式、第一人称主视角(First Person View, FPV)模式和“地面视角(Ground View)”模式。</p>
-<h2 id="_3">手动相机控制<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
+<h2 id="_3">手动相机控制</h2>
 <p>按下 M 键即可切换到手动相机控制模式。在手动相机控制模式下，您可以使用以下按键控制相机：</p>
 <table>
 <thead>
@@ -330,7 +332,7 @@
 </tr>
 </tbody>
 </table>
-<h2 id="_4">配置子窗口<a class="headerlink" href="#_4" title="Permanent link">#</a></h2>
+<h2 id="_4">配置子窗口</h2>
 <p>现在您可以选择上述每个子窗口显示的内容。例如，您可以选择在第一个窗口中显示表面法线（而不是深度信息），在第二个窗口中显示视差（而不是分割信息）。以下是您可以在 <a href="../settings/">settings.json</a> 文件中使用的设置值：</p>
 <p><code>{
   "SubWindows": [
@@ -338,7 +340,7 @@
     {"WindowID": 2, "CameraName": "0", "ImageType": 3, "VehicleName": "", "Visible": false}
   ]
 }</code></p>
-<h2 id="_5">性能影响<a class="headerlink" href="#_5" title="Permanent link">#</a></h2>
+<h2 id="_5">性能影响</h2>
 <p><em>注意</em>：本部分内容已过时，尚未更新以反映新的性能提升变化。</p>
 <p>渲染这些视图确实会影响游戏的帧率，因为这会增加 GPU 的负担。以下显示了打开这些视图时对帧率的影响。</p>
 <p><img alt="fps" src="../images/fps_views.png" /></p>
@@ -374,6 +376,10 @@
   <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
     
+        <span>
+          <a href="https://github.com/OpenHUTB/air_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
     
       <span><a href="../map/" style="color: #fcfcfc">&laquo; 前一页</a></span>
     
@@ -386,8 +392,13 @@
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

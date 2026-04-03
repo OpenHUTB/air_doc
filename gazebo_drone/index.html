@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
     
       <script>
         // Current page data
@@ -295,6 +296,7 @@
           <li class="breadcrumb-item">使用 AirSim</li>
       <li class="breadcrumb-item active">导入 Gazebo 模型</li>
     <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/gazebo_drone.md" class="icon icon-github"> 在 GitHub 上编辑</a>
     </li>
   </ul>
   <hr/>
@@ -302,30 +304,30 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="gazebodrone">欢迎来到 GazeboDrone<a class="headerlink" href="#gazebodrone" title="Permanent link">#</a></h1>
+                <h1 id="gazebodrone">欢迎来到 GazeboDrone</h1>
 <p>GazeboDrone 可以将 Gazebo 无人机连接到 AirSim 无人机，利用 Gazebo 无人机作为飞行动力学模型 (Flight Dynamic Model, FDM)，并借助 AirSim 生成环境传感器数据。它可用于<strong>多旋翼飞行器</strong>、<strong>固定翼飞行器</strong>或任何其他飞行器。</p>
-<h2 id="_1">依赖<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
-<h3 id="gazebo">Gazebo<a class="headerlink" href="#gazebo" title="Permanent link">#</a></h3>
+<h2 id="_1">依赖</h2>
+<h3 id="gazebo">Gazebo</h3>
 <p>请确保您已安装 Gazebo 依赖项：</p>
 <p><code>sudo apt-get install libgazebo9-dev</code></p>
-<h3 id="airlib">AirLib<a class="headerlink" href="#airlib" title="Permanent link">#</a></h3>
+<h3 id="airlib">AirLib</h3>
 <p>本项目使用 GCC 8 构建，因此 AirLib 也需要使用 GCC 8 构建。请从 AirSim 根目录运行：</p>
 <p><code>./clean.sh
 ./setup.sh
 ./build.sh --gcc</code></p>
-<h2 id="airsim">AirSim 模拟器<a class="headerlink" href="#airsim" title="Permanent link">#</a></h2>
+<h2 id="airsim">AirSim 模拟器</h2>
 <p>AirSim UE 插件需要使用 clang 编译，因此您不能使用上一步编译的版本。您可以使用我们提供的 <a href="https://pan.baidu.com/s/1n2fJvWff4pbtMe97GOqtvQ?pwd=hutb">二进制文件</a> （位于<code>software/air</code>目录下），也可以将 AirSim 克隆到另一个文件夹，然后不使用上述选项进行编译，之后您就可以 <a href="../build_linux/#how-to-use-airsim">运行 Blocks</a> 或您自己的环境了。</p>
-<h3 id="airsim_1">AirSim 设置<a class="headerlink" href="#airsim_1" title="Permanent link">#</a></h3>
+<h3 id="airsim_1">AirSim 设置</h3>
 <p>在您的 <code>settings.json</code> 文件中添加以下行：
 <code>"PhysicsEngineName":"ExternalPhysicsEngine"</code>.<br />
 您可能需要更改 AirSim 无人机的视觉模型，为此，您可以参考 <a href="https://youtu.be/Bp86WiLUC80">此教程</a> 。</p>
-<h2 id="_2">构建<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
+<h2 id="_2">构建</h2>
 <p>请从 Air 根文件夹执行此操作：
 <code>cd GazeboDrone
 mkdir build &amp;&amp; cd build
 cmake -DCMAKE_C_COMPILER=gcc-8 -DCMAKE_CXX_COMPILER=g++-8 ..
 make</code></p>
-<h2 id="_3">运行<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
+<h2 id="_3">运行</h2>
 <p>首先运行 Air 模拟器和你的 Gazebo 模型，然后从 Air 根文件夹执行以下命令：</p>
 <p><code>cd GazeboDrone/build
 ./GazeboDrone</code></p>
@@ -356,6 +358,10 @@ make</code></p>
   <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
     
+        <span>
+          <a href="https://github.com/OpenHUTB/air_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
     
       <span><a href="../airsim_tutorial_pkgs/" style="color: #fcfcfc">&laquo; 前一页</a></span>
     
@@ -368,8 +374,13 @@ make</code></p>
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

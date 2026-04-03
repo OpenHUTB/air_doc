@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
     
       <script>
         // Current page data
@@ -301,6 +302,7 @@
           <li class="breadcrumb-item">构建 AirSim</li>
       <li class="breadcrumb-item active">定制虚幻引擎环境</li>
     <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/unreal_custenv.md" class="icon icon-github"> 在 GitHub 上编辑</a>
     </li>
   </ul>
   <hr/>
@@ -308,12 +310,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="_1">创建和设置虚幻环境<a class="headerlink" href="#_1" title="Permanent link">#</a></h1>
+                <h1 id="_1">创建和设置虚幻环境</h1>
 <p>本页包含使用 AirSim 设置虚幻环境的完整说明。虚幻商城 (Unreal Marketplace) 提供了 <a href="https://www.unrealengine.com/marketplace/content-cat/assets/environments">多个环境</a> ，您只需几分钟即可开始使用。您也可以使用 <a href="https://www.turbosquid.com/">turbosquid.com</a> 或 <a href="https://www.cgtrader.com/">cgitrader.com</a> 等网站上提供的环境，但需要稍加努力（点击此处观看 <a href="https://www.youtube.com/watch?v=y09VbdQWvQY&amp;feature">教程视频</a> ）。此外，还有几个 <a href="https://github.com/Microsoft/AirSim/issues/424">免费环境</a> 可供使用。</p>
 <p>下面我们将使用虚幻市场中可免费下载的环境，名为 Landscape Mountain，但对于其他环境，步骤都是相同的。</p>
-<h2 id="linux">Linux 用户须知<a class="headerlink" href="#linux" title="Permanent link">#</a></h2>
+<h2 id="linux">Linux 用户须知</h2>
 <p>Linux 上没有 <code>Epic Games Launcher</code>，这意味着如果您需要创建自定义环境，则需要 Windows 设备来执行此操作。获取 Unreal 项目文件夹后，只需将其复制到您的 Linux 设备上即可。</p>
-<h2 id="_2">分步说明<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
+<h2 id="_2">分步说明</h2>
 <ol>
 <li>确保已构建 AirSim 并已安装 Unreal 4.27，如 <a href="../build_windows/">构建说明</a> 中所述。</li>
 <li>
@@ -401,9 +403,9 @@
 </li>
 </ol>
 <p>恭喜！您现在可以在自己的虚幻环境中运行 AirSim 了。</p>
-<h2 id="_3">选择您的车辆：汽车或多旋翼飞行器<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
+<h2 id="_3">选择您的车辆：汽车或多旋翼飞行器</h2>
 <p>默认情况下，AirSim 会提示用户选择要使用的车辆。您可以通过设置 <a href="../settings/#SimMode">SimMode</a> 轻松更改此设置。请参阅 <a href="../using_car/">使用车辆</a> 指南。</p>
-<h2 id="airsim">将您的环境更新至最新版本的 AirSim<a class="headerlink" href="#airsim" title="Permanent link">#</a></h2>
+<h2 id="airsim">将您的环境更新至最新版本的 AirSim</h2>
 <p>按照上述步骤搭建好环境后，你需要经常从 GitHub 更新本地 AirSim 代码到最新版本。具体操作步骤如下：</p>
 <ol>
 <li>首先将 <a href="https://github.com/Microsoft/AirSim/blob/main/Unreal/Environments/Blocks/clean.bat">clean.bat</a>（Linux 用户请将 <a href="https://github.com/Microsoft/AirSim/blob/main/Unreal/Environments/Blocks/clean.sh">clean.sh</a>）放入环境的根文件夹中。运行此文件可以清理 虚幻引擎项目中的所有中间文件。 </li>
@@ -411,18 +413,18 @@
 <li>将 [your project]/Plugins 文件夹替换为 AirSim/Unreal/Plugins 文件夹。</li>
 <li>右键单击 .uproject 文件，然后选择“Generate Visual Studio project files”选项。Linux 系统无需执行此操作。 </li>
 </ol>
-<h2 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">#</a></h2>
-<h4 id="_4">还有哪些很酷的环境？<a class="headerlink" href="#_4" title="Permanent link">#</a></h4>
+<h2 id="faq">FAQ</h2>
+<h4 id="_4">还有哪些很酷的环境？</h4>
 <p><a href="https://www.unrealengine.com/marketplace">虚幻商城</a> 拥有数十个预先构建的极其精细的 <a href="https://www.unrealengine.com/marketplace/content-cat/assets/environments">环境</a> ，涵盖从月球到火星等各种场景。我们用于测试的环境名为“模块化邻里包 ( <a href="https://www.unrealengine.com/marketplace/modular-neighborhood-pack">Modular Neighborhood Pack</a> )”，但您可以使用任何环境。另一个免费环境是“无尽之剑 ( <a href="https://www.unrealengine.com/marketplace/infinity-blade-plain-lands">Infinity Blade 系列</a> )”。或者，如果您在 Epic Game Launcher 的“学习 (Learn)”选项卡下查看，您会发现许多可用的免费示例。我们最喜欢的一个是“男孩和他的风筝 (A Boy and His Kite)”，这是一个 100 平方英里（约 100 平方英里）的高精度环境（注意：您需要<em>非常</em>强大的 PC 才能运行它！）。</p>
-<h4 id="_5">当我按下播放按钮时，某种视频开始播放，而不是我的车辆。<a class="headerlink" href="#_5" title="Permanent link">#</a></h4>
+<h4 id="_5">当我按下播放按钮时，某种视频开始播放，而不是我的车辆。</h4>
 <p>如果环境自带 MatineeActor，请将其删除以避免任何启动演示序列。还有其他方法可以删除它，例如，点击“蓝图”按钮，然后点击“关卡蓝图”，然后查看“事件图表”中的“开始播放”事件。您可能需要断开所有可能正在启动“matinee”的连接。</p>
-<h4 id="airsim-repo">有没有简单的方法可以将我的虚幻引擎项目中的代码与 AirSim repo 中的代码同步？<a class="headerlink" href="#airsim-repo" title="Permanent link">#</a></h4>
+<h4 id="airsim-repo">有没有简单的方法可以将我的虚幻引擎项目中的代码与 AirSim repo 中的代码同步？</h4>
 <p>当然有！你可以在<code>AirSim\Unreal\Environments\Blocks</code>中找到一堆<code>.bat</code>文件（Linux 系统下为<code>.sh</code>）。只需将它们复制到你自己的虚幻引擎项目中即可。其中大多数都非常简单易懂。</p>
-<h4 id="_6">我收到一些有关地图的错误。<a class="headerlink" href="#_6" title="Permanent link">#</a></h4>
+<h4 id="_6">我收到一些有关地图的错误。</h4>
 <p>您可能需要为项目设置默认地图。例如，如果您使用的是模块化邻里包 (Modular Neighborhood Pack)，请在“项目设置”&gt;“地图和模式”中将编辑器起始地图和游戏默认地图设置为“Demo_Map”。</p>
-<h4 id="_7">我看到了环境的“添加到项目”选项，但没有看到“创建项目”选项。<a class="headerlink" href="#_7" title="Permanent link">#</a></h4>
+<h4 id="_7">我看到了环境的“添加到项目”选项，但没有看到“创建项目”选项。</h4>
 <p>在这种情况下，创建一个没有 Starter Content 的新空白 C++ 项目并将您的环境添加到其中。</p>
-<h4 id="unreal-airsim">我已经有自己的 Unreal 项目了。如何使用 AirSim？<a class="headerlink" href="#unreal-airsim" title="Permanent link">#</a></h4>
+<h4 id="unreal-airsim">我已经有自己的 Unreal 项目了。如何使用 AirSim？</h4>
 <p>将您在上一节中构建的<code>Unreal\Plugins</code>文件夹复制到 Unreal 项目的根目录下。在 Unreal 项目的 .uproject 文件中，将键<code>AdditionalDependencies</code>添加到“Modules”对象中，就像我们在上文“LandscapeMountains.uproject”中展示的那样。</p>
 <p><code>json
 "AdditionalDependencies": [
@@ -463,6 +465,10 @@
   <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
     
+        <span>
+          <a href="https://github.com/OpenHUTB/air_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
     
       <span><a href="../azure/" style="color: #fcfcfc">&laquo; 前一页</a></span>
     
@@ -475,8 +481,13 @@
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

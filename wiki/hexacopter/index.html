@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra.css" rel="stylesheet" />
     
       <script>
         // Current page data
@@ -279,6 +280,7 @@
           <li class="breadcrumb-item">贡献教程</li>
       <li class="breadcrumb-item active">构造六旋翼飞行器</li>
     <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/wiki/hexacopter.md" class="icon icon-github"> 在 GitHub 上编辑</a>
     </li>
   </ul>
   <hr/>
@@ -286,9 +288,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h2 id="_1">构造六旋翼飞行器<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
+                <h2 id="_1">构造六旋翼飞行器</h2>
 <p>那么 AirSim 能飞六旋翼飞行器吗？答案是可以，但设置起来需要一些工作。具体来说，需要更新三个组件：首先是 PX4 固件，然后是 AirSim 物理系统，最后是渲染模型。</p>
-<h3 id="px4">PX4 修改<a class="headerlink" href="#px4" title="Permanent link">#</a></h3>
+<h3 id="px4">PX4 修改</h3>
 <p>PX4 需要处于<code>六轴飞行器模式(hexacopter mode)</code>，才能为所有 6 个电机提供输出。但是，如果您熟悉 QGroundControl 的“HIL 四轴飞行器”机身，您会注意到它没有 HIL 六轴飞行器。根据 PX4 团队的说法，我们不需要使用特殊的机身就能让 PX4 在 HIL 模式下正常工作，但很遗憾，今天我们不得不这么做。PX4 存在一些 bug，会导致 HIL 模式在任何机身上都无法正常工作。因此，除了修复这些 bug 之外，以下是获取 HIL 六轴飞行器机身选项的快速方法。首先，按照 <a href="https://github.com/Microsoft/AirSim/wiki/px4.md%5D">px4</a> 中的说明克隆 git 仓库，然后执行以下操作：</p>
 <p><code>shell
 cd ROMFS/px4fmu_common/init.d
@@ -296,17 +298,17 @@ cp 1001_rc_quad_x.hil 1004_rc_hex_x.hil
 gedit 1004_rc_hex_x.hil</code></p>
 <p>并使其包含以下内容：
 ```shell</p>
-<h1 id="nsh">!nsh<a class="headerlink" href="#nsh" title="Permanent link">#</a></h1>
-<h1 id="_2"><a class="headerlink" href="#_2" title="Permanent link">#</a></h1>
-<h1 id="name-hil-quadcopter">@name HIL Quadcopter +<a class="headerlink" href="#name-hil-quadcopter" title="Permanent link">#</a></h1>
-<h1 id="_3"><a class="headerlink" href="#_3" title="Permanent link">#</a></h1>
-<h1 id="type-simulation">@type Simulation<a class="headerlink" href="#type-simulation" title="Permanent link">#</a></h1>
-<h1 id="_4"><a class="headerlink" href="#_4" title="Permanent link">#</a></h1>
-<h1 id="maintainer-anton-babushkin-amp97amp110amp116amp111amp110amp64amp112amp120amp52amp46amp105amp111">@maintainer Anton Babushkin <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#97;&#110;&#116;&#111;&#110;&#64;&#112;&#120;&#52;&#46;&#105;&#111;">&#97;&#110;&#116;&#111;&#110;&#64;&#112;&#120;&#52;&#46;&#105;&#111;</a><a class="headerlink" href="#maintainer-anton-babushkin-amp97amp110amp116amp111amp110amp64amp112amp120amp52amp46amp105amp111" title="Permanent link">#</a></h1>
-<h1 id="_5"><a class="headerlink" href="#_5" title="Permanent link">#</a></h1>
+<h1 id="nsh">!nsh</h1>
+<h1 id="_2"></h1>
+<h1 id="name-hil-quadcopter">@name HIL Quadcopter +</h1>
+<h1 id="_3"></h1>
+<h1 id="type-simulation">@type Simulation</h1>
+<h1 id="_4"></h1>
+<h1 id="maintainer-anton-babushkin-amp97amp110amp116amp111amp110amp64amp112amp120amp52amp46amp105amp111">@maintainer Anton Babushkin <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#97;&#110;&#116;&#111;&#110;&#64;&#112;&#120;&#52;&#46;&#105;&#111;">&#97;&#110;&#116;&#111;&#110;&#64;&#112;&#120;&#52;&#46;&#105;&#111;</a></h1>
+<h1 id="_5"></h1>
 <p>sh /etc/init.d/rc.mc_defaults</p>
 <p>set MIXER hexa_x</p>
-<h1 id="need-to-set-all-8-channels">Need to set all 8 channels<a class="headerlink" href="#need-to-set-all-8-channels" title="Permanent link">#</a></h1>
+<h1 id="need-to-set-all-8-channels">Need to set all 8 channels</h1>
 <p>set PWM_OUT 12345678</p>
 <p>set HIL yes
 ```</p>
@@ -318,21 +320,21 @@ gedit 1004_rc_hex_x.hil</code></p>
       &lt;type&gt;Simulation&lt;/type&gt;
     &lt;/airframe&gt;</code></p>
 <p>您可以将维护者设置为任意人。现在，当您的 Pixhawk 重启时，QGroundControl 应该会在“HIL”机身类型下显示一个 <code>HIL Hexacopter X</code> 选项，选择它并将其应用到 PX4 上，重启后，它就可以在 HIL 模式下作为六轴飞行器飞行了。</p>
-<h3 id="airsim">AirSim 物理系统<a class="headerlink" href="#airsim" title="Permanent link">#</a></h3>
+<h3 id="airsim">AirSim 物理系统</h3>
 <p>物理很简单，您需要做的就是在 <a href="https://github.com/Microsoft/AirSim/wiki/settings.md">设置 json 文件</a> 中指定这个“模型”：
 <code>shell
 "Model": "Hexacopter",</code></p>
 <p>但这有什么作用呢？在内部，这会导致 Px4MultiRotor.hpp 调用 setupFrameGenericHex()，后者调用 initializeRotorHexX，该方法根据 <a href="http://ardupilot.org/copter/docs/connect-escs-and-motors.html">推荐的电机布置</a> 执行以下操作。</p>
 <p>```cpp
-static void initializeRotorHexX(vector<RotorPose>&amp; rotor_poses /* the result we are building <em>/,
-    uint rotor_count /</em> must be 6 <em>/,
+static void initializeRotorHexX(vector<RotorPose>&amp; rotor_poses /<em> the result we are building </em>/,
+    uint rotor_count /<em> must be 6 </em>/,
     real_T arm_lengths[],
-    real_T rotor_z /</em> z relative to center of gravity <em>/)
+    real_T rotor_z /<em> z relative to center of gravity </em>/)
 {
     Vector3r unit_z(0, 0, -1);  //NED frame
     if (rotor_count == 6) {
         rotor_poses.clear();
-        /</em> Note: rotor_poses are built in this order: rotor 0 is CW</p>
+        /* Note: rotor_poses are built in this order: rotor 0 is CW</p>
 <pre><code>        x-axis
       (2)    (4)
         \  /
@@ -367,7 +369,7 @@ else
 ```</p>
 <p>现在可能需要解释一下上面的 Vector3r 参数。上面标记为 (0) 的第一个电机位于 y 轴上，因此它的矢量很明显：<code>Vector3r(0, arm_lengths[0], rotate_z)</code>，x 轴为 0，y 轴为臂长。
 标记为 (1) 的第二个电机也很明显。但是电机 (2) 呢？<code>VectorMath::rotateVector(Vector3r(arm_lengths[2], 0, rotate_z), quadx_rot, true)</code> 的 x 轴设置为臂长，y 轴设置为零，这意味着它在上图中一开始是垂直向上的。然后我们应用 pi/6 的旋转。但是旋转使用的是 NED 坐标系中的左手旋转规则，其中 z 轴向下，所以伸出左手，拇指向下，弯曲其他四指，这就是旋转的方向，即逆时针。因此，指向上方的臂会旋转到电机 (2) 所示的位置。其他机械臂也一样，现在我们的物理设置已经正确，可以用于六轴飞行器了。当然，你也可以根据需要增加质量，并调整电机推力参数。</p>
-<h3 id="_6">渲染<a class="headerlink" href="#_6" title="Permanent link">#</a></h3>
+<h3 id="_6">渲染</h3>
 <p>最后，为了进行渲染，我们需要一个漂亮的六旋翼飞行器三维模型。Udeshaya Wadhwa 制作了 <a href="https://grabcad.com/library/dji-s900-hex-rotor-drone-1">一个可爱的 DJI S900 模型</a> 。</p>
 <p><img alt="" src="../images/Hexacopter.jpg" /></p>
 <p>所以我拿了这个模型，把电机拆了下来（这样我们就可以旋转它们了），这些可以 <a href="https://github.com/Microsoft/AirSim/wiki/images/DJI%20S900.zip">在这里找到</a> 。你可以 <a href="https://docs.unrealengine.com/latest/INT/Engine/Content/Types/StaticMeshes/HowTo/Importing/index.html">把这些网格导入虚幻引擎</a> 。我发现，对于模块化社区世界，我必须将 x 轴旋转 90 度，并将模型缩小到原始尺寸的 20% 左右，将默认材质改为漂亮的金属灰色，并根据四轴飞行器蓝图添加单独的可旋转电机。</p>
@@ -408,6 +410,10 @@ mp4 转 gif: https://convertio.co/zh/mp4-gif/
   <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
     
+        <span>
+          <a href="https://github.com/OpenHUTB/air_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
     
       <span><a href="../../reinforcement_learning/" style="color: #fcfcfc">&laquo; 前一页</a></span>
     
@@ -420,8 +426,13 @@ mp4 转 gif: https://convertio.co/zh/mp4-gif/
     <script>var base_url = "../..";</script>
     <script src="../../js/theme_extra.js"></script>
     <script src="../../js/theme.js"></script>
-      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
       <script src="../../search/main.js"></script>
     <script>
         jQuery(function () {

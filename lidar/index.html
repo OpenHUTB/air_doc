@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
     
       <script>
         // Current page data
@@ -108,10 +109,6 @@
     <li class="toctree-l3"><a class="reference internal" href="#_3">服务器端可视化调试</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#api">客户端 API</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#python">Python 例子</a>
-    </li>
-        </ul>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#_4">即将推出</a>
     </li>
@@ -292,6 +289,7 @@
           <li class="breadcrumb-item">传感器</li>
       <li class="breadcrumb-item active">激光雷达</li>
     <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/lidar.md" class="icon icon-github"> 在 GitHub 上编辑</a>
     </li>
   </ul>
   <hr/>
@@ -299,10 +297,10 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="airsim">如何在 AirSim 中使用激光雷达<a class="headerlink" href="#airsim" title="Permanent link">#</a></h1>
+                <h1 id="airsim">如何在 AirSim 中使用激光雷达</h1>
 <p>AirSim支持多旋翼飞行器和汽车的激光雷达。</p>
 <p>激光雷达的启用及其他激光雷达设置可通过 AirSimSettings.json 文件进行配置。有关通用/共享传感器设置的配置信息，请参阅 <a href="../sensors/">通用传感器</a> 部分。</p>
-<h2 id="_1">在载具上启用激光雷达<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
+<h2 id="_1">在载具上启用激光雷达</h2>
 <ul>
 <li>默认情况下，激光雷达未启用。要启用激光雷达，请在设置 JSON 文件中设置 SensorType 和 Enabled 属性。 </li>
 </ul>
@@ -314,7 +312,7 @@
 <ul>
 <li>一辆载具上可以安装多个激光雷达。</li>
 </ul>
-<h2 id="_2">激光雷达配置<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
+<h2 id="_2">激光雷达配置</h2>
 <p>以下参数现在可以通过 settings.json 文件进行配置。</p>
 <table>
 <thead>
@@ -420,7 +418,7 @@
 </code></pre>
 <p>}
 ```</p>
-<h2 id="_3">服务器端可视化调试<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
+<h2 id="_3">服务器端可视化调试</h2>
 <p>默认情况下，激光雷达点不会绘制在视口中。要启用在视口中绘制激光命中点，请通过 settings.json 文件启用 <code>DrawDebugPoints</code> 设置。</p>
 <p><code>json
     "Lidar1": {
@@ -428,7 +426,7 @@
          "DrawDebugPoints": true
     },</code></p>
 <p><strong>注意：</strong> 启用 <code>DrawDebugPoints</code> 可能会导致 <code>v1.3.1</code> 和 <code>v1.3.0</code> 版本中内存占用过高并导致程序崩溃。此问题已在主分支中修复，应该会在后续版本中得到解决。</p>
-<h2 id="api">客户端 API<a class="headerlink" href="#api" title="Permanent link">#</a></h2>
+<h2 id="api">客户端 API</h2>
 <p>使用 <code>getLidarData()</code> API 获取激光雷达数据。</p>
 <ul>
 <li>API 返回一个点云，它是浮点数的扁平数组，同时还包含捕获时间戳和激光雷达姿态。</li>
@@ -448,14 +446,14 @@
 </li>
 <li>Segmentation: 对每个激光雷达点碰撞对象进行分割 </li>
 </ul>
-<h3 id="python">Python 例子<a class="headerlink" href="#python" title="Permanent link">#</a></h3>
+<h3 id="python">Python 例子</h3>
 <ul>
 <li><a href="https://github.com/OpenHUTB/air/blob/main/PythonClient/multirotor/drone_lidar.py">drone_lidar.py</a></li>
 <li><a href="https://github.com/OpenHUTB/air/blob/main/PythonClient/car/car_lidar.py">car_lidar.py</a></li>
 <li><a href="https://github.com/OpenHUTB/air/blob/main/PythonClient/multirotor/sensorframe_lidar_pointcloud.py">sensorframe_lidar_pointcloud.py</a></li>
 <li><a href="https://github.com/OpenHUTB/air/blob/main/PythonClient/multirotor/vehicleframe_lidar_pointcloud.py">vehicleframe_lidar_pointcloud.py</a></li>
 </ul>
-<h2 id="_4">即将推出<a class="headerlink" href="#_4" title="Permanent link">#</a></h2>
+<h2 id="_4">即将推出</h2>
 <ul>
 <li>在客户端可视化激光雷达数据。</li>
 </ul>
@@ -486,6 +484,10 @@
   <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
     
+        <span>
+          <a href="https://github.com/OpenHUTB/air_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
     
       <span><a href="../sensors/" style="color: #fcfcfc">&laquo; 前一页</a></span>
     
@@ -498,8 +500,13 @@
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {
