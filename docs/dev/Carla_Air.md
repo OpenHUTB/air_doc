@@ -161,26 +161,19 @@ CARLA-Air 与 14 个现有仿真平台的全面对比（基于[技术报告](htt
 
 ### 选项 A：使用预编译版本（推荐）
 
-```shell
-# 1. 下载并解压 CarlaAir-v0.1.7
+```sh
 tar xzf CarlaAir-v0.1.7.tar.gz
 cd CarlaAir-v0.1.7
-```
 
 # 2. 一键环境配置（仅首次需要）
-```shell
 bash env_setup/setup_env.sh      # 创建 conda 环境，安装依赖，部署 carla 模块
 conda activate carlaAir
 bash env_setup/test_env.sh        # 验证环境：应全部显示 PASS
-```
 
 # 3. 启动仿真器（自动生成交通流）
-```shell
 ./CarlaAir.sh Town10HD
-```
 
 # 4. 运行展示脚本！（另开一个终端）
-```shell
 conda activate carlaAir
 python3 examples/quick_start_showcase.py
 ```
@@ -197,7 +190,7 @@ python3 examples/quick_start_showcase.py
 
 两套 API 共享**同一个仿真世界** — 无桥接、无同步烦恼。
 
-```py
+```python
 import carla, airsim
 
 carla_client = carla.Client("localhost", 2000)
@@ -215,7 +208,7 @@ air_client.moveToPositionAsync(80, 30, -25, 5)
 
 **6 个演示脚本** — 逐个试试：
 
-```shell
+```sh
 python3 examples/quick_start_showcase.py   # 🎬 4分屏传感器 + 无人机追踪 + 天气轮换
 python3 examples/drive_vehicle.py          # 🚗 WASD 驾驶特斯拉
 python3 examples/walk_pedestrian.py        # 🚶 鼠标+键盘 城市漫步
@@ -226,7 +219,7 @@ python3 examples/air_ground_sync.py        # 🔄 车+无人机分屏：同一�
 
 **录制工具** — 录制车辆、无人机、行人轨迹，然后用导演相机回放：
 
-```shell
+```sh
 python3 examples/recording/record_vehicle.py     # 🚗 键盘驾驶并录制车辆轨迹
 python3 examples/recording/record_drone.py       # 🚁 飞行并录制无人机轨迹（零侵入）
 python3 examples/recording/record_walker.py      # 🚶 行走并录制行人轨迹

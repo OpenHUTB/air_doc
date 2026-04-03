@@ -1,38 +1,51 @@
 site_name: 低空模拟器
 # site_dir: build_docs
-# repo_url: https://github.com/microsoft/airsim
-site_description: 'Open source simulator based on Unreal Engine for autonomous vehicles from Microsoft AI & Research'
+repo_url: https://github.com/OpenHUTB/air_doc
+
 
 markdown_extensions:
-    - toc:
-        permalink: "#"
-    - pymdownx.arithmatex:
-        generic: true
-    - pymdownx.extra:
-    - admonition
+  - pymdownx.blocks.html
+  - admonition
+  - mdx_math
+  - pymdownx.superfences:
+      custom_fences: [
+         { name: flow, class: uml-flowchart }
+        ,{ name: sequence, class: uml-sequence-diagram }
+        ,{ name: mermaid, class: mermaid }
+      ]
 
-remote_branch: gh-pages
 
 theme:
-  name: 'readthedocs'
-  logo: ''
+  name: readthedocs
+  sticky_navigation: True
+  navigation_depth: 3
+  features:
+    - search.suggest # 在目录栏中的搜索框中输入一些字母时推荐补全整个单词
+extra_css: [extra.css]
+
+
+# mathjax用于单独公式展示
+extra_javascript:
+  # - extra.js
+  - https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML
+  - https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js
+  - https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js
+  - https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js
+  - https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js
+  - https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js
+  - js/umlconvert.js
+
+plugins:
+  - search:
+      lang: ja
+      separator: '[\s\-\.]+'
+      min_search_length: 1
 
 extra:
-  highlightjs: true
-  feature:
-      tabs: true
-  palette:
-  social:
-      - type: facebook
-        link: https://www.facebook.com/groups/1225832467530667/
-      - type: github-alt
-        link: https://github.com/Microsoft/AirSim
-
-extra_javascript:
-  - https://polyfill.io/v3/polyfill.min.js?features=es6
-  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+  generator: false
 
 copyright: OpenHUTB 版权所有 &copy; 2026
+
 
 nav:
   - "主页":
