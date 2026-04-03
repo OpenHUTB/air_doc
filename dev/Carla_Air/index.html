@@ -283,18 +283,171 @@
               
                 <h2 id="_1">空地一体仿真<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
 <p>该模块是一个开源的空地联合仿真平台。它通过在底层 C++ 将全球领先的自动驾驶仿真器（Carla）与机器人仿真器（AirSim）合并为单一的 <code>ASimWorldGameMode</code>，实现了真正的帧级传感器同步、统一的物理引擎，以及无缝的双 Python API 交互。</p>
+<p><img alt="" src="../../images/calar_air/teaser_video.gif" /></p>
 <p><img alt="" src="../../images/dev/CarlaAir.gif" /></p>
 <h2 id="_2">✨ 核心亮点<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
-<ul>
-<li>🚀 <strong>单进程深度集成</strong>：拒绝跨进程通信桥接（Bridge），无延迟损耗。Carla 与 AirSim 共享同一个 UE4 世界、天气系统与物理引擎。</li>
-<li>🎯 <strong>绝对坐标对齐</strong>：彻底解决 Carla（左手系）与 AirSim（NED）之间的坐标转换问题，误差精确控制在 <code>0.0000m</code>。</li>
-<li>🚁 <strong>内置 FPS 无人机控制</strong>：无需编写任何代码，在仿真窗口内直接使用 <code>WASD</code> + 鼠标 即可像玩 FPS 游戏一样丝滑驾驶无人机。</li>
-<li>🚦 <strong>开箱即用的城市交通</strong>：启动器默认自动生成 30 辆背景车辆与 50 个行人，立即构建逼真城市场景。</li>
-<li>📸 <strong>18路同步传感器</strong>：支持在地面车辆和空中无人机上同时挂载 RGB、激光雷达、深度图、语义分割、IMU 和 GNSS，数据严格对齐。</li>
-<li>🐍 <strong>双 API 无缝协作</strong>：在同一个 Python 脚本中，同时调用 <code>carla.Client</code>（端口 2000）和 <code>airsim.MultirotorClient</code>（端口 41451）。</li>
-</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>🏗️ <strong>单进程组合式集成</strong></td>
+<td><code>CARLAAirGameMode</code> 继承 Carla 并组合 AirSim。仅修改上游 2 个文件（约 35 行）。无桥接，无延迟。</td>
+</tr>
+<tr>
+<td>🎯 <strong>绝对坐标对齐</strong></td>
+<td>Carla（左手系）与 AirSim（NED）坐标系之间精确 <code>0.0000 m</code> 误差。</td>
+</tr>
+<tr>
+<td>📸 <strong>多达 18 种传感器模态</strong></td>
+<td>RGB、深度图、语义分割、实例分割、LiDAR、雷达、表面法线、IMU、GNSS、气压计 -- 空地传感器逐帧对齐。</td>
+</tr>
+<tr>
+<td>🔄 <strong>零修改代码迁移</strong></td>
+<td>现有 Carla 和 AirSim Python 脚本及 ROS 2 节点可直接在 Carla-Air 上运行，无需任何代码改动。89/89 Carla API 测试全部通过。</td>
+</tr>
+<tr>
+<td>⚡ <strong>联合负载约 20 FPS</strong></td>
+<td>中等联合配置（车辆 + 无人机 + 8 个传感器）稳定运行在 19.8 +/- 1.1 FPS。通信开销 &lt; 0.5 ms（对比桥接联合仿真的 1--5 ms）。</td>
+</tr>
+<tr>
+<td>🛡️ <strong>3 小时稳定性验证</strong></td>
+<td>357 次生成/销毁循环，零崩溃，零内存累积（R² = 0.11）。</td>
+</tr>
+<tr>
+<td>🚁 <strong>内置 FPS 无人机控制</strong></td>
+<td>在视口中使用 WASD + 鼠标直接驾驶无人机 -- 无需编写 Python 脚本。</td>
+</tr>
+<tr>
+<td>🚦 <strong>逼真城市交通</strong></td>
+<td>规则驱动的交通流、具有社会行为的行人、13 张城市地图。</td>
+</tr>
+<tr>
+<td>🧩 <strong>可扩展资产导入管线</strong></td>
+<td>支持导入自定义机器人平台、无人机配置、车辆模型和环境地图。</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="" src="../../images/calar_air/teaser_final.jpg" /></p>
 <hr />
-<h2 id="_3">🎮 快速开始<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
+<h2 id="_3">🏆 平台对比<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
+<p>CARLA-Air 与 14 个现有仿真平台的全面对比（基于<a href="https://arxiv.org/abs/2603.28032">技术报告</a>表 1）。</p>
+<table>
+  <thead>
+    <tr>
+      <th>类别</th>
+      <th>平台</th>
+      <th>城市交通</th>
+      <th>行人</th>
+      <th>无人机飞行</th>
+      <th>单进程</th>
+      <th>共享渲染器</th>
+      <th>原生 API</th>
+      <th>联合传感器</th>
+      <th>预编译包</th>
+      <th>测试套件</th>
+      <th>自定义资产</th>
+      <th>开源</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td rowspan="5"><i>自动驾驶</i></td>
+      <td>CARLA</td>
+      <td>✓</td><td>✓</td><td>✗</td><td>✓</td><td>✓</td><td>✓</td><td>✗</td><td>✓</td><td>✗</td><td>✓</td><td>✓</td>
+    </tr>
+    <tr>
+      <td>LGSVL</td>
+      <td>✓</td><td>✓</td><td>✗</td><td>✓</td><td>✓</td><td>✓</td><td>✗</td><td>✓</td><td>✗</td><td>~</td><td>✓</td>
+    </tr>
+    <tr>
+      <td>SUMO</td>
+      <td>✓</td><td>✓</td><td>✗</td><td>✓</td><td>✗</td><td>✓</td><td>✗</td><td>✓</td><td>✗</td><td>✗</td><td>✓</td>
+    </tr>
+    <tr>
+      <td>MetaDrive</td>
+      <td>✓</td><td>~</td><td>✗</td><td>✓</td><td>~</td><td>✓</td><td>✗</td><td>✗</td><td>✗</td><td>✗</td><td>✓</td>
+    </tr>
+    <tr>
+      <td>VISTA</td>
+      <td>~</td><td>✗</td><td>✗</td><td>✓</td><td>~</td><td>✓</td><td>✗</td><td>✗</td><td>✗</td><td>✗</td><td>✓</td>
+    </tr>
+    <tr>
+      <td rowspan="6"><i>空中 / 无人机</i></td>
+      <td>AirSim</td>
+      <td>✗</td><td>✗</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✗</td><td>✓</td><td>✗</td><td>✓</td><td>✓</td>
+    </tr>
+    <tr>
+      <td>Flightmare</td>
+      <td>✗</td><td>✗</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✗</td><td>✗</td><td>✗</td><td>~</td><td>✓</td>
+    </tr>
+    <tr>
+      <td>FlightGoggles</td>
+      <td>✗</td><td>✗</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✗</td><td>✗</td><td>✗</td><td>~</td><td>✓</td>
+    </tr>
+    <tr>
+      <td>Gazebo/RotorS</td>
+      <td>~</td><td>~</td><td>✓</td><td>✓</td><td>~</td><td>✓</td><td>✗</td><td>✓</td><td>✗</td><td>✓</td><td>✓</td>
+    </tr>
+    <tr>
+      <td>OmniDrones</td>
+      <td>✗</td><td>✗</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✗</td><td>✗</td><td>✗</td><td>✓</td><td>✓</td>
+    </tr>
+    <tr>
+      <td>gym-pybullet-drones</td>
+      <td>✗</td><td>✗</td><td>✓</td><td>✓</td><td>~</td><td>✓</td><td>✗</td><td>✗</td><td>✗</td><td>~</td><td>✓</td>
+    </tr>
+    <tr>
+      <td rowspan="3"><i>联合 / 协同仿真</i></td>
+      <td>TranSimHub</td>
+      <td>✓</td><td>✓</td><td>✓</td><td>✗</td><td>✗</td><td>✗</td><td>~</td><td>—</td><td>✗</td><td>✗</td><td>✓</td>
+    </tr>
+    <tr>
+      <td>CARLA+SUMO</td>
+      <td>✓</td><td>✓</td><td>✗</td><td>✗</td><td>✗</td><td>~</td><td>✗</td><td>—</td><td>✗</td><td>✗</td><td>✓</td>
+    </tr>
+    <tr>
+      <td>AirSim+Gazebo</td>
+      <td>~</td><td>~</td><td>✓</td><td>✗</td><td>✗</td><td>~</td><td>~</td><td>—</td><td>✗</td><td>~</td><td>✓</td>
+    </tr>
+    <tr>
+      <td rowspan="5"><i>具身 AI 与 RL</i></td>
+      <td>Isaac Lab</td>
+      <td>✗</td><td>✗</td><td>~</td><td>✓</td><td>✓</td><td>✓</td><td>✗</td><td>✗</td><td>✓</td><td>✓</td><td>✓</td>
+    </tr>
+    <tr>
+      <td>Isaac Gym</td>
+      <td>✗</td><td>✗</td><td>~</td><td>✓</td><td>✓</td><td>✓</td><td>✗</td><td>✗</td><td>✗</td><td>✗</td><td>✓</td>
+    </tr>
+    <tr>
+      <td>Habitat</td>
+      <td>✗</td><td>~</td><td>✗</td><td>✓</td><td>✓</td><td>✓</td><td>✗</td><td>✗</td><td>✗</td><td>✗</td><td>✓</td>
+    </tr>
+    <tr>
+      <td>SAPIEN</td>
+      <td>✗</td><td>✗</td><td>✗</td><td>✓</td><td>✓</td><td>✓</td><td>✗</td><td>✗</td><td>✗</td><td>~</td><td>✓</td>
+    </tr>
+    <tr>
+      <td>RoboSuite</td>
+      <td>✗</td><td>✗</td><td>✗</td><td>✓</td><td>✓</td><td>✓</td><td>✗</td><td>✗</td><td>✗</td><td>~</td><td>✓</td>
+    </tr>
+    <tr style="background-color: #f0f7ff;">
+      <td><b>本项目</b></td>
+      <td><b>CARLA-Air</b></td>
+      <td><b>✓</b></td><td><b>✓†</b></td><td><b>✓</b></td><td><b>✓</b></td><td><b>✓</b></td><td><b>✓</b></td><td><b>✓</b></td><td><b>✓</b></td><td><b>✓</b></td><td><b>✓</b></td><td><b>✓</b></td>
+    </tr>
+  </tbody>
+</table>
+
+<p><sup>✓ = 支持；~ = 部分或受限支持；✗ = 不支持；— = 不适用。<br/>
+† 行人 AI 继承自 CARLA，功能完整；联合场景下高密度 Actor 的行为是当前工程优化目标。</sup></p>
+
+<hr />
+<h2 id="_4">🎮 快速开始<a class="headerlink" href="#_4" title="Permanent link">#</a></h2>
 <h3 id="a">选项 A：使用预编译版本（推荐）<a class="headerlink" href="#a" title="Permanent link">#</a></h3>
 <p>```bash</p>
 <h1 id="1-carlaair-v017">1. 下载并解压 CarlaAir-v0.1.7<a class="headerlink" href="#1-carlaair-v017" title="Permanent link">#</a></h1>
@@ -311,24 +464,24 @@ bash env_setup/test_env.sh        # 验证环境：应全部显示 PASS</p>
 python3 examples/quick_start_showcase.py
 ```</p>
 <blockquote>
-<p><strong>你将看到：</strong> 一辆特斯拉在城市中自动巡航，无人机从空中追踪。4 分屏同时展示 <strong>RGB · 深度图 · 语义分割 · LiDAR 鸟瞰</strong> — 全部实时同步。天气自动轮换。</p>
+<p><strong>你将看到：</strong> 一辆特斯拉在城市中自动巡航，无人机从空中追踪。4 分屏同时展示 <strong>RGB · 深度图 · 语义分割 · LiDAR 鸟瞰</strong> — 全部实时同步。天气自动轮换。按 <strong>WASD</strong> 随时接管驾驶！</p>
 </blockquote>
 <h3 id="b">选项 B：从源码编译<a class="headerlink" href="#b" title="Permanent link">#</a></h3>
 <p>如果您需要修改底层 C++ 代码，请参考 <a href="../build_guide_ubuntu/">源码编译指南</a>，了解如何使用 UE4.26 编译 CarlaAir。</p>
 <hr />
-<h2 id="_4">🐍 一个脚本，两个世界<a class="headerlink" href="#_4" title="Permanent link">#</a></h2>
+<h2 id="_5">🐍 一个脚本，两个世界<a class="headerlink" href="#_5" title="Permanent link">#</a></h2>
 <p>两套 API 共享<strong>同一个仿真世界</strong> — 无桥接、无同步烦恼。</p>
 <p>```python
 import carla, airsim</p>
 <p>carla_client = carla.Client("localhost", 2000)
 air_client   = airsim.MultirotorClient(port=41451)
 world = carla_client.get_world()</p>
-<h1 id="_5">一次天气调用，影响所有传感器 — 地面和空中<a class="headerlink" href="#_5" title="Permanent link">#</a></h1>
+<h1 id="_6">一次天气调用，影响所有传感器 — 地面和空中<a class="headerlink" href="#_6" title="Permanent link">#</a></h1>
 <p>world.set_weather(carla.WeatherParameters.HardRainSunset)</p>
-<h1 id="_6">生成一辆汽车，自动驾驶<a class="headerlink" href="#_6" title="Permanent link">#</a></h1>
+<h1 id="_7">生成一辆汽车，自动驾驶<a class="headerlink" href="#_7" title="Permanent link">#</a></h1>
 <p>vehicle = world.spawn_actor(vehicle_bp, spawn_point)
 vehicle.set_autopilot(True)</p>
-<h1 id="_7">无人机起飞 — 同一个世界，同一场雨，同一套物理<a class="headerlink" href="#_7" title="Permanent link">#</a></h1>
+<h1 id="_8">无人机起飞 — 同一个世界，同一场雨，同一套物理<a class="headerlink" href="#_8" title="Permanent link">#</a></h1>
 <p>air_client.takeoffAsync().join()
 air_client.moveToPositionAsync(80, 30, -25, 5)
 ```</p>
@@ -348,8 +501,74 @@ python3 examples/recording/record_walker.py      # 🚶 行走并录制行人轨
 python3 examples/recording/demo_director.py \    # 🎬 多轨迹回放 + 自由相机 + MP4 录制
     trajectories/vehicle_*.json trajectories/drone_*.json</code></p>
 <hr />
-<h2 id="_8">⌨️ 飞行控制说明<a class="headerlink" href="#_8" title="Permanent link">#</a></h2>
-<p>在 CarlaAir 窗口中，使用内置 FPS 控制器直接驾驶无人机（无需代码）：</p>
+<h2 id="_9">🔬 研究方向与工作流<a class="headerlink" href="#_9" title="Permanent link">#</a></h2>
+<p>CARLA-Air 旨在支持空地一体具身智能的四大研究方向：</p>
+<ol>
+<li><strong>空地协同</strong> -- 异构空地智能体在共享城市环境中协作。</li>
+<li><strong>具身导航（VLN/VLA）</strong> -- 视觉语言驱动的导航与动作执行，基于高保真城市场景。</li>
+<li><strong>多模态感知与数据集</strong> -- 多样条件下的空地同步传感器数据采集。</li>
+<li><strong>强化学习策略训练</strong> -- 空地联合交互的闭环强化学习训练。</li>
+</ol>
+<p>平台提供五个覆盖上述方向的参考工作流：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>工作流</th>
+<th>研究方向</th>
+<th>关键成果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>W1</td>
+<td>空地协同</td>
+<td>空地协同</td>
+<td>实时跨域协调控制</td>
+</tr>
+<tr>
+<td>W2</td>
+<td>VLN/VLA 任务</td>
+<td>具身导航</td>
+<td>跨视角 VLN 数据管线</td>
+</tr>
+<tr>
+<td>W3</td>
+<td>多模态数据集采集</td>
+<td>感知与数据集</td>
+<td>12 路同步，1-tick 对齐</td>
+</tr>
+<tr>
+<td>W4</td>
+<td>跨视角感知</td>
+<td>感知与数据集</td>
+<td>14/14 天气预设验证通过</td>
+</tr>
+<tr>
+<td>W5</td>
+<td>RL 训练环境</td>
+<td>强化学习策略训练</td>
+<td>357 次重置循环，0 次崩溃</td>
+</tr>
+</tbody>
+</table>
+<p><b>W1：空地协同</b></p>
+<p><img alt="" src="../../images/calar_air/W1.gif" /></p>
+<p><b>W2：VLN/VLA (Vision Language-driven Navigation/Action) 数据生成</b></p>
+<p><img alt="" src="../../images/calar_air/W2.gif" /></p>
+<p><b>W3：多模态数据集采集</b></p>
+<p><img alt="" src="../../images/calar_air/W3.gif" /></p>
+<p><b>W4：跨视角感知</b></p>
+<p><img alt="" src="../../images/calar_air/W4.gif" /></p>
+<p><b>W5：RL 训练环境</b></p>
+<p><img alt="" src="../../images/calar_air/RL.jpg" /></p>
+<p><b>自定义资产导入</b></p>
+<p><img alt="" src="../../images/calar_air/customAsset.gif" /></p>
+<p><b>ROS 2 支持</b>：63 个 Topic 覆盖双仿真后端</p>
+<p><img alt="" src="../../images/calar_air/ROS_demo.gif" /></p>
+<hr />
+<h2 id="_10">⌨️ 飞行控制说明<a class="headerlink" href="#_10" title="Permanent link">#</a></h2>
+<p>仿真器运行时，点击窗口内部捕获鼠标：</p>
 <table>
 <thead>
 <tr>
@@ -387,13 +606,104 @@ python3 examples/recording/demo_director.py \    # 🎬 多轨迹回放 + 自由
 <td>帮助菜单</td>
 </tr>
 <tr>
+<td><code>Tab</code></td>
+<td>释放 / 捕获鼠标</td>
+</tr>
+<tr>
 <td><code>1</code> / <code>2</code> / <code>3</code></td>
 <td>传感器画面</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h2 id="_9">📚 文档与示例<a class="headerlink" href="#_9" title="Permanent link">#</a></h2>
+<h2 id="_11">📚 文档与教程<a class="headerlink" href="#_11" title="Permanent link">#</a></h2>
+<p>我们提供了 <strong>6 个精选 Python 示例</strong>，展示核心空地协同能力：</p>
+<table>
+<thead>
+<tr>
+<th>示例</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>quick_start_showcase.py</code></td>
+<td>4 分屏传感器 + 无人机追踪 + 天气轮换</td>
+</tr>
+<tr>
+<td><code>drive_vehicle.py</code></td>
+<td>WASD 键盘驾驶特斯拉</td>
+</tr>
+<tr>
+<td><code>walk_pedestrian.py</code></td>
+<td>鼠标视角城市漫步</td>
+</tr>
+<tr>
+<td><code>switch_maps.py</code></td>
+<td>自动飞越全部 13 张地图</td>
+</tr>
+<tr>
+<td><code>sensor_gallery.py</code></td>
+<td>单车 6 传感器网格展示</td>
+</tr>
+<tr>
+<td><code>air_ground_sync.py</code></td>
+<td>车 + 无人机分屏：同一场雨，同一世界</td>
+</tr>
+</tbody>
+</table>
+<p><strong>分步教程</strong>（8 个脚本位于 <code>CarlaAir_Release/guide/examples/</code>，适合初学者）：</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>教程</th>
+<th>学习内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>01</td>
+<td><code>01_hello_world.py</code></td>
+<td>连接双 API，验证环境配置</td>
+</tr>
+<tr>
+<td>02</td>
+<td><code>02_weather_control.py</code></td>
+<td>实时更改天气参数</td>
+</tr>
+<tr>
+<td>03</td>
+<td><code>03_spawn_traffic.py</code></td>
+<td>生成车辆与行人</td>
+</tr>
+<tr>
+<td>04</td>
+<td><code>04_sensor_capture.py</code></td>
+<td>挂载与读取传感器</td>
+</tr>
+<tr>
+<td>05</td>
+<td><code>05_drone_takeoff.py</code></td>
+<td>基础无人机飞行指令</td>
+</tr>
+<tr>
+<td>06</td>
+<td><code>06_drone_sensors.py</code></td>
+<td>空中传感器配置</td>
+</tr>
+<tr>
+<td>07</td>
+<td><code>07_combined_demo.py</code></td>
+<td>空地联合操作</td>
+</tr>
+<tr>
+<td>08</td>
+<td><code>08_full_showcase.py</code></td>
+<td>全平台能力展示</td>
+</tr>
+</tbody>
+</table>
 <p><strong>完整文档：</strong></p>
 <ul>
 <li>
@@ -440,7 +750,7 @@ python3 examples/recording/demo_director.py \    # 🎬 多轨迹回放 + 自由
 </li>
 </ul>
 <hr />
-<h2 id="_10">📜 许可证与致谢<a class="headerlink" href="#_10" title="Permanent link">#</a></h2>
+<h2 id="_12">📜 许可证与致谢<a class="headerlink" href="#_12" title="Permanent link">#</a></h2>
 <p>该项目是站在巨人的肩膀上。我们诚挚感谢以下开源项目的开发者：</p>
 <ul>
 <li>
