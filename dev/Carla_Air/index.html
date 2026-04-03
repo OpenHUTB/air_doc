@@ -282,6 +282,10 @@
             <div class="section" itemprop="articleBody">
               
                 <h2 id="_1">空地一体仿真<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
+<!-- 更新至：
+https://github.com/louiszengCN/CarlaAir/commit/6f913ae9efc512b8ceff6bbd82f8c004931fc733
+-->
+
 <p>该模块是一个开源的空地联合仿真平台。它通过在底层 C++ 将全球领先的自动驾驶仿真器（Carla）与机器人仿真器（AirSim）合并为单一的 <code>ASimWorldGameMode</code>，实现了真正的帧级传感器同步、统一的物理引擎，以及无缝的双 Python API 交互。</p>
 <p><img alt="" src="../../images/calar_air/teaser_video.gif" /></p>
 <p><img alt="" src="../../images/dev/CarlaAir.gif" /></p>
@@ -460,20 +464,23 @@
 <hr />
 <h2 id="_5">🎮 快速开始 <span id="quick_start"></span><a class="headerlink" href="#_5" title="Permanent link">#</a></h2>
 <h3 id="a">选项 A：使用预编译版本（推荐）<a class="headerlink" href="#a" title="Permanent link">#</a></h3>
-<p>```bash</p>
+<p>```shell</p>
 <h1 id="1-carlaair-v017">1. 下载并解压 CarlaAir-v0.1.7<a class="headerlink" href="#1-carlaair-v017" title="Permanent link">#</a></h1>
 <p>tar xzf CarlaAir-v0.1.7.tar.gz
-cd CarlaAir-v0.1.7</p>
-<h1 id="2">2. 一键环境配置（仅首次需要）<a class="headerlink" href="#2" title="Permanent link">#</a></h1>
-<p>bash env_setup/setup_env.sh      # 创建 conda 环境，安装依赖，部署 carla 模块
-conda activate carlaAir
-bash env_setup/test_env.sh        # 验证环境：应全部显示 PASS</p>
-<h1 id="3">3. 启动仿真器（自动生成交通流）<a class="headerlink" href="#3" title="Permanent link">#</a></h1>
-<p>./CarlaAir.sh Town10HD</p>
-<h1 id="4">4. 运行展示脚本！（另开一个终端）<a class="headerlink" href="#4" title="Permanent link">#</a></h1>
-<p>conda activate carlaAir
-python3 examples/quick_start_showcase.py
+cd CarlaAir-v0.1.7
 ```</p>
+<h1 id="2">2. 一键环境配置（仅首次需要）<a class="headerlink" href="#2" title="Permanent link">#</a></h1>
+<p><code>shell
+bash env_setup/setup_env.sh      # 创建 conda 环境，安装依赖，部署 carla 模块
+conda activate carlaAir
+bash env_setup/test_env.sh        # 验证环境：应全部显示 PASS</code></p>
+<h1 id="3">3. 启动仿真器（自动生成交通流）<a class="headerlink" href="#3" title="Permanent link">#</a></h1>
+<p><code>shell
+./CarlaAir.sh Town10HD</code></p>
+<h1 id="4">4. 运行展示脚本！（另开一个终端）<a class="headerlink" href="#4" title="Permanent link">#</a></h1>
+<p><code>shell
+conda activate carlaAir
+python3 examples/quick_start_showcase.py</code></p>
 <blockquote>
 <p><strong>你将看到：</strong> 一辆特斯拉在城市中自动巡航，无人机从空中追踪。4 分屏同时展示 <strong>RGB · 深度图 · 语义分割 · LiDAR 鸟瞰</strong> — 全部实时同步。天气自动轮换。按 <strong>WASD</strong> 随时接管驾驶！</p>
 </blockquote>
@@ -482,22 +489,19 @@ python3 examples/quick_start_showcase.py
 <hr />
 <h2 id="_6">🐍 一个脚本，两个世界 <span id="one_script"></span><a class="headerlink" href="#_6" title="Permanent link">#</a></h2>
 <p>两套 API 共享<strong>同一个仿真世界</strong> — 无桥接、无同步烦恼。</p>
-<p>```python
+<p>```py
 import carla, airsim</p>
 <p>carla_client = carla.Client("localhost", 2000)
 air_client   = airsim.MultirotorClient(port=41451)
 world = carla_client.get_world()</p>
-<h1 id="_7">一次天气调用，影响所有传感器 — 地面和空中<a class="headerlink" href="#_7" title="Permanent link">#</a></h1>
-<p>world.set_weather(carla.WeatherParameters.HardRainSunset)</p>
-<h1 id="_8">生成一辆汽车，自动驾驶<a class="headerlink" href="#_8" title="Permanent link">#</a></h1>
-<p>vehicle = world.spawn_actor(vehicle_bp, spawn_point)
+<p>world.set_weather(carla.WeatherParameters.HardRainSunset)  # 一次天气调用，影响所有传感器 — 地面和空中</p>
+<p>vehicle = world.spawn_actor(vehicle_bp, spawn_point) # 生成一辆汽车，自动驾驶
 vehicle.set_autopilot(True)</p>
-<h1 id="_9">无人机起飞 — 同一个世界，同一场雨，同一套物理<a class="headerlink" href="#_9" title="Permanent link">#</a></h1>
-<p>air_client.takeoffAsync().join()
+<p>air_client.takeoffAsync().join() # 无人机起飞 — 同一个世界，同一场雨，同一套物理
 air_client.moveToPositionAsync(80, 30, -25, 5)
 ```</p>
 <p><strong>6 个演示脚本</strong> — 逐个试试：</p>
-<p><code>bash
+<p><code>shell
 python3 examples/quick_start_showcase.py   # 🎬 4分屏传感器 + 无人机追踪 + 天气轮换
 python3 examples/drive_vehicle.py          # 🚗 WASD 驾驶特斯拉
 python3 examples/walk_pedestrian.py        # 🚶 鼠标+键盘 城市漫步
@@ -505,14 +509,14 @@ python3 examples/switch_maps.py            # 🗺️  自动飞越全部 13 张�
 python3 examples/sensor_gallery.py         # 📸 单车 6 传感器网格展示
 python3 examples/air_ground_sync.py        # 🔄 车+无人机分屏：同一场雨，同一世界</code></p>
 <p><strong>录制工具</strong> — 录制车辆、无人机、行人轨迹，然后用导演相机回放：</p>
-<p><code>bash
+<p><code>shell
 python3 examples/recording/record_vehicle.py     # 🚗 键盘驾驶并录制车辆轨迹
 python3 examples/recording/record_drone.py       # 🚁 飞行并录制无人机轨迹（零侵入）
 python3 examples/recording/record_walker.py      # 🚶 行走并录制行人轨迹
 python3 examples/recording/demo_director.py \    # 🎬 多轨迹回放 + 自由相机 + MP4 录制
     trajectories/vehicle_*.json trajectories/drone_*.json</code></p>
 <hr />
-<h2 id="_10">🔬 研究方向与工作流 <span id="research_directions"></span><a class="headerlink" href="#_10" title="Permanent link">#</a></h2>
+<h2 id="_7">🔬 研究方向与工作流 <span id="research_directions"></span><a class="headerlink" href="#_7" title="Permanent link">#</a></h2>
 <p>CARLA-Air 旨在支持空地一体具身智能的四大研究方向：</p>
 <ol>
 <li><strong>空地协同</strong> -- 异构空地智能体在共享城市环境中协作。</li>
@@ -578,7 +582,7 @@ python3 examples/recording/demo_director.py \    # 🎬 多轨迹回放 + 自由
 <p><b>ROS 2 支持</b>：63 个 Topic 覆盖双仿真后端</p>
 <p><img alt="" src="../../images/calar_air/ROS_demo.gif" /></p>
 <hr />
-<h2 id="_11">⌨️ 飞行控制说明 <span id="flight_controls"></span><a class="headerlink" href="#_11" title="Permanent link">#</a></h2>
+<h2 id="_8">⌨️ 飞行控制说明 <span id="flight_controls"></span><a class="headerlink" href="#_8" title="Permanent link">#</a></h2>
 <p>仿真器运行时，点击窗口内部捕获鼠标：</p>
 <table>
 <thead>
@@ -627,7 +631,7 @@ python3 examples/recording/demo_director.py \    # 🎬 多轨迹回放 + 自由
 </tbody>
 </table>
 <hr />
-<h2 id="_12">📚 文档与教程 <span id="documentation"></span><a class="headerlink" href="#_12" title="Permanent link">#</a></h2>
+<h2 id="_9">📚 文档与教程 <span id="documentation"></span><a class="headerlink" href="#_9" title="Permanent link">#</a></h2>
 <p>我们提供了 <strong>6 个精选 Python 示例</strong>，展示核心空地协同能力：</p>
 <table>
 <thead>
@@ -761,7 +765,7 @@ python3 examples/recording/demo_director.py \    # 🎬 多轨迹回放 + 自由
 </li>
 </ul>
 <hr />
-<h2 id="_13">📜 许可证与致谢  <span id="license"></span><a class="headerlink" href="#_13" title="Permanent link">#</a></h2>
+<h2 id="_10">📜 许可证与致谢  <span id="license"></span><a class="headerlink" href="#_10" title="Permanent link">#</a></h2>
 <p>该项目是站在巨人的肩膀上。我们诚挚感谢以下开源项目的开发者：</p>
 <ul>
 <li>
