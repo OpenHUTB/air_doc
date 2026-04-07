@@ -290,13 +290,15 @@
 <p>AirLib 库可以编译并部署到真实无人机的配套计算机上。在我们的测试中，我们将一台技嘉 Brix BXi7-5500 超紧凑型 PC 安装在无人机上，并通过 USB 连接到 Pixhawk 飞行控制器。这台技嘉 PC 运行的是 Ubuntu 系统，因此我们可以通过 Wi-Fi SSH 连接到它：</p>
 <p><img alt="Flamewheel" src="../images/Flamewheel.png" /></p>
 <p>连接成功后，您可以使用以下命令行运行 MavLinkTest：
-<code>MavLinkTest -serial:/dev/ttyACM0,115200 -logdir:.</code>
+<div class="highlight"><pre><span></span><code>MavLinkTest -serial:/dev/ttyACM0,115200 -logdir:. 
+</code></pre></div>
 这样就会生成一个飞行日志文件，然后就可以 <a href="../playback/">在模拟器中回放</a> 该文件。</p>
 <p>您还可以添加 <code>-proxy:192.168.1.100:14550</code> 将 MavLinkTest 连接到远程计算机，您可以在该计算机上运行 <a href="https://github.com/mavlink/qgroundcontrol">QGroundControl</a> 或我们的 <a href="../log_viewer/">PX4 日志查看器</a> ，这是查看无人机运行情况的另一种便捷方法。</p>
 <p>MavLinkTest 提供了一些简单的命令来测试您的无人机，以下是一些简单的命令示例：</p>
-<p><code>arm
+<div class="highlight"><pre><span></span><code>arm
 takeoff 5
-orbit 10 2</code></p>
+orbit 10 2
+</code></pre></div>
 <p>这将启动无人机，从5米高处起飞，然后以2米/秒的速度进行半径10米的盘旋飞行。输入“？”查找所有可用指令。</p>
 <div class="admonition 注意">
 <p class="admonition-title">注意</p>
@@ -305,22 +307,24 @@ orbit 10 2</code></p>
 <p>无人机着陆后，您可以停止 MavLinkTest 并复制生成的 *.mavlink 日志文件。</p>
 <h1 id="droneserver-droneshell">DroneServer 和 DroneShell</h1>
 <p>确认 MavLinkTest 运行正常后，您还可以按如下方式运行 DroneServer 和 DroneShell。首先，使用本地代理运行 MavLinkTest，将所有数据发送到 DroneServer：</p>
-<p><code>MavLinkTest -serial:/dev/ttyACM0,115200 -logdir:. -proxy:127.0.0.1:14560</code>
+<p><div class="highlight"><pre><span></span><code>MavLinkTest -serial:/dev/ttyACM0,115200 -logdir:. -proxy:127.0.0.1:14560
+</code></pre></div>
 将 ~/Documents/AirSim/settings.json 中改为 "serial":false，因为我们希望 DroneServer 查找此 UDP 连接。</p>
-<p><code>DroneServer 0</code></p>
+<div class="highlight"><pre><span></span><code>DroneServer 0
+</code></pre></div>
 <p>最后，您现在可以将 DroneShell 连接到此 DroneServer 实例，并使用 DroneShell 命令来操控您的无人机：</p>
-<p>```
-DroneShell
+<div class="highlight"><pre><span></span><code>DroneShell
 ==||=&gt;
         Welcome to DroneShell 1.0.
         Type ? for help.
-        Microsoft Research (c) 2016.</p>
-<p>Waiting for drone to report a valid GPS location...
+        Microsoft Research (c) 2016.
+
+Waiting for drone to report a valid GPS location...
 ==||=&gt; requestcontrol
 ==||=&gt; arm
 ==||=&gt; takeoff
 ==||=&gt; circlebypath -radius 10 -velocity 2
-```</p>
+</code></pre></div>
 <h2 id="px4">PX4 专用工具</h2>
 <p>您可以运行 MavlinkCom 库和 MavLinkTest 应用程序来测试您的配套计算机和飞行控制器之间的连接。</p>
 <h2 id="_1">这是如何运作的？</h2>

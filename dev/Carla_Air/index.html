@@ -466,19 +466,21 @@ https://github.com/louiszengCN/CarlaAir/commit/6f913ae9efc512b8ceff6bbd82f8c0049
 <hr />
 <h2 id="_5">🎮 快速开始 <span id="quick_start"></span></h2>
 <h3 id="a">选项 A：使用预编译版本（推荐）</h3>
-<p>```sh
-tar xzf CarlaAir-v0.1.7.tar.gz
-cd CarlaAir-v0.1.7</p>
-<h1 id="2">2. 一键环境配置（仅首次需要）</h1>
-<p>bash env_setup/setup_env.sh      # 创建 conda 环境，安装依赖，部署 carla 模块
-conda activate carlaAir
-bash env_setup/test_env.sh        # 验证环境：应全部显示 PASS</p>
-<h1 id="3">3. 启动仿真器（自动生成交通流）</h1>
-<p>./CarlaAir.sh Town10HD</p>
-<h1 id="4">4. 运行展示脚本！（另开一个终端）</h1>
-<p>conda activate carlaAir
-python3 examples/quick_start_showcase.py
-```</p>
+<div class="highlight"><pre><span></span><code>tar<span class="w"> </span>xzf<span class="w"> </span>CarlaAir-v0.1.7.tar.gz
+<span class="nb">cd</span><span class="w"> </span>CarlaAir-v0.1.7
+
+<span class="c1"># 2. 一键环境配置（仅首次需要）</span>
+bash<span class="w"> </span>env_setup/setup_env.sh<span class="w">      </span><span class="c1"># 创建 conda 环境，安装依赖，部署 carla 模块</span>
+conda<span class="w"> </span>activate<span class="w"> </span>carlaAir
+bash<span class="w"> </span>env_setup/test_env.sh<span class="w">        </span><span class="c1"># 验证环境：应全部显示 PASS</span>
+
+<span class="c1"># 3. 启动仿真器（自动生成交通流）</span>
+./CarlaAir.sh<span class="w"> </span>Town10HD
+
+<span class="c1"># 4. 运行展示脚本！（另开一个终端）</span>
+conda<span class="w"> </span>activate<span class="w"> </span>carlaAir
+python3<span class="w"> </span>examples/quick_start_showcase.py
+</code></pre></div>
 <blockquote>
 <p><strong>你将看到：</strong> 一辆特斯拉在城市中自动巡航，无人机从空中追踪。4 分屏同时展示 <strong>RGB · 深度图 · 语义分割 · LiDAR 鸟瞰</strong> — 全部实时同步。天气自动轮换。按 <strong>WASD</strong> 随时接管驾驶！</p>
 </blockquote>
@@ -487,32 +489,35 @@ python3 examples/quick_start_showcase.py
 <hr />
 <h2 id="_6">🐍 一个脚本，两个世界 <span id="one_script"></span></h2>
 <p>两套 API 共享<strong>同一个仿真世界</strong> — 无桥接、无同步烦恼。</p>
-<p>```python
-import carla, airsim</p>
-<p>carla_client = carla.Client("localhost", 2000)
-air_client   = airsim.MultirotorClient(port=41451)
-world = carla_client.get_world()</p>
-<p>world.set_weather(carla.WeatherParameters.HardRainSunset)  # 一次天气调用，影响所有传感器 — 地面和空中</p>
-<p>vehicle = world.spawn_actor(vehicle_bp, spawn_point) # 生成一辆汽车，自动驾驶
-vehicle.set_autopilot(True)</p>
-<p>air_client.takeoffAsync().join() # 无人机起飞 — 同一个世界，同一场雨，同一套物理
-air_client.moveToPositionAsync(80, 30, -25, 5)
-```</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">carla</span><span class="o">,</span> <span class="nn">airsim</span>
+
+<span class="n">carla_client</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span> <span class="mi">2000</span><span class="p">)</span>
+<span class="n">air_client</span>   <span class="o">=</span> <span class="n">airsim</span><span class="o">.</span><span class="n">MultirotorClient</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="mi">41451</span><span class="p">)</span>
+<span class="n">world</span> <span class="o">=</span> <span class="n">carla_client</span><span class="o">.</span><span class="n">get_world</span><span class="p">()</span>
+
+<span class="n">world</span><span class="o">.</span><span class="n">set_weather</span><span class="p">(</span><span class="n">carla</span><span class="o">.</span><span class="n">WeatherParameters</span><span class="o">.</span><span class="n">HardRainSunset</span><span class="p">)</span>  <span class="c1"># 一次天气调用，影响所有传感器 — 地面和空中</span>
+
+<span class="n">vehicle</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">spawn_actor</span><span class="p">(</span><span class="n">vehicle_bp</span><span class="p">,</span> <span class="n">spawn_point</span><span class="p">)</span> <span class="c1"># 生成一辆汽车，自动驾驶</span>
+<span class="n">vehicle</span><span class="o">.</span><span class="n">set_autopilot</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">air_client</span><span class="o">.</span><span class="n">takeoffAsync</span><span class="p">()</span><span class="o">.</span><span class="n">join</span><span class="p">()</span> <span class="c1"># 无人机起飞 — 同一个世界，同一场雨，同一套物理</span>
+<span class="n">air_client</span><span class="o">.</span><span class="n">moveToPositionAsync</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="o">-</span><span class="mi">25</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+</code></pre></div>
 <p><strong>6 个演示脚本</strong> — 逐个试试：</p>
-<p><code>sh
-python3 examples/quick_start_showcase.py   # 🎬 4分屏传感器 + 无人机追踪 + 天气轮换
-python3 examples/drive_vehicle.py          # 🚗 WASD 驾驶特斯拉
-python3 examples/walk_pedestrian.py        # 🚶 鼠标+键盘 城市漫步
-python3 examples/switch_maps.py            # 🗺️  自动飞越全部 13 张地图
-python3 examples/sensor_gallery.py         # 📸 单车 6 传感器网格展示
-python3 examples/air_ground_sync.py        # 🔄 车+无人机分屏：同一场雨，同一世界</code></p>
+<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>examples/quick_start_showcase.py<span class="w">   </span><span class="c1"># 🎬 4分屏传感器 + 无人机追踪 + 天气轮换</span>
+python3<span class="w"> </span>examples/drive_vehicle.py<span class="w">          </span><span class="c1"># 🚗 WASD 驾驶特斯拉</span>
+python3<span class="w"> </span>examples/walk_pedestrian.py<span class="w">        </span><span class="c1"># 🚶 鼠标+键盘 城市漫步</span>
+python3<span class="w"> </span>examples/switch_maps.py<span class="w">            </span><span class="c1"># 🗺️  自动飞越全部 13 张地图</span>
+python3<span class="w"> </span>examples/sensor_gallery.py<span class="w">         </span><span class="c1"># 📸 单车 6 传感器网格展示</span>
+python3<span class="w"> </span>examples/air_ground_sync.py<span class="w">        </span><span class="c1"># 🔄 车+无人机分屏：同一场雨，同一世界</span>
+</code></pre></div>
 <p><strong>录制工具</strong> — 录制车辆、无人机、行人轨迹，然后用导演相机回放：</p>
-<p><code>sh
-python3 examples/recording/record_vehicle.py     # 🚗 键盘驾驶并录制车辆轨迹
-python3 examples/recording/record_drone.py       # 🚁 飞行并录制无人机轨迹（零侵入）
-python3 examples/recording/record_walker.py      # 🚶 行走并录制行人轨迹
-python3 examples/recording/demo_director.py \    # 🎬 多轨迹回放 + 自由相机 + MP4 录制
-    trajectories/vehicle_*.json trajectories/drone_*.json</code></p>
+<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>examples/recording/record_vehicle.py<span class="w">     </span><span class="c1"># 🚗 键盘驾驶并录制车辆轨迹</span>
+python3<span class="w"> </span>examples/recording/record_drone.py<span class="w">       </span><span class="c1"># 🚁 飞行并录制无人机轨迹（零侵入）</span>
+python3<span class="w"> </span>examples/recording/record_walker.py<span class="w">      </span><span class="c1"># 🚶 行走并录制行人轨迹</span>
+python3<span class="w"> </span>examples/recording/demo_director.py<span class="w"> </span><span class="se">\ </span><span class="w">   </span><span class="c1"># 🎬 多轨迹回放 + 自由相机 + MP4 录制</span>
+<span class="w">    </span>trajectories/vehicle_*.json<span class="w"> </span>trajectories/drone_*.json
+</code></pre></div>
 <hr />
 <h2 id="_7">🔬 研究方向与工作流 <span id="research_directions"></span></h2>
 <p>CARLA-Air 旨在支持空地一体具身智能的四大研究方向：</p>

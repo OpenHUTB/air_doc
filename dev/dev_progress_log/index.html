@@ -707,42 +707,49 @@
 </table>
 <hr />
 <h2 id="_10">六、编译命令</h2>
-<p>```bash</p>
-<h1 id="_11">设置环境变量</h1>
-<p>export UE4_ROOT=/mnt/data1/tianle/carla_ue4</p>
-<h1 id="carla-290">仅编译 Carla 模块（约 290 秒）</h1>
-<p>${UE4_ROOT}/Engine/Build/BatchFiles/Linux/Build.sh CarlaUE4Editor Linux Development \
-  -project="/mnt/data1/tianle/carla_source/Unreal/CarlaUE4/CarlaUE4.uproject" \
-  -module=Carla</p>
-<h1 id="airsim-100">仅编译 AirSim 模块（约 100 秒）</h1>
-<p>${UE4_ROOT}/Engine/Build/BatchFiles/Linux/Build.sh CarlaUE4Editor Linux Development \
-  -project="/mnt/data1/tianle/carla_source/Unreal/CarlaUE4/CarlaUE4.uproject" \
-  -module=AirSim
-```</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 设置环境变量</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">UE4_ROOT</span><span class="o">=</span>/mnt/data1/tianle/carla_ue4
+
+<span class="c1"># 仅编译 Carla 模块（约 290 秒）</span>
+<span class="si">${</span><span class="nv">UE4_ROOT</span><span class="si">}</span>/Engine/Build/BatchFiles/Linux/Build.sh<span class="w"> </span>CarlaUE4Editor<span class="w"> </span>Linux<span class="w"> </span>Development<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-project<span class="o">=</span><span class="s2">&quot;/mnt/data1/tianle/carla_source/Unreal/CarlaUE4/CarlaUE4.uproject&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-module<span class="o">=</span>Carla
+
+<span class="c1"># 仅编译 AirSim 模块（约 100 秒）</span>
+<span class="si">${</span><span class="nv">UE4_ROOT</span><span class="si">}</span>/Engine/Build/BatchFiles/Linux/Build.sh<span class="w"> </span>CarlaUE4Editor<span class="w"> </span>Linux<span class="w"> </span>Development<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-project<span class="o">=</span><span class="s2">&quot;/mnt/data1/tianle/carla_source/Unreal/CarlaUE4/CarlaUE4.uproject&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-module<span class="o">=</span>AirSim
+</code></pre></div>
 <blockquote>
 <p>⚠️ 注意：不要使用 <code>make CarlaUE4Editor</code>，会因 <code>features.h</code> 交叉编译错误而失败。</p>
 </blockquote>
 <hr />
 <h2 id="carlaairsh">七、一键启动 — carlaAir.sh</h2>
-<h3 id="_12">基本用法</h3>
-<p>```bash
-cd /mnt/data1/tianle/carla_source</p>
-<h1 id="town10hd-1280x720">默认启动（Town10HD, 1280x720, 低画质）</h1>
-<p>./carlaAir.sh</p>
-<h1 id="_13">指定地图</h1>
-<p>./carlaAir.sh Town03</p>
-<h1 id="_14">自定义分辨率</h1>
-<p>./carlaAir.sh Town10HD 1920 1080</p>
-<h1 id="_15">前台运行（可看到所有日志）</h1>
-<p>./carlaAir.sh --fg</p>
-<h1 id="_16">停止运行</h1>
-<p>./carlaAir.sh --kill</p>
-<h1 id="_17">查看实时日志</h1>
-<p>./carlaAir.sh --log</p>
-<h1 id="_18">查看帮助</h1>
-<p>./carlaAir.sh --help
-```</p>
-<h3 id="_19">启动流程</h3>
+<h3 id="_11">基本用法</h3>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/mnt/data1/tianle/carla_source
+
+<span class="c1"># 默认启动（Town10HD, 1280x720, 低画质）</span>
+./carlaAir.sh
+
+<span class="c1"># 指定地图</span>
+./carlaAir.sh<span class="w"> </span>Town03
+
+<span class="c1"># 自定义分辨率</span>
+./carlaAir.sh<span class="w"> </span>Town10HD<span class="w"> </span><span class="m">1920</span><span class="w"> </span><span class="m">1080</span>
+
+<span class="c1"># 前台运行（可看到所有日志）</span>
+./carlaAir.sh<span class="w"> </span>--fg
+
+<span class="c1"># 停止运行</span>
+./carlaAir.sh<span class="w"> </span>--kill
+
+<span class="c1"># 查看实时日志</span>
+./carlaAir.sh<span class="w"> </span>--log
+
+<span class="c1"># 查看帮助</span>
+./carlaAir.sh<span class="w"> </span>--help
+</code></pre></div>
+<h3 id="_12">启动流程</h3>
 <ol>
 <li>脚本检查是否有已运行的实例</li>
 <li>设置 DISPLAY 和 Vulkan 环境变量</li>
@@ -750,7 +757,7 @@ cd /mnt/data1/tianle/carla_source</p>
 <li>自动轮询 CARLA (2000) 和 AirSim (41451) 端口</li>
 <li>两个端口都就绪后打印 "Ready!" 并提供测试命令</li>
 </ol>
-<h3 id="_20">启动参数说明</h3>
+<h3 id="_13">启动参数说明</h3>
 <table>
 <thead>
 <tr>
@@ -788,31 +795,31 @@ cd /mnt/data1/tianle/carla_source</p>
 <hr />
 <h2 id="airsim">八、AirSim 配置</h2>
 <p><strong>文件路径：</strong> <code>/home/tianle/Documents/AirSim/settings.json</code></p>
-<p><code>json
-{
-    "SettingsVersion": 1.2,
-    "SimMode": "Multirotor",
-    "Vehicles": {
-        "SimpleFlight": {
-            "VehicleType": "SimpleFlight",
-            "AutoCreate": true,
-            "Cameras": {
-                "0": {
-                    "CaptureSettings": [
-                        { "ImageType": 0, "Width": 1280, "Height": 960 }
-                    ],
-                    "X": 0.5, "Y": 0.0, "Z": 0.1,
-                    "Pitch": 0.0, "Roll": 0.0, "Yaw": 0.0
-                }
-            }
-        }
-    }
-}</code></p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;SettingsVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.2</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;SimMode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Multirotor&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Vehicles&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;SimpleFlight&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;VehicleType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SimpleFlight&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;AutoCreate&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;Cameras&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;0&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;CaptureSettings&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                        </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;ImageType&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Width&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1280</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Height&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">960</span><span class="w"> </span><span class="p">}</span>
+<span class="w">                    </span><span class="p">],</span>
+<span class="w">                    </span><span class="nt">&quot;X&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Y&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Z&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;Pitch&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Roll&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Yaw&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 <blockquote>
 <p>注意：统一 GameMode 下 <code>level_name</code> 设置被忽略，地图由启动命令指定。</p>
 </blockquote>
 <hr />
-<h2 id="_21">九、可用地图</h2>
+<h2 id="_14">九、可用地图</h2>
 <table>
 <thead>
 <tr>
@@ -858,7 +865,7 @@ cd /mnt/data1/tianle/carla_source</p>
 <p>各地图均有 <code>_Opt</code> 变体版本可用。切换地图：<code>./carlaAir.sh Town03</code></p>
 </blockquote>
 <hr />
-<h2 id="_22">十、开发时间线</h2>
+<h2 id="_15">十、开发时间线</h2>
 <table>
 <thead>
 <tr>
@@ -979,33 +986,33 @@ cd /mnt/data1/tianle/carla_source</p>
 </table>
 <hr />
 <h2 id="shipping">十一、Shipping 独立包</h2>
-<h3 id="_23">打包过程</h3>
-<p><code>bash
-export UE4_ROOT=/mnt/data1/tianle/carla_ue4
-cd /mnt/data1/tianle/carla_source
-./Util/BuildTools/Package.sh --config=Shipping --no-zip</code></p>
+<h3 id="_16">打包过程</h3>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">UE4_ROOT</span><span class="o">=</span>/mnt/data1/tianle/carla_ue4
+<span class="nb">cd</span><span class="w"> </span>/mnt/data1/tianle/carla_source
+./Util/BuildTools/Package.sh<span class="w"> </span>--config<span class="o">=</span>Shipping<span class="w"> </span>--no-zip
+</code></pre></div>
 <p><strong>编译</strong>：656 个编译单元，~805 秒
 <strong>Cook</strong>：13459 个 packages，~2 小时
 <strong>输出</strong>：<code>/mnt/data1/tianle/carla_source/Dist/CARLA_Shipping_1ae5356-dirty/LinuxNoEditor/</code>（19GB）</p>
-<h3 id="_24">打包前配置修改</h3>
+<h3 id="_17">打包前配置修改</h3>
 <p><code>DefaultGame.ini</code> 中新增 AirSim 内容烹饪路径：
-<code>ini
-+DirectoriesToAlwaysCook=(Path="AirSim/Blueprints")
-+DirectoriesToAlwaysCook=(Path="AirSim/HUDAssets")
-+DirectoriesToAlwaysCook=(Path="AirSim/Models")
-+DirectoriesToAlwaysCook=(Path="AirSim/Weather")
-+DirectoriesToAlwaysCook=(Path="AirSim/StarterContent")
-+DirectoriesToAlwaysCook=(Path="AirSim/VehicleAdv")
-+MapsToCook=(FilePath="/AirSim/AirSimAssets")</code></p>
+<div class="highlight"><pre><span></span><code><span class="na">+DirectoriesToAlwaysCook</span><span class="o">=</span><span class="s">(Path=&quot;AirSim/Blueprints&quot;)</span>
+<span class="na">+DirectoriesToAlwaysCook</span><span class="o">=</span><span class="s">(Path=&quot;AirSim/HUDAssets&quot;)</span>
+<span class="na">+DirectoriesToAlwaysCook</span><span class="o">=</span><span class="s">(Path=&quot;AirSim/Models&quot;)</span>
+<span class="na">+DirectoriesToAlwaysCook</span><span class="o">=</span><span class="s">(Path=&quot;AirSim/Weather&quot;)</span>
+<span class="na">+DirectoriesToAlwaysCook</span><span class="o">=</span><span class="s">(Path=&quot;AirSim/StarterContent&quot;)</span>
+<span class="na">+DirectoriesToAlwaysCook</span><span class="o">=</span><span class="s">(Path=&quot;AirSim/VehicleAdv&quot;)</span>
+<span class="na">+MapsToCook</span><span class="o">=</span><span class="s">(FilePath=&quot;/AirSim/AirSimAssets&quot;)</span>
+</code></pre></div></p>
 <h3 id="13">包含地图（13 张）</h3>
 <p>Town01, Town01_Opt, Town02, Town02_Opt, Town03, Town03_Opt, Town04, Town04_Opt, Town05, Town05_Opt, Town10HD, Town10HD_Opt, Town10HD_Opt_NavMesh</p>
-<h3 id="_25">独立包启动</h3>
-<p><code>bash
-cd /mnt/data1/tianle/carla_source/Dist/CARLA_Shipping_1ae5356-dirty/LinuxNoEditor
-./SimWorld.sh Town10HD              # 默认启动
-./SimWorld.sh Town03 --res 1920x1080  # 指定地图和分辨率
-./SimWorld.sh --kill                # 停止</code></p>
-<h3 id="_26">独立包脚本清单</h3>
+<h3 id="_18">独立包启动</h3>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/mnt/data1/tianle/carla_source/Dist/CARLA_Shipping_1ae5356-dirty/LinuxNoEditor
+./SimWorld.sh<span class="w"> </span>Town10HD<span class="w">              </span><span class="c1"># 默认启动</span>
+./SimWorld.sh<span class="w"> </span>Town03<span class="w"> </span>--res<span class="w"> </span>1920x1080<span class="w">  </span><span class="c1"># 指定地图和分辨率</span>
+./SimWorld.sh<span class="w"> </span>--kill<span class="w">                </span><span class="c1"># 停止</span>
+</code></pre></div>
+<h3 id="_19">独立包脚本清单</h3>
 <table>
 <thead>
 <tr>
@@ -1203,7 +1210,7 @@ cd /mnt/data1/tianle/carla_source/Dist/CARLA_Shipping_1ae5356-dirty/LinuxNoEdito
 </tr>
 </tbody>
 </table>
-<h3 id="_27">关键数据</h3>
+<h3 id="_20">关键数据</h3>
 <table>
 <thead>
 <tr>
@@ -1260,19 +1267,19 @@ cd /mnt/data1/tianle/carla_source/Dist/CARLA_Shipping_1ae5356-dirty/LinuxNoEdito
 </table>
 <hr />
 <h2 id="bug-2026-03-11">十四、车辆穿地 Bug 修复 (2026-03-11)</h2>
-<h3 id="_28">问题描述</h3>
+<h3 id="_21">问题描述</h3>
 <p>在 CarlaAir 中通过 CARLA API 生成的地面车辆会立即穿过地面，掉落约 30 米（从 z≈0.6 到 z≈-29.6）。而在原版 CARLA（无 AirSim 插件）中，相同操作完全正常（z≈0.0）。此 Bug 影响 Editor 和 Shipping 两种构建。</p>
-<h3 id="_29">排查过程</h3>
+<h3 id="_22">排查过程</h3>
 <ol>
 <li><strong>对比测试</strong>：原版 CARLA（<code>/home/tianle/carla/CARLA_Latest/</code>）加载 Town10HD_Opt，车辆 z≈0.0 正常；CarlaAir 加载 Town10HD，车辆 z≈-29.6 穿地</li>
 <li><strong>排除地图因素</strong>：CarlaAir 使用 Town10HD_Opt 仍然穿地 → 不是地图问题</li>
 <li><strong>确认 AirSim 插件为根因</strong>：唯一区别是 AirSim 插件的存在</li>
 </ol>
-<h3 id="_30">根本原因</h3>
+<h3 id="_23">根本原因</h3>
 <p><strong>文件</strong>: <code>Plugins/AirSim/Source/SimMode/SimModeBase.cpp</code>，第 121 行</p>
-<p><code>cpp
-// BeginPlay() 中：
-this-&gt;GetWorld()-&gt;SetNewWorldOrigin(FIntVector(player_loc) + this-&gt;GetWorld()-&gt;OriginLocation);</code></p>
+<div class="highlight"><pre><span></span><code><span class="c1">// BeginPlay() 中：</span>
+<span class="k">this</span><span class="o">-&gt;</span><span class="n">GetWorld</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetNewWorldOrigin</span><span class="p">(</span><span class="n">FIntVector</span><span class="p">(</span><span class="n">player_loc</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">GetWorld</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">OriginLocation</span><span class="p">);</span>
+</code></pre></div>
 <p><strong>机制</strong>：
 1. <code>ASimModeBase::BeginPlay()</code> 获取 PlayerStart/ViewTarget 的位置（Town10HD 中 PlayerStart 在海岸，z≈30m）
 2. 调用 <code>SetNewWorldOrigin()</code> 将 UE4 世界坐标原点移到该位置
@@ -1280,22 +1287,22 @@ this-&gt;GetWorld()-&gt;SetNewWorldOrigin(FIntVector(player_loc) + this-&gt;GetW
 4. CARLA 车辆生成在 z=0.6（来自 OpenDRIVE 数据），但地面碰撞已不存在
 5. 重力将车辆拉到 z≈-30（穿过不可见的地面）</p>
 <p><strong>为什么无人机不受影响</strong>：AirSim 的 Multirotor 使用自定义 <code>FastPhysicsEngine</code>，不依赖 UE4 Landscape 碰撞；而 CARLA 车辆使用 UE4 原生 PhysX，依赖 Landscape 碰撞体。</p>
-<h3 id="_31">修复方案</h3>
+<h3 id="_24">修复方案</h3>
 <p>注释掉 <code>SetNewWorldOrigin()</code> 调用，保留 <code>NedTransform</code> 使用原始 <code>player_start_transform</code> 作为 NED 坐标原点：</p>
-<p>```cpp
-// 修复前（SimModeBase.cpp:117-125）:
-player_start_transform = fpv_pawn-&gt;GetActorTransform();
-player_loc = player_start_transform.GetLocation();
-this-&gt;GetWorld()-&gt;SetNewWorldOrigin(FIntVector(player_loc) + this-&gt;GetWorld()-&gt;OriginLocation);
-player_start_transform = fpv_pawn-&gt;GetActorTransform();
-global_ned_transform_.reset(new NedTransform(player_start_transform, ...));</p>
-<p>// 修复后:
-player_start_transform = fpv_pawn-&gt;GetActorTransform();
-player_loc = player_start_transform.GetLocation();
-// NOTE: Do NOT call SetNewWorldOrigin() — it breaks CARLA's landscape collision
-global_ned_transform_.reset(new NedTransform(player_start_transform, ...));
-```</p>
-<h3 id="_32">验证结果</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// 修复前（SimModeBase.cpp:117-125）:</span>
+<span class="n">player_start_transform</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fpv_pawn</span><span class="o">-&gt;</span><span class="n">GetActorTransform</span><span class="p">();</span>
+<span class="n">player_loc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">player_start_transform</span><span class="p">.</span><span class="n">GetLocation</span><span class="p">();</span>
+<span class="k">this</span><span class="o">-&gt;</span><span class="n">GetWorld</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetNewWorldOrigin</span><span class="p">(</span><span class="n">FIntVector</span><span class="p">(</span><span class="n">player_loc</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">GetWorld</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">OriginLocation</span><span class="p">);</span>
+<span class="n">player_start_transform</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fpv_pawn</span><span class="o">-&gt;</span><span class="n">GetActorTransform</span><span class="p">();</span>
+<span class="n">global_ned_transform_</span><span class="p">.</span><span class="n">reset</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">NedTransform</span><span class="p">(</span><span class="n">player_start_transform</span><span class="p">,</span><span class="w"> </span><span class="p">...));</span>
+
+<span class="c1">// 修复后:</span>
+<span class="n">player_start_transform</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fpv_pawn</span><span class="o">-&gt;</span><span class="n">GetActorTransform</span><span class="p">();</span>
+<span class="n">player_loc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">player_start_transform</span><span class="p">.</span><span class="n">GetLocation</span><span class="p">();</span>
+<span class="c1">// NOTE: Do NOT call SetNewWorldOrigin() — it breaks CARLA&#39;s landscape collision</span>
+<span class="n">global_ned_transform_</span><span class="p">.</span><span class="n">reset</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">NedTransform</span><span class="p">(</span><span class="n">player_start_transform</span><span class="p">,</span><span class="w"> </span><span class="p">...));</span>
+</code></pre></div>
+<h3 id="_25">验证结果</h3>
 <table>
 <thead>
 <tr>
@@ -1342,7 +1349,7 @@ global_ned_transform_.reset(new NedTransform(player_start_transform, ...));
 </tr>
 </tbody>
 </table>
-<h3 id="_33">坐标系影响</h3>
+<h3 id="_26">坐标系影响</h3>
 <p>修复后坐标系映射更新：</p>
 <table>
 <thead>
@@ -1374,12 +1381,12 @@ global_ned_transform_.reset(new NedTransform(player_start_transform, ...));
 <h2 id="2026-03-09">十五、示例脚本完整列表 (2026-03-09)</h2>
 <!-- Note: section numbering shifted due to insertion of 十四 (车辆穿地修复) -->
 
-<h3 id="_34">时间线</h3>
+<h3 id="_27">时间线</h3>
 <ul>
 <li>2026-03-06: 创建前 8 个脚本 (walk_fpv, fly_drone_pygame, drive_car, 4 个 showcase, showcase_maps)</li>
 <li>2026-03-09: 修复 showcase_traffic.py 崩溃问题，创建并测试最后 4 个脚本</li>
 </ul>
-<h3 id="_35">已知限制</h3>
+<h3 id="_28">已知限制</h3>
 <table>
 <thead>
 <tr>
@@ -1416,7 +1423,7 @@ global_ned_transform_.reset(new NedTransform(player_start_transform, ...));
 </tr>
 </tbody>
 </table>
-<h3 id="_36">脚本分类与测试结果</h3>
+<h3 id="_29">脚本分类与测试结果</h3>
 <h4 id="a-3">A. 交互控制 (3 个) — 用户手动操控</h4>
 <table>
 <thead>
@@ -1536,7 +1543,7 @@ global_ned_transform_.reset(new NedTransform(player_start_transform, ...));
 </ul>
 <hr />
 <h2 id="2026-03-10">十五、分发包 (2026-03-10)</h2>
-<h3 id="_37">打包信息</h3>
+<h3 id="_30">打包信息</h3>
 <table>
 <thead>
 <tr>
@@ -1573,8 +1580,8 @@ global_ned_transform_.reset(new NedTransform(player_start_transform, ...));
 <li>Manifest 文件、Dockerfile、<code>__pycache__</code></li>
 <li>根目录测试脚本（<code>test_package.py</code>、<code>comprehensive_api_test.py</code> 等）</li>
 </ul>
-<h3 id="_38">包内目录结构</h3>
-<p><code>SimWorld/
+<h3 id="_31">包内目录结构</h3>
+<div class="highlight"><pre><span></span><code>SimWorld/
 ├── SimWorld.sh              # 主启动器
 ├── README_SimWorld.md       # 使用文档
 ├── AirSimConfig/            # AirSim 配置模板
@@ -1583,36 +1590,40 @@ global_ned_transform_.reset(new NedTransform(player_start_transform, ...));
 ├── Engine/                  # UE4 引擎依赖
 ├── PythonAPI/               # CARLA Python API 源码
 ├── HDMaps/                  # HD 点云地图
-└── Co-Simulation/           # 联合仿真桥接</code></p>
-<h3 id="_39">目标机器要求</h3>
+└── Co-Simulation/           # 联合仿真桥接
+</code></pre></div>
+<h3 id="_32">目标机器要求</h3>
 <ul>
 <li>Ubuntu 18.04/20.04/22.04 (x86_64)</li>
 <li>NVIDIA GPU + 驱动 470+（Vulkan 支持）</li>
 <li>16GB+ RAM, 20GB+ 磁盘空间</li>
 <li>Python 3.8+, pip: <code>carla==0.9.15 airsim pygame numpy Pillow</code></li>
 </ul>
-<h3 id="_40">部署步骤</h3>
-<p>```bash</p>
-<h1 id="1">1. 解压</h1>
-<p>tar xzf SimWorld_20260309.tar.gz</p>
-<h1 id="2-python">2. 安装 Python 依赖</h1>
-<p>pip install carla==0.9.15 airsim pygame numpy Pillow</p>
-<h1 id="3-airsim">3. 配置 AirSim</h1>
-<p>mkdir -p ~/Documents/AirSim
-cp SimWorld/AirSimConfig/settings.json.example ~/Documents/AirSim/settings.json</p>
-<h1 id="4">4. 启动模拟器</h1>
-<p>cd SimWorld &amp;&amp; ./SimWorld.sh</p>
-<h1 id="5">5. 运行示例</h1>
-<p>python3 examples/drive_car.py
-```</p>
+<h3 id="_33">部署步骤</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1. 解压</span>
+tar<span class="w"> </span>xzf<span class="w"> </span>SimWorld_20260309.tar.gz
+
+<span class="c1"># 2. 安装 Python 依赖</span>
+pip<span class="w"> </span>install<span class="w"> </span><span class="nv">carla</span><span class="o">==</span><span class="m">0</span>.9.15<span class="w"> </span>airsim<span class="w"> </span>pygame<span class="w"> </span>numpy<span class="w"> </span>Pillow
+
+<span class="c1"># 3. 配置 AirSim</span>
+mkdir<span class="w"> </span>-p<span class="w"> </span>~/Documents/AirSim
+cp<span class="w"> </span>SimWorld/AirSimConfig/settings.json.example<span class="w"> </span>~/Documents/AirSim/settings.json
+
+<span class="c1"># 4. 启动模拟器</span>
+<span class="nb">cd</span><span class="w"> </span>SimWorld<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>./SimWorld.sh
+
+<span class="c1"># 5. 运行示例</span>
+python3<span class="w"> </span>examples/drive_car.py
+</code></pre></div>
 <hr />
 <h2 id="v01-release-2026-03-10">十六、v0.1 Release 测试 (2026-03-10)</h2>
-<h3 id="_41">时间线</h3>
+<h3 id="_34">时间线</h3>
 <ul>
 <li>2026-03-10: 执行 v0.1 Release 前全部测试任务（T1-T6）</li>
 <li>2026-03-10: 编写测试报告，判定 Release Readiness</li>
 </ul>
-<h3 id="_42">测试结果总览</h3>
+<h3 id="_35">测试结果总览</h3>
 <table>
 <thead>
 <tr>
@@ -1680,7 +1691,7 @@ cp SimWorld/AirSimConfig/settings.json.example ~/Documents/AirSim/settings.json<
 </tbody>
 </table>
 <h3 id="release-readiness-ready-for-release">Release Readiness: ✅ Ready for Release</h3>
-<h3 id="_43">更新后的已知限制</h3>
+<h3 id="_36">更新后的已知限制</h3>
 <table>
 <thead>
 <tr>
@@ -1722,7 +1733,7 @@ cp SimWorld/AirSimConfig/settings.json.example ~/Documents/AirSim/settings.json<
 </tr>
 </tbody>
 </table>
-<h3 id="_44">详细报告</h3>
+<h3 id="_37">详细报告</h3>
 <p>完整测试报告：<code>/mnt/data1/tianle/carla_source/Progress_record/v0.1_release_test_report.md</code></p>
               
             </div>

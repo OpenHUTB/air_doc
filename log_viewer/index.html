@@ -311,17 +311,18 @@
 <p>如果在运行模拟之前连接 LogViewer，您还可以获得实时视图。</p>
 <p><img alt="connect" src="../images/log_viewer_connect.png" /></p>
 <p>为了使其正常工作，您需要使用以下设置配置 <code>settings.json</code>：
-<code>{
-    "SettingsVersion": 1.2,
-    "SimMode": "Multirotor",
-    "Vehicles": {
-        "PX4": {
+<div class="highlight"><pre><span></span><code>{
+    &quot;SettingsVersion&quot;: 1.2,
+    &quot;SimMode&quot;: &quot;Multirotor&quot;,
+    &quot;Vehicles&quot;: {
+        &quot;PX4&quot;: {
             ...,
-            "LogViewerHostIp": "127.0.0.1",
-            "LogViewerPort": 14388,
+            &quot;LogViewerHostIp&quot;: &quot;127.0.0.1&quot;,
+            &quot;LogViewerPort&quot;: 14388,
         }
     }
-}</code></p>
+}
+</code></pre></div></p>
 <p>注意：如果您需要实时 LogViewer 日志记录，请勿使用“Logs”设置。使用“Logs”将日志记录到文件与 LogViewer 日志记录互斥。</p>
 <p>只需按下窗口右上角的蓝色连接器按钮，选择“Socket”选项卡，输入端口号 <code>14388</code> 和您的 <code>localhost</code> 网络即可。如果您在 Windows 上使用 WSL 2，请选择 <code>vEthernet (WSL)</code>。</p>
 <p>如果您确实选择了 <code>vEthernet (WSL)</code>，那么请确保您还将 <code>LocalHostIp</code> 和 <code>LogViewerHostIp</code> 设置为匹配的 WSL 以太网地址，例如 <code>172.31.64.1</code>。</p>

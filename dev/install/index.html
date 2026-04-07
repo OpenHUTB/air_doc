@@ -334,149 +334,157 @@
 </table>
 <h2 id="3">快速安装（3 步）</h2>
 <h3 id="1-python">第 1 步：安装 Python 依赖</h3>
-<p>```bash</p>
-<h1 id="conda">使用 conda（推荐）</h1>
-<p>conda create -n simworld python=3.8 -y
-conda activate simworld
-pip install carla==0.9.16 airsim numpy opencv-python pygame</p>
-<h1 id="pip">或使用 pip</h1>
-<p>pip install carla==0.9.16 airsim numpy opencv-python pygame
-```</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 使用 conda（推荐）</span>
+conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>simworld<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.8<span class="w"> </span>-y
+conda<span class="w"> </span>activate<span class="w"> </span>simworld
+pip<span class="w"> </span>install<span class="w"> </span><span class="nv">carla</span><span class="o">==</span><span class="m">0</span>.9.16<span class="w"> </span>airsim<span class="w"> </span>numpy<span class="w"> </span>opencv-python<span class="w"> </span>pygame
+
+<span class="c1"># 或使用 pip</span>
+pip<span class="w"> </span>install<span class="w"> </span><span class="nv">carla</span><span class="o">==</span><span class="m">0</span>.9.16<span class="w"> </span>airsim<span class="w"> </span>numpy<span class="w"> </span>opencv-python<span class="w"> </span>pygame
+</code></pre></div>
 <h3 id="2-airsim">第 2 步：配置 AirSim 设置</h3>
-<p>```bash</p>
-<h1 id="airsim">创建 AirSim 设置目录</h1>
-<p>mkdir -p ~/Documents/AirSim</p>
-<h1 id="_2">复制默认设置文件</h1>
-<p>cp settings.json ~/Documents/AirSim/settings.json
-```</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 创建 AirSim 设置目录</span>
+mkdir<span class="w"> </span>-p<span class="w"> </span>~/Documents/AirSim
+
+<span class="c1"># 复制默认设置文件</span>
+cp<span class="w"> </span>settings.json<span class="w"> </span>~/Documents/AirSim/settings.json
+</code></pre></div>
 <p>settings.json 内容（多旋翼无人机模式）:
-<code>json
-{
-    "SettingsVersion": 1.2,
-    "SimMode": "Multirotor",
-    "Vehicles": {
-        "SimpleFlight": {
-            "VehicleType": "SimpleFlight",
-            "AutoCreate": true,
-            "Cameras": {
-                "0": {
-                    "CaptureSettings": [
-                        { "ImageType": 0, "Width": 1280, "Height": 960 }
-                    ],
-                    "X": 0.5, "Y": 0.0, "Z": 0.1,
-                    "Pitch": 0.0, "Roll": 0.0, "Yaw": 0.0
-                }
-            }
-        }
-    }
-}</code></p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;SettingsVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.2</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;SimMode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Multirotor&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Vehicles&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;SimpleFlight&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;VehicleType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SimpleFlight&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;AutoCreate&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;Cameras&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;0&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;CaptureSettings&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                        </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;ImageType&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Width&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1280</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Height&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">960</span><span class="w"> </span><span class="p">}</span>
+<span class="w">                    </span><span class="p">],</span>
+<span class="w">                    </span><span class="nt">&quot;X&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Y&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Z&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;Pitch&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Roll&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Yaw&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
 <h3 id="3_1">第 3 步：启动仿真器</h3>
-<p>```bash</p>
-<h1 id="shipping">进入安装目录（Shipping 构建）</h1>
-<p>cd /mnt/data1/tianle/carla_source/Dist/CARLA_Shipping_1ae5356-dirty/LinuxNoEditor</p>
-<h1 id="town10hd">一键启动（默认 Town10HD 地图）</h1>
-<p>./carla_air.sh</p>
-<h1 id="_3">或手动启动</h1>
-<p>./CarlaUE4.sh /Game/Carla/Maps/Town10HD -nosound -carla-rpc-port=2000 -windowed -ResX=1280 -ResY=720
-```</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 进入安装目录（Shipping 构建）</span>
+<span class="nb">cd</span><span class="w"> </span>/mnt/data1/tianle/carla_source/Dist/CARLA_Shipping_1ae5356-dirty/LinuxNoEditor
+
+<span class="c1"># 一键启动（默认 Town10HD 地图）</span>
+./carla_air.sh
+
+<span class="c1"># 或手动启动</span>
+./CarlaUE4.sh<span class="w"> </span>/Game/Carla/Maps/Town10HD<span class="w"> </span>-nosound<span class="w"> </span>-carla-rpc-port<span class="o">=</span><span class="m">2000</span><span class="w"> </span>-windowed<span class="w"> </span>-ResX<span class="o">=</span><span class="m">1280</span><span class="w"> </span>-ResY<span class="o">=</span><span class="m">720</span>
+</code></pre></div>
 <h2 id="carla_airsh">启动脚本：carla_air.sh</h2>
 <p>将下面的 <code>carla_air.sh</code> 放到安装目录中即可一键启动：</p>
-<p>```bash</p>
-<h1 id="binbash">!/bin/bash</h1>
-<h1 id="carla_airsh-carlaair-shipping">carla_air.sh — CarlaAir 一键启动脚本（Shipping 构建版）</h1>
-<p>set -e</p>
-<p>SCRIPT_DIR="$(cd "$(dirname "$0")" &amp;&amp; pwd)"
-MAP="${1:-Town10HD}"
-RESX="${2:-1280}"
-RESY="${3:-720}"
-PORT=2000
-AIRSIM_PORT=41451</p>
-<h1 id="airsim_1">检查 AirSim 设置</h1>
-<p>if [ ! -f ~/Documents/AirSim/settings.json ]; then
-    echo "WARNING: ~/Documents/AirSim/settings.json not found!"
-    echo "Creating default settings..."
-    mkdir -p ~/Documents/AirSim
-    cat &gt; ~/Documents/AirSim/settings.json &lt;&lt; 'EOF'
-{
-    "SettingsVersion": 1.2,
-    "SimMode": "Multirotor",
-    "Vehicles": {
-        "SimpleFlight": {
-            "VehicleType": "SimpleFlight",
-            "AutoCreate": true
-        }
-    }
-}
-EOF
-fi</p>
-<h1 id="vulkan-icd">Vulkan ICD</h1>
-<p>export VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/nvidia_icd.json
-[ -z "$DISPLAY" ] &amp;&amp; export DISPLAY=:1</p>
-<p>echo "============================================"
-echo "  CarlaAir - Air-Ground Co-Simulation"
-echo "============================================"
-echo "  Map:        $MAP"
-echo "  Resolution: ${RESX}x${RESY}"
-echo "  CARLA port: $PORT"
-echo "  AirSim port: $AIRSIM_PORT"
-echo "============================================"</p>
-<h1 id="_4">启动</h1>
-<p>"$SCRIPT_DIR/CarlaUE4.sh" \
-    /Game/Carla/Maps/$MAP \
-    -nosound \
-    -carla-rpc-port=$PORT \
-    -windowed \
-    -ResX=$RESX \
-    -ResY=$RESY \
-    -quality-level=Low &amp;</p>
-<p>PID=$!
-echo "PID: $PID"
-echo "Waiting for servers..."</p>
-<h1 id="_5">等待两个端口就绪</h1>
-<p>for i in $(seq 1 120); do
-    CARLA_OK=false; AIRSIM_OK=false
-    ss -tlnp 2&gt;/dev/null | grep -q ":${PORT} " &amp;&amp; CARLA_OK=true
-    ss -tlnp 2&gt;/dev/null | grep -q ":${AIRSIM_PORT} " &amp;&amp; AIRSIM_OK=true
-    if $CARLA_OK &amp;&amp; $AIRSIM_OK; then
-        echo ""
-        echo "Ready! CARLA(:$PORT) + AirSim(:$AIRSIM_PORT) both running."
-        echo ""
-        echo "Test commands:"
-        echo "  python3 -c \"import carla; c=carla.Client('localhost',$PORT); print(c.get_world().get_map().name)\""
-        echo "  python3 -c \"import airsim; c=airsim.MultirotorClient(port=$AIRSIM_PORT); c.confirmConnection()\""
-        exit 0
-    fi
-    if ! kill -0 $PID 2&gt;/dev/null; then
-        echo "ERROR: Process crashed during startup!"
-        exit 1
-    fi
-    [ $((i % 6)) -eq 0 ] &amp;&amp; echo "  Still waiting... (${i}*5s)"
-    sleep 5
-done
-echo "WARNING: Timeout. Servers may still be starting."
-```</p>
-<h2 id="_6">验证安装</h2>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="c1"># carla_air.sh — CarlaAir 一键启动脚本（Shipping 构建版）</span>
+<span class="nb">set</span><span class="w"> </span>-e
+
+<span class="nv">SCRIPT_DIR</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span><span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>dirname<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$0</span><span class="s2">&quot;</span><span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">pwd</span><span class="k">)</span><span class="s2">&quot;</span>
+<span class="nv">MAP</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">1</span><span class="k">:-</span><span class="nv">Town10HD</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="nv">RESX</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">2</span><span class="k">:-</span><span class="nv">1280</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="nv">RESY</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">3</span><span class="k">:-</span><span class="nv">720</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="nv">PORT</span><span class="o">=</span><span class="m">2000</span>
+<span class="nv">AIRSIM_PORT</span><span class="o">=</span><span class="m">41451</span>
+
+<span class="c1"># 检查 AirSim 设置</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>!<span class="w"> </span>-f<span class="w"> </span>~/Documents/AirSim/settings.json<span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;WARNING: ~/Documents/AirSim/settings.json not found!&quot;</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Creating default settings...&quot;</span>
+<span class="w">    </span>mkdir<span class="w"> </span>-p<span class="w"> </span>~/Documents/AirSim
+<span class="w">    </span>cat<span class="w"> </span>&gt;<span class="w"> </span>~/Documents/AirSim/settings.json<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
+<span class="s">{</span>
+<span class="s">    &quot;SettingsVersion&quot;: 1.2,</span>
+<span class="s">    &quot;SimMode&quot;: &quot;Multirotor&quot;,</span>
+<span class="s">    &quot;Vehicles&quot;: {</span>
+<span class="s">        &quot;SimpleFlight&quot;: {</span>
+<span class="s">            &quot;VehicleType&quot;: &quot;SimpleFlight&quot;,</span>
+<span class="s">            &quot;AutoCreate&quot;: true</span>
+<span class="s">        }</span>
+<span class="s">    }</span>
+<span class="s">}</span>
+<span class="s">EOF</span>
+<span class="k">fi</span>
+
+<span class="c1"># Vulkan ICD</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">VK_ICD_FILENAMES</span><span class="o">=</span>/usr/share/vulkan/icd.d/nvidia_icd.json
+<span class="o">[</span><span class="w"> </span>-z<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DISPLAY</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">DISPLAY</span><span class="o">=</span>:1
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;============================================&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  CarlaAir - Air-Ground Co-Simulation&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;============================================&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  Map:        </span><span class="nv">$MAP</span><span class="s2">&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  Resolution: </span><span class="si">${</span><span class="nv">RESX</span><span class="si">}</span><span class="s2">x</span><span class="si">${</span><span class="nv">RESY</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  CARLA port: </span><span class="nv">$PORT</span><span class="s2">&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  AirSim port: </span><span class="nv">$AIRSIM_PORT</span><span class="s2">&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;============================================&quot;</span>
+
+<span class="c1"># 启动</span>
+<span class="s2">&quot;</span><span class="nv">$SCRIPT_DIR</span><span class="s2">/CarlaUE4.sh&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>/Game/Carla/Maps/<span class="nv">$MAP</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-nosound<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-carla-rpc-port<span class="o">=</span><span class="nv">$PORT</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-windowed<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-ResX<span class="o">=</span><span class="nv">$RESX</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-ResY<span class="o">=</span><span class="nv">$RESY</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-quality-level<span class="o">=</span>Low<span class="w"> </span><span class="p">&amp;</span>
+
+<span class="nv">PID</span><span class="o">=</span><span class="nv">$!</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;PID: </span><span class="nv">$PID</span><span class="s2">&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Waiting for servers...&quot;</span>
+
+<span class="c1"># 等待两个端口就绪</span>
+<span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>seq<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">120</span><span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span><span class="nv">CARLA_OK</span><span class="o">=</span>false<span class="p">;</span><span class="w"> </span><span class="nv">AIRSIM_OK</span><span class="o">=</span><span class="nb">false</span>
+<span class="w">    </span>ss<span class="w"> </span>-tlnp<span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-q<span class="w"> </span><span class="s2">&quot;:</span><span class="si">${</span><span class="nv">PORT</span><span class="si">}</span><span class="s2"> &quot;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nv">CARLA_OK</span><span class="o">=</span><span class="nb">true</span>
+<span class="w">    </span>ss<span class="w"> </span>-tlnp<span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-q<span class="w"> </span><span class="s2">&quot;:</span><span class="si">${</span><span class="nv">AIRSIM_PORT</span><span class="si">}</span><span class="s2"> &quot;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nv">AIRSIM_OK</span><span class="o">=</span><span class="nb">true</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nv">$CARLA_OK</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nv">$AIRSIM_OK</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
+<span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Ready! CARLA(:</span><span class="nv">$PORT</span><span class="s2">) + AirSim(:</span><span class="nv">$AIRSIM_PORT</span><span class="s2">) both running.&quot;</span>
+<span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
+<span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Test commands:&quot;</span>
+<span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  python3 -c \&quot;import carla; c=carla.Client(&#39;localhost&#39;,</span><span class="nv">$PORT</span><span class="s2">); print(c.get_world().get_map().name)\&quot;&quot;</span>
+<span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  python3 -c \&quot;import airsim; c=airsim.MultirotorClient(port=</span><span class="nv">$AIRSIM_PORT</span><span class="s2">); c.confirmConnection()\&quot;&quot;</span>
+<span class="w">        </span><span class="nb">exit</span><span class="w"> </span><span class="m">0</span>
+<span class="w">    </span><span class="k">fi</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span>!<span class="w"> </span><span class="nb">kill</span><span class="w"> </span>-0<span class="w"> </span><span class="nv">$PID</span><span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;ERROR: Process crashed during startup!&quot;</span>
+<span class="w">        </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="w">    </span><span class="k">fi</span>
+<span class="w">    </span><span class="o">[</span><span class="w"> </span><span class="k">$((</span><span class="nv">i</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="m">6</span><span class="k">))</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  Still waiting... (</span><span class="si">${</span><span class="nv">i</span><span class="si">}</span><span class="s2">*5s)&quot;</span>
+<span class="w">    </span>sleep<span class="w"> </span><span class="m">5</span>
+<span class="k">done</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;WARNING: Timeout. Servers may still be starting.&quot;</span>
+</code></pre></div>
+<h2 id="_2">验证安装</h2>
 <p>启动后，打开新终端：</p>
-<p>```bash
-conda activate simworld</p>
-<h1 id="carla">测试 CARLA 连接</h1>
-<p>python3 -c "
-import carla
-client = carla.Client('localhost', 2000)
-client.set_timeout(10)
-world = client.get_world()
-print(f'CARLA OK: {world.get_map().name}')
-print(f'Spawn points: {len(world.get_map().get_spawn_points())}')
-"</p>
-<h1 id="airsim_2">测试 AirSim 连接</h1>
-<p>python3 -c "
-import airsim
-client = airsim.MultirotorClient(port=41451)
-client.confirmConnection()
-print('AirSim OK: Connected')
-"
-```</p>
-<h2 id="_7">可用地图</h2>
+<div class="highlight"><pre><span></span><code>conda<span class="w"> </span>activate<span class="w"> </span>simworld
+
+<span class="c1"># 测试 CARLA 连接</span>
+python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;</span>
+<span class="s2">import carla</span>
+<span class="s2">client = carla.Client(&#39;localhost&#39;, 2000)</span>
+<span class="s2">client.set_timeout(10)</span>
+<span class="s2">world = client.get_world()</span>
+<span class="s2">print(f&#39;CARLA OK: {world.get_map().name}&#39;)</span>
+<span class="s2">print(f&#39;Spawn points: {len(world.get_map().get_spawn_points())}&#39;)</span>
+<span class="s2">&quot;</span>
+
+<span class="c1"># 测试 AirSim 连接</span>
+python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;</span>
+<span class="s2">import airsim</span>
+<span class="s2">client = airsim.MultirotorClient(port=41451)</span>
+<span class="s2">client.confirmConnection()</span>
+<span class="s2">print(&#39;AirSim OK: Connected&#39;)</span>
+<span class="s2">&quot;</span>
+</code></pre></div>
+<h2 id="_3">可用地图</h2>
 <table>
 <thead>
 <tr>
@@ -519,14 +527,13 @@ print('AirSim OK: Connected')
 </tbody>
 </table>
 <p>切换地图: <code>./carla_air.sh Town03</code></p>
-<h2 id="_8">停止仿真器</h2>
-<p>```bash</p>
-<h1 id="1">方法 1: 关闭窗口</h1>
-<h1 id="2">方法 2: 命令行</h1>
-<p>pkill -f "CarlaUE4-Linux-Shipping"
-```</p>
-<h2 id="_9">目录结构</h2>
-<p><code>LinuxNoEditor/
+<h2 id="_4">停止仿真器</h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># 方法 1: 关闭窗口</span>
+<span class="c1"># 方法 2: 命令行</span>
+pkill<span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;CarlaUE4-Linux-Shipping&quot;</span>
+</code></pre></div>
+<h2 id="_5">目录结构</h2>
+<div class="highlight"><pre><span></span><code>LinuxNoEditor/
 ├── CarlaUE4.sh              # 原始 UE4 启动脚本
 ├── carla_air.sh             # CarlaAir 一键启动脚本（需要手动创建）
 ├── CarlaUE4/
@@ -535,8 +542,9 @@ print('AirSim OK: Connected')
 ├── Engine/                   # UE4 运行时
 └── PythonAPI/               # Python 客户端库
     └── carla/
-        └── dist/            # carla-0.9.16 wheel</code></p>
-<h2 id="_10">常见问题</h2>
+        └── dist/            # carla-0.9.16 wheel
+</code></pre></div>
+<h2 id="_6">常见问题</h2>
 <h3 id="q">Q: 启动后黑屏或无画面</h3>
 <p><strong>A</strong>: 检查 GPU 驱动和 Vulkan 支持：<code>vulkaninfo | head -5</code></p>
 <h3 id="q-carla">Q: Carla 端口连接超时</h3>

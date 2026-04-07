@@ -333,60 +333,62 @@
 </tbody>
 </table>
 <h3 id="step-1-conda">Step 1: 安装 Conda（如果还没有）</h3>
-<p>```bash</p>
-<h1 id="conda">如果已经有 conda，跳过这一步</h1>
-<p>wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
-bash Miniconda3-latest-Linux-x86_64.sh</p>
-<h1 id="_4">重新打开终端</h1>
-<p>```</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 如果已经有 conda，跳过这一步</span>
+wget<span class="w"> </span>https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+bash<span class="w"> </span>Miniconda3-latest-Linux-x86_64.sh
+<span class="c1"># 重新打开终端</span>
+</code></pre></div>
 <h3 id="step-2-python">Step 2: 创建 Python 环境</h3>
-<p><code>bash
-conda create -n carlaair python=3.10 -y
-conda activate carlaair</code></p>
+<div class="highlight"><pre><span></span><code>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>carlaair<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.10<span class="w"> </span>-y
+conda<span class="w"> </span>activate<span class="w"> </span>carlaair
+</code></pre></div>
 <h3 id="step-3">Step 3: 安装依赖</h3>
-<p>```bash
-cd /path/to/CarlaAir-v0.1.6</p>
-<h1 id="a">方式 A：一键安装（推荐）</h1>
-<p>pip install -e .</p>
-<h1 id="b">方式 B：手动安装</h1>
-<p>pip install carla==0.9.16 airsim&gt;=1.8.1 pygame&gt;=2.0 numpy&gt;=1.20 opencv-python&gt;=4.5
-```</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/path/to/CarlaAir-v0.1.6
+
+<span class="c1"># 方式 A：一键安装（推荐）</span>
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+
+<span class="c1"># 方式 B：手动安装</span>
+pip<span class="w"> </span>install<span class="w"> </span><span class="nv">carla</span><span class="o">==</span><span class="m">0</span>.9.16<span class="w"> </span>airsim&gt;<span class="o">=</span><span class="m">1</span>.8.1<span class="w"> </span>pygame&gt;<span class="o">=</span><span class="m">2</span>.0<span class="w"> </span>numpy&gt;<span class="o">=</span><span class="m">1</span>.20<span class="w"> </span>opencv-python&gt;<span class="o">=</span><span class="m">4</span>.5
+</code></pre></div>
 <h3 id="step-4">Step 4: 验证安装</h3>
-<p><code>bash
-conda activate carlaair
-python -c "import carla; import airsim; import pygame; import cv2; print('All OK!')"</code></p>
+<div class="highlight"><pre><span></span><code>conda<span class="w"> </span>activate<span class="w"> </span>carlaair
+python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import carla; import airsim; import pygame; import cv2; print(&#39;All OK!&#39;)&quot;</span>
+</code></pre></div>
 <p>如果输出 <code>All OK!</code> 就说明环境没问题。</p>
 <h3 id="step-5-carlaair">Step 5: 启动 CarlaAir</h3>
-<p><code>bash
-cd /path/to/CarlaAir-v0.1.6
-./CarlaAir.sh</code></p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/path/to/CarlaAir-v0.1.6
+./CarlaAir.sh
+</code></pre></div>
 <p>等待终端出现类似以下信息，说明服务器准备好了：</p>
-<p><code>[CarlaAir] CARLA server ready on port 2000
-[CarlaAir] AirSim ready on port 41451</code></p>
+<div class="highlight"><pre><span></span><code>[CarlaAir] CARLA server ready on port 2000
+[CarlaAir] AirSim ready on port 41451
+</code></pre></div>
 <blockquote>
 <p><strong>注意：</strong> CarlaAir 需要在一个单独的终端持续运行，录制脚本在另一个终端执行。</p>
 </blockquote>
 <hr />
 <h2 id="5">快速启动（5分钟上手）</h2>
 <p>打开一个<strong>新终端</strong>，按顺序操作：</p>
-<p>```bash</p>
-<h1 id="1">1. 激活环境</h1>
-<p>conda activate carlaair
-cd /path/to/CarlaAir-v0.1.6</p>
-<h1 id="2-2030-f1">2. 录一段车辆轨迹（开 20~30 秒，按 F1 保存）</h1>
-<p>python examples_record_demo/record_vehicle.py</p>
-<h1 id="3">3. 导演模式：回放刚才的轨迹，自由摄像机拍摄</h1>
-<p>python examples_record_demo/demo_director.py trajectories/vehicle_*.json
-```</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1. 激活环境</span>
+conda<span class="w"> </span>activate<span class="w"> </span>carlaair
+<span class="nb">cd</span><span class="w"> </span>/path/to/CarlaAir-v0.1.6
+
+<span class="c1"># 2. 录一段车辆轨迹（开 20~30 秒，按 F1 保存）</span>
+python<span class="w"> </span>examples_record_demo/record_vehicle.py
+
+<span class="c1"># 3. 导演模式：回放刚才的轨迹，自由摄像机拍摄</span>
+python<span class="w"> </span>examples_record_demo/demo_director.py<span class="w"> </span>trajectories/vehicle_*.json
+</code></pre></div>
 <p>导演模式里按 <strong>F</strong> 开始录制 MP4，拍好了再按 <strong>F</strong> 停止。视频保存在 <code>recordings/</code> 目录。</p>
 <p>就这么简单！下面是详细说明。</p>
 <hr />
-<h2 id="_5">脚本详解</h2>
+<h2 id="_4">脚本详解</h2>
 <h3 id="1-record_vehiclepy">1. record_vehicle.py — 录制车辆轨迹</h3>
 <p>驾驶一辆车，轨迹自动记录为 JSON 文件。</p>
-<p><code>bash
-python examples_record_demo/record_vehicle.py</code></p>
-<h4 id="_6">操控键位</h4>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>examples_record_demo/record_vehicle.py
+</code></pre></div>
+<h4 id="_5">操控键位</h4>
 <table>
 <thead>
 <tr>
@@ -429,23 +431,27 @@ python examples_record_demo/record_vehicle.py</code></p>
 </tr>
 </tbody>
 </table>
-<h4 id="_7">可选参数</h4>
-<p>```bash</p>
-<h1 id="town01-town10hd">切换地图（支持 Town01 ~ Town10HD）</h1>
-<p>python examples_record_demo/record_vehicle.py --map Town03</p>
-<h1 id="clear-cloudy-rain-storm-night-sunset-fog">切换天气（clear / cloudy / rain / storm / night / sunset / fog）</h1>
-<p>python examples_record_demo/record_vehicle.py --weather sunset</p>
-<h1 id="tesla-model3">换车型（默认 Tesla Model3）</h1>
-<p>python examples_record_demo/record_vehicle.py --vehicle vehicle.audi.a2</p>
-<h1 id="_8">指定出生点编号</h1>
-<p>python examples_record_demo/record_vehicle.py --spawn 5</p>
-<h1 id="_9">组合使用</h1>
-<p>python examples_record_demo/record_vehicle.py --map Town05 --weather night --vehicle vehicle.bmw.grandtourer
-```</p>
-<h4 id="_10">输出</h4>
+<h4 id="_6">可选参数</h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># 切换地图（支持 Town01 ~ Town10HD）</span>
+python<span class="w"> </span>examples_record_demo/record_vehicle.py<span class="w"> </span>--map<span class="w"> </span>Town03
+
+<span class="c1"># 切换天气（clear / cloudy / rain / storm / night / sunset / fog）</span>
+python<span class="w"> </span>examples_record_demo/record_vehicle.py<span class="w"> </span>--weather<span class="w"> </span>sunset
+
+<span class="c1"># 换车型（默认 Tesla Model3）</span>
+python<span class="w"> </span>examples_record_demo/record_vehicle.py<span class="w"> </span>--vehicle<span class="w"> </span>vehicle.audi.a2
+
+<span class="c1"># 指定出生点编号</span>
+python<span class="w"> </span>examples_record_demo/record_vehicle.py<span class="w"> </span>--spawn<span class="w"> </span><span class="m">5</span>
+
+<span class="c1"># 组合使用</span>
+python<span class="w"> </span>examples_record_demo/record_vehicle.py<span class="w"> </span>--map<span class="w"> </span>Town05<span class="w"> </span>--weather<span class="w"> </span>night<span class="w"> </span>--vehicle<span class="w"> </span>vehicle.bmw.grandtourer
+</code></pre></div>
+<h4 id="_7">输出</h4>
 <p>保存到 <code>trajectories/vehicle_&lt;日期时间&gt;.json</code>，例如：
-<code>trajectories/vehicle_20260319_184504.json</code></p>
-<h4 id="_11">录制技巧</h4>
+<div class="highlight"><pre><span></span><code>trajectories/vehicle_20260319_184504.json
+</code></pre></div></p>
+<h4 id="_8">录制技巧</h4>
 <ul>
 <li>建议录 <strong>20~40 秒</strong>（400~800帧），太长回放时间也长</li>
 <li>起步后等 2 秒再加速，避免车辆穿地</li>
@@ -457,9 +463,9 @@ python examples_record_demo/record_vehicle.py</code></p>
 <blockquote>
 <p><strong>前提：</strong> 需要先用 CarlaAir 的 H 菜单手动起飞无人机到想要的高度，再运行脚本。</p>
 </blockquote>
-<p><code>bash
-python examples_record_demo/record_drone.py</code></p>
-<h4 id="_12">操控键位</h4>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>examples_record_demo/record_drone.py
+</code></pre></div>
+<h4 id="_9">操控键位</h4>
 <table>
 <thead>
 <tr>
@@ -502,16 +508,16 @@ python examples_record_demo/record_drone.py</code></p>
 </tr>
 </tbody>
 </table>
-<h4 id="_13">可选参数</h4>
-<p>```bash</p>
-<h1 id="6-ms">调整飞行速度（默认 6 m/s）</h1>
-<p>python examples_record_demo/record_drone.py --speed 10</p>
-<h1 id="_14">切换地图和天气</h1>
-<p>python examples_record_demo/record_drone.py --map Town03 --weather sunset
-```</p>
-<h4 id="_15">输出</h4>
+<h4 id="_10">可选参数</h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># 调整飞行速度（默认 6 m/s）</span>
+python<span class="w"> </span>examples_record_demo/record_drone.py<span class="w"> </span>--speed<span class="w"> </span><span class="m">10</span>
+
+<span class="c1"># 切换地图和天气</span>
+python<span class="w"> </span>examples_record_demo/record_drone.py<span class="w"> </span>--map<span class="w"> </span>Town03<span class="w"> </span>--weather<span class="w"> </span>sunset
+</code></pre></div>
+<h4 id="_11">输出</h4>
 <p>保存到 <code>trajectories/drone_&lt;日期时间&gt;.json</code></p>
-<h4 id="_16">录制技巧</h4>
+<h4 id="_12">录制技巧</h4>
 <ul>
 <li>先用 H 菜单起飞到 20~50m 的高度再运行脚本</li>
 <li><strong>匀速直线飞行</strong>效果最好，避免频繁转向</li>
@@ -520,9 +526,9 @@ python examples_record_demo/record_drone.py</code></p>
 <hr />
 <h3 id="3-record_walkerpy">3. record_walker.py — 录制行人轨迹</h3>
 <p>控制一个行人走路，FPS 风格操控。</p>
-<p><code>bash
-python examples_record_demo/record_walker.py</code></p>
-<h4 id="_17">操控键位</h4>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>examples_record_demo/record_walker.py
+</code></pre></div>
+<h4 id="_13">操控键位</h4>
 <table>
 <thead>
 <tr>
@@ -561,24 +567,25 @@ python examples_record_demo/record_walker.py</code></p>
 </tr>
 </tbody>
 </table>
-<h4 id="_18">可选参数</h4>
-<p><code>bash
-python examples_record_demo/record_walker.py --speed 3.0
-python examples_record_demo/record_walker.py --map Town03 --weather rain</code></p>
-<h4 id="_19">输出</h4>
+<h4 id="_14">可选参数</h4>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>examples_record_demo/record_walker.py<span class="w"> </span>--speed<span class="w"> </span><span class="m">3</span>.0
+python<span class="w"> </span>examples_record_demo/record_walker.py<span class="w"> </span>--map<span class="w"> </span>Town03<span class="w"> </span>--weather<span class="w"> </span>rain
+</code></pre></div>
+<h4 id="_15">输出</h4>
 <p>保存到 <code>trajectories/walker_&lt;日期时间&gt;.json</code></p>
 <hr />
 <h3 id="4-demo_directorpy">4. demo_director.py — 导演模式（回放+拍摄）</h3>
 <p><strong>核心工具。</strong> 加载之前录好的轨迹文件，所有角色同时回放，你用自由摄像机拍摄 MP4。</p>
-<p>```bash</p>
-<h1 id="_20">回放单条轨迹</h1>
-<p>python examples_record_demo/demo_director.py trajectories/vehicle_20260319_184504.json</p>
-<h1 id="_21">回放所有轨迹（人+车+无人机同框）</h1>
-<p>python examples_record_demo/demo_director.py trajectories/*.json</p>
-<h1 id="_22">指定地图、天气、高清录制</h1>
-<p>python examples_record_demo/demo_director.py --map Town03 --weather sunset --res 1920x1080 --fps 30 trajectories/*.json
-```</p>
-<h4 id="_23">操控键位</h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># 回放单条轨迹</span>
+python<span class="w"> </span>examples_record_demo/demo_director.py<span class="w"> </span>trajectories/vehicle_20260319_184504.json
+
+<span class="c1"># 回放所有轨迹（人+车+无人机同框）</span>
+python<span class="w"> </span>examples_record_demo/demo_director.py<span class="w"> </span>trajectories/*.json
+
+<span class="c1"># 指定地图、天气、高清录制</span>
+python<span class="w"> </span>examples_record_demo/demo_director.py<span class="w"> </span>--map<span class="w"> </span>Town03<span class="w"> </span>--weather<span class="w"> </span>sunset<span class="w"> </span>--res<span class="w"> </span>1920x1080<span class="w"> </span>--fps<span class="w"> </span><span class="m">30</span><span class="w"> </span>trajectories/*.json
+</code></pre></div>
+<h4 id="_16">操控键位</h4>
 <p><strong>摄像机（FPS 风格）：</strong></p>
 <table>
 <thead>
@@ -739,25 +746,28 @@ python examples_record_demo/record_walker.py --map Town03 --weather rain</code><
 </tr>
 </tbody>
 </table>
-<h4 id="_24">可选参数</h4>
-<p>```bash</p>
-<h1 id="_25">高清录制</h1>
-<p>--res 1920x1080 --fps 30</p>
-<h1 id="ai">添加背景交通（AI 自动驾驶的车辆和行人）</h1>
-<p>--traffic 20 --walkers 30</p>
-<h1 id="_26">循环回放</h1>
-<p>--loop</p>
-<h1 id="_27">纯导演模式（不回放轨迹，只有自由摄像机）</h1>
-<p>--no-trajectories</p>
-<h1 id="_28">完整示例</h1>
-<p>python examples_record_demo/demo_director.py \
-  --map Town03 --weather sunset \
-  --res 1920x1080 --fps 30 \
-  --traffic 15 --walkers 20 \
-  --loop \
-  trajectories/*.json
-```</p>
-<h4 id="_29">输出</h4>
+<h4 id="_17">可选参数</h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># 高清录制</span>
+--res<span class="w"> </span>1920x1080<span class="w"> </span>--fps<span class="w"> </span><span class="m">30</span>
+
+<span class="c1"># 添加背景交通（AI 自动驾驶的车辆和行人）</span>
+--traffic<span class="w"> </span><span class="m">20</span><span class="w"> </span>--walkers<span class="w"> </span><span class="m">30</span>
+
+<span class="c1"># 循环回放</span>
+--loop
+
+<span class="c1"># 纯导演模式（不回放轨迹，只有自由摄像机）</span>
+--no-trajectories
+
+<span class="c1"># 完整示例</span>
+python<span class="w"> </span>examples_record_demo/demo_director.py<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--map<span class="w"> </span>Town03<span class="w"> </span>--weather<span class="w"> </span>sunset<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--res<span class="w"> </span>1920x1080<span class="w"> </span>--fps<span class="w"> </span><span class="m">30</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--traffic<span class="w"> </span><span class="m">15</span><span class="w"> </span>--walkers<span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--loop<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>trajectories/*.json
+</code></pre></div>
+<h4 id="_18">输出</h4>
 <ul>
 <li>视频保存到 <code>recordings/director_&lt;日期时间&gt;.mp4</code></li>
 <li>截图保存到 <code>recordings/screenshot_&lt;日期时间&gt;.png</code></li>
@@ -766,53 +776,52 @@ python examples_record_demo/record_walker.py --map Town03 --weather rain</code><
 <h2 id="demo">推荐 Demo 拍摄方案</h2>
 <h3 id="demo-1">Demo 1: 空地协同追踪（最经典）</h3>
 <p>展示车辆在地面行驶、无人机在空中伴飞的空地协同场景。</p>
-<p>```bash</p>
-<h1 id="step-1-30">Step 1: 录制车辆（沿主路直行 30 秒）</h1>
-<p>python examples_record_demo/record_vehicle.py --map Town10HD</p>
-<h1 id="step-2-h-30">Step 2: 先用 H 菜单起飞无人机，然后录制（平行于道路飞行 30 秒）</h1>
-<p>python examples_record_demo/record_drone.py --map Town10HD</p>
-<h1 id="step-3-45">Step 3: 导演拍摄（侧方 45° 俯视角，让人车飞机同框）</h1>
-<p>python examples_record_demo/demo_director.py --res 1920x1080 --fps 30 trajectories/*.json
-```</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Step 1: 录制车辆（沿主路直行 30 秒）</span>
+python<span class="w"> </span>examples_record_demo/record_vehicle.py<span class="w"> </span>--map<span class="w"> </span>Town10HD
+
+<span class="c1"># Step 2: 先用 H 菜单起飞无人机，然后录制（平行于道路飞行 30 秒）</span>
+python<span class="w"> </span>examples_record_demo/record_drone.py<span class="w"> </span>--map<span class="w"> </span>Town10HD
+
+<span class="c1"># Step 3: 导演拍摄（侧方 45° 俯视角，让人车飞机同框）</span>
+python<span class="w"> </span>examples_record_demo/demo_director.py<span class="w"> </span>--res<span class="w"> </span>1920x1080<span class="w"> </span>--fps<span class="w"> </span><span class="m">30</span><span class="w"> </span>trajectories/*.json
+</code></pre></div>
 <h3 id="demo-2">Demo 2: 天气变换</h3>
 <p>展示同一场景在不同天气下的效果。</p>
-<p>```bash</p>
-<h1 id="_30">录好轨迹后，导演模式里按数字键切换天气</h1>
-<p>python examples_record_demo/demo_director.py --loop trajectories/*.json</p>
-<h1 id="f-1-4-6-f">按 F 开始录制 → 按 1(晴天) → 等几秒 → 按 4(暴雨) → 按 6(夜晚) → 按 F 停止</h1>
-<p>```</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 录好轨迹后，导演模式里按数字键切换天气</span>
+python<span class="w"> </span>examples_record_demo/demo_director.py<span class="w"> </span>--loop<span class="w"> </span>trajectories/*.json
+<span class="c1"># 按 F 开始录制 → 按 1(晴天) → 等几秒 → 按 4(暴雨) → 按 6(夜晚) → 按 F 停止</span>
+</code></pre></div>
 <h3 id="demo-3">Demo 3: 传感器可视化</h3>
 <p>展示 CarlaAir 的多模态传感器数据。</p>
-<p>```bash</p>
-<h1 id="_31">录好车辆轨迹后</h1>
-<p>python examples_record_demo/demo_director.py trajectories/vehicle_*.json</p>
-<h1 id="tab-rgb-depth-semantic">按 Tab 打开传感器面板 → 可以看到 RGB / Depth / Semantic 三个子窗口</h1>
-<h1 id="f">按 F 录制</h1>
-<p>```</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 录好车辆轨迹后</span>
+python<span class="w"> </span>examples_record_demo/demo_director.py<span class="w"> </span>trajectories/vehicle_*.json
+<span class="c1"># 按 Tab 打开传感器面板 → 可以看到 RGB / Depth / Semantic 三个子窗口</span>
+<span class="c1"># 按 F 录制</span>
+</code></pre></div>
 <h3 id="demo-4">Demo 4: 多地图展示</h3>
 <p>展示不同城市环境。</p>
-<p>```bash</p>
-<h1 id="town01">Town01 小镇</h1>
-<p>python examples_record_demo/record_vehicle.py --map Town01
-python examples_record_demo/demo_director.py --map Town01 trajectories/vehicle_*.json</p>
-<h1 id="town03">Town03 郊区</h1>
-<p>python examples_record_demo/record_vehicle.py --map Town03
-python examples_record_demo/demo_director.py --map Town03 --weather sunset trajectories/vehicle_*.json</p>
-<h1 id="town05">Town05 城市</h1>
-<p>python examples_record_demo/record_vehicle.py --map Town05
-python examples_record_demo/demo_director.py --map Town05 --weather night trajectories/vehicle_*.json
-```</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Town01 小镇</span>
+python<span class="w"> </span>examples_record_demo/record_vehicle.py<span class="w"> </span>--map<span class="w"> </span>Town01
+python<span class="w"> </span>examples_record_demo/demo_director.py<span class="w"> </span>--map<span class="w"> </span>Town01<span class="w"> </span>trajectories/vehicle_*.json
+
+<span class="c1"># Town03 郊区</span>
+python<span class="w"> </span>examples_record_demo/record_vehicle.py<span class="w"> </span>--map<span class="w"> </span>Town03
+python<span class="w"> </span>examples_record_demo/demo_director.py<span class="w"> </span>--map<span class="w"> </span>Town03<span class="w"> </span>--weather<span class="w"> </span>sunset<span class="w"> </span>trajectories/vehicle_*.json
+
+<span class="c1"># Town05 城市</span>
+python<span class="w"> </span>examples_record_demo/record_vehicle.py<span class="w"> </span>--map<span class="w"> </span>Town05
+python<span class="w"> </span>examples_record_demo/demo_director.py<span class="w"> </span>--map<span class="w"> </span>Town05<span class="w"> </span>--weather<span class="w"> </span>night<span class="w"> </span>trajectories/vehicle_*.json
+</code></pre></div>
 <h3 id="demo-5">Demo 5: 大规模交通场景</h3>
-<p>```bash</p>
-<h1 id="_32">不需要录轨迹，直接用背景交通</h1>
-<p>python examples_record_demo/demo_director.py \
-  --no-trajectories --traffic 30 --walkers 50 \
-  --map Town10HD --res 1920x1080 --fps 30</p>
-<h1 id="_33">用自由摄像机飞来飞去拍摄城市交通</h1>
-<p>```</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 不需要录轨迹，直接用背景交通</span>
+python<span class="w"> </span>examples_record_demo/demo_director.py<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--no-trajectories<span class="w"> </span>--traffic<span class="w"> </span><span class="m">30</span><span class="w"> </span>--walkers<span class="w"> </span><span class="m">50</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--map<span class="w"> </span>Town10HD<span class="w"> </span>--res<span class="w"> </span>1920x1080<span class="w"> </span>--fps<span class="w"> </span><span class="m">30</span>
+<span class="c1"># 用自由摄像机飞来飞去拍摄城市交通</span>
+</code></pre></div>
 <hr />
-<h2 id="_34">目录结构</h2>
-<p><code>CarlaAir-v0.1.6/
+<h2 id="_19">目录结构</h2>
+<div class="highlight"><pre><span></span><code>CarlaAir-v0.1.6/
 ├── CarlaAir.sh               # CarlaAir 启动脚本
 ├── examples_record_demo/     # ← 你在这里
 │   ├── README.md             # 本文件
@@ -826,13 +835,14 @@ python examples_record_demo/demo_director.py --map Town05 --weather night trajec
 │   └── walker_20260319_185530.json
 └── recordings/               # 视频和截图（自动创建）
     ├── director_20260319_190000.mp4
-    └── screenshot_20260319_190030.png</code></p>
+    └── screenshot_20260319_190030.png
+</code></pre></div>
 <hr />
-<h2 id="_35">常见问题</h2>
+<h2 id="_20">常见问题</h2>
 <h3 id="q-modulenotfounderror-no-module-named-carla">Q: 运行脚本报 <code>ModuleNotFoundError: No module named 'carla'</code></h3>
 <p>确保已激活正确的 conda 环境：
-<code>bash
-conda activate carlaair  # 或你安装了依赖的环境名</code></p>
+<div class="highlight"><pre><span></span><code>conda<span class="w"> </span>activate<span class="w"> </span>carlaair<span class="w">  </span><span class="c1"># 或你安装了依赖的环境名</span>
+</code></pre></div></p>
 <h3 id="q-version-mismatchclient-0916-vs-simulator-1ae5356-dirty-stdbad_alloc">Q: 提示 <code>Version mismatch</code>（Client 0.9.16 vs Simulator <code>1ae5356-dirty</code>）或 <code>std::bad_alloc</code> 崩溃</h3>
 <p>CarlaAir 的仿真器是 <strong>CARLA 定制分支</strong>，不能与 PyPI 上的 <code>carla==0.9.16</code> 客户端混用，否则会 RPC 不兼容并可能 <code>std::bad_alloc</code>。</p>
 <ol>
@@ -841,16 +851,15 @@ conda activate carlaair  # 或你安装了依赖的环境名</code></p>
 <code>CarlaAir-v0.1.6/PythonAPI/carla/dist/</code></li>
 <li>在项目根目录执行：</li>
 </ol>
-<p>```bash
-./install_matching_carla_api.sh</p>
-<h1 id="install_matching_carla_apish-pathtocarla-whl">或指定路径： ./install_matching_carla_api.sh /path/to/carla-....whl</h1>
-<p>```</p>
+<div class="highlight"><pre><span></span><code>./install_matching_carla_api.sh
+<span class="c1"># 或指定路径： ./install_matching_carla_api.sh /path/to/carla-....whl</span>
+</code></pre></div>
 <p>再运行录制脚本。若 <code>PythonAPI/carla/dist/</code> 为空，说明当前压缩包可能漏带了 wheel，需要补发或自行用源码树 <code>Util/BuildTools/BuildPythonAPI.sh</code> 在匹配环境下编译生成。</p>
 <h3 id="q-time-out-while-waiting-for-the-simulator">Q: 运行脚本报 <code>time-out while waiting for the simulator</code></h3>
 <p>CarlaAir 没有在运行。在另一个终端执行：
-<code>bash
-cd /path/to/CarlaAir-v0.1.6
-./CarlaAir.sh</code></p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/path/to/CarlaAir-v0.1.6
+./CarlaAir.sh
+</code></pre></div></p>
 <h3 id="q">Q: 无人机脚本打开后无法控制 / 没有画面</h3>
 <ol>
 <li>确保已经通过 H 菜单起飞了无人机</li>
@@ -869,10 +878,9 @@ cd /path/to/CarlaAir-v0.1.6
 <li>或者启动时加 <code>--loop</code> 循环播放</li>
 </ul>
 <h3 id="q_4">Q: 怎么让录制的视频更流畅</h3>
-<p>```bash</p>
-<h1 id="30fps-1080p">使用 30fps + 1080p</h1>
-<p>python examples_record_demo/demo_director.py --res 1920x1080 --fps 30 trajectories/*.json
-```</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 使用 30fps + 1080p</span>
+python<span class="w"> </span>examples_record_demo/demo_director.py<span class="w"> </span>--res<span class="w"> </span>1920x1080<span class="w"> </span>--fps<span class="w"> </span><span class="m">30</span><span class="w"> </span>trajectories/*.json
+</code></pre></div>
 <h3 id="q_5">Q: 车辆出生后掉到地下</h3>
 <p>重新录制，起步后<strong>等 2~3 秒</strong>让物理引擎稳定再开始操作。</p>
 <h3 id="q_6">Q: 我想同时录多辆车 / 多个行人</h3>
