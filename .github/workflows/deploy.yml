@@ -10,14 +10,7 @@ jobs:
     steps:
       - name: Checkout 
         uses: actions/checkout@v2
-        
-      - name: Build
-        uses: OpenHUTB/actions-mkdocs@main
-        with:
-          mkdocs_version: 'latest' # option
-          requirements: 'requirements.txt' # option
-          configfile: 'mkdocs.yml' # option
-          
+
       - uses: actions/setup-python@v6
         with:
           python-version: '3.11'
@@ -38,6 +31,13 @@ jobs:
           echo current directory file: 
           ls
           cp -r _build/html ../../site
+
+      - name: Build
+        uses: OpenHUTB/actions-mkdocs@main
+        with:
+          mkdocs_version: 'latest' # option
+          requirements: 'requirements.txt' # option
+          configfile: 'mkdocs.yml' # option
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
