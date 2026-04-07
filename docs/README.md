@@ -147,8 +147,7 @@ AirSim 的另一种使用方式是所谓的“计算机视觉”模式。在此�
 ### 论文
 
 更多技术细节请参阅 [AirSim 论文（FSR 2017 会议）)](https://arxiv.org/abs/1705.05065) 。请引用：
-
-```
+```shell
 @inproceedings{airsim2017fsr,
   author = {Shital Shah and Debadeepta Dey and Chris Lovett and Ashish Kapoor},
   title = {AirSim: High-Fidelity Visual and Physical Simulation for Autonomous Vehicles},
