@@ -289,6 +289,7 @@
 
 <ul>
 <li><a href="#air"><strong>飞行器</strong></a><ul>
+<li><a href="#custom">定制开发</a></li>
 <li><a href="#perception">感知</a></li>
 <li><a href="#planning">规划</a></li>
 <li><a href="#rl">强化学习</a></li>
@@ -303,7 +304,6 @@
 <li><a href="#map">地图</a></li>
 <li><a href="#contest">比赛</a></li>
 <li><a href="#research">研究</a></li>
-<li><a href="#custom">模拟器定制</a></li>
 </ul>
 </li>
 <li><a href="#humanoid"><strong>人</strong></a></li>
@@ -312,7 +312,27 @@
 <li><a href="#misc"><strong>杂项</strong></a></li>
 </ul>
 <h2 id="_1">飞行器 <span id="air"></span></h2>
-<h3 id="_2">感知 <span id="perception"></span></h3>
+<h3 id="_2">模拟器定制  <span id="custom"></span></h3>
+<p><a href="https://github.com/9woods123/Airsim_keyboard_control_car">进行了二次开发，打造了一款可以同时控制飞机和汽车模型的多人游戏</a></p>
+<p><a href="https://github.com/CoRAL-OSU/AirSim_NRI">时空变化风支持所做的更改</a></p>
+<p><a href="https://github.com/akhil22/Colosseum">Colosseum，AirSim的继任者</a></p>
+<p><a href="https://github.com/Midas75/AirSim">增加了一个宏，用于实现不同的sleep策略</a> - 以或多或少的计时精确性为代价，改进AirSim在多机（&gt;20 in i7-12700）仿真下的性能表现。</p>
+<p><a href="https://github.com/microsoft/AirSim-Drone-Racing-Lab-Source/commit/4a03fd554534a946a27c4dd7c3067b8515f4fb70">张家界地图</a> 、<a href="https://github.com/microsoft/AirSim-Drone-Racing-Lab-Source/commit/c8847d41871590b69636d9c371172f94096f3e78">为所有地图添加F10</a> 等</p>
+<p><a href="https://github.com/Hak-Y/AirSim_Sensor/commits/main/">添加雷达传感器</a></p>
+<p><a href="https://github.com/spearuav/ninox-custom-airsim">添加/更新了集中式 linting 工作流程</a></p>
+<p><a href="https://github.com/muellerlab/AIFS_AirSim_Release">修改 AirSim 的分支以与定制的 Unity 模拟器配合使用</a> - 可作为 AIFS 农用飞行模拟器的子模块使用</p>
+<p><a href="https://github.com/muellerlab/agri-fly">用于农业环境飞行的AIFS模拟器</a> - 基于HiPeRLab、Helios和AirSim的代码，旨在帮助测试在包含高保真农业特征的模拟环境中不同的自主飞行策略（基于Unity）</p>
+<p><a href="https://github.com/Jois-Shreyank/AirSim-Execo">ROS2 humble 和 Ubuntu 22.04 兼容</a></p>
+<p><a href="https://github.com/microsoft/AirSim/compare/main...classicvalues:AirSim:master">classicvalues</a></p>
+<p><a href="https://github.com/majrblais/airsim_first">airsim_first</a></p>
+<p><a href="https://github.com/microsoft/AirSim/commit/e5f3a80c54efdd7a599e4486b22063394c9530e3">压缩图片</a></p>
+<p><a href="https://github.com/Syug0/airsim/commits/main/">Ubuntu-20.04 上的 Airsim</a> - 势场、自己的场景</p>
+<p><a href="https://github.com/qwertyBBeers/AirSim_PPO/commits/master/">AirSim_PPO</a></p>
+<p><a href="https://github.com/yigitserce/AirSimDevVerison/">AirSimDevVerison</a> - clang-12 error fixed</p>
+<p><a href="https://github.com/GimpelZhang/AirSim">当 ClockSpeed 设置改变时，模拟速度也会随之改变</a></p>
+<p><a href="https://github.com/AlexanderRex/airsim_ros2">万向节跟踪器添加需要修复 pid 控制</a></p>
+<p><a href="https://github.com/open-airlab/UNav-Sim">视觉逼真的水下机器人模拟器 UNav-Sim</a> - 基于虚幻5</p>
+<h3 id="_3">感知 <span id="perception"></span></h3>
 <p><a href="https://github.com/saipraneethd-zz/Robotic_Perception">从模拟环境收集的里程计数据</a> - 比较最小二乘估计器（LSQ）和扩展卡尔曼滤波器（EKF）进行传感器融合</p>
 <p><a href="https://github.com/MichaelLee0/P-Agent">P-Agent：使用 Pedras 和 AirSim 训练自主代理识别并获取包裹</a></p>
 <p><a href="https://github.com/JeremyBYU/UnrealRooftopLanding">屋顶着陆</a> - 融合 Polylidar3D 和深度学习，从 3D 点云中识别平面</p>
@@ -333,7 +353,7 @@
 <p><a href="https://github.com/Rohan201769/Collision_Avoidance_Drone">防撞无人机</a> - 实时无人机防撞系统使用 YOLOv8 计算机视觉检测障碍物并实施三区安全协议（紧急、关键和标准），以确保在动态环境中安全导航</p>
 <p><a href="https://github.com/castacks/firevision_sim">一款视觉效果惊艳的火焰红外模拟器，用于 SLAM 和感知</a></p>
 <p><a href="https://github.com/michael-2509/fire-detection-drone">能够在不同场景中探测火灾的无人机</a></p>
-<h3 id="_3">规划  <span id="planning"></span></h3>
+<h3 id="_4">规划  <span id="planning"></span></h3>
 <p><a href="https://github.com/heleidsn/UAV_Navigation_DRL_AirSim">在复杂未知环境下训练无人机导航策略的平台</a></p>
 <p><a href="https://github.com/MoeHameed/CPSC601-38-Project">蜂窝辅助无人机轨迹生成，实现最佳网络质量</a></p>
 <p><a href="https://github.com/emmarapt/OverFOMO">移动机器人在主动感知覆盖路径规划方案中的路径规划</a> - 基于在线接收的已捕获图像信息调整机器人速度</p>
@@ -354,7 +374,7 @@
 <p><a href="https://github.com/devprosvn/active-suspension-motion-planning-research">active-suspension 运动规划研究</a></p>
 <p><a href="https://github.com/Midas75/AirSim-OCTree-PathFinding">基于八叉树的无人机寻路算法</a></p>
 <p><a href="https://github.com/oaslananka/Airsim101_Yolov10">使用 AirSim 中的 A* 寻路、传感器数据集成和 YOLO 物体检测的自动驾驶汽车控制系统</a></p>
-<h3 id="_4">强化学习  <span id="rl"></span></h3>
+<h3 id="_5">强化学习  <span id="rl"></span></h3>
 <p><a href="https://github.com/AOS55/Fixedwing-Airsim">以模拟固定翼飞机进行强化学习 (RL)</a></p>
 <p><a href="https://github.com/aqeelanwar/DRLwithTL">深度强化学习与迁移学习</a></p>
 <p><a href="https://github.com/ByronDev121/DQN-Hind-Sight-Reward-Shaping">奖励塑造技术 Hind Sight Reward Shaping</a> - 利用贝尔曼方程的基本原理和当前最先进的深度强化学习算法（如 DQN）中的经验重放。</p>
@@ -390,7 +410,7 @@
 <p><a href="https://github.com/zhaoran2000/DRL-drones">用于最佳路径查找的深度强化学习模拟器和算法环境</a></p>
 <p><a href="https://github.com/Jigmiey/UAV-motion-planning-with-Reinforcement-Learning">在走廊环境中使用四轴飞行器进行自主导航</a> - 包含 PPO、SAC、DQN 和 DDPG 的实现，扩展自 <a href="https://github.com/Jigmiey/UAV-motion-planning-with-Reinforcement-Learning">Bilal Kabas</a></p>
 <p><a href="https://github.com/shawn243498/Reinforcement-Learning-in-Controlling-Quadrotor-UAV-Flight-Actions">强化学习在四旋翼无人机飞行动作控制中的应用</a></p>
-<h3 id="_5">控制  <span id="control"></span></h3>
+<h3 id="_6">控制  <span id="control"></span></h3>
 <p><a href="https://github.com/thechaos16/airsim_controller">AirSim中的控制</a></p>
 <p><a href="https://github.com/jjwong0915/collision-avoidance">实时防撞系统</a></p>
 <p><a href="https://github.com/FaisalAhmed0/gym-airsim">手动设计的控制器</a> - 此环境是一个 Gym API，专门用于学习无地图导航和飞行稳定性</p>
@@ -404,22 +424,22 @@
 <p><a href="https://github.com/StayInSchoolKiddos/airsim_sensor">包装并使用 Airsim 的摄像头和激光雷达与 ROS 2 进行交互</a></p>
 <p><a href="https://github.com/StayInSchoolKiddos/airsim_jsbsim">将 Airsim 与 ROS2 连接起来</a> - 通过在后端运行 JSBSim 并使用来自 airsim 的 MovePosition api 来移动相机 pawn 来完成的</p>
 <p><a href="https://github.com/annika-thomas/SOS-Match-ROS">SOS-Match ROS 节点</a></p>
-<h3 id="_6">大模型  <span id="llm"></span></h3>
+<h3 id="_7">大模型  <span id="llm"></span></h3>
 <p><a href="https://github.com/jenniferolenchak/DroneVQA">DroneVQA：在模拟四旋翼无人机上部署基于 Transformer 的视觉问答 (VQA) 人工智能模型进行视觉检查</a> - 通过比较答案准确性、主题理解、处理速度和模型训练改进等关键因素，比较开源模型的性能以及在无人机应用中进行微调的难易程度。用户可以在虚拟环境中驾驶无人机，并根据无人机摄像头的拍摄内容提出问题。生成了可解释的人工智能 (XAI) 结果可视化效果，从人工智能模型的角度展示提供的提示和图像，突出显示影响模型结论的关键因素以及最佳答案的权重。用户还可以选择模拟环境天气效应，例如雨、雪、灰尘和雾，以及镜头模糊、像素损坏和断线等摄像头缺陷</p>
 <p><a href="https://github.com/AirVLN/AirVLN">AerialVLN: 基于视觉和语言导航的无人机项目</a> - 提供 25 个城市级场景，图像逼真</p>
 <p><a href="https://github.com/Pendulumclock/FlightGPT">FlightGPT：基于视觉语言模型的无人机导航代理</a></p>
 <p><a href="https://github.com/JaeMin98/A-Generative-Digital-Twin-for-Continually-Enhancing-the-Intended-functional-safety-of-Cyber-Physical">生成式数字孪生技术用于持续增强信息物理系统的预期功能安全性</a></p>
 <p><a href="https://github.com/gcsarker/vlm_nav">基于视觉语言模型引导的单目视觉无人机导航</a> - 基于视觉语言模型（Google Gemini Flash 模型）开发了一套基于单目视觉的无人机导航与避障系统。前置摄像头捕捉的 RGB 图像通过 Depth-Anything 算法处理成深度图。生成的深度图随后被转化为三个离散动作。</p>
-<h3 id="_7">多智能体  <span id="multi_agent"></span></h3>
+<h3 id="_8">多智能体  <span id="multi_agent"></span></h3>
 <p><a href="https://github.com/sevilresearch/EntropySwarm">基于熵的多智能体无人机分布式行为建模</a></p>
 <p><a href="https://github.com/xxEoD2242/multi_agent_routing">多代理路由</a> - 一个通过使用导航库来控制多架无人机的开发库</p>
 <p><a href="https://github.com/54shitaimzf/BJTU_MultipleDrone">BJTU_MultipleDrone</a></p>
 <p><a href="https://github.com/sevilresearch/swarmVQA">无人机集群swarmVQA</a></p>
 <p><a href="https://github.com/ConorGagliardi/Monocular-Swarm">单摄像头（单目）实现多个 UAS 代理的群集/聚集行为</a></p>
-<h3 id="_8">端到端  <span id="end_2_end"></span></h3>
+<h3 id="_9">端到端  <span id="end_2_end"></span></h3>
 <p><a href="https://github.com/hku-mars/crossgap_il_rl">利用神经网络飞越狭窄缝隙</a> - 一种端到端的规划和控制方法</p>
 <p><a href="https://github.com/Shais-coder/git-clone-https-github.com-aqeelanwar-DRLwithTL">基于迁移学习 (TL) 的方法，通过深度强化学习减少训练深度神经网络进行自主导航所需的机载计算量</a> - 对网络进行端到端训练。这些训练好的元权重随后在模拟测试环境中用作网络的初始化器，并针对最后几个全连接层进行微调。为了验证该方法的鲁棒性，我们模拟了无人机动力学和环境特性的变化。包含真实DJI Tello 无人机上</p>
-<h3 id="_9">平台  <span id="platform"></span></h3>
+<h3 id="_10">平台  <span id="platform"></span></h3>
 <p><a href="https://github.com/l-gonz/tfg-giaa-dronecontrol">使无人机能够使用机载摄像头识别并跟踪其视野范围内的人员，从而跟踪他们的运动</a> - <a href="https://l-gonz.github.io/tfg-giaa-dronecontrol/">利用该平台开发集成计算机视觉技术的解决方案，并利用其输入来控制无人机的运动</a></p>
 <p><a href="https://github.com/MissouriMRR/IARC-2020">多旋翼机器人设计团队的2020年国际空中机器人竞赛代码</a> </p>
 <p><a href="https://github.com/KhanZznBabyPluto/YandexCalendarBot">Yandex Calendar Bot 是一款异步 Telegram 机器人</a></p>
@@ -439,7 +459,7 @@
 <p><a href="https://github.com/ashutoshkumar98/Simulation-for-Drone-in-Agriculture">使用 AirSim 进行农业无人机模拟</a></p>
 <p><a href="https://github.com/SHAILAB-IPEC/OpenFly-Platform">OpenFly平台</a> - 通过提供高度自动化的数据收集工具链和大规模基准数据集，推动户外空中视觉语言导航 (VLN) 的研究。它包含 10 万条不同的飞行轨迹、使用尖端渲染技术生成的高质量视觉数据，以及一个关键帧感知的 VLN 模型 OpenFly-Agent</p>
 <p><a href="https://github.com/Akira1906/trentos-drone">嵌入式无人机控制系统具有基于 LiDAR 的物体检测、实时导航和精确着陆功能</a></p>
-<h3 id="_10">数据  <span id="data"></span></h3>
+<h3 id="_11">数据  <span id="data"></span></h3>
 <p><a href="https://github.com/joigalcar3/DataGatheringUE4">生成执行器故障下的无人机传感器数据</a> - 为了开发和评估基于视觉的 FDD 算法的性能，需要一个包含正常飞行和故障场景下 IMU 和摄像头输出的数据集。介绍了 UUFOSim（虚幻无人机故障注入模拟器），这是一个基于 AirSim 构建的数据收集流程，用于收集城市环境中执行器故障的合成飞行数据</p>
 <p><a href="https://github.com/adamdai/AirSim-Data-Collection">AirSim 数据收集</a></p>
 <p><a href="https://github.com/chao8038/Sensor-simulation-Ue4-Ubuntu">传感器数据收集</a></p>
@@ -454,7 +474,7 @@
 <p><a href="https://github.com/research-cheese/tempus">包括创建数据、模型精调、预测</a> - 包括cityenviron的图片数据集</p>
 <p><a href="https://github.com/adamdai/airsim-nerf">airsim-nerf 三位重建</a></p>
 <p><a href="https://github.com/Vicomtech/DiverSim">DiverSim用于生成注重多样性和包容性的合成行人数据</a> - 基于虚幻引擎 5 构建，可创建均衡的数据集，其中包含相同比例的性别、种族和残障人士。用户可以自定义各种模拟参数，包括大气条件、鱼眼相机参数和行人特征，数据则以ASAM OpenLABEL格式进行注释</p>
-<h3 id="_11">工具  <span id="tool"></span></h3>
+<h3 id="_12">工具  <span id="tool"></span></h3>
 <p><a href="https://github.com/Kamaropoulos/AirSim_Gym">适用于 AirSim Multirotor 模拟器的 OpenAI Gym 环境</a></p>
 <p><a href="https://github.com/aqeelanwar/PEDRA">无人机强化学习（RL）应用的可编程引擎（PEDRA-2.0）</a>  - 其他 <a href="https://github.com/classicvalues/PEDRA">相似项目</a></p>
 <p><a href="https://github.com/TDYbrownrc/AirGym">OpenAI Gym 的 AirSim 接口</a> - 支持两种无人机控制类型：离散位置控制和连续速度控制</p>
@@ -469,11 +489,11 @@
 <p><a href="https://github.com/duy1009/Resnet8">Resnet8</a> - 包括数据收集、训练、评测</p>
 <p><a href="https://github.com/Eagle-Enterprises/Training-Environment">与训练环境 IPT 相关的文件的软件仓库</a> - 用于创建 Eagle Enterprises 训练环境的所有插件文件、虚幻资源和虚幻蓝图文件</p>
 <p><a href="https://github.com/lfeng0722/drone_testing">无人机测试</a></p>
-<h3 id="_12">地图  <span id="map"></span></h3>
+<h3 id="_13">地图  <span id="map"></span></h3>
 <p><a href="https://github.com/rainfall1998/3D_reconstruction_system">基于图像的无人机3D地图构建系统</a></p>
 <p><a href="https://github.com/JeremyBYU/airsimgeo">推理模拟环境中可能存在的任意投影系统</a> - 使用虚幻引擎构建的德国维滕一小块街区的示例。模拟环境是一个基于 OSM 的地理参考世界，采用 UTM32N 投影坐标系。通过 GPS 位置控制四旋翼飞行器降落在建筑物上。</p>
 <p><a href="https://github.com/ElishaAz/simple_airsim">构建了一些环境</a></p>
-<h3 id="_13">比赛 <span id="contest"></span></h3>
+<h3 id="_14">比赛 <span id="contest"></span></h3>
 <p><a href="https://github.com/hoangtnm/mark1_project">方程式无人驾驶赛车</a> - 包括素材构建流程、模仿学习（TODO）</p>
 <p><a href="https://github.com/travisbartholome/senior-design-2020-drone">定制控制系统的无人机</a></p>
 <p><a href="https://github.com/AdityaNG/VRE_PATH_PLANNER">方程式赛车</a></p>
@@ -482,28 +502,9 @@
 <p><a href="https://github.com/MissouriMRR/Simulation-2023">密苏里科技大学多旋翼设计团队为 2023-2024 年学生无人机系统竞赛 (SUAS) 设计的模拟环境</a></p>
 <p><a href="https://github.com/MissouriMRR/SUAS-2025">密苏里科技大学多旋翼设计团队参加 2025 年学生无人机系统竞赛 (SUAS) 的代码</a></p>
 <p><a href="https://github.com/MissouriMRR/Simulation-2024-SUAS-Enviroment">密苏里科技大学多旋翼设计团队为 2023-2024 年学生无人机系统竞赛 (SUAS) 设计的模拟环境</a></p>
-<h3 id="_14">研究  <span id="research"></span></h3>
+<h3 id="_15">研究  <span id="research"></span></h3>
 <p><a href="https://github.com/UM-iRaL/Resource-Aware-Coordination-AirSim">资源感知分布式贪婪算法 (RAG)</a> - 一种用于机器人网状网络中分布式子模优化的高效通信和计算方法</p>
-<h3 id="_15">模拟器定制  <span id="custom"></span></h3>
-<p><a href="https://github.com/9woods123/Airsim_keyboard_control_car">进行了二次开发，打造了一款可以同时控制飞机和汽车模型的多人游戏</a></p>
-<p><a href="https://github.com/CoRAL-OSU/AirSim_NRI">时空变化风支持所做的更改</a></p>
-<p><a href="https://github.com/akhil22/Colosseum">Colosseum，AirSim的继任者</a></p>
-<p><a href="https://github.com/Midas75/AirSim">增加了一个宏，用于实现不同的sleep策略</a> - 以或多或少的计时精确性为代价，改进AirSim在多机（&gt;20 in i7-12700）仿真下的性能表现。</p>
-<p><a href="https://github.com/microsoft/AirSim-Drone-Racing-Lab-Source/commit/4a03fd554534a946a27c4dd7c3067b8515f4fb70">张家界地图</a> 、<a href="https://github.com/microsoft/AirSim-Drone-Racing-Lab-Source/commit/c8847d41871590b69636d9c371172f94096f3e78">为所有地图添加F10</a> 等</p>
-<p><a href="https://github.com/Hak-Y/AirSim_Sensor/commits/main/">添加雷达传感器</a></p>
-<p><a href="https://github.com/spearuav/ninox-custom-airsim">添加/更新了集中式 linting 工作流程</a></p>
-<p><a href="https://github.com/muellerlab/AIFS_AirSim_Release">修改 AirSim 的分支以与定制的 Unity 模拟器配合使用</a> - 可作为 AIFS 农用飞行模拟器的子模块使用</p>
-<p><a href="https://github.com/muellerlab/agri-fly">用于农业环境飞行的AIFS模拟器</a> - 基于HiPeRLab、Helios和AirSim的代码，旨在帮助测试在包含高保真农业特征的模拟环境中不同的自主飞行策略（基于Unity）</p>
-<p><a href="https://github.com/Jois-Shreyank/AirSim-Execo">ROS2 humble 和 Ubuntu 22.04 兼容</a></p>
-<p><a href="https://github.com/microsoft/AirSim/compare/main...classicvalues:AirSim:master">classicvalues</a></p>
-<p><a href="https://github.com/majrblais/airsim_first">airsim_first</a></p>
-<p><a href="https://github.com/microsoft/AirSim/commit/e5f3a80c54efdd7a599e4486b22063394c9530e3">压缩图片</a></p>
-<p><a href="https://github.com/Syug0/airsim/commits/main/">Ubuntu-20.04 上的 Airsim</a> - 势场、自己的场景</p>
-<p><a href="https://github.com/qwertyBBeers/AirSim_PPO/commits/master/">AirSim_PPO</a></p>
-<p><a href="https://github.com/yigitserce/AirSimDevVerison/">AirSimDevVerison</a> - clang-12 error fixed</p>
-<p><a href="https://github.com/GimpelZhang/AirSim">当 ClockSpeed 设置改变时，模拟速度也会随之改变</a></p>
-<p><a href="https://github.com/AlexanderRex/airsim_ros2">万向节跟踪器添加需要修复 pid 控制</a></p>
-<p><a href="https://github.com/open-airlab/UNav-Sim">视觉逼真的水下机器人模拟器 UNav-Sim</a> - 基于虚幻5</p>
+<p><a href="https://github.com/SHAILAB-IPEC/OpenFly-Platform">OpenFly</a> - 提供高度自动化的数据采集工具链和大规模基准数据集，推进户外空中视觉语言导航（VLN）领域的研究。该平台包含10万条多样化的飞行轨迹、采用尖端渲染技术生成的高质量视觉数据，以及关键帧感知型VLN模型OpenFly-Agent</p>
 <h2 id="_16">人  <span id="humanoid"></span></h2>
 <p><a href="https://github.com/ritwikbera/multimodal_hitl">多模态人机交互（Human-in-the-loop, HITL）学习</a> - 整合眼神注视和自然语言，实现人机交互学习。预测的凝视和真实凝视对比</p>
 <p><a href="https://github.com/viniciusguigo/complete_col">使用人类交互和强化学习实时教导学习代理完成不同的任务</a> - 学习周期应用于教导四旋翼飞行器如何基于人机交互和强化学习降落在着陆台上</p>

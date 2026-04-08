@@ -284,10 +284,16 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="_1">编译中的问题</h1>
-<div class="highlight"><pre><span></span><code>D:\hutb\Unreal\CarlaUE4\Plugins\Carla\CarlaDependencies\include\boost/asio/detail/impl/win_iocp_socket_service_base.ipp(800): error C3861: ��InterlockedCompareExchangePointer��: �Ҳ�����ʶ��
+<p>执行<code>make launch</code>到<code>BuildCarlaUE4</code>时报错：
+<div class="highlight"><pre><span></span><code>D:\hutb\Unreal\CarlaUE4\Plugins\Carla\CarlaDependencies\include\boost/asio/detail/impl/winsock_init.ipp(36): error C2039: &quot;InterlockedIncrement&quot;: ���� &quot;`global namespace&#39;&quot; �ĳ�Ա
 ...
-D:\hutb\Unreal\CarlaUE4\Plugins\AirSim\Source\Vehicles/Multirotor/MultirotorPawnSimApi.h(88): error C4430: 
-</code></pre></div>
+D:\hutb\Unreal\CarlaUE4\Plugins\AirSim\Source\Vehicles/Multirotor/MultirotorPawnSimApi.h(85): error C3646: ��collision_response��: 未知重写说明符
+...
+D:/hutb/Unreal/CarlaUE4/Plugins/AirSim/Source/Vehicles/Multirotor/MultirotorPawnSimApi.cpp(148): error C2660: ��UAirBlueprintLib::LogMessage��: ���������� 2 ������
+...
+  D:/hutb/Unreal/CarlaUE4/Plugins/AirSim/Source/WorldSimApi.cpp(482): error C2671: ��WorldSimApi::setObjectMaterialFromTexture��: ��̬��Ա����û�С�this��ָ��
+  D:/hutb/Unreal/CarlaUE4/Plugins/AirSim/Source/WorldSimApi.cpp(508): error C2440: ��&lt;function-style-cast&gt;��: �޷��ӡ�initializer list��ת��Ϊ��WorldSimApi::setObjectMaterialFromTexture::&lt;lambda_ada7d7381434a2d23717f3ff26793be2&gt;��
+</code></pre></div></p>
 <p>error C3646: 如果在使用时出现两个类分别在两个不同的文件中编写，并且相互引用，则会出现<strong>循环引用</strong>，引发此错误。</p>
               
             </div>
