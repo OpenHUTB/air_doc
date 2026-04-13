@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>CarlaAir Windows 适配交接文档 - 低空模拟器</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "CarlaAir Windows \u9002\u914d\u4ea4\u63a5\u6587\u6863";
+        var mkdocs_page_input_path = "dev/windows_porting_handoff_CN.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 低空模拟器
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="搜索文档" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">主页</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../..">主页</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">构建 AirSim</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../use_precompiled/">下载二进制文件</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../build_windows/">在 Windows 上构建</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../build_linux/">在 Linux 上构建</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../build_macos/">在 macOS 上构建</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../docker_ubuntu/">Linux 上的 Docker</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../azure/">Azure 上的 ArSim</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../unreal_custenv/">定制虚幻引擎环境</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../build_faq/">场景问题和回答</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">使用 AirSim</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../apis/">核心 APIs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../image_apis/">图像 APIs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../apis_cpp/">C++ APIs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://openhutb.github.io/doc/python_api/#airsim.client.MultirotorClient">无人机 API 参考文档</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../api_docs/_build/html/">原始 API 参考文档</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../wiki/">Wiki 文档</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../dev_workflow/">开发工作流</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../settings/">设置</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../map/">地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../camera_views/">相机视角</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../using_car/">汽车模式</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../remote_control/">远程控制</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../xbox_controller/">XBox 控制器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../steering_wheel_installation/">方向盘</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../multi_vehicle/">多车辆</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >传感器</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../sensors/">传感器</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../lidar/">激光雷达</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../distance_sensor/">距离传感器</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../InfraredCamera/">红外相机</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../airsim_ros_pkgs/">ROS: AirSim ROS 包装器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../airsim_tutorial_pkgs/">ROS: AirSim 教程包</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../gazebo_drone/">导入 Gazebo 模型</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../retexturing/">域随机化</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../meshes/">网格顶点缓冲区</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../playback/">播放日志</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../voxel_grid/">体素网格生成器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../event_sim/">事件相机</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">设计</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../design/">架构</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../code_structure/">代码结构</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../adding_new_apis/">添加新的 APIs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../modify_recording_data/">修改记录数据</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../coding_guidelines/">编码指南</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../flight_controller/">飞行控制器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simple_flight/">简单飞行</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hello_drone/">Hello Drone</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">外部飞行控制器</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" >MavLink 和 PX4</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../px4_setup/">AirSim 的 PX4 设置</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../px4_sitl/">软件在环中的 PX4</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../px4_sitl_wsl2/">带有 WSL 2 的 PX4 SITL</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../px4_lockstep/">PX4 Lockstep</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../px4_multi_vehicle/">软件在环中的 PX4 多车辆</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="https://youtu.be/1oY8Qu5maQQ">AirSim 与 Pixhawk</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="https://youtu.be/HNWdYrtw3f0">使用 AirSim 设置 PX4</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="https://www.youtube.com/watch?v=d_FyjKDWQfc&feature=youtu.be">调试姿态估计</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="https://github.com/Microsoft/AirSim/wiki/Intercepting-MavLink-messages">拦截 MavLink 消息</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="https://github.com/Microsoft/AirSim/wiki/Rapid-Descent-on-PX4-drones">PX4 无人机快速下降</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../px4_build/">构建 PX4</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../px4_logging/">PX4/MavLink 日志记录</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../log_viewer/">MavLink 日志查看器</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../mavlinkcom/">MavLinkCom</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../mavlinkcom_mocap/">MavLink MoCap</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >ArduPilot</a>
+    <ul>
+                <li class="toctree-l2"><a class="" href="https://ardupilot.org/dev/docs/building-the-code.html">ArduPilot 软件在环设置</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="https://ardupilot.org/dev/docs/sitl-with-airsim.html">AirSim & ArduPilot</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">升级</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../unreal_upgrade/">升级虚幻引擎</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../upgrade_apis/">升级 APIs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../upgrade_settings/">升级设置</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">贡献教程</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../reinforcement_learning/">强化学习</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://www.youtube.com/watch?v=y09VbdQWvQY">使用 Marketplace 中的环境</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://github.com/simondlevy/AirSimTensorFlow">简单的防撞</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://aka.ms/AutonomousDrivingCookbook">Azure 上的自动驾驶</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../wiki/hexacopter/">构造六旋翼飞行器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../wiki/moveOnPath-demo/">移动路径演示</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../point_clouds/">构建点云</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../drone_survey/">使用无人机进行测量</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../orbit/">轨道轨迹</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://youtu.be/Bp86WiLUC80">导入自定义多旋翼网格</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../object_detection/">Object Detection</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://youtu.be/ZonkdMcwXH4">带有 MAVROS 和 PX4 的 AirSim</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">杂项</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../custom_drone/">真实无人机上的 AirSim</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../cmake_linux/">在 Linux 上安装 cmake</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hard_drive/">硬盘繁忙时的提示</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pfm/">pfm 格式</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../unreal_proj/">设置虚幻引擎环境</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../unreal_blocks/">Blocks 环境</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../who_is_using/">谁在使用 AirSim</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../working_with_plugin_contents/">使用 UE 插件内容</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../wiki/technion/technion/">大学生方程式赛车以色列理工学院自驾赛</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">支持</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../faq/">FAQ</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../SUPPORT/">支持</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../CHANGELOG/">修改记录</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../create_issue/">创建问题</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../CONTRIBUTING/">贡献</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">低空模拟器</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">CarlaAir Windows 适配交接文档</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/dev/windows_porting_handoff_CN.md" class="icon icon-github"> 在 GitHub 上编辑</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="carlaair-windows">CarlaAir Windows 适配交接文档</h1>
+<p>本文档面向两类用途：</p>
+<ol>
+<li>作为当前 <code>CarlaAir</code> Windows 版本的二次开发参考。</li>
+<li>作为新 agent 的交接上下文，用于在 <code>CarlaAir</code> 升级后快速恢复和更新 Windows 版源码。</li>
+</ol>
+<h2 id="1">1. 当前基线</h2>
+<ul>
+<li>工作区根目录：<code>D:\Code\CarlaAir</code></li>
+<li>当前上游源码目录：<code>D:\Code\CarlaAir\CarlaAir-v0.1.7</code></li>
+<li>当前 UE4 根目录：<code>D:\Code\CarlaAir\UE4</code></li>
+<li>当前整理好的 Windows 发行目录：<code>D:\Code\CarlaAir\CarlaAir-v0.1.7-Windows11-x86_64</code></li>
+<li>旧 Linux 二进制包：<code>D:\Code\CarlaAir\CarlaAir-v0.1.6</code></li>
+<li>当前源码基线 commit：<code>7a7fdb33c15a31fbcc55040d9aaf42344ce9bfde</code></li>
+</ul>
+<p>版本关系：</p>
+<ul>
+<li>CarlaAir 基线：<code>v0.1.7</code></li>
+<li>CARLA 基线：<code>0.9.16</code></li>
+<li>AirSim 基线：<code>1.8.1</code></li>
+<li>UE4 基线：<code>CARLA fork UE4.26</code></li>
+</ul>
+<p>必须强调：</p>
+<ul>
+<li>Windows 移植成功依赖的是 <code>CARLA fork UE4.26</code>，不是 Epic Launcher 官方 UE4.26。</li>
+<li>当前已经验证可用的是本地 <code>D:\Code\CarlaAir\UE4</code> 这棵源码引擎树。</li>
+<li>当前源码树和发行目录已经分离。源码树里原始 <code>Build\UE4Carla\...</code> 打包目录已在清理时删除，最终可运行包以独立发行目录为准。</li>
+</ul>
+<h2 id="2">2. 当前目录角色</h2>
+<h3 id="21">2.1 源码树</h3>
+<ul>
+<li><code>D:\Code\CarlaAir\CarlaAir-v0.1.7</code>
+  用于继续开发、重新编译、升级到新版本、重新打包。</li>
+</ul>
+<h3 id="22-ue4">2.2 UE4 工具链树</h3>
+<ul>
+<li><code>D:\Code\CarlaAir\UE4</code>
+  已补齐为可用的 <code>UE4_ROOT</code>。</li>
+</ul>
+<h3 id="23-windows">2.3 Windows 发行目录</h3>
+<ul>
+<li><code>D:\Code\CarlaAir\CarlaAir-v0.1.7-Windows11-x86_64</code>
+  这是最终运行版，不是开发树。</li>
+</ul>
+<p>发行目录内保留了：</p>
+<ul>
+<li><code>WindowsNoEditor/</code></li>
+<li><code>CarlaAir.ps1</code></li>
+<li><code>StartCarlaAir.bat</code></li>
+<li><code>StopCarlaAir.bat</code></li>
+<li><code>SetupEnv.bat</code></li>
+<li><code>TestEnv.bat</code></li>
+<li><code>env_setup/</code></li>
+<li><code>PythonAPI/carla/dist/*.whl</code></li>
+<li><code>examples/</code></li>
+<li><code>examples_record_demo/</code></li>
+<li><code>AirSimConfig/settings.json</code></li>
+</ul>
+<h3 id="24-linux">2.4 旧版 Linux 包</h3>
+<ul>
+<li><code>D:\Code\CarlaAir\CarlaAir-v0.1.6</code>
+  仅作为历史运行包或兼容参考，不再作为 Windows 开发底座。</li>
+</ul>
+<h2 id="3">3. 当前已验证的能力</h2>
+<p>以下能力已经在 Windows 11 x86_64 本机上完成闭环验证：</p>
+<ul>
+<li><code>BuildUE4</code> 成功</li>
+<li><code>Package</code> 成功</li>
+<li>原生 Windows 启动成功</li>
+<li><code>CARLA</code> 端口 <code>2000</code> 可连通</li>
+<li><code>AirSim</code> 端口 <code>41451</code> 可连通</li>
+<li><code>carla.Client(...)</code> 可连接并读取地图</li>
+<li><code>airsim.MultirotorClient(...)</code> 可连接</li>
+<li><code>auto_traffic.py</code> 可启动</li>
+<li><code>record_vehicle.py</code> 可生成轨迹 JSON</li>
+<li><code>record_walker.py</code> 可生成轨迹 JSON</li>
+<li><code>record_drone.py</code> 可生成轨迹 JSON</li>
+<li><code>demo_director.py</code> 可加载三类 JSON 并输出 MP4</li>
+<li><code>v0.1.6</code> 旧格式轨迹 JSON 可被 <code>v0.1.7</code> 导演脚本加载</li>
+</ul>
+<p>结论：</p>
+<ul>
+<li>当前 Windows 移植目标已经完成，不只是“能编译”，而是“能运行、能录制、能导出视频”。</li>
+</ul>
+<h2 id="4-windows">4. Windows 适配的关键差异</h2>
+<p>Windows 适配不是简单换脚本，而是同时改了 4 层：</p>
+<ol>
+<li>构建链</li>
+<li>Python 环境链</li>
+<li>UE4/CARLA/AirSim 源码兼容</li>
+<li>运行和示例验证入口</li>
+</ol>
+<h3 id="41-windows">4.1 新增的 Windows 入口文件</h3>
+<p>以下文件是 Windows 适配的显式入口：</p>
+<ul>
+<li><code>BuildWindows.ps1</code></li>
+<li><code>CarlaAir.ps1</code></li>
+<li><code>env_setup/SetupEnv.ps1</code></li>
+<li><code>env_setup/TestEnv.ps1</code></li>
+<li>发行目录中的 <code>.bat</code> 包装器</li>
+</ul>
+<p>这些文件的职责：</p>
+<ul>
+<li><code>BuildWindows.ps1</code>
+  统一调用 Windows 构建阶段，支持 <code>-Setup</code>、<code>-BuildLibCarla</code>、<code>-BuildOSM2ODR</code>、<code>-BuildPythonApi</code>、<code>-BuildUE4</code>、<code>-Package</code></li>
+<li><code>CarlaAir.ps1</code>
+  统一启动 <code>WindowsNoEditor</code> 包、写入 AirSim 配置、等待端口、可选拉起 <code>auto_traffic.py</code></li>
+<li><code>SetupEnv.ps1</code>
+  创建和配置 <code>carlaAir</code> Conda 环境，并安装 Win64 <code>carla</code> wheel</li>
+<li><code>TestEnv.ps1</code>
+  检查 Python 模块、端口和基本运行条件</li>
+</ul>
+<h3 id="42">4.2 构建链修改的重点</h3>
+<p>改动主要集中在这些目录：</p>
+<ul>
+<li><code>Util/BuildTools/*.bat</code></li>
+<li><code>Util/InstallersWin/*.bat</code></li>
+<li><code>Unreal/CarlaUE4/Source/*.Target.cs</code></li>
+</ul>
+<p>构建链修改目标：</p>
+<ul>
+<li>让 <code>VS2022 + Windows + CARLA fork UE4.26</code> 真正可用</li>
+<li>修正批处理参数传递、返回码传播、路径解析</li>
+<li>保证 <code>Package.bat</code> 能跑完 <code>cook/stage/package</code></li>
+<li>避免脚本错误地依赖 Linux 产物或官方 Epic UE4.26</li>
+</ul>
+<h3 id="43-libcarla">4.3 LibCarla / 编译器兼容修改</h3>
+<p>改动集中在：</p>
+<ul>
+<li><code>LibCarla/source/compiler/disable-ue4-macros.h</code></li>
+<li><code>LibCarla/source/compiler/enable-ue4-macros.h</code></li>
+<li><code>LibCarla/source/carla/rpc/Server.h</code></li>
+</ul>
+<p>主要目的：</p>
+<ul>
+<li>处理 Windows/MSVC 下的宏污染和头文件冲突</li>
+<li>避免 UE4 宏与 Boost/标准库符号冲突</li>
+</ul>
+<h3 id="44-airsim">4.4 AirSim 兼容修改</h3>
+<p>改动集中在：</p>
+<ul>
+<li><code>Unreal/CarlaUE4/Plugins/AirSim/AirSim.uplugin</code></li>
+<li><code>Unreal/CarlaUE4/Plugins/AirSim/Source/AirSim.Build.cs</code></li>
+<li><code>Unreal/CarlaUE4/Plugins/AirSim/Source/AirBlueprintLib.cpp</code></li>
+<li><code>Unreal/CarlaUE4/Plugins/AirSim/Source/AirSim.cpp</code></li>
+<li><code>Unreal/CarlaUE4/Plugins/AirSim/Source/SimWorldGameMode.cpp</code></li>
+<li><code>Unreal/CarlaUE4/Plugins/AirSim/Source/WorldSimApi.cpp</code></li>
+<li><code>Unreal/CarlaUE4/Plugins/AirSim/Source/WorldSimApi.h</code></li>
+<li><code>Unreal/CarlaUE4/Plugins/AirSim/Source/AirLib/include/common/common_utils/Utils.hpp</code></li>
+<li><code>Unreal/CarlaUE4/Plugins/AirSim/Source/SimJoyStick/DirectInputJoyStick.cpp</code></li>
+<li><code>Unreal/CarlaUE4/Plugins/AirSim/Source/AirLib/update_mavlibkcom.bat</code></li>
+<li>新增 <code>Unreal/CarlaUE4/Plugins/AirSim/Source/MavLinkCom/</code></li>
+<li>新增 <code>Unreal/CarlaUE4/Plugins/AirSim/Source/AirLib/lib/</code></li>
+<li>新增 <code>Unreal/CarlaUE4/Plugins/AirSim/Source/AirLib/AirSim.props</code></li>
+</ul>
+<p>主要目的：</p>
+<ul>
+<li>补齐 AirSim 1.8.1 的 Windows 编译依赖</li>
+<li>修正 Windows 下 joystick、world sim 和构建行为</li>
+<li>让 AirSim 插件能在当前 CarlaAir 工程中与 Windows 打包链共同工作</li>
+</ul>
+<h3 id="45-carla">4.5 Carla 插件兼容修改</h3>
+<p>改动集中在：</p>
+<ul>
+<li><code>Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Carla.Build.cs</code></li>
+<li><code>Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/SceneCaptureSensor.h</code></li>
+<li><code>Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/SceneCaptureSensor.cpp</code></li>
+<li><code>Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/DepthCamera_WideAngleLens.cpp</code></li>
+<li><code>Unreal/CarlaUE4/Config/DefaultEngine.ini</code></li>
+</ul>
+<p>这里是最脆弱的一层，原因有两个：</p>
+<ul>
+<li>CarlaAir 依赖的是 <code>CARLA fork UE4.26</code></li>
+<li>不正确的插件材质或旧 cooked 资产会导致 <code>cook</code> 崩溃</li>
+</ul>
+<p>历史经验必须记住：</p>
+<ul>
+<li>不要从 <code>v0.1.6</code> Linux 运行包里直接拿 <code>Plugins/Carla/Content/PostProcessingMaterials</code> 作为 Windows 构建资产。</li>
+<li>旧包里的这批资产是 cooked/unversioned 产物，会导致 <code>Package</code> 在 shader/cook 阶段崩溃。</li>
+<li>这里最终应以 <code>CARLA 0.9.16</code> 官方源码对应的 Carla 插件资产为准。</li>
+</ul>
+<h2 id="5">5. 当前工作副本中的主要改动面</h2>
+<p>截至本次交接，<code>git status</code> 显示的本地改动主要包括：</p>
+<h3 id="51">5.1 修改文件</h3>
+<ul>
+<li><code>LibCarla/source/carla/rpc/Server.h</code></li>
+<li><code>LibCarla/source/compiler/disable-ue4-macros.h</code></li>
+<li><code>LibCarla/source/compiler/enable-ue4-macros.h</code></li>
+<li><code>Unreal/CarlaUE4/Config/DefaultEngine.ini</code></li>
+<li><code>Unreal/CarlaUE4/Plugins/AirSim/AirSim.uplugin</code></li>
+<li><code>Unreal/CarlaUE4/Plugins/AirSim/Source/...</code></li>
+<li><code>Unreal/CarlaUE4/Plugins/Carla/Source/...</code></li>
+<li><code>Unreal/CarlaUE4/Source/CarlaUE4.Target.cs</code></li>
+<li><code>Unreal/CarlaUE4/Source/CarlaUE4Editor.Target.cs</code></li>
+<li><code>Util/BuildTools/*.bat</code></li>
+<li><code>Util/InstallersWin/*.bat</code></li>
+<li><code>examples_record_demo/*.py</code></li>
+</ul>
+<h3 id="52">5.2 新增文件或目录</h3>
+<ul>
+<li><code>AirSimConfig/</code></li>
+<li><code>BuildWindows.ps1</code></li>
+<li><code>CarlaAir.ps1</code></li>
+<li><code>env_setup/SetupEnv.ps1</code></li>
+<li><code>env_setup/TestEnv.ps1</code></li>
+<li><code>Unreal/CarlaUE4/Plugins/AirSim/Source/AirLib/AirSim.props</code></li>
+<li><code>Unreal/CarlaUE4/Plugins/AirSim/Source/AirLib/lib/</code></li>
+<li><code>Unreal/CarlaUE4/Plugins/AirSim/Source/MavLinkCom/</code></li>
+<li><code>Util/BuildTools/Bootstrap.bat</code></li>
+</ul>
+<h2 id="6">6. 当前本地依赖前提</h2>
+<h3 id="61">6.1 必须满足</h3>
+<ul>
+<li>Windows 11 x86_64</li>
+<li>NVIDIA 独立 GPU</li>
+<li>Visual Studio 2022 Desktop C++</li>
+<li>CMake</li>
+<li>Git</li>
+<li>Miniconda 或 Anaconda</li>
+<li>Python 3.10</li>
+<li><code>CARLA fork UE4.26</code></li>
+</ul>
+<h3 id="62">6.2 当前已知本机路径</h3>
+<ul>
+<li><code>UE4_ROOT = D:\Code\CarlaAir\UE4</code></li>
+<li>常用源码树：<code>D:\Code\CarlaAir\CarlaAir-v0.1.7</code></li>
+<li>发行目录：<code>D:\Code\CarlaAir\CarlaAir-v0.1.7-Windows11-x86_64</code></li>
+</ul>
+<h3 id="63-conda">6.3 Conda 环境约定</h3>
+<ul>
+<li>环境名：<code>carlaAir</code></li>
+<li><code>SetupEnv.ps1</code> 和 <code>CarlaAir.ps1</code> 都会优先尝试自动发现 <code>conda.exe</code></li>
+<li>兼容这些常见位置：</li>
+<li><code>CONDA_EXE</code></li>
+<li><code>PATH</code> 中的 <code>conda</code></li>
+<li><code>D:\Code\Anaconda3\Scripts\conda.exe</code></li>
+<li><code>%LOCALAPPDATA%\\miniconda3\\Scripts\\conda.exe</code></li>
+<li><code>%LOCALAPPDATA%\\anaconda3\\Scripts\\conda.exe</code></li>
+<li><code>%USERPROFILE%\\miniconda3\\Scripts\\conda.exe</code></li>
+<li><code>%USERPROFILE%\\anaconda3\\Scripts\\conda.exe</code></li>
+<li><code>C:\ProgramData\miniconda3\Scripts\conda.exe</code></li>
+<li><code>C:\ProgramData\anaconda3\Scripts\conda.exe</code></li>
+</ul>
+<h2 id="7-windows">7. 从头重建 Windows 版的正确顺序</h2>
+<p>如果需要在当前 <code>v0.1.7</code> 上完整重建 Windows 版，顺序如下：</p>
+<ol>
+<li>准备 <code>UE4_ROOT</code></li>
+<li>准备 <code>Content/Carla</code> 官方资产</li>
+<li>准备 AirSim 1.8.1 依赖</li>
+<li>跑 Windows 构建链</li>
+<li>配置 Python 环境</li>
+<li>启动并做功能验证</li>
+<li>整理发行目录</li>
+</ol>
+<p>标准命令序列：</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd </span><span class="n">D</span><span class="p">:\</span><span class="n">Code</span><span class="p">\</span><span class="n">CarlaAir</span><span class="p">\</span><span class="n">CarlaAir-v0</span><span class="p">.</span><span class="n">1</span><span class="p">.</span><span class="n">7</span>
+<span class="n">powershell</span> <span class="n">-ExecutionPolicy</span> <span class="n">Bypass</span> <span class="o">-File</span> <span class="p">.\</span><span class="n">BuildWindows</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-Setup</span>
+<span class="n">powershell</span> <span class="n">-ExecutionPolicy</span> <span class="n">Bypass</span> <span class="o">-File</span> <span class="p">.\</span><span class="n">BuildWindows</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-BuildLibCarla</span>
+<span class="n">powershell</span> <span class="n">-ExecutionPolicy</span> <span class="n">Bypass</span> <span class="o">-File</span> <span class="p">.\</span><span class="n">BuildWindows</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-BuildOSM2ODR</span>
+<span class="n">powershell</span> <span class="n">-ExecutionPolicy</span> <span class="n">Bypass</span> <span class="o">-File</span> <span class="p">.\</span><span class="n">BuildWindows</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-BuildPythonApi</span>
+<span class="n">powershell</span> <span class="n">-ExecutionPolicy</span> <span class="n">Bypass</span> <span class="o">-File</span> <span class="p">.\</span><span class="n">BuildWindows</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-BuildUE4</span>
+<span class="n">powershell</span> <span class="n">-ExecutionPolicy</span> <span class="n">Bypass</span> <span class="o">-File</span> <span class="p">.\</span><span class="n">BuildWindows</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-Package</span>
+</code></pre></div>
+<p>环境与启动：</p>
+<div class="highlight"><pre><span></span><code><span class="n">powershell</span> <span class="n">-ExecutionPolicy</span> <span class="n">Bypass</span> <span class="o">-File</span> <span class="p">.\</span><span class="n">env_setup</span><span class="p">\</span><span class="n">SetupEnv</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-EnvName</span> <span class="n">carlaAir</span>
+<span class="n">powershell</span> <span class="n">-ExecutionPolicy</span> <span class="n">Bypass</span> <span class="o">-File</span> <span class="p">.\</span><span class="n">env_setup</span><span class="p">\</span><span class="n">TestEnv</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-EnvName</span> <span class="n">carlaAir</span>
+<span class="n">powershell</span> <span class="n">-ExecutionPolicy</span> <span class="n">Bypass</span> <span class="o">-File</span> <span class="p">.\</span><span class="n">CarlaAir</span><span class="p">.</span><span class="n">ps1</span> <span class="n">Town10HD</span> <span class="p">-</span><span class="n">-no-traffic</span>
+</code></pre></div>
+<h2 id="8-carlaair">8. CarlaAir 升级到新版本时的最短更新策略</h2>
+<p>如果未来 CarlaAir 升级到 <code>vNext</code>，不要直接覆盖当前 <code>v0.1.7</code> 工作树。正确做法是：</p>
+<ol>
+<li>下载新版本源码到新目录</li>
+<li>保持 <code>UE4_ROOT</code> 仍然指向可用的 <code>CARLA fork UE4.26</code></li>
+<li>以当前 <code>v0.1.7</code> Windows 工作树为“补丁来源”</li>
+<li>按类别迁移，而不是整目录覆盖</li>
+<li>先恢复内容资产和 AirSim 依赖，再编译</li>
+<li>只在新版本源码树上做新的 Windows 适配</li>
+</ol>
+<h3 id="81">8.1 推荐迁移顺序</h3>
+<p>第一步，迁移脚本和构建入口：</p>
+<ul>
+<li><code>BuildWindows.ps1</code></li>
+<li><code>CarlaAir.ps1</code></li>
+<li><code>env_setup/SetupEnv.ps1</code></li>
+<li><code>env_setup/TestEnv.ps1</code></li>
+<li>必要的 <code>.bat</code> 构建和安装器修改</li>
+</ul>
+<p>第二步，迁移构建系统补丁：</p>
+<ul>
+<li><code>Util/BuildTools/*.bat</code></li>
+<li><code>Util/InstallersWin/*.bat</code></li>
+<li><code>*.Target.cs</code></li>
+</ul>
+<p>第三步，迁移源码兼容补丁：</p>
+<ul>
+<li><code>LibCarla/source/compiler/*</code></li>
+<li><code>LibCarla/source/carla/rpc/Server.h</code></li>
+<li><code>Unreal/CarlaUE4/Plugins/AirSim/Source/*</code></li>
+<li><code>Unreal/CarlaUE4/Plugins/Carla/Source/*</code></li>
+</ul>
+<p>第四步，迁移运行期辅助内容：</p>
+<ul>
+<li><code>AirSimConfig/</code></li>
+<li><code>examples_record_demo/*.py</code> 中的自动化验证增强</li>
+</ul>
+<p>第五步，再补内容资源：</p>
+<ul>
+<li><code>Content/Carla</code> 官方资产</li>
+<li>AirSim 1.8.1 对应依赖</li>
+</ul>
+<h3 id="82">8.2 不建议的升级方式</h3>
+<ul>
+<li>不要把旧版整个源码树直接覆盖到新版</li>
+<li>不要把旧版 Linux 二进制包当作新版 Windows 构建底座</li>
+<li>不要把 <code>v0.1.6</code> 里的 cooked 插件材质直接复制到新版</li>
+</ul>
+<h2 id="9">9. 新版升级时最容易踩坑的点</h2>
+<h3 id="91-ue4">9.1 UE4 用错</h3>
+<p>错误做法：</p>
+<ul>
+<li>使用 Epic Launcher 官方 UE4.26</li>
+</ul>
+<p>正确做法：</p>
+<ul>
+<li>使用 <code>CARLA fork UE4.26</code></li>
+</ul>
+<h3 id="92">9.2 插件材质用错</h3>
+<p>错误做法：</p>
+<ul>
+<li>从旧 Linux 包复制 <code>PostProcessingMaterials</code></li>
+</ul>
+<p>后果：</p>
+<ul>
+<li><code>Package</code> 在 shader/cook 阶段崩溃</li>
+</ul>
+<p>正确做法：</p>
+<ul>
+<li>使用与 <code>CARLA 0.9.16</code> 对应的 Carla 插件源码资产</li>
+</ul>
+<h3 id="93">9.3 把发行目录当源码树</h3>
+<p>错误做法：</p>
+<ul>
+<li>在 <code>CarlaAir-v0.1.7-Windows11-x86_64</code> 里继续编译</li>
+</ul>
+<p>正确做法：</p>
+<ul>
+<li>发行目录只负责运行</li>
+<li>编译必须回到源码树</li>
+</ul>
+<h3 id="94-airsim">9.4 忽略 AirSim 依赖</h3>
+<p>如果只复制 CarlaAir 源码而不恢复：</p>
+<ul>
+<li><code>MavLinkCom</code></li>
+<li><code>AirLib/lib</code></li>
+<li><code>AirSim.props</code></li>
+<li>相关 <code>deps</code></li>
+</ul>
+<p>则 AirSim 插件很容易在 Windows 下编不过。</p>
+<h2 id="10">10. 当前发行版使用方式</h2>
+<p>当前最终发行目录：</p>
+<ul>
+<li><code>D:\Code\CarlaAir\CarlaAir-v0.1.7-Windows11-x86_64</code></li>
+</ul>
+<p>最常用入口：</p>
+<div class="highlight"><pre><span></span><code>StartCarlaAir.bat
+SetupEnv.bat
+TestEnv.bat
+StopCarlaAir.bat
+</code></pre></div>
+<p>如果需要直接调用 PowerShell：</p>
+<div class="highlight"><pre><span></span><code><span class="n">powershell</span> <span class="n">-ExecutionPolicy</span> <span class="n">Bypass</span> <span class="o">-File</span> <span class="p">.\</span><span class="n">CarlaAir</span><span class="p">.</span><span class="n">ps1</span> <span class="n">Town10HD</span>
+</code></pre></div>
+<h2 id="11">11. 当前清理状态</h2>
+<p>为了节省空间，以下内容已经在本地清理：</p>
+<ul>
+<li>源码树里的旧 <code>Build\UE4Carla</code> 打包目录</li>
+<li>各类 <code>Intermediate</code></li>
+<li><code>DerivedDataCache</code></li>
+<li>大部分日志和临时验证产物</li>
+<li>临时 <code>_vendor/AirSim-1.8.1</code> 目录</li>
+</ul>
+<p>因此如果未来需要再次完整 <code>Package</code>，会重新生成部分中间文件，这是正常现象。</p>
+<h2 id="12-agent">12. 给新 agent 的建议工作方式</h2>
+<p>新 agent 接手时，优先做这几件事：</p>
+<ol>
+<li>先读本文件</li>
+<li>确认这 3 个目录是否存在：</li>
+<li><code>D:\Code\CarlaAir\CarlaAir-v0.1.7</code></li>
+<li><code>D:\Code\CarlaAir\UE4</code></li>
+<li><code>D:\Code\CarlaAir\CarlaAir-v0.1.7-Windows11-x86_64</code></li>
+<li>先看 <code>git status</code></li>
+<li>先检查 <code>BuildWindows.ps1</code>、<code>CarlaAir.ps1</code>、<code>env_setup/*.ps1</code></li>
+<li>只有确认 <code>UE4_ROOT</code>、资产、AirSim 依赖都对了，再跑构建</li>
+</ol>
+<h2 id="13-agent-prompt">13. 可直接交给新 agent 的 Prompt</h2>
+<p>下面这段可以直接作为新 agent 的起始 prompt：</p>
+<div class="highlight"><pre><span></span><code>你现在接手的是 CarlaAir 的 Windows 适配工作区。
+
+工作区根目录：
+- D:\Code\CarlaAir\CarlaAir-v0.1.7：当前 Windows 适配源码树
+- D:\Code\CarlaAir\UE4：当前可用的 CARLA fork UE4.26，作为 UE4_ROOT
+- D:\Code\CarlaAir\CarlaAir-v0.1.7-Windows11-x86_64：当前整理好的最终 Windows 发行目录
+
+当前基线：
+- CarlaAir v0.1.7
+- CARLA 0.9.16
+- AirSim 1.8.1
+- Windows 11 x86_64
+- 当前源码 commit：7a7fdb33c15a31fbcc55040d9aaf42344ce9bfde
+
+重要事实：
+- Windows 版已经完成过端到端验证：BuildUE4、Package、原生启动、CARLA/AirSim 连通、auto_traffic、record_vehicle、record_walker、record_drone、demo_director、MP4 输出、v0.1.6 JSON 兼容。
+- 不能用 Epic 官方 UE4.26，必须用 CARLA fork UE4.26。
+- 不能把 v0.1.6 Linux 包里的 cooked PostProcessingMaterials 直接拿来用于 Windows 构建。
+- 发行目录是运行版，不是源码树。
+
+请先做：
+1. 阅读 D:\Code\CarlaAir\WINDOWS_PORTING_HANDOFF_CN.md
+2. 检查 D:\Code\CarlaAir\CarlaAir-v0.1.7 的 git status
+3. 检查 BuildWindows.ps1、CarlaAir.ps1、env_setup/SetupEnv.ps1、env_setup/TestEnv.ps1
+4. 如果目标是升级到 CarlaAir 新版本，请以当前 v0.1.7 Windows 工作树为补丁来源，按“脚本入口 -&gt; 构建链 -&gt; 源码兼容 -&gt; 资源资产 -&gt; 验证”的顺序迁移
+
+你的目标不是重新发明构建链，而是基于现有 Windows 适配成果，最小成本把新版本恢复到可编译、可打包、可运行状态。
+</code></pre></div>
+<h2 id="14">14. 最后结论</h2>
+<p>当前最重要的事实只有两条：</p>
+<ul>
+<li>Windows 版不是理论方案，而是已经成功落地的工作区。</li>
+<li>未来升级时，最省时间的方式不是重头排障，而是以当前 <code>v0.1.7</code> Windows 工作树为补丁基线，有控制地迁移到新版本。</li>
+</ul>
+<p>没加入</p>
+<ul>
+<li>Unreal\CarlaUE4\Plugins\AirSim\Source\MavLinkCom*</li>
+<li>AirSimConfig/settings.json</li>
+<li>Util/BuildTools/BuildPythonAPI.bat</li>
+</ul>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>OpenHUTB 版权所有 &copy; 2026</p>
+  </div>
+
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/air_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
