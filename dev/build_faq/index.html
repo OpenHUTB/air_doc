@@ -285,15 +285,15 @@
               
                 <h1 id="_1">编译中的问题</h1>
 <ul>
-<li>
-<p>在编辑器中运行时提示没有兼容的载具且没有无人机生成
+<li>在编辑器中运行时提示没有兼容的载具且没有无人机生成
 提示信息：
 <div class="highlight"><pre><span></span><code>There were no compatible vehicles created for current SimMode! Check your settings.json.
-</code></pre></div>
-在编辑器的<code>运行</code>下拉菜单中，选择<code>选中的视口</code>进行运行。</p>
-</li>
-<li>
-<p>测试时报错：
+</code></pre></div></li>
+</ul>
+<p><a href="https://github.com/microsoft/AirSim/issues/1237#issuecomment-950213919">原因</a>：选择视口进行仿真(simulate)；</p>
+<p>解决：在编辑器的<code>运行</code>下拉菜单中，选择<code>选中的视口（selected viewpoint）</code>进行运行。</p>
+<ul>
+<li>测试时报错：
 <div class="highlight"><pre><span></span><code>test_webmerc_location_to_geo_and_back (smoke.test_geoconversion.TestGeoLocationConversion) ... INFO:  Found the required file in cache!  Carla/Maps/Nav/Town03.bin
 TestGeoLocationConversion.test_webmerc_location_to_geo_and_back
 INFO:  Found the required file in cache!  Carla/Maps/Nav/Town03.bin
@@ -315,12 +315,13 @@ FAILED (failures=1)
 -[Check]: [TIME]: Running smoke test took 1270 seconds.
 SUCCESS: The process with PID 32096 has been terminated.
 -[Check]: [TIME]: Overall testing took 1272 seconds.
-</code></pre></div></p>
-</li>
+</code></pre></div></li>
 </ul>
 <p>测试命令：
 <div class="highlight"><pre><span></span><code>CarlaUE4.exe<span class="w"> </span>--carla-rpc-port<span class="o">=</span><span class="m">3654</span><span class="w"> </span>--carla-streaming-port<span class="o">=</span><span class="m">0</span><span class="w"> </span>-nosound
 python<span class="w"> </span>-m<span class="w"> </span>nose2<span class="w"> </span>-v<span class="w"> </span>smoke.test_spawnpoints.TestSpawnpoints
+test_spawnpoints.py
+smoke.test_sync.TestSynchronousMode
 </code></pre></div></p>
 <p>单独测试生成点测试报错：
 <div class="highlight"><pre><span></span><code>INFO:  Found the required file in cache!  Carla/Maps/Nav/Town03.bin

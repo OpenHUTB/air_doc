@@ -152,6 +152,8 @@
     </li>
         </ul>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_17">参考</a>
+    </li>
     </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../map/">地图</a>
@@ -384,7 +386,8 @@
 <p>在 AirSim 子文件夹中查找名为<code>settings.json</code>的文件。在 Windows 系统中，AirSim 子文件夹位于<code>Documents\AirSim</code>；在 Linux 系统中，AirSim 子文件夹位于<code>~/Documents/AirSim</code>。</p>
 </li>
 </ol>
-<p>该文件采用常见的 <a href="https://en.wikipedia.org/wiki/JSON">json 格式</a>。首次启动时，AirSim 会在用户主文件夹中创建 <code>settings.json</code> 文件，该文件不包含任何设置。为避免出现问题，请始终使用 ASCII 格式保存 json 文件。  </p>
+<p>该文件采用常见的 <a href="https://en.wikipedia.org/wiki/JSON">json 格式</a>。首次启动时，AirSim 会在用户主文件夹中创建 <code>settings.json</code> 文件，该文件不包含任何设置。为避免出现问题，请始终使用 ASCII 格式保存 json 文件。</p>
+<p>如果在 PIE 中运行模拟弹出选择框，可以通过在 <code>Documents\AirSim\settings.json</code> 中直接指定启动模式的方式跳过，在<code>hutb\Unreal\CarlaUE4\settings.json</code>中指定无效。</p>
 <h2 id="_2">如何在汽车和多旋翼飞行器之间进行选择？</h2>
 <p>默认使用多旋翼飞行器。要使用汽车，只需设置<code>"SimMode": "Car"</code>，如下所示： </p>
 <div class="highlight"><pre><span></span><code>{
@@ -802,6 +805,10 @@
 <p>与“米/秒”相关的速度单位换算系数，默认值为 1。与 SpeedUnitLabel 结合使用。该系数仅可用于显示目的，例如在汽车行驶时显示速度。例如，要获取 “英里/小时”(<code>miles/hr</code>) 的速度，请使用系数 2.23694。</p>
 <h3 id="speedunitlabel">SpeedUnitLabel</h3>
 <p>速度单位标签，默认为 <code>m/s</code>。与 SpeedUnitFactor 配合使用。</p>
+<h2 id="_17">参考</h2>
+<ul>
+<li><a href="https://zhaoxuhui.top/blog/2021/12/01/airsim-note3-settings.html">AirSim配置文件简介</a></li>
+</ul>
               
             </div>
           </div><footer>
