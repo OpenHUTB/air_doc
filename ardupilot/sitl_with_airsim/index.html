@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>Point Clouds - 低空模拟器</title>
+    <title>AirSim & ArduPilot - 低空模拟器</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,8 +13,8 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Point Clouds";
-        var mkdocs_page_input_path = "wiki/Point-Clouds.md";
+        var mkdocs_page_name = "AirSim \u0026 ArduPilot";
+        var mkdocs_page_input_path = "ardupilot/sitl_with_airsim.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -76,7 +76,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../api_docs/_build/html/">原始 API 参考文档</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../">Wiki 文档</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../wiki/">Wiki 文档</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../dev_workflow/">开发工作流</a>
                   </li>
@@ -145,7 +145,7 @@
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">外部飞行控制器</span></p>
-              <ul>
+              <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" >MavLink 和 PX4</a>
     <ul>
                 <li class="toctree-l2"><a class="reference internal" href="../../px4_setup/">AirSim 的 PX4 设置</a>
@@ -180,11 +180,17 @@
                 </li>
     </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" >ArduPilot</a>
-    <ul>
+                  <li class="toctree-l1 current"><a class="reference internal current" >ArduPilot</a>
+    <ul class="current">
                 <li class="toctree-l2"><a class="" href="https://ardupilot.org/dev/docs/building-the-code.html">ArduPilot 软件在环设置</a>
                 </li>
-                <li class="toctree-l2"><a class="reference internal" href="../../ardupilot/sitl_with_airsim/">AirSim & ArduPilot</a>
+                <li class="toctree-l2 current"><a class="reference internal current" href="#">AirSim & ArduPilot</a>
+    <ul class="current">
+    <li class="toctree-l3"><a class="reference internal" href="#ardupilot-airsim">使用 ArduPilot 的 AirSim</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#sitl">启动直升机的软件在环(SITL)模拟</a>
+    </li>
+    </ul>
                 </li>
     </ul>
                   </li>
@@ -208,9 +214,9 @@
                   </li>
                   <li class="toctree-l1"><a class="" href="https://aka.ms/AutonomousDrivingCookbook">Azure 上的自动驾驶</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../hexacopter/">构造六旋翼飞行器</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../wiki/hexacopter/">构造六旋翼飞行器</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../moveOnPath-demo/">移动路径演示</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../wiki/moveOnPath-demo/">移动路径演示</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../point_clouds/">构建点云</a>
                   </li>
@@ -243,7 +249,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../working_with_plugin_contents/">使用 UE 插件内容</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../technion/technion/">大学生方程式赛车以色列理工学院自驾赛</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../wiki/technion/technion/">大学生方程式赛车以色列理工学院自驾赛</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">支持</span></p>
@@ -273,9 +279,11 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Point Clouds</li>
+          <li class="breadcrumb-item">外部飞行控制器</li>
+          <li class="breadcrumb-item">ArduPilot</li>
+      <li class="breadcrumb-item active">AirSim & ArduPilot</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/wiki/Point-Clouds.md" class="icon icon-github"> 在 GitHub 上编辑</a>
+          <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/ardupilot/sitl_with_airsim.md" class="icon icon-github"> 在 GitHub 上编辑</a>
     </li>
   </ul>
   <hr/>
@@ -283,16 +291,90 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <p>I added a new Python script <a href="https://github.com/Microsoft/AirSim/blob/master/PythonClient/point_cloud.py">point_cloud.py</a> that shows how to convert the depth image returned from AirSim into a point cloud.</p>
-<p>The following depth image was captured using Modular Neighborhood environment:</p>
-<p><img alt="depth" src="../images/depth.png" /></p>
-<p>And with the appropriate projection matrix the opencv reprojectImageTo3D function can turn this into a point cloud.  The following is the result, which is also available here: <a href="https://skfb.ly/68r7y">https://skfb.ly/68r7y</a>.</p>
-<p><img alt="depth" src="../images/point_cloud.png" /></p>
-<p><a href="https://sketchfab.com">SketchFab</a> can upload the resulting file <code>cloud.asc</code> and render it for you.</p>
-<p>PS: you may notice the scene is reflected on the Y axis, so I may have a sign wrong in the projection matrix.  An exercise for the reader :-) </p>
+                <h1 id="sitl-air"><a href="https://ardupilot.org/dev/docs/sitl-with-airsim.html">将 SITL 与 Air 结合使用</a></h1>
+<p>目前，AirSim 和 ArduPilot 已经开发出对直升机和 Rover 的支持。</p>
+<p>该集成方案已在单台 Linux 机器和多台运行 Ubuntu 16.04 和 18.04 的机器上进行了测试，也测试了在 Windows 10 系统下运行 AirSim 并在 WSL（Ubuntu 18.04）中运行 ArduPilot 的情况。AirSim 可以在 macOS 上运行，但尚未在 macOS 上测试与 ArduPilot 的集成。</p>
+<p>AirSim 是一个优秀的平台，可用于在模拟车辆上测试和开发基于计算机视觉等技术的系统。它是一款功能非常丰富的模拟器，拥有精细的环境和用于数据采集的 API（Python、C++、ROS）。有关详细信息和可用功能，请参阅AirSim 的主自述文件。</p>
+<p>使用 ArduPilot SITL 运行 AirSim 的演示</p>
+<p><a href="https://www.youtube.com/watch?v=ElFAqtpEfKo"><img alt="ArduPilot SITL AirSim" src="../../images/ardupilot/airsim_with_ardupilot.jpg" /></a></p>
+<p>为了方便页面浏览，这里列出了几个主题：</p>
+<ul>
+<li><a href="#installing_airsim"><strong>安装 AirSim</strong></a><ul>
+<li><a href="../../build_windows/">在 Windows 上构建</a>  </li>
+<li><a href="../../build_linux/">基于 Linux 构建</a></li>
+<li><a href="../../build_macos/">基于 macOS 构建</a>  </li>
+</ul>
+</li>
+<li><a href="../../unreal_custenv/"><strong>设置虚幻环境</strong></a></li>
+<li><a href="#"><strong>使用 ArduPilot 的 AirSim</strong></a></li>
+<li><a href="#copter"><strong>启动直升机的软件在环(SITL)模拟</strong></a>   </li>
+<li><a href="#rover"><strong>启动 Rover 的软件在环</strong></a>   </li>
+<li><a href="#"><strong>使用激光雷达</strong></a>   </li>
+<li><a href="#"><strong>使用测距仪</strong></a>   </li>
+<li><a href="#"><strong>使用遥控器进行手动飞行</strong></a>   </li>
+<li><a href="#"><strong>多载具仿真</strong></a>   </li>
+<li><a href="#"><strong>ROS与多载具</strong></a></li>
+<li><a href="#"><strong>自定义环境</strong></a></li>
+<li><a href="#"><strong>使用 AirSim API</strong></a></li>
+<li><a href="#"><strong>在不同的机器上运行</strong></a></li>
+<li><a href="#"><strong>调试和开发工作流程</strong></a> </li>
+</ul>
+<h2 id="ardupilot-airsim">使用 ArduPilot 的 AirSim</h2>
+<p>请确保您已<a href="https://ardupilot.org/dev/docs/building-the-code.html#building-the-code">安装 ArduPilot SITL</a>，完成 Unreal 环境的设置，或者已下载并验证相关二进制文件能够分别正常运行，然后再继续操作。如果您不熟悉 SITL，请参阅SITL 使用示例。</p>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>在 UE 编辑器中运行：转到Edit-&gt;Editor Preferences，在 Search 框中键入CPU并确保 Use Less CPU when in Background 未选中。</p>
+</div>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>如果您使用 Windows Subsystem for Linux 2 在 Windows 下运行 ArduPilot 和 AirSim，请参阅 <a href="https://discuss.ardupilot.org/t/gsoc-2019-airsim-simulator-support-for-ardupilot-sitl-part-ii/46395/5">链接</a> 了解如何连接它们。</p>
+</div>
+<p><a href="https://github.com/microsoft/AirSim/blob/master/docs/settings.md">AirSim 的 settings.json 文件</a> 用于指定飞行器及其各种属性。请参阅该页面了解可用选项。</p>
+<p>它存储在以下位置——Windows：<code>Documents\AirSim</code>，Linux：<code>~/Documents/AirSim</code></p>
+<p>该文件采用标准的 JSON 格式。首次启动时，AirSim 会创建一个没有任何设置的 settings.json 文件。</p>
+<h2 id="sitl">启动直升机的软件在环(SITL)模拟</h2>
+<p>使用 ArduCopter 的设置如下：</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;SettingsVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.2</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;LogMessagesVisible&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;SimMode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Multirotor&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;OriginGeopoint&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;Latitude&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">-35.363261</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Longitude&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">149.165230</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Altitude&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">583</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;Vehicles&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;Copter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;VehicleType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ArduCopter&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;UseSerial&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;LocalHostIp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;UdpIp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;UdpPort&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">9003</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;ControlPort&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">9002</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>之前在设置中 <code>SitlPort</code> 使用的是 <code>ControlPort</code> 。此更改适用于最新的 AirSim 主程序和二进制文件 v1.3.0 及更高版本。此更新向下兼容，因此即使您正在使用 <code>SitlPort</code>，它也能正常工作。</p>
+</div>
+<p>首先启动 AirSim，然后启动 ArduPilot SITL。</p>
+<div class="highlight"><pre><span></span><code>sim_vehicle.py<span class="w"> </span>-v<span class="w"> </span>ArduCopter<span class="w"> </span>-f<span class="w"> </span>airsim-copter<span class="w"> </span>--console<span class="w"> </span>--map
+</code></pre></div>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>最初，如果 ArduPilot SITL 尚未启动（这是由于锁定步长调度导致的），按下“播放”按钮后编辑器会卡住。运行 sim_vehicle.py 后应该就能恢复正常。</p>
+</div>
+<p>关闭时，请先按下停止按钮停止 AirSim 模拟，然后再关闭 ArduPilot。如果先关闭 ArduPilot，UE 会卡死，您需要强制关闭它。</p>
+<p>您只需按下播放按钮，然后启动 ArduPilot 端即可重新启动，无需完全关闭编辑器然后再重新启动。</p>
               
             </div>
           </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../../mavlinkcom_mocap/" class="btn btn-neutral float-left" title="MavLink MoCap"><span class="icon icon-circle-arrow-left"></span> 前一页</a>
+        <a href="../../unreal_upgrade/" class="btn btn-neutral float-right" title="升级虚幻引擎">后一页 <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
 
   <hr/>
 
@@ -318,6 +400,10 @@
         </span>
     
     
+      <span><a href="../../mavlinkcom_mocap/" style="color: #fcfcfc">&laquo; 前一页</a></span>
+    
+    
+      <span><a href="../../unreal_upgrade/" style="color: #fcfcfc">后一页 &raquo;</a></span>
     
   </span>
 </div>
