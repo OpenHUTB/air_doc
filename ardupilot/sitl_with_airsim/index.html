@@ -186,9 +186,15 @@
                 </li>
                 <li class="toctree-l2 current"><a class="reference internal current" href="#">AirSim & ArduPilot</a>
     <ul class="current">
-    <li class="toctree-l3"><a class="reference internal" href="#ardupilot-airsim">使用 ArduPilot 的 AirSim</a>
+    <li class="toctree-l3"><a class="reference internal" href="#ardupilot-airsim">使用 ArduPilot 的 AirSim </a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#sitl">启动直升机的软件在环(SITL)模拟</a>
+    <li class="toctree-l3"><a class="reference internal" href="#sitl">启动直升机的软件在环(SITL)模拟 </a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#rover">启动 Rover 的软件在环模拟 </a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_1">使用激光雷达 </a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_2">使用测距仪 </a>
     </li>
     </ul>
                 </li>
@@ -306,11 +312,11 @@
 </ul>
 </li>
 <li><a href="../../unreal_custenv/"><strong>设置虚幻环境</strong></a></li>
-<li><a href="#"><strong>使用 ArduPilot 的 AirSim</strong></a></li>
+<li><a href="#ardupilot_with_airsim"><strong>使用 ArduPilot 的 AirSim</strong></a></li>
 <li><a href="#copter"><strong>启动直升机的软件在环(SITL)模拟</strong></a>   </li>
-<li><a href="#rover"><strong>启动 Rover 的软件在环</strong></a>   </li>
-<li><a href="#"><strong>使用激光雷达</strong></a>   </li>
-<li><a href="#"><strong>使用测距仪</strong></a>   </li>
+<li><a href="#rover"><strong>启动 Rover 的软件在环模拟</strong></a>   </li>
+<li><a href="#lidar"><strong>使用激光雷达</strong></a>   </li>
+<li><a href="#rangefinder"><strong>使用测距仪</strong></a></li>
 <li><a href="#"><strong>使用遥控器进行手动飞行</strong></a>   </li>
 <li><a href="#"><strong>多载具仿真</strong></a>   </li>
 <li><a href="#"><strong>ROS与多载具</strong></a></li>
@@ -319,7 +325,7 @@
 <li><a href="#"><strong>在不同的机器上运行</strong></a></li>
 <li><a href="#"><strong>调试和开发工作流程</strong></a> </li>
 </ul>
-<h2 id="ardupilot-airsim">使用 ArduPilot 的 AirSim</h2>
+<h2 id="ardupilot-airsim">使用 ArduPilot 的 AirSim <span id="ardupilot_with_airsim"></span></h2>
 <p>请确保您已<a href="https://ardupilot.org/dev/docs/building-the-code.html#building-the-code">安装 ArduPilot SITL</a>，完成 Unreal 环境的设置，或者已下载并验证相关二进制文件能够分别正常运行，然后再继续操作。如果您不熟悉 SITL，请参阅SITL 使用示例。</p>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
@@ -332,7 +338,7 @@
 <p><a href="https://github.com/microsoft/AirSim/blob/master/docs/settings.md">AirSim 的 settings.json 文件</a> 用于指定飞行器及其各种属性。请参阅该页面了解可用选项。</p>
 <p>它存储在以下位置——Windows：<code>Documents\AirSim</code>，Linux：<code>~/Documents/AirSim</code></p>
 <p>该文件采用标准的 JSON 格式。首次启动时，AirSim 会创建一个没有任何设置的 settings.json 文件。</p>
-<h2 id="sitl">启动直升机的软件在环(SITL)模拟</h2>
+<h2 id="sitl">启动直升机的软件在环(SITL)模拟 <span id="copter"></span></h2>
 <p>使用 ArduCopter 的设置如下：</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">&quot;SettingsVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.2</span><span class="p">,</span>
@@ -368,6 +374,139 @@
 </div>
 <p>关闭时，请先按下停止按钮停止 AirSim 模拟，然后再关闭 ArduPilot。如果先关闭 ArduPilot，UE 会卡死，您需要强制关闭它。</p>
 <p>您只需按下播放按钮，然后启动 ArduPilot 端即可重新启动，无需完全关闭编辑器然后再重新启动。</p>
+<h2 id="rover">启动 Rover 的软件在环模拟 <span id="rover"></span></h2>
+<p>settings.json使用 ArduRover 的方法：</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;SettingsVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.2</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;SimMode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Car&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;OriginGeopoint&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;Latitude&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">-35.363261</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Longitude&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">149.165230</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Altitude&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">583</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;Vehicles&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;Rover&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;VehicleType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ArduRover&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;UseSerial&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;LocalHostIp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;UdpIp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;UdpPort&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">9003</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;ControlPort&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">9002</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;AutoCreate&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;Sensors&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;Imu&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;SensorType&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;Enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;Gps&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;SensorType&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;Enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>首先启动 AirSim，然后启动 ArduPilot SITL。</p>
+<div class="highlight"><pre><span></span><code>sim_vehicle.py<span class="w"> </span>-v<span class="w"> </span>Rover<span class="w"> </span>-f<span class="w"> </span>airsim-rover<span class="w"> </span>--console<span class="w"> </span>--map
+</code></pre></div>
+<p>本页描述的其他功能等设置、命令和文件是直升机特有的，但也可用于漫游车。某些文件（例如脚本）和 settings.json 需要针对漫游车进行修改，为了保持页面简洁易用，我们没有添加漫游车的单独设置。</p>
+<p>您可能需要对车辆进行调整才能正确使用，可以直接修改 <a href="https://github.com/ArduPilot/ardupilot/tree/master/Tools/autotest/default_params">Tools/autotest/default_params</a> 中的 AirSim 车辆参数文件，或者您可以创建一个新的参数文件，并使用<code>--add-param-file</code>选项将其位置传递给 SITL <code>sim_vehicle.py</code>。</p>
+<h2 id="_1">使用激光雷达 <span id="lidar"></span></h2>
+<p>有关 AirSim 中激光雷达及其属性的信息，请参阅<a href="../../lidar/">激光雷达设置</a>。</p>
+<p>用于启动带有激光雷达的 ArduCopter 的当前settings.json文件</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;SettingsVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.2</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;SimMode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Multirotor&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;OriginGeopoint&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;Latitude&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">-35.363261</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Longitude&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">149.165230</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Altitude&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">583</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;Vehicles&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;Copter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;VehicleType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ArduCopter&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;UseSerial&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;LocalHostIp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;UdpIp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;UdpPort&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">9003</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;ControlPort&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">9002</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;AutoCreate&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;Sensors&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;Imu&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;SensorType&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;Enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;Gps&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;SensorType&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;Enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;Lidar1&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;SensorType&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;Enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;NumberOfChannels&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;PointsPerSecond&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5000</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;DrawDebugPoints&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;RotationsPerSecond&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;VerticalFOVUpper&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;VerticalFOVLower&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;HorizontalFOVStart&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;HorizontalFOVEnd&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">359</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;DataFrame&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SensorLocalFrame&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;ExternalController&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>带激光雷达的直升机启动</p>
+<div class="highlight"><pre><span></span><code>sim_vehicle.py<span class="w"> </span>-v<span class="w"> </span>ArduCopter<span class="w"> </span>-f<span class="w"> </span>airsim-copter<span class="w"> </span>--add-param-file<span class="o">=</span>libraries/SITL/examples/Airsim/lidar.parm<span class="w"> </span>--console<span class="w"> </span>--map
+</code></pre></div>
+<p>默认情况下，<a href="https://ardupilot.org/copter/docs/common-oa-bendyruler.html#common-oa-bendyruler">BendyRuler 物体避障功能</a>与激光雷达一起使用，相关参数可在 Wiki 页面上查看，并应根据需要在<code>lidar.parm</code>文件中进行修改。</p>
+<p>您可以通过在激光雷达传感器<code>DrawDebugPoints</code>设置中设置为<code>true</code>，在 AirSim 视口中启用激光雷达点的可视化。请注意，这可能会大幅降低帧率，甚至可能导致内存问题，并在v1.3.1早期版本中造成崩溃。</p>
+<h2 id="_2">使用测距仪 <span id="rangefinder"></span></h2>
+<p>ArduPilot 中的测距仪在 AirSim 中称为距离传感器。详情请参阅<a href="../../sensors/#distance-sensor">AirSim 的传感器页面</a>， ArduPilot 方面的信息请参阅测距仪设置。</p>
+<p>下面列出了一些示例设置和参数，用于创建前向和下向测距仪。请注意，此处仅包含传感器设置，您可以轻松地将其替换 <code>Sensors</code> 上面激光雷达示例中的相应元素。</p>
+<div class="highlight"><pre><span></span><code><span class="nt">&quot;Sensors&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;Imu&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;SensorType&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;Enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;Gps&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;SensorType&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;Enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;Distance1&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;SensorType&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;Enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;DrawDebugPoints&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;Yaw&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Pitch&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">-90</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Roll&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;ExternalController&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;Distance2&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;SensorType&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;Enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;DrawDebugPoints&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;ExternalController&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+</code></pre></div>
+<p>设置字段的详细信息请参见 <a href="../../sensors/#distance-sensor">AirSim 传感器页面</a>。此处<code>DrawDebugPoints</code>已设置为<code>true</code>，因为它有助于解决方向问题。设置<code>ExternalController</code>为<code>false</code>可禁用向自动驾驶仪发送特定传感器数据，同时仍保持传感器存在。如果您想使用独立于现有避障系统的自定义避障系统，此功能非常有用。此设置适用于激光雷达和测距仪。</p>
+<p>要启用测距仪，<code>RNGFNDx_TYPE</code> 应将其设置为 100 (SITL)。启用两个测距仪的参数 -
+<div class="highlight"><pre><span></span><code><span class="err">#</span><span class="w"> </span><span class="err">Firs</span><span class="kc">t</span><span class="w"> </span><span class="err">Ra</span><span class="kc">n</span><span class="err">ge</span><span class="kc">f</span><span class="err">i</span><span class="kc">n</span><span class="err">der</span><span class="w"> </span><span class="err">(Dis</span><span class="kc">tan</span><span class="err">ce</span><span class="w"> </span><span class="err">Se</span><span class="kc">ns</span><span class="err">or</span><span class="w"> </span><span class="err">i</span><span class="kc">n</span><span class="w"> </span><span class="err">AirSim)</span><span class="p">,</span><span class="w"> </span><span class="kc">fa</span><span class="err">ci</span><span class="kc">n</span><span class="err">g</span><span class="w"> </span><span class="err">dow</span><span class="kc">n</span>
+<span class="err">RNGFND</span><span class="mi">1</span><span class="err">_TYPE</span><span class="w"> </span><span class="mi">100</span>
+<span class="err">RNGFND</span><span class="mi">1</span><span class="err">_MIN_CM</span><span class="w"> </span><span class="mi">0</span>
+<span class="err">RNGFND</span><span class="mi">1</span><span class="err">_MAX_CM</span><span class="w"> </span><span class="mi">4000</span>
+<span class="err">RNGFND</span><span class="mi">1</span><span class="err">_ORIENT</span><span class="w"> </span><span class="mi">25</span>
+
+<span class="err">#</span><span class="w"> </span><span class="err">Seco</span><span class="kc">n</span><span class="err">d</span><span class="w"> </span><span class="err">o</span><span class="kc">ne</span><span class="p">,</span><span class="w"> </span><span class="kc">fa</span><span class="err">ci</span><span class="kc">n</span><span class="err">g</span><span class="w"> </span><span class="kc">f</span><span class="err">orward</span>
+<span class="err">RNGFND</span><span class="mi">2</span><span class="err">_TYPE</span><span class="w"> </span><span class="mi">100</span>
+<span class="err">RNGFND</span><span class="mi">2</span><span class="err">_MIN_CM</span><span class="w"> </span><span class="mi">0</span>
+<span class="err">RNGFND</span><span class="mi">2</span><span class="err">_MAX_CM</span><span class="w"> </span><span class="mi">4000</span>
+<span class="err">RNGFND</span><span class="mi">2</span><span class="err">_ORIENT</span><span class="w"> </span><span class="mi">0</span>
+</code></pre></div></p>
+<p>测距仪可用于避障和精确测量高度。目前 ArduPilot 最多支持 10 个测距仪。</p>
               
             </div>
           </div><footer>
