@@ -1,6 +1,6 @@
-# 低空模拟器
+# 载具模拟器
 
-该项目主要介绍 [飞行汽车](https://github.com/OpenHUTB/hutb/issues/3196) 、[四旋翼无人机](https://openhutb.github.io/air/wiki/moveOnPath-demo/) 、[六旋翼无人机](https://openhutb.github.io/air/wiki/hexacopter/) 等低空飞行器，为 [人车模拟器文档](https://openhutb.github.io) 的一部分。
+该项目主要介绍 [四旋翼无人机](https://openhutb.github.io/air/wiki/moveOnPath-demo/) 、[六旋翼无人机](https://openhutb.github.io/air/wiki/hexacopter/) 、[直升机](https://openhutb.github.io/air_doc/ardupilot/sitl_with_airsim/#copter)、[飞行汽车](https://github.com/OpenHUTB/hutb/issues/3196)、[水下机器人](https://openhutb.github.io/mujoco_plugin/underwater/) 等载具，为 [人车模拟器文档](https://openhutb.github.io)  的一部分。
 
 
 ## 部署
