@@ -295,19 +295,22 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="airsim">AirSim 中的传感器</h1>
-<p>AirSim 目前支持以下传感器。
+                <h1 id="air">Air 中的传感器</h1>
+<p>Air 目前支持以下传感器。
 每个传感器都与一个指定其传感器类型的整数枚举相关联。</p>
 <ul>
-<li>Camera</li>
-<li>Barometer = 1</li>
+<li>相机 Camera</li>
+<li>气压计 Barometer = 1</li>
 <li>Imu = 2</li>
 <li>Gps = 3</li>
-<li>Magnetometer = 4</li>
-<li>Distance Sensor = 5</li>
-<li>Lidar = 6</li>
+<li>磁力计 Magnetometer = 4</li>
+<li>距离传感器 Distance Sensor = 5</li>
+<li>激光雷达 Lidar = 6</li>
 </ul>
-<p><strong>笔记</strong> :  摄像头的配置与其他传感器不同，并且没有与之关联的枚举。请参阅 <a href="../settings/">常规设置</a> 和 <a href="../image_apis/">图像 API</a> ，了解摄像头的配置和 API。 </p>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>摄像头的配置与其他传感器不同，并且没有与之关联的枚举。请参阅 <a href="../settings/">常规设置</a> 和 <a href="../image_apis/">图像 API</a> ，了解摄像头的配置和 API。 </p>
+</div>
 <h2 id="_1">默认传感器</h2>
 <p>如果在<code>settings.json</code>中未指定任何传感器，则根据模拟模式默认启用以下传感器。</p>
 <h3 id="_2">多旋翼</h3>
