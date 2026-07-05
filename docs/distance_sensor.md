@@ -1,8 +1,8 @@
 ## 距离传感器
 
-默认情况下，距离传感器指向车辆前方。通过修改设置，可以将其指向任何方向。
+默认情况下，距离传感器指向载具前方。通过修改设置，可以将其指向任何方向。
 
-可配置参数 -
+可配置参数：
 
 参数           | 描述
 --------------------|------------
@@ -23,4 +23,5 @@ ExternalController  | 是否将数据发送到外部控制器，例如 ArduPilot
 }
 ```
 
-**注意：** 对于汽车，传感器默认放置在载具中心上方 1 米处。这是必需的，因为如果传感器位于车内，则可能会给出异常数据。但这不会影响传感器的测量值，例如测量两辆车之间的距离。有关使用示例，请参阅 [`PythonClient/car/distance_sensor_multi.py`](https://github.com/Microsoft/AirSim/blob/main/PythonClient/car/distance_sensor_multi.py)。 
+!!! 注意
+    对于汽车，传感器默认放置在载具中心上方 1 米处。这是必需的，因为如果传感器位于车内，则可能会给出异常数据。但这不会影响传感器的测量值，例如测量两辆车之间的距离。有关使用示例，请参阅 [获取多个车辆之间的距离 PythonClient/car/distance_sensor_multi.py](https://github.com/OpenHUTB/air/blob/main/PythonClient/car/distance_sensor_multi.py)。

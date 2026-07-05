@@ -1,17 +1,18 @@
-# AirSim 中的传感器
+# Air 中的传感器
 
-AirSim 目前支持以下传感器。
+Air 目前支持以下传感器。
 每个传感器都与一个指定其传感器类型的整数枚举相关联。
 
-* Camera
-* Barometer = 1
+* 相机 Camera
+* 气压计 Barometer = 1
 * Imu = 2
 * Gps = 3
-* Magnetometer = 4
-* Distance Sensor = 5
-* Lidar = 6
+* 磁力计 Magnetometer = 4
+* 距离传感器 Distance Sensor = 5
+* 激光雷达 Lidar = 6
 
-**笔记** :  摄像头的配置与其他传感器不同，并且没有与之关联的枚举。请参阅 [常规设置](settings.md) 和 [图像 API](image_apis.md) ，了解摄像头的配置和 API。 
+!!! 笔记
+    摄像头的配置与其他传感器不同，并且没有与之关联的枚举。请参阅 [常规设置](settings.md) 和 [图像 API](image_apis.md) ，了解摄像头的配置和 API。 
 
 ## 默认传感器
 
