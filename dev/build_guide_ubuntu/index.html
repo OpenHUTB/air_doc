@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>HUTB_air 从源码编译指南 - 低空模拟器</title>
+    <title>CarlaAir 从源码编译指南 - 低空模拟器</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "HUTB_air \u4ece\u6e90\u7801\u7f16\u8bd1\u6307\u5357";
+        var mkdocs_page_name = "CarlaAir \u4ece\u6e90\u7801\u7f16\u8bd1\u6307\u5357";
         var mkdocs_page_input_path = "dev/build_guide_ubuntu.md";
         var mkdocs_page_url = null;
       </script>
@@ -273,9 +273,9 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">HUTB_air 从源码编译指南</li>
+      <li class="breadcrumb-item active">CarlaAir 从源码编译指南</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/dev/build_guide_ubuntu.md" class="icon icon-github"> 在 GitHub 上编辑</a>
+          <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/dev/build_guide_ubuntu.md"> 编辑页面</a>
     </li>
   </ul>
   <hr/>
@@ -283,15 +283,17 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="hutb_air">HUTB_air 从源码编译指南</h1>
+                <h1 id="carlaair">CarlaAir 从源码编译指南</h1>
+<blockquote>
+<p><strong>注意</strong>：对于绝大多数学术研究用户，我们强烈建议直接下载<strong>预编译的二进制发行版</strong>（见主页 README）。源码编译过程极为复杂，且严重依赖特定的系统环境和硬件配置，主要面向需要深度定制底层引擎架构的资深开发者。</p>
+</blockquote>
 <h2 id="_1">前提条件</h2>
 <h3 id="_2">系统要求</h3>
 <ul>
-<li><strong>操作系统</strong>: Ubuntu 18.04 / 20.04 / 22.04 (推荐 22.04)</li>
-<li><strong>GPU</strong>: NVIDIA GPU，显存 &gt;= 8GB (推荐 12GB+)</li>
+<li><strong>操作系统</strong>: Ubuntu 18.04 / 20.04 / 22.04</li>
+<li><strong>GPU</strong>: NVIDIA GPU，显存 &gt;= 8GB</li>
 <li><strong>内存</strong>: &gt;= 32GB RAM</li>
 <li><strong>磁盘</strong>: &gt;= 100GB 可用空间</li>
-<li><strong>显示</strong>: 需要 X11 显示服务 (或 VNC/Xvfb)</li>
 </ul>
 <h3 id="_3">软件依赖</h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># 基础编译工具</span>
@@ -305,144 +307,52 @@ conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </
 conda<span class="w"> </span>activate<span class="w"> </span>simworld
 pip<span class="w"> </span>install<span class="w"> </span><span class="nv">carla</span><span class="o">==</span><span class="m">0</span>.9.16<span class="w"> </span>airsim<span class="w"> </span>numpy<span class="w"> </span>opencv-python<span class="w"> </span>pygame
 </code></pre></div>
-<h2 id="_4">源码位置</h2>
-<table>
-<thead>
-<tr>
-<th>组件</th>
-<th>路径</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>UE4 4.26 (CARLA fork)</td>
-<td><code>/mnt/data1/tianle/carla_ue4/</code></td>
-</tr>
-<tr>
-<td>CARLA 源码</td>
-<td><code>/mnt/data1/tianle/carla_source/</code></td>
-</tr>
-<tr>
-<td>AirSim 插件</td>
-<td><code>Unreal/CarlaUE4/Plugins/AirSim/</code></td>
-</tr>
-<tr>
-<td>CarlaAir 核心文件</td>
-<td><code>Plugins/AirSim/Source/SimWorldGameMode.h/.cpp</code></td>
-</tr>
-</tbody>
-</table>
+<h2 id="_4">源码获取</h2>
+<p>CarlaAir 的构建依赖于高度定制化的 Unreal Engine 4.26 分支和特定的 CARLA 版本。</p>
+<ol>
+<li>获取 Epic Games 账号并关联 GitHub，以获得 UE4 源码访问权限。</li>
+<li>获取 CARLA 0.9.16 (ue4-dev 分支) 的源码。</li>
+<li>将本仓库中的 CarlaAir 核心代码（位于 <code>core_source</code>）合并到 CARLA 源码的对应位置。</li>
+</ol>
+<blockquote>
+<p><strong>环境配置提示</strong>：您需要自行配置 <code>$UE4_ROOT</code> 和 <code>$CARLA_ROOT</code> 环境变量，确保它们指向正确的源码目录。</p>
+</blockquote>
 <h2 id="_5">编译步骤</h2>
-<h3 id="1">1. 设置环境变量</h3>
-<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">UE4_ROOT</span><span class="o">=</span>/mnt/data1/tianle/carla_ue4
-<span class="nb">cd</span><span class="w"> </span>/mnt/data1/tianle/carla_source
+<h3 id="1">1. 编译引擎与基础模块</h3>
+<p>在开始编译 CarlaAir 之前，请确保您已经成功编译了 Unreal Engine 4.26 和基础的 CARLA 模块。</p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">UE4_ROOT</span><span class="o">=</span>&lt;your_ue4_root&gt;
+<span class="nb">cd</span><span class="w"> </span>&lt;your_carla_root&gt;
+
+<span class="c1"># 编译基础引擎（此步骤可能需要数小时）</span>
+make<span class="w"> </span>UnrealEngine
 </code></pre></div>
-<h3 id="2-airsim-100">2. 编译 AirSim 模块（~100 秒）</h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># 仅编译 AirSim 插件（快速迭代时使用）</span>
+<h3 id="2-airsim">2. 编译 AirSim 插件</h3>
+<p>CarlaAir 深度集成了 AirSim。您需要首先编译 AirSim 模块：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 编译 AirSim 插件</span>
 make<span class="w"> </span>CarlaUE4Editor<span class="w"> </span><span class="nv">ARGS</span><span class="o">=</span><span class="s2">&quot;-module=AirSim&quot;</span>
-<span class="c1"># 或直接使用 Build.sh</span>
-./Util/BuildTools/BuildCarlaUE4.sh<span class="w"> </span>--build
 </code></pre></div>
-<h3 id="3-carla-290">3. 编译 CARLA 模块（~290 秒）</h3>
+<h3 id="3-carlaair">3. 编译 CarlaAir 核心</h3>
+<p>在 AirSim 模块编译完成后，编译融合了空地协同逻辑的 CARLA 模块：</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># 编译 CARLA 插件</span>
 make<span class="w"> </span>CarlaUE4Editor<span class="w"> </span><span class="nv">ARGS</span><span class="o">=</span><span class="s2">&quot;-module=Carla&quot;</span>
 </code></pre></div>
-<h3 id="4-editor">4. 在 Editor 模式中运行（开发调试）</h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># 使用一键启动脚本</span>
-./carlaAir.sh<span class="w">                    </span><span class="c1"># 默认 Town10HD, 1280x720</span>
-./carlaAir.sh<span class="w"> </span>Town03<span class="w">             </span><span class="c1"># 指定地图</span>
-./carlaAir.sh<span class="w"> </span>Town10HD<span class="w"> </span><span class="m">1920</span><span class="w"> </span><span class="m">1080</span><span class="w"> </span><span class="c1"># 指定分辨率</span>
+<h3 id="4-editor">4. Editor 模式调试</h3>
+<p>编译完成后，您可以在 UE4 Editor 中启动 CarlaAir 进行调试：</p>
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>launch
 </code></pre></div>
-<h3 id="5-shipping">5. 打包 Shipping 构建（发布用）</h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># 完整打包流程（编译 ~805s + Cook ~2h）</span>
+<h3 id="5-shipping">5. 打包 Shipping 构建</h3>
+<p>当您完成所有定制开发后，可以打包为独立的二进制发行版：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 完整打包流程（编译 + Cook，通常需要 3-4 小时）</span>
 ./Util/BuildTools/Package.sh<span class="w"> </span>--config<span class="o">=</span>Shipping<span class="w"> </span>--no-zip
-
-<span class="c1"># 输出目录</span>
-ls<span class="w"> </span>Dist/CARLA_Shipping_*/LinuxNoEditor/
 </code></pre></div>
-<p><strong>注意</strong>: Package.sh 在最后 rsync PythonAPI wheel 时可能失败（因为 <code>.whl</code> 文件未构建），但这不影响主要构建。手动复制 PythonAPI 文件到输出目录即可。</p>
-<h3 id="6-shipping">6. 运行 Shipping 构建</h3>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>Dist/CARLA_Shipping_*/LinuxNoEditor/
-./CarlaUE4.sh<span class="w"> </span>/Game/Carla/Maps/Town10HD<span class="w"> </span>-nosound<span class="w"> </span>-carla-rpc-port<span class="o">=</span><span class="m">2000</span>
-</code></pre></div>
-<h2 id="_6">关键配置文件</h2>
-<h3 id="defaultgameini">DefaultGame.ini</h3>
-<p>位于 <code>Unreal/CarlaUE4/Config/DefaultGame.ini</code>。打包时需要确保以下条目存在：</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># AirSim 资源目录（必须）</span>
-<span class="na">+DirectoriesToAlwaysCook</span><span class="o">=</span><span class="s">(Path=&quot;/AirSim/Blueprints&quot;)</span>
-<span class="na">+DirectoriesToAlwaysCook</span><span class="o">=</span><span class="s">(Path=&quot;/AirSim/HUDAssets&quot;)</span>
-<span class="na">+DirectoriesToAlwaysCook</span><span class="o">=</span><span class="s">(Path=&quot;/AirSim/Models&quot;)</span>
-<span class="na">+DirectoriesToAlwaysCook</span><span class="o">=</span><span class="s">(Path=&quot;/AirSim/Weather&quot;)</span>
-<span class="na">+DirectoriesToAlwaysCook</span><span class="o">=</span><span class="s">(Path=&quot;/AirSim/StarterContent&quot;)</span>
-<span class="na">+DirectoriesToAlwaysCook</span><span class="o">=</span><span class="s">(Path=&quot;/AirSim/VehicleAdv&quot;)</span>
-
-<span class="c1"># AirSim 地图</span>
-<span class="na">+MapsToCook</span><span class="o">=</span><span class="s">(FilePath=&quot;/AirSim/AirSimAssets&quot;)</span>
-</code></pre></div>
-<h3 id="settingsjson">settings.json</h3>
-<p>位于 <code>~/Documents/AirSim/settings.json</code>，控制 AirSim 行为：</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;SettingsVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.2</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;SimMode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Multirotor&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;Vehicles&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;SimpleFlight&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">&quot;VehicleType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SimpleFlight&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;AutoCreate&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-<h2 id="_7">编译时间参考</h2>
-<table>
-<thead>
-<tr>
-<th>步骤</th>
-<th>时间</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>AirSim 模块编译</td>
-<td>~100s</td>
-<td>仅 AirSim 相关 C++</td>
-</tr>
-<tr>
-<td>CARLA 模块编译</td>
-<td>~290s</td>
-<td>CARLA 插件 C++</td>
-</tr>
-<tr>
-<td>Shipping 编译</td>
-<td>~805s</td>
-<td>656 个编译单元</td>
-</tr>
-<tr>
-<td>Cook (资源烘焙)</td>
-<td>~2h</td>
-<td>13459 个包</td>
-</tr>
-<tr>
-<td>TaggedMaterials</td>
-<td>~977s</td>
-<td>实例分割材质</td>
-</tr>
-<tr>
-<td><strong>总计 (完整打包)</strong></td>
-<td><strong>~3.5h</strong></td>
-<td>首次；增量编译更快</td>
-</tr>
-</tbody>
-</table>
-<h2 id="_8">常见问题</h2>
-<h3 id="q-10">Q: 首次启动非常慢（~10分钟）</h3>
-<p><strong>A</strong>: 首次运行时 UE4 需要编译 DDC (Derived Data Cache) 和着色器。后续启动约 1 分钟。</p>
-<h3 id="q-packagesh">Q: Package.sh 最后报错</h3>
-<p><strong>A</strong>: 通常是 PythonAPI wheel rsync 失败（<code>set -e</code> 导致脚本中断）。主要的可执行文件和资源已经正确打包，手动复制 PythonAPI 即可。</p>
-<h3 id="q">Q: 打包后的构建缺少地图</h3>
-<p><strong>A</strong>: 检查 <code>DefaultGame.ini</code> 中的 <code>MapsToCook</code> 条目。确保包含所有需要的地图。</p>
-<h3 id="q-airsim-api">Q: AirSim API 无法连接</h3>
-<p><strong>A</strong>: 检查 <code>~/Documents/AirSim/settings.json</code> 是否存在且格式正确。Editor 模式下需要等待 AirSim 端口 41451 就绪。</p>
+<p>构建产物将输出到 <code>Dist/CARLA_Shipping_*/LinuxNoEditor/</code> 目录下。</p>
+<h2 id="_6">常见问题</h2>
+<h3 id="q-featuresh">Q: 编译时提示找不到 <code>features.h</code> 或其他头文件？</h3>
+<p><strong>A</strong>: 这是由于系统头文件路径未正确映射到 UE4 的构建系统中。请检查您的 clang 工具链配置，或尝试使用 <code>Build.sh</code> 脚本替代 <code>make</code> 命令。</p>
+<h3 id="q-editor">Q: 启动 Editor 时发生崩溃？</h3>
+<p><strong>A</strong>: 请确保您的显卡驱动支持 Vulkan，并且已正确安装 <code>vulkan-utils</code>。此外，首次启动时需要编译大量着色器，请耐心等待。</p>
+<h3 id="q">Q: 打包后的版本中没有无人机？</h3>
+<p><strong>A</strong>: 请检查 <code>Unreal/CarlaUE4/Config/DefaultGame.ini</code>，确保 AirSim 的蓝图和资源目录已正确添加到 <code>DirectoriesToAlwaysCook</code> 列表中。</p>
               
             </div>
           </div><footer>
@@ -467,7 +377,7 @@ ls<span class="w"> </span>Dist/CARLA_Shipping_*/LinuxNoEditor/
   <span class="rst-current-version" data-toggle="rst-current-version">
     
         <span>
-          <a href="https://github.com/OpenHUTB/air_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+          <a href="https://github.com/OpenHUTB/air_doc" style="color: #fcfcfc">OpenHUTB</a>
         </span>
     
     

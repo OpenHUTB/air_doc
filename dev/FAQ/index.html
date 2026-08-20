@@ -275,7 +275,7 @@
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
       <li class="breadcrumb-item active">CarlaAir FAQ / 常见问题</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/dev/FAQ.md" class="icon icon-github"> 在 GitHub 上编辑</a>
+          <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/dev/FAQ.md"> 编辑页面</a>
     </li>
   </ul>
   <hr/>
@@ -322,6 +322,22 @@ ss<span class="w"> </span>-tlnp<span class="w"> </span><span class="p">|</span><
 <span class="n">world</span><span class="o">.</span><span class="n">apply_settings</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
 </code></pre></div>
 <p>建议在脚本中使用 <code>try/finally</code> 结构确保退出时始终恢复。</p>
+<h3 id="q-airsim-simgetimages">Q: 同步模式下调用 AirSim <code>simGetImages()</code> 卡住或超时</h3>
+<p><strong>A</strong>: 这是 CARLA 同步 tick 与 AirSim 图像 RPC 的兼容性限制。不要在唯一的 tick 线程中按下面的顺序直接调用：</p>
+<div class="highlight"><pre><span></span><code><span class="n">world</span><span class="o">.</span><span class="n">tick</span><span class="p">()</span>
+<span class="n">responses</span> <span class="o">=</span> <span class="n">airsim_client</span><span class="o">.</span><span class="n">simGetImages</span><span class="p">(</span><span class="n">requests</span><span class="p">)</span>  <span class="c1"># 可能等待下一次渲染</span>
+</code></pre></div>
+<p>Windows 发行版提供了 <code>examples/airsim_image_fetcher.py</code>。它在独立线程中执行图像 RPC，由调用线程继续推进 CARLA：</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">airsim_image_fetcher</span> <span class="kn">import</span> <span class="n">AirSimImageFetcher</span>
+
+<span class="k">with</span> <span class="n">AirSimImageFetcher</span><span class="o">.</span><span class="n">for_multirotor</span><span class="p">(</span>
+    <span class="n">host</span><span class="o">=</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">41451</span><span class="p">,</span> <span class="n">rpc_timeout</span><span class="o">=</span><span class="mf">10.0</span>
+<span class="p">)</span> <span class="k">as</span> <span class="n">fetcher</span><span class="p">:</span>
+    <span class="n">responses</span> <span class="o">=</span> <span class="n">fetcher</span><span class="o">.</span><span class="n">get_images_while_ticking</span><span class="p">(</span>
+        <span class="n">world</span><span class="p">,</span> <span class="n">requests</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">10.0</span>
+    <span class="p">)</span>
+</code></pre></div>
+<p>请只让一个线程或进程负责 <code>world.tick()</code>。该方法可以避免卡死，但 AirSim 响应不包含 CARLA frame ID，因此不能保证它与某个 CARLA 传感器回调严格属于同一帧。</p>
 <hr />
 <h2 id="coordinate-systems">坐标系统 / Coordinate Systems</h2>
 <h3 id="q-airsim-carla">Q: AirSim 和 CARLA 的坐标系统有什么区别？</h3>
@@ -428,7 +444,7 @@ ss<span class="w"> </span>-tlnp<span class="w"> </span><span class="p">|</span><
   <span class="rst-current-version" data-toggle="rst-current-version">
     
         <span>
-          <a href="https://github.com/OpenHUTB/air_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+          <a href="https://github.com/OpenHUTB/air_doc" style="color: #fcfcfc">OpenHUTB</a>
         </span>
     
     

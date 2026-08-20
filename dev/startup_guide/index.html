@@ -275,7 +275,7 @@
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
       <li class="breadcrumb-item active">启动教程</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/dev/startup_guide.md" class="icon icon-github"> 在 GitHub 上编辑</a>
+          <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/dev/startup_guide.md"> 编辑页面</a>
     </li>
   </ul>
   <hr/>
@@ -373,6 +373,21 @@
 <div class="highlight"><pre><span></span><code>&lt;真实Documents路径&gt;\AirSim\settings.json
 </code></pre></div>
 <p>然后重新通过 <code>CarlaAir.ps1</code> 启动。</p>
+<h2 id="airsim">同步模式采集 AirSim 图像</h2>
+<p>同步模式下，AirSim 的 <code>simGetImages()</code> 需要等待 Unreal 渲染帧，而 CARLA 只有在脚本调用 <code>world.tick()</code> 后才会生成下一帧。如果在唯一的 tick 线程中直接调用 <code>simGetImages()</code>，脚本可能互相等待并最终超时。</p>
+<p>Windows 发行版提供了兼容示例。先关闭自动交通启动：</p>
+<div class="highlight"><pre><span></span><code><span class="n">StartCarlaAir</span><span class="p">.</span><span class="n">bat</span> <span class="n">Town10HD</span> <span class="p">-</span><span class="n">-no-traffic</span>
+</code></pre></div>
+<p>然后在已激活 <code>carlaAir</code> 环境的新终端中运行：</p>
+<div class="highlight"><pre><span></span><code><span class="n">python</span> <span class="n">examples</span><span class="p">\</span><span class="n">sync_airsim_images</span><span class="p">.</span><span class="n">py</span> <span class="p">-</span><span class="n">-frames</span> <span class="n">3</span> <span class="p">-</span><span class="n">-output</span> <span class="n">recordings</span><span class="p">\</span><span class="n">sync_airsim</span>
+</code></pre></div>
+<p>示例通过 <code>examples\airsim_image_fetcher.py</code> 在后台线程执行图像 RPC，同时由调用线程持续执行 <code>world.tick()</code>。使用时请注意：</p>
+<ul>
+<li>只能由一个线程或进程负责 <code>world.tick()</code>。</li>
+<li>捕获超时后应创建新的 <code>AirSimImageFetcher</code>，不要复用原实例。</li>
+<li>示例退出时会恢复原始 World 设置；自定义脚本也必须使用 <code>try/finally</code> 恢复设置。</li>
+<li>该方案避免 RPC 卡住，但 AirSim 图像没有 CARLA frame ID，不保证与 CARLA 传感器严格原子级同帧。</li>
+</ul>
               
             </div>
           </div><footer>
@@ -397,7 +412,7 @@
   <span class="rst-current-version" data-toggle="rst-current-version">
     
         <span>
-          <a href="https://github.com/OpenHUTB/air_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+          <a href="https://github.com/OpenHUTB/air_doc" style="color: #fcfcfc">OpenHUTB</a>
         </span>
     
     

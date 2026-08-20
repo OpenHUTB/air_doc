@@ -76,7 +76,7 @@
 <span class="k">class</span><span class="w"> </span><span class="nc">MsgpackMixin</span><span class="p">:</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="kn">from</span><span class="w"> </span><span class="nn">pprint</span><span class="w"> </span><span class="kn">import</span> <span class="n">pformat</span>
-        <span class="k">return</span> <span class="s2">&quot;&lt;&quot;</span> <span class="o">+</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s2">&quot;&gt; &quot;</span> <span class="o">+</span> <span class="n">pformat</span><span class="p">(</span><span class="nb">vars</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">"&lt;"</span> <span class="o">+</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s2">"&gt; "</span> <span class="o">+</span> <span class="n">pformat</span><span class="p">(</span><span class="nb">vars</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
 <div class="viewcode-block" id="MsgpackMixin.to_msgpack">
 <a class="viewcode-back" href="../../index.html#airsim.types.MsgpackMixin.to_msgpack">[docs]</a>
@@ -89,8 +89,8 @@
     <span class="nd">@classmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">from_msgpack</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">encoded</span><span class="p">):</span>
         <span class="n">obj</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">()</span>
-        <span class="c1">#obj.__dict__ = {k.decode(&#39;utf-8&#39;): (from_msgpack(v.__class__, v) if hasattr(v, &quot;__dict__&quot;) else v) for k, v in encoded.items()}</span>
-        <span class="n">obj</span><span class="o">.</span><span class="vm">__dict__</span> <span class="o">=</span> <span class="p">{</span> <span class="n">k</span> <span class="p">:</span> <span class="p">(</span><span class="n">v</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="k">else</span> <span class="nb">getattr</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span><span class="o">.</span><span class="vm">__class__</span><span class="p">,</span> <span class="s2">&quot;from_msgpack&quot;</span><span class="p">)(</span><span class="n">v</span><span class="p">))</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">encoded</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+        <span class="c1">#obj.__dict__ = {k.decode('utf-8'): (from_msgpack(v.__class__, v) if hasattr(v, "__dict__") else v) for k, v in encoded.items()}</span>
+        <span class="n">obj</span><span class="o">.</span><span class="vm">__dict__</span> <span class="o">=</span> <span class="p">{</span> <span class="n">k</span> <span class="p">:</span> <span class="p">(</span><span class="n">v</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="k">else</span> <span class="nb">getattr</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span><span class="o">.</span><span class="vm">__class__</span><span class="p">,</span> <span class="s2">"from_msgpack"</span><span class="p">)(</span><span class="n">v</span><span class="p">))</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">encoded</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
         <span class="c1">#return cls(**msgpack.unpack(encoded))</span>
         <span class="k">return</span> <span class="n">obj</span></div>
 </div>
@@ -120,8 +120,8 @@
         <span class="k">return</span> <span class="mi">9</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;DepthPlanner&#39;</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[31m&#39;</span><span class="o">+</span><span class="s2">&quot;DepthPlanner has been (correctly) renamed to DepthPlanar. Please use ImageType.DepthPlanar instead.&quot;</span><span class="o">+</span><span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[0m&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">'DepthPlanner'</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">'</span><span class="se">\033</span><span class="s1">[31m'</span><span class="o">+</span><span class="s2">"DepthPlanner has been (correctly) renamed to DepthPlanar. Please use ImageType.DepthPlanar instead."</span><span class="o">+</span><span class="s1">'</span><span class="se">\033</span><span class="s1">[0m'</span><span class="p">)</span>
             <span class="k">raise</span> <span class="ne">AttributeError</span>
 
 <div class="viewcode-block" id="ImageType">
@@ -210,16 +210,16 @@
         <span class="k">return</span> <span class="n">Vector3r</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x_val</span> <span class="o">-</span> <span class="n">other</span><span class="o">.</span><span class="n">x_val</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_val</span> <span class="o">-</span> <span class="n">other</span><span class="o">.</span><span class="n">y_val</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">z_val</span> <span class="o">-</span> <span class="n">other</span><span class="o">.</span><span class="n">z_val</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__truediv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
-        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sctypes</span><span class="p">[</span><span class="s1">&#39;int&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sctypes</span><span class="p">[</span><span class="s1">&#39;uint&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sctypes</span><span class="p">[</span><span class="s1">&#39;float&#39;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sctypes</span><span class="p">[</span><span class="s1">'int'</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sctypes</span><span class="p">[</span><span class="s1">'uint'</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sctypes</span><span class="p">[</span><span class="s1">'float'</span><span class="p">]:</span>
             <span class="k">return</span> <span class="n">Vector3r</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_val</span> <span class="o">/</span> <span class="n">other</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_val</span> <span class="o">/</span> <span class="n">other</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">z_val</span> <span class="o">/</span> <span class="n">other</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;unsupported operand type(s) for /: </span><span class="si">%s</span><span class="s1"> and </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)),</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)))</span> <span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">'unsupported operand type(s) for /: </span><span class="si">%s</span><span class="s1"> and </span><span class="si">%s</span><span class="s1">'</span> <span class="o">%</span> <span class="p">(</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)),</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)))</span> <span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
-        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sctypes</span><span class="p">[</span><span class="s1">&#39;int&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sctypes</span><span class="p">[</span><span class="s1">&#39;uint&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sctypes</span><span class="p">[</span><span class="s1">&#39;float&#39;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sctypes</span><span class="p">[</span><span class="s1">'int'</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sctypes</span><span class="p">[</span><span class="s1">'uint'</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sctypes</span><span class="p">[</span><span class="s1">'float'</span><span class="p">]:</span>
             <span class="k">return</span> <span class="n">Vector3r</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x_val</span><span class="o">*</span><span class="n">other</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_val</span><span class="o">*</span><span class="n">other</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">z_val</span><span class="o">*</span><span class="n">other</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;unsupported operand type(s) for *: </span><span class="si">%s</span><span class="s1"> and </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)),</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)))</span> <span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">'unsupported operand type(s) for *: </span><span class="si">%s</span><span class="s1"> and </span><span class="si">%s</span><span class="s1">'</span> <span class="o">%</span> <span class="p">(</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)),</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)))</span> <span class="p">)</span>
 
 <div class="viewcode-block" id="Vector3r.dot">
 <a class="viewcode-back" href="../../index.html#airsim.types.Vector3r.dot">[docs]</a>
@@ -227,7 +227,7 @@
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">==</span> <span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_val</span><span class="o">*</span><span class="n">other</span><span class="o">.</span><span class="n">x_val</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_val</span><span class="o">*</span><span class="n">other</span><span class="o">.</span><span class="n">y_val</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">z_val</span><span class="o">*</span><span class="n">other</span><span class="o">.</span><span class="n">z_val</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;unsupported operand type(s) for </span><span class="se">\&#39;</span><span class="s1">dot</span><span class="se">\&#39;</span><span class="s1">: </span><span class="si">%s</span><span class="s1"> and </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)),</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)))</span> <span class="p">)</span></div>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">'unsupported operand type(s) for </span><span class="se">\'</span><span class="s1">dot</span><span class="se">\'</span><span class="s1">: </span><span class="si">%s</span><span class="s1"> and </span><span class="si">%s</span><span class="s1">'</span> <span class="o">%</span> <span class="p">(</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)),</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)))</span> <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Vector3r.cross">
@@ -237,7 +237,7 @@
             <span class="n">cross_product</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">to_numpy_array</span><span class="p">(),</span> <span class="n">other</span><span class="o">.</span><span class="n">to_numpy_array</span><span class="p">())</span>
             <span class="k">return</span> <span class="n">Vector3r</span><span class="p">(</span><span class="n">cross_product</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">cross_product</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">cross_product</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;unsupported operand type(s) for </span><span class="se">\&#39;</span><span class="s1">cross</span><span class="se">\&#39;</span><span class="s1">: </span><span class="si">%s</span><span class="s1"> and </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)),</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)))</span> <span class="p">)</span></div>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">'unsupported operand type(s) for </span><span class="se">\'</span><span class="s1">cross</span><span class="se">\'</span><span class="s1">: </span><span class="si">%s</span><span class="s1"> and </span><span class="si">%s</span><span class="s1">'</span> <span class="o">%</span> <span class="p">(</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)),</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)))</span> <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Vector3r.get_length">
@@ -299,7 +299,7 @@
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">==</span> <span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">Quaternionr</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_val</span><span class="o">+</span><span class="n">other</span><span class="o">.</span><span class="n">x_val</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_val</span><span class="o">+</span><span class="n">other</span><span class="o">.</span><span class="n">y_val</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">z_val</span><span class="o">+</span><span class="n">other</span><span class="o">.</span><span class="n">z_val</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">w_val</span><span class="o">+</span><span class="n">other</span><span class="o">.</span><span class="n">w_val</span> <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;unsupported operand type(s) for +: </span><span class="si">%s</span><span class="s1"> and </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)),</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)))</span> <span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">'unsupported operand type(s) for +: </span><span class="si">%s</span><span class="s1"> and </span><span class="si">%s</span><span class="s1">'</span> <span class="o">%</span> <span class="p">(</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)),</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)))</span> <span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">==</span> <span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">):</span>
@@ -310,15 +310,15 @@
                                 <span class="n">y_val</span> <span class="o">=</span> <span class="n">c</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="n">a</span><span class="o">*</span><span class="n">y</span> <span class="o">+</span> <span class="n">b</span><span class="o">*</span><span class="n">z</span> <span class="o">-</span> <span class="n">d</span><span class="o">*</span><span class="n">x</span><span class="p">,</span>
                                 <span class="n">z_val</span> <span class="o">=</span> <span class="n">d</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="n">z</span><span class="o">*</span><span class="n">a</span> <span class="o">+</span> <span class="n">c</span><span class="o">*</span><span class="n">x</span> <span class="o">-</span> <span class="n">b</span><span class="o">*</span><span class="n">y</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;unsupported operand type(s) for *: </span><span class="si">%s</span><span class="s1"> and </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)),</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)))</span> <span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">'unsupported operand type(s) for *: </span><span class="si">%s</span><span class="s1"> and </span><span class="si">%s</span><span class="s1">'</span> <span class="o">%</span> <span class="p">(</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)),</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)))</span> <span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__truediv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> <span class="o">==</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span> <span class="o">*</span> <span class="n">other</span><span class="o">.</span><span class="n">inverse</span><span class="p">()</span>
-        <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sctypes</span><span class="p">[</span><span class="s1">&#39;int&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sctypes</span><span class="p">[</span><span class="s1">&#39;uint&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sctypes</span><span class="p">[</span><span class="s1">&#39;float&#39;</span><span class="p">]:</span>
+        <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sctypes</span><span class="p">[</span><span class="s1">'int'</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sctypes</span><span class="p">[</span><span class="s1">'uint'</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sctypes</span><span class="p">[</span><span class="s1">'float'</span><span class="p">]:</span>
             <span class="k">return</span> <span class="n">Quaternionr</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_val</span> <span class="o">/</span> <span class="n">other</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_val</span> <span class="o">/</span> <span class="n">other</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">z_val</span> <span class="o">/</span> <span class="n">other</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">w_val</span> <span class="o">/</span> <span class="n">other</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;unsupported operand type(s) for /: </span><span class="si">%s</span><span class="s1"> and </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)),</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)))</span> <span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">'unsupported operand type(s) for /: </span><span class="si">%s</span><span class="s1"> and </span><span class="si">%s</span><span class="s1">'</span> <span class="o">%</span> <span class="p">(</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)),</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)))</span> <span class="p">)</span>
 
 <div class="viewcode-block" id="Quaternionr.dot">
 <a class="viewcode-back" href="../../index.html#airsim.types.Quaternionr.dot">[docs]</a>
@@ -326,7 +326,7 @@
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">==</span> <span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_val</span><span class="o">*</span><span class="n">other</span><span class="o">.</span><span class="n">x_val</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_val</span><span class="o">*</span><span class="n">other</span><span class="o">.</span><span class="n">y_val</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">z_val</span><span class="o">*</span><span class="n">other</span><span class="o">.</span><span class="n">z_val</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">w_val</span><span class="o">*</span><span class="n">other</span><span class="o">.</span><span class="n">w_val</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;unsupported operand type(s) for </span><span class="se">\&#39;</span><span class="s1">dot</span><span class="se">\&#39;</span><span class="s1">: </span><span class="si">%s</span><span class="s1"> and </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)),</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)))</span> <span class="p">)</span></div>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">'unsupported operand type(s) for </span><span class="se">\'</span><span class="s1">dot</span><span class="se">\'</span><span class="s1">: </span><span class="si">%s</span><span class="s1"> and </span><span class="si">%s</span><span class="s1">'</span> <span class="o">%</span> <span class="p">(</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)),</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)))</span> <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Quaternionr.cross">
@@ -335,7 +335,7 @@
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">==</span> <span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">):</span>
             <span class="k">return</span> <span class="p">(</span><span class="bp">self</span> <span class="o">*</span> <span class="n">other</span> <span class="o">-</span> <span class="n">other</span> <span class="o">*</span> <span class="bp">self</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;unsupported operand type(s) for </span><span class="se">\&#39;</span><span class="s1">cross</span><span class="se">\&#39;</span><span class="s1">: </span><span class="si">%s</span><span class="s1"> and </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)),</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)))</span> <span class="p">)</span></div>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">'unsupported operand type(s) for </span><span class="se">\'</span><span class="s1">cross</span><span class="se">\'</span><span class="s1">: </span><span class="si">%s</span><span class="s1"> and </span><span class="si">%s</span><span class="s1">'</span> <span class="o">%</span> <span class="p">(</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)),</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)))</span> <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Quaternionr.outer_product">
@@ -344,7 +344,7 @@
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">==</span> <span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">):</span>
             <span class="k">return</span> <span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">inverse</span><span class="p">()</span><span class="o">*</span><span class="n">other</span> <span class="o">-</span> <span class="n">other</span><span class="o">.</span><span class="n">inverse</span><span class="p">()</span><span class="o">*</span><span class="bp">self</span> <span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;unsupported operand type(s) for </span><span class="se">\&#39;</span><span class="s1">outer_product</span><span class="se">\&#39;</span><span class="s1">: </span><span class="si">%s</span><span class="s1"> and </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)),</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)))</span> <span class="p">)</span></div>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">'unsupported operand type(s) for </span><span class="se">\'</span><span class="s1">outer_product</span><span class="se">\'</span><span class="s1">: </span><span class="si">%s</span><span class="s1"> and </span><span class="si">%s</span><span class="s1">'</span> <span class="o">%</span> <span class="p">(</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)),</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)))</span> <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Quaternionr.rotate">
@@ -354,9 +354,9 @@
             <span class="k">if</span> <span class="n">other</span><span class="o">.</span><span class="n">get_length</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">other</span> <span class="o">*</span> <span class="bp">self</span> <span class="o">*</span> <span class="n">other</span><span class="o">.</span><span class="n">inverse</span><span class="p">()</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;length of the other Quaternionr must be 1&#39;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'length of the other Quaternionr must be 1'</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;unsupported operand type(s) for </span><span class="se">\&#39;</span><span class="s1">rotate</span><span class="se">\&#39;</span><span class="s1">: </span><span class="si">%s</span><span class="s1"> and </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)),</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)))</span> <span class="p">)</span></div>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">'unsupported operand type(s) for </span><span class="se">\'</span><span class="s1">rotate</span><span class="se">\'</span><span class="s1">: </span><span class="si">%s</span><span class="s1"> and </span><span class="si">%s</span><span class="s1">'</span> <span class="o">%</span> <span class="p">(</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)),</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)))</span> <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Quaternionr.conjugate">
@@ -437,7 +437,7 @@
     <span class="n">position</span> <span class="o">=</span> <span class="n">Vector3r</span><span class="p">()</span>
     <span class="n">penetration_depth</span> <span class="o">=</span> <span class="mf">0.0</span>
     <span class="n">time_stamp</span> <span class="o">=</span> <span class="mf">0.0</span>
-    <span class="n">object_name</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">object_name</span> <span class="o">=</span> <span class="s2">""</span>
     <span class="n">object_id</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span></div>
 
 
@@ -490,13 +490,13 @@
 <div class="viewcode-block" id="ImageRequest">
 <a class="viewcode-back" href="../../index.html#airsim.types.ImageRequest">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">ImageRequest</span><span class="p">(</span><span class="n">MsgpackMixin</span><span class="p">):</span>
-    <span class="n">camera_name</span> <span class="o">=</span> <span class="s1">&#39;0&#39;</span>
+    <span class="n">camera_name</span> <span class="o">=</span> <span class="s1">'0'</span>
     <span class="n">image_type</span> <span class="o">=</span> <span class="n">ImageType</span><span class="o">.</span><span class="n">Scene</span>
     <span class="n">pixels_as_float</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="n">compress</span> <span class="o">=</span> <span class="kc">False</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">camera_name</span><span class="p">,</span> <span class="n">image_type</span><span class="p">,</span> <span class="n">pixels_as_float</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">compress</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
-        <span class="c1"># todo: in future remove str(), it&#39;s only for compatibility to pre v1.2</span>
+        <span class="c1"># todo: in future remove str(), it's only for compatibility to pre v1.2</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">camera_name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">camera_name</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">image_type</span> <span class="o">=</span> <span class="n">image_type</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pixels_as_float</span> <span class="o">=</span> <span class="n">pixels_as_float</span>
@@ -512,7 +512,7 @@
     <span class="n">camera_position</span> <span class="o">=</span> <span class="n">Vector3r</span><span class="p">()</span>
     <span class="n">camera_orientation</span> <span class="o">=</span> <span class="n">Quaternionr</span><span class="p">()</span>
     <span class="n">time_stamp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">uint64</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-    <span class="n">message</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">message</span> <span class="o">=</span> <span class="s1">''</span>
     <span class="n">pixels_as_float</span> <span class="o">=</span> <span class="mf">0.0</span>
     <span class="n">compress</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="n">width</span> <span class="o">=</span> <span class="mi">0</span>
@@ -601,7 +601,7 @@
     <span class="n">landed_state</span> <span class="o">=</span> <span class="n">LandedState</span><span class="o">.</span><span class="n">Landed</span>
     <span class="n">rc_data</span> <span class="o">=</span> <span class="n">RCData</span><span class="p">()</span>
     <span class="n">ready</span> <span class="o">=</span> <span class="kc">False</span>
-    <span class="n">ready_message</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">ready_message</span> <span class="o">=</span> <span class="s2">""</span>
     <span class="n">can_arm</span> <span class="o">=</span> <span class="kc">False</span></div>
 
 
@@ -716,7 +716,7 @@
 <div class="viewcode-block" id="DetectionInfo">
 <a class="viewcode-back" href="../../index.html#airsim.types.DetectionInfo">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">DetectionInfo</span><span class="p">(</span><span class="n">MsgpackMixin</span><span class="p">):</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">''</span>
     <span class="n">geo_point</span> <span class="o">=</span> <span class="n">GeoPoint</span><span class="p">()</span>
     <span class="n">box2D</span> <span class="o">=</span> <span class="n">Box2D</span><span class="p">()</span>
     <span class="n">box3D</span> <span class="o">=</span> <span class="n">Box3D</span><span class="p">()</span>
@@ -726,7 +726,7 @@
 <div class="viewcode-block" id="PIDGains">
 <a class="viewcode-back" href="../../index.html#airsim.types.PIDGains">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">PIDGains</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Struct to store values of PID gains. Used to transmit controller gain values while instantiating</span>
 <span class="sd">    AngleLevel/AngleRate/Velocity/PositionControllerGains objects.</span>
 
@@ -734,7 +734,7 @@
 <span class="sd">        kP (float): Proportional gain</span>
 <span class="sd">        kI (float): Integrator gain</span>
 <span class="sd">        kD (float): Derivative gain</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kp</span><span class="p">,</span> <span class="n">ki</span><span class="p">,</span> <span class="n">kd</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">kp</span> <span class="o">=</span> <span class="n">kp</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ki</span> <span class="o">=</span> <span class="n">ki</span>
@@ -750,14 +750,14 @@
 <div class="viewcode-block" id="AngleRateControllerGains">
 <a class="viewcode-back" href="../../index.html#airsim.types.AngleRateControllerGains">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">AngleRateControllerGains</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Struct to contain controller gains used by angle level PID controller</span>
 
 <span class="sd">    Attributes:</span>
 <span class="sd">        roll_gains (PIDGains): kP, kI, kD for roll axis</span>
 <span class="sd">        pitch_gains (PIDGains): kP, kI, kD for pitch axis</span>
 <span class="sd">        yaw_gains (PIDGains): kP, kI, kD for yaw axis</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">roll_gains</span> <span class="o">=</span> <span class="n">PIDGains</span><span class="p">(</span><span class="mf">0.25</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
                        <span class="n">pitch_gains</span> <span class="o">=</span> <span class="n">PIDGains</span><span class="p">(</span><span class="mf">0.25</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
                        <span class="n">yaw_gains</span> <span class="o">=</span> <span class="n">PIDGains</span><span class="p">(</span><span class="mf">0.25</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)):</span>
@@ -775,14 +775,14 @@
 <div class="viewcode-block" id="AngleLevelControllerGains">
 <a class="viewcode-back" href="../../index.html#airsim.types.AngleLevelControllerGains">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">AngleLevelControllerGains</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Struct to contain controller gains used by angle rate PID controller</span>
 
 <span class="sd">    Attributes:</span>
 <span class="sd">        roll_gains (PIDGains): kP, kI, kD for roll axis</span>
 <span class="sd">        pitch_gains (PIDGains): kP, kI, kD for pitch axis</span>
 <span class="sd">        yaw_gains (PIDGains): kP, kI, kD for yaw axis</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">roll_gains</span> <span class="o">=</span> <span class="n">PIDGains</span><span class="p">(</span><span class="mf">2.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
                        <span class="n">pitch_gains</span> <span class="o">=</span> <span class="n">PIDGains</span><span class="p">(</span><span class="mf">2.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
                        <span class="n">yaw_gains</span> <span class="o">=</span> <span class="n">PIDGains</span><span class="p">(</span><span class="mf">2.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)):</span>
@@ -800,14 +800,14 @@
 <div class="viewcode-block" id="VelocityControllerGains">
 <a class="viewcode-back" href="../../index.html#airsim.types.VelocityControllerGains">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">VelocityControllerGains</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Struct to contain controller gains used by velocity PID controller</span>
 
 <span class="sd">    Attributes:</span>
 <span class="sd">        x_gains (PIDGains): kP, kI, kD for X axis</span>
 <span class="sd">        y_gains (PIDGains): kP, kI, kD for Y axis</span>
 <span class="sd">        z_gains (PIDGains): kP, kI, kD for Z axis</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_gains</span> <span class="o">=</span> <span class="n">PIDGains</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
                        <span class="n">y_gains</span> <span class="o">=</span> <span class="n">PIDGains</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
                        <span class="n">z_gains</span> <span class="o">=</span> <span class="n">PIDGains</span><span class="p">(</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)):</span>
@@ -825,14 +825,14 @@
 <div class="viewcode-block" id="PositionControllerGains">
 <a class="viewcode-back" href="../../index.html#airsim.types.PositionControllerGains">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">PositionControllerGains</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Struct to contain controller gains used by position PID controller</span>
 
 <span class="sd">    Attributes:</span>
 <span class="sd">        x_gains (PIDGains): kP, kI, kD for X axis</span>
 <span class="sd">        y_gains (PIDGains): kP, kI, kD for Y axis</span>
 <span class="sd">        z_gains (PIDGains): kP, kI, kD for Z axis</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_gains</span> <span class="o">=</span> <span class="n">PIDGains</span><span class="p">(</span><span class="mf">0.25</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
                        <span class="n">y_gains</span> <span class="o">=</span> <span class="n">PIDGains</span><span class="p">(</span><span class="mf">0.25</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
                        <span class="n">z_gains</span> <span class="o">=</span> <span class="n">PIDGains</span><span class="p">(</span><span class="mf">0.25</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)):</span>
@@ -854,7 +854,7 @@
     <span class="n">orientation</span> <span class="o">=</span> <span class="n">Quaternionr</span><span class="p">()</span>
     <span class="n">vertices</span> <span class="o">=</span> <span class="mf">0.0</span>
     <span class="n">indices</span> <span class="o">=</span> <span class="mf">0.0</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span></div>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">''</span></div>
 
 </pre></div>
 
