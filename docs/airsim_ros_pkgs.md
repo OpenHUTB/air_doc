@@ -1,10 +1,10 @@
-# airsim_ros_pkgs
+# 低空载具 ROS 封装器 airsim_ros_pkgs
 
-AirSim C++客户端库上的ROS封装。
+该页面展示 AirSim C++ 客户端库上的 ROS 封装。
 
 ## 安装
 
-以下步骤适用于Linux。如果在Windows上运行AirSim，则可以使用Windows Subsystem for Linux（WSL）来运行ROS包装，请参阅 [下面](#setting-up-the-build-environment-on-windows10-using-wsl1-or-wsl2) 的说明。如果由于某些问题，您无法或不喜欢在主机Linux上安装ROS和相关工具，您也可以使用Docker尝试，请参阅 [为 ROS 封装使用 Docker](#using-docker-for-ros) 中的步骤。
+以下步骤适用于 Linux。如果在 Windows 上运行 AirSim，则可以使用 Windows Subsystem for Linux（WSL）或者虚拟机来运行 ROS 封装，请参阅 [下面](#setting-up-the-build-environment-on-windows10-using-wsl1-or-wsl2) 的说明。如果由于某些问题，您无法或不喜欢在主机 Linux 上安装 ROS 和相关工具，您也可以使用Docker尝试，请参阅 [为 ROS 封装使用 Docker](#using-docker-for-ros) 中的步骤。
 
 
 - 如果默认GCC版本不是8或更高版本（使用`GCC--version`检查） 
@@ -19,13 +19,15 @@ AirSim C++客户端库上的ROS封装。
 - Ubuntu 18.04
     * 安装 [ROS melodic](https://wiki.ros.org/melodic/Installation/Ubuntu)
     * 安装 tf2 sensor 和 mavros 包: `sudo apt-get install ros-melodic-tf2-sensor-msgs ros-melodic-tf2-geometry-msgs ros-melodic-mavros*`
-- **Ubuntu 20.04**
+
+- **Ubuntu 20.04**（推荐）
     * 安装 [ROS noetic](https://wiki.ros.org/noetic/Installation/Ubuntu)
     * 安装 tf2 sensor 和 mavros 包: `sudo apt-get install ros-noetic-tf2-sensor-msgs ros-noetic-tf2-geometry-msgs ros-noetic-mavros*`
 
 - 安装 [catkin_tools](https://catkin-tools.readthedocs.io/en/latest/installing.html)
     `sudo apt-get install python-catkin-tools` 或
     `pip install catkin_tools`。 如果在 Ubuntu 20.04 则使用 `pip install "git+https://github.com/catkin/catkin_tools.git#egg=catkin_tools"`
+
 
 ## 构建
 
@@ -115,23 +117,48 @@ AirSim C++客户端库上的ROS封装。
 
 ## 运行
 
+启动 ROS 节点
 ```shell
 source devel/setup.bash;
+# 使用 host 参数在不同机器上运行
+# roslaunch airsim_ros_pkgs airsim_node.launch output:=screen host:=172.21.108.47
 roslaunch airsim_ros_pkgs airsim_node.launch;
-roslaunch airsim_ros_pkgs rviz.launch;
 ```
 
 ![](./images/ros/ros_launch.png)
 
-!!! 注意
-    如果在运行`roslaunch airsim_ros_pkgs airsim_node.launch`时出错，请运行`catkin clean`，然后重试
+启动可视化工具 rviz 
+```shell
+# 新建一个命令行终端
+source devel/setup.bash;
+roslaunch airsim_ros_pkgs rviz.launch;
+```
 
-## 使用 AirSim ROS 包装器
+![](./images/ros/rviz.png)
 
-ROS包装器由两个ROS节点组成——第一个是AirSim多旋翼 C++ 客户端库的包装器，第二个是简单的 比例-微分(PD) 位置控制器。
+
+显示主题为`/airsim_node/SimpleFlight/imu/imu`的 IMU 数据（通过`rostopic list`查看所有话题）：
+
+![](./images/ros/display_imu.png)
+
+**注意：** 如果在运行`roslaunch airsim_ros_pkgs airsim_node.launch`时出错，请运行`catkin clean`，然后重试
+
+如果运行 rviz 报错：
+```log
+(nn_3.8) user@ubuntu:~/air/ros$ roslaunch airsim_ros_pkgs rviz.launch
+RLException: [rviz.launch] is neither a launch file in package [airsim_ros_pkgs] nor is [airsim_ros_pkgs] a launch file name
+The traceback for the exception was written to the log file
+```
+
+解决：`source devel/setup.bash;`
+
+## 使用 AirSim ROS 封装器
+
+ROS 封装器由两个 ROS 节点组成：第一个是 AirSim 多旋翼 C++ 客户端库的封装器，第二个是简单的 比例-微分(PD) 位置控制器。
 让我们看看这 2 个节点的ROS API：
 
-### AirSim ROS 包装器节点
+
+### AirSim ROS 封装器节点
 
 #### 发布者：
 
@@ -147,41 +174,41 @@ ROS包装器由两个ROS节点组成——第一个是AirSim多旋翼 C++ 客户
 - `/airsim_node/VEHICLE_NAME/CAMERA_NAME/IMAGE_TYPE/camera_info` [sensor_msgs/CameraInfo](https://docs.ros.org/api/sensor_msgs/html/msg/CameraInfo.html)
 
 - `/airsim_node/VEHICLE_NAME/CAMERA_NAME/IMAGE_TYPE` [sensor_msgs/Image](https://docs.ros.org/api/sensor_msgs/html/msg/Image.html)
-  RGB or float image depending on image type requested in settings.json.
+  RGB 图像或浮点型图像，具体取决于 settings.json 中请求的图像类型。
 
 - `/tf` [tf2_msgs/TFMessage](https://docs.ros.org/api/tf2_msgs/html/msg/TFMessage.html)
 
 - `/airsim_node/VEHICLE_NAME/altimeter/SENSOR_NAME` [airsim_ros_pkgs/Altimeter](https://github.com/microsoft/AirSim/blob/main/ros/src/airsim_ros_pkgs/msg/Altimeter.msg)
-This the current altimeter reading for altitude, pressure, and [QNH](https://en.wikipedia.org/wiki/QNH)
+这是当前高度表关于高度、气压和 [QNH](https://en.wikipedia.org/wiki/QNH) 的读数。
 
 - `/airsim_node/VEHICLE_NAME/imu/SENSOR_NAME` [sensor_msgs::Imu](http://docs.ros.org/api/sensor_msgs/html/msg/Imu.html)
-IMU sensor data
+IMU 传感器数据
 
 - `/airsim_node/VEHICLE_NAME/magnetometer/SENSOR_NAME` [sensor_msgs::MagneticField](http://docs.ros.org/api/sensor_msgs/html/msg/MagneticField.html)
-  Meausrement of magnetic field vector/compass
+  磁场矢量/罗盘测量
 
 - `/airsim_node/VEHICLE_NAME/distance/SENSOR_NAME` [sensor_msgs::Range](http://docs.ros.org/api/sensor_msgs/html/msg/Range.html)
-  Meausrement of distance from an active ranger, such as infrared or IR
+  测量与主动式测距仪（如红外线或 IR 测距仪）之间的距离
 
 - `/airsim_node/VEHICLE_NAME/lidar/SENSOR_NAME` [sensor_msgs::PointCloud2](http://docs.ros.org/api/sensor_msgs/html/msg/PointCloud2.html)
-  LIDAR pointcloud
+  激光雷达点云
 
 #### 订阅者:
 
 - `/airsim_node/vel_cmd_body_frame` [airsim_ros_pkgs/VelCmd](https://github.com/microsoft/AirSim/tree/main/ros/src/airsim_ros_pkgs/msg/VelCmd.msg)
-  Ignore `vehicle_name` field, leave it to blank. We will use `vehicle_name` in future for multiple drones.
+  请忽略载具名称（`vehicle_name`）字段，将其留空。该字段将在未来用于多无人机场景。 
 
 - `/airsim_node/vel_cmd_world_frame` [airsim_ros_pkgs/VelCmd](https://github.com/microsoft/AirSim/tree/main/ros/src/airsim_ros_pkgs/msg/VelCmd.msg)
-  Ignore `vehicle_name` field, leave it to blank. We will use `vehicle_name` in future for multiple drones.
+  请忽略 `vehicle_name` 字段，将其留空。该字段将在未来用于多无人机场景。
 
 - `/gimbal_angle_euler_cmd` [airsim_ros_pkgs/GimbalAngleEulerCmd](https://github.com/microsoft/AirSim/tree/main/ros/src/airsim_ros_pkgs/msg/GimbalAngleEulerCmd.msg)
-  Gimbal set point in euler angles.
+  以欧拉角表示的云台设定点。
 
 - `/gimbal_angle_quat_cmd` [airsim_ros_pkgs/GimbalAngleQuatCmd](https://github.com/microsoft/AirSim/tree/main/ros/src/airsim_ros_pkgs/msg/GimbalAngleQuatCmd.msg)
-  Gimbal set point in quaternion.
+  以四元数表示的云台设定点。
 
 - `/airsim_node/VEHICLE_NAME/car_cmd` [airsim_ros_pkgs/CarControls](https://github.com/microsoft/AirSim/blob/main/ros/src/airsim_ros_pkgs/msg/CarControls.msg)
-Throttle, brake, steering and gear selections for control. Both automatic and manual transmission control possible, see the [`car_joy.py`](https://github.com/microsoft/AirSim/blob/main/ros/src/airsim_ros_pkgs/scripts/car_joy) script for use.
+用于控制的油门、刹车、转向及档位选择。支持自动挡和手动挡控制模式，具体使用方法请参阅 [`car_joy.py`](https://github.com/OpenHUTB/air/blob/main/ros/src/airsim_ros_pkgs/scripts/car_joy.py) 脚本。
 
 #### 服务:
 
@@ -190,43 +217,41 @@ Throttle, brake, steering and gear selections for control. Both automatic and ma
 - `/airsim_node/takeoff` [airsim_ros_pkgs/Takeoff](https://docs.ros.org/api/std_srvs/html/srv/Empty.html)
 
 - `/airsim_node/reset` [airsim_ros_pkgs/Reset](https://docs.ros.org/api/std_srvs/html/srv/Empty.html)
- Resets *all* drones
+ 重置*所有*无人机
 
 #### 参数:
 
 - `/airsim_node/world_frame_id` [string]
-  Set in: `$(airsim_ros_pkgs)/launch/airsim_node.launch`
-  Default: world_ned
-  Set to "world_enu" to switch to ENU frames automatically
+    - 设置于：`$(airsim_ros_pkgs)/launch/airsim_node.launch`
+    - 默认值：world_ned 
+    - 设置为 "world_enu" 可自动切换至 ENU 坐标系
+
 
 - `/airsim_node/odom_frame_id` [string]
-  Set in: `$(airsim_ros_pkgs)/launch/airsim_node.launch`
-  Default: odom_local_ned
-  If you set world_frame_id to "world_enu", the default odom name will instead default to "odom_local_enu"
+    - 设置于：`$(airsim_ros_pkgs)/launch/airsim_node.launch`
+    - 默认值：odom_local_ned
+    - 如果将 world_frame_id 设置为 "world_enu"，默认的 odom 名称将变为 "odom_local_enu"。
 
 - `/airsim_node/coordinate_system_enu` [boolean]
-  Set in: `$(airsim_ros_pkgs)/launch/airsim_node.launch`
-  Default: false
-  If you set world_frame_id to "world_enu", this setting will instead default to true
+    - 设置于`$(airsim_ros_pkgs)/launch/airsim_node.launch`
+    - 默认值：false
+    - 如果将 world_frame_id 设置为 "world_enu"，该设置将默认变为 true。
 
 - `/airsim_node/update_airsim_control_every_n_sec` [double]
-  Set in: `$(airsim_ros_pkgs)/launch/airsim_node.launch`
-  Default: 0.01 seconds.
-  Timer callback frequency for updating drone odom and state from airsim, and sending in control commands.
-  The current RPClib interface to unreal engine maxes out at 50 Hz.
-  Timer callbacks in ROS run at maximum rate possible, so it's best to not touch this parameter.
+    - 设置于：`$(airsim_ros_pkgs)/launch/airsim_node.launch`
+    - 默认值：0.01 秒。
+    - 这是用于从 AirSim 更新无人机里程计（odom）与状态以及发送控制指令的定时器回调频率。目前 RPClib 与 Unreal Engine 之间的接口上限为 50 Hz。由于 ROS 中的定时器回调会以尽可能高的频率运行，因此最好不要修改此参数。
 
 - `/airsim_node/update_airsim_img_response_every_n_sec` [double]
-  Set in: `$(airsim_ros_pkgs)/launch/airsim_node.launch`
-  Default: 0.01 seconds.
-  Timer callback frequency for receiving images from all cameras in airsim.
-  The speed will depend on number of images requested and their resolution.
-  Timer callbacks in ROS run at maximum rate possible, so it's best to not touch this parameter.
+    - 设置于：`$(airsim_ros_pkgs)/launch/airsim_node.launch`
+    - 默认值：0.01 秒。
+    - 这是 AirSim 中用于从所有摄像机接收图像的定时器回调频率。实际速率取决于请求的图像数量及其分辨率。由于 ROS 中的定时器回调会以尽可能高的速率运行，因此最好不要修改此参数。 
 
 - `/airsim_node/publish_clock` [double]
-  Set in: `$(airsim_ros_pkgs)/launch/airsim_node.launch`
-  Default: false
-  Will publish the ros /clock topic if set to true.
+    - 设置于：`$(airsim_ros_pkgs)/launch/airsim_node.launch`
+    - 默认值：false
+    - 如果设置为 true，将发布 ROS 的 `/clock` 话题。
+
 
 ### 简单 PID 位置控制器节点
 
@@ -237,56 +262,56 @@ Throttle, brake, steering and gear selections for control. Both automatic and ma
     `/pd_position_node/kp_y` [double],
     `/pd_position_node/kp_z` [double],
     `/pd_position_node/kp_yaw` [double]
-    Proportional gains
+    比例增益
 
   * `/pd_position_node/kd_x` [double],
     `/pd_position_node/kd_y` [double],
     `/pd_position_node/kd_z` [double],
     `/pd_position_node/kd_yaw` [double]
-    Derivative gains
+    微分增益
 
   * `/pd_position_node/reached_thresh_xyz` [double]
-    Threshold euler distance (meters) from current position to setpoint position
+    从当前位置到设定点位置的欧几里得距离阈值（米）
 
   * `/pd_position_node/reached_yaw_degrees` [double]
-    Threshold yaw distance (degrees) from current position to setpoint position
+    从当前位置到设定点位置的偏航距离阈值（度）
 
 - `/pd_position_node/update_control_every_n_sec` [double]
-  Default: 0.01 seconds
+  默认值：0.01 秒
 
 #### 服务:
 
-- `/airsim_node/VEHICLE_NAME/gps_goal` [Request: [srv/SetGPSPosition](https://github.com/microsoft/AirSim/blob/main/ros/src/airsim_ros_pkgs/srv/SetGPSPosition.srv)]
-  Target gps position + yaw.
-  In **absolute** altitude.
+- `/airsim_node/VEHICLE_NAME/gps_goal` [请求: [srv/SetGPSPosition](https://github.com/microsoft/AirSim/blob/main/ros/src/airsim_ros_pkgs/srv/SetGPSPosition.srv)]
+  目标 GPS 位置 + 偏航角（绝对高度）。
 
-- `/airsim_node/VEHICLE_NAME/local_position_goal` [Request: [srv/SetLocalPosition](https://github.com/microsoft/AirSim/blob/main/ros/src/airsim_ros_pkgs/srv/SetLocalPosition.srv)]
-  Target local position + yaw in global NED frame.
+- `/airsim_node/VEHICLE_NAME/local_position_goal` [请求: [srv/SetLocalPosition](https://github.com/microsoft/AirSim/blob/main/ros/src/airsim_ros_pkgs/srv/SetLocalPosition.srv)]
+  全局 NED 坐标系下的目标局部位置+偏航角。 
+
 
 #### 订阅者:
 
 - `/airsim_node/origin_geo_point` [airsim_ros_pkgs/GPSYaw](https://github.com/microsoft/AirSim/tree/main/ros/src/airsim_ros_pkgs/msg/GPSYaw.msg)
-  Listens to home geo coordinates published by `airsim_node`.
+  监听由 `airsim_node` 发布的归位点（home）地理坐标。
 
 - `/airsim_node/VEHICLE_NAME/odom_local_ned` [nav_msgs/Odometry](https://docs.ros.org/api/nav_msgs/html/msg/Odometry.html)
-  Listens to odometry published by `airsim_node`
+  监听由 `airsim_node` 发布的里程计数据
 
 #### 发布者:
 
 - `/vel_cmd_world_frame` [airsim_ros_pkgs/VelCmd](https://github.com/microsoft/AirSim/tree/main/ros/src/airsim_ros_pkgs/msg/VelCmd.msg)
-  Sends velocity command to `airsim_node`
+  向 `airsim_node` 发送速度指令
 
 #### 全局参数
 
-- Dynamic constraints. These can be changed in `dynamic_constraints.launch`:
+- 动态约束。这些可以在 [dynamic_constraints.launch](https://github.com/OpenHUTB/air/tree/main/ros/src/airsim_ros_pkgs/launch/dynamic_constraints.launch) 中进行修改：
     * `/max_vel_horz_abs` [double]
-  Maximum horizontal velocity of the drone (meters/second)
+  无人机最大水平速度（米/秒）
 
     * `/max_vel_vert_abs` [double]
-  Maximum vertical velocity of the drone (meters/second)
+  无人机最大垂直速度（米/秒）
 
     * `/max_yaw_rate_degree` [double]
-  Maximum yaw rate (degrees/second)
+  最大偏航率（度/秒）
 
 ## 杂项
 
@@ -298,7 +323,7 @@ Throttle, brake, steering and gear selections for control. Both automatic and ma
 它涉及在Windows10中启用内置的Windows Linux环境（WSL），安装兼容的Linux OS映像，最后安装构建环境，就像它是一个普通的Linux系统一样。
 
 
-完成后，您将能够像在本机linux机器中一样构建和运行ros包装器。
+完成后，您将能够像在本机linux机器中一样构建和运行 ROS 封装器。
 
 
 ##### WSL1 vs WSL2
@@ -313,14 +338,11 @@ WSL2 是最新版本的 Windows 10 Linux 子系统。它比 WSL1 快很多倍（
 
 2. 恭喜，您现在已在 Windows 下拥有一个可运行的 Ubuntu 子系统，您可以前往 [Ubuntu 16 / 18 说明](#setup) ，然后了解 [如何在 Windows 上运行 Airsim 以及在 WSL 上运行 ROS 封装程序](#how-to-run-airsim-on-windows-and-ros-wrapper-on-wsl) ！
 
-!!! 注意
+**注意：** 您可以通过在 Windows 上安装 [VcXsrv](https://sourceforge.net/projects/vcxsrv/) 来运行 XWindows 应用程序（包括 SITL）。要使用它，请从 Windows 开始菜单找到并运行 `XLaunch`。在第一个弹出窗口中选择`多窗口(Multiple Windows)`，在第二个弹出窗口中选择`启动时不启用客户端(Start no client)`，在第三个弹出窗口中选择`仅启动剪贴板`。**不要**选择`原生 OpenGL`（如果无法连接，请选择`禁用访问控制(Disable access control)`）。您需要设置 DISPLAY 变量以指向您的显示器：在 WSL 中，它是 `127.0.0.1:0`；在 WSL2 中，它是计算机网络端口的 IP 地址，可以使用以下代码进行设置。此外，在 WSL2 中，您可能需要禁用公共网络的防火墙，或者创建一个例外，以便 VcXsrv 可以与 WSL2 通信。
 
-    您可以通过在 Windows 上安装 [VcXsrv](https://sourceforge.net/projects/vcxsrv/) 来运行 XWindows 应用程序（包括 SITL）。要使用它，请从 Windows 开始菜单找到并运行 `XLaunch`。在第一个弹出窗口中选择`多窗口(Multiple Windows)`，在第二个弹出窗口中选择`启动时不启用客户端(Start no client)`，在第三个弹出窗口中选择`仅启动剪贴板`。**不要**选择`原生 OpenGL`（如果无法连接，请选择`禁用访问控制(Disable access control)`）。您需要设置 DISPLAY 变量以指向您的显示器：在 WSL 中，它是 `127.0.0.1:0`；在 WSL2 中，它是计算机网络端口的 IP 地址，可以使用以下代码进行设置。此外，在 WSL2 中，您可能需要禁用公共网络的防火墙，或者创建一个例外，以便 VcXsrv 可以与 WSL2 通信。
+    export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0
 
-    `export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0`
-
-!!! 诀窍
-
+* 诀窍：
     - 如果你将这行添加到你的 ~/.bashrc 文件中，你就不需要再次运行这个命令了。 
     - 对于代码编辑，您可以在 WSL 中安装 VSCode。
     - Windows 10 内置了“Windows Defender”病毒扫描程序。它会显著降低 WSL 的运行速度。禁用它可以大幅提升磁盘性能，但会增加病毒感染的风险，因此请自行承担风险。以下是众多资源/视频之一，向您展示如何禁用它：[如何在 Windows 10 上禁用或启用 Windows Defender](https://youtu.be/FmjblGay3AM)
