@@ -19,7 +19,7 @@ AirSim C++客户端库上的ROS封装。
 - Ubuntu 18.04
     * 安装 [ROS melodic](https://wiki.ros.org/melodic/Installation/Ubuntu)
     * 安装 tf2 sensor 和 mavros 包: `sudo apt-get install ros-melodic-tf2-sensor-msgs ros-melodic-tf2-geometry-msgs ros-melodic-mavros*`
-- Ubuntu 20.04
+- **Ubuntu 20.04**
     * 安装 [ROS noetic](https://wiki.ros.org/noetic/Installation/Ubuntu)
     * 安装 tf2 sensor 和 mavros 包: `sudo apt-get install ros-noetic-tf2-sensor-msgs ros-noetic-tf2-geometry-msgs ros-noetic-mavros*`
 
@@ -31,32 +31,87 @@ AirSim C++客户端库上的ROS封装。
 
 - 构建 AirSim
 
-```shell
-git clone https://github.com/OpenHUTB/air.git;
-cd air;
-./setup.sh;
-./build.sh;
-```
+  ```shell
+  git clone https://github.com/OpenHUTB/air.git;
+  cd air;
+  ./setup.sh;
+  ./build.sh;
+  ```
+
+  **笔记：** 虚拟机中执行`build.sh`报错：
+  ```text
+  Could not find compiler set in environment variable CC:
+  ...
+  Make Error: CMAKE_C_COMPILER not set, after EnableLanguage
+  ```
+  原因：找不到编译器。切换为 gcc-9 编译成功。
+
+  build.sh 报错：
+  ```text
+  /home/user/air/external/rpclib/rpclib-2.3.0/include/rpc/dispatcher.h:6:10: fatal error: 'atomic' file not found
+  ```
+  解决：clang-10 编译会报这个，切换成 gcc-9 并重新构建
+  ```shell
+  ./clean_rebuild.sh
+  ```
 
 - 确保已按照上面的安装页面中所述设置ROS的环境变量。为方便起见，将`source`命令添加到`.bashrc`中（用特定的版本名替换`mediatic`）：
 
-```shell
-echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc
-source ~/.bashrc
-```
+  ```shell
+  # Ubuntu 18.04 melodic
+  # echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc
+  # Ubuntu 20.04 noetic
+  echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
+  source ~/.bashrc
+  ```
 
 - 构建 ROS 包
 
-```shell
-cd ros;
-catkin build; # 或 catkin_make
-```
+  ```shell
+  cd ros;
+  catkin_make
+  ```
 
-如果默认GCC不是8或更高（使用`GCC--version`检查），则编译将失败。在这种情况下，请显式使用`gcc-8`，如下所示
+  *问题：* catkin_make报错：Unable to find either executable 'empy' or Python module 'em'...  try installing the package 'python3-empy'
 
-```shell
-catkin build -DCMAKE_C_COMPILER=gcc-8 -DCMAKE_CXX_COMPILER=g++-8
-```
+  原因：系统中安装了多个Python版本，确保 CMake 和 Catkin 工作空间使用的是正确的Python
+
+  解决：
+  ```
+  conda activate nn_3.8
+  pip install catkin_tools
+  catkin_make -DPYTHON_EXECUTABLE=/home/user/miniconda3/envs/nn_3.8/bin/python
+  ```
+
+  *问题：* Could not find a package configuration file provided by "tf2_sensor_msgs"
+
+  解决：
+  ```shell
+  sudo apt-get install ros-noetic-tf2-sensor-msgs ros-noetic-tf2-geometry-msgs ros-noetic-mavros*
+  ```
+  如果安装ros包报错：
+  ```
+  Failed to fetch http://packages.ros.org/ros/ubuntu/pool/main/r/ros-noetic-mavros-msgs
+  ```
+  运行：
+  ```shell
+  curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
+  sudo apt update
+  ```
+
+  *问题：* ModuleNotFoundError: No module named 'em'
+  
+  解决：
+  ```shell
+  # 注意必须指定版本，否则会报错：AttributeError: module 'em' has no attribute 'RAW_OPT'
+  pip install empy==3.3.4
+  ```
+
+  如果默认 GCC 不是8或更高（使用`GCC--version`检查），则编译将失败。在这种情况下，请显式使用`gcc-8`，如下所示
+
+  ```shell
+  catkin build -DCMAKE_C_COMPILER=gcc-8 -DCMAKE_CXX_COMPILER=g++-8
+  ```
 
 ## 运行
 
@@ -65,6 +120,8 @@ source devel/setup.bash;
 roslaunch airsim_ros_pkgs airsim_node.launch;
 roslaunch airsim_ros_pkgs rviz.launch;
 ```
+
+![](./images/ros/ros_launch.png)
 
 !!! 注意
     如果在运行`roslaunch airsim_ros_pkgs airsim_node.launch`时出错，请运行`catkin clean`，然后重试
