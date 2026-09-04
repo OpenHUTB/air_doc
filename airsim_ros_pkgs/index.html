@@ -335,7 +335,7 @@
 </ul>
 </li>
 <li>
-<p>Ubuntu 20.04</p>
+<p><strong>Ubuntu 20.04</strong></p>
 <ul>
 <li>安装 <a href="https://wiki.ros.org/noetic/Installation/Ubuntu">ROS noetic</a></li>
 <li>安装 tf2 sensor 和 mavros 包: <code>sudo apt-get install ros-noetic-tf2-sensor-msgs ros-noetic-tf2-geometry-msgs ros-noetic-mavros*</code></li>
@@ -356,19 +356,57 @@
 ./setup.sh<span class="p">;</span>
 ./build.sh<span class="p">;</span>
 </code></pre></div>
+<p><strong>笔记：</strong> 虚拟机中执行<code>build.sh</code>报错：
+  <div class="highlight"><pre><span></span><code>Could not find compiler set in environment variable CC:
+...
+Make Error: CMAKE_C_COMPILER not set, after EnableLanguage
+</code></pre></div>
+  原因：找不到编译器。切换为 gcc-9 编译成功。</p>
+<p>build.sh 报错：
+  <div class="highlight"><pre><span></span><code>/home/user/air/external/rpclib/rpclib-2.3.0/include/rpc/dispatcher.h:6:10: fatal error: &#39;atomic&#39; file not found
+</code></pre></div>
+  解决：clang-10 编译会报这个，切换成 gcc-9 并重新构建
+  <div class="highlight"><pre><span></span><code>./clean_rebuild.sh
+</code></pre></div></p>
 <ul>
 <li>确保已按照上面的安装页面中所述设置ROS的环境变量。为方便起见，将<code>source</code>命令添加到<code>.bashrc</code>中（用特定的版本名替换<code>mediatic</code>）：</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;source /opt/ros/melodic/setup.bash&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc
+<div class="highlight"><pre><span></span><code><span class="c1"># Ubuntu 18.04 melodic</span>
+<span class="c1"># echo &quot;source /opt/ros/melodic/setup.bash&quot; &gt;&gt; ~/.bashrc</span>
+<span class="c1"># Ubuntu 20.04 noetic</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;source /opt/ros/noetic/setup.bash&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc
 <span class="nb">source</span><span class="w"> </span>~/.bashrc
 </code></pre></div>
 <ul>
 <li>构建 ROS 包</li>
 </ul>
 <div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>ros<span class="p">;</span>
-catkin<span class="w"> </span>build<span class="p">;</span><span class="w"> </span><span class="c1"># 或 catkin_make</span>
+catkin_make
 </code></pre></div>
-<p>如果默认GCC不是8或更高（使用<code>GCC--version</code>检查），则编译将失败。在这种情况下，请显式使用<code>gcc-8</code>，如下所示</p>
+<p><em>问题：</em> catkin_make报错：Unable to find either executable 'empy' or Python module 'em'...  try installing the package 'python3-empy'</p>
+<p>原因：系统中安装了多个Python版本，确保 CMake 和 Catkin 工作空间使用的是正确的Python</p>
+<p>解决：
+  <div class="highlight"><pre><span></span><code>conda activate nn_3.8
+pip install catkin_tools
+catkin_make -DPYTHON_EXECUTABLE=/home/user/miniconda3/envs/nn_3.8/bin/python
+</code></pre></div></p>
+<p><em>问题：</em> Could not find a package configuration file provided by "tf2_sensor_msgs"</p>
+<p>解决：
+  <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>ros-noetic-tf2-sensor-msgs<span class="w"> </span>ros-noetic-tf2-geometry-msgs<span class="w"> </span>ros-noetic-mavros*
+</code></pre></div>
+  如果安装ros包报错：
+  <div class="highlight"><pre><span></span><code>Failed to fetch http://packages.ros.org/ros/ubuntu/pool/main/r/ros-noetic-mavros-msgs
+</code></pre></div>
+  运行：
+  <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span>https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc<span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>apt-key<span class="w"> </span>add<span class="w"> </span>-
+sudo<span class="w"> </span>apt<span class="w"> </span>update
+</code></pre></div></p>
+<p><em>问题：</em> ModuleNotFoundError: No module named 'em'</p>
+<p>解决：
+  <div class="highlight"><pre><span></span><code><span class="c1"># 注意必须指定版本，否则会报错：AttributeError: module &#39;em&#39; has no attribute &#39;RAW_OPT&#39;</span>
+pip<span class="w"> </span>install<span class="w"> </span><span class="nv">empy</span><span class="o">==</span><span class="m">3</span>.3.4
+</code></pre></div></p>
+<p>如果默认 GCC 不是8或更高（使用<code>GCC--version</code>检查），则编译将失败。在这种情况下，请显式使用<code>gcc-8</code>，如下所示</p>
 <div class="highlight"><pre><span></span><code>catkin<span class="w"> </span>build<span class="w"> </span>-DCMAKE_C_COMPILER<span class="o">=</span>gcc-8<span class="w"> </span>-DCMAKE_CXX_COMPILER<span class="o">=</span>g++-8
 </code></pre></div>
 <h2 id="_3">运行</h2>
@@ -376,6 +414,7 @@ catkin<span class="w"> </span>build<span class="p">;</span><span class="w"> </sp
 roslaunch<span class="w"> </span>airsim_ros_pkgs<span class="w"> </span>airsim_node.launch<span class="p">;</span>
 roslaunch<span class="w"> </span>airsim_ros_pkgs<span class="w"> </span>rviz.launch<span class="p">;</span>
 </code></pre></div>
+<p><img alt="" src="../images/ros/ros_launch.png" /></p>
 <div class="admonition 注意">
 <p class="admonition-title">注意</p>
 <p>如果在运行<code>roslaunch airsim_ros_pkgs airsim_node.launch</code>时出错，请运行<code>catkin clean</code>，然后重试</p>
