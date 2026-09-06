@@ -118,6 +118,10 @@
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#_3">配备单目相机、深度相机和激光雷达的单架无人机</a>
     </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2-imu">2 架无人机，分别配备相机、激光雷达和 IMU</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#25">25 架无人机组成一个方形图案</a>
+    </li>
         </ul>
     </li>
     </ul>
@@ -299,8 +303,8 @@
 有关 ROS API，请参阅 <a href="../airsim_ros_pkgs/">低空载具 ROS 封装器 airsim_ros_pkgs</a> 。</p>
 <h2 id="_1">设置</h2>
 <p>确保 <a href="../airsim_ros_pkgs/">airsim_ros_pkgs 设置</a> 已完成并且先决条件已安装。</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>PATH_TO/air/ros
-$<span class="w"> </span>catkin_make<span class="w"> </span>airsim_tutorial_pkgs
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>PATH_TO/air/ros
+catkin_make<span class="w"> </span>airsim_tutorial_pkgs
 </code></pre></div>
 <p>如果您的默认 GCC 版本不是 8 或更高版本（请使用 <code>gcc --version</code> 检查），则编译将失败。在这种情况下，请明确使用 <code>gcc-8</code>，如下所示：</p>
 <div class="highlight"><pre><span></span><code>catkin_make<span class="w"> </span>airsim_tutorial_pkgs<span class="w"> </span>-DCMAKE_C_COMPILER<span class="o">=</span>gcc-8<span class="w"> </span>-DCMAKE_CXX_COMPILER<span class="o">=</span>g++-8
@@ -309,34 +313,33 @@ $<span class="w"> </span>catkin_make<span class="w"> </span>airsim_tutorial_pkgs
 <h2 id="_2">示例</h2>
 <h3 id="_3">配备单目相机、深度相机和激光雷达的单架无人机</h3>
 <ul>
-<li>Settings.json - 一个前置立体相机和一个中心单目相机的配置 <a href="https://github.com/OpenHUTB/air/blob/main/ros/src/airsim_tutorial_pkgs/settings/front_stereo_and_center_mono.json">front_stereo_and_center_mono.json</a>
- <code>shell
- $ source PATH_TO/air/ros/devel/setup.bash
- $ roscd airsim_tutorial_pkgs
- # 将配置文件拷贝到用户目录下，或者 WindowsNoEditor 目录下
- $ cp settings/front_stereo_and_center_mono.json ~/Documents/AirSim/settings.json</code>
- 启动虚幻引擎包或二进制文件 AbandonedPark.exe（或者在其他机器启动）
- <img alt="" src="../images/ros/front_stereo_and_center_mono.png" /></li>
+<li>Settings.json - 一个前置立体相机和一个中心单目相机的配置 <a href="https://github.com/OpenHUTB/air/blob/main/ros/src/airsim_tutorial_pkgs/settings/front_stereo_and_center_mono.json">front_stereo_and_center_mono.json</a></li>
 </ul>
-<p>启动 ROS 节点：
- ```shell
- # 使用 host 参数在不同机器上运行</p>
-<h1 id="roslaunch-airsim_ros_pkgs-airsim_nodelaunch-outputscreen-host1722110847">roslaunch airsim_ros_pkgs airsim_node.launch output:=screen host:=172.21.108.47</h1>
-<p>$ roslaunch airsim_ros_pkgs airsim_node.launch;</p>
-<p># 在新的终端或面板
- $ source PATH_TO/air/ros/devel/setup.bash
- $ roslaunch airsim_tutorial_pkgs front_stereo_and_center_mono.launch
- <code>``
- 上述命令将使用 tf 启动 rviz，使用 [depth_image_proc](https://wiki.ros.org/depth_image_proc) 的 [</code>depth_to_pointcloud` 启动文件](https://github.com/OpenHUTB/air/blob/main/ros/src/airsim_tutorial_pkgs/launch/front_stereo_and_center_mono/depth_to_pointcloud.launch) 注册 RGBD 云，以及激光雷达点云。 </p>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>PATH_TO/air/ros/devel/setup.bash
+roscd<span class="w"> </span>airsim_tutorial_pkgs
+<span class="c1"># 将配置文件拷贝到用户目录下，或者 WindowsNoEditor 目录下</span>
+cp<span class="w"> </span>settings/front_stereo_and_center_mono.json<span class="w"> </span>~/Documents/AirSim/settings.json
+</code></pre></div>
+<p>启动虚幻引擎包或二进制文件 AbandonedPark.exe（或者在其他机器启动）
+ <img alt="" src="../images/ros/front_stereo_and_center_mono.png" /></p>
+<p>启动 ROS 节点：</p>
+<p><div class="highlight"><pre><span></span><code><span class="c1"># 使用 host 参数在不同机器上运行</span>
+<span class="c1"># roslaunch airsim_ros_pkgs airsim_node.launch output:=screen host:=172.21.108.47</span>
+roslaunch<span class="w"> </span>airsim_ros_pkgs<span class="w"> </span>airsim_node.launch<span class="p">;</span>
+<span class="c1"># 在新的终端或面板</span>
+<span class="nb">source</span><span class="w"> </span>PATH_TO/air/ros/devel/setup.bash
+roslaunch<span class="w"> </span>airsim_tutorial_pkgs<span class="w"> </span>front_stereo_and_center_mono.launch
+</code></pre></div>
+ 上述命令将使用 tf 启动 rviz，使用 <a href="https://wiki.ros.org/depth_image_proc">depth_image_proc</a> 的 <a href="https://github.com/OpenHUTB/air/blob/main/ros/src/airsim_tutorial_pkgs/launch/front_stereo_and_center_mono/depth_to_pointcloud.launch"><code>depth_to_pointcloud</code> 启动文件</a> 注册 RGBD 云，以及激光雷达点云。 </p>
 <p><img alt="" src="../images/ros/front_stereo_and_center_mono_rviz.png" /></p>
 <h3 id="2-imu">2 架无人机，分别配备相机、激光雷达和 IMU</h3>
 <ul>
 <li>Settings.json - 都挂载了相机、激光雷达和 IMU 的两架无人机配置 <a href="https://github.com/OpenHUTB/air/blob/main/ros/src/airsim_tutorial_pkgs/settings/two_drones_camera_lidar_imu.json">two_drones_camera_lidar_imu.json</a> </li>
 </ul>
-<p><div class="highlight"><pre><span></span><code>$<span class="w"> </span><span class="nb">source</span><span class="w"> </span>PATH_TO/air/ros/devel/setup.bash
-$<span class="w"> </span>roscd<span class="w"> </span>airsim_tutorial_pkgs
+<p><div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>PATH_TO/air/ros/devel/setup.bash
+roscd<span class="w"> </span>airsim_tutorial_pkgs
 <span class="c1"># 将配置文件拷贝到用户目录下，或者 WindowsNoEditor 目录下</span>
-$<span class="w"> </span>cp<span class="w"> </span>settings/two_drones_camera_lidar_imu.json<span class="w"> </span>~/Documents/AirSim/settings.json
+cp<span class="w"> </span>settings/two_drones_camera_lidar_imu.json<span class="w"> </span>~/Documents/AirSim/settings.json
 </code></pre></div>
  启动虚幻包或二进制文件
  <img alt="" src="../images/ros/two_drones_camera_lidar_imu.png" /></p>
@@ -350,15 +353,15 @@ roslaunch<span class="w"> </span>airsim_ros_pkgs<span class="w"> </span>rviz.lau
 <ul>
 <li>Settings.json - 配置文件 <a href="https://github.com/OpenHUTB/air/blob/main/ros/src/airsim_tutorial_pkgs/settings/twenty_five_drones.json">twenty_five_drones.json</a> </li>
 </ul>
-<p><div class="highlight"><pre><span></span><code>$<span class="w"> </span><span class="nb">source</span><span class="w"> </span>PATH_TO/air/ros/devel/setup.bash
-$<span class="w"> </span>roscd<span class="w"> </span>airsim_tutorial_pkgs
+<p><div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>PATH_TO/air/ros/devel/setup.bash
+roscd<span class="w"> </span>airsim_tutorial_pkgs
 <span class="c1"># 将配置文件拷贝到用户目录下，或者 WindowsNoEditor 目录下</span>
-$<span class="w"> </span>cp<span class="w"> </span>settings/twenty_five_drones.json<span class="w"> </span>~/Documents/AirSim/settings.json
+cp<span class="w"> </span>settings/twenty_five_drones.json<span class="w"> </span>~/Documents/AirSim/settings.json
 </code></pre></div>
  从这里启动你的虚幻引擎包或二进制文件
  <img alt="" src="../images/ros/twenty_five_drones.png" />
- <div class="highlight"><pre><span></span><code>$<span class="w"> </span>roslaunch<span class="w"> </span>airsim_ros_pkgs<span class="w"> </span>airsim_node.launch<span class="p">;</span>
-$<span class="w"> </span>roslaunch<span class="w"> </span>airsim_ros_pkgs<span class="w"> </span>rviz.launch
+ <div class="highlight"><pre><span></span><code>roslaunch<span class="w"> </span>airsim_ros_pkgs<span class="w"> </span>airsim_node.launch<span class="p">;</span>
+roslaunch<span class="w"> </span>airsim_ros_pkgs<span class="w"> </span>rviz.launch
 </code></pre></div>
 您可以在 rviz 中查看 tfs。
 然后运行 <code>rostopic list</code> 和 <code>rosservice list</code> 来检查可用的服务。</p>
