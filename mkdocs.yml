@@ -4,6 +4,7 @@ repo_url: https://github.com/OpenHUTB/air_doc
 
 
 markdown_extensions:
+  - footnotes  # 添加参考文献必备
   - pymdownx.blocks.html
   - admonition
   - mdx_math
@@ -40,6 +41,9 @@ plugins:
       lang: ja
       separator: '[\s\-\.]+'
       min_search_length: 1
+  - bibtex:
+      bib_file: refs.bib
+      csl_file: nature.csl
 
 extra:
   generator: false

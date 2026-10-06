@@ -27,6 +27,7 @@ https://github.com/louiszengCN/CarlaAir/commit/00d93b172ded2b9358347d20e9a02693a
 
 | | |
 |---|---|
+| 🏗️ **闭环空地协同VLA评估套件** | [空地 VLA 模型协同工作](./vla.md) |
 | 🏗️ **单进程组合式集成** | `CARLAAirGameMode` 继承 Carla 并组合 AirSim。仅修改上游 2 个文件（约 35 行）。无桥接，无延迟。 |
 | 🎯 **绝对坐标对齐** | Carla（左手系）与 AirSim（北东地，NED）坐标系之间精确 `0.0000 m` 误差。 |
 | 📸 **多达 18 种传感器模态** | RGB、深度图、语义分割、实例分割、LiDAR、雷达、表面法线、IMU、GNSS、气压计 -- 空地传感器逐帧对齐。 |
