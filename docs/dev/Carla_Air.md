@@ -257,7 +257,7 @@ CARLA-Air 旨在支持空地一体具身智能的四大研究方向：
 ![](../images/calar_air/W1.gif)
 
 
-<b>W2：VLN/VLA (Vision Language-driven Navigation/Action) 数据生成</b>
+<b>W2：视觉语言驱动的导航/动作 (Vision Language-driven Navigation/Action, VLN/VLA) 数据生成</b>
 
 ![](../images/calar_air/W2.gif)
 
@@ -281,7 +281,7 @@ CARLA-Air 旨在支持空地一体具身智能的四大研究方向：
 ![](../images/calar_air/customAsset.gif)
 
 
-<b>ROS 2 支持</b>：63 个 Topic 覆盖双仿真后端
+<b>ROS 2 支持</b>：63 个话题（Topic）覆盖双仿真后端
 
 ![](../images/calar_air/ROS_demo.gif)
 

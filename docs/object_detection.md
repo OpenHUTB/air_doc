@@ -1,25 +1,26 @@
-# Object Detection
+# 目标检测
 
-## About
-This feature lets you generate object detection using existing cameras in AirSim, similar to detection DNN.   
-Using the API you can control which object to detect by name and radius from camera.   
-One can control these settings for each camera, image type and vehicle combination separately.
+## 关于
+
+该功能允许利用 AirSim 中的现有摄像机实现物体检测，类似于基于深度神经网络（DNN）的检测。通过 API，您可以根据物体名称及距摄像机的距离来指定检测目标。您可以针对每种“摄像机、图像类型与载具”的组合，分别配置这些设置。
+
 
 ## API
-- Set mesh name to detect in wildcard format   
+- 以通配符格式设置要检测的网格名称   
 ```simAddDetectionFilterMeshName(camera_name, image_type, mesh_name, vehicle_name = '')```   
 
-- Clear all mesh names previously added   
+- 清除所有先前添加的网格名称   
 ```simClearDetectionMeshNames(camera_name, image_type, vehicle_name = '')```   
 
-- Set detection radius in cm   
+- 设置检测半径（厘米）   
 ```simSetDetectionFilterRadius(camera_name, image_type, radius_cm, vehicle_name = '')```   
 
-- Get detections   
+- 获取检测结果
 ```simGetDetections(camera_name, image_type, vehicle_name = '')```
 
 
-The return value of `simGetDetections` is a `DetectionInfo` array:
+`simGetDetections` 的返回值是一个 `DetectionInfo` 数组：
+
 ```python
 DetectionInfo
     name = ''
@@ -28,10 +29,15 @@ DetectionInfo
     box3D = Box3D()
     relative_pose = Pose()
 ```
-## Usage example
-Python script [detection.py](https://github.com/microsoft/AirSim/blob/main/PythonClient/detection/detection.py) shows how to set detection parameters and shows the result in OpenCV capture.
 
-A minimal example using API with Blocks environment to detect Cylinder objects:
+
+## 使用示例
+
+Python 脚本 [detection.py](https://github.com/OpenHUTB/air/blob/main/PythonClient/detection/detection.py) 展示了如何设置检测参数，并在 OpenCV 捕获画面中显示检测结果。
+
+
+一个使用 API 和 Blocks 环境检测圆柱体对象的极简示例：
+
 ```python
 camera_name = "0"
 image_type = airsim.ImageType.Scene
@@ -45,7 +51,7 @@ client.simGetDetections(camera_name, image_type)
 detections = client.simClearDetectionMeshNames(camera_name, image_type)
 ```
 
-Output result:
+输出结果：
 ```python
 Cylinder: <DetectionInfo> {   'box2D': <Box2D> {   'max': <Vector2r> {   'x_val': 617.025634765625,
     'y_val': 583.5487060546875},

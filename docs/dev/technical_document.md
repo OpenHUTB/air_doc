@@ -54,6 +54,8 @@
 
 ### 2.2 解决方案：单一继承 + 组合模式
 
+![](../images/calar_air/resolving_single_mode.png)
+
 该解决方案利用了这两个系统之间的架构不对称性：
 
 - Carla 的子系统（Episode、天气、交通管理器、Actor 工厂）通过继承和友元(`friend`)声明与 `ACarlaGameModeBase` **紧密耦合**。
@@ -255,7 +257,8 @@ Carla 是用 **三端口架构**：
 
 **RPC绑定模式**: 修改 UE4 状态的操作通过`boost::asio::io_context` 的 post-and-wait 机制同步绑定(**sync-bound**)到游戏线程。只读操作异步绑定(**async-bound**)到 RPC 工作线程。
 
-**传感器数据管道**:
+**传感器数据管线**:
+
 1. 传感器在 UE4 游戏线程节拍周期内捕获数据
 2. `FPixelReader::SendPixelsInRenderThread()` 将渲染命令加入渲染命令队列
 3. GPU 像素通过 `FRHICommandListImmediate` 读取
@@ -733,40 +736,40 @@ SimWorld 填补了驾驶模拟器和航空模拟器之间的空白，在自动�
 
 | 文件 | 描述 |
 |------|-------------|
-| `Plugins/AirSim/Source/SimWorldGameMode.h/.cpp` | 统一的游戏模式 (432 行) |
-| `Plugins/Carla/Source/Carla/Game/CarlaGameModeBase.h/.cpp` | Carla 基础游戏模式 GameMode |
-| `Plugins/Carla/Source/Carla/Game/CarlaEpisode.h/.cpp` | Episode 管理器 |
-| `Plugins/AirSim/Source/SimMode/SimModeBase.h/.cpp` | AirSim 仿真模式 |
-| `Plugins/AirSim/Source/AirSim.Build.cs` | 构建配置（Carla 依赖） |
-| `Config/DefaultEngine.ini` | 游戏模式注册 |
-| `Config/DefaultGame.ini` | 打包配置 |
+| [Plugins/AirSim/Source/SimWorldGameMode.h/.cpp](https://github.com/OpenHUTB/air/blob/main/Unreal/Plugins/AirSim/Source/SimWorldGameMode.cpp) | 统一的游戏模式 (432 行) |
+| [Plugins/Carla/Source/Carla/Game/CarlaGameModeBase.h/.cpp](https://github.com/OpenHUTB/hutb/blob/hutb/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Game/CarlaGameModeBase.cpp) | Carla 基础游戏模式 GameMode |
+| [Plugins/Carla/Source/Carla/Game/CarlaEpisode.h/.cpp](https://github.com/OpenHUTB/hutb/blob/hutb/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Game/CarlaEpisode.cpp) | Episode 管理器 |
+| [Plugins/AirSim/Source/SimMode/SimModeBase.h/.cpp](https://github.com/OpenHUTB/air/blob/main/Unreal/Plugins/AirSim/Source/SimMode/SimModeBase.cpp) | AirSim 仿真模式 |
+| [Plugins/AirSim/Source/AirSim.Build.cs](https://github.com/OpenHUTB/air/blob/main/Unreal/Plugins/AirSim/Source/AirSim.Build.cs) | 构建配置（Carla 依赖） |
+| [Config/DefaultEngine.ini](https://github.com/OpenHUTB/air/blob/main/Unreal/Environments/Blocks/Config/DefaultEngine.ini) | 游戏模式注册 |
+| [Config/DefaultGame.ini](https://github.com/OpenHUTB/air/blob/main/Unreal/Environments/Blocks/Config/DefaultGame.ini) | 打包配置 |
 
 ### Carla 传感器文件
 
-| 文件 | 传感器 |
+| 文件（位于 [hutb/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/](https://github.com/OpenHUTB/hutb/tree/hutb/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor) 目录） | 传感器 |
 |------|--------|
-| `Sensor/SceneCaptureCamera.h/.cpp` | RGB 相机 |
-| `Sensor/DepthCamera.h/.cpp` | Depth 相机 |
-| `Sensor/SemanticSegmentationCamera.h/.cpp` | 语义分割 |
-| `Sensor/InstanceSegmentationCamera.h/.cpp` | 实例分割 |
-| `Sensor/RayCastLidar.h/.cpp` | 激光雷达 |
-| `Sensor/Radar.h/.cpp` | 毫米波雷达 |
-| `Sensor/InertialMeasurementUnit.h/.cpp` | IMU |
-| `Sensor/GnssSensor.h/.cpp` | GNSS |
+| [Sensor/SceneCaptureCamera.h/.cpp](https://github.com/OpenHUTB/hutb/blob/hutb/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/SceneCaptureCamera.cpp) | RGB 相机 |
+| [Sensor/DepthCamera.h/.cpp](https://github.com/OpenHUTB/hutb/blob/hutb/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/DepthCamera.cpp) | Depth 相机 |
+| [Sensor/SemanticSegmentationCamera.h/.cpp](https://github.com/OpenHUTB/hutb/blob/hutb/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/SemanticSegmentationCamera.cpp) | 语义分割 |
+| [Sensor/InstanceSegmentationCamera.h/.cpp](https://github.com/OpenHUTB/hutb/blob/hutb/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/InstanceSegmentationCamera.cpp) | 实例分割 |
+| [Sensor/RayCastLidar.h/.cpp](https://github.com/OpenHUTB/hutb/blob/hutb/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/RayCastLidar.cpp) | 激光雷达 |
+| [Sensor/Radar.h/.cpp](https://github.com/OpenHUTB/hutb/blob/hutb/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/Radar.cpp) | 毫米波雷达 |
+| [Sensor/InertialMeasurementUnit.h/.cpp](https://github.com/OpenHUTB/hutb/blob/hutb/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/InertialMeasurementUnit.cpp) | IMU |
+| [Sensor/GnssSensor.h/.cpp](https://github.com/OpenHUTB/hutb/blob/hutb/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/GnssSensor.cpp) | GNSS |
 
 ### AirSim 核心文件
 
-| 文件 | 部件 |
+| 文件（位于 [air/Unreal/Plugins/AirSim/Source](https://github.com/OpenHUTB/air/tree/main/Unreal/Plugins/AirSim/Source) 目录） | 部件 |
 |------|-----------|
-| `Vehicles/Multirotor/FlyingPawn.h/.cpp` | 无人机棋子 |
-| `Vehicles/Multirotor/MultirotorPawnSimApi.h/.cpp` | 无人机 API 封装器 |
-| `Vehicles/Multirotor/SimModeWorldMultiRotor.h/.cpp` | 多旋翼飞行器模拟模式 |
-| `AirLib/include/physics/FastPhysicsEngine.hpp` | 无人机物理 |
-| `AirLib/include/vehicles/multirotor/MultiRotorPhysicsBody.hpp` | 刚体模型 |
-| `AirLib/include/vehicles/multirotor/api/MultirotorRpcLibServer.hpp` | API 服务端 |
-| `AirLib/include/sensors/imu/ImuSimple.hpp` | 带噪声的 IMU |
-| `AirLib/include/sensors/gps/GpsSimple.hpp` | 带噪声的 GPS |
-| `AirLib/include/sensors/barometer/BarometerSimple.hpp` | 带噪声的气压计 |
+| [Vehicles/Multirotor/FlyingPawn.h/.cpp](https://github.com/OpenHUTB/air/tree/main/Unreal/Plugins/AirSim/Source/Vehicles/Multirotor) | 无人机棋子 |
+| [Vehicles/Multirotor/MultirotorPawnSimApi.h/.cpp](https://github.com/OpenHUTB/air/tree/main/Unreal/Plugins/AirSim/Source/Vehicles/Multirotor) | 无人机 API 封装器 |
+| [Vehicles/Multirotor/SimModeWorldMultiRotor.h/.cpp](https://github.com/OpenHUTB/air/tree/main/Unreal/Plugins/AirSim/Source/Vehicles/Multirotor) | 多旋翼飞行器模拟模式 |
+| [AirLib/include/physics/FastPhysicsEngine.hpp](https://github.com/OpenHUTB/air/blob/main/AirLib/include/physics/FastPhysicsEngine.hpp) | 无人机物理引擎 |
+| [AirLib/include/vehicles/multirotor/MultiRotorPhysicsBody.hpp](https://github.com/OpenHUTB/air/blob/main/AirLib/include/vehicles/multirotor/MultiRotorPhysicsBody.hpp) | 刚体模型 |
+| [AirLib/include/vehicles/multirotor/api/MultirotorRpcLibServer.hpp](https://github.com/OpenHUTB/air/blob/main/AirLib/include/vehicles/multirotor/api/MultirotorRpcLibServer.hpp) | API 服务端 |
+| [AirLib/include/sensors/imu/ImuSimple.hpp](https://github.com/OpenHUTB/air/blob/main/AirLib/include/sensors/imu/ImuSimple.hpp) | 带噪声的 IMU |
+| [AirLib/include/sensors/gps/GpsSimple.hpp](https://github.com/OpenHUTB/air/blob/main/AirLib/include/sensors/gps/GpsSimple.hpp) | 带噪声的 GPS |
+| [AirLib/include/sensors/barometer/BarometerSimple.hpp](https://github.com/OpenHUTB/air/blob/main/AirLib/include/sensors/barometer/BarometerSimple.hpp) | 带噪声的气压计 |
 
 ## 附录 B：Python API 快速参考
 

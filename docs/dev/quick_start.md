@@ -1,4 +1,4 @@
-# CarlaAir Quick-Start Guide / 快速入门指南
+# CarlaAir 快速入门指南
 
 欢迎使用 **CarlaAir** — 空地一体联合仿真平台。
 本指南帮助你从零开始，10 分钟内完成首次体验。
@@ -47,8 +47,9 @@ conda activate carlaAir
 
 等待看到 "Ready! Both servers are running." 即表示启动成功。
 
-**端口说明 / Ports:**
-| 服务 Service | 端口 Port | 用途 Purpose |
+**端口说明**
+
+| 服务 | 端口 | 用途 |
 |---|---|---|
 | CARLA API | `localhost:2000` | 地面仿真：车辆、行人、天气、传感器 |
 | AirSim API | `localhost:41451` | 空中仿真：无人机飞行与相机 |
@@ -207,31 +208,33 @@ CarlaAir 内置 6 张城市地图：
 
 ## API Reference / API 参考
 
-### CARLA Python API (port 2000)
+### CARLA Python API (端口 2000)
 
-核心类 / Core classes:
+核心类:
+
 - `carla.Client` — 连接仿真器
 - `carla.World` — 世界管理（天气、Actor、传感器）
 - `carla.Actor` — 车辆、行人、传感器等实体
 - `carla.Transform` / `carla.Location` — 位姿与坐标
 
-官方文档 / Official docs: https://carla.readthedocs.io/en/0.9.16/
+详情请参考[中文文档](https://openhutb.github.io/doc)。
 
-### AirSim Python API (port 41451)
+### AirSim Python API (端口 41451)
 
-核心类 / Core classes:
+核心类:
+
 - `airsim.MultirotorClient` — 无人机控制
 - `airsim.ImageRequest` — 图像采集请求
 
-官方文档 / Official docs: https://microsoft.github.io/AirSim/
+详情请参考[中文文档](../README.md)。
 
 ---
 
-## FAQ / Troubleshooting / 常见问题
+## 常见问题
 
 ### 仿真器启动相关
 
-| 问题 Problem | 解决方案 Solution |
+| 问题 | 解决方案 |
 |---|---|
 | CARLA 连接超时 | 首次启动需要 2-5 分钟加载资源，请耐心等待。用 `ss -tlnp \| grep 2000` 检查端口 |
 | AirSim 连接失败 | AirSim 在 CARLA 之后启动，需额外等待。确认 `~/Documents/AirSim/settings.json` 存在 |
@@ -240,7 +243,7 @@ CarlaAir 内置 6 张城市地图：
 
 ### 脚本运行相关
 
-| 问题 Problem | 解决方案 Solution |
+| 问题 | 解决方案 |
 |---|---|
 | 无人机不响应指令 | 确保调用了 `enableApiControl(True)` + `armDisarm(True)` + `takeoffAsync().join()` |
 | Walker AI Controller 崩溃 | 已知限制，不要对 Walker 调用 `go_to_location()`，仅使用静态 Walker |
@@ -252,8 +255,8 @@ CarlaAir 内置 6 张城市地图：
 
 ### 坐标与地图相关
 
-| 问题 Problem | 解决方案 Solution |
+| 问题 | 解决方案 |
 |---|---|
-| 无人机位置和 CARLA 车辆位置对不上 | 两套 API 的坐标原点和 Z 轴方向不同，详见 COORDINATE_SYSTEMS.md |
+| 无人机位置和 CARLA 车辆位置对不上 | 两套 API 的坐标原点和 Z 轴方向不同，详见[坐标系统](./coordinate_systems.md) |
 | 如何切换地图 | 启动时指定：`./CarlaAir.sh Town03` |
 | 天气变化是否影响无人机 | 是的，`set_weather()` 同时影响地面和空中视角 |

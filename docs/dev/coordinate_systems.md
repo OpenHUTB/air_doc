@@ -1,4 +1,4 @@
-# CarlaAir 坐标系换算说明
+# 空地一体坐标系换算说明
 
 ## 问题
 
@@ -11,6 +11,8 @@ CarlaAir 内部同时运行 CARLA 和 AirSim 两套系统，**它们使用不同
 | Y 轴 | 同 UE4 | 同 UE4，但有原点偏移 |
 | Z 轴 | **向上为正** (z-up) | **向下为正** (NED, z-down) |
 | 单位 | 厘米 (UE4) → Python API 返回**米** | 米 |
+
+![](../images/calar_air/coordinate.jpg)
 
 ## 换算公式
 
@@ -75,6 +77,7 @@ print(f"offset_x={offset_x:.4f}, offset_y={offset_y:.4f}, offset_z={offset_z:.4f
 ### demo_director 自动校准
 
 `DroneReplayer` 初始化时：
+
 1. 检测 JSON 中是否有 `airsim_ned` 字段
 2. 如果只有 `transform`（CARLA 坐标）→ 读取无人机在 CARLA 和 AirSim 两侧的当前位置，计算偏移量
 3. 回放时每帧 `CARLA transform + 偏移 → AirSim NED → simSetVehiclePose`

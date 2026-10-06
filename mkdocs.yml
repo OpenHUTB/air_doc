@@ -57,6 +57,7 @@ copyright: OpenHUTB 版权所有 &copy; {year}
 nav:
   - "主页":
     - "主页": 'README.md'
+    - "空地一体": './dev/Carla_Air.md'
   - "构建 AirSim":
     - "下载二进制文件": 'use_precompiled.md'
     - "在 Windows 上构建": 'build_windows.md'
@@ -139,7 +140,7 @@ nav:
     - "使用无人机进行测量": 'drone_survey.md'
     - "轨道轨迹": "orbit.md"
     - "导入自定义多旋翼网格": 'https://youtu.be/Bp86WiLUC80'
-    - "Object Detection": "object_detection.md"
+    - "目标检测": "object_detection.md"
     - "带有 MAVROS 和 PX4 的 AirSim": 'https://youtu.be/ZonkdMcwXH4'
   - "杂项":
     - "真实无人机上的 AirSim": 'custom_drone.md'
