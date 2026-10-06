@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>闭环空地协同VLA评估套件 - 低空模拟器</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u95ed\u73af\u7a7a\u5730\u534f\u540cVLA\u8bc4\u4f30\u5957\u4ef6";
+        var mkdocs_page_input_path = "dev/vla.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 低空模拟器
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="搜索文档" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">主页</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../..">主页</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">构建 AirSim</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../use_precompiled/">下载二进制文件</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../build_windows/">在 Windows 上构建</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../build_linux/">在 Linux 上构建</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../build_macos/">在 macOS 上构建</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../docker_ubuntu/">Linux 上的 Docker</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../azure/">Azure 上的 ArSim</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../unreal_custenv/">定制虚幻引擎环境</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../build_faq/">场景问题和回答</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">使用 AirSim</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../apis/">核心 APIs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../image_apis/">图像 APIs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../apis_cpp/">C++ APIs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://openhutb.github.io/doc/python_api/#airsim.client.MultirotorClient">无人机 API 参考文档</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../api_docs/_build/html/">原始 API 参考文档</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../wiki/">Wiki 文档</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../dev_workflow/">开发工作流</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../settings/">设置</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../map/">地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../camera_views/">相机视角</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../using_car/">汽车模式</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../remote_control/">远程控制</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../xbox_controller/">XBox 控制器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../steering_wheel_installation/">方向盘</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../multi_vehicle/">多车辆</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >传感器</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../sensors/">传感器</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../lidar/">激光雷达</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../distance_sensor/">距离传感器</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../InfraredCamera/">红外相机</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../airsim_ros_pkgs/">ROS: AirSim ROS 封装器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../airsim_tutorial_pkgs/">ROS: AirSim 教程包</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../gazebo_drone/">导入 Gazebo 模型</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../retexturing/">域随机化</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../meshes/">网格顶点缓冲区</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../playback/">播放日志</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../voxel_grid/">体素网格生成器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../event_sim/">事件相机</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">设计</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../design/">架构</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../code_structure/">代码结构</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../adding_new_apis/">添加新的 APIs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../modify_recording_data/">修改记录数据</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../coding_guidelines/">编码指南</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../flight_controller/">飞行控制器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simple_flight/">简单飞行</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hello_drone/">Hello Drone</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">外部飞行控制器</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" >MavLink 和 PX4</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../px4_setup/">AirSim 的 PX4 设置</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../px4_sitl/">软件在环中的 PX4</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../px4_sitl_wsl2/">带有 WSL 2 的 PX4 SITL</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../px4_lockstep/">PX4 Lockstep</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../px4_multi_vehicle/">软件在环中的 PX4 多车辆</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="https://youtu.be/1oY8Qu5maQQ">AirSim 与 Pixhawk</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="https://youtu.be/HNWdYrtw3f0">使用 AirSim 设置 PX4</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="https://www.youtube.com/watch?v=d_FyjKDWQfc&feature=youtu.be">调试姿态估计</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="https://github.com/Microsoft/AirSim/wiki/Intercepting-MavLink-messages">拦截 MavLink 消息</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="https://github.com/Microsoft/AirSim/wiki/Rapid-Descent-on-PX4-drones">PX4 无人机快速下降</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../px4_build/">构建 PX4</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../px4_logging/">PX4/MavLink 日志记录</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../log_viewer/">MavLink 日志查看器</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../mavlinkcom/">MavLinkCom</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../mavlinkcom_mocap/">MavLink MoCap</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >ArduPilot</a>
+    <ul>
+                <li class="toctree-l2"><a class="" href="https://ardupilot.org/dev/docs/building-the-code.html">ArduPilot 软件在环设置</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../ardupilot/sitl_with_airsim/">AirSim & ArduPilot</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">升级</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../unreal_upgrade/">升级虚幻引擎</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../upgrade_apis/">升级 APIs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../upgrade_settings/">升级设置</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">贡献教程</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../reinforcement_learning/">强化学习</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://www.youtube.com/watch?v=y09VbdQWvQY">使用 Marketplace 中的环境</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://github.com/simondlevy/AirSimTensorFlow">简单的防撞</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://aka.ms/AutonomousDrivingCookbook">Azure 上的自动驾驶</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../wiki/hexacopter/">构造六旋翼飞行器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../wiki/moveOnPath-demo/">移动路径演示</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../point_clouds/">构建点云</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../drone_survey/">使用无人机进行测量</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../orbit/">轨道轨迹</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://youtu.be/Bp86WiLUC80">导入自定义多旋翼网格</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../object_detection/">Object Detection</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://youtu.be/ZonkdMcwXH4">带有 MAVROS 和 PX4 的 AirSim</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">杂项</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../custom_drone/">真实无人机上的 AirSim</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../cmake_linux/">在 Linux 上安装 cmake</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hard_drive/">硬盘繁忙时的提示</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pfm/">pfm 格式</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../unreal_proj/">设置虚幻引擎环境</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../unreal_blocks/">Blocks 环境</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../who_is_using/">谁在使用 AirSim</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../working_with_plugin_contents/">使用 UE 插件内容</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../wiki/technion/technion/">大学生方程式赛车以色列理工学院自驾赛</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">支持</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../faq/">FAQ</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../SUPPORT/">支持</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../CHANGELOG/">修改记录</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../create_issue/">创建问题</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../CONTRIBUTING/">贡献</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">低空模拟器</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">闭环空地协同VLA评估套件</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/dev/vla.md"> 编辑页面</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="vla">闭环空地协同VLA评估套件</h1>
+<h2 id="_1">摘要</h2>
+<p>近期的空中视觉-语言-动作（VLA）模型在单架无人机（UAV）任务中展现出了良好的能力，例如追踪移动物体以及导航至语言指定的标志性地点。然而，尚不清楚这些能力能否迁移到空地协同场景中——在该场景下，无人机与无人地面车辆（UGV）必须在一个共享的闭环物理世界中协同行动。我们利用 CARLA-AIR 这一单进程空地协同评估环境对此进行了研究；该环境将 CARLA 和 AirSim 统一整合在同一个虚幻引擎（Unreal Engine）运行时中。通过共享世界状态、物理仿真步长（physics tick）和感知流水线，CARLA-AIR 实现了物理一致的无人机-UGV 交互，并支持对仿真时间戳对齐及有效协同延迟的精确测量。我们利用 CARLA-AIR 评估了具有代表性的空中 VLA 及规划基线模型，测试任务包括两个互补的诊断场景：移动平台着陆和遮挡恢复护航。结果表明，尽管当前的空中 VLA 模型通常能够追踪或跟随地面伙伴，却难以将这种单智能体能力转化为稳定的协同行为。“状态提示”（state prompting）带来的收益有限，而简单的双向交互往往无法持续提升性能，甚至可能放大大多数基线模型的误差。这些发现表明，在现有的基于文本提示的交互界面下，实现零样本（zero-shot）空地协同 VLA 需要在当前范式之外引入三个关键要素：明确的伙伴状态映射（partner-state grounding）、低延迟的动作协同以及团队层面的目标对齐。</p>
+<h2 id="_2">介绍</h2>
+<p>在城市搜救、自主物流、巡检及智能交通等领域，空地协同正成为具身智能的一项重要能力 <sup id="fnref:chai2024cooperative"><a class="footnote-ref" href="#fn:chai2024cooperative">1</a></sup>。无人机（UAV）能够提供广域的空中感知，而无人地面车辆（UGV）则能执行地面作业并承载更重的载荷 <sup id="fnref:zeng2026ezreal"><a class="footnote-ref" href="#fn:zeng2026ezreal">2</a></sup>。从原理上讲，这两种平台具有高度的互补性；然而在实际应用中，要将这种互补性转化为真正的协同，则要求智能体在物理世界的闭环中实现状态共享、行动协调以及相互响应 <sup id="fnref:chen2026vision"><a class="footnote-ref" href="#fn:chen2026vision">3</a></sup>。</p>
+<p>近期的空中视觉-语言-动作（Vision-Language-Action, VLA）模型提供了一个极具吸引力的起点。它们能够根据语言指令行事，追踪地面移动目标，并利用机载观测信息向视觉目标导航 <sup id="fnref:zhang2026uav"><a class="footnote-ref" href="#fn:zhang2026uav">4</a></sup> <sup id="fnref:gao2026openfly"><a class="footnote-ref" href="#fn:gao2026openfly">5</a></sup> <sup id="fnref:sautenkov2025uav"><a class="footnote-ref" href="#fn:sautenkov2025uav">6</a></sup> <sup id="fnref:liu2023aerialvln"><a class="footnote-ref" href="#fn:liu2023aerialvln">7</a></sup>。这些能力构成了空地协同中有用功能的重要组成部分。</p>
+<p>这就引出了一个核心问题：单架无人机（UAV）的视觉定位与建图（VLA）能力能否自然地迁移到无人机与无人地面车辆（UGV）的协同行为中？</p>
+<p>我们认为，这一问题在很大程度上仍未得到解答。现有的空地数据集 <sup id="fnref:ye2024uav3d"><a class="footnote-ref" href="#fn:ye2024uav3d">8</a></sup> 主要侧重于评估离线感知能力，而现有的交互式仿真器 <sup id="fnref:wang2025transimhub"><a class="footnote-ref" href="#fn:wang2025transimhub">9</a></sup> 往往依赖于基于桥接（bridge-based）或多进程的架构，且各组件拥有独立的时钟。这种设定使得难以准确衡量：某个智能体的信号是否真正改善了协作伙伴的实时行为，抑或观察到的性能提升或失效，部分源于评估平台自身引入的时钟不匹配与通信延迟。要对协作式视觉-语言-动作（VLA）模型进行可靠评估，必须具备共享的物理世界、闭环交互机制以及可度量的端到端协作延迟。</p>
+<p>为此，我们引入了 CARLA-AIR <sup id="fnref:zeng2026carla"><a class="footnote-ref" href="#fn:zeng2026carla">10</a></sup>——这是一个单进程的空地协同评估环境，在同一个 Unreal Engine 运行时中整合了 CARLA 和 AirSim。CARLA-AIR 保留了 CARLA 的城市交通仿真能力和 AirSim 的多旋翼动力学特性，同时将无人机（UAV）和无人地面车辆（UGV）置于统一的世界状态、物理步长（physics tick）和感知流水线之下。这种设计实现了物理一致的交互，并消除了因将 UAV 和 UGV 仿真器作为独立进程进行桥接而可能产生的仿真时间戳不匹配问题。</p>
+<p>基于 CARLA-AIR 平台，我们评估了现有的空中 VLA（视觉-语言-动作）模型能否突破单一智能体行为的局限，实现空地协同。为此，我们设计了两项互补的诊断任务：“协同移动平台着陆”任务旨在测试针对地面伙伴的视觉追踪能否转化为协同动作；“协同遮挡恢复护航”任务则旨在测试伙伴状态线索是否有助于在发生短暂遮挡后恢复视觉接触。这两项任务分别从动作和感知两个维度考察协同能力，同时保持空中 VLA 模型的原生接口不变。</p>
+<p>我们的研究结果揭示了空中能力与协作之间存在持续的差距。现有的空中视觉语言智能体（VLA）模型往往能够追踪或跟随无人地面车辆（UGV），但这种能力并不能可靠地转化为成功的协作行为。基于伙伴状态的提示（partner-state prompting）带来的收益有限且不稳定，而简单的双向交互甚至可能放大误差。相比之下，在具备明确的度量状态信息和低延迟协调能力的情况下，基于状态的协作参考方案表现出显著优势。这些发现表明，单架无人机（UAV）的 VLA 能力并不等同于协作；空地协作 VLA 需要具备伙伴状态建模、协作观测设计、伙伴感知动作落地（action grounding）以及团队级目标对齐等机制。</p>
+<p><strong>贡献：</strong></p>
+<ol>
+<li>
+<p><strong>闭环评估运行时环境</strong>。我们推出了 CARLA-AIR 并对其进行了验证；这是一个单进程的空地评估运行时环境，旨在统一 CARLA 和 AirSim，以支持无人机（UAV）与无人车（UGV）之间的闭环交互。通过共享世界状态、物理仿真步长（physics ticks）和感知流水线，CARLA-AIR 从机制上确保了物理一致的交互，且不存在仿真时间戳不匹配的问题。这为空地协同的闭环评估提供了可靠的基础，避免了仿真器同步误差对评估结果造成干扰。</p>
+</li>
+<li>
+<p><strong>诊断评估套件</strong>。我们引入了两项互补的诊断任务——移动平台着陆与遮挡恢复护航，并配套了通信协议、基准方法、基于状态的协作参考标准，以及能够区分单无人机能力与协作成功与否的评估指标。这些组件共同构成了一套针对性诊断套件，旨在隔离协作失效模式，而非对通用自主系统进行排名。</p>
+</li>
+<li>
+<p><strong>科学发现</strong>：在零样本评估及基于文本提示的测试方案下，现有的空中 VLA（视觉-语言-动作）模型无法自然地将单一无人机的能力迁移至空地协同场景——即追踪行为未必能转化为协同配合，来自伙伴的提示也未必能稳定触发恢复动作；对于大多数基线模型而言，这种简单的交互方式甚至可能放大错误。</p>
+</li>
+</ol>
+<h2 id="_3">诊断性评估</h2>
+<p>基于物理一致且支持闭环评估的运行环境，我们利用 CARLA-AIR 来回答本文的核心问题：现有的空中 VLA 模型能否将其在单架无人机上习得的能力迁移至空地协同行为中？</p>
+<p>我们设计了两个互补的诊断任务。任务一“协同移动平台着陆”旨在诊断动作层面的协同能力：无人机需追踪移动中的无人地面车辆（UGV），对准其后部货箱，并安全着陆。任务二“协同遮挡恢复护航”旨在诊断感知层面的恢复能力：无人机需利用伙伴状态线索，重新建立与暂时被遮挡的UGV的视觉联系。这两项任务均保持了原生的空中视觉-语言-动作（VLA）接口不变：策略接收视觉观测和语言指令，并仅输出无人机的动作指令。</p>
+<h3 id="_4">任务与协作协议</h3>
+<p>在“移动平台着陆”任务中，一辆无人地面车辆（UGV）沿城市道路行驶，其平坦的后部货厢作为着陆表面。该任务要求无人机（UAV）将可见光追踪过程转化为对移动平台的精准对齐、下降及着陆。在“遮挡恢复与伴随”任务中，UGV 会因桥梁、建筑物或大型物体而暂时被遮挡；无人机必须利用关于伴随对象状态的线索，在遮挡结束后重新建立视觉联系。</p>
+<p>我们评估了三种协作模式。模式 C0 采用独立执行且无通信的方式。模式 C1 在 UGV 执行预定义行为的同时，引入了一种紧凑的“UGV-至-UAV 伙伴状态”提示信息。模式 C2 仅用于着陆任务，它额外将 UAV 前向速度动作信号的幅值传递给 UGV 的纵向控制器，从而实现了一种简单的 UAV 与 UGV 间的双向动作耦合。该信号源自各基准方法的原生动作接口（见附录 B）。“护航”（Escort）任务仅使用 C0 和 C1 模式。完整的提示词模板及控制器详细信息请参阅附录 B。</p>
+<h3 id="_5">基线与指标</h3>
+<p>表3总结了所评估的方法，涵盖了端到端VLA、基于VLM的规划以及传统的空中VLN。各项基线方法均通过其原生的底层封装（见附录B）进行运行；所报告的数值反映了各类策略的特性，而非基于具体实现优劣的排名。</p>
+<p>Rule-Coop-State 被纳入作为可解性参考，而非公平的基准。它利用了 VLA 基准无法获取的显式度量状态信息——包括无人机与载货平台间的相对位姿及相对速度、地面车辆（UGV）速度以及着陆阶段——并采用确定性的低延迟规则进行控制。因此，Rule-Coop-State 与 VLA 方法之间的性能差异，既反映了架构上的不同，也体现了信息获取能力的差异。我们在这一框架下解读后续的所有结果。</p>
+<p><img alt="" src="../../images/calar_air/escort.png" /></p>
+<h2 id="_6">参考</h2>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:chai2024cooperative">
+<p>Chai, R. <em>et al.</em> Cooperative motion planning and control for aerial-ground autonomous systems: Methods and applications. <em>Progress in Aerospace Sciences</em> <strong>146</strong>, 101005 (2024).&#160;<a class="footnote-backref" href="#fnref:chai2024cooperative" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:zeng2026ezreal">
+<p>Zeng, T. <em>et al.</em> Ezreal: Enhancing zero-shot outdoor robot navigation toward distant targets under varying visibility. in <em>2026 IEEE international conference on robotics and automation (ICRA)</em> 8518--8525 (IEEE, 2026).&#160;<a class="footnote-backref" href="#fnref:zeng2026ezreal" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:chen2026vision">
+<p>[Chen, H. <em>et al.</em>]{.nocase} Vision-and-language navigation for uavs: Progress, challenges, and a research roadmap. <em>arXiv preprint arXiv:2604.13654</em> (2026).&#160;<a class="footnote-backref" href="#fnref:chen2026vision" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+<li id="fn:zhang2026uav">
+<p>Zhang, Q. <em>et al.</em> UAV-track VLA: Embodied aerial tracking via vision-language-action models. <em>arXiv preprint arXiv:2604.02241</em> (2026).&#160;<a class="footnote-backref" href="#fnref:zhang2026uav" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+</li>
+<li id="fn:gao2026openfly">
+<p>[Gao, Y. <em>et al.</em>]{.nocase} Openfly: A comprehensive platform for aerial vision-language navigation. in <em>International conference on learning representations</em> vol. 2026 101858--101871 (2026).&#160;<a class="footnote-backref" href="#fnref:gao2026openfly" title="Jump back to footnote 5 in the text">&#8617;</a></p>
+</li>
+<li id="fn:sautenkov2025uav">
+<p>Sautenkov, O. <em>et al.</em> UAV-VLA: Vision-language-action system for large scale aerial mission generation. in <em>2025 20th ACM/IEEE international conference on human-robot interaction (HRI)</em> 1588--1592 (IEEE, 2025).&#160;<a class="footnote-backref" href="#fnref:sautenkov2025uav" title="Jump back to footnote 6 in the text">&#8617;</a></p>
+</li>
+<li id="fn:liu2023aerialvln">
+<p>Liu, S. <em>et al.</em> Aerialvln: Vision-and-language navigation for uavs. in <em>2023 IEEE/CVF international conference on computer vision (ICCV)</em> 15338--15348 (IEEE, 2023).&#160;<a class="footnote-backref" href="#fnref:liu2023aerialvln" title="Jump back to footnote 7 in the text">&#8617;</a></p>
+</li>
+<li id="fn:ye2024uav3d">
+<p>Ye, H., Sunderraman, R. &amp; Ji, S. Uav3d: A large-scale 3d perception benchmark for unmanned aerial vehicles. <em>Advances in Neural Information Processing Systems</em> <strong>37</strong>, 55425--55442 (2024).&#160;<a class="footnote-backref" href="#fnref:ye2024uav3d" title="Jump back to footnote 8 in the text">&#8617;</a></p>
+</li>
+<li id="fn:wang2025transimhub">
+<p>[Wang, M. <em>et al.</em>]{.nocase} Transimhub: A unified air-ground simulation platform for multi-modal perception and decision-making. <em>arXiv preprint arXiv:2510.15365</em> (2025).&#160;<a class="footnote-backref" href="#fnref:wang2025transimhub" title="Jump back to footnote 9 in the text">&#8617;</a></p>
+</li>
+<li id="fn:zeng2026carla">
+<p>Zeng, T., Wen, Y. &amp; Zhang, H. CARLA-air: Fly drones inside a CARLA world--a unified infrastructure for air-ground embodied intelligence. <em>arXiv preprint arXiv:2603.28032</em> (2026).&#160;<a class="footnote-backref" href="#fnref:zeng2026carla" title="Jump back to footnote 10 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>OpenHUTB 版权所有 &copy; 2026</p>
+  </div>
+
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/air_doc" style="color: #fcfcfc">OpenHUTB</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
