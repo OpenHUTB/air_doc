@@ -44,6 +44,8 @@
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../..">主页</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Carla_Air/">空地一体</a>
+                  </li>
               </ul>
               <p class="caption"><span class="caption-text">构建 AirSim</span></p>
               <ul>
@@ -220,7 +222,7 @@
                   </li>
                   <li class="toctree-l1"><a class="" href="https://youtu.be/Bp86WiLUC80">导入自定义多旋翼网格</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../object_detection/">Object Detection</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../object_detection/">目标检测</a>
                   </li>
                   <li class="toctree-l1"><a class="" href="https://youtu.be/ZonkdMcwXH4">带有 MAVROS 和 PX4 的 AirSim</a>
                   </li>
@@ -306,6 +308,8 @@
 <p><strong>科学发现</strong>：在零样本评估及基于文本提示的测试方案下，现有的空中 VLA（视觉-语言-动作）模型无法自然地将单一无人机的能力迁移至空地协同场景——即追踪行为未必能转化为协同配合，来自伙伴的提示也未必能稳定触发恢复动作；对于大多数基线模型而言，这种简单的交互方式甚至可能放大错误。</p>
 </li>
 </ol>
+<p><img alt="" src="../../images/calar_air/landing_diagnosis.png" /></p>
+<p><strong>着陆过程轨迹诊断</strong>。上图：移动平台着陆期间的典型视觉序列。下图：在 (a) C0、(b) C1 和 (c) C2 工况下，移动平台着陆期间 UGV（无人地面车辆）与 UAV（无人机）的 3D 轨迹。彩色曲线表示空中基线；灰色实线表示 UGV 轨迹；黑色虚线表示 Rule-Coop-State（规则协同状态）。</p>
 <h2 id="_3">诊断性评估</h2>
 <p>基于物理一致且支持闭环评估的运行环境，我们利用 CARLA-AIR 来回答本文的核心问题：现有的空中 VLA 模型能否将其在单架无人机上习得的能力迁移至空地协同行为中？</p>
 <p>我们设计了两个互补的诊断任务。任务一“协同移动平台着陆”旨在诊断动作层面的协同能力：无人机需追踪移动中的无人地面车辆（UGV），对准其后部货箱，并安全着陆。任务二“协同遮挡恢复护航”旨在诊断感知层面的恢复能力：无人机需利用伙伴状态线索，重新建立与暂时被遮挡的UGV的视觉联系。这两项任务均保持了原生的空中视觉-语言-动作（VLA）接口不变：策略接收视觉观测和语言指令，并仅输出无人机的动作指令。</p>
@@ -316,7 +320,20 @@
 <p>表3总结了所评估的方法，涵盖了端到端VLA、基于VLM的规划以及传统的空中VLN。各项基线方法均通过其原生的底层封装（见附录B）进行运行；所报告的数值反映了各类策略的特性，而非基于具体实现优劣的排名。</p>
 <p>Rule-Coop-State 被纳入作为可解性参考，而非公平的基准。它利用了 VLA 基准无法获取的显式度量状态信息——包括无人机与载货平台间的相对位姿及相对速度、地面车辆（UGV）速度以及着陆阶段——并采用确定性的低延迟规则进行控制。因此，Rule-Coop-State 与 VLA 方法之间的性能差异，既反映了架构上的不同，也体现了信息获取能力的差异。我们在这一框架下解读后续的所有结果。</p>
 <p><img alt="" src="../../images/calar_air/escort.png" /></p>
-<h2 id="_6">参考</h2>
+<p>针对着陆任务，我们采用“追踪成功率”（Tracking Success Rate, TSR）作为单无人机基本动作的评分指标，采用“着陆成功率”（Landing Success Rate, LSR）作为最终协同任务的评分指标。我们将“协同转化率”（Cooperative Conversion Rate, CCR）定义为 CCR = LSR / max(TSR, ε)（其中 ε = 0.05），并将“协同增益”（Cooperation Gain, CG）定义为 CG(<script type="math/tex">C_k</script>) = LSR(<script type="math/tex">C_k</script>) − LSR(<script type="math/tex">C_0</script>)。针对遮挡恢复任务，我们报告“恢复成功率”（Recovery Success Rate, RSR）和“重新捕获时间”（Re-acquisition Time, RAT）。此外，我们还报告“决策频率”（Decision Frequency, DF）和“有效协同延迟”（Effective Coordination Latency, ECL）。各项指标的详细定义见附录 B。</p>
+<h3 id="_6">结果</h3>
+<p><strong>移动平台着陆</strong>。表4显示，VLA基线在C0条件下实现了可观的 TSR，但其 LSR 和 CCR 依然很低：这意味着追踪过程很少能转化为成功的协同着陆。</p>
+<p>引入交互并不能消除这一差距。在 C1 条件下，5 个基准方案中有 4 个呈现负向 CG，但跨基准方案的趋势并不显著；而在 C2 条件下，所有 5 个基准方案均呈现负值，且趋势显著（<script type="math/tex">p</script> 值分别为 0.188 和 0.031，基于符号检验）。就单个基准方案而言，AerialVLA 在两种模式下的 CG 均在统计学意义上为负，且 95% 置信区间不包含零值：CG(C1) ∈ [−0.07, −0.01]，CG(C2) ∈ [−0.10, −0.04]。因此，在 C2 条件下，简单的无人机（UAV）与地面车辆（UGV）动作耦合反而导致了不稳定的协作动态，未能起到稳定任务的作用。</p>
+<p>Rule-Coop-State 达到了 0.42 的 LSR，表明在具备显式状态基础（explicit state grounding）的情况下，该任务是可解的。图 2 展示了过程层面的分析：VLA 基线模型往往会跟随卡车，但无法平稳收敛至货厢区域；相比之下，C2 表现出较大的振荡，而 Rule-Coop-State 则实现了更稳定的下降过程。</p>
+<p><strong>时序因素</strong>。基于规划的重型方法决策频率较低，且有效协调延迟较大，这使得指挥控制（C2）反馈难以保持稳定（见附录 B，表 13）。然而，仅凭延迟无法解释其失效原因：即便采用 AerialVLN 等响应更快的方法，协作转化效果依然不佳。因此，性能退化既源于时序因素，也源于结构因素。</p>
+<p><strong>提示格式消融实验</strong>。表6显示了两项任务中一致的规律：语义、数值及含噪的提示格式均未能消除协作差距。即便是“预知型”几何提示（C1-Oracle-Bearing），也仅能带来微弱的LSR提升，且协作差距（CG）仍处于随机种子带来的变异范围内。在这种文本提示交互界面下，瓶颈在于动作落地（action grounding），而非提示的格式或完整性。</p>
+<p><strong>遮挡恢复</strong>。图3展示了遮挡恢复护送任务。表5显示，VLA基线模型并未始终从C1伙伴状态提示中获益；在5个基线模型中，有4个模型的C0与C1条件下的RSR差异处于随机种子（seed-level）变异范围内。SPF模型表现出显著的RSR提升（+0.08），这很可能是因为该提示（右前方）与其原生的航点输出空间相契合；而在着陆任务中，同样的提示则无法带来增益，因为着陆任务需要将该提示转化为连续下降控制指令。Rule-Coop-State模型的RSR达到了0.86。</p>
+<p><strong>诊断总结</strong>：在两项任务中，现有的零样本（zero-shot）空中 VLA 策略均未能将伙伴状态线索转化为协作行动——即追踪行为未能转化为协同着陆，伙伴状态线索也未能转化为恢复行动。这种失败并非源于线索的设计或完整性问题：跨基线的统计证据、提示格式消融实验以及“神谕”（oracle）方位线索均指向同一结论——缺失的机制在于自回归文本提示接口内部缺乏“具备伙伴感知能力的行动基础映射”（partner-aware action grounding）。采用显式度量状态与基于规则的协同机制的 Rule-Coop-State 方法，在两项任务中均显著优于 VLA 基线模型；这表明该性能差距源于架构设计，而非协作问题本身的根本性局限。</p>
+<p><img alt="" src="../../images/calar_air/datasets.jpg" /></p>
+<div class="div" style="text-align: center">
+<i>空地协同感知的示例。在 CARLA-AIR 中，车载端和无人机端的传感器数据流均采样自同一个仿真时间步。上排展示了车载端的模态，下排展示了无人机端的模态，包括 RGB 图像、语义分割、深度图、激光雷达鸟瞰图（BEV）、表面法线以及实例分割。这种方式无需进行跨进程的时间戳对齐，即可提供成对的多模态观测数据。</i></div>
+
+<h2 id="_7">参考</h2>
 <div class="footnote">
 <hr />
 <ol>

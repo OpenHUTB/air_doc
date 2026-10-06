@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>CarlaAir 坐标系换算说明 - 低空模拟器</title>
+    <title>空地一体坐标系换算说明 - 低空模拟器</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "CarlaAir \u5750\u6807\u7cfb\u6362\u7b97\u8bf4\u660e";
+        var mkdocs_page_name = "\u7a7a\u5730\u4e00\u4f53\u5750\u6807\u7cfb\u6362\u7b97\u8bf4\u660e";
         var mkdocs_page_input_path = "dev/coordinate_systems.md";
         var mkdocs_page_url = null;
       </script>
@@ -43,6 +43,8 @@
               <p class="caption"><span class="caption-text">主页</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../..">主页</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Carla_Air/">空地一体</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">构建 AirSim</span></p>
@@ -220,7 +222,7 @@
                   </li>
                   <li class="toctree-l1"><a class="" href="https://youtu.be/Bp86WiLUC80">导入自定义多旋翼网格</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../object_detection/">Object Detection</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../object_detection/">目标检测</a>
                   </li>
                   <li class="toctree-l1"><a class="" href="https://youtu.be/ZonkdMcwXH4">带有 MAVROS 和 PX4 的 AirSim</a>
                   </li>
@@ -273,7 +275,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">CarlaAir 坐标系换算说明</li>
+      <li class="breadcrumb-item active">空地一体坐标系换算说明</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/dev/coordinate_systems.md"> 编辑页面</a>
     </li>
@@ -283,8 +285,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="carlaair">CarlaAir 坐标系换算说明</h1>
-<h2 id="_1">问题</h2>
+                <h1 id="_1">空地一体坐标系换算说明</h1>
+<h2 id="_2">问题</h2>
 <p>CarlaAir 内部同时运行 CARLA 和 AirSim 两套系统，<strong>它们使用不同的坐标系</strong>：</p>
 <table>
 <thead>
@@ -322,14 +324,15 @@
 </tr>
 </tbody>
 </table>
-<h2 id="_2">换算公式</h2>
+<p><img alt="" src="../../images/calar_air/coordinate.jpg" /></p>
+<h2 id="_3">换算公式</h2>
 <p>在 Town10HD 地图上实测（CarlaAir v0.1.6）：</p>
 <div class="highlight"><pre><span></span><code>airsim_x =  carla_x + 172.20
 airsim_y =  carla_y - 183.86
 airsim_z = -carla_z +  27.45
 </code></pre></div>
 <p>姿态角（pitch/yaw/roll）两侧一致，<strong>不需要换算</strong>。</p>
-<h2 id="_3">换算参数表</h2>
+<h2 id="_4">换算参数表</h2>
 <table>
 <thead>
 <tr>
@@ -364,7 +367,7 @@ airsim_z = -carla_z +  27.45
 <blockquote>
 <p><strong>注意：</strong> 偏移量取决于地图和 AirSim PlayerStart 配置。换地图后需要重新标定。</p>
 </blockquote>
-<h2 id="_4">如何标定</h2>
+<h2 id="_5">如何标定</h2>
 <p>在两个系统中同时读取无人机位置即可算出偏移量：</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">carla</span><span class="o">,</span> <span class="nn">airsim</span>
 
@@ -385,7 +388,7 @@ airsim_z = -carla_z +  27.45
 <span class="n">offset_z</span> <span class="o">=</span> <span class="n">ap</span><span class="o">.</span><span class="n">z_val</span> <span class="o">-</span> <span class="p">(</span><span class="o">-</span><span class="n">cl</span><span class="o">.</span><span class="n">z</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;offset_x=</span><span class="si">{</span><span class="n">offset_x</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, offset_y=</span><span class="si">{</span><span class="n">offset_y</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, offset_z=</span><span class="si">{</span><span class="n">offset_z</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </code></pre></div>
-<h2 id="_5">脚本中的处理</h2>
+<h2 id="_6">脚本中的处理</h2>
 <table>
 <thead>
 <tr>
@@ -433,10 +436,12 @@ airsim_z = -carla_z +  27.45
 </tbody>
 </table>
 <h3 id="demo_director">demo_director 自动校准</h3>
-<p><code>DroneReplayer</code> 初始化时：
-1. 检测 JSON 中是否有 <code>airsim_ned</code> 字段
-2. 如果只有 <code>transform</code>（CARLA 坐标）→ 读取无人机在 CARLA 和 AirSim 两侧的当前位置，计算偏移量
-3. 回放时每帧 <code>CARLA transform + 偏移 → AirSim NED → simSetVehiclePose</code></p>
+<p><code>DroneReplayer</code> 初始化时：</p>
+<ol>
+<li>检测 JSON 中是否有 <code>airsim_ned</code> 字段</li>
+<li>如果只有 <code>transform</code>（CARLA 坐标）→ 读取无人机在 CARLA 和 AirSim 两侧的当前位置，计算偏移量</li>
+<li>回放时每帧 <code>CARLA transform + 偏移 → AirSim NED → simSetVehiclePose</code></li>
+</ol>
 <p>如果 JSON 中有 <code>airsim_ned</code> → 直接使用，不做转换。</p>
 <h2 id="airsim-api">为什么不直接用 AirSim API 录制？</h2>
 <p>连接 AirSim Python 客户端会导致 CarlaAir 窗口中的无人机<strong>丢失键盘控制并坠落</strong>。

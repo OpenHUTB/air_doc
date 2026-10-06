@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>Carla Air - 低空模拟器</title>
+    <title>空地一体 - 低空模拟器</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Carla Air";
+        var mkdocs_page_name = "\u7a7a\u5730\u4e00\u4f53";
         var mkdocs_page_input_path = "dev/Carla_Air.md";
         var mkdocs_page_url = null;
       </script>
@@ -41,8 +41,12 @@
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption"><span class="caption-text">主页</span></p>
-              <ul>
+              <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../..">主页</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">空地一体</a>
+    <ul class="current">
+    </ul>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">构建 AirSim</span></p>
@@ -220,7 +224,7 @@
                   </li>
                   <li class="toctree-l1"><a class="" href="https://youtu.be/Bp86WiLUC80">导入自定义多旋翼网格</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../object_detection/">Object Detection</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../object_detection/">目标检测</a>
                   </li>
                   <li class="toctree-l1"><a class="" href="https://youtu.be/ZonkdMcwXH4">带有 MAVROS 和 PX4 的 AirSim</a>
                   </li>
@@ -273,7 +277,8 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Carla Air</li>
+          <li class="breadcrumb-item">主页</li>
+      <li class="breadcrumb-item active">空地一体</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/dev/Carla_Air.md"> 编辑页面</a>
     </li>
@@ -577,7 +582,7 @@ python3<span class="w"> </span>examples/recording/demo_director.py<span class="w
 </table>
 <p><b>W1：空地协同</b></p>
 <p><img alt="" src="../../images/calar_air/W1.gif" /></p>
-<p><b>W2：VLN/VLA (Vision Language-driven Navigation/Action) 数据生成</b></p>
+<p><b>W2：视觉语言驱动的导航/动作 (Vision Language-driven Navigation/Action, VLN/VLA) 数据生成</b></p>
 <p><img alt="" src="../../images/calar_air/W2.gif" /></p>
 <p><b>W3：多模态数据集采集</b></p>
 <p><img alt="" src="../../images/calar_air/W3.gif" /></p>
@@ -587,7 +592,7 @@ python3<span class="w"> </span>examples/recording/demo_director.py<span class="w
 <p><img alt="" src="../../images/calar_air/RL.jpg" /></p>
 <p><b>自定义资产导入</b></p>
 <p><img alt="" src="../../images/calar_air/customAsset.gif" /></p>
-<p><b>ROS 2 支持</b>：63 个 Topic 覆盖双仿真后端</p>
+<p><b>ROS 2 支持</b>：63 个话题（Topic）覆盖双仿真后端</p>
 <p><img alt="" src="../../images/calar_air/ROS_demo.gif" /></p>
 <hr />
 <h2 id="_8">⌨️ 飞行控制说明 <span id="flight_controls"></span></h2>
@@ -808,6 +813,10 @@ python3<span class="w"> </span>examples/recording/demo_director.py<span class="w
               
             </div>
           </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../.." class="btn btn-neutral float-left" title="主页"><span class="icon icon-circle-arrow-left"></span> 前一页</a>
+        <a href="../../use_precompiled/" class="btn btn-neutral float-right" title="下载二进制文件">后一页 <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
 
   <hr/>
 
@@ -833,6 +842,10 @@ python3<span class="w"> </span>examples/recording/demo_director.py<span class="w
         </span>
     
     
+      <span><a href="../.." style="color: #fcfcfc">&laquo; 前一页</a></span>
+    
+    
+      <span><a href="../../use_precompiled/" style="color: #fcfcfc">后一页 &raquo;</a></span>
     
   </span>
 </div>

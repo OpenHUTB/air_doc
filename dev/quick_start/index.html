@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>CarlaAir Quick-Start Guide / 快速入门指南 - 低空模拟器</title>
+    <title>CarlaAir 快速入门指南 - 低空模拟器</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "CarlaAir Quick-Start Guide / \u5feb\u901f\u5165\u95e8\u6307\u5357";
+        var mkdocs_page_name = "CarlaAir \u5feb\u901f\u5165\u95e8\u6307\u5357";
         var mkdocs_page_input_path = "dev/quick_start.md";
         var mkdocs_page_url = null;
       </script>
@@ -43,6 +43,8 @@
               <p class="caption"><span class="caption-text">主页</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../..">主页</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Carla_Air/">空地一体</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">构建 AirSim</span></p>
@@ -220,7 +222,7 @@
                   </li>
                   <li class="toctree-l1"><a class="" href="https://youtu.be/Bp86WiLUC80">导入自定义多旋翼网格</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../object_detection/">Object Detection</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../object_detection/">目标检测</a>
                   </li>
                   <li class="toctree-l1"><a class="" href="https://youtu.be/ZonkdMcwXH4">带有 MAVROS 和 PX4 的 AirSim</a>
                   </li>
@@ -273,7 +275,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">CarlaAir Quick-Start Guide / 快速入门指南</li>
+      <li class="breadcrumb-item active">CarlaAir 快速入门指南</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/OpenHUTB/air_doc/edit/master/docs/dev/quick_start.md"> 编辑页面</a>
     </li>
@@ -283,7 +285,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="carlaair-quick-start-guide">CarlaAir Quick-Start Guide / 快速入门指南</h1>
+                <h1 id="carlaair">CarlaAir 快速入门指南</h1>
 <p>欢迎使用 <strong>CarlaAir</strong> — 空地一体联合仿真平台。
 本指南帮助你从零开始，10 分钟内完成首次体验。</p>
 <hr />
@@ -314,11 +316,28 @@ bash<span class="w"> </span>env_setup/test_env.sh
 <div class="highlight"><pre><span></span><code>./CarlaAir.sh<span class="w"> </span>Town10HD
 </code></pre></div>
 <p>等待看到 "Ready! Both servers are running." 即表示启动成功。</p>
-<p><strong>端口说明 / Ports:</strong>
-| 服务 Service | 端口 Port | 用途 Purpose |
-|---|---|---|
-| CARLA API | <code>localhost:2000</code> | 地面仿真：车辆、行人、天气、传感器 |
-| AirSim API | <code>localhost:41451</code> | 空中仿真：无人机飞行与相机 |</p>
+<p><strong>端口说明</strong></p>
+<table>
+<thead>
+<tr>
+<th>服务</th>
+<th>端口</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CARLA API</td>
+<td><code>localhost:2000</code></td>
+<td>地面仿真：车辆、行人、天气、传感器</td>
+</tr>
+<tr>
+<td>AirSim API</td>
+<td><code>localhost:41451</code></td>
+<td>空中仿真：无人机飞行与相机</td>
+</tr>
+</tbody>
+</table>
 <blockquote>
 <p><strong>提示</strong>: 首次启动需要 2-5 分钟加载资源和编译着色器，请耐心等待。</p>
 </blockquote>
@@ -534,26 +553,30 @@ python3<span class="w"> </span>examples/drive_vehicle.py
 </blockquote>
 <hr />
 <h2 id="api-reference-api">API Reference / API 参考</h2>
-<h3 id="carla-python-api-port-2000">CARLA Python API (port 2000)</h3>
-<p>核心类 / Core classes:
-- <code>carla.Client</code> — 连接仿真器
-- <code>carla.World</code> — 世界管理（天气、Actor、传感器）
-- <code>carla.Actor</code> — 车辆、行人、传感器等实体
-- <code>carla.Transform</code> / <code>carla.Location</code> — 位姿与坐标</p>
-<p>官方文档 / Official docs: https://carla.readthedocs.io/en/0.9.16/</p>
-<h3 id="airsim-python-api-port-41451">AirSim Python API (port 41451)</h3>
-<p>核心类 / Core classes:
-- <code>airsim.MultirotorClient</code> — 无人机控制
-- <code>airsim.ImageRequest</code> — 图像采集请求</p>
-<p>官方文档 / Official docs: https://microsoft.github.io/AirSim/</p>
+<h3 id="carla-python-api-2000">CARLA Python API (端口 2000)</h3>
+<p>核心类:</p>
+<ul>
+<li><code>carla.Client</code> — 连接仿真器</li>
+<li><code>carla.World</code> — 世界管理（天气、Actor、传感器）</li>
+<li><code>carla.Actor</code> — 车辆、行人、传感器等实体</li>
+<li><code>carla.Transform</code> / <code>carla.Location</code> — 位姿与坐标</li>
+</ul>
+<p>详情请参考<a href="https://openhutb.github.io/doc">中文文档</a>。</p>
+<h3 id="airsim-python-api-41451">AirSim Python API (端口 41451)</h3>
+<p>核心类:</p>
+<ul>
+<li><code>airsim.MultirotorClient</code> — 无人机控制</li>
+<li><code>airsim.ImageRequest</code> — 图像采集请求</li>
+</ul>
+<p>详情请参考<a href="../../">中文文档</a>。</p>
 <hr />
-<h2 id="faq-troubleshooting">FAQ / Troubleshooting / 常见问题</h2>
-<h3 id="_1">仿真器启动相关</h3>
+<h2 id="_1">常见问题</h2>
+<h3 id="_2">仿真器启动相关</h3>
 <table>
 <thead>
 <tr>
-<th>问题 Problem</th>
-<th>解决方案 Solution</th>
+<th>问题</th>
+<th>解决方案</th>
 </tr>
 </thead>
 <tbody>
@@ -575,12 +598,12 @@ python3<span class="w"> </span>examples/drive_vehicle.py
 </tr>
 </tbody>
 </table>
-<h3 id="_2">脚本运行相关</h3>
+<h3 id="_3">脚本运行相关</h3>
 <table>
 <thead>
 <tr>
-<th>问题 Problem</th>
-<th>解决方案 Solution</th>
+<th>问题</th>
+<th>解决方案</th>
 </tr>
 </thead>
 <tbody>
@@ -614,18 +637,18 @@ python3<span class="w"> </span>examples/drive_vehicle.py
 </tr>
 </tbody>
 </table>
-<h3 id="_3">坐标与地图相关</h3>
+<h3 id="_4">坐标与地图相关</h3>
 <table>
 <thead>
 <tr>
-<th>问题 Problem</th>
-<th>解决方案 Solution</th>
+<th>问题</th>
+<th>解决方案</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>无人机位置和 CARLA 车辆位置对不上</td>
-<td>两套 API 的坐标原点和 Z 轴方向不同，详见 COORDINATE_SYSTEMS.md</td>
+<td>两套 API 的坐标原点和 Z 轴方向不同，详见<a href="../coordinate_systems/">坐标系统</a></td>
 </tr>
 <tr>
 <td>如何切换地图</td>

@@ -44,6 +44,8 @@
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../..">主页</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Carla_Air/">空地一体</a>
+                  </li>
               </ul>
               <p class="caption"><span class="caption-text">构建 AirSim</span></p>
               <ul>
@@ -220,7 +222,7 @@
                   </li>
                   <li class="toctree-l1"><a class="" href="https://youtu.be/Bp86WiLUC80">导入自定义多旋翼网格</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../object_detection/">Object Detection</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../object_detection/">目标检测</a>
                   </li>
                   <li class="toctree-l1"><a class="" href="https://youtu.be/ZonkdMcwXH4">带有 MAVROS 和 PX4 的 AirSim</a>
                   </li>
@@ -322,6 +324,7 @@
 </ul>
 <p>这两种游戏模式无法通过标准的UE4机制<strong>共存</strong>。之前的各种方法（例如，关卡流式传输、仅插件集成）都失败了，因为这两个系统都假定游戏模式关卡(GameMode-level)对模拟生命周期拥有控制权。</p>
 <h3 id="22">2.2 解决方案：单一继承 + 组合模式</h3>
+<p><img alt="" src="../../images/calar_air/resolving_single_mode.png" /></p>
 <p>该解决方案利用了这两个系统之间的架构不对称性：</p>
 <ul>
 <li>Carla 的子系统（Episode、天气、交通管理器、Actor 工厂）通过继承和友元(<code>friend</code>)声明与 <code>ACarlaGameModeBase</code> <strong>紧密耦合</strong>。</li>
@@ -512,12 +515,14 @@
 </tbody>
 </table>
 <p><strong>RPC绑定模式</strong>: 修改 UE4 状态的操作通过<code>boost::asio::io_context</code> 的 post-and-wait 机制同步绑定(<strong>sync-bound</strong>)到游戏线程。只读操作异步绑定(<strong>async-bound</strong>)到 RPC 工作线程。</p>
-<p><strong>传感器数据管道</strong>:
-1. 传感器在 UE4 游戏线程节拍周期内捕获数据
-2. <code>FPixelReader::SendPixelsInRenderThread()</code> 将渲染命令加入渲染命令队列
-3. GPU 像素通过 <code>FRHICommandListImmediate</code> 读取
-4. 数据通过 <code>SensorRegistry::Serialize()</code>（类型分发）进行序列化。
-5. 通过专用 TCP 流发送（每个传感器都有一个唯一的流令牌）</p>
+<p><strong>传感器数据管线</strong>:</p>
+<ol>
+<li>传感器在 UE4 游戏线程节拍周期内捕获数据</li>
+<li><code>FPixelReader::SendPixelsInRenderThread()</code> 将渲染命令加入渲染命令队列</li>
+<li>GPU 像素通过 <code>FRHICommandListImmediate</code> 读取</li>
+<li>数据通过 <code>SensorRegistry::Serialize()</code>（类型分发）进行序列化。</li>
+<li>通过专用 TCP 流发送（每个传感器都有一个唯一的流令牌）</li>
+</ol>
 <h3 id="32-airsim-41451">3.2 AirSim 服务端 (端口 41451)</h3>
 <p>AirSim 使用 rpclib 实现的<strong>单端口 RPC 架构</strong>：</p>
 <table>
@@ -1540,31 +1545,31 @@ j = - \frac{(1 + e) \times (v \cdot n)}{ \frac{1}{m} + ((I^{-1}(r \times n)) × 
 </thead>
 <tbody>
 <tr>
-<td><code>Plugins/AirSim/Source/SimWorldGameMode.h/.cpp</code></td>
+<td><a href="https://github.com/OpenHUTB/air/blob/main/Unreal/Plugins/AirSim/Source/SimWorldGameMode.cpp">Plugins/AirSim/Source/SimWorldGameMode.h/.cpp</a></td>
 <td>统一的游戏模式 (432 行)</td>
 </tr>
 <tr>
-<td><code>Plugins/Carla/Source/Carla/Game/CarlaGameModeBase.h/.cpp</code></td>
+<td><a href="https://github.com/OpenHUTB/hutb/blob/hutb/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Game/CarlaGameModeBase.cpp">Plugins/Carla/Source/Carla/Game/CarlaGameModeBase.h/.cpp</a></td>
 <td>Carla 基础游戏模式 GameMode</td>
 </tr>
 <tr>
-<td><code>Plugins/Carla/Source/Carla/Game/CarlaEpisode.h/.cpp</code></td>
+<td><a href="https://github.com/OpenHUTB/hutb/blob/hutb/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Game/CarlaEpisode.cpp">Plugins/Carla/Source/Carla/Game/CarlaEpisode.h/.cpp</a></td>
 <td>Episode 管理器</td>
 </tr>
 <tr>
-<td><code>Plugins/AirSim/Source/SimMode/SimModeBase.h/.cpp</code></td>
+<td><a href="https://github.com/OpenHUTB/air/blob/main/Unreal/Plugins/AirSim/Source/SimMode/SimModeBase.cpp">Plugins/AirSim/Source/SimMode/SimModeBase.h/.cpp</a></td>
 <td>AirSim 仿真模式</td>
 </tr>
 <tr>
-<td><code>Plugins/AirSim/Source/AirSim.Build.cs</code></td>
+<td><a href="https://github.com/OpenHUTB/air/blob/main/Unreal/Plugins/AirSim/Source/AirSim.Build.cs">Plugins/AirSim/Source/AirSim.Build.cs</a></td>
 <td>构建配置（Carla 依赖）</td>
 </tr>
 <tr>
-<td><code>Config/DefaultEngine.ini</code></td>
+<td><a href="https://github.com/OpenHUTB/air/blob/main/Unreal/Environments/Blocks/Config/DefaultEngine.ini">Config/DefaultEngine.ini</a></td>
 <td>游戏模式注册</td>
 </tr>
 <tr>
-<td><code>Config/DefaultGame.ini</code></td>
+<td><a href="https://github.com/OpenHUTB/air/blob/main/Unreal/Environments/Blocks/Config/DefaultGame.ini">Config/DefaultGame.ini</a></td>
 <td>打包配置</td>
 </tr>
 </tbody>
@@ -1573,41 +1578,41 @@ j = - \frac{(1 + e) \times (v \cdot n)}{ \frac{1}{m} + ((I^{-1}(r \times n)) × 
 <table>
 <thead>
 <tr>
-<th>文件</th>
+<th>文件（位于 <a href="https://github.com/OpenHUTB/hutb/tree/hutb/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor">hutb/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/</a> 目录）</th>
 <th>传感器</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>Sensor/SceneCaptureCamera.h/.cpp</code></td>
+<td><a href="https://github.com/OpenHUTB/hutb/blob/hutb/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/SceneCaptureCamera.cpp">Sensor/SceneCaptureCamera.h/.cpp</a></td>
 <td>RGB 相机</td>
 </tr>
 <tr>
-<td><code>Sensor/DepthCamera.h/.cpp</code></td>
+<td><a href="https://github.com/OpenHUTB/hutb/blob/hutb/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/DepthCamera.cpp">Sensor/DepthCamera.h/.cpp</a></td>
 <td>Depth 相机</td>
 </tr>
 <tr>
-<td><code>Sensor/SemanticSegmentationCamera.h/.cpp</code></td>
+<td><a href="https://github.com/OpenHUTB/hutb/blob/hutb/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/SemanticSegmentationCamera.cpp">Sensor/SemanticSegmentationCamera.h/.cpp</a></td>
 <td>语义分割</td>
 </tr>
 <tr>
-<td><code>Sensor/InstanceSegmentationCamera.h/.cpp</code></td>
+<td><a href="https://github.com/OpenHUTB/hutb/blob/hutb/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/InstanceSegmentationCamera.cpp">Sensor/InstanceSegmentationCamera.h/.cpp</a></td>
 <td>实例分割</td>
 </tr>
 <tr>
-<td><code>Sensor/RayCastLidar.h/.cpp</code></td>
+<td><a href="https://github.com/OpenHUTB/hutb/blob/hutb/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/RayCastLidar.cpp">Sensor/RayCastLidar.h/.cpp</a></td>
 <td>激光雷达</td>
 </tr>
 <tr>
-<td><code>Sensor/Radar.h/.cpp</code></td>
+<td><a href="https://github.com/OpenHUTB/hutb/blob/hutb/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/Radar.cpp">Sensor/Radar.h/.cpp</a></td>
 <td>毫米波雷达</td>
 </tr>
 <tr>
-<td><code>Sensor/InertialMeasurementUnit.h/.cpp</code></td>
+<td><a href="https://github.com/OpenHUTB/hutb/blob/hutb/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/InertialMeasurementUnit.cpp">Sensor/InertialMeasurementUnit.h/.cpp</a></td>
 <td>IMU</td>
 </tr>
 <tr>
-<td><code>Sensor/GnssSensor.h/.cpp</code></td>
+<td><a href="https://github.com/OpenHUTB/hutb/blob/hutb/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/GnssSensor.cpp">Sensor/GnssSensor.h/.cpp</a></td>
 <td>GNSS</td>
 </tr>
 </tbody>
@@ -1616,45 +1621,45 @@ j = - \frac{(1 + e) \times (v \cdot n)}{ \frac{1}{m} + ((I^{-1}(r \times n)) × 
 <table>
 <thead>
 <tr>
-<th>文件</th>
+<th>文件（位于 <a href="https://github.com/OpenHUTB/air/tree/main/Unreal/Plugins/AirSim/Source">air/Unreal/Plugins/AirSim/Source</a> 目录）</th>
 <th>部件</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>Vehicles/Multirotor/FlyingPawn.h/.cpp</code></td>
+<td><a href="https://github.com/OpenHUTB/air/tree/main/Unreal/Plugins/AirSim/Source/Vehicles/Multirotor">Vehicles/Multirotor/FlyingPawn.h/.cpp</a></td>
 <td>无人机棋子</td>
 </tr>
 <tr>
-<td><code>Vehicles/Multirotor/MultirotorPawnSimApi.h/.cpp</code></td>
+<td><a href="https://github.com/OpenHUTB/air/tree/main/Unreal/Plugins/AirSim/Source/Vehicles/Multirotor">Vehicles/Multirotor/MultirotorPawnSimApi.h/.cpp</a></td>
 <td>无人机 API 封装器</td>
 </tr>
 <tr>
-<td><code>Vehicles/Multirotor/SimModeWorldMultiRotor.h/.cpp</code></td>
+<td><a href="https://github.com/OpenHUTB/air/tree/main/Unreal/Plugins/AirSim/Source/Vehicles/Multirotor">Vehicles/Multirotor/SimModeWorldMultiRotor.h/.cpp</a></td>
 <td>多旋翼飞行器模拟模式</td>
 </tr>
 <tr>
-<td><code>AirLib/include/physics/FastPhysicsEngine.hpp</code></td>
-<td>无人机物理</td>
+<td><a href="https://github.com/OpenHUTB/air/blob/main/AirLib/include/physics/FastPhysicsEngine.hpp">AirLib/include/physics/FastPhysicsEngine.hpp</a></td>
+<td>无人机物理引擎</td>
 </tr>
 <tr>
-<td><code>AirLib/include/vehicles/multirotor/MultiRotorPhysicsBody.hpp</code></td>
+<td><a href="https://github.com/OpenHUTB/air/blob/main/AirLib/include/vehicles/multirotor/MultiRotorPhysicsBody.hpp">AirLib/include/vehicles/multirotor/MultiRotorPhysicsBody.hpp</a></td>
 <td>刚体模型</td>
 </tr>
 <tr>
-<td><code>AirLib/include/vehicles/multirotor/api/MultirotorRpcLibServer.hpp</code></td>
+<td><a href="https://github.com/OpenHUTB/air/blob/main/AirLib/include/vehicles/multirotor/api/MultirotorRpcLibServer.hpp">AirLib/include/vehicles/multirotor/api/MultirotorRpcLibServer.hpp</a></td>
 <td>API 服务端</td>
 </tr>
 <tr>
-<td><code>AirLib/include/sensors/imu/ImuSimple.hpp</code></td>
+<td><a href="https://github.com/OpenHUTB/air/blob/main/AirLib/include/sensors/imu/ImuSimple.hpp">AirLib/include/sensors/imu/ImuSimple.hpp</a></td>
 <td>带噪声的 IMU</td>
 </tr>
 <tr>
-<td><code>AirLib/include/sensors/gps/GpsSimple.hpp</code></td>
+<td><a href="https://github.com/OpenHUTB/air/blob/main/AirLib/include/sensors/gps/GpsSimple.hpp">AirLib/include/sensors/gps/GpsSimple.hpp</a></td>
 <td>带噪声的 GPS</td>
 </tr>
 <tr>
-<td><code>AirLib/include/sensors/barometer/BarometerSimple.hpp</code></td>
+<td><a href="https://github.com/OpenHUTB/air/blob/main/AirLib/include/sensors/barometer/BarometerSimple.hpp">AirLib/include/sensors/barometer/BarometerSimple.hpp</a></td>
 <td>带噪声的气压计</td>
 </tr>
 </tbody>
