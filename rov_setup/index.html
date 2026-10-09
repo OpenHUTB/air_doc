@@ -329,18 +329,18 @@
 <p>AirSim 为水下及海洋机器人（ROV/AUV）提供载具支持，其设计灵感源自 <a href="https://github.com/open-airlab/UNav-Sim">UNav-Sim</a> 动力学模型（默认采用 BlueROV2 Heavy 8 推进器架构）：</p>
 <ul>
 <li>
-<p><strong>流体动力学与物理模型</strong>: 在 <code>AirLib/include/vehicles/rov/</code> 中实现，提供完整的六自由度（6-DOF）海洋动力学特性：</p>
+<p><strong>流体动力学与物理模型</strong>: 在 <a href="https://github.com/OpenHUTB/air/tree/main/AirLib/include/vehicles/rov">AirLib/include/vehicles/rov/</a> 中实现，提供完整的六自由度（6-DOF）海洋动力学特性：</p>
 <ul>
-<li>流体浮力（根据水密度 <script type="math/tex"> \rho = 1028\,\text{kg/m}^3$ </script> 和载具排水体积计算得出）；</li>
+<li>流体浮力（根据水密度 <script type="math/tex"> \rho = 1028\,\text{kg/m}^3 </script> 和载具排水体积计算得出）；</li>
 <li>非线性流体阻力、二次阻尼及回复力矩（浮心与重心的相对位置）；</li>
 <li>基于推进器混合矩阵的8个推进器空间力分配。</li>
 </ul>
 </li>
 <li>
-<p><strong>固件 (<code>rov_simple</code>)</strong>: 提供机载深度保持、姿态调平及机体坐标系下的速度控制功能。</p>
+<p><strong><a href="https://github.com/OpenHUTB/air/tree/main/AirLib/include/vehicles/rov/firmwares">固件</a> (<a href="https://github.com/OpenHUTB/air/tree/main/AirLib/include/vehicles/rov/firmwares/rov_simple">rov_simple</a>)</strong>: 提供机载深度保持、姿态调平及机体坐标系下的速度控制功能。</p>
 </li>
 <li>
-<p><strong>虚幻引擎渲染</strong>: 通过原生 C++ 类 <code>ARovPawn</code> 集成，支持 5 个机载摄像头挂载点（右前、左前、前中、后中、底部）以及推进器的动态旋转效果。</p>
+<p><strong>虚幻引擎渲染</strong>: 通过原生 C++ 类 <a href="https://github.com/OpenHUTB/air/blob/main/Unreal/Plugins/AirSim/Source/Vehicles/Rov/RovPawn.cpp#L9">ARovPawn</a> 集成，支持 5 个机载摄像头挂载点（右前、左前、前中、后中、底部）以及推进器的动态旋转效果。</p>
 </li>
 </ul>
 <hr />
@@ -406,7 +406,7 @@
 </ol>
 <hr />
 <h2 id="4-blocks">4. 构建与运行（Blocks 项目）</h2>
-<p>以内置的 <code>Blocks</code> 项目为例：</p>
+<p>以内置的 <a href="https://github.com/OpenHUTB/air/tree/main/Unreal/Environments/Blocks">Blocks</a> 项目为例：</p>
 <h3 id="1_1">步骤 1：构建插件</h3>
 <p>在 <a href="https://github.com/OpenHUTB/air">air</a> 根目录下：</p>
 <ul>
@@ -420,9 +420,9 @@ update_from_git.bat
 </ul>
 <h3 id="2_1">步骤 2：启动仿真</h3>
 <ul>
-<li>在<a href="https://github.com/OpenHUTB/engine">虚幻引擎编辑器</a>中打开 <code>Unreal/Environments/Blocks/Blocks.uproject</code>；</li>
+<li>在<a href="https://github.com/OpenHUTB/engine">虚幻引擎编辑器</a>中打开 <a href="https://github.com/OpenHUTB/air/blob/main/Unreal/Environments/Blocks/Blocks.uproject">Unreal/Environments/Blocks/Blocks.uproject</a>；</li>
 <li>点击编辑器工具栏中的 <strong>Play</strong>（运行）按钮；</li>
-<li>The ROV will spawn in the viewport. The log outputs:
+<li>ROV 将在视口中生成。日志输出：
   <div class="highlight"><pre><span></span><code>LogTemp: StartupModule: AirSim plugin
 LogTemp: ARovPawn: Loaded ROV mesh from /AirSim/Models/RoV/...
 LogTemp: RovSimple
