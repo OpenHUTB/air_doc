@@ -79,6 +79,7 @@ nav:
     - "地图": 'map.md'
     - "相机视角": 'camera_views.md'
     - "汽车模式": 'using_car.md'
+    - "ROV 模式": 'rov_setup.md'
     - "远程控制": 'remote_control.md'
     - "XBox 控制器": 'xbox_controller.md'
     - "方向盘": 'steering_wheel_installation.md'
