@@ -8,15 +8,15 @@
 
 AirSim 为水下及海洋机器人（ROV/AUV）提供载具支持，其设计灵感源自 [UNav-Sim](https://github.com/open-airlab/UNav-Sim) 动力学模型（默认采用 BlueROV2 Heavy 8 推进器架构）：
 
-* **流体动力学与物理模型**: 在 `AirLib/include/vehicles/rov/` 中实现，提供完整的六自由度（6-DOF）海洋动力学特性：
+* **流体动力学与物理模型**: 在 [AirLib/include/vehicles/rov/](https://github.com/OpenHUTB/air/tree/main/AirLib/include/vehicles/rov) 中实现，提供完整的六自由度（6-DOF）海洋动力学特性：
 
-    * 流体浮力（根据水密度 \( \rho = 1028\,\text{kg/m}^3$ \) 和载具排水体积计算得出）；
+    * 流体浮力（根据水密度 \( \rho = 1028\,\text{kg/m}^3 \) 和载具排水体积计算得出）；
     * 非线性流体阻力、二次阻尼及回复力矩（浮心与重心的相对位置）；
     * 基于推进器混合矩阵的8个推进器空间力分配。
     
-* **固件 (`rov_simple`)**: 提供机载深度保持、姿态调平及机体坐标系下的速度控制功能。
+* **[固件](https://github.com/OpenHUTB/air/tree/main/AirLib/include/vehicles/rov/firmwares) ([rov_simple](https://github.com/OpenHUTB/air/tree/main/AirLib/include/vehicles/rov/firmwares/rov_simple))**: 提供机载深度保持、姿态调平及机体坐标系下的速度控制功能。
 
-* **虚幻引擎渲染**: 通过原生 C++ 类 `ARovPawn` 集成，支持 5 个机载摄像头挂载点（右前、左前、前中、后中、底部）以及推进器的动态旋转效果。
+* **虚幻引擎渲染**: 通过原生 C++ 类 [ARovPawn](https://github.com/OpenHUTB/air/blob/main/Unreal/Plugins/AirSim/Source/Vehicles/Rov/RovPawn.cpp#L9) 集成，支持 5 个机载摄像头挂载点（右前、左前、前中、后中、底部）以及推进器的动态旋转效果。
 
 ---
 
@@ -90,7 +90,7 @@ AirSim 按以下顺序查找 `settings.json`：
 
 ## 4. 构建与运行（Blocks 项目）
 
-以内置的 `Blocks` 项目为例：
+以内置的 [Blocks](https://github.com/OpenHUTB/air/tree/main/Unreal/Environments/Blocks) 项目为例：
 
 ### 步骤 1：构建插件
 
@@ -108,9 +108,9 @@ AirSim 按以下顺序查找 `settings.json`：
   ```
 
 ### 步骤 2：启动仿真
-* 在[虚幻引擎编辑器](https://github.com/OpenHUTB/engine)中打开 `Unreal/Environments/Blocks/Blocks.uproject`；
+* 在[虚幻引擎编辑器](https://github.com/OpenHUTB/engine)中打开 [Unreal/Environments/Blocks/Blocks.uproject](https://github.com/OpenHUTB/air/blob/main/Unreal/Environments/Blocks/Blocks.uproject)；
 * 点击编辑器工具栏中的 **Play**（运行）按钮；
-* The ROV will spawn in the viewport. The log outputs:
+* ROV 将在视口中生成。日志输出：
   ```text
   LogTemp: StartupModule: AirSim plugin
   LogTemp: ARovPawn: Loaded ROV mesh from /AirSim/Models/RoV/...
