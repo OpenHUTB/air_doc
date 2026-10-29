@@ -31,6 +31,8 @@
 4. **控制载具：**查看 [飞行控制器](flight_controller.md) 与 [多车辆](multi_vehicle.md) 文档。
 5. **扩展工作流：**按需阅读 [AirSim ROS 封装器](airsim_ros_pkgs.md)、[AirSim 教程包](airsim_tutorial_pkgs.md) 或 [强化学习](reinforcement_learning.md)。
 
+6. **空地一体实验：**按 [Ubuntu 教程](air_ground_ubuntu_tutorial.md) 跑通车—机同框、感知决策、无人机、空地协同与交通场景。
+
 以上链接均指向当前仓库内的文档。不同分支和模拟器版本的接口可能存在差异；执行示例前，请同时核对本地代码与对应的构建指南。
 
 # 欢迎来到低空模拟器

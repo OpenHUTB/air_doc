@@ -140,6 +140,7 @@ nav:
     - "构建点云": 'point_clouds.md'
     - "使用无人机进行测量": 'drone_survey.md'
     - "轨道轨迹": "orbit.md"
+    - "空地一体 Ubuntu 教程": 'air_ground_ubuntu_tutorial.md'
     - "导入自定义多旋翼网格": 'https://youtu.be/Bp86WiLUC80'
     - "目标检测": "object_detection.md"
     - "带有 MAVROS 和 PX4 的 AirSim": 'https://youtu.be/ZonkdMcwXH4'
