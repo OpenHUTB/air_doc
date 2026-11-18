@@ -225,24 +225,8 @@
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">空地一体 Ubuntu 教程</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#_1">实验基本信息</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_2">学习目标</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_3">先修知识</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_4">你将完成</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_5">开始前</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_6">硬件</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_7">软件</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_8">系统依赖</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#ubuntu">Ubuntu 环境检查</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_9">脚本目录约定</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_2">脚本目录约定</a>
     </li>
         </ul>
     </li>
@@ -258,31 +242,47 @@
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#5">5. 运行空地同步</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_10">成功标志</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_3">成功标志</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_11">六个实验模块</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_4">六个实验模块</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#4_1">4. 多路相机</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_12">模块一：环境与数字孪生底座（建议最后做）</a>
+    <li class="toctree-l3"><a class="reference internal" href="#5_1">5. 三维边界框</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_13">模块二：自动驾驶感知—决策—控制</a>
+    <li class="toctree-l3"><a class="reference internal" href="#6">6. 激光雷达点云</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_14">模块三：无人机与低空资产</a>
+    <li class="toctree-l3"><a class="reference internal" href="#7-yolov3">7. YOLOv3 目标检测</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_15">模块四：空地协同</a>
+    <li class="toctree-l3"><a class="reference internal" href="#8">8. 路径点跟踪</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_16">模块五：交通场景与多载具协同</a>
+    <li class="toctree-l3"><a class="reference internal" href="#9">9. 轨迹跟踪</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#10">10. 地图选点移动</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#11">11. 路线规划（湖工商场景）</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#12">12. 校园轨迹（湖工商场景）</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_5">模块三：无人机与低空资产</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_6">模块四：空地协同</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_7">模块五：交通场景与多载具协同</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#ai">模块六：协作与 AI 辅助开发</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_17">实验报告要求</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_8">实验报告要求</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_18">结果与评价</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_9">结果与评价</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_19">常见问题</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_10">常见问题</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_20">参考</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_11">参考</a>
     </li>
     </ul>
                   </li>
@@ -358,7 +358,7 @@
 <p><strong>路径说明（务必先看）</strong>：模拟器安装入口始终使用 OpenHUTB 主页的 <code>https://openhutb.github.io/dl.sh</code>，本文没有改成其他下载源。教程里有两套脚本根目录，不能混用：
 - <code>hutb/PythonAPI/...</code>：<code>dl.sh</code> 下载的模拟器包，空地一体脚本和 8 个分步教程在 <code>PythonAPI/examples/air/</code>。
 - <code>doc/src/...</code>：<code>OpenHUTB/doc</code> 文档仓库，感知、规划、交通类示例脚本在这里，<strong>不在</strong> <code>hutb/PythonAPI/examples/</code>。</p>
-<p>air_doc 上 Carla-Air 0.1.7 预编译包使用 <code>CarlaAir.sh</code> 和 <code>examples/</code>，目录布局与本教程的 hutb 包不同；本教程仍按 OpenHUTB 主页的 hutb 包编写。</p>
+<p>air_doc 上的 Carla-Air 预编译包使用 <code>CarlaAir.sh</code> 和 <code>examples/</code>，目录布局与本教程的 hutb 包不同；本教程仍按 OpenHUTB 主页的 hutb 包编写。</p>
 </blockquote>
 <h2 id="_1">实验基本信息</h2>
 <table>
@@ -375,7 +375,7 @@
 </tr>
 <tr>
 <td>操作系统</td>
-<td>Ubuntu 18.04 / 20.04 / 22.04（64 位）</td>
+<td>Ubuntu 18.04 / 20.04 / 22.04 / 24.04（64 位）</td>
 </tr>
 <tr>
 <td>面向专业</td>
@@ -395,151 +395,305 @@
 </tr>
 <tr>
 <td>仿真底座</td>
-<td>OpenHUTB/hutb（已集成 Carla + AirSim 空地一体与无人机插件）</td>
+<td>OpenHUTB/hutb（已集成 CARLA + AirSim 空地一体与无人机插件）</td>
+</tr>
+<tr>
+<td>模拟器获取</td>
+<td><code>https://openhutb.github.io/dl.sh</code></td>
+</tr>
+<tr>
+<td>Python 接口</td>
+<td>使用包内 <code>PythonAPI/carla/dist</code> 里的 wheel</td>
 </tr>
 <tr>
 <td>开源许可</td>
 <td>MIT</td>
 </tr>
+<tr>
+<td>## 学习目标</td>
+<td></td>
+</tr>
+<tr>
+<td>完成本实验后，你将能够：</td>
+<td></td>
+</tr>
+<tr>
+<td>- 理解 OpenHUTB/hutb 中 CARLA 与 AirSim 单进程空地一体仿真的基本架构，说清两者如何共享同一世界、同一套物理与传感器时间戳。</td>
+<td></td>
+</tr>
+<tr>
+<td>- 独立启动仿真环境，完成路网生成、场景保存、车辆与无人机连接。</td>
+<td></td>
+</tr>
+<tr>
+<td>- 配置相机、激光雷达、毫米波雷达等传感器，完成目标检测、点云可视化与多传感器数据采集。</td>
+<td></td>
+</tr>
+<tr>
+<td>- 编写 Python 脚本控制车辆与无人机，完成路径跟踪、航点飞行、多机编队与空地协同任务。</td>
+<td></td>
+</tr>
+<tr>
+<td>- 基于路口流量、车均延误、饱和度、排队长度、覆盖率、冲突次数等指标评价方案，并完成一次复测迭代。</td>
+<td></td>
+</tr>
+<tr>
+<td>- 按开源协作规范提交代码与文档，使用 GitHub Copilot 辅助读文档、改脚本、排查报错。</td>
+<td></td>
+</tr>
+<tr>
+<td>## 先修知识</td>
+<td></td>
+</tr>
+<tr>
+<td>- Python 基础：变量、循环、函数、常用库（numpy、matplotlib 均可）。</td>
+<td></td>
+</tr>
+<tr>
+<td>- Linux 基础：终端、路径、环境变量、<code>pip</code>/<code>venv</code>。</td>
+<td></td>
+</tr>
+<tr>
+<td>- ROS2 基础：节点、话题、服务的基本概念；没学过可先看平台前置微课。</td>
+<td></td>
+</tr>
+<tr>
+<td>- 控制与机器学习基础：PID、状态估计、目标检测的基本概念。</td>
+<td></td>
+</tr>
+<tr>
+<td>## 你将完成</td>
+<td></td>
+</tr>
+<tr>
+<td>- 启动 OpenHUTB/hutb，看到车辆与无人机在<strong>同一个世界</strong>中运行。</td>
+<td></td>
+</tr>
+<tr>
+<td>- 跑通 4 宫格传感器画面：RGB、深度图、语义分割、LiDAR 鸟瞰。</td>
+<td></td>
+</tr>
+<tr>
+<td>- 观察无人机跟踪地面车辆、天气切换、车机时间戳对齐。</td>
+<td></td>
+</tr>
+<tr>
+<td>- 按六个模块完成 29 个交互步骤，并提交实验报告与指标表。</td>
+<td></td>
+</tr>
+<tr>
+<td>## 开始前</td>
+<td></td>
+</tr>
+<tr>
+<td>### 硬件</td>
+<td></td>
+</tr>
+<tr>
+<td>- Ubuntu 18.04 / 20.04 / 22.04 / 24.04（64 位）。</td>
+<td></td>
+</tr>
+<tr>
+<td>- 推荐 NVIDIA RTX 2070 及以上、显存 8 GB 及以上。</td>
+<td></td>
+</tr>
+<tr>
+<td>- 推荐内存 32 GB 及以上、可用磁盘 100 GB 及以上；最低 16 GB 内存、50 GB 磁盘。</td>
+<td></td>
+</tr>
+<tr>
+<td>- 已安装 NVIDIA 驱动，终端执行 <code>nvidia-smi</code> 能看到显卡信息。</td>
+<td></td>
+</tr>
+<tr>
+<td>- 只有核显或 8 GB 内存的机器可以看文档、写脚本，但跑模拟器会非常卡。</td>
+<td></td>
+</tr>
+<tr>
+<td>### 软件</td>
+<td></td>
+</tr>
+<tr>
+<td>- Git、Python 3、pip、VS Code。</td>
+<td></td>
+</tr>
+<tr>
+<td>- <strong>不需要单独下载额外发行包</strong>：下面的 <code>dl.sh</code> 会下载 OpenHUTB/hutb 官方包，其中已集成空地一体与无人机插件。</td>
+<td></td>
+</tr>
+<tr>
+<td>- 浏览器（用于看文档和 GitHub）。</td>
+<td></td>
+</tr>
+<tr>
+<td>- 能访问 GitHub；如果无法访问，请使用可用的网络环境。</td>
+<td></td>
+</tr>
+<tr>
+<td>### 系统依赖</td>
+<td></td>
+</tr>
+<tr>
+<td><div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>update
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>git<span class="w"> </span>wget<span class="w"> </span>curl<span class="w"> </span>tar<span class="w"> </span>unzip<span class="w"> </span>build-essential<span class="w"> </span>python3-pip<span class="w"> </span>python3-venv<span class="w"> </span>vulkan-tools
+</code></pre></div></td>
+<td></td>
+</tr>
+<tr>
+<td>### 环境自检</td>
+<td></td>
+</tr>
+<tr>
+<td>在开始前，先确认下面几条命令都能正常输出：</td>
+<td></td>
+</tr>
 </tbody>
 </table>
-<h2 id="_2">学习目标</h2>
-<p>完成本实验后，你将能够：</p>
-<ul>
-<li>理解 OpenHUTB/hutb 中 Carla 与 AirSim 单进程空地一体仿真的基本架构，说清两者如何共享同一世界、同一套物理与传感器时间戳。</li>
-<li>独立启动仿真环境，完成路网生成、场景保存、车辆与无人机连接。</li>
-<li>配置相机、激光雷达、毫米波雷达等传感器，完成目标检测、点云可视化与多传感器数据采集。</li>
-<li>编写 Python 脚本控制车辆与无人机，完成路径跟踪、航点飞行、多机编队与空地协同任务。</li>
-<li>基于路口流量、车均延误、饱和度、排队长度、覆盖率、冲突次数等指标评价方案，并完成一次复测迭代。</li>
-<li>按开源协作规范提交代码与文档，使用 GitHub Copilot 辅助读文档、改脚本、排查报错。</li>
-</ul>
-<h2 id="_3">先修知识</h2>
-<ul>
-<li>Python 基础：变量、循环、函数、常用库（numpy、matplotlib 均可）。</li>
-<li>Linux 基础：终端、路径、环境变量、<code>pip</code>/<code>venv</code>。</li>
-<li>ROS2 基础：节点、话题、服务的基本概念；没学过可先看平台前置微课。</li>
-<li>控制与机器学习基础：PID、状态估计、目标检测的基本概念。</li>
-</ul>
-<h2 id="_4">你将完成</h2>
-<ul>
-<li>启动 OpenHUTB/hutb，看到车辆与无人机在<strong>同一个世界</strong>中运行。</li>
-<li>跑通 4 分屏传感器画面：RGB、深度图、语义分割、LiDAR 鸟瞰。</li>
-<li>观察无人机跟踪地面车辆、天气切换、车机时间戳对齐。</li>
-<li>按六个模块完成 29 个交互步骤，并提交实验报告与指标表。</li>
-</ul>
-<h2 id="_5">开始前</h2>
-<h3 id="_6">硬件</h3>
-<ul>
-<li>Ubuntu 18.04 / 20.04 / 22.04，64 位。</li>
-<li>推荐 NVIDIA RTX 2070 及以上、显存 8 GB 及以上。</li>
-<li>内存 16 GB 及以上；磁盘至少预留 50 GB。</li>
-<li>已安装 NVIDIA 驱动，终端执行 <code>nvidia-smi</code> 能看到显卡信息。</li>
-<li>只有核显或 8 GB 内存的机器可以看文档、写脚本，但跑模拟器会非常卡。</li>
-</ul>
-<h3 id="_7">软件</h3>
-<ul>
-<li>Git、Python 3.7+、pip、VS Code。</li>
-<li><strong>不需要单独下载额外发行包</strong>：下面的 <code>dl.sh</code> 会下载 OpenHUTB/hutb 官方包，其中已集成空地一体与无人机插件。</li>
-<li>浏览器（用于看文档和 GitHub）。</li>
-<li>能访问 GitHub；如果无法访问，请使用可用的网络环境。</li>
-</ul>
-<h3 id="_8">系统依赖</h3>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>update
-sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>git<span class="w"> </span>wget<span class="w"> </span>curl<span class="w"> </span>tar<span class="w"> </span>unzip<span class="w"> </span>build-essential<span class="w"> </span>python3-pip
-</code></pre></div>
-<h3 id="ubuntu">Ubuntu 环境检查</h3>
-<p>在开始前，先确认以下命令都能正常输出：</p>
-<div class="highlight"><pre><span></span><code>nvidia-smi
-python3<span class="w"> </span>--version
-python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>--version
-git<span class="w"> </span>--version
-</code></pre></div>
-<ul>
-<li><code>nvidia-smi</code> 没有输出：先装 NVIDIA 驱动并重启。</li>
-<li><code>pip3</code> 找不到：先装 <code>python3-pip</code>，或改用 <code>python3 -m pip</code>。</li>
-<li><code>python3</code> 版本低于 3.7：先升级 Python。</li>
-</ul>
-<blockquote>
-<p><strong>第一次学习不要从数字孪生开始。</strong> 数字孪生需要编译 HUTB，最重、最容易卡；先跑模块二—五，最后再做模块一和数字孪生。</p>
-</blockquote>
-<h3 id="_9">脚本目录约定</h3>
-<p>下面命令里的脚本分布在不同的目录，<strong>每条命令先 <code>cd</code> 到对应目录</strong>，不要假设当前目录：</p>
 <table>
 <thead>
 <tr>
-<th>脚本</th>
-<th>正确位置</th>
+<th>检查项</th>
+<th>命令</th>
+<th>正常表现</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>空地一体展示脚本（quick_start_showcase、air_ground_sync、drone_car_chase、demo_drive_and_fly）</td>
-<td><code>hutb/PythonAPI/examples/air/</code></td>
+<td>显卡/驱动</td>
+<td><code>nvidia-smi</code></td>
+<td>显示 NVIDIA 显卡和驱动</td>
 </tr>
 <tr>
-<td>8 个分步教程（01_hello_world 等）</td>
-<td><code>hutb/PythonAPI/examples/air/</code></td>
+<td>Vulkan</td>
+<td><code>vulkaninfo --summary \| grep -E 'apiVersion\|deviceName'</code></td>
+<td><code>deviceName</code> 是 NVIDIA 显卡；出现 <code>llvmpipe</code> 表示在走软件渲染</td>
 </tr>
 <tr>
-<td>hutb 自带示例（generate_traffic、manual_control 等）</td>
-<td><code>hutb/PythonAPI/examples/</code></td>
+<td>Python</td>
+<td><code>python3 --version</code></td>
+<td>主次版本与 wheel 文件名里的 <code>cpXX</code> 一致</td>
 </tr>
 <tr>
-<td>相机、边界框、点云、路径点脚本（rgb_camera_example、sensor_bounding_box、3d_lidar、waypoint_follow）</td>
-<td><code>doc/src/examples/</code>（OpenHUTB/doc 仓库）</td>
+<td>pip</td>
+<td><code>python3 -m pip --version</code></td>
+<td>能打印 pip 版本</td>
 </tr>
 <tr>
-<td>检测、轨迹、选点、规划、导航、交通指标脚本（object_detection、Drive、locate_moving、main_v4_VO、automatic_control_revised、traffic_indicators、signal_control、auto_signal_control、spectator）</td>
-<td><code>doc/src/course/...</code>（OpenHUTB/doc 仓库）</td>
+<td>Git</td>
+<td><code>git --version</code></td>
+<td>能打印 Git 版本</td>
 </tr>
 <tr>
-<td>AirSim 多机示例（multi_agent_drone、add_drone、hello_drone）</td>
-<td><code>air</code> 仓库的 <code>PythonClient/multirotor/</code></td>
+<td>Wheel</td>
+<td><code>ls ~/hutb/PythonAPI/carla/dist/hutb-*.whl</code></td>
+<td>下载后至少有一个 <code>hutb-*.whl</code></td>
+</tr>
+<tr>
+<td>端口</td>
+<td><code>ss -ltnp \| grep -E ':2000\|:41451'</code></td>
+<td>模拟器启动后 <code>2000</code> 在监听；模块三/四还要看到 <code>41451</code></td>
 </tr>
 </tbody>
 </table>
-<p><code>hutb/PythonAPI/examples/</code> 里<strong>没有</strong> <code>rgb_camera_example.py</code>、<code>sensor_bounding_box.py</code>、<code>3d_lidar.py</code>、<code>waypoint_follow.py</code>、<code>traffic_indicators.py</code>、<code>spectator.py</code> 这些文件，不要在这里找。以你本地发行包/仓库的实际路径为准；找不到时先 <code>ls</code> 看目录。</p>
+<ul>
+<li><code>nvidia-smi</code> 没有输出：先装 NVIDIA 驱动并重启。</li>
+<li><code>pip3</code> 找不到：先装 <code>python3-pip</code>，或改用 <code>python3 -m pip</code>。</li>
+<li><code>python3</code> 与 wheel 的 <code>cpXX</code> 不一致：换用匹配的 Python 版本。<blockquote>
+<p><strong>第一次学习不要从数字孪生开始。</strong> 数字孪生需要编译 HUTB，最重、最容易卡；先跑模块二—五，最后再做模块一和数字孪生。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="_2">脚本目录约定</h3>
+<p>下面命令里的脚本分布在不同的目录，<strong>每条命令先 <code>cd</code> 到对应目录</strong>，不要假设当前目录：
+| 脚本 | 正确位置 |
+| --- | --- |
+| 空地一体展示脚本（quick_start_showcase、air_ground_sync、drone_car_chase、demo_drive_and_fly） | <code>hutb/PythonAPI/examples/air/</code> |
+| 8 个分步教程（01_hello_world 等） | <code>hutb/PythonAPI/examples/air/</code> |
+| hutb 自带示例（generate_traffic、manual_control 等） | <code>hutb/PythonAPI/examples/</code> |
+| 相机、边界框、点云、路径点脚本（rgb_camera_example、sensor_bounding_box、3d_lidar、waypoint_follow） | <code>doc/src/examples/</code>（OpenHUTB/doc 仓库） |
+| 检测、轨迹、选点、规划、导航、交通指标脚本（object_detection、Drive、locate_moving、main_v4_VO、automatic_control_revised、traffic_indicators、signal_control、auto_signal_control、spectator） | <code>doc/src/course/...</code>（OpenHUTB/doc 仓库） |
+| AirSim 多机示例（multi_agent_drone、add_drone、hello_drone） | <code>air</code> 仓库的 <code>PythonClient/multirotor/</code> |
+<code>hutb/PythonAPI/examples/</code> 里<strong>没有</strong> <code>rgb_camera_example.py</code>、<code>sensor_bounding_box.py</code>、<code>3d_lidar.py</code>、<code>waypoint_follow.py</code>、<code>traffic_indicators.py</code>、<code>spectator.py</code> 这些文件，不要在这里找。以你本地发行包/仓库的实际路径为准；找不到时先 <code>ls</code> 看目录。</p>
 <h2 id="30">快速开始：30 分钟看到“车机同框”</h2>
 <p>下面以 Ubuntu 上的 OpenHUTB/hutb 官方包为例。所有命令都在终端里执行；首次运行需要联网下载依赖。</p>
 <h3 id="1-openhutbhutb">1. 下载 OpenHUTB/hutb 官方包</h3>
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-fsSL<span class="w"> </span>-o<span class="w"> </span>dl.sh<span class="w"> </span>https://openhutb.github.io/dl.sh<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>dl.sh<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>./dl.sh
 </code></pre></div>
 <blockquote>
-<p>如果这一步报 <code>BadZipFile</code>，先不要反复重试；这是下载到的包不完整/服务器没有预编译包，排查方法见文末“常见问题”。</p>
+<p>如果这一步报 <code>BadZipFile</code>，先不要反复重试；这是下载到的包不完整/服务器没有预编译包，排查方法见文末“常见问题”。
+脚本会下载模拟器包；解压后进入生成的目录（通常叫 <code>hutb</code>，以实际解压结果为准）：
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/hutb
+</code></pre></div>
+下面统一假设包目录是 <code>~/hutb</code>。如果你解压到其他位置，把命令里的 <code>~/hutb</code> 换成实际目录。</p>
 </blockquote>
-<p>脚本会下载模拟器包；解压后进入生成的目录（通常叫 <code>hutb</code>，以实际解压结果为准）：</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>hutb
-</code></pre></div>
 <h3 id="2">2. 启动模拟器</h3>
-<div class="highlight"><pre><span></span><code>chmod<span class="w"> </span>+x<span class="w"> </span>CarlaUE4.sh
-./CarlaUE4.sh
+<p>先确认 <code>CarlaUE4.sh</code> 的位置：<code>dl.sh</code> 下载包在根目录；自己编译的包在 <code>Build/UE4Carla/.../LinuxNoEditor/</code>。</p>
+<div class="highlight"><pre><span></span><code>find<span class="w"> </span>~/hutb<span class="w"> </span>-name<span class="w"> </span>CarlaUE4.sh
 </code></pre></div>
-<p>第一次启动会加载地图，比较慢，属正常现象。</p>
+<p>进入 <code>CarlaUE4.sh</code> 所在目录后，用 Vulkan 启动：</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/hutb
+chmod<span class="w"> </span>+x<span class="w"> </span>CarlaUE4.sh
+./CarlaUE4.sh<span class="w"> </span>-vulkan<span class="w"> </span>-windowed<span class="w"> </span>-ResX<span class="o">=</span><span class="m">1280</span><span class="w"> </span>-ResY<span class="o">=</span><span class="m">720</span><span class="w"> </span>-quality-level<span class="o">=</span>Low
+</code></pre></div>
+<p>如果使用自己编译的包，进入 <code>Build/UE4Carla/.../LinuxNoEditor</code> 后执行同样命令。</p>
+<p>第一次启动会加载地图，比较慢，属正常现象。本教程统一使用 Vulkan，不使用 <code>-opengl</code>。</p>
+<p>如果启动报 <code>bind: Address already in use</code>，说明 2000 端口被占用，通常是上次崩溃残留的 <code>CarlaUE4</code> 进程。先查 PID：</p>
+<div class="highlight"><pre><span></span><code>ss<span class="w"> </span>-ltnp<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;:2000&#39;</span>
+</code></pre></div>
+<p>假设查到 PID 是 162777，先确认是自己的进程，再结束它：</p>
+<div class="highlight"><pre><span></span><code>ps<span class="w"> </span>-o<span class="w"> </span>pid,user,etime,cmd<span class="w"> </span>-p<span class="w"> </span><span class="m">162777</span>
+<span class="nb">kill</span><span class="w"> </span>-TERM<span class="w"> </span><span class="m">162777</span>
+sleep<span class="w"> </span><span class="m">3</span>
+ss<span class="w"> </span>-ltnp<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;:2000&#39;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;2000 已释放&quot;</span>
+</code></pre></div>
+<p>如果还占着，再用 <code>kill -9 162777</code>。命令里的 <code>162777</code> 要换成实际 PID，<strong>不要带尖括号</strong>；写成 <code>&lt;PID&gt;</code> 会被 bash 当成重定向，报“未预期的记号 newline”。如果占用者不是你的进程，改用 <code>-carla-rpc-port=2100</code> 启动，并在客户端加 <code>--port 2100</code>。</p>
 <h3 id="3-python">3. 安装 Python 接口</h3>
-<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>PythonAPI/carla/dist/hutb-*.whl
-python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>pygame<span class="w"> </span>numpy
+<p><code>dl.sh</code> 下载包里已经带了 Python 接口 wheel，先看一眼文件名：</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/hutb
+ls<span class="w"> </span>PythonAPI/carla/dist/hutb-*.whl
+python3<span class="w"> </span>--version
+</code></pre></div>
+<p>文件名里的 <code>cpXX</code> 要和 <code>python3 --version</code> 的主次版本一致。不要直接用 <code>hutb-*.whl</code> 通配符，否则 pip 可能挑到另一个 Python 版本的包并报 <code>is not a supported wheel on this platform</code>。</p>
+<p>如果终端前缀有 <code>(base)</code>、<code>(ase)</code> 等 conda 环境，先执行 <code>conda deactivate</code>，再用独立虚拟环境安装：</p>
+<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>~/venv-air
+<span class="nb">source</span><span class="w"> </span>~/venv-air/bin/activate
+</code></pre></div>
+<p>按当前 Python 自动选 wheel：</p>
+<div class="highlight"><pre><span></span><code><span class="nv">PYTAG</span><span class="o">=</span><span class="s2">&quot;cp</span><span class="k">$(</span>python3<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;import sys; print(f&quot;{sys.version_info.major}{sys.version_info.minor}&quot;)&#39;</span><span class="k">)</span><span class="s2">&quot;</span>
+python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>~/hutb/PythonAPI/carla/dist/hutb-*-<span class="si">${</span><span class="nv">PYTAG</span><span class="si">}</span>-*.whl
+python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>pygame-ce<span class="w"> </span>numpy<span class="w"> </span><span class="s2">&quot;opencv-contrib-python&lt;5&quot;</span>
+</code></pre></div>
+<p>如果 <code>ls</code> 里没有与当前 Python 匹配的 wheel，换一个匹配的 Python 版本，或让 <code>dl.sh</code> 重新下载完整包。</p>
+<p>跑 doc 仓库示例或需要 <code>agents</code> 的脚本时，还要加：</p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">CARLA_ROOT</span><span class="o">=</span><span class="nv">$HOME</span>/hutb
+<span class="nb">export</span><span class="w"> </span><span class="nv">PYTHONPATH</span><span class="o">=</span><span class="nv">$CARLA_ROOT</span>/PythonAPI/carla:<span class="nv">$HOME</span>/doc/src:<span class="nv">$PYTHONPATH</span>
 </code></pre></div>
 <p>如果提示找不到文件，先确认 <code>PythonAPI/carla/dist/</code> 下确实有 <code>hutb-*.whl</code>。</p>
+<p>装好后先做一次连接自检：</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/hutb
+python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import carla; c=carla.Client(&#39;localhost&#39;,2000); c.set_timeout(10); w=c.get_world(); print(w.get_map().name, len(w.get_map().get_spawn_points()))&quot;</span>
+</code></pre></div>
+<p>正常会打印当前地图名和出生点数量。连不上先检查模拟器是否还在运行、2000 端口是否监听。</p>
 <h3 id="4">4. 运行车机展示（另开一个终端）</h3>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>&lt;你的<span class="w"> </span>hutb<span class="w"> </span>目录&gt;
+<p><div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/hutb
 python3<span class="w"> </span>PythonAPI/examples/air/quick_start_showcase.py
 </code></pre></div>
-<p>你应该看到：一辆车在城市中自动巡航，无人机从空中追踪；4 分屏同时显示 RGB、深度图、语义分割、LiDAR 鸟瞰；天气自动轮换。按 <code>N</code> 手动切天气，按 <code>Esc</code> 退出。</p>
+你应该看到：一辆车在城市中自动巡航，无人机从空中追踪；4 宫格同时显示 RGB、深度图、语义分割、LiDAR 鸟瞰；天气自动轮换。按 <code>N</code> 手动切天气，按 <code>Esc</code> 退出。如果 4 宫格全黑，先按模块四的“同步复位”命令恢复异步，再重新运行。</p>
 <blockquote>
 <p>这个脚本本身<strong>不支持 WASD 接管驾驶</strong>（源码里只注册了 <code>N</code> 和 <code>ESC</code>）。要键盘驾驶，另开终端运行 <code>python3 PythonAPI/examples/air/drive_vehicle.py</code>，那个脚本才是 <code>WASD</code> 驾驶、<code>Space</code> 手刹、<code>R</code> 倒车。</p>
 </blockquote>
 <h3 id="5">5. 运行空地同步</h3>
-<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>PythonAPI/examples/air/air_ground_sync.py
+<p><div class="highlight"><pre><span></span><code>python3<span class="w"> </span>PythonAPI/examples/air/air_ground_sync.py
 </code></pre></div>
-<p>左右分屏中，地面车辆与空中无人机处于同一世界、同一场天气；按 <code>N</code> 切换天气，按 <code>Esc</code> 退出。</p>
-<h3 id="_10">成功标志</h3>
+同一画面中，地面车辆与空中无人机处于同一世界、同一场天气；按 <code>N</code> 切换天气，按 <code>Esc</code> 退出。</p>
+<h3 id="_3">成功标志</h3>
 <ul>
 <li>车与无人机出现在同一画面。</li>
 <li>4 路传感器画面同时刷新。</li>
 <li>切换天气时，地面和空中同时变化。</li>
-<li>没有端口占用、API 版本不匹配的报错。</li>
+<li>没有端口占用；如果出现 API 版本不匹配的警告，不影响本教程功能。</li>
 </ul>
-<h2 id="_11">六个实验模块</h2>
+<h2 id="_4">六个实验模块</h2>
 <table>
 <thead>
 <tr>
@@ -571,13 +725,13 @@ python3<span class="w"> </span>PythonAPI/examples/air/quick_start_showcase.py
 <tr>
 <td>模块四</td>
 <td>空地协同</td>
-<td>车机分屏、联合展示、无人机跟踪车</td>
+<td>车机同屏、联合展示、无人机跟踪车</td>
 <td>18—19</td>
 </tr>
 <tr>
 <td>模块五</td>
 <td>交通场景与多载具协同</td>
-<td>交通流、路口指标、信号控制、多机巡检</td>
+<td>交通流、路口指标、信号控制、多载具协同</td>
 <td>20—25</td>
 </tr>
 <tr>
@@ -586,272 +740,414 @@ python3<span class="w"> </span>PythonAPI/examples/air/quick_start_showcase.py
 <td>Fork、分支、Copilot、Pull Request</td>
 <td>26—29</td>
 </tr>
+<tr>
+<td>## 模块一：环境与数字孪生底座（建议最后做）</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>目标</strong>：把真实路网变成仿真场景，并保存为可重复载入的地图。</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>1. 启动模拟器服务端并连接客户端：</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/hutb
+./CarlaUE4.sh<span class="w"> </span>-vulkan<span class="w"> </span>-windowed<span class="w"> </span>-ResX<span class="o">=</span><span class="m">1280</span><span class="w"> </span>-ResY<span class="o">=</span><span class="m">720</span><span class="w"> </span>-quality-level<span class="o">=</span>Low
+</code></pre></div></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>服务端启动后，用<strong>另一个终端</strong>执行 <code>config.py</code> 加载地图（在 hutb 包根目录执行），不要关掉模拟器窗口：</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><div class="highlight"><pre><span></span><code>python3<span class="w"> </span>PythonAPI/util/config.py<span class="w"> </span>-m<span class="w"> </span>Town01
+</code></pre></div></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>2. 由 OpenStreetMap 生成路网：打开数字孪生工具（CarlaTools 内容中的 <code>UW_OnRoadMainWidget</code>），填入 OSM 网址或导入本地 <code>.osm</code>，框选区域后点击生成。生成时间取决于机器性能和区域大小。</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>3. 加载生成场景并保存：</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><div class="highlight"><pre><span></span><code><span class="c1"># 在 hutb 包根目录</span>
+python3<span class="w"> </span>PythonAPI/util/config.py<span class="w"> </span>-x<span class="w"> </span>*.xodr
+</code></pre></div></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>如果按文档仓库的写法运行，则要先进入 <code>OpenHUTB/doc</code> 仓库根目录，再执行 <code>python3 src/util/config.py -x *.xodr</code>；<code>src/</code> 是 doc 仓库的目录，不在 hutb 包里。</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>保存时间取决于机器性能和地图大小；保存后在编辑器中检查车道与路口。</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>运行效果</strong>：加载 <code>.xodr</code> 后，模拟器里能看到道路、路口和车辆出生点；保存地图后重新加载，路网仍然存在。</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>&gt; 这一步依赖 HUTB 编译。第一次做建议在教师演示后完成，不要自行硬编。</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>## 模块二：自动驾驶感知—决策—控制</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
 </tbody>
 </table>
-<h2 id="_12">模块一：环境与数字孪生底座（建议最后做）</h2>
-<p><strong>目标</strong>：把真实路网变成仿真场景，并保存为可重复载入的地图。</p>
-<ol>
-<li>启动模拟器服务端并连接客户端：</li>
-</ol>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>&lt;你的<span class="w"> </span>hutb<span class="w"> </span>目录&gt;
-./CarlaUE4.sh
-</code></pre></div>
-<p>再用 <code>config.py</code> 加载地图（在 hutb 包根目录执行）：</p>
-<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>PythonAPI/util/config.py<span class="w"> </span>-m<span class="w"> </span>Town01
-</code></pre></div>
-<ol>
-<li>
-<p>由 OpenStreetMap 生成路网：打开数字孪生工具（CarlaTools 内容中的 <code>UW_OnRoadMainWidget</code>），填入 OSM 网址或导入本地 <code>.osm</code>，框选区域后点击生成。2×2 km² 约需 10 分钟。</p>
-</li>
-<li>
-<p>加载生成场景并保存：</p>
-</li>
-</ol>
-<div class="highlight"><pre><span></span><code><span class="c1"># 在 hutb 包根目录</span>
-python3<span class="w"> </span>PythonAPI/util/config.py<span class="w"> </span>-x<span class="w"> </span>*.xodr
-</code></pre></div>
-<p>如果按文档仓库的写法运行，则要先进入 <code>OpenHUTB/doc</code> 仓库根目录，再执行 <code>python3 src/util/config.py -x *.xodr</code>；<code>src/</code> 是 doc 仓库的目录，不在 hutb 包里。</p>
-<p>保存地图可能耗时 1 小时以上；保存后在编辑器中检查车道与路口。</p>
-<blockquote>
-<p>这一步依赖 HUTB 编译。第一次做建议在教师演示后完成，不要自行硬编。</p>
-</blockquote>
-<h2 id="_13">模块二：自动驾驶感知—决策—控制</h2>
 <p><strong>目标</strong>：让车辆“看得见、判得准、走得稳”。</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># 以下脚本在 OpenHUTB/doc 仓库的 src/ 下运行；不是 hutb/PythonAPI/examples/</span>
-<span class="nb">cd</span><span class="w"> </span>&lt;你的<span class="w"> </span>doc<span class="w"> </span>仓库&gt;/src
-
-<span class="c1"># 4. 多路相机（先另开终端运行 examples/manual_control.py 生成 hero）</span>
-python3<span class="w"> </span>examples/rgb_camera_example.py<span class="w"> </span>--host<span class="w"> </span>localhost<span class="w"> </span>--port<span class="w"> </span><span class="m">2000</span><span class="w"> </span>--rolename<span class="w"> </span>hero
-
-<span class="c1"># 5. 三维边界框（同样需要 hero）</span>
+<p><strong>说明</strong>：下面命令按 <code>dl.sh</code> 下载的官方包编写，已在 Vulkan 启动方式下实际跑通；地图使用 <code>Town10HD</code> / <code>Town01_Opt</code>，成功标志按实测结果写。</p>
+<p><strong>运行效果</strong>：跑通后你会看到 6 路相机画面、车辆上的三维边界框、Open3D 点云、YOLO 检测框，以及车辆沿路点或规划路径行驶。</p>
+<p>如果还没有 doc 仓库，先克隆到 <code>~/doc</code>：</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/OpenHUTB/doc.git<span class="w"> </span>~/doc
+</code></pre></div>
+<p>再进入 doc 仓库并设置环境变量：</p>
+<div class="highlight"><pre><span></span><code>conda<span class="w"> </span>deactivate
+<span class="nb">source</span><span class="w"> </span>~/venv-air/bin/activate
+<span class="nb">export</span><span class="w"> </span><span class="nv">CARLA_ROOT</span><span class="o">=</span><span class="nv">$HOME</span>/hutb
+<span class="nb">export</span><span class="w"> </span><span class="nv">PYTHONPATH</span><span class="o">=</span><span class="nv">$CARLA_ROOT</span>/PythonAPI/carla:<span class="nv">$HOME</span>/doc/src:<span class="nv">$PYTHONPATH</span>
+<span class="nb">cd</span><span class="w"> </span>~/doc/src
+</code></pre></div>
+<h3 id="4_1">4. 多路相机</h3>
+<p>脚本会自动生成 <code>hero</code>，不需要先运行 <code>manual_control.py</code>：</p>
+<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>examples/rgb_camera_example.py
+</code></pre></div>
+<p>成功标志：弹出 <code>All cameras</code> 窗口，RGB、语义分割、实例分割、深度、DVS、光流 6 路画面同时刷新，按 <code>q</code> 退出。请用 <code>q</code> 正常退出，直接 <code>Ctrl+C</code> 可能留下传感器，需要重启模拟器清理。</p>
+<h3 id="5_1">5. 三维边界框</h3>
+<p>需要场景里已有 <code>hero</code>。第 4 步加 <code>--keep_ego_vehicle</code> 可保留；否则另开终端运行：</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/hutb
+python3<span class="w"> </span>PythonAPI/examples/manual_control.py
+</code></pre></div>
+<p>再在 doc 终端运行：</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/doc/src
 python3<span class="w"> </span>examples/sensor_bounding_box.py<span class="w"> </span>--host<span class="w"> </span>localhost<span class="w"> </span>--port<span class="w"> </span><span class="m">2000</span><span class="w"> </span>--rolename<span class="w"> </span>hero<span class="w"> </span>--view<span class="w"> </span>above<span class="w"> </span>--distance<span class="w"> </span><span class="m">100</span><span class="w"> </span>--res<span class="w"> </span>800x600<span class="w"> </span>--fov<span class="w"> </span><span class="m">90</span>
-
-<span class="c1"># 6. 激光雷达点云（需要 hero 与 Open3D）</span>
+</code></pre></div>
+<p>成功标志：俯视窗口里车辆被红橙色三维框包住。</p>
+<h3 id="6">6. 激光雷达点云</h3>
+<p>需要 Open3D；新版 matplotlib 删除了 <code>cm.get_cmap</code>，要装兼容旧接口的版本：</p>
+<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>open3d<span class="w"> </span><span class="s2">&quot;matplotlib&lt;3.9&quot;</span>
 python3<span class="w"> </span>examples/3d_lidar.py<span class="w"> </span>--host<span class="w"> </span>localhost<span class="w"> </span>--port<span class="w"> </span><span class="m">2000</span><span class="w"> </span>--rolename<span class="w"> </span>hero<span class="w"> </span>--keep_ego_vehicle
-
-<span class="c1"># 7. YOLOv3 目标检测（在脚本目录运行，weights/ 与 cfg/ 是相对路径）</span>
-<span class="nb">cd</span><span class="w"> </span>course/object_detection
+</code></pre></div>
+<p>成功标志：<code>Carla Lidar</code> 窗口出现点云，能看到道路边界和车辆轮廓。如果 matplotlib 版本过新，会报 <code>AttributeError: module 'matplotlib.cm' has no attribute 'get_cmap'</code>。</p>
+<h3 id="7-yolov3">7. YOLOv3 目标检测</h3>
+<p>OpenCV 必须是 4.x，并要改一行兼容代码：</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/doc/src/course/object_detection
+python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>imutils<span class="w"> </span><span class="s2">&quot;opencv-contrib-python&lt;5&quot;</span>
+curl<span class="w"> </span>-L<span class="w"> </span>-o<span class="w"> </span>weights/yolov3.weights<span class="w"> </span>https://pjreddie.com/media/files/yolov3.weights
+sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;s/layers_names\[i\[0\]-1\]/layers_names[i-1]/&#39;</span><span class="w"> </span>object_detection.py
 python3<span class="w"> </span>object_detection.py
-<span class="nb">cd</span><span class="w"> </span>../..
-
-<span class="c1"># 8. 路径点跟踪（先在 hutb 终端运行 python3 PythonAPI/util/config.py -m Town01；json 路径相对 doc/src）</span>
-python3<span class="w"> </span>examples/waypoint_follow.py<span class="w"> </span>--host<span class="w"> </span>localhost<span class="w"> </span>--port<span class="w"> </span><span class="m">2000</span><span class="w"> </span>--rolename<span class="w"> </span>hero<span class="w"> </span>--map<span class="w"> </span>Town01<span class="w"> </span>--json_file<span class="w"> </span>examples/data/town01_waypoints.json<span class="w"> </span>--sync<span class="w"> </span>--fixed_delta_seconds<span class="o">=</span><span class="m">0</span>.05<span class="w"> </span>--spawn<span class="w"> </span>--visualize<span class="w"> </span>--camera_follow
-
-<span class="c1"># 9. 轨迹跟踪（湖工商场景；先运行 examples/generate_traffic.py）</span>
-python3<span class="w"> </span>course/trajectory_tracking/Drive.py
-
-<span class="c1"># 10. 地图选点移动</span>
-python3<span class="w"> </span>course/locate_moving.py
-
-<span class="c1"># 11. 路线规划（同级有 motion_primitve.py / basic_PID.py，必须在本目录运行）</span>
-<span class="nb">cd</span><span class="w"> </span>course/Motion_Planning
+</code></pre></div>
+<p>成功标志：车辆视角窗口中，车辆、行人、自行车上出现检测框和类别标签。OpenCV 5 已移除 Darknet 后端，会报 <code>Unknown layer type in function 'readNet'</code>；<code>layers_names[i[0]-1]</code> 在 NumPy 2 下会报 <code>IndexError</code>，两个问题都要处理。画面里没有目标时不会出现框，可先运行 <code>python3 examples/generate_traffic.py -n 30 -w 10 --safe</code>。</p>
+<h3 id="8">8. 路径点跟踪</h3>
+<p>需要 Town01 路点。普通 <code>Town01</code> 在部分环境里会卡住，优先改用 <code>Town01_Opt</code>：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 终端 A</span>
+<span class="nb">cd</span><span class="w"> </span>~/hutb
+python3<span class="w"> </span>PythonAPI/util/config.py<span class="w"> </span>-m<span class="w"> </span>Town01_Opt
+<span class="c1"># 终端 B</span>
+<span class="nb">cd</span><span class="w"> </span>~/doc/src
+python3<span class="w"> </span>examples/waypoint_follow.py<span class="w"> </span>--host<span class="w"> </span>localhost<span class="w"> </span>--port<span class="w"> </span><span class="m">2000</span><span class="w"> </span>--json_file<span class="w"> </span>examples/data/town01_waypoints.json<span class="w"> </span>--sync<span class="w"> </span>--fixed_delta_seconds<span class="o">=</span><span class="m">0</span>.05<span class="w"> </span>--spawn<span class="w"> </span>--visualize<span class="w"> </span>--camera_follow
+</code></pre></div>
+<p>成功标志：车辆从第一个路点出发，窗口中出现路点编号，车辆沿路点行驶。脚本结束后把同步模式复位：</p>
+<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>-<span class="w"> </span><span class="s">&lt;&lt;&#39;PY&#39;</span>
+<span class="s">import carla</span>
+<span class="s">c = carla.Client(&quot;localhost&quot;, 2000); c.set_timeout(20)</span>
+<span class="s">w = c.get_world(); s = w.get_settings()</span>
+<span class="s">s.synchronous_mode = False; s.fixed_delta_seconds = None</span>
+<span class="s">w.apply_settings(s)</span>
+<span class="s">print(&quot;async restored&quot;)</span>
+<span class="s">PY</span>
+</code></pre></div>
+<h3 id="9">9. 轨迹跟踪</h3>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/doc/src/course/trajectory_tracking
+python3<span class="w"> </span>Drive.py
+</code></pre></div>
+<p>成功标志：车辆按 <code>Waypoints.txt</code> 行驶，场景中出现红色路点编号，<code>Results/</code> 下生成 CSV。<strong>不要先运行 <code>generate_traffic.py</code></strong>，否则 spawn point 216/11 被占用，<code>try_spawn_actor</code> 返回 <code>None</code> 后脚本会崩。该脚本需要至少 217 个 spawn point，<code>Town01_Opt</code> 有 255 个，可用。</p>
+<h3 id="10">10. 地图选点移动</h3>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/doc/src/course
+python3<span class="w"> </span>locate_moving.py
+</code></pre></div>
+<p>成功标志：俯视地图窗口显示道路和建筑，鼠标点击处生成一辆自动驾驶车辆。脚本把相机固定在 <code>(0,0,50)</code>，在 <code>Town01_Opt</code> 原点可能是空地/水面，窗口会全黑；实测在 <code>Town10HD</code> 下正常，建议这一步用 <code>Town10HD</code>。</p>
+<h3 id="11">11. 路线规划（湖工商场景）</h3>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/doc/src/course/Motion_Planning
 python3<span class="w"> </span>main_v4_VO.py
-<span class="nb">cd</span><span class="w"> </span>../..
-
-<span class="c1"># 12. 校园轨迹（--s/--e 可取 北门、西门、楚枫桥、楚枫轩、日新楼、体育馆、湘江楼、科技楼）</span>
-python3<span class="w"> </span>course/navigation/automatic_control_revised.py<span class="w"> </span>--s<span class="w"> </span>北门<span class="w"> </span>--e<span class="w"> </span>西门<span class="w"> </span>--speed<span class="w"> </span><span class="m">5</span>
 </code></pre></div>
-<blockquote>
-<p>这些脚本依赖 <code>OpenHUTB/doc</code> 仓库的 <code>src/</code>，hutb 包里没有 <code>course/</code>。<code>rgb_camera_example.py</code>、<code>sensor_bounding_box.py</code>、<code>3d_lidar.py</code> 需要先在另一个终端运行 <code>manual_control.py</code> 生成 <code>hero</code> 车辆，否则会报 <code>Actor hero not found</code>。<code>object_detection.py</code> 还需要自行准备 <code>weights/yolov3.weights</code>（仓库只带 <code>cfg/</code>）。<code>Drive.py</code>、<code>automatic_control_revised.py</code>、<code>traffic_indicators.py</code>、<code>spectator.py</code> 依赖湖工商场景。</p>
-</blockquote>
-<p><strong>成功标志</strong>：相机画面同步、边界框与车辆对齐、点云能看出道路与车辆轮廓、检测框随视角变化、车辆能沿路点或规划路径行驶。</p>
-<h2 id="_14">模块三：无人机与低空资产</h2>
-<p><strong>目标</strong>：连接 Carla 与 AirSim 双客户端，完成起飞、多机添加和航拍建模。</p>
+<h3 id="12">12. 校园轨迹（湖工商场景）</h3>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/doc/src/course/navigation
+python3<span class="w"> </span>automatic_control_revised.py<span class="w"> </span>--s<span class="w"> </span>北门<span class="w"> </span>--e<span class="w"> </span>西门<span class="w"> </span>--speed<span class="w"> </span><span class="m">5</span>
+</code></pre></div>
+<p>11、12 的坐标写死在湖工商场景里，换到 Town01/Town10HD 没有意义；先按模块一加载校园地图。</p>
+<p><strong>模块二排错</strong></p>
+<ul>
+<li><code>ModuleNotFoundError: cv2</code>：确认在 <code>venv-air</code> 里，且装的是 OpenCV 4.x（不要用 5.x）。</li>
+<li><code>AttributeError: module 'matplotlib.cm' has no attribute 'get_cmap'</code>：<code>python3 -m pip install "matplotlib&lt;3.9"</code>。</li>
+<li><code>Unknown layer type in function 'readNet'</code>：OpenCV 5 已移除 Darknet，降到 OpenCV 4.x。</li>
+<li><code>IndexError</code> 出现在 <code>output_layers</code>：把 <code>layers_names[i[0]-1]</code> 改成 <code>layers_names[i-1]</code>。</li>
+<li>脚本退出后传感器/车辆残留、或画面不动：重启模拟器，并把 <code>synchronous_mode</code> 复位为 <code>False</code>（见第 8 步代码）。</li>
+<li>成功标志汇总：6 路相机同步、边界框贴合车辆、点云有道路/车辆轮廓、检测框随视角变化、车辆能沿路点或规划路径行驶。</li>
+</ul>
+<h2 id="_5">模块三：无人机与低空资产</h2>
+<p><strong>目标</strong>：连接 CARLA 与 AirSim 双客户端，完成起飞、多机添加和航拍建模。</p>
+<p><strong>前置</strong>：<code>~/Documents/AirSim/settings.json</code> 里设置 <code>"EnableRpc": true</code>，重启模拟器，确认两个端口都在监听。如果这个文件不存在，先启动一次模拟器让 AirSim 生成，再修改。</p>
+<div class="highlight"><pre><span></span><code>ss<span class="w"> </span>-ltnp<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">&#39;:2000|:41451&#39;</span>
+</code></pre></div>
+<p>如果 <code>import airsim</code> 报 <code>ModuleNotFoundError: No module named 'backports'</code>：</p>
+<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>backports.ssl_match_hostname
+</code></pre></div>
 <ol>
-<li>
-<p>启动 OpenHUTB/hutb 模拟器，加载校园地图（如 <code>Town10HD</code>），分别连接 Carla 客户端（端口 <code>2000</code>）和 AirSim 多旋翼客户端（端口 <code>41451</code>）。</p>
-</li>
-<li>
-<p>基础飞行与分步教程：</p>
-</li>
+<li>双客户端连接：</li>
 </ol>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>&lt;你的<span class="w"> </span>hutb<span class="w"> </span>目录&gt;
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/hutb
 python3<span class="w"> </span>PythonAPI/examples/air/01_hello_world.py
-python3<span class="w"> </span>PythonAPI/examples/air/05_drone_takeoff.py
 </code></pre></div>
+<p>如果你在纯 SSH、没有图形桌面的环境里运行，先设置 <code>DISPLAY</code> 或使用虚拟显示；有桌面的机器一般不用设置。</p>
+<p>实测成功输出：<code>CARLA connection successful: Carla/Maps/...</code>、<code>Number of available spawn points: ...</code>、<code>AirSim connection successful: Drone is ready to fly.</code></p>
 <ol>
-<li>继续完成天气、交通流、无人机起飞等示例：</li>
+<li>起飞、固定航点、正方形航线、降落：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>PythonAPI/examples/air/05_drone_takeoff.py
+</code></pre></div>
+<p>实测成功输出：<code>已起飞!</code> → <code>当前位置 NED: (80.1, -0.0, -30.0)</code> → <code>降落完成!</code>。</p>
+<ol>
+<li>天气与车流：</li>
 </ol>
 <div class="highlight"><pre><span></span><code>python3<span class="w"> </span>PythonAPI/examples/air/02_weather_control.py
 python3<span class="w"> </span>PythonAPI/examples/air/03_spawn_traffic.py
 </code></pre></div>
-<p>多机示例见 <code>air</code> 仓库的 <code>PythonClient/multirotor/</code>：<code>multi_agent_drone.py</code>、<code>add_drone.py</code>、<code>hello_drone.py</code> 都在这里，<strong>不在</strong> hutb 包的 <code>PythonAPI/examples/air/</code> 里。如果还没克隆 air 仓库，或当前包内没有这些脚本，先完成单车/单机示例。</p>
+<p>实测输出：5 种天气依次切换并恢复晴天；生成 10 辆车、13 个行人，观察 20 秒后清理。</p>
 <ol>
-<li>倾斜摄影与三维重建：用手机或相机固定焦距绕建筑拍摄约 60 张、相邻重叠度不低于 70% 的照片，按 Meshroom 教程完成 SfM、深度图、网格与纹理，导出 <code>.obj</code>；也可按 <code>air_3d</code> 文档用 ContextCapture 重建校园建筑。</li>
+<li>多机：需要 <code>OpenHUTB/air</code> 仓库的 <code>PythonClient/multirotor/</code>，并在 <code>settings.json</code> 里增加 <code>Drone2</code>；第一次做先完成单机，再按 air 仓库示例增加第二架。</li>
 </ol>
-<p><strong>成功标志</strong>：无人机能起飞/悬停/降落；多机能独立控制；重建模型能导入虚幻引擎。</p>
-<h2 id="_15">模块四：空地协同</h2>
+<p><strong>运行效果</strong>：终端先打印 CARLA 地图名和出生点数量，再打印 AirSim 已就绪；起飞脚本会依次打印起飞、NED 坐标和降落完成；天气脚本能看到 5 种天气切换；车流脚本会生成车辆和行人。</p>
+<p><strong>注意</strong>：连上无人机后不要用 <code>config.py</code> 切地图。部分构建在切换地图时可能因 41451 端口重绑崩溃；要换地图，先关模拟器、改 <code>settings.json</code>、再启动。</p>
+<p><strong>成功标志</strong>：无人机能起飞、悬停、按航点飞行、降落；多机能独立控制；重建模型能导入虚幻引擎。</p>
+<h2 id="_6">模块四：空地协同</h2>
 <p><strong>目标</strong>：让无人机和地面车辆在同一世界协同。</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># 左右分屏：同一场雨、同一个世界</span>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/hutb
 python3<span class="w"> </span>PythonAPI/examples/air/air_ground_sync.py
-
-<span class="c1"># 四路传感器 + 无人机追踪车辆</span>
 python3<span class="w"> </span>PythonAPI/examples/air/quick_start_showcase.py
-
-<span class="c1"># 无人机跟踪地面车辆</span>
 python3<span class="w"> </span>PythonAPI/examples/air/drone_car_chase.py
-
-<span class="c1"># 一个脚本同时驱动车辆与无人机</span>
 python3<span class="w"> </span>PythonAPI/examples/air/demo_drive_and_fly.py
 </code></pre></div>
-<p><strong>成功标志</strong>：两侧位姿与传感器时间戳逐帧对齐（坐标对齐误差 <code>0.0000 m</code>）；无人机能稳定跟踪车辆并回传机载画面；切换天气两侧同步。</p>
-<h2 id="_16">模块五：交通场景与多载具协同</h2>
+<p>一次只跑一个，脚本会自己生成车辆和相机。</p>
+<p><strong>运行效果</strong>：</p>
+<ul>
+<li><code>air_ground_sync.py</code> 能进入 30 Hz 同步模式，显示无人机跟车画面。</li>
+<li><code>quick_start_showcase.py</code> 显示 2×2 四宫格（RGB、深度、语义、LiDAR）。如果四宫格全黑，先检查上一轮是否把 <code>synchronous_mode</code> 留成了 <code>True</code>，执行下面的复位命令再跑：</li>
+</ul>
+<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>-<span class="w"> </span><span class="s">&lt;&lt;&#39;PY&#39;</span>
+<span class="s">import carla</span>
+<span class="s">c = carla.Client(&quot;localhost&quot;, 2000); c.set_timeout(20)</span>
+<span class="s">w = c.get_world(); s = w.get_settings()</span>
+<span class="s">s.synchronous_mode = False; s.fixed_delta_seconds = None</span>
+<span class="s">w.apply_settings(s)</span>
+<span class="s">print(&quot;async restored&quot;)</span>
+<span class="s">PY</span>
+</code></pre></div>
+<ul>
+<li><code>drone_car_chase.py</code>、<code>demo_drive_and_fly.py</code> 是交互式长循环，按 <code>Esc</code>/<code>q</code> 退出；建议先跑前两个，熟悉后再试后两个。</li>
+<li>脚本不会打印固定的“坐标对齐误差 0.0000 m”，不要把这个数字写进报告；以画面同步和 <code>calibrate_offset</code> 的输出为准。</li>
+</ul>
+<p><strong>成功标志</strong>：车与无人机同屏；四路传感器画面刷新；切换天气时两侧同步变化。</p>
+<h2 id="_7">模块五：交通场景与多载具协同</h2>
 <p><strong>目标</strong>：在交通场景中加入多架无人机，评价车—机耦合效果。</p>
-<p>实验按 <strong>20 项算法测试矩阵</strong>组织：感知 5、定位与地图 3、规划与决策 3、控制 1、交通 3、无人机与协同 3、学习 2。下面的交通脚本同样在 <code>OpenHUTB/doc</code> 仓库的 <code>src/</code> 下执行，不在 <code>hutb/PythonAPI/examples/</code>。</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>&lt;你的<span class="w"> </span>doc<span class="w"> </span>仓库&gt;/src
-
-<span class="c1"># 生成车流与行人（hutb 包里也有同名脚本，但这里用 doc 仓库的版本）</span>
+<p>实验按 <strong>20 项算法测试矩阵</strong>组织：感知 5、定位与地图 3、规划与决策 3、控制 1、交通 3、无人机与协同 3、学习 2。以下脚本在 <code>OpenHUTB/doc</code> 仓库的 <code>src/</code> 下执行：</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/doc/src
+<span class="c1"># 生成车流与行人</span>
 python3<span class="w"> </span>examples/generate_traffic.py<span class="w"> </span>-n<span class="w"> </span><span class="m">50</span><span class="w"> </span>-w<span class="w"> </span><span class="m">20</span><span class="w"> </span>--safe
-
-<span class="c1"># 统计路口指标（依赖湖工商场景；脚本内固化了两个路口坐标）</span>
+<span class="c1"># 统计路口指标（依赖湖工商场景）</span>
 python3<span class="w"> </span>course/traffic_indicators.py
-
-<span class="c1"># 手动信号控制：先启动 Flask 服务，再发请求</span>
+<span class="c1"># 手动信号控制</span>
 python3<span class="w"> </span>course/signal_control.py
-<span class="c1"># 浏览器或 curl 请求：</span>
-<span class="c1"># http://127.0.0.1:5000/set_traffic_light?traffic_id=-5&amp;color_id=3&amp;color_time=30</span>
-
-<span class="c1"># 自动感应控制（做对比实验时用）</span>
+<span class="c1"># 另开终端请求</span>
+curl<span class="w"> </span><span class="s2">&quot;http://127.0.0.1:5000/set_traffic_light?traffic_id=-5&amp;color_id=3&amp;color_time=30&quot;</span>
+<span class="c1"># 自动感应控制</span>
 python3<span class="w"> </span>course/auto_signal_control.py
-<span class="c1"># http://127.0.0.1:5000/set_traffic_light</span>
-
-<span class="c1"># 四个预设路口视角轮换（不是多机分区巡检）</span>
+curl<span class="w"> </span><span class="s2">&quot;http://127.0.0.1:5000/set_traffic_light&quot;</span>
+<span class="c1"># 四个预设路口视角轮换</span>
 python3<span class="w"> </span>course/spectator/spectator.py
 </code></pre></div>
-<p><code>traffic_indicators.py</code> 和 <code>spectator.py</code> 都需要湖工商场景，且 <code>traffic_indicators.py</code> 的路口范围写死在脚本里（桐梓坡路—西二环、桐梓坡路—望岳）；没有该场景时，脚本可能能连上模拟器但指标没有意义。</p>
+<p><strong>运行效果</strong>：</p>
+<ul>
+<li><code>generate_traffic.py</code> 按 <code>-n</code>/<code>-w</code> 生成指定数量的车辆和行人；数量多时部分 spawn point 会因碰撞失败，日志中的 <code>Spawn failed because of collision at spawn position</code> 是正常现象。</li>
+<li>模块三的 <code>03_spawn_traffic.py</code> 默认会生成 10 辆车 + 13 个行人。</li>
+<li><code>traffic_indicators.py</code> 的两个路口坐标写死在湖工商场景（桐梓坡路—西二环、桐梓坡—望岳），在 Town10HD 上会输出 0，必须先加载湖工商地图。</li>
+<li><code>signal_control.py</code> / <code>auto_signal_control.py</code> 的 Flask 接口可在任意地图启动，但信号灯 ID 和 spectator 视角依赖湖工商场景。</li>
+<li><code>spectator.py</code> 只是 4 个固定视角轮换，不是多机巡检；多机覆盖率/冲突次数目前没有现成脚本，需要自己补统计。</li>
+</ul>
 <p>再做两组对比：</p>
 <ul>
 <li>改变车辆数（20、50、100 辆），记录排队长度、车均延误、饱和度。</li>
 <li>改变无人机数量（1、2、3 架），记录覆盖率、任务完成时间、空地冲突次数。</li>
 </ul>
-<p><strong>成功标志</strong>：改配时后指标实时变化；多机增加时覆盖率上升，冲突次数随分配规则变化，能找到饱和度/协同负载的拐点。</p>
+<p><strong>成功标志</strong>：改配时后指标实时变化；车流增加时排队、延误、饱和度上升；能找到饱和度/协同负载的拐点。</p>
 <h2 id="ai">模块六：协作与 AI 辅助开发</h2>
-<p><strong>目标</strong>：按开源协作流程提交成果，并用大模型辅助开发。</p>
-<ol>
-<li>Fork 并克隆仓库，新建分支（把 <code>你的用户名</code>、<code>仓库名</code> 换成实际值，例如 <code>hutb</code> 或 <code>doc</code>）：</li>
-</ol>
-<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/你的用户名/仓库名.git
-<span class="nb">cd</span><span class="w"> </span>仓库名
-git<span class="w"> </span>switch<span class="w"> </span>-c<span class="w"> </span>docs-fix-contribution-steps
+<p><strong>目标</strong>：按开源协作流程提交成果，并用大模型辅助开发。
+1. Fork 并克隆仓库，新建分支（把 <code>你的用户名</code>、<code>你的仓库名</code> 换成实际值，例如 <code>hutb</code> 或 <code>doc</code>）：
+   <div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/你的用户名/你的仓库名.git
+<span class="nb">cd</span><span class="w"> </span>你的仓库名
+git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>docs-fix-contribution-steps
 git<span class="w"> </span>status
 git<span class="w"> </span>diff
 </code></pre></div>
-<ol>
-<li>
-<p>按 GitHub Copilot 文档启用 Copilot，在 VS Code 中登录，让它解释一段 OpenHUTB 文档中的调用链。</p>
-</li>
-<li>
-<p>让模型补全或改写 <code>examples</code> 中的示例脚本（如增加传感器、改变车速），在模拟器中运行验证，逐行核对改动。</p>
-</li>
-<li>
-<p>提交：</p>
-</li>
-</ol>
-<div class="highlight"><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>你实际修改的文件
+2. 按 GitHub Copilot 文档启用 Copilot，在 VS Code 中登录，让它解释一段 OpenHUTB 文档中的调用链。
+3. 让模型补全或改写 <code>examples</code> 中的示例脚本（如增加传感器、改变车速），在模拟器中运行验证，逐行核对改动。
+4. 提交：
+   <div class="highlight"><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>CONTRIBUTING.md
 git<span class="w"> </span>diff<span class="w"> </span>--cached
 git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;docs: 说明本次修改&quot;</span>
 git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span>docs-fix-contribution-steps
 </code></pre></div>
-<p>把 <code>你实际修改的文件</code> 换成实际文件名（如 <code>CONTRIBUTING.md</code>），不要照抄占位符。贡献指南要求 <code>git add</code> 具体文件，而不是 <code>git add .</code>；提交前用 <code>git diff --cached</code> 再核对一次。创建目标为 OpenHUTB 的 Pull Request，按评审意见修改后合并，并提交实验报告与指标对比表。</p>
-<h2 id="_17">实验报告要求</h2>
-<p>实验报告建议包含以下内容：</p>
-<ol>
-<li><strong>实验环境</strong>：操作系统、显卡、Python 版本、OpenHUTB/hutb 版本。</li>
-<li><strong>过程记录</strong>：每个模块的关键命令、运行截图、遇到的问题与解决办法。</li>
-<li><strong>指标表</strong>：路口流量、车均延误、饱和度、排队长度；多机实验的覆盖率、任务完成时间、冲突次数。</li>
-<li><strong>结果分析</strong>：不同参数下指标如何变化，是否与预期一致；失败情形的原因与改进。</li>
-<li><strong>成果链接</strong>：代码分支、Pull Request、实验数据或录屏（如有）。</li>
-</ol>
-<p>报告以“能复现、能解释、有证据”为标准，不接受只有截图、没有指标与分析的报告。</p>
-<h2 id="_18">结果与评价</h2>
-<p>完成实验后，你应该能复现以下结果：</p>
-<ul>
-<li>数字孪生：路网可保存、可重复载入；2×2 km² 生成约 10 分钟，保存约 1 小时。</li>
-<li>感知：雨雾/夜间下检测框数量和置信度下降；点云远处变稀疏。</li>
-<li>控制：步长越小、采样越密，轨迹误差越小。</li>
-<li>无人机：多机分层飞行时，覆盖率、冲突次数可比较；中等联合配置约 <code>19.8±1.1 FPS</code>。</li>
-<li>空地协同：车机时间戳逐帧对齐，坐标误差 <code>0.0000 m</code>。</li>
-<li>交通场景：流量上升时排队、延误、饱和度上升，可找临界流量。</li>
-</ul>
-<p>成绩构成：</p>
-<table>
-<thead>
-<tr>
-<th>维度</th>
-<th>权重</th>
-<th>看什么</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>参与度</td>
-<td>40%</td>
-<td>前测/出勤、角色承担、Commits、Issues 讨论、PR 数量与审核评论</td>
-</tr>
-<tr>
-<td>提交规范性</td>
-<td>20%</td>
-<td>分支命名、提交信息、PR 描述、代码风格、文档格式</td>
-</tr>
-<tr>
-<td>作业质量</td>
-<td>40%</td>
-<td>步骤完成度、指标表与复算、实验报告、创新与复测</td>
-</tr>
-</tbody>
-</table>
-<p>等级：不及格、及格、中、良、优。</p>
-<h2 id="_19">常见问题</h2>
+   把 <code>CONTRIBUTING.md</code> 换成你实际修改的文件；贡献指南要求 <code>git add</code> 具体文件，而不是 <code>git add .</code>；提交前用 <code>git diff --cached</code> 再核对一次。创建目标为 OpenHUTB 的 Pull Request，按评审意见修改后合并，并提交实验报告与指标对比表。</p>
+<h2 id="_8">实验报告要求</h2>
+<p>实验报告建议包含以下内容：
+1. <strong>实验环境</strong>：操作系统、显卡、Vulkan、Python 与 wheel 的匹配情况、模拟器获取方式。
+2. <strong>过程记录</strong>：每个模块的关键命令、运行结果（截图或终端输出）、遇到的问题与解决办法。
+3. <strong>指标表</strong>：路口流量、车均延误、饱和度、排队长度；多机实验的覆盖率、任务完成时间、冲突次数。
+4. <strong>结果分析</strong>：不同参数下指标如何变化，是否与预期一致；失败情形的原因与改进。
+5. <strong>成果链接</strong>：代码分支、Pull Request、实验数据或录屏（如有）。
+报告以“能复现、能解释、有证据”为标准，不接受只有截图、没有指标与分析的报告。</p>
+<h2 id="_9">结果与评价</h2>
+<p>完成实验后，你应该能复现以下结果：
+- 数字孪生：路网可保存、可重复载入；生成和保存时间取决于机器性能与区域大小。
+- 感知：雨雾/夜间下检测框数量和置信度下降；点云远处变稀疏。
+- 控制：步长越小、采样越密，轨迹误差越小。
+- 无人机：多机分层飞行时，覆盖率、冲突次数可比较；FPS 以本机实测为准。
+- 空地协同：车机同屏、传感器画面同步；当前版本未打印固定坐标误差数值。
+- 交通场景：流量上升时排队、延误、饱和度上升，可找临界流量。
+成绩构成：
+| 维度 | 权重 | 看什么 |
+| --- | --- | --- |
+| 参与度 | 40% | 前测/出勤、角色承担、Commits、Issues 讨论、PR 数量与审核评论 |
+| 提交规范性 | 20% | 分支命名、提交信息、PR 描述、代码风格、文档格式 |
+| 作业质量 | 40% | 步骤完成度、指标表与复算、实验报告、创新与复测 |
+等级：不及格、及格、中、良、优。</p>
+<h2 id="_10">常见问题</h2>
 <p><strong>Q：只有核显/8 GB 内存能跑吗？</strong>
-可以看文档、写脚本，跑模拟器会非常卡。建议用带 NVIDIA 独显、16 GB 内存以上的机器做模块三—五。</p>
-<p><strong>Q：运行 <code>./dl.sh</code> 报 <code>BadZipFile</code>？</strong></p>
-<p><code>dl.sh</code> 只是下载器，真正的模拟器包由它从服务器拉取。报 <code>BadZipFile</code> 通常不是 Ubuntu 的问题，而是下载到的文件不是完整 zip：服务器返回了 404/HTML 页面、下载中断，或网络加速器改写了内容。</p>
-<p>按下面顺序排查：</p>
-<ol>
-<li>重新执行一次 <code>./dl.sh</code>，不要连续重试十几次。</li>
-<li>找到刚下载的 zip，检查它是不是真的 zip：</li>
-</ol>
-<div class="highlight"><pre><span></span><code>find<span class="w"> </span>~<span class="w"> </span>-name<span class="w"> </span><span class="s1">&#39;*.zip&#39;</span><span class="w"> </span>-mmin<span class="w"> </span>-30<span class="w"> </span>-ls
-file<span class="w"> </span>下载到的.zip
-unzip<span class="w"> </span>-t<span class="w"> </span>下载到的.zip
+可以看文档、写脚本，跑模拟器会非常卡。建议用带 NVIDIA 独显、32 GB 内存以上的机器做模块三—五。
+<strong>Q：运行 <code>./dl.sh</code> 报 <code>BadZipFile</code>？</strong>
+<code>dl.sh</code> 只是下载器，真正的模拟器包由它从服务器拉取。报 <code>BadZipFile</code> 通常不是 Ubuntu 的问题，而是下载到的文件不是完整 zip：服务器返回了 404/HTML 页面、下载中断，或网络加速器改写了内容。
+按下面顺序排查：
+1. 重新执行一次 <code>./dl.sh</code>，不要连续重试十几次。
+2. 找到刚下载的 zip，检查它是不是真的 zip：
+   <div class="highlight"><pre><span></span><code>find<span class="w"> </span>~<span class="w"> </span>-name<span class="w"> </span><span class="s1">&#39;*.zip&#39;</span><span class="w"> </span>-mmin<span class="w"> </span>-30<span class="w"> </span>-ls
+file<span class="w"> </span>上一步输出的文件
 </code></pre></div>
+   如果 <code>file</code> 显示 HTML、ASCII text，或者文件很小，说明下载失败，重新下载。
+3. 解压后确认 <code>CarlaUE4.sh</code> 存在：
+   <div class="highlight"><pre><span></span><code>find<span class="w"> </span>~/hutb<span class="w"> </span>-name<span class="w"> </span>CarlaUE4.sh
+</code></pre></div>
+4. 仍然失败时，换网络环境，或从 OpenHUTB 主页手动下载完整包。</p>
+<p><strong>Q：启动报 <code>bind: Address already in use</code>？</strong>
+说明 2000 端口被占用，通常是上次崩溃残留的 <code>CarlaUE4</code> 进程。先查 PID，再结束自己的旧进程：
+<div class="highlight"><pre><span></span><code>ss<span class="w"> </span>-ltnp<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;:2000&#39;</span>
+<span class="nb">kill</span><span class="w"> </span>-TERM<span class="w"> </span><span class="m">162777</span>
+</code></pre></div>
+把 <code>162777</code> 换成 <code>ss</code> 查到的实际 PID，不要写尖括号。还占着就 <code>kill -9 162777</code>。</p>
+<p><strong>Q：安装 wheel 报 <code>is not a supported wheel on this platform</code>？</strong>
+wheel 文件名里的 <code>cpXX</code> 和当前 <code>python3 --version</code> 不一致。用第 3 节的 <code>PYTAG</code> 命令按当前 Python 自动选，或换一个匹配的 Python。</p>
+<p><strong>Q：启动后黑屏、窗口一闪而过或报 <code>VK_ERROR_DEVICE_LOST</code>？</strong>
+先确认 <code>vulkaninfo --summary</code> 里的 <code>deviceName</code> 是 NVIDIA 显卡，不是 <code>llvmpipe</code>；再降低画质：
+<div class="highlight"><pre><span></span><code>./CarlaUE4.sh<span class="w"> </span>-vulkan<span class="w"> </span>-windowed<span class="w"> </span>-ResX<span class="o">=</span><span class="m">1280</span><span class="w"> </span>-ResY<span class="o">=</span><span class="m">720</span><span class="w"> </span>-quality-level<span class="o">=</span>Low
+</code></pre></div>
+仍然失败时，换一台有 NVIDIA 独显的机器；不要改用 <code>-opengl</code>。</p>
+<p><strong>Q：<code>import airsim</code> 报 <code>No module named 'backports'</code>？</strong>
+<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>backports.ssl_match_hostname
+</code></pre></div></p>
+<p><strong>Q：<code>quick_start_showcase.py</code> 四宫格全黑？</strong>
+上一个脚本可能把 <code>synchronous_mode</code> 留成了 <code>True</code>。先复位为异步：
+<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>-<span class="w"> </span><span class="s">&lt;&lt;&#39;PY&#39;</span>
+<span class="s">import carla</span>
+<span class="s">c = carla.Client(&quot;localhost&quot;, 2000); c.set_timeout(20)</span>
+<span class="s">w = c.get_world(); s = w.get_settings()</span>
+<span class="s">s.synchronous_mode = False; s.fixed_delta_seconds = None</span>
+<span class="s">w.apply_settings(s)</span>
+<span class="s">print(&quot;async restored&quot;)</span>
+<span class="s">PY</span>
+</code></pre></div>
+再重新运行脚本。</p>
+<p><strong>Q：<code>3d_lidar.py</code> 报 <code>cm.get_cmap</code>？</strong>
+<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;matplotlib&lt;3.9&quot;</span>
+</code></pre></div></p>
+<p><strong>Q：YOLO 报 <code>Unknown layer type</code> 或 <code>IndexError</code>？</strong>
+OpenCV 5 已移除 Darknet，降到 OpenCV 4.x：
+<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;opencv-contrib-python&lt;5&quot;</span>
+</code></pre></div>
+再把 <code>layers_names[i[0]-1]</code> 改成 <code>layers_names[i-1]</code>。</p>
+<p><strong>Q：普通 <code>Town01</code> 一直卡住？</strong>
+改用 <code>Town01_Opt</code>：
+<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>PythonAPI/util/config.py<span class="w"> </span>-m<span class="w"> </span>Town01_Opt
+</code></pre></div></p>
+<p><strong>Q：<code>locate_moving.py</code> 窗口全黑？</strong>
+脚本把俯视相机固定在原点，部分地图原点没有道路。换 <code>Town10HD</code> 再运行。</p>
+<p><strong>Q：<code>./CarlaUE4.sh: No such file or directory</code>？</strong>
+说明当前目录不对。<code>dl.sh</code> 包在根目录，自己编译的包在 <code>Build/UE4Carla/.../LinuxNoEditor</code>：
+<div class="highlight"><pre><span></span><code>find<span class="w"> </span>~/hutb<span class="w"> </span>-name<span class="w"> </span>CarlaUE4.sh
+</code></pre></div>
+进入该文件所在目录再运行。</p>
+<p><strong>Q：<code>Permission denied</code>？</strong>
+<div class="highlight"><pre><span></span><code>chmod<span class="w"> </span>+x<span class="w"> </span>CarlaUE4.sh
+</code></pre></div></p>
+<p><strong>Q：<code>ModuleNotFoundError: No module named 'carla'</code>？</strong>
+确认已激活 <code>venv-air</code>，并且装的是与当前 Python 匹配的 wheel：
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>~/venv-air/bin/activate
+python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import carla; print(carla.__file__)&quot;</span>
+</code></pre></div></p>
+<p><strong>Q：<code>ModuleNotFoundError: No module named 'agents'</code>？</strong>
+没有设置 <code>PYTHONPATH</code>：
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">PYTHONPATH</span><span class="o">=</span><span class="nv">$HOME</span>/hutb/PythonAPI/carla:<span class="nv">$HOME</span>/doc/src:<span class="nv">$PYTHONPATH</span>
+</code></pre></div></p>
+<h2 id="_11">参考</h2>
 <ul>
-<li><code>file</code> 显示 HTML/ASCII：下载到的是网页，不是包。</li>
-<li>
-<p><code>unzip -t</code> 报错：包不完整，重新下载或换网络。</p>
-</li>
-<li>
-<p>如果服务器上<strong>只有源码、没有预编译包</strong>，<code>dl.sh</code> 解决不了：向老师/学长要 <strong>Ubuntu 预编译包</strong>（整个 <code>hutb</code> 目录），或申请实验室机器；不要在 8 GB 核显笔记本上从源码编译 UE4.26。</p>
-</li>
-<li>如果老师给了压缩包，解压后直接运行 <code>CarlaUE4.sh</code>，不需要再跑 <code>dl.sh</code>。</li>
-</ul>
-<p><strong>Q：运行 <code>./CarlaUE4.sh</code> 提示 Permission denied？</strong>
-先赋予执行权限：<code>chmod +x CarlaUE4.sh</code>，再运行。</p>
-<p><strong>Q：<code>nvidia-smi</code> 找不到命令？</strong>
-说明 NVIDIA 驱动没装好；先装驱动、重启，再确认 <code>nvidia-smi</code> 能输出显卡信息。</p>
-<p><strong>Q：<code>pip install hutb-*.whl</code> 找不到文件？</strong>
-先确认你在 <code>hutb/PythonAPI/carla/dist/</code> 下能看到 <code>hutb-*.whl</code>；没有就重新运行 <code>./dl.sh</code> 或检查下载是否完整。</p>
-<p><strong>Q：端口被占用？</strong>
-Carla 用 <code>2000</code>，AirSim 用 <code>41451</code>；先关掉旧进程，再重启。</p>
-<p><strong>Q：数字孪生为什么最后做？</strong>
-它需要编译 HUTB，依赖 UE4.26、Ubuntu 编译工具链和较大的磁盘/内存；先把轻量模块跑通，再碰它。</p>
-<p><strong>Q：GitHub 打不开？</strong>
-先检查网络与代理设置；如果仍然失败，换一个网络环境再试，并把完整报错记录下来。</p>
-<h2 id="_20">参考</h2>
-<ul>
-<li>模拟器下载入口（保持不变）：https://openhutb.github.io/dl.sh</li>
-<li>OpenHUTB/hutb：https://github.com/OpenHUTB/hutb</li>
-<li>OpenHUTB/doc 文档仓库：https://github.com/OpenHUTB/doc</li>
-<li>文档站：https://openhutb.github.io/doc/</li>
-<li>空域文档：https://openhutb.github.io/air_doc/</li>
-<li>交通教程参考：https://openhutb.github.io/doc/tutorials/</li>
-<li>空地一体（Carla-Air 0.1.7）：https://openhutb.github.io/air_doc/dev/Carla_Air/</li>
-<li>AirSim Ubuntu 构建（air_doc）：https://openhutb.github.io/air_doc/build_linux/</li>
-<li>HUTB/Carla Ubuntu 构建（doc）：https://openhutb.github.io/doc/build_linux/</li>
-<li>多车辆：https://openhutb.github.io/air_doc/multi_vehicle/</li>
-<li>图像 API：https://openhutb.github.io/air_doc/image_apis/</li>
-<li>贡献指南（渲染页）：https://openhutb.github.io/.github/CONTRIBUTING/</li>
-<li>贡献指南（源文件）：https://github.com/OpenHUTB/.github/blob/master/CONTRIBUTING.md</li>
+<li>OpenHUTB 项目主页：https://openhutb.github.io/</li>
+<li>OpenHUTB/air_doc 教程：https://openhutb.github.io/air_doc/</li>
+<li>OpenHUTB/hutb 仓库：https://github.com/OpenHUTB/hutb</li>
+<li>OpenHUTB/doc 示例与课程仓库：https://github.com/OpenHUTB/doc</li>
+<li>OpenHUTB/air 仓库：https://github.com/OpenHUTB/air</li>
+<li>模拟器下载脚本：https://openhutb.github.io/dl.sh</li>
+<li>CARLA 官方文档：https://carla.readthedocs.io/</li>
+<li>CARLA Python API：https://carla.readthedocs.io/en/latest/python_api/</li>
+<li>AirSim 官方文档：https://microsoft.github.io/AirSim/</li>
+<li>AirSim Python API：https://microsoft.github.io/AirSim/apis/</li>
+<li>Open3D 文档：https://www.open3d.org/docs/</li>
+<li>OpenStreetMap：https://www.openstreetmap.org/</li>
+<li>OpenDRIVE 规范：https://www.asam.net/standards/detail/opendrive/</li>
+<li>YOLO/Darknet：https://pjreddie.com/darknet/yolo/</li>
 </ul>
               
             </div>
